@@ -1,0 +1,569 @@
+[
+  {
+    "id": "shining-legends-1-bulbasaur",
+    "name": "Bulbasaur",
+    "rarity": "Common",
+    "number": "1",
+    "image": "/assets/sets/shining-legends/cards/1_Bulbasaur_Common.png"
+  },
+  {
+    "id": "shining-legends-2-ivysaur",
+    "name": "Ivysaur",
+    "rarity": "Common",
+    "number": "2",
+    "image": "/assets/sets/shining-legends/cards/2_Ivysaur_Common.png"
+  },
+  {
+    "id": "shining-legends-3-venusaur",
+    "name": "Venusaur",
+    "rarity": "Uncommon",
+    "number": "3",
+    "image": "/assets/sets/shining-legends/cards/3_Venusaur_Uncommon.png"
+  },
+  {
+    "id": "shining-legends-4-shroomish",
+    "name": "Shroomish",
+    "rarity": "Common",
+    "number": "4",
+    "image": "/assets/sets/shining-legends/cards/4_Shroomish_Common.png"
+  },
+  {
+    "id": "shining-legends-5-breloom",
+    "name": "Breloom",
+    "rarity": "Common",
+    "number": "5",
+    "image": "/assets/sets/shining-legends/cards/5_Breloom_Common.png"
+  },
+  {
+    "id": "shining-legends-6-carnivine",
+    "name": "Carnivine",
+    "rarity": "Uncommon",
+    "number": "6",
+    "image": "/assets/sets/shining-legends/cards/6_Carnivine_Uncommon.png"
+  },
+  {
+    "id": "shining-legends-7-shaymin",
+    "name": "Shaymin",
+    "rarity": "Rare",
+    "number": "7",
+    "image": "/assets/sets/shining-legends/cards/7_Shaymin_Rare_Holo.png"
+  },
+  {
+    "id": "shining-legends-8-virizion",
+    "name": "Virizion",
+    "rarity": "Rare",
+    "number": "8",
+    "image": "/assets/sets/shining-legends/cards/8_Virizion_Rare_Holo.png"
+  },
+  {
+    "id": "shining-legends-9-shining-genesect",
+    "name": "Shining Genesect",
+    "rarity": "Ultra Rare",
+    "number": "9",
+    "image": "/assets/sets/shining-legends/cards/9_Shining_Genesect_Rare_Shining.png"
+  },
+  {
+    "id": "shining-legends-10-entei-gx",
+    "name": "Entei-GX",
+    "rarity": "Double Rare",
+    "number": "10",
+    "image": "/assets/sets/shining-legends/cards/10_Entei-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "shining-legends-10a-entei-gx",
+    "name": "Entei-GX",
+    "rarity": "Double Rare",
+    "number": "10a",
+    "image": "/assets/sets/shining-legends/cards/10a_Entei-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "shining-legends-11-torkoal",
+    "name": "Torkoal",
+    "rarity": "Common",
+    "number": "11",
+    "image": "/assets/sets/shining-legends/cards/11_Torkoal_Common.png"
+  },
+  {
+    "id": "shining-legends-12-larvesta",
+    "name": "Larvesta",
+    "rarity": "Common",
+    "number": "12",
+    "image": "/assets/sets/shining-legends/cards/12_Larvesta_Common.png"
+  },
+  {
+    "id": "shining-legends-13-volcarona",
+    "name": "Volcarona",
+    "rarity": "Uncommon",
+    "number": "13",
+    "image": "/assets/sets/shining-legends/cards/13_Volcarona_Uncommon.png"
+  },
+  {
+    "id": "shining-legends-14-reshiram",
+    "name": "Reshiram",
+    "rarity": "Rare",
+    "number": "14",
+    "image": "/assets/sets/shining-legends/cards/14_Reshiram_Rare_Holo.png"
+  },
+  {
+    "id": "shining-legends-15-litten",
+    "name": "Litten",
+    "rarity": "Common",
+    "number": "15",
+    "image": "/assets/sets/shining-legends/cards/15_Litten_Common.png"
+  },
+  {
+    "id": "shining-legends-16-torracat",
+    "name": "Torracat",
+    "rarity": "Common",
+    "number": "16",
+    "image": "/assets/sets/shining-legends/cards/16_Torracat_Common.png"
+  },
+  {
+    "id": "shining-legends-17-incineroar",
+    "name": "Incineroar",
+    "rarity": "Uncommon",
+    "number": "17",
+    "image": "/assets/sets/shining-legends/cards/17_Incineroar_Uncommon.png"
+  },
+  {
+    "id": "shining-legends-18-totodile",
+    "name": "Totodile",
+    "rarity": "Common",
+    "number": "18",
+    "image": "/assets/sets/shining-legends/cards/18_Totodile_Common.png"
+  },
+  {
+    "id": "shining-legends-19-croconaw",
+    "name": "Croconaw",
+    "rarity": "Common",
+    "number": "19",
+    "image": "/assets/sets/shining-legends/cards/19_Croconaw_Common.png"
+  },
+  {
+    "id": "shining-legends-20-feraligatr",
+    "name": "Feraligatr",
+    "rarity": "Uncommon",
+    "number": "20",
+    "image": "/assets/sets/shining-legends/cards/20_Feraligatr_Uncommon.png"
+  },
+  {
+    "id": "shining-legends-21-qwilfish",
+    "name": "Qwilfish",
+    "rarity": "Common",
+    "number": "21",
+    "image": "/assets/sets/shining-legends/cards/21_Qwilfish_Common.png"
+  },
+  {
+    "id": "shining-legends-22-buizel",
+    "name": "Buizel",
+    "rarity": "Common",
+    "number": "22",
+    "image": "/assets/sets/shining-legends/cards/22_Buizel_Common.png"
+  },
+  {
+    "id": "shining-legends-23-floatzel",
+    "name": "Floatzel",
+    "rarity": "Uncommon",
+    "number": "23",
+    "image": "/assets/sets/shining-legends/cards/23_Floatzel_Uncommon.png"
+  },
+  {
+    "id": "shining-legends-24-palkia",
+    "name": "Palkia",
+    "rarity": "Rare",
+    "number": "24",
+    "image": "/assets/sets/shining-legends/cards/24_Palkia_Rare_Holo.png"
+  },
+  {
+    "id": "shining-legends-25-manaphy",
+    "name": "Manaphy",
+    "rarity": "Rare",
+    "number": "25",
+    "image": "/assets/sets/shining-legends/cards/25_Manaphy_Rare_Holo.png"
+  },
+  {
+    "id": "shining-legends-26-keldeo",
+    "name": "Keldeo",
+    "rarity": "Rare",
+    "number": "26",
+    "image": "/assets/sets/shining-legends/cards/26_Keldeo_Rare_Holo.png"
+  },
+  {
+    "id": "shining-legends-27-shining-volcanion",
+    "name": "Shining Volcanion",
+    "rarity": "Ultra Rare",
+    "number": "27",
+    "image": "/assets/sets/shining-legends/cards/27_Shining_Volcanion_Rare_Shining.png"
+  },
+  {
+    "id": "shining-legends-28-pikachu",
+    "name": "Pikachu",
+    "rarity": "Common",
+    "number": "28",
+    "image": "/assets/sets/shining-legends/cards/28_Pikachu_Common.png"
+  },
+  {
+    "id": "shining-legends-29-raichu-gx",
+    "name": "Raichu-GX",
+    "rarity": "Double Rare",
+    "number": "29",
+    "image": "/assets/sets/shining-legends/cards/29_Raichu-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "shining-legends-30-voltorb",
+    "name": "Voltorb",
+    "rarity": "Common",
+    "number": "30",
+    "image": "/assets/sets/shining-legends/cards/30_Voltorb_Common.png"
+  },
+  {
+    "id": "shining-legends-31-electrode",
+    "name": "Electrode",
+    "rarity": "Uncommon",
+    "number": "31",
+    "image": "/assets/sets/shining-legends/cards/31_Electrode_Uncommon.png"
+  },
+  {
+    "id": "shining-legends-32-raikou",
+    "name": "Raikou",
+    "rarity": "Rare",
+    "number": "32",
+    "image": "/assets/sets/shining-legends/cards/32_Raikou_Rare_Holo.png"
+  },
+  {
+    "id": "shining-legends-33-plusle",
+    "name": "Plusle",
+    "rarity": "Common",
+    "number": "33",
+    "image": "/assets/sets/shining-legends/cards/33_Plusle_Common.png"
+  },
+  {
+    "id": "shining-legends-34-minun",
+    "name": "Minun",
+    "rarity": "Common",
+    "number": "34",
+    "image": "/assets/sets/shining-legends/cards/34_Minun_Common.png"
+  },
+  {
+    "id": "shining-legends-35-zekrom",
+    "name": "Zekrom",
+    "rarity": "Rare",
+    "number": "35",
+    "image": "/assets/sets/shining-legends/cards/35_Zekrom_Rare_Holo.png"
+  },
+  {
+    "id": "shining-legends-36-ekans",
+    "name": "Ekans",
+    "rarity": "Common",
+    "number": "36",
+    "image": "/assets/sets/shining-legends/cards/36_Ekans_Common.png"
+  },
+  {
+    "id": "shining-legends-37-arbok",
+    "name": "Arbok",
+    "rarity": "Uncommon",
+    "number": "37",
+    "image": "/assets/sets/shining-legends/cards/37_Arbok_Uncommon.png"
+  },
+  {
+    "id": "shining-legends-38-jynx",
+    "name": "Jynx",
+    "rarity": "Common",
+    "number": "38",
+    "image": "/assets/sets/shining-legends/cards/38_Jynx_Common.png"
+  },
+  {
+    "id": "shining-legends-39-mewtwo-gx",
+    "name": "Mewtwo-GX",
+    "rarity": "Double Rare",
+    "number": "39",
+    "image": "/assets/sets/shining-legends/cards/39_Mewtwo-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "shining-legends-40-shining-mew",
+    "name": "Shining Mew",
+    "rarity": "Ultra Rare",
+    "number": "40",
+    "image": "/assets/sets/shining-legends/cards/40_Shining_Mew_Rare_Shining.png"
+  },
+  {
+    "id": "shining-legends-41-latios",
+    "name": "Latios",
+    "rarity": "Rare",
+    "number": "41",
+    "image": "/assets/sets/shining-legends/cards/41_Latios_Rare_Holo.png"
+  },
+  {
+    "id": "shining-legends-42-shining-jirachi",
+    "name": "Shining Jirachi",
+    "rarity": "Ultra Rare",
+    "number": "42",
+    "image": "/assets/sets/shining-legends/cards/42_Shining_Jirachi_Rare_Shining.png"
+  },
+  {
+    "id": "shining-legends-43-golett",
+    "name": "Golett",
+    "rarity": "Common",
+    "number": "43",
+    "image": "/assets/sets/shining-legends/cards/43_Golett_Common.png"
+  },
+  {
+    "id": "shining-legends-44-golurk",
+    "name": "Golurk",
+    "rarity": "Uncommon",
+    "number": "44",
+    "image": "/assets/sets/shining-legends/cards/44_Golurk_Uncommon.png"
+  },
+  {
+    "id": "shining-legends-45-marshadow",
+    "name": "Marshadow",
+    "rarity": "Rare",
+    "number": "45",
+    "image": "/assets/sets/shining-legends/cards/45_Marshadow_Rare_Holo.png"
+  },
+  {
+    "id": "shining-legends-46-stunfisk",
+    "name": "Stunfisk",
+    "rarity": "Common",
+    "number": "46",
+    "image": "/assets/sets/shining-legends/cards/46_Stunfisk_Common.png"
+  },
+  {
+    "id": "shining-legends-47-spiritomb",
+    "name": "Spiritomb",
+    "rarity": "Uncommon",
+    "number": "47",
+    "image": "/assets/sets/shining-legends/cards/47_Spiritomb_Uncommon.png"
+  },
+  {
+    "id": "shining-legends-48-purrloin",
+    "name": "Purrloin",
+    "rarity": "Common",
+    "number": "48",
+    "image": "/assets/sets/shining-legends/cards/48_Purrloin_Common.png"
+  },
+  {
+    "id": "shining-legends-49-liepard",
+    "name": "Liepard",
+    "rarity": "Uncommon",
+    "number": "49",
+    "image": "/assets/sets/shining-legends/cards/49_Liepard_Uncommon.png"
+  },
+  {
+    "id": "shining-legends-50-scraggy",
+    "name": "Scraggy",
+    "rarity": "Common",
+    "number": "50",
+    "image": "/assets/sets/shining-legends/cards/50_Scraggy_Common.png"
+  },
+  {
+    "id": "shining-legends-51-scrafty",
+    "name": "Scrafty",
+    "rarity": "Uncommon",
+    "number": "51",
+    "image": "/assets/sets/shining-legends/cards/51_Scrafty_Uncommon.png"
+  },
+  {
+    "id": "shining-legends-52-zorua",
+    "name": "Zorua",
+    "rarity": "Common",
+    "number": "52",
+    "image": "/assets/sets/shining-legends/cards/52_Zorua_Common.png"
+  },
+  {
+    "id": "shining-legends-53-zoroark-gx",
+    "name": "Zoroark-GX",
+    "rarity": "Double Rare",
+    "number": "53",
+    "image": "/assets/sets/shining-legends/cards/53_Zoroark-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "shining-legends-54-yveltal",
+    "name": "Yveltal",
+    "rarity": "Rare",
+    "number": "54",
+    "image": "/assets/sets/shining-legends/cards/54_Yveltal_Rare_Holo.png"
+  },
+  {
+    "id": "shining-legends-55-hoopa",
+    "name": "Hoopa",
+    "rarity": "Rare",
+    "number": "55",
+    "image": "/assets/sets/shining-legends/cards/55_Hoopa_Rare_Holo.png"
+  },
+  {
+    "id": "shining-legends-56-shining-rayquaza",
+    "name": "Shining Rayquaza",
+    "rarity": "Ultra Rare",
+    "number": "56",
+    "image": "/assets/sets/shining-legends/cards/56_Shining_Rayquaza_Rare_Shining.png"
+  },
+  {
+    "id": "shining-legends-57-shining-arceus",
+    "name": "Shining Arceus",
+    "rarity": "Ultra Rare",
+    "number": "57",
+    "image": "/assets/sets/shining-legends/cards/57_Shining_Arceus_Rare_Shining.png"
+  },
+  {
+    "id": "shining-legends-58-damage-mover",
+    "name": "Damage Mover",
+    "rarity": "Uncommon",
+    "number": "58",
+    "image": "/assets/sets/shining-legends/cards/58_Damage_Mover_Uncommon.png"
+  },
+  {
+    "id": "shining-legends-59-energy-retrieval",
+    "name": "Energy Retrieval",
+    "rarity": "Uncommon",
+    "number": "59",
+    "image": "/assets/sets/shining-legends/cards/59_Energy_Retrieval_Uncommon.png"
+  },
+  {
+    "id": "shining-legends-60-great-ball",
+    "name": "Great Ball",
+    "rarity": "Uncommon",
+    "number": "60",
+    "image": "/assets/sets/shining-legends/cards/60_Great_Ball_Uncommon.png"
+  },
+  {
+    "id": "shining-legends-61-hau",
+    "name": "Hau",
+    "rarity": "Uncommon",
+    "number": "61",
+    "image": "/assets/sets/shining-legends/cards/61_Hau_Uncommon.png"
+  },
+  {
+    "id": "shining-legends-62-lillie",
+    "name": "Lillie",
+    "rarity": "Uncommon",
+    "number": "62",
+    "image": "/assets/sets/shining-legends/cards/62_Lillie_Uncommon.png"
+  },
+  {
+    "id": "shining-legends-63-pok-mon-breeder",
+    "name": "Pokémon Breeder",
+    "rarity": "Uncommon",
+    "number": "63",
+    "image": "/assets/sets/shining-legends/cards/63_Pokémon_Breeder_Uncommon.png"
+  },
+  {
+    "id": "shining-legends-64-pok-mon-catcher",
+    "name": "Pokémon Catcher",
+    "rarity": "Uncommon",
+    "number": "64",
+    "image": "/assets/sets/shining-legends/cards/64_Pokémon_Catcher_Uncommon.png"
+  },
+  {
+    "id": "shining-legends-65-sophocles",
+    "name": "Sophocles",
+    "rarity": "Uncommon",
+    "number": "65",
+    "image": "/assets/sets/shining-legends/cards/65_Sophocles_Uncommon.png"
+  },
+  {
+    "id": "shining-legends-66-super-scoop-up",
+    "name": "Super Scoop Up",
+    "rarity": "Uncommon",
+    "number": "66",
+    "image": "/assets/sets/shining-legends/cards/66_Super_Scoop_Up_Uncommon.png"
+  },
+  {
+    "id": "shining-legends-67-switch",
+    "name": "Switch",
+    "rarity": "Uncommon",
+    "number": "67",
+    "image": "/assets/sets/shining-legends/cards/67_Switch_Uncommon.png"
+  },
+  {
+    "id": "shining-legends-68-ultra-ball",
+    "name": "Ultra Ball",
+    "rarity": "Uncommon",
+    "number": "68",
+    "image": "/assets/sets/shining-legends/cards/68_Ultra_Ball_Uncommon.png"
+  },
+  {
+    "id": "shining-legends-68a-ultra-ball",
+    "name": "Ultra Ball",
+    "rarity": "Uncommon",
+    "number": "68a",
+    "image": "/assets/sets/shining-legends/cards/68a_Ultra_Ball_Uncommon.png"
+  },
+  {
+    "id": "shining-legends-69-double-colorless-energy",
+    "name": "Double Colorless Energy",
+    "rarity": "Uncommon",
+    "number": "69",
+    "image": "/assets/sets/shining-legends/cards/69_Double_Colorless_Energy_Uncommon.png"
+  },
+  {
+    "id": "shining-legends-70-warp-energy",
+    "name": "Warp Energy",
+    "rarity": "Uncommon",
+    "number": "70",
+    "image": "/assets/sets/shining-legends/cards/70_Warp_Energy_Uncommon.png"
+  },
+  {
+    "id": "shining-legends-71-entei-gx",
+    "name": "Entei-GX",
+    "rarity": "Ultra Rare",
+    "number": "71",
+    "image": "/assets/sets/shining-legends/cards/71_Entei-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "shining-legends-72-mewtwo-gx",
+    "name": "Mewtwo-GX",
+    "rarity": "Ultra Rare",
+    "number": "72",
+    "image": "/assets/sets/shining-legends/cards/72_Mewtwo-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "shining-legends-73-pok-mon-breeder",
+    "name": "Pokémon Breeder",
+    "rarity": "Ultra Rare",
+    "number": "73",
+    "image": "/assets/sets/shining-legends/cards/73_Pokémon_Breeder_Rare_Ultra.png"
+  },
+  {
+    "id": "shining-legends-74-entei-gx",
+    "name": "Entei-GX",
+    "rarity": "Secret Rare",
+    "number": "74",
+    "image": "/assets/sets/shining-legends/cards/74_Entei-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "shining-legends-75-raichu-gx",
+    "name": "Raichu-GX",
+    "rarity": "Secret Rare",
+    "number": "75",
+    "image": "/assets/sets/shining-legends/cards/75_Raichu-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "shining-legends-76-mewtwo-gx",
+    "name": "Mewtwo-GX",
+    "rarity": "Secret Rare",
+    "number": "76",
+    "image": "/assets/sets/shining-legends/cards/76_Mewtwo-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "shining-legends-77-zoroark-gx",
+    "name": "Zoroark-GX",
+    "rarity": "Secret Rare",
+    "number": "77",
+    "image": "/assets/sets/shining-legends/cards/77_Zoroark-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "shining-legends-77a-zoroark-gx",
+    "name": "Zoroark-GX",
+    "rarity": "Ultra Rare",
+    "number": "77a",
+    "image": "/assets/sets/shining-legends/cards/77a_Zoroark-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "shining-legends-78-mewtwo-gx",
+    "name": "Mewtwo-GX",
+    "rarity": "Secret Rare",
+    "number": "78",
+    "image": "/assets/sets/shining-legends/cards/78_Mewtwo-GX_Rare_Secret.png"
+  }
+]

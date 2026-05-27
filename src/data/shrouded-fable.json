@@ -1,0 +1,695 @@
+[
+  {
+    "id": "shrouded-fable-1-joltik",
+    "name": "Joltik",
+    "rarity": "Common",
+    "number": "1",
+    "image": "/assets/sets/shrouded-fable/cards/1_Joltik_Common.png"
+  },
+  {
+    "id": "shrouded-fable-2-galvantula",
+    "name": "Galvantula",
+    "rarity": "Uncommon",
+    "number": "2",
+    "image": "/assets/sets/shrouded-fable/cards/2_Galvantula_Uncommon.png"
+  },
+  {
+    "id": "shrouded-fable-3-rowlet",
+    "name": "Rowlet",
+    "rarity": "Common",
+    "number": "3",
+    "image": "/assets/sets/shrouded-fable/cards/3_Rowlet_Common.png"
+  },
+  {
+    "id": "shrouded-fable-4-dartrix",
+    "name": "Dartrix",
+    "rarity": "Common",
+    "number": "4",
+    "image": "/assets/sets/shrouded-fable/cards/4_Dartrix_Common.png"
+  },
+  {
+    "id": "shrouded-fable-5-decidueye",
+    "name": "Decidueye",
+    "rarity": "Uncommon",
+    "number": "5",
+    "image": "/assets/sets/shrouded-fable/cards/5_Decidueye_Uncommon.png"
+  },
+  {
+    "id": "shrouded-fable-6-tapu-bulu",
+    "name": "Tapu Bulu",
+    "rarity": "Rare",
+    "number": "6",
+    "image": "/assets/sets/shrouded-fable/cards/6_Tapu_Bulu_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-7-houndour",
+    "name": "Houndour",
+    "rarity": "Common",
+    "number": "7",
+    "image": "/assets/sets/shrouded-fable/cards/7_Houndour_Common.png"
+  },
+  {
+    "id": "shrouded-fable-8-houndoom",
+    "name": "Houndoom",
+    "rarity": "Common",
+    "number": "8",
+    "image": "/assets/sets/shrouded-fable/cards/8_Houndoom_Common.png"
+  },
+  {
+    "id": "shrouded-fable-9-iron-moth",
+    "name": "Iron Moth",
+    "rarity": "Uncommon",
+    "number": "9",
+    "image": "/assets/sets/shrouded-fable/cards/9_Iron_Moth_Uncommon.png"
+  },
+  {
+    "id": "shrouded-fable-10-horsea",
+    "name": "Horsea",
+    "rarity": "Common",
+    "number": "10",
+    "image": "/assets/sets/shrouded-fable/cards/10_Horsea_Common.png"
+  },
+  {
+    "id": "shrouded-fable-11-seadra",
+    "name": "Seadra",
+    "rarity": "Common",
+    "number": "11",
+    "image": "/assets/sets/shrouded-fable/cards/11_Seadra_Common.png"
+  },
+  {
+    "id": "shrouded-fable-12-kingdra-ex",
+    "name": "Kingdra ex",
+    "rarity": "Double Rare",
+    "number": "12",
+    "image": "/assets/sets/shrouded-fable/cards/12_Kingdra_ex_Double_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-13-sneasel",
+    "name": "Sneasel",
+    "rarity": "Common",
+    "number": "13",
+    "image": "/assets/sets/shrouded-fable/cards/13_Sneasel_Common.png"
+  },
+  {
+    "id": "shrouded-fable-14-weavile",
+    "name": "Weavile",
+    "rarity": "Uncommon",
+    "number": "14",
+    "image": "/assets/sets/shrouded-fable/cards/14_Weavile_Uncommon.png"
+  },
+  {
+    "id": "shrouded-fable-15-revavroom-ex",
+    "name": "Revavroom ex",
+    "rarity": "Double Rare",
+    "number": "15",
+    "image": "/assets/sets/shrouded-fable/cards/15_Revavroom_ex_Double_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-16-drowzee",
+    "name": "Drowzee",
+    "rarity": "Common",
+    "number": "16",
+    "image": "/assets/sets/shrouded-fable/cards/16_Drowzee_Common.png"
+  },
+  {
+    "id": "shrouded-fable-17-hypno",
+    "name": "Hypno",
+    "rarity": "Uncommon",
+    "number": "17",
+    "image": "/assets/sets/shrouded-fable/cards/17_Hypno_Uncommon.png"
+  },
+  {
+    "id": "shrouded-fable-18-duskull",
+    "name": "Duskull",
+    "rarity": "Common",
+    "number": "18",
+    "image": "/assets/sets/shrouded-fable/cards/18_Duskull_Common.png"
+  },
+  {
+    "id": "shrouded-fable-19-dusclops",
+    "name": "Dusclops",
+    "rarity": "Common",
+    "number": "19",
+    "image": "/assets/sets/shrouded-fable/cards/19_Dusclops_Common.png"
+  },
+  {
+    "id": "shrouded-fable-20-dusknoir",
+    "name": "Dusknoir",
+    "rarity": "Rare",
+    "number": "20",
+    "image": "/assets/sets/shrouded-fable/cards/20_Dusknoir_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-21-cresselia",
+    "name": "Cresselia",
+    "rarity": "Rare",
+    "number": "21",
+    "image": "/assets/sets/shrouded-fable/cards/21_Cresselia_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-22-sylveon",
+    "name": "Sylveon",
+    "rarity": "Uncommon",
+    "number": "22",
+    "image": "/assets/sets/shrouded-fable/cards/22_Sylveon_Uncommon.png"
+  },
+  {
+    "id": "shrouded-fable-23-croagunk",
+    "name": "Croagunk",
+    "rarity": "Common",
+    "number": "23",
+    "image": "/assets/sets/shrouded-fable/cards/23_Croagunk_Common.png"
+  },
+  {
+    "id": "shrouded-fable-24-toxicroak",
+    "name": "Toxicroak",
+    "rarity": "Common",
+    "number": "24",
+    "image": "/assets/sets/shrouded-fable/cards/24_Toxicroak_Common.png"
+  },
+  {
+    "id": "shrouded-fable-25-bloodmoon-ursaluna",
+    "name": "Bloodmoon Ursaluna",
+    "rarity": "Rare",
+    "number": "25",
+    "image": "/assets/sets/shrouded-fable/cards/25_Bloodmoon_Ursaluna_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-26-slither-wing",
+    "name": "Slither Wing",
+    "rarity": "Uncommon",
+    "number": "26",
+    "image": "/assets/sets/shrouded-fable/cards/26_Slither_Wing_Uncommon.png"
+  },
+  {
+    "id": "shrouded-fable-27-zubat",
+    "name": "Zubat",
+    "rarity": "Common",
+    "number": "27",
+    "image": "/assets/sets/shrouded-fable/cards/27_Zubat_Common.png"
+  },
+  {
+    "id": "shrouded-fable-28-golbat",
+    "name": "Golbat",
+    "rarity": "Common",
+    "number": "28",
+    "image": "/assets/sets/shrouded-fable/cards/28_Golbat_Common.png"
+  },
+  {
+    "id": "shrouded-fable-29-crobat",
+    "name": "Crobat",
+    "rarity": "Uncommon",
+    "number": "29",
+    "image": "/assets/sets/shrouded-fable/cards/29_Crobat_Uncommon.png"
+  },
+  {
+    "id": "shrouded-fable-30-absol",
+    "name": "Absol",
+    "rarity": "Common",
+    "number": "30",
+    "image": "/assets/sets/shrouded-fable/cards/30_Absol_Common.png"
+  },
+  {
+    "id": "shrouded-fable-31-zorua",
+    "name": "Zorua",
+    "rarity": "Common",
+    "number": "31",
+    "image": "/assets/sets/shrouded-fable/cards/31_Zorua_Common.png"
+  },
+  {
+    "id": "shrouded-fable-32-zoroark",
+    "name": "Zoroark",
+    "rarity": "Rare",
+    "number": "32",
+    "image": "/assets/sets/shrouded-fable/cards/32_Zoroark_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-33-inkay",
+    "name": "Inkay",
+    "rarity": "Common",
+    "number": "33",
+    "image": "/assets/sets/shrouded-fable/cards/33_Inkay_Common.png"
+  },
+  {
+    "id": "shrouded-fable-34-malamar",
+    "name": "Malamar",
+    "rarity": "Uncommon",
+    "number": "34",
+    "image": "/assets/sets/shrouded-fable/cards/34_Malamar_Uncommon.png"
+  },
+  {
+    "id": "shrouded-fable-35-yveltal",
+    "name": "Yveltal",
+    "rarity": "Uncommon",
+    "number": "35",
+    "image": "/assets/sets/shrouded-fable/cards/35_Yveltal_Uncommon.png"
+  },
+  {
+    "id": "shrouded-fable-36-okidogi-ex",
+    "name": "Okidogi ex",
+    "rarity": "Double Rare",
+    "number": "36",
+    "image": "/assets/sets/shrouded-fable/cards/36_Okidogi_ex_Double_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-37-munkidori-ex",
+    "name": "Munkidori ex",
+    "rarity": "Double Rare",
+    "number": "37",
+    "image": "/assets/sets/shrouded-fable/cards/37_Munkidori_ex_Double_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-38-fezandipiti-ex",
+    "name": "Fezandipiti ex",
+    "rarity": "Double Rare",
+    "number": "38",
+    "image": "/assets/sets/shrouded-fable/cards/38_Fezandipiti_ex_Double_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-39-pecharunt-ex",
+    "name": "Pecharunt ex",
+    "rarity": "Double Rare",
+    "number": "39",
+    "image": "/assets/sets/shrouded-fable/cards/39_Pecharunt_ex_Double_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-40-genesect",
+    "name": "Genesect",
+    "rarity": "Uncommon",
+    "number": "40",
+    "image": "/assets/sets/shrouded-fable/cards/40_Genesect_Uncommon.png"
+  },
+  {
+    "id": "shrouded-fable-41-cufant",
+    "name": "Cufant",
+    "rarity": "Common",
+    "number": "41",
+    "image": "/assets/sets/shrouded-fable/cards/41_Cufant_Common.png"
+  },
+  {
+    "id": "shrouded-fable-42-copperajah",
+    "name": "Copperajah",
+    "rarity": "Rare",
+    "number": "42",
+    "image": "/assets/sets/shrouded-fable/cards/42_Copperajah_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-43-varoom",
+    "name": "Varoom",
+    "rarity": "Common",
+    "number": "43",
+    "image": "/assets/sets/shrouded-fable/cards/43_Varoom_Common.png"
+  },
+  {
+    "id": "shrouded-fable-44-axew",
+    "name": "Axew",
+    "rarity": "Common",
+    "number": "44",
+    "image": "/assets/sets/shrouded-fable/cards/44_Axew_Common.png"
+  },
+  {
+    "id": "shrouded-fable-45-fraxure",
+    "name": "Fraxure",
+    "rarity": "Common",
+    "number": "45",
+    "image": "/assets/sets/shrouded-fable/cards/45_Fraxure_Common.png"
+  },
+  {
+    "id": "shrouded-fable-46-haxorus",
+    "name": "Haxorus",
+    "rarity": "Rare",
+    "number": "46",
+    "image": "/assets/sets/shrouded-fable/cards/46_Haxorus_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-47-kyurem",
+    "name": "Kyurem",
+    "rarity": "Uncommon",
+    "number": "47",
+    "image": "/assets/sets/shrouded-fable/cards/47_Kyurem_Uncommon.png"
+  },
+  {
+    "id": "shrouded-fable-48-meowth",
+    "name": "Meowth",
+    "rarity": "Common",
+    "number": "48",
+    "image": "/assets/sets/shrouded-fable/cards/48_Meowth_Common.png"
+  },
+  {
+    "id": "shrouded-fable-49-persian",
+    "name": "Persian",
+    "rarity": "Common",
+    "number": "49",
+    "image": "/assets/sets/shrouded-fable/cards/49_Persian_Common.png"
+  },
+  {
+    "id": "shrouded-fable-50-eevee",
+    "name": "Eevee",
+    "rarity": "Common",
+    "number": "50",
+    "image": "/assets/sets/shrouded-fable/cards/50_Eevee_Common.png"
+  },
+  {
+    "id": "shrouded-fable-51-furfrou",
+    "name": "Furfrou",
+    "rarity": "Common",
+    "number": "51",
+    "image": "/assets/sets/shrouded-fable/cards/51_Furfrou_Common.png"
+  },
+  {
+    "id": "shrouded-fable-52-stufful",
+    "name": "Stufful",
+    "rarity": "Common",
+    "number": "52",
+    "image": "/assets/sets/shrouded-fable/cards/52_Stufful_Common.png"
+  },
+  {
+    "id": "shrouded-fable-53-bewear",
+    "name": "Bewear",
+    "rarity": "Common",
+    "number": "53",
+    "image": "/assets/sets/shrouded-fable/cards/53_Bewear_Common.png"
+  },
+  {
+    "id": "shrouded-fable-54-academy-at-night",
+    "name": "Academy at Night",
+    "rarity": "Uncommon",
+    "number": "54",
+    "image": "/assets/sets/shrouded-fable/cards/54_Academy_at_Night_Uncommon.png"
+  },
+  {
+    "id": "shrouded-fable-55-binding-mochi",
+    "name": "Binding Mochi",
+    "rarity": "Uncommon",
+    "number": "55",
+    "image": "/assets/sets/shrouded-fable/cards/55_Binding_Mochi_Uncommon.png"
+  },
+  {
+    "id": "shrouded-fable-56-cassiopeia",
+    "name": "Cassiopeia",
+    "rarity": "Uncommon",
+    "number": "56",
+    "image": "/assets/sets/shrouded-fable/cards/56_Cassiopeia_Uncommon.png"
+  },
+  {
+    "id": "shrouded-fable-57-colress-s-tenacity",
+    "name": "Colress's Tenacity",
+    "rarity": "Uncommon",
+    "number": "57",
+    "image": "/assets/sets/shrouded-fable/cards/57_Colress's_Tenacity_Uncommon.png"
+  },
+  {
+    "id": "shrouded-fable-58-dangerous-laser-ace-spec",
+    "name": "Dangerous Laser ACE SPEC",
+    "rarity": "Rare",
+    "number": "58",
+    "image": "/assets/sets/shrouded-fable/cards/58_Dangerous_Laser_ACE_SPEC_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-59-janine-s-secret-art",
+    "name": "Janine's Secret Art",
+    "rarity": "Uncommon",
+    "number": "59",
+    "image": "/assets/sets/shrouded-fable/cards/59_Janine's_Secret_Art_Uncommon.png"
+  },
+  {
+    "id": "shrouded-fable-60-neutralization-zone-ace-spec",
+    "name": "Neutralization Zone ACE SPEC",
+    "rarity": "Rare",
+    "number": "60",
+    "image": "/assets/sets/shrouded-fable/cards/60_Neutralization_Zone_ACE_SPEC_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-61-night-stretcher",
+    "name": "Night Stretcher",
+    "rarity": "Uncommon",
+    "number": "61",
+    "image": "/assets/sets/shrouded-fable/cards/61_Night_Stretcher_Uncommon.png"
+  },
+  {
+    "id": "shrouded-fable-62-pok-vital-a-ace-spec",
+    "name": "Poké Vital A ACE SPEC",
+    "rarity": "Rare",
+    "number": "62",
+    "image": "/assets/sets/shrouded-fable/cards/62_Poké_Vital_A_ACE_SPEC_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-63-powerglass",
+    "name": "Powerglass",
+    "rarity": "Uncommon",
+    "number": "63",
+    "image": "/assets/sets/shrouded-fable/cards/63_Powerglass_Uncommon.png"
+  },
+  {
+    "id": "shrouded-fable-64-xerosic-s-machinations",
+    "name": "Xerosic's Machinations",
+    "rarity": "Uncommon",
+    "number": "64",
+    "image": "/assets/sets/shrouded-fable/cards/64_Xerosic's_Machinations_Uncommon.png"
+  },
+  {
+    "id": "shrouded-fable-65-tapu-bulu",
+    "name": "Tapu Bulu",
+    "rarity": "Illustration Rare",
+    "number": "65",
+    "image": "/assets/sets/shrouded-fable/cards/65_Tapu_Bulu_Illustration_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-66-houndoom",
+    "name": "Houndoom",
+    "rarity": "Illustration Rare",
+    "number": "66",
+    "image": "/assets/sets/shrouded-fable/cards/66_Houndoom_Illustration_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-67-horsea",
+    "name": "Horsea",
+    "rarity": "Illustration Rare",
+    "number": "67",
+    "image": "/assets/sets/shrouded-fable/cards/67_Horsea_Illustration_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-68-duskull",
+    "name": "Duskull",
+    "rarity": "Illustration Rare",
+    "number": "68",
+    "image": "/assets/sets/shrouded-fable/cards/68_Duskull_Illustration_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-69-dusclops",
+    "name": "Dusclops",
+    "rarity": "Illustration Rare",
+    "number": "69",
+    "image": "/assets/sets/shrouded-fable/cards/69_Dusclops_Illustration_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-70-dusknoir",
+    "name": "Dusknoir",
+    "rarity": "Illustration Rare",
+    "number": "70",
+    "image": "/assets/sets/shrouded-fable/cards/70_Dusknoir_Illustration_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-71-cresselia",
+    "name": "Cresselia",
+    "rarity": "Illustration Rare",
+    "number": "71",
+    "image": "/assets/sets/shrouded-fable/cards/71_Cresselia_Illustration_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-72-munkidori",
+    "name": "Munkidori",
+    "rarity": "Illustration Rare",
+    "number": "72",
+    "image": "/assets/sets/shrouded-fable/cards/72_Munkidori_Illustration_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-73-fezandipiti",
+    "name": "Fezandipiti",
+    "rarity": "Illustration Rare",
+    "number": "73",
+    "image": "/assets/sets/shrouded-fable/cards/73_Fezandipiti_Illustration_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-74-okidogi",
+    "name": "Okidogi",
+    "rarity": "Illustration Rare",
+    "number": "74",
+    "image": "/assets/sets/shrouded-fable/cards/74_Okidogi_Illustration_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-75-zorua",
+    "name": "Zorua",
+    "rarity": "Illustration Rare",
+    "number": "75",
+    "image": "/assets/sets/shrouded-fable/cards/75_Zorua_Illustration_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-76-cufant",
+    "name": "Cufant",
+    "rarity": "Illustration Rare",
+    "number": "76",
+    "image": "/assets/sets/shrouded-fable/cards/76_Cufant_Illustration_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-77-fraxure",
+    "name": "Fraxure",
+    "rarity": "Illustration Rare",
+    "number": "77",
+    "image": "/assets/sets/shrouded-fable/cards/77_Fraxure_Illustration_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-78-persian",
+    "name": "Persian",
+    "rarity": "Illustration Rare",
+    "number": "78",
+    "image": "/assets/sets/shrouded-fable/cards/78_Persian_Illustration_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-79-bewear",
+    "name": "Bewear",
+    "rarity": "Illustration Rare",
+    "number": "79",
+    "image": "/assets/sets/shrouded-fable/cards/79_Bewear_Illustration_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-80-kingdra-ex",
+    "name": "Kingdra ex",
+    "rarity": "Ultra Rare",
+    "number": "80",
+    "image": "/assets/sets/shrouded-fable/cards/80_Kingdra_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-81-revavroom-ex",
+    "name": "Revavroom ex",
+    "rarity": "Ultra Rare",
+    "number": "81",
+    "image": "/assets/sets/shrouded-fable/cards/81_Revavroom_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-82-okidogi-ex",
+    "name": "Okidogi ex",
+    "rarity": "Ultra Rare",
+    "number": "82",
+    "image": "/assets/sets/shrouded-fable/cards/82_Okidogi_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-83-munkidori-ex",
+    "name": "Munkidori ex",
+    "rarity": "Ultra Rare",
+    "number": "83",
+    "image": "/assets/sets/shrouded-fable/cards/83_Munkidori_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-84-fezandipiti-ex",
+    "name": "Fezandipiti ex",
+    "rarity": "Ultra Rare",
+    "number": "84",
+    "image": "/assets/sets/shrouded-fable/cards/84_Fezandipiti_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-85-pecharunt-ex",
+    "name": "Pecharunt ex",
+    "rarity": "Ultra Rare",
+    "number": "85",
+    "image": "/assets/sets/shrouded-fable/cards/85_Pecharunt_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-86-cassiopeia",
+    "name": "Cassiopeia",
+    "rarity": "Ultra Rare",
+    "number": "86",
+    "image": "/assets/sets/shrouded-fable/cards/86_Cassiopeia_Ultra_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-87-colress-s-tenacity",
+    "name": "Colress's Tenacity",
+    "rarity": "Ultra Rare",
+    "number": "87",
+    "image": "/assets/sets/shrouded-fable/cards/87_Colress's_Tenacity_Ultra_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-88-janine-s-secret-art",
+    "name": "Janine's Secret Art",
+    "rarity": "Ultra Rare",
+    "number": "88",
+    "image": "/assets/sets/shrouded-fable/cards/88_Janine's_Secret_Art_Ultra_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-89-xerosic-s-machinations",
+    "name": "Xerosic's Machinations",
+    "rarity": "Ultra Rare",
+    "number": "89",
+    "image": "/assets/sets/shrouded-fable/cards/89_Xerosic's_Machinations_Ultra_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-90-okidogi-ex",
+    "name": "Okidogi ex",
+    "rarity": "Special Illustration Rare",
+    "number": "90",
+    "image": "/assets/sets/shrouded-fable/cards/90_Okidogi_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-91-munkidori-ex",
+    "name": "Munkidori ex",
+    "rarity": "Special Illustration Rare",
+    "number": "91",
+    "image": "/assets/sets/shrouded-fable/cards/91_Munkidori_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-92-fezandipiti-ex",
+    "name": "Fezandipiti ex",
+    "rarity": "Special Illustration Rare",
+    "number": "92",
+    "image": "/assets/sets/shrouded-fable/cards/92_Fezandipiti_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-93-pecharunt-ex",
+    "name": "Pecharunt ex",
+    "rarity": "Special Illustration Rare",
+    "number": "93",
+    "image": "/assets/sets/shrouded-fable/cards/93_Pecharunt_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-94-cassiopeia",
+    "name": "Cassiopeia",
+    "rarity": "Special Illustration Rare",
+    "number": "94",
+    "image": "/assets/sets/shrouded-fable/cards/94_Cassiopeia_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-95-pecharunt-ex-hyper",
+    "name": "Pecharunt ex Hyper",
+    "rarity": "Rare",
+    "number": "95",
+    "image": "/assets/sets/shrouded-fable/cards/95_Pecharunt_ex_Hyper_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-96-earthen-vessel-hyper",
+    "name": "Earthen Vessel Hyper",
+    "rarity": "Rare",
+    "number": "96",
+    "image": "/assets/sets/shrouded-fable/cards/96_Earthen_Vessel_Hyper_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-97-powerglass-hyper",
+    "name": "Powerglass Hyper",
+    "rarity": "Rare",
+    "number": "97",
+    "image": "/assets/sets/shrouded-fable/cards/97_Powerglass_Hyper_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-98-basic-darkness-energy-hyper",
+    "name": "Basic Darkness Energy Hyper",
+    "rarity": "Rare",
+    "number": "98",
+    "image": "/assets/sets/shrouded-fable/cards/98_Basic_Darkness_Energy_Hyper_Rare.png"
+  },
+  {
+    "id": "shrouded-fable-99-basic-metal-energy-hyper",
+    "name": "Basic Metal Energy Hyper",
+    "rarity": "Rare",
+    "number": "99",
+    "image": "/assets/sets/shrouded-fable/cards/99_Basic_Metal_Energy_Hyper_Rare.png"
+  }
+]

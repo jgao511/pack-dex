@@ -1,0 +1,1052 @@
+[
+  {
+    "id": "forbidden-light-1-exeggcute",
+    "name": "Exeggcute",
+    "rarity": "Common",
+    "number": "1",
+    "image": "/assets/sets/forbidden-light/cards/1_Exeggcute_Common.png"
+  },
+  {
+    "id": "forbidden-light-2-alolan-exeggutor",
+    "name": "Alolan Exeggutor",
+    "rarity": "Rare",
+    "number": "2",
+    "image": "/assets/sets/forbidden-light/cards/2_Alolan_Exeggutor_Rare.png"
+  },
+  {
+    "id": "forbidden-light-2a-alolan-exeggutor",
+    "name": "Alolan Exeggutor",
+    "rarity": "Rare",
+    "number": "2a",
+    "image": "/assets/sets/forbidden-light/cards/2a_Alolan_Exeggutor_Rare.png"
+  },
+  {
+    "id": "forbidden-light-3-snover",
+    "name": "Snover",
+    "rarity": "Common",
+    "number": "3",
+    "image": "/assets/sets/forbidden-light/cards/3_Snover_Common.png"
+  },
+  {
+    "id": "forbidden-light-4-abomasnow",
+    "name": "Abomasnow",
+    "rarity": "Rare",
+    "number": "4",
+    "image": "/assets/sets/forbidden-light/cards/4_Abomasnow_Rare.png"
+  },
+  {
+    "id": "forbidden-light-5-scatterbug",
+    "name": "Scatterbug",
+    "rarity": "Common",
+    "number": "5",
+    "image": "/assets/sets/forbidden-light/cards/5_Scatterbug_Common.png"
+  },
+  {
+    "id": "forbidden-light-6-scatterbug",
+    "name": "Scatterbug",
+    "rarity": "Common",
+    "number": "6",
+    "image": "/assets/sets/forbidden-light/cards/6_Scatterbug_Common.png"
+  },
+  {
+    "id": "forbidden-light-7-spewpa",
+    "name": "Spewpa",
+    "rarity": "Uncommon",
+    "number": "7",
+    "image": "/assets/sets/forbidden-light/cards/7_Spewpa_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-8-vivillon",
+    "name": "Vivillon",
+    "rarity": "Rare",
+    "number": "8",
+    "image": "/assets/sets/forbidden-light/cards/8_Vivillon_Rare.png"
+  },
+  {
+    "id": "forbidden-light-9-skiddo",
+    "name": "Skiddo",
+    "rarity": "Common",
+    "number": "9",
+    "image": "/assets/sets/forbidden-light/cards/9_Skiddo_Common.png"
+  },
+  {
+    "id": "forbidden-light-10-gogoat",
+    "name": "Gogoat",
+    "rarity": "Uncommon",
+    "number": "10",
+    "image": "/assets/sets/forbidden-light/cards/10_Gogoat_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-11-pheromosa",
+    "name": "Pheromosa",
+    "rarity": "Rare",
+    "number": "11",
+    "image": "/assets/sets/forbidden-light/cards/11_Pheromosa_Rare_Holo.png"
+  },
+  {
+    "id": "forbidden-light-12-alolan-marowak",
+    "name": "Alolan Marowak",
+    "rarity": "Rare",
+    "number": "12",
+    "image": "/assets/sets/forbidden-light/cards/12_Alolan_Marowak_Rare.png"
+  },
+  {
+    "id": "forbidden-light-13-heatran",
+    "name": "Heatran",
+    "rarity": "Rare",
+    "number": "13",
+    "image": "/assets/sets/forbidden-light/cards/13_Heatran_Rare.png"
+  },
+  {
+    "id": "forbidden-light-14-fennekin",
+    "name": "Fennekin",
+    "rarity": "Common",
+    "number": "14",
+    "image": "/assets/sets/forbidden-light/cards/14_Fennekin_Common.png"
+  },
+  {
+    "id": "forbidden-light-15-fennekin",
+    "name": "Fennekin",
+    "rarity": "Common",
+    "number": "15",
+    "image": "/assets/sets/forbidden-light/cards/15_Fennekin_Common.png"
+  },
+  {
+    "id": "forbidden-light-16-braixen",
+    "name": "Braixen",
+    "rarity": "Uncommon",
+    "number": "16",
+    "image": "/assets/sets/forbidden-light/cards/16_Braixen_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-17-delphox",
+    "name": "Delphox",
+    "rarity": "Rare",
+    "number": "17",
+    "image": "/assets/sets/forbidden-light/cards/17_Delphox_Rare_Holo.png"
+  },
+  {
+    "id": "forbidden-light-18-litleo",
+    "name": "Litleo",
+    "rarity": "Common",
+    "number": "18",
+    "image": "/assets/sets/forbidden-light/cards/18_Litleo_Common.png"
+  },
+  {
+    "id": "forbidden-light-19-pyroar",
+    "name": "Pyroar",
+    "rarity": "Rare",
+    "number": "19",
+    "image": "/assets/sets/forbidden-light/cards/19_Pyroar_Rare_Holo.png"
+  },
+  {
+    "id": "forbidden-light-20-palkia-gx",
+    "name": "Palkia-GX",
+    "rarity": "Double Rare",
+    "number": "20",
+    "image": "/assets/sets/forbidden-light/cards/20_Palkia-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "forbidden-light-21-froakie",
+    "name": "Froakie",
+    "rarity": "Common",
+    "number": "21",
+    "image": "/assets/sets/forbidden-light/cards/21_Froakie_Common.png"
+  },
+  {
+    "id": "forbidden-light-22-froakie",
+    "name": "Froakie",
+    "rarity": "Common",
+    "number": "22",
+    "image": "/assets/sets/forbidden-light/cards/22_Froakie_Common.png"
+  },
+  {
+    "id": "forbidden-light-23-frogadier",
+    "name": "Frogadier",
+    "rarity": "Uncommon",
+    "number": "23",
+    "image": "/assets/sets/forbidden-light/cards/23_Frogadier_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-24-greninja-gx",
+    "name": "Greninja-GX",
+    "rarity": "Double Rare",
+    "number": "24",
+    "image": "/assets/sets/forbidden-light/cards/24_Greninja-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "forbidden-light-25-clauncher",
+    "name": "Clauncher",
+    "rarity": "Common",
+    "number": "25",
+    "image": "/assets/sets/forbidden-light/cards/25_Clauncher_Common.png"
+  },
+  {
+    "id": "forbidden-light-26-clawitzer",
+    "name": "Clawitzer",
+    "rarity": "Rare",
+    "number": "26",
+    "image": "/assets/sets/forbidden-light/cards/26_Clawitzer_Rare.png"
+  },
+  {
+    "id": "forbidden-light-27-amaura",
+    "name": "Amaura",
+    "rarity": "Uncommon",
+    "number": "27",
+    "image": "/assets/sets/forbidden-light/cards/27_Amaura_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-28-aurorus",
+    "name": "Aurorus",
+    "rarity": "Rare",
+    "number": "28",
+    "image": "/assets/sets/forbidden-light/cards/28_Aurorus_Rare_Holo.png"
+  },
+  {
+    "id": "forbidden-light-29-bergmite",
+    "name": "Bergmite",
+    "rarity": "Common",
+    "number": "29",
+    "image": "/assets/sets/forbidden-light/cards/29_Bergmite_Common.png"
+  },
+  {
+    "id": "forbidden-light-30-avalugg",
+    "name": "Avalugg",
+    "rarity": "Rare",
+    "number": "30",
+    "image": "/assets/sets/forbidden-light/cards/30_Avalugg_Rare.png"
+  },
+  {
+    "id": "forbidden-light-31-volcanion",
+    "name": "Volcanion ◇",
+    "rarity": "Rare",
+    "number": "31",
+    "image": "/assets/sets/forbidden-light/cards/31_Volcanion_◇_Rare_Prism_Star.png"
+  },
+  {
+    "id": "forbidden-light-32-dewpider",
+    "name": "Dewpider",
+    "rarity": "Common",
+    "number": "32",
+    "image": "/assets/sets/forbidden-light/cards/32_Dewpider_Common.png"
+  },
+  {
+    "id": "forbidden-light-33-araquanid",
+    "name": "Araquanid",
+    "rarity": "Uncommon",
+    "number": "33",
+    "image": "/assets/sets/forbidden-light/cards/33_Araquanid_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-34-magnemite",
+    "name": "Magnemite",
+    "rarity": "Common",
+    "number": "34",
+    "image": "/assets/sets/forbidden-light/cards/34_Magnemite_Common.png"
+  },
+  {
+    "id": "forbidden-light-35-magneton",
+    "name": "Magneton",
+    "rarity": "Uncommon",
+    "number": "35",
+    "image": "/assets/sets/forbidden-light/cards/35_Magneton_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-36-magnezone",
+    "name": "Magnezone",
+    "rarity": "Rare",
+    "number": "36",
+    "image": "/assets/sets/forbidden-light/cards/36_Magnezone_Rare.png"
+  },
+  {
+    "id": "forbidden-light-37-helioptile",
+    "name": "Helioptile",
+    "rarity": "Common",
+    "number": "37",
+    "image": "/assets/sets/forbidden-light/cards/37_Helioptile_Common.png"
+  },
+  {
+    "id": "forbidden-light-38-heliolisk",
+    "name": "Heliolisk",
+    "rarity": "Uncommon",
+    "number": "38",
+    "image": "/assets/sets/forbidden-light/cards/38_Heliolisk_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-39-xurkitree",
+    "name": "Xurkitree",
+    "rarity": "Rare",
+    "number": "39",
+    "image": "/assets/sets/forbidden-light/cards/39_Xurkitree_Rare.png"
+  },
+  {
+    "id": "forbidden-light-40-rotom",
+    "name": "Rotom",
+    "rarity": "Rare",
+    "number": "40",
+    "image": "/assets/sets/forbidden-light/cards/40_Rotom_Rare.png"
+  },
+  {
+    "id": "forbidden-light-41-uxie",
+    "name": "Uxie",
+    "rarity": "Uncommon",
+    "number": "41",
+    "image": "/assets/sets/forbidden-light/cards/41_Uxie_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-42-mesprit",
+    "name": "Mesprit",
+    "rarity": "Uncommon",
+    "number": "42",
+    "image": "/assets/sets/forbidden-light/cards/42_Mesprit_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-43-azelf",
+    "name": "Azelf",
+    "rarity": "Uncommon",
+    "number": "43",
+    "image": "/assets/sets/forbidden-light/cards/43_Azelf_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-44-espurr",
+    "name": "Espurr",
+    "rarity": "Common",
+    "number": "44",
+    "image": "/assets/sets/forbidden-light/cards/44_Espurr_Common.png"
+  },
+  {
+    "id": "forbidden-light-45-meowstic",
+    "name": "Meowstic",
+    "rarity": "Rare",
+    "number": "45",
+    "image": "/assets/sets/forbidden-light/cards/45_Meowstic_Rare.png"
+  },
+  {
+    "id": "forbidden-light-46-honedge",
+    "name": "Honedge",
+    "rarity": "Common",
+    "number": "46",
+    "image": "/assets/sets/forbidden-light/cards/46_Honedge_Common.png"
+  },
+  {
+    "id": "forbidden-light-47-honedge",
+    "name": "Honedge",
+    "rarity": "Common",
+    "number": "47",
+    "image": "/assets/sets/forbidden-light/cards/47_Honedge_Common.png"
+  },
+  {
+    "id": "forbidden-light-48-doublade",
+    "name": "Doublade",
+    "rarity": "Uncommon",
+    "number": "48",
+    "image": "/assets/sets/forbidden-light/cards/48_Doublade_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-49-aegislash",
+    "name": "Aegislash",
+    "rarity": "Rare",
+    "number": "49",
+    "image": "/assets/sets/forbidden-light/cards/49_Aegislash_Rare.png"
+  },
+  {
+    "id": "forbidden-light-50-inkay",
+    "name": "Inkay",
+    "rarity": "Common",
+    "number": "50",
+    "image": "/assets/sets/forbidden-light/cards/50_Inkay_Common.png"
+  },
+  {
+    "id": "forbidden-light-51-malamar",
+    "name": "Malamar",
+    "rarity": "Rare",
+    "number": "51",
+    "image": "/assets/sets/forbidden-light/cards/51_Malamar_Rare.png"
+  },
+  {
+    "id": "forbidden-light-52-skrelp",
+    "name": "Skrelp",
+    "rarity": "Common",
+    "number": "52",
+    "image": "/assets/sets/forbidden-light/cards/52_Skrelp_Common.png"
+  },
+  {
+    "id": "forbidden-light-53-dragalge",
+    "name": "Dragalge",
+    "rarity": "Rare",
+    "number": "53",
+    "image": "/assets/sets/forbidden-light/cards/53_Dragalge_Rare.png"
+  },
+  {
+    "id": "forbidden-light-54-hoopa",
+    "name": "Hoopa",
+    "rarity": "Uncommon",
+    "number": "54",
+    "image": "/assets/sets/forbidden-light/cards/54_Hoopa_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-55-poipole",
+    "name": "Poipole",
+    "rarity": "Uncommon",
+    "number": "55",
+    "image": "/assets/sets/forbidden-light/cards/55_Poipole_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-56-naganadel-gx",
+    "name": "Naganadel-GX",
+    "rarity": "Double Rare",
+    "number": "56",
+    "image": "/assets/sets/forbidden-light/cards/56_Naganadel-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "forbidden-light-57-cubone",
+    "name": "Cubone",
+    "rarity": "Common",
+    "number": "57",
+    "image": "/assets/sets/forbidden-light/cards/57_Cubone_Common.png"
+  },
+  {
+    "id": "forbidden-light-58-torterra",
+    "name": "Torterra",
+    "rarity": "Rare",
+    "number": "58",
+    "image": "/assets/sets/forbidden-light/cards/58_Torterra_Rare.png"
+  },
+  {
+    "id": "forbidden-light-59-infernape",
+    "name": "Infernape",
+    "rarity": "Rare",
+    "number": "59",
+    "image": "/assets/sets/forbidden-light/cards/59_Infernape_Rare_Holo.png"
+  },
+  {
+    "id": "forbidden-light-60-gible",
+    "name": "Gible",
+    "rarity": "Common",
+    "number": "60",
+    "image": "/assets/sets/forbidden-light/cards/60_Gible_Common.png"
+  },
+  {
+    "id": "forbidden-light-61-gabite",
+    "name": "Gabite",
+    "rarity": "Uncommon",
+    "number": "61",
+    "image": "/assets/sets/forbidden-light/cards/61_Gabite_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-62-garchomp",
+    "name": "Garchomp",
+    "rarity": "Rare",
+    "number": "62",
+    "image": "/assets/sets/forbidden-light/cards/62_Garchomp_Rare_Holo.png"
+  },
+  {
+    "id": "forbidden-light-63-croagunk",
+    "name": "Croagunk",
+    "rarity": "Common",
+    "number": "63",
+    "image": "/assets/sets/forbidden-light/cards/63_Croagunk_Common.png"
+  },
+  {
+    "id": "forbidden-light-64-toxicroak",
+    "name": "Toxicroak",
+    "rarity": "Rare",
+    "number": "64",
+    "image": "/assets/sets/forbidden-light/cards/64_Toxicroak_Rare.png"
+  },
+  {
+    "id": "forbidden-light-65-pancham",
+    "name": "Pancham",
+    "rarity": "Common",
+    "number": "65",
+    "image": "/assets/sets/forbidden-light/cards/65_Pancham_Common.png"
+  },
+  {
+    "id": "forbidden-light-66-binacle",
+    "name": "Binacle",
+    "rarity": "Common",
+    "number": "66",
+    "image": "/assets/sets/forbidden-light/cards/66_Binacle_Common.png"
+  },
+  {
+    "id": "forbidden-light-67-barbaracle",
+    "name": "Barbaracle",
+    "rarity": "Rare",
+    "number": "67",
+    "image": "/assets/sets/forbidden-light/cards/67_Barbaracle_Rare.png"
+  },
+  {
+    "id": "forbidden-light-68-tyrunt",
+    "name": "Tyrunt",
+    "rarity": "Uncommon",
+    "number": "68",
+    "image": "/assets/sets/forbidden-light/cards/68_Tyrunt_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-69-tyrantrum",
+    "name": "Tyrantrum",
+    "rarity": "Rare",
+    "number": "69",
+    "image": "/assets/sets/forbidden-light/cards/69_Tyrantrum_Rare_Holo.png"
+  },
+  {
+    "id": "forbidden-light-70-hawlucha",
+    "name": "Hawlucha",
+    "rarity": "Uncommon",
+    "number": "70",
+    "image": "/assets/sets/forbidden-light/cards/70_Hawlucha_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-71-zygarde",
+    "name": "Zygarde",
+    "rarity": "Uncommon",
+    "number": "71",
+    "image": "/assets/sets/forbidden-light/cards/71_Zygarde_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-72-zygarde",
+    "name": "Zygarde",
+    "rarity": "Rare",
+    "number": "72",
+    "image": "/assets/sets/forbidden-light/cards/72_Zygarde_Rare.png"
+  },
+  {
+    "id": "forbidden-light-73-zygarde-gx",
+    "name": "Zygarde-GX",
+    "rarity": "Double Rare",
+    "number": "73",
+    "image": "/assets/sets/forbidden-light/cards/73_Zygarde-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "forbidden-light-74-diancie",
+    "name": "Diancie ◇",
+    "rarity": "Rare",
+    "number": "74",
+    "image": "/assets/sets/forbidden-light/cards/74_Diancie_◇_Rare_Prism_Star.png"
+  },
+  {
+    "id": "forbidden-light-75-rockruff",
+    "name": "Rockruff",
+    "rarity": "Common",
+    "number": "75",
+    "image": "/assets/sets/forbidden-light/cards/75_Rockruff_Common.png"
+  },
+  {
+    "id": "forbidden-light-76-lycanroc",
+    "name": "Lycanroc",
+    "rarity": "Rare",
+    "number": "76",
+    "image": "/assets/sets/forbidden-light/cards/76_Lycanroc_Rare.png"
+  },
+  {
+    "id": "forbidden-light-77-buzzwole",
+    "name": "Buzzwole",
+    "rarity": "Rare",
+    "number": "77",
+    "image": "/assets/sets/forbidden-light/cards/77_Buzzwole_Rare.png"
+  },
+  {
+    "id": "forbidden-light-78-pangoro",
+    "name": "Pangoro",
+    "rarity": "Rare",
+    "number": "78",
+    "image": "/assets/sets/forbidden-light/cards/78_Pangoro_Rare.png"
+  },
+  {
+    "id": "forbidden-light-79-yveltal-gx",
+    "name": "Yveltal-GX",
+    "rarity": "Double Rare",
+    "number": "79",
+    "image": "/assets/sets/forbidden-light/cards/79_Yveltal-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "forbidden-light-80-guzzlord",
+    "name": "Guzzlord",
+    "rarity": "Rare",
+    "number": "80",
+    "image": "/assets/sets/forbidden-light/cards/80_Guzzlord_Rare_Holo.png"
+  },
+  {
+    "id": "forbidden-light-81-empoleon",
+    "name": "Empoleon",
+    "rarity": "Rare",
+    "number": "81",
+    "image": "/assets/sets/forbidden-light/cards/81_Empoleon_Rare_Holo.png"
+  },
+  {
+    "id": "forbidden-light-82-dialga-gx",
+    "name": "Dialga-GX",
+    "rarity": "Double Rare",
+    "number": "82",
+    "image": "/assets/sets/forbidden-light/cards/82_Dialga-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "forbidden-light-83-flab-b",
+    "name": "Flabébé",
+    "rarity": "Common",
+    "number": "83",
+    "image": "/assets/sets/forbidden-light/cards/83_Flabébé_Common.png"
+  },
+  {
+    "id": "forbidden-light-84-flab-b",
+    "name": "Flabébé",
+    "rarity": "Common",
+    "number": "84",
+    "image": "/assets/sets/forbidden-light/cards/84_Flabébé_Common.png"
+  },
+  {
+    "id": "forbidden-light-85-floette",
+    "name": "Floette",
+    "rarity": "Uncommon",
+    "number": "85",
+    "image": "/assets/sets/forbidden-light/cards/85_Floette_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-86-florges",
+    "name": "Florges",
+    "rarity": "Rare",
+    "number": "86",
+    "image": "/assets/sets/forbidden-light/cards/86_Florges_Rare.png"
+  },
+  {
+    "id": "forbidden-light-87-sylveon",
+    "name": "Sylveon",
+    "rarity": "Rare",
+    "number": "87",
+    "image": "/assets/sets/forbidden-light/cards/87_Sylveon_Rare.png"
+  },
+  {
+    "id": "forbidden-light-88-dedenne",
+    "name": "Dedenne",
+    "rarity": "Uncommon",
+    "number": "88",
+    "image": "/assets/sets/forbidden-light/cards/88_Dedenne_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-89-klefki",
+    "name": "Klefki",
+    "rarity": "Uncommon",
+    "number": "89",
+    "image": "/assets/sets/forbidden-light/cards/89_Klefki_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-90-xerneas-gx",
+    "name": "Xerneas-GX",
+    "rarity": "Double Rare",
+    "number": "90",
+    "image": "/assets/sets/forbidden-light/cards/90_Xerneas-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "forbidden-light-91-goomy",
+    "name": "Goomy",
+    "rarity": "Common",
+    "number": "91",
+    "image": "/assets/sets/forbidden-light/cards/91_Goomy_Common.png"
+  },
+  {
+    "id": "forbidden-light-92-goomy",
+    "name": "Goomy",
+    "rarity": "Common",
+    "number": "92",
+    "image": "/assets/sets/forbidden-light/cards/92_Goomy_Common.png"
+  },
+  {
+    "id": "forbidden-light-93-sliggoo",
+    "name": "Sliggoo",
+    "rarity": "Uncommon",
+    "number": "93",
+    "image": "/assets/sets/forbidden-light/cards/93_Sliggoo_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-94-goodra",
+    "name": "Goodra",
+    "rarity": "Rare",
+    "number": "94",
+    "image": "/assets/sets/forbidden-light/cards/94_Goodra_Rare_Holo.png"
+  },
+  {
+    "id": "forbidden-light-95-ultra-necrozma-gx",
+    "name": "Ultra Necrozma-GX",
+    "rarity": "Double Rare",
+    "number": "95",
+    "image": "/assets/sets/forbidden-light/cards/95_Ultra_Necrozma-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "forbidden-light-96-arceus",
+    "name": "Arceus ◇",
+    "rarity": "Rare",
+    "number": "96",
+    "image": "/assets/sets/forbidden-light/cards/96_Arceus_◇_Rare_Prism_Star.png"
+  },
+  {
+    "id": "forbidden-light-97-bunnelby",
+    "name": "Bunnelby",
+    "rarity": "Common",
+    "number": "97",
+    "image": "/assets/sets/forbidden-light/cards/97_Bunnelby_Common.png"
+  },
+  {
+    "id": "forbidden-light-98-diggersby",
+    "name": "Diggersby",
+    "rarity": "Uncommon",
+    "number": "98",
+    "image": "/assets/sets/forbidden-light/cards/98_Diggersby_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-99-furfrou",
+    "name": "Furfrou",
+    "rarity": "Common",
+    "number": "99",
+    "image": "/assets/sets/forbidden-light/cards/99_Furfrou_Common.png"
+  },
+  {
+    "id": "forbidden-light-100-noibat",
+    "name": "Noibat",
+    "rarity": "Common",
+    "number": "100",
+    "image": "/assets/sets/forbidden-light/cards/100_Noibat_Common.png"
+  },
+  {
+    "id": "forbidden-light-101-noivern",
+    "name": "Noivern",
+    "rarity": "Rare",
+    "number": "101",
+    "image": "/assets/sets/forbidden-light/cards/101_Noivern_Rare.png"
+  },
+  {
+    "id": "forbidden-light-102-beast-ring",
+    "name": "Beast Ring",
+    "rarity": "Rare",
+    "number": "102",
+    "image": "/assets/sets/forbidden-light/cards/102_Beast_Ring_Rare.png"
+  },
+  {
+    "id": "forbidden-light-102a-beast-ring",
+    "name": "Beast Ring",
+    "rarity": "Rare",
+    "number": "102a",
+    "image": "/assets/sets/forbidden-light/cards/102a_Beast_Ring_Rare.png"
+  },
+  {
+    "id": "forbidden-light-103-bonnie",
+    "name": "Bonnie",
+    "rarity": "Uncommon",
+    "number": "103",
+    "image": "/assets/sets/forbidden-light/cards/103_Bonnie_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-104-crasher-wake",
+    "name": "Crasher Wake",
+    "rarity": "Uncommon",
+    "number": "104",
+    "image": "/assets/sets/forbidden-light/cards/104_Crasher_Wake_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-105-diantha",
+    "name": "Diantha",
+    "rarity": "Rare",
+    "number": "105",
+    "image": "/assets/sets/forbidden-light/cards/105_Diantha_Rare_Holo.png"
+  },
+  {
+    "id": "forbidden-light-106-eneporter",
+    "name": "Eneporter",
+    "rarity": "Uncommon",
+    "number": "106",
+    "image": "/assets/sets/forbidden-light/cards/106_Eneporter_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-107-fossil-excavation-map",
+    "name": "Fossil Excavation Map",
+    "rarity": "Uncommon",
+    "number": "107",
+    "image": "/assets/sets/forbidden-light/cards/107_Fossil_Excavation_Map_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-108-judge",
+    "name": "Judge",
+    "rarity": "Uncommon",
+    "number": "108",
+    "image": "/assets/sets/forbidden-light/cards/108_Judge_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-109-lady",
+    "name": "Lady",
+    "rarity": "Uncommon",
+    "number": "109",
+    "image": "/assets/sets/forbidden-light/cards/109_Lady_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-110-lysandre",
+    "name": "Lysandre ◇",
+    "rarity": "Rare",
+    "number": "110",
+    "image": "/assets/sets/forbidden-light/cards/110_Lysandre_◇_Rare_Prism_Star.png"
+  },
+  {
+    "id": "forbidden-light-111-lysandre-labs",
+    "name": "Lysandre Labs",
+    "rarity": "Uncommon",
+    "number": "111",
+    "image": "/assets/sets/forbidden-light/cards/111_Lysandre_Labs_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-112-metal-frying-pan",
+    "name": "Metal Frying Pan",
+    "rarity": "Uncommon",
+    "number": "112",
+    "image": "/assets/sets/forbidden-light/cards/112_Metal_Frying_Pan_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-112a-metal-frying-pan",
+    "name": "Metal Frying Pan",
+    "rarity": "Uncommon",
+    "number": "112a",
+    "image": "/assets/sets/forbidden-light/cards/112a_Metal_Frying_Pan_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-113-mysterious-treasure",
+    "name": "Mysterious Treasure",
+    "rarity": "Uncommon",
+    "number": "113",
+    "image": "/assets/sets/forbidden-light/cards/113_Mysterious_Treasure_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-113a-mysterious-treasure",
+    "name": "Mysterious Treasure",
+    "rarity": "Uncommon",
+    "number": "113a",
+    "image": "/assets/sets/forbidden-light/cards/113a_Mysterious_Treasure_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-114-ultra-recon-squad",
+    "name": "Ultra Recon Squad",
+    "rarity": "Uncommon",
+    "number": "114",
+    "image": "/assets/sets/forbidden-light/cards/114_Ultra_Recon_Squad_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-115-ultra-space",
+    "name": "Ultra Space",
+    "rarity": "Uncommon",
+    "number": "115",
+    "image": "/assets/sets/forbidden-light/cards/115_Ultra_Space_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-116-unidentified-fossil",
+    "name": "Unidentified Fossil",
+    "rarity": "Uncommon",
+    "number": "116",
+    "image": "/assets/sets/forbidden-light/cards/116_Unidentified_Fossil_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-117-beast-energy",
+    "name": "Beast Energy ◇",
+    "rarity": "Rare",
+    "number": "117",
+    "image": "/assets/sets/forbidden-light/cards/117_Beast_Energy_◇_Rare_Prism_Star.png"
+  },
+  {
+    "id": "forbidden-light-118-unit-energy-fightingdarknessfairy",
+    "name": "Unit Energy FightingDarknessFairy",
+    "rarity": "Uncommon",
+    "number": "118",
+    "image": "/assets/sets/forbidden-light/cards/118_Unit_Energy_FightingDarknessFairy_Uncommon.png"
+  },
+  {
+    "id": "forbidden-light-119-palkia-gx",
+    "name": "Palkia-GX",
+    "rarity": "Ultra Rare",
+    "number": "119",
+    "image": "/assets/sets/forbidden-light/cards/119_Palkia-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "forbidden-light-120-greninja-gx",
+    "name": "Greninja-GX",
+    "rarity": "Ultra Rare",
+    "number": "120",
+    "image": "/assets/sets/forbidden-light/cards/120_Greninja-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "forbidden-light-121-naganadel-gx",
+    "name": "Naganadel-GX",
+    "rarity": "Ultra Rare",
+    "number": "121",
+    "image": "/assets/sets/forbidden-light/cards/121_Naganadel-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "forbidden-light-122-lucario-gx",
+    "name": "Lucario-GX",
+    "rarity": "Ultra Rare",
+    "number": "122",
+    "image": "/assets/sets/forbidden-light/cards/122_Lucario-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "forbidden-light-123-zygarde-gx",
+    "name": "Zygarde-GX",
+    "rarity": "Ultra Rare",
+    "number": "123",
+    "image": "/assets/sets/forbidden-light/cards/123_Zygarde-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "forbidden-light-124-yveltal-gx",
+    "name": "Yveltal-GX",
+    "rarity": "Ultra Rare",
+    "number": "124",
+    "image": "/assets/sets/forbidden-light/cards/124_Yveltal-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "forbidden-light-125-dialga-gx",
+    "name": "Dialga-GX",
+    "rarity": "Ultra Rare",
+    "number": "125",
+    "image": "/assets/sets/forbidden-light/cards/125_Dialga-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "forbidden-light-126-xerneas-gx",
+    "name": "Xerneas-GX",
+    "rarity": "Ultra Rare",
+    "number": "126",
+    "image": "/assets/sets/forbidden-light/cards/126_Xerneas-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "forbidden-light-127-ultra-necrozma-gx",
+    "name": "Ultra Necrozma-GX",
+    "rarity": "Ultra Rare",
+    "number": "127",
+    "image": "/assets/sets/forbidden-light/cards/127_Ultra_Necrozma-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "forbidden-light-128-bonnie",
+    "name": "Bonnie",
+    "rarity": "Ultra Rare",
+    "number": "128",
+    "image": "/assets/sets/forbidden-light/cards/128_Bonnie_Rare_Ultra.png"
+  },
+  {
+    "id": "forbidden-light-129-crasher-wake",
+    "name": "Crasher Wake",
+    "rarity": "Ultra Rare",
+    "number": "129",
+    "image": "/assets/sets/forbidden-light/cards/129_Crasher_Wake_Rare_Ultra.png"
+  },
+  {
+    "id": "forbidden-light-130-diantha",
+    "name": "Diantha",
+    "rarity": "Ultra Rare",
+    "number": "130",
+    "image": "/assets/sets/forbidden-light/cards/130_Diantha_Rare_Ultra.png"
+  },
+  {
+    "id": "forbidden-light-131-ultra-recon-squad",
+    "name": "Ultra Recon Squad",
+    "rarity": "Ultra Rare",
+    "number": "131",
+    "image": "/assets/sets/forbidden-light/cards/131_Ultra_Recon_Squad_Rare_Ultra.png"
+  },
+  {
+    "id": "forbidden-light-132-palkia-gx",
+    "name": "Palkia-GX",
+    "rarity": "Secret Rare",
+    "number": "132",
+    "image": "/assets/sets/forbidden-light/cards/132_Palkia-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "forbidden-light-133-greninja-gx",
+    "name": "Greninja-GX",
+    "rarity": "Secret Rare",
+    "number": "133",
+    "image": "/assets/sets/forbidden-light/cards/133_Greninja-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "forbidden-light-134-naganadel-gx",
+    "name": "Naganadel-GX",
+    "rarity": "Secret Rare",
+    "number": "134",
+    "image": "/assets/sets/forbidden-light/cards/134_Naganadel-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "forbidden-light-135-lucario-gx",
+    "name": "Lucario-GX",
+    "rarity": "Secret Rare",
+    "number": "135",
+    "image": "/assets/sets/forbidden-light/cards/135_Lucario-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "forbidden-light-136-zygarde-gx",
+    "name": "Zygarde-GX",
+    "rarity": "Secret Rare",
+    "number": "136",
+    "image": "/assets/sets/forbidden-light/cards/136_Zygarde-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "forbidden-light-137-yveltal-gx",
+    "name": "Yveltal-GX",
+    "rarity": "Secret Rare",
+    "number": "137",
+    "image": "/assets/sets/forbidden-light/cards/137_Yveltal-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "forbidden-light-138-dialga-gx",
+    "name": "Dialga-GX",
+    "rarity": "Secret Rare",
+    "number": "138",
+    "image": "/assets/sets/forbidden-light/cards/138_Dialga-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "forbidden-light-139-xerneas-gx",
+    "name": "Xerneas-GX",
+    "rarity": "Secret Rare",
+    "number": "139",
+    "image": "/assets/sets/forbidden-light/cards/139_Xerneas-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "forbidden-light-140-ultra-necrozma-gx",
+    "name": "Ultra Necrozma-GX",
+    "rarity": "Secret Rare",
+    "number": "140",
+    "image": "/assets/sets/forbidden-light/cards/140_Ultra_Necrozma-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "forbidden-light-141-beast-ring",
+    "name": "Beast Ring",
+    "rarity": "Secret Rare",
+    "number": "141",
+    "image": "/assets/sets/forbidden-light/cards/141_Beast_Ring_Rare_Secret.png"
+  },
+  {
+    "id": "forbidden-light-142-eneporter",
+    "name": "Eneporter",
+    "rarity": "Secret Rare",
+    "number": "142",
+    "image": "/assets/sets/forbidden-light/cards/142_Eneporter_Rare_Secret.png"
+  },
+  {
+    "id": "forbidden-light-143-energy-recycler",
+    "name": "Energy Recycler",
+    "rarity": "Secret Rare",
+    "number": "143",
+    "image": "/assets/sets/forbidden-light/cards/143_Energy_Recycler_Rare_Secret.png"
+  },
+  {
+    "id": "forbidden-light-144-metal-frying-pan",
+    "name": "Metal Frying Pan",
+    "rarity": "Secret Rare",
+    "number": "144",
+    "image": "/assets/sets/forbidden-light/cards/144_Metal_Frying_Pan_Rare_Secret.png"
+  },
+  {
+    "id": "forbidden-light-145-mysterious-treasure",
+    "name": "Mysterious Treasure",
+    "rarity": "Secret Rare",
+    "number": "145",
+    "image": "/assets/sets/forbidden-light/cards/145_Mysterious_Treasure_Rare_Secret.png"
+  },
+  {
+    "id": "forbidden-light-146-unit-energy-fightingdarknessfairy",
+    "name": "Unit Energy FightingDarknessFairy",
+    "rarity": "Secret Rare",
+    "number": "146",
+    "image": "/assets/sets/forbidden-light/cards/146_Unit_Energy_FightingDarknessFairy_Rare_Secret.png"
+  }
+]

@@ -1,0 +1,1682 @@
+[
+  {
+    "id": "crown-zenith-1-oddish",
+    "name": "Oddish",
+    "rarity": "Common",
+    "number": "1",
+    "image": "/assets/sets/crown-zenith/cards/1_Oddish_Common.png"
+  },
+  {
+    "id": "crown-zenith-2-gloom",
+    "name": "Gloom",
+    "rarity": "Uncommon",
+    "number": "2",
+    "image": "/assets/sets/crown-zenith/cards/2_Gloom_Uncommon.png"
+  },
+  {
+    "id": "crown-zenith-3-bellossom",
+    "name": "Bellossom",
+    "rarity": "Rare",
+    "number": "3",
+    "image": "/assets/sets/crown-zenith/cards/3_Bellossom_Rare.png"
+  },
+  {
+    "id": "crown-zenith-4-tangela",
+    "name": "Tangela",
+    "rarity": "Common",
+    "number": "4",
+    "image": "/assets/sets/crown-zenith/cards/4_Tangela_Common.png"
+  },
+  {
+    "id": "crown-zenith-5-tangrowth",
+    "name": "Tangrowth",
+    "rarity": "Rare",
+    "number": "5",
+    "image": "/assets/sets/crown-zenith/cards/5_Tangrowth_Rare.png"
+  },
+  {
+    "id": "crown-zenith-6-scyther",
+    "name": "Scyther",
+    "rarity": "Common",
+    "number": "6",
+    "image": "/assets/sets/crown-zenith/cards/6_Scyther_Common.png"
+  },
+  {
+    "id": "crown-zenith-7-sunkern",
+    "name": "Sunkern",
+    "rarity": "Common",
+    "number": "7",
+    "image": "/assets/sets/crown-zenith/cards/7_Sunkern_Common.png"
+  },
+  {
+    "id": "crown-zenith-8-yanma",
+    "name": "Yanma",
+    "rarity": "Common",
+    "number": "8",
+    "image": "/assets/sets/crown-zenith/cards/8_Yanma_Common.png"
+  },
+  {
+    "id": "crown-zenith-9-yanmega",
+    "name": "Yanmega",
+    "rarity": "Rare",
+    "number": "9",
+    "image": "/assets/sets/crown-zenith/cards/9_Yanmega_Rare.png"
+  },
+  {
+    "id": "crown-zenith-10-kricketot",
+    "name": "Kricketot",
+    "rarity": "Common",
+    "number": "10",
+    "image": "/assets/sets/crown-zenith/cards/10_Kricketot_Common.png"
+  },
+  {
+    "id": "crown-zenith-11-cherubi",
+    "name": "Cherubi",
+    "rarity": "Common",
+    "number": "11",
+    "image": "/assets/sets/crown-zenith/cards/11_Cherubi_Common.png"
+  },
+  {
+    "id": "crown-zenith-12-carnivine",
+    "name": "Carnivine",
+    "rarity": "Uncommon",
+    "number": "12",
+    "image": "/assets/sets/crown-zenith/cards/12_Carnivine_Uncommon.png"
+  },
+  {
+    "id": "crown-zenith-13-leafeon-v",
+    "name": "Leafeon V",
+    "rarity": "Double Rare",
+    "number": "13",
+    "image": "/assets/sets/crown-zenith/cards/13_Leafeon_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "crown-zenith-14-leafeon-vstar",
+    "name": "Leafeon VSTAR",
+    "rarity": "Ultra Rare",
+    "number": "14",
+    "image": "/assets/sets/crown-zenith/cards/14_Leafeon_VSTAR_Rare_Holo_VSTAR.png"
+  },
+  {
+    "id": "crown-zenith-15-grubbin",
+    "name": "Grubbin",
+    "rarity": "Common",
+    "number": "15",
+    "image": "/assets/sets/crown-zenith/cards/15_Grubbin_Common.png"
+  },
+  {
+    "id": "crown-zenith-16-zarude",
+    "name": "Zarude",
+    "rarity": "Rare",
+    "number": "16",
+    "image": "/assets/sets/crown-zenith/cards/16_Zarude_Rare_Holo.png"
+  },
+  {
+    "id": "crown-zenith-17-calyrex",
+    "name": "Calyrex",
+    "rarity": "Rare",
+    "number": "17",
+    "image": "/assets/sets/crown-zenith/cards/17_Calyrex_Rare_Holo.png"
+  },
+  {
+    "id": "crown-zenith-18-charizard-v",
+    "name": "Charizard V",
+    "rarity": "Double Rare",
+    "number": "18",
+    "image": "/assets/sets/crown-zenith/cards/18_Charizard_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "crown-zenith-19-charizard-vstar",
+    "name": "Charizard VSTAR",
+    "rarity": "Ultra Rare",
+    "number": "19",
+    "image": "/assets/sets/crown-zenith/cards/19_Charizard_VSTAR_Rare_Holo_VSTAR.png"
+  },
+  {
+    "id": "crown-zenith-20-radiant-charizard-radiant",
+    "name": "Radiant Charizard Radiant",
+    "rarity": "Rare",
+    "number": "20",
+    "image": "/assets/sets/crown-zenith/cards/20_Radiant_Charizard_Radiant_Rare.png"
+  },
+  {
+    "id": "crown-zenith-21-entei",
+    "name": "Entei",
+    "rarity": "Rare",
+    "number": "21",
+    "image": "/assets/sets/crown-zenith/cards/21_Entei_Rare_Holo.png"
+  },
+  {
+    "id": "crown-zenith-22-simisear-v",
+    "name": "Simisear V",
+    "rarity": "Double Rare",
+    "number": "22",
+    "image": "/assets/sets/crown-zenith/cards/22_Simisear_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "crown-zenith-23-simisear-vstar",
+    "name": "Simisear VSTAR",
+    "rarity": "Ultra Rare",
+    "number": "23",
+    "image": "/assets/sets/crown-zenith/cards/23_Simisear_VSTAR_Rare_Holo_VSTAR.png"
+  },
+  {
+    "id": "crown-zenith-24-larvesta",
+    "name": "Larvesta",
+    "rarity": "Common",
+    "number": "24",
+    "image": "/assets/sets/crown-zenith/cards/24_Larvesta_Common.png"
+  },
+  {
+    "id": "crown-zenith-25-volcarona",
+    "name": "Volcarona",
+    "rarity": "Rare",
+    "number": "25",
+    "image": "/assets/sets/crown-zenith/cards/25_Volcarona_Rare.png"
+  },
+  {
+    "id": "crown-zenith-26-volcanion",
+    "name": "Volcanion",
+    "rarity": "Rare",
+    "number": "26",
+    "image": "/assets/sets/crown-zenith/cards/26_Volcanion_Rare_Holo.png"
+  },
+  {
+    "id": "crown-zenith-27-salandit",
+    "name": "Salandit",
+    "rarity": "Common",
+    "number": "27",
+    "image": "/assets/sets/crown-zenith/cards/27_Salandit_Common.png"
+  },
+  {
+    "id": "crown-zenith-28-salazzle",
+    "name": "Salazzle",
+    "rarity": "Uncommon",
+    "number": "28",
+    "image": "/assets/sets/crown-zenith/cards/28_Salazzle_Uncommon.png"
+  },
+  {
+    "id": "crown-zenith-29-seel",
+    "name": "Seel",
+    "rarity": "Common",
+    "number": "29",
+    "image": "/assets/sets/crown-zenith/cards/29_Seel_Common.png"
+  },
+  {
+    "id": "crown-zenith-30-galarian-mr-mime",
+    "name": "Galarian Mr. Mime",
+    "rarity": "Common",
+    "number": "30",
+    "image": "/assets/sets/crown-zenith/cards/30_Galarian_Mr._Mime_Common.png"
+  },
+  {
+    "id": "crown-zenith-31-wailmer",
+    "name": "Wailmer",
+    "rarity": "Common",
+    "number": "31",
+    "image": "/assets/sets/crown-zenith/cards/31_Wailmer_Common.png"
+  },
+  {
+    "id": "crown-zenith-32-wailord",
+    "name": "Wailord",
+    "rarity": "Rare",
+    "number": "32",
+    "image": "/assets/sets/crown-zenith/cards/32_Wailord_Rare.png"
+  },
+  {
+    "id": "crown-zenith-33-corphish",
+    "name": "Corphish",
+    "rarity": "Common",
+    "number": "33",
+    "image": "/assets/sets/crown-zenith/cards/33_Corphish_Common.png"
+  },
+  {
+    "id": "crown-zenith-34-snorunt",
+    "name": "Snorunt",
+    "rarity": "Common",
+    "number": "34",
+    "image": "/assets/sets/crown-zenith/cards/34_Snorunt_Common.png"
+  },
+  {
+    "id": "crown-zenith-35-luvdisc",
+    "name": "Luvdisc",
+    "rarity": "Common",
+    "number": "35",
+    "image": "/assets/sets/crown-zenith/cards/35_Luvdisc_Common.png"
+  },
+  {
+    "id": "crown-zenith-36-kyogre",
+    "name": "Kyogre",
+    "rarity": "Rare",
+    "number": "36",
+    "image": "/assets/sets/crown-zenith/cards/36_Kyogre_Rare_Holo.png"
+  },
+  {
+    "id": "crown-zenith-37-kyogre-v",
+    "name": "Kyogre V",
+    "rarity": "Double Rare",
+    "number": "37",
+    "image": "/assets/sets/crown-zenith/cards/37_Kyogre_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "crown-zenith-38-glaceon-v",
+    "name": "Glaceon V",
+    "rarity": "Double Rare",
+    "number": "38",
+    "image": "/assets/sets/crown-zenith/cards/38_Glaceon_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "crown-zenith-39-shinx",
+    "name": "Shinx",
+    "rarity": "Common",
+    "number": "39",
+    "image": "/assets/sets/crown-zenith/cards/39_Shinx_Common.png"
+  },
+  {
+    "id": "crown-zenith-40-shinx",
+    "name": "Shinx",
+    "rarity": "Common",
+    "number": "40",
+    "image": "/assets/sets/crown-zenith/cards/40_Shinx_Common.png"
+  },
+  {
+    "id": "crown-zenith-41-luxio",
+    "name": "Luxio",
+    "rarity": "Uncommon",
+    "number": "41",
+    "image": "/assets/sets/crown-zenith/cards/41_Luxio_Uncommon.png"
+  },
+  {
+    "id": "crown-zenith-42-luxio",
+    "name": "Luxio",
+    "rarity": "Uncommon",
+    "number": "42",
+    "image": "/assets/sets/crown-zenith/cards/42_Luxio_Uncommon.png"
+  },
+  {
+    "id": "crown-zenith-43-luxray",
+    "name": "Luxray",
+    "rarity": "Rare",
+    "number": "43",
+    "image": "/assets/sets/crown-zenith/cards/43_Luxray_Rare.png"
+  },
+  {
+    "id": "crown-zenith-44-luxray",
+    "name": "Luxray",
+    "rarity": "Rare",
+    "number": "44",
+    "image": "/assets/sets/crown-zenith/cards/44_Luxray_Rare.png"
+  },
+  {
+    "id": "crown-zenith-45-rotom-v",
+    "name": "Rotom V",
+    "rarity": "Double Rare",
+    "number": "45",
+    "image": "/assets/sets/crown-zenith/cards/45_Rotom_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "crown-zenith-46-rotom-vstar",
+    "name": "Rotom VSTAR",
+    "rarity": "Ultra Rare",
+    "number": "46",
+    "image": "/assets/sets/crown-zenith/cards/46_Rotom_VSTAR_Rare_Holo_VSTAR.png"
+  },
+  {
+    "id": "crown-zenith-47-emolga",
+    "name": "Emolga",
+    "rarity": "Common",
+    "number": "47",
+    "image": "/assets/sets/crown-zenith/cards/47_Emolga_Common.png"
+  },
+  {
+    "id": "crown-zenith-48-eelektrik",
+    "name": "Eelektrik",
+    "rarity": "Uncommon",
+    "number": "48",
+    "image": "/assets/sets/crown-zenith/cards/48_Eelektrik_Uncommon.png"
+  },
+  {
+    "id": "crown-zenith-49-helioptile",
+    "name": "Helioptile",
+    "rarity": "Common",
+    "number": "49",
+    "image": "/assets/sets/crown-zenith/cards/49_Helioptile_Common.png"
+  },
+  {
+    "id": "crown-zenith-50-heliolisk",
+    "name": "Heliolisk",
+    "rarity": "Rare",
+    "number": "50",
+    "image": "/assets/sets/crown-zenith/cards/50_Heliolisk_Rare.png"
+  },
+  {
+    "id": "crown-zenith-51-radiant-charjabug-radiant",
+    "name": "Radiant Charjabug Radiant",
+    "rarity": "Rare",
+    "number": "51",
+    "image": "/assets/sets/crown-zenith/cards/51_Radiant_Charjabug_Radiant_Rare.png"
+  },
+  {
+    "id": "crown-zenith-52-zeraora",
+    "name": "Zeraora",
+    "rarity": "Rare",
+    "number": "52",
+    "image": "/assets/sets/crown-zenith/cards/52_Zeraora_Rare.png"
+  },
+  {
+    "id": "crown-zenith-53-zeraora-v",
+    "name": "Zeraora V",
+    "rarity": "Double Rare",
+    "number": "53",
+    "image": "/assets/sets/crown-zenith/cards/53_Zeraora_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "crown-zenith-54-zeraora-vmax",
+    "name": "Zeraora VMAX",
+    "rarity": "Ultra Rare",
+    "number": "54",
+    "image": "/assets/sets/crown-zenith/cards/54_Zeraora_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "crown-zenith-55-zeraora-vstar",
+    "name": "Zeraora VSTAR",
+    "rarity": "Ultra Rare",
+    "number": "55",
+    "image": "/assets/sets/crown-zenith/cards/55_Zeraora_VSTAR_Rare_Holo_VSTAR.png"
+  },
+  {
+    "id": "crown-zenith-56-pincurchin",
+    "name": "Pincurchin",
+    "rarity": "Uncommon",
+    "number": "56",
+    "image": "/assets/sets/crown-zenith/cards/56_Pincurchin_Uncommon.png"
+  },
+  {
+    "id": "crown-zenith-57-exeggcute",
+    "name": "Exeggcute",
+    "rarity": "Common",
+    "number": "57",
+    "image": "/assets/sets/crown-zenith/cards/57_Exeggcute_Common.png"
+  },
+  {
+    "id": "crown-zenith-58-exeggutor",
+    "name": "Exeggutor",
+    "rarity": "Rare",
+    "number": "58",
+    "image": "/assets/sets/crown-zenith/cards/58_Exeggutor_Rare.png"
+  },
+  {
+    "id": "crown-zenith-59-mewtwo",
+    "name": "Mewtwo",
+    "rarity": "Rare",
+    "number": "59",
+    "image": "/assets/sets/crown-zenith/cards/59_Mewtwo_Rare_Holo.png"
+  },
+  {
+    "id": "crown-zenith-60-mew-v",
+    "name": "Mew V",
+    "rarity": "Double Rare",
+    "number": "60",
+    "image": "/assets/sets/crown-zenith/cards/60_Mew_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "crown-zenith-61-girafarig",
+    "name": "Girafarig",
+    "rarity": "Uncommon",
+    "number": "61",
+    "image": "/assets/sets/crown-zenith/cards/61_Girafarig_Uncommon.png"
+  },
+  {
+    "id": "crown-zenith-62-lunatone",
+    "name": "Lunatone",
+    "rarity": "Uncommon",
+    "number": "62",
+    "image": "/assets/sets/crown-zenith/cards/62_Lunatone_Uncommon.png"
+  },
+  {
+    "id": "crown-zenith-63-dusclops",
+    "name": "Dusclops",
+    "rarity": "Uncommon",
+    "number": "63",
+    "image": "/assets/sets/crown-zenith/cards/63_Dusclops_Uncommon.png"
+  },
+  {
+    "id": "crown-zenith-64-tapu-lele",
+    "name": "Tapu Lele",
+    "rarity": "Rare",
+    "number": "64",
+    "image": "/assets/sets/crown-zenith/cards/64_Tapu_Lele_Rare_Holo.png"
+  },
+  {
+    "id": "crown-zenith-65-hatterene-v",
+    "name": "Hatterene V",
+    "rarity": "Double Rare",
+    "number": "65",
+    "image": "/assets/sets/crown-zenith/cards/65_Hatterene_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "crown-zenith-66-hatterene-vmax",
+    "name": "Hatterene VMAX",
+    "rarity": "Ultra Rare",
+    "number": "66",
+    "image": "/assets/sets/crown-zenith/cards/66_Hatterene_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "crown-zenith-67-enamorus",
+    "name": "Enamorus",
+    "rarity": "Rare",
+    "number": "67",
+    "image": "/assets/sets/crown-zenith/cards/67_Enamorus_Rare.png"
+  },
+  {
+    "id": "crown-zenith-68-graveler",
+    "name": "Graveler",
+    "rarity": "Uncommon",
+    "number": "68",
+    "image": "/assets/sets/crown-zenith/cards/68_Graveler_Uncommon.png"
+  },
+  {
+    "id": "crown-zenith-69-solrock",
+    "name": "Solrock",
+    "rarity": "Uncommon",
+    "number": "69",
+    "image": "/assets/sets/crown-zenith/cards/69_Solrock_Uncommon.png"
+  },
+  {
+    "id": "crown-zenith-70-baltoy",
+    "name": "Baltoy",
+    "rarity": "Common",
+    "number": "70",
+    "image": "/assets/sets/crown-zenith/cards/70_Baltoy_Common.png"
+  },
+  {
+    "id": "crown-zenith-71-riolu",
+    "name": "Riolu",
+    "rarity": "Common",
+    "number": "71",
+    "image": "/assets/sets/crown-zenith/cards/71_Riolu_Common.png"
+  },
+  {
+    "id": "crown-zenith-72-pancham",
+    "name": "Pancham",
+    "rarity": "Common",
+    "number": "72",
+    "image": "/assets/sets/crown-zenith/cards/72_Pancham_Common.png"
+  },
+  {
+    "id": "crown-zenith-73-rockruff",
+    "name": "Rockruff",
+    "rarity": "Common",
+    "number": "73",
+    "image": "/assets/sets/crown-zenith/cards/73_Rockruff_Common.png"
+  },
+  {
+    "id": "crown-zenith-74-lycanroc",
+    "name": "Lycanroc",
+    "rarity": "Rare",
+    "number": "74",
+    "image": "/assets/sets/crown-zenith/cards/74_Lycanroc_Rare.png"
+  },
+  {
+    "id": "crown-zenith-75-koffing",
+    "name": "Koffing",
+    "rarity": "Common",
+    "number": "75",
+    "image": "/assets/sets/crown-zenith/cards/75_Koffing_Common.png"
+  },
+  {
+    "id": "crown-zenith-76-absol",
+    "name": "Absol",
+    "rarity": "Rare",
+    "number": "76",
+    "image": "/assets/sets/crown-zenith/cards/76_Absol_Rare_Holo.png"
+  },
+  {
+    "id": "crown-zenith-77-purrloin",
+    "name": "Purrloin",
+    "rarity": "Common",
+    "number": "77",
+    "image": "/assets/sets/crown-zenith/cards/77_Purrloin_Common.png"
+  },
+  {
+    "id": "crown-zenith-78-liepard",
+    "name": "Liepard",
+    "rarity": "Rare",
+    "number": "78",
+    "image": "/assets/sets/crown-zenith/cards/78_Liepard_Rare.png"
+  },
+  {
+    "id": "crown-zenith-79-krokorok",
+    "name": "Krokorok",
+    "rarity": "Uncommon",
+    "number": "79",
+    "image": "/assets/sets/crown-zenith/cards/79_Krokorok_Uncommon.png"
+  },
+  {
+    "id": "crown-zenith-80-pangoro",
+    "name": "Pangoro",
+    "rarity": "Rare",
+    "number": "80",
+    "image": "/assets/sets/crown-zenith/cards/80_Pangoro_Rare.png"
+  },
+  {
+    "id": "crown-zenith-81-skrelp",
+    "name": "Skrelp",
+    "rarity": "Common",
+    "number": "81",
+    "image": "/assets/sets/crown-zenith/cards/81_Skrelp_Common.png"
+  },
+  {
+    "id": "crown-zenith-82-dragalge",
+    "name": "Dragalge",
+    "rarity": "Rare",
+    "number": "82",
+    "image": "/assets/sets/crown-zenith/cards/82_Dragalge_Rare.png"
+  },
+  {
+    "id": "crown-zenith-83-hoopa",
+    "name": "Hoopa",
+    "rarity": "Rare",
+    "number": "83",
+    "image": "/assets/sets/crown-zenith/cards/83_Hoopa_Rare_Holo.png"
+  },
+  {
+    "id": "crown-zenith-84-galarian-meowth",
+    "name": "Galarian Meowth",
+    "rarity": "Common",
+    "number": "84",
+    "image": "/assets/sets/crown-zenith/cards/84_Galarian_Meowth_Common.png"
+  },
+  {
+    "id": "crown-zenith-85-galarian-perrserker",
+    "name": "Galarian Perrserker",
+    "rarity": "Rare",
+    "number": "85",
+    "image": "/assets/sets/crown-zenith/cards/85_Galarian_Perrserker_Rare.png"
+  },
+  {
+    "id": "crown-zenith-86-scizor",
+    "name": "Scizor",
+    "rarity": "Rare",
+    "number": "86",
+    "image": "/assets/sets/crown-zenith/cards/86_Scizor_Rare.png"
+  },
+  {
+    "id": "crown-zenith-87-aron",
+    "name": "Aron",
+    "rarity": "Common",
+    "number": "87",
+    "image": "/assets/sets/crown-zenith/cards/87_Aron_Common.png"
+  },
+  {
+    "id": "crown-zenith-88-lairon",
+    "name": "Lairon",
+    "rarity": "Uncommon",
+    "number": "88",
+    "image": "/assets/sets/crown-zenith/cards/88_Lairon_Uncommon.png"
+  },
+  {
+    "id": "crown-zenith-89-aggron",
+    "name": "Aggron",
+    "rarity": "Rare",
+    "number": "89",
+    "image": "/assets/sets/crown-zenith/cards/89_Aggron_Rare_Holo.png"
+  },
+  {
+    "id": "crown-zenith-90-metang",
+    "name": "Metang",
+    "rarity": "Uncommon",
+    "number": "90",
+    "image": "/assets/sets/crown-zenith/cards/90_Metang_Uncommon.png"
+  },
+  {
+    "id": "crown-zenith-91-pawniard",
+    "name": "Pawniard",
+    "rarity": "Common",
+    "number": "91",
+    "image": "/assets/sets/crown-zenith/cards/91_Pawniard_Common.png"
+  },
+  {
+    "id": "crown-zenith-92-pawniard",
+    "name": "Pawniard",
+    "rarity": "Common",
+    "number": "92",
+    "image": "/assets/sets/crown-zenith/cards/92_Pawniard_Common.png"
+  },
+  {
+    "id": "crown-zenith-93-bisharp",
+    "name": "Bisharp",
+    "rarity": "Uncommon",
+    "number": "93",
+    "image": "/assets/sets/crown-zenith/cards/93_Bisharp_Uncommon.png"
+  },
+  {
+    "id": "crown-zenith-94-zacian",
+    "name": "Zacian",
+    "rarity": "Rare",
+    "number": "94",
+    "image": "/assets/sets/crown-zenith/cards/94_Zacian_Rare_Holo.png"
+  },
+  {
+    "id": "crown-zenith-95-zacian-v",
+    "name": "Zacian V",
+    "rarity": "Double Rare",
+    "number": "95",
+    "image": "/assets/sets/crown-zenith/cards/95_Zacian_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "crown-zenith-96-zacian-vstar",
+    "name": "Zacian VSTAR",
+    "rarity": "Ultra Rare",
+    "number": "96",
+    "image": "/assets/sets/crown-zenith/cards/96_Zacian_VSTAR_Rare_Holo_VSTAR.png"
+  },
+  {
+    "id": "crown-zenith-97-zamazenta",
+    "name": "Zamazenta",
+    "rarity": "Rare",
+    "number": "97",
+    "image": "/assets/sets/crown-zenith/cards/97_Zamazenta_Rare_Holo.png"
+  },
+  {
+    "id": "crown-zenith-98-zamazenta-v",
+    "name": "Zamazenta V",
+    "rarity": "Double Rare",
+    "number": "98",
+    "image": "/assets/sets/crown-zenith/cards/98_Zamazenta_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "crown-zenith-99-zamazenta-vstar",
+    "name": "Zamazenta VSTAR",
+    "rarity": "Ultra Rare",
+    "number": "99",
+    "image": "/assets/sets/crown-zenith/cards/99_Zamazenta_VSTAR_Rare_Holo_VSTAR.png"
+  },
+  {
+    "id": "crown-zenith-100-rayquaza-v",
+    "name": "Rayquaza V",
+    "rarity": "Double Rare",
+    "number": "100",
+    "image": "/assets/sets/crown-zenith/cards/100_Rayquaza_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "crown-zenith-101-rayquaza-vmax",
+    "name": "Rayquaza VMAX",
+    "rarity": "Ultra Rare",
+    "number": "101",
+    "image": "/assets/sets/crown-zenith/cards/101_Rayquaza_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "crown-zenith-102-rayquaza-vmax",
+    "name": "Rayquaza VMAX",
+    "rarity": "Ultra Rare",
+    "number": "102",
+    "image": "/assets/sets/crown-zenith/cards/102_Rayquaza_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "crown-zenith-103-duraludon-v",
+    "name": "Duraludon V",
+    "rarity": "Double Rare",
+    "number": "103",
+    "image": "/assets/sets/crown-zenith/cards/103_Duraludon_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "crown-zenith-104-duraludon-vmax",
+    "name": "Duraludon VMAX",
+    "rarity": "Ultra Rare",
+    "number": "104",
+    "image": "/assets/sets/crown-zenith/cards/104_Duraludon_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "crown-zenith-105-radiant-eternatus-radiant",
+    "name": "Radiant Eternatus Radiant",
+    "rarity": "Rare",
+    "number": "105",
+    "image": "/assets/sets/crown-zenith/cards/105_Radiant_Eternatus_Radiant_Rare.png"
+  },
+  {
+    "id": "crown-zenith-106-tauros",
+    "name": "Tauros",
+    "rarity": "Rare",
+    "number": "106",
+    "image": "/assets/sets/crown-zenith/cards/106_Tauros_Rare.png"
+  },
+  {
+    "id": "crown-zenith-107-ditto",
+    "name": "Ditto",
+    "rarity": "Rare",
+    "number": "107",
+    "image": "/assets/sets/crown-zenith/cards/107_Ditto_Rare_Holo.png"
+  },
+  {
+    "id": "crown-zenith-108-eevee-v",
+    "name": "Eevee V",
+    "rarity": "Double Rare",
+    "number": "108",
+    "image": "/assets/sets/crown-zenith/cards/108_Eevee_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "crown-zenith-109-snorlax",
+    "name": "Snorlax",
+    "rarity": "Rare",
+    "number": "109",
+    "image": "/assets/sets/crown-zenith/cards/109_Snorlax_Rare.png"
+  },
+  {
+    "id": "crown-zenith-110-starly",
+    "name": "Starly",
+    "rarity": "Common",
+    "number": "110",
+    "image": "/assets/sets/crown-zenith/cards/110_Starly_Common.png"
+  },
+  {
+    "id": "crown-zenith-111-bidoof",
+    "name": "Bidoof",
+    "rarity": "Common",
+    "number": "111",
+    "image": "/assets/sets/crown-zenith/cards/111_Bidoof_Common.png"
+  },
+  {
+    "id": "crown-zenith-112-chatot",
+    "name": "Chatot",
+    "rarity": "Common",
+    "number": "112",
+    "image": "/assets/sets/crown-zenith/cards/112_Chatot_Common.png"
+  },
+  {
+    "id": "crown-zenith-113-regigigas-v",
+    "name": "Regigigas V",
+    "rarity": "Double Rare",
+    "number": "113",
+    "image": "/assets/sets/crown-zenith/cards/113_Regigigas_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "crown-zenith-114-regigigas-vstar",
+    "name": "Regigigas VSTAR",
+    "rarity": "Ultra Rare",
+    "number": "114",
+    "image": "/assets/sets/crown-zenith/cards/114_Regigigas_VSTAR_Rare_Holo_VSTAR.png"
+  },
+  {
+    "id": "crown-zenith-115-shaymin",
+    "name": "Shaymin",
+    "rarity": "Uncommon",
+    "number": "115",
+    "image": "/assets/sets/crown-zenith/cards/115_Shaymin_Uncommon.png"
+  },
+  {
+    "id": "crown-zenith-116-stoutland-v",
+    "name": "Stoutland V",
+    "rarity": "Double Rare",
+    "number": "116",
+    "image": "/assets/sets/crown-zenith/cards/116_Stoutland_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "crown-zenith-117-yungoos",
+    "name": "Yungoos",
+    "rarity": "Common",
+    "number": "117",
+    "image": "/assets/sets/crown-zenith/cards/117_Yungoos_Common.png"
+  },
+  {
+    "id": "crown-zenith-118-gumshoos",
+    "name": "Gumshoos",
+    "rarity": "Rare",
+    "number": "118",
+    "image": "/assets/sets/crown-zenith/cards/118_Gumshoos_Rare.png"
+  },
+  {
+    "id": "crown-zenith-119-oranguru",
+    "name": "Oranguru",
+    "rarity": "Rare",
+    "number": "119",
+    "image": "/assets/sets/crown-zenith/cards/119_Oranguru_Rare.png"
+  },
+  {
+    "id": "crown-zenith-120-greedent-v",
+    "name": "Greedent V",
+    "rarity": "Double Rare",
+    "number": "120",
+    "image": "/assets/sets/crown-zenith/cards/120_Greedent_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "crown-zenith-121-wooloo",
+    "name": "Wooloo",
+    "rarity": "Common",
+    "number": "121",
+    "image": "/assets/sets/crown-zenith/cards/121_Wooloo_Common.png"
+  },
+  {
+    "id": "crown-zenith-122-dubwool",
+    "name": "Dubwool",
+    "rarity": "Rare",
+    "number": "122",
+    "image": "/assets/sets/crown-zenith/cards/122_Dubwool_Rare.png"
+  },
+  {
+    "id": "crown-zenith-123-bea",
+    "name": "Bea",
+    "rarity": "Rare",
+    "number": "123",
+    "image": "/assets/sets/crown-zenith/cards/123_Bea_Rare_Holo.png"
+  },
+  {
+    "id": "crown-zenith-124-bede",
+    "name": "Bede",
+    "rarity": "Rare",
+    "number": "124",
+    "image": "/assets/sets/crown-zenith/cards/124_Bede_Rare_Holo.png"
+  },
+  {
+    "id": "crown-zenith-125-crushing-hammer",
+    "name": "Crushing Hammer",
+    "rarity": "Uncommon",
+    "number": "125",
+    "image": "/assets/sets/crown-zenith/cards/125_Crushing_Hammer_Uncommon.png"
+  },
+  {
+    "id": "crown-zenith-126-digging-duo",
+    "name": "Digging Duo",
+    "rarity": "Uncommon",
+    "number": "126",
+    "image": "/assets/sets/crown-zenith/cards/126_Digging_Duo_Uncommon.png"
+  },
+  {
+    "id": "crown-zenith-127-energy-retrieval",
+    "name": "Energy Retrieval",
+    "rarity": "Common",
+    "number": "127",
+    "image": "/assets/sets/crown-zenith/cards/127_Energy_Retrieval_Common.png"
+  },
+  {
+    "id": "crown-zenith-128-energy-search",
+    "name": "Energy Search",
+    "rarity": "Common",
+    "number": "128",
+    "image": "/assets/sets/crown-zenith/cards/128_Energy_Search_Common.png"
+  },
+  {
+    "id": "crown-zenith-129-energy-switch",
+    "name": "Energy Switch",
+    "rarity": "Uncommon",
+    "number": "129",
+    "image": "/assets/sets/crown-zenith/cards/129_Energy_Switch_Uncommon.png"
+  },
+  {
+    "id": "crown-zenith-130-friends-in-hisui",
+    "name": "Friends in Hisui",
+    "rarity": "Uncommon",
+    "number": "130",
+    "image": "/assets/sets/crown-zenith/cards/130_Friends_in_Hisui_Uncommon.png"
+  },
+  {
+    "id": "crown-zenith-131-friends-in-sinnoh",
+    "name": "Friends in Sinnoh",
+    "rarity": "Uncommon",
+    "number": "131",
+    "image": "/assets/sets/crown-zenith/cards/131_Friends_in_Sinnoh_Uncommon.png"
+  },
+  {
+    "id": "crown-zenith-132-great-ball",
+    "name": "Great Ball",
+    "rarity": "Uncommon",
+    "number": "132",
+    "image": "/assets/sets/crown-zenith/cards/132_Great_Ball_Uncommon.png"
+  },
+  {
+    "id": "crown-zenith-133-hop",
+    "name": "Hop",
+    "rarity": "Rare",
+    "number": "133",
+    "image": "/assets/sets/crown-zenith/cards/133_Hop_Rare_Holo.png"
+  },
+  {
+    "id": "crown-zenith-134-leon",
+    "name": "Leon",
+    "rarity": "Rare",
+    "number": "134",
+    "image": "/assets/sets/crown-zenith/cards/134_Leon_Rare_Holo.png"
+  },
+  {
+    "id": "crown-zenith-135-lost-vacuum",
+    "name": "Lost Vacuum",
+    "rarity": "Uncommon",
+    "number": "135",
+    "image": "/assets/sets/crown-zenith/cards/135_Lost_Vacuum_Uncommon.png"
+  },
+  {
+    "id": "crown-zenith-136-nessa",
+    "name": "Nessa",
+    "rarity": "Rare",
+    "number": "136",
+    "image": "/assets/sets/crown-zenith/cards/136_Nessa_Rare_Holo.png"
+  },
+  {
+    "id": "crown-zenith-137-pok-ball",
+    "name": "Poké Ball",
+    "rarity": "Common",
+    "number": "137",
+    "image": "/assets/sets/crown-zenith/cards/137_Poké_Ball_Common.png"
+  },
+  {
+    "id": "crown-zenith-138-pok-mon-catcher",
+    "name": "Pokémon Catcher",
+    "rarity": "Uncommon",
+    "number": "138",
+    "image": "/assets/sets/crown-zenith/cards/138_Pokémon_Catcher_Uncommon.png"
+  },
+  {
+    "id": "crown-zenith-139-potion",
+    "name": "Potion",
+    "rarity": "Common",
+    "number": "139",
+    "image": "/assets/sets/crown-zenith/cards/139_Potion_Common.png"
+  },
+  {
+    "id": "crown-zenith-140-raihan",
+    "name": "Raihan",
+    "rarity": "Rare",
+    "number": "140",
+    "image": "/assets/sets/crown-zenith/cards/140_Raihan_Rare_Holo.png"
+  },
+  {
+    "id": "crown-zenith-141-rare-candy",
+    "name": "Rare Candy",
+    "rarity": "Uncommon",
+    "number": "141",
+    "image": "/assets/sets/crown-zenith/cards/141_Rare_Candy_Uncommon.png"
+  },
+  {
+    "id": "crown-zenith-142-rescue-carrier",
+    "name": "Rescue Carrier",
+    "rarity": "Uncommon",
+    "number": "142",
+    "image": "/assets/sets/crown-zenith/cards/142_Rescue_Carrier_Uncommon.png"
+  },
+  {
+    "id": "crown-zenith-143-sky-seal-stone",
+    "name": "Sky Seal Stone",
+    "rarity": "Rare",
+    "number": "143",
+    "image": "/assets/sets/crown-zenith/cards/143_Sky_Seal_Stone_Rare_Holo.png"
+  },
+  {
+    "id": "crown-zenith-144-switch",
+    "name": "Switch",
+    "rarity": "Common",
+    "number": "144",
+    "image": "/assets/sets/crown-zenith/cards/144_Switch_Common.png"
+  },
+  {
+    "id": "crown-zenith-145-trekking-shoes",
+    "name": "Trekking Shoes",
+    "rarity": "Uncommon",
+    "number": "145",
+    "image": "/assets/sets/crown-zenith/cards/145_Trekking_Shoes_Uncommon.png"
+  },
+  {
+    "id": "crown-zenith-146-ultra-ball",
+    "name": "Ultra Ball",
+    "rarity": "Uncommon",
+    "number": "146",
+    "image": "/assets/sets/crown-zenith/cards/146_Ultra_Ball_Uncommon.png"
+  },
+  {
+    "id": "crown-zenith-147-elesa-s-sparkle",
+    "name": "Elesa's Sparkle",
+    "rarity": "Ultra Rare",
+    "number": "147",
+    "image": "/assets/sets/crown-zenith/cards/147_Elesa's_Sparkle_Rare_Ultra.png"
+  },
+  {
+    "id": "crown-zenith-148-friends-in-hisui",
+    "name": "Friends in Hisui",
+    "rarity": "Ultra Rare",
+    "number": "148",
+    "image": "/assets/sets/crown-zenith/cards/148_Friends_in_Hisui_Rare_Ultra.png"
+  },
+  {
+    "id": "crown-zenith-149-friends-in-sinnoh",
+    "name": "Friends in Sinnoh",
+    "rarity": "Ultra Rare",
+    "number": "149",
+    "image": "/assets/sets/crown-zenith/cards/149_Friends_in_Sinnoh_Rare_Ultra.png"
+  },
+  {
+    "id": "crown-zenith-150-professor-s-research",
+    "name": "Professor's Research",
+    "rarity": "Ultra Rare",
+    "number": "150",
+    "image": "/assets/sets/crown-zenith/cards/150_Professor's_Research_Rare_Ultra.png"
+  },
+  {
+    "id": "crown-zenith-151-volo",
+    "name": "Volo",
+    "rarity": "Ultra Rare",
+    "number": "151",
+    "image": "/assets/sets/crown-zenith/cards/151_Volo_Rare_Ultra.png"
+  },
+  {
+    "id": "crown-zenith-152-grass-energy",
+    "name": "Grass Energy",
+    "rarity": "Ultra Rare",
+    "number": "152",
+    "image": "/assets/sets/crown-zenith/cards/152_Grass_Energy_Rare_Ultra.png"
+  },
+  {
+    "id": "crown-zenith-153-fire-energy",
+    "name": "Fire Energy",
+    "rarity": "Ultra Rare",
+    "number": "153",
+    "image": "/assets/sets/crown-zenith/cards/153_Fire_Energy_Rare_Ultra.png"
+  },
+  {
+    "id": "crown-zenith-154-water-energy",
+    "name": "Water Energy",
+    "rarity": "Ultra Rare",
+    "number": "154",
+    "image": "/assets/sets/crown-zenith/cards/154_Water_Energy_Rare_Ultra.png"
+  },
+  {
+    "id": "crown-zenith-155-lightning-energy",
+    "name": "Lightning Energy",
+    "rarity": "Ultra Rare",
+    "number": "155",
+    "image": "/assets/sets/crown-zenith/cards/155_Lightning_Energy_Rare_Ultra.png"
+  },
+  {
+    "id": "crown-zenith-156-psychic-energy",
+    "name": "Psychic Energy",
+    "rarity": "Ultra Rare",
+    "number": "156",
+    "image": "/assets/sets/crown-zenith/cards/156_Psychic_Energy_Rare_Ultra.png"
+  },
+  {
+    "id": "crown-zenith-157-fighting-energy",
+    "name": "Fighting Energy",
+    "rarity": "Ultra Rare",
+    "number": "157",
+    "image": "/assets/sets/crown-zenith/cards/157_Fighting_Energy_Rare_Ultra.png"
+  },
+  {
+    "id": "crown-zenith-158-darkness-energy",
+    "name": "Darkness Energy",
+    "rarity": "Ultra Rare",
+    "number": "158",
+    "image": "/assets/sets/crown-zenith/cards/158_Darkness_Energy_Rare_Ultra.png"
+  },
+  {
+    "id": "crown-zenith-159-metal-energy",
+    "name": "Metal Energy",
+    "rarity": "Ultra Rare",
+    "number": "159",
+    "image": "/assets/sets/crown-zenith/cards/159_Metal_Energy_Rare_Ultra.png"
+  },
+  {
+    "id": "crown-zenith-160-pikachu",
+    "name": "Pikachu",
+    "rarity": "Secret Rare",
+    "number": "160",
+    "image": "/assets/sets/crown-zenith/cards/160_Pikachu_Rare_Secret.png"
+  },
+  {
+    "id": "crown-zenith-GG01-hisuian-voltorb",
+    "name": "Hisuian Voltorb",
+    "rarity": "Rare",
+    "number": "GG01",
+    "image": "/assets/sets/crown-zenith/cards/GG01_Hisuian_Voltorb_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg01.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG02-kricketune",
+    "name": "Kricketune",
+    "rarity": "Rare",
+    "number": "GG02",
+    "image": "/assets/sets/crown-zenith/cards/GG02_Kricketune_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg02.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG03-magmortar",
+    "name": "Magmortar",
+    "rarity": "Rare",
+    "number": "GG03",
+    "image": "/assets/sets/crown-zenith/cards/GG03_Magmortar_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg03.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG04-oricorio",
+    "name": "Oricorio",
+    "rarity": "Rare",
+    "number": "GG04",
+    "image": "/assets/sets/crown-zenith/cards/GG04_Oricorio_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg04.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG05-lapras",
+    "name": "Lapras",
+    "rarity": "Rare",
+    "number": "GG05",
+    "image": "/assets/sets/crown-zenith/cards/GG05_Lapras_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg05.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG06-manaphy",
+    "name": "Manaphy",
+    "rarity": "Rare",
+    "number": "GG06",
+    "image": "/assets/sets/crown-zenith/cards/GG06_Manaphy_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg06.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG07-keldeo",
+    "name": "Keldeo",
+    "rarity": "Rare",
+    "number": "GG07",
+    "image": "/assets/sets/crown-zenith/cards/GG07_Keldeo_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg07.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG08-electivire",
+    "name": "Electivire",
+    "rarity": "Rare",
+    "number": "GG08",
+    "image": "/assets/sets/crown-zenith/cards/GG08_Electivire_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg08.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG09-toxtricity",
+    "name": "Toxtricity",
+    "rarity": "Rare",
+    "number": "GG09",
+    "image": "/assets/sets/crown-zenith/cards/GG09_Toxtricity_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg09.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG10-mew",
+    "name": "Mew",
+    "rarity": "Rare",
+    "number": "GG10",
+    "image": "/assets/sets/crown-zenith/cards/GG10_Mew_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg10.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG11-lunatone",
+    "name": "Lunatone",
+    "rarity": "Rare",
+    "number": "GG11",
+    "image": "/assets/sets/crown-zenith/cards/GG11_Lunatone_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg11.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG12-deoxys",
+    "name": "Deoxys",
+    "rarity": "Rare",
+    "number": "GG12",
+    "image": "/assets/sets/crown-zenith/cards/GG12_Deoxys_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg12.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG13-diancie",
+    "name": "Diancie",
+    "rarity": "Rare",
+    "number": "GG13",
+    "image": "/assets/sets/crown-zenith/cards/GG13_Diancie_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg13.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG14-comfey",
+    "name": "Comfey",
+    "rarity": "Rare",
+    "number": "GG14",
+    "image": "/assets/sets/crown-zenith/cards/GG14_Comfey_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg14.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG15-solrock",
+    "name": "Solrock",
+    "rarity": "Rare",
+    "number": "GG15",
+    "image": "/assets/sets/crown-zenith/cards/GG15_Solrock_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg15.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG16-absol",
+    "name": "Absol",
+    "rarity": "Rare",
+    "number": "GG16",
+    "image": "/assets/sets/crown-zenith/cards/GG16_Absol_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg16.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG17-thievul",
+    "name": "Thievul",
+    "rarity": "Rare",
+    "number": "GG17",
+    "image": "/assets/sets/crown-zenith/cards/GG17_Thievul_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg17.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG18-magnezone",
+    "name": "Magnezone",
+    "rarity": "Rare",
+    "number": "GG18",
+    "image": "/assets/sets/crown-zenith/cards/GG18_Magnezone_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg18.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG19-altaria",
+    "name": "Altaria",
+    "rarity": "Rare",
+    "number": "GG19",
+    "image": "/assets/sets/crown-zenith/cards/GG19_Altaria_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg19.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG20-latias",
+    "name": "Latias",
+    "rarity": "Rare",
+    "number": "GG20",
+    "image": "/assets/sets/crown-zenith/cards/GG20_Latias_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg20.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG21-hisuian-goodra",
+    "name": "Hisuian Goodra",
+    "rarity": "Rare",
+    "number": "GG21",
+    "image": "/assets/sets/crown-zenith/cards/GG21_Hisuian_Goodra_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg21.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG22-ditto",
+    "name": "Ditto",
+    "rarity": "Rare",
+    "number": "GG22",
+    "image": "/assets/sets/crown-zenith/cards/GG22_Ditto_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg22.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG23-dunsparce",
+    "name": "Dunsparce",
+    "rarity": "Rare",
+    "number": "GG23",
+    "image": "/assets/sets/crown-zenith/cards/GG23_Dunsparce_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg23.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG24-miltank",
+    "name": "Miltank",
+    "rarity": "Rare",
+    "number": "GG24",
+    "image": "/assets/sets/crown-zenith/cards/GG24_Miltank_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg24.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG25-bibarel",
+    "name": "Bibarel",
+    "rarity": "Rare",
+    "number": "GG25",
+    "image": "/assets/sets/crown-zenith/cards/GG25_Bibarel_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg25.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG26-riolu",
+    "name": "Riolu",
+    "rarity": "Rare",
+    "number": "GG26",
+    "image": "/assets/sets/crown-zenith/cards/GG26_Riolu_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg26.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG27-swablu",
+    "name": "Swablu",
+    "rarity": "Rare",
+    "number": "GG27",
+    "image": "/assets/sets/crown-zenith/cards/GG27_Swablu_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg27.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG28-duskull",
+    "name": "Duskull",
+    "rarity": "Rare",
+    "number": "GG28",
+    "image": "/assets/sets/crown-zenith/cards/GG28_Duskull_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg28.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG29-bidoof",
+    "name": "Bidoof",
+    "rarity": "Rare",
+    "number": "GG29",
+    "image": "/assets/sets/crown-zenith/cards/GG29_Bidoof_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg29.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG30-pikachu",
+    "name": "Pikachu",
+    "rarity": "Rare",
+    "number": "GG30",
+    "image": "/assets/sets/crown-zenith/cards/GG30_Pikachu_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg30.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG31-turtwig",
+    "name": "Turtwig",
+    "rarity": "Rare",
+    "number": "GG31",
+    "image": "/assets/sets/crown-zenith/cards/GG31_Turtwig_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg31.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG32-paras",
+    "name": "Paras",
+    "rarity": "Rare",
+    "number": "GG32",
+    "image": "/assets/sets/crown-zenith/cards/GG32_Paras_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg32.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG33-poochyena",
+    "name": "Poochyena",
+    "rarity": "Rare",
+    "number": "GG33",
+    "image": "/assets/sets/crown-zenith/cards/GG33_Poochyena_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg33.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG34-mareep",
+    "name": "Mareep",
+    "rarity": "Rare",
+    "number": "GG34",
+    "image": "/assets/sets/crown-zenith/cards/GG34_Mareep_Trainer_Gallery_Rare_Holo_swsh12pt5gg-gg34.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG35-leafeon-vstar",
+    "name": "Leafeon VSTAR",
+    "rarity": "Ultra Rare",
+    "number": "GG35",
+    "image": "/assets/sets/crown-zenith/cards/GG35_Leafeon_VSTAR_Rare_Holo_VSTAR_swsh12pt5gg-gg35.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG36-entei-v",
+    "name": "Entei V",
+    "rarity": "Double Rare",
+    "number": "GG36",
+    "image": "/assets/sets/crown-zenith/cards/GG36_Entei_V_Rare_Holo_V_swsh12pt5gg-gg36.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG37-simisear-vstar",
+    "name": "Simisear VSTAR",
+    "rarity": "Ultra Rare",
+    "number": "GG37",
+    "image": "/assets/sets/crown-zenith/cards/GG37_Simisear_VSTAR_Rare_Holo_VSTAR_swsh12pt5gg-gg37.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG38-suicune-v",
+    "name": "Suicune V",
+    "rarity": "Double Rare",
+    "number": "GG38",
+    "image": "/assets/sets/crown-zenith/cards/GG38_Suicune_V_Rare_Holo_V_swsh12pt5gg-gg38.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG39-lumineon-v",
+    "name": "Lumineon V",
+    "rarity": "Double Rare",
+    "number": "GG39",
+    "image": "/assets/sets/crown-zenith/cards/GG39_Lumineon_V_Rare_Holo_V_swsh12pt5gg-gg39.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG40-glaceon-vstar",
+    "name": "Glaceon VSTAR",
+    "rarity": "Ultra Rare",
+    "number": "GG40",
+    "image": "/assets/sets/crown-zenith/cards/GG40_Glaceon_VSTAR_Rare_Holo_VSTAR_swsh12pt5gg-gg40.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG41-raikou-v",
+    "name": "Raikou V",
+    "rarity": "Double Rare",
+    "number": "GG41",
+    "image": "/assets/sets/crown-zenith/cards/GG41_Raikou_V_Rare_Holo_V_swsh12pt5gg-gg41.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG42-zeraora-vmax",
+    "name": "Zeraora VMAX",
+    "rarity": "Ultra Rare",
+    "number": "GG42",
+    "image": "/assets/sets/crown-zenith/cards/GG42_Zeraora_VMAX_Rare_Holo_VMAX_swsh12pt5gg-gg42.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG43-zeraora-vstar",
+    "name": "Zeraora VSTAR",
+    "rarity": "Ultra Rare",
+    "number": "GG43",
+    "image": "/assets/sets/crown-zenith/cards/GG43_Zeraora_VSTAR_Rare_Holo_VSTAR_swsh12pt5gg-gg43.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG44-mewtwo-vstar",
+    "name": "Mewtwo VSTAR",
+    "rarity": "Ultra Rare",
+    "number": "GG44",
+    "image": "/assets/sets/crown-zenith/cards/GG44_Mewtwo_VSTAR_Rare_Holo_VSTAR_swsh12pt5gg-gg44.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG45-deoxys-vmax",
+    "name": "Deoxys VMAX",
+    "rarity": "Ultra Rare",
+    "number": "GG45",
+    "image": "/assets/sets/crown-zenith/cards/GG45_Deoxys_VMAX_Rare_Holo_VMAX_swsh12pt5gg-gg45.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG46-deoxys-vstar",
+    "name": "Deoxys VSTAR",
+    "rarity": "Ultra Rare",
+    "number": "GG46",
+    "image": "/assets/sets/crown-zenith/cards/GG46_Deoxys_VSTAR_Rare_Holo_VSTAR_swsh12pt5gg-gg46.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG47-hatterene-vmax",
+    "name": "Hatterene VMAX",
+    "rarity": "Ultra Rare",
+    "number": "GG47",
+    "image": "/assets/sets/crown-zenith/cards/GG47_Hatterene_VMAX_Rare_Holo_VMAX_swsh12pt5gg-gg47.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG48-zacian-v",
+    "name": "Zacian V",
+    "rarity": "Double Rare",
+    "number": "GG48",
+    "image": "/assets/sets/crown-zenith/cards/GG48_Zacian_V_Rare_Holo_V_swsh12pt5gg-gg48.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG49-drapion-v",
+    "name": "Drapion V",
+    "rarity": "Double Rare",
+    "number": "GG49",
+    "image": "/assets/sets/crown-zenith/cards/GG49_Drapion_V_Rare_Holo_V_swsh12pt5gg-gg49.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG50-darkrai-vstar",
+    "name": "Darkrai VSTAR",
+    "rarity": "Ultra Rare",
+    "number": "GG50",
+    "image": "/assets/sets/crown-zenith/cards/GG50_Darkrai_VSTAR_Rare_Holo_VSTAR_swsh12pt5gg-gg50.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG51-hisuian-samurott-v",
+    "name": "Hisuian Samurott V",
+    "rarity": "Double Rare",
+    "number": "GG51",
+    "image": "/assets/sets/crown-zenith/cards/GG51_Hisuian_Samurott_V_Rare_Holo_V_swsh12pt5gg-gg51.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG52-hisuian-samurott-vstar",
+    "name": "Hisuian Samurott VSTAR",
+    "rarity": "Ultra Rare",
+    "number": "GG52",
+    "image": "/assets/sets/crown-zenith/cards/GG52_Hisuian_Samurott_VSTAR_Rare_Holo_VSTAR_swsh12pt5gg-gg52.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG53-hoopa-v",
+    "name": "Hoopa V",
+    "rarity": "Double Rare",
+    "number": "GG53",
+    "image": "/assets/sets/crown-zenith/cards/GG53_Hoopa_V_Rare_Holo_V_swsh12pt5gg-gg53.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG54-zamazenta-v",
+    "name": "Zamazenta V",
+    "rarity": "Double Rare",
+    "number": "GG54",
+    "image": "/assets/sets/crown-zenith/cards/GG54_Zamazenta_V_Rare_Holo_V_swsh12pt5gg-gg54.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG55-regigigas-vstar",
+    "name": "Regigigas VSTAR",
+    "rarity": "Ultra Rare",
+    "number": "GG55",
+    "image": "/assets/sets/crown-zenith/cards/GG55_Regigigas_VSTAR_Rare_Holo_VSTAR_swsh12pt5gg-gg55.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG56-hisuian-zoroark-vstar",
+    "name": "Hisuian Zoroark VSTAR",
+    "rarity": "Ultra Rare",
+    "number": "GG56",
+    "image": "/assets/sets/crown-zenith/cards/GG56_Hisuian_Zoroark_VSTAR_Rare_Holo_VSTAR_swsh12pt5gg-gg56.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG57-adaman",
+    "name": "Adaman",
+    "rarity": "Ultra Rare",
+    "number": "GG57",
+    "image": "/assets/sets/crown-zenith/cards/GG57_Adaman_Rare_Ultra_swsh12pt5gg-gg57.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG58-cheren-s-care",
+    "name": "Cheren's Care",
+    "rarity": "Ultra Rare",
+    "number": "GG58",
+    "image": "/assets/sets/crown-zenith/cards/GG58_Cheren's_Care_Rare_Ultra_swsh12pt5gg-gg58.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG59-colress-s-experiment",
+    "name": "Colress's Experiment",
+    "rarity": "Ultra Rare",
+    "number": "GG59",
+    "image": "/assets/sets/crown-zenith/cards/GG59_Colress's_Experiment_Rare_Ultra_swsh12pt5gg-gg59.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG60-cynthia-s-ambition",
+    "name": "Cynthia's Ambition",
+    "rarity": "Ultra Rare",
+    "number": "GG60",
+    "image": "/assets/sets/crown-zenith/cards/GG60_Cynthia's_Ambition_Rare_Ultra_swsh12pt5gg-gg60.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG61-gardenia-s-vigor",
+    "name": "Gardenia's Vigor",
+    "rarity": "Ultra Rare",
+    "number": "GG61",
+    "image": "/assets/sets/crown-zenith/cards/GG61_Gardenia's_Vigor_Rare_Ultra_swsh12pt5gg-gg61.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG62-grant",
+    "name": "Grant",
+    "rarity": "Ultra Rare",
+    "number": "GG62",
+    "image": "/assets/sets/crown-zenith/cards/GG62_Grant_Rare_Ultra_swsh12pt5gg-gg62.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG63-irida",
+    "name": "Irida",
+    "rarity": "Ultra Rare",
+    "number": "GG63",
+    "image": "/assets/sets/crown-zenith/cards/GG63_Irida_Rare_Ultra_swsh12pt5gg-gg63.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG64-melony",
+    "name": "Melony",
+    "rarity": "Ultra Rare",
+    "number": "GG64",
+    "image": "/assets/sets/crown-zenith/cards/GG64_Melony_Rare_Ultra_swsh12pt5gg-gg64.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG65-raihan",
+    "name": "Raihan",
+    "rarity": "Ultra Rare",
+    "number": "GG65",
+    "image": "/assets/sets/crown-zenith/cards/GG65_Raihan_Rare_Ultra_swsh12pt5gg-gg65.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG66-roxanne",
+    "name": "Roxanne",
+    "rarity": "Ultra Rare",
+    "number": "GG66",
+    "image": "/assets/sets/crown-zenith/cards/GG66_Roxanne_Rare_Ultra_swsh12pt5gg-gg66.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG67-origin-forme-palkia-vstar",
+    "name": "Origin Forme Palkia VSTAR",
+    "rarity": "Secret Rare",
+    "number": "GG67",
+    "image": "/assets/sets/crown-zenith/cards/GG67_Origin_Forme_Palkia_VSTAR_Rare_Secret_swsh12pt5gg-gg67.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG68-origin-forme-dialga-vstar",
+    "name": "Origin Forme Dialga VSTAR",
+    "rarity": "Secret Rare",
+    "number": "GG68",
+    "image": "/assets/sets/crown-zenith/cards/GG68_Origin_Forme_Dialga_VSTAR_Rare_Secret_swsh12pt5gg-gg68.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG69-giratina-vstar",
+    "name": "Giratina VSTAR",
+    "rarity": "Secret Rare",
+    "number": "GG69",
+    "image": "/assets/sets/crown-zenith/cards/GG69_Giratina_VSTAR_Rare_Secret_swsh12pt5gg-gg69.png",
+    "subset": "Galarian Gallery"
+  },
+  {
+    "id": "crown-zenith-GG70-arceus-vstar",
+    "name": "Arceus VSTAR",
+    "rarity": "Secret Rare",
+    "number": "GG70",
+    "image": "/assets/sets/crown-zenith/cards/GG70_Arceus_VSTAR_Rare_Secret_swsh12pt5gg-gg70.png",
+    "subset": "Galarian Gallery"
+  }
+]

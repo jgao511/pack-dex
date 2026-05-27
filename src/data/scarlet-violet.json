@@ -1,0 +1,1808 @@
+[
+  {
+    "id": "scarlet-violet-1-pineco",
+    "name": "Pineco",
+    "rarity": "Common",
+    "number": "1",
+    "image": "/assets/sets/scarlet-violet/cards/1_Pineco_Common.png"
+  },
+  {
+    "id": "scarlet-violet-2-heracross",
+    "name": "Heracross",
+    "rarity": "Uncommon",
+    "number": "2",
+    "image": "/assets/sets/scarlet-violet/cards/2_Heracross_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-3-shroomish",
+    "name": "Shroomish",
+    "rarity": "Common",
+    "number": "3",
+    "image": "/assets/sets/scarlet-violet/cards/3_Shroomish_Common.png"
+  },
+  {
+    "id": "scarlet-violet-4-breloom",
+    "name": "Breloom",
+    "rarity": "Uncommon",
+    "number": "4",
+    "image": "/assets/sets/scarlet-violet/cards/4_Breloom_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-5-cacnea",
+    "name": "Cacnea",
+    "rarity": "Common",
+    "number": "5",
+    "image": "/assets/sets/scarlet-violet/cards/5_Cacnea_Common.png"
+  },
+  {
+    "id": "scarlet-violet-6-cacturne",
+    "name": "Cacturne",
+    "rarity": "Uncommon",
+    "number": "6",
+    "image": "/assets/sets/scarlet-violet/cards/6_Cacturne_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-7-tropius",
+    "name": "Tropius",
+    "rarity": "Common",
+    "number": "7",
+    "image": "/assets/sets/scarlet-violet/cards/7_Tropius_Common.png"
+  },
+  {
+    "id": "scarlet-violet-8-scatterbug",
+    "name": "Scatterbug",
+    "rarity": "Common",
+    "number": "8",
+    "image": "/assets/sets/scarlet-violet/cards/8_Scatterbug_Common.png"
+  },
+  {
+    "id": "scarlet-violet-9-spewpa",
+    "name": "Spewpa",
+    "rarity": "Common",
+    "number": "9",
+    "image": "/assets/sets/scarlet-violet/cards/9_Spewpa_Common.png"
+  },
+  {
+    "id": "scarlet-violet-10-vivillon",
+    "name": "Vivillon",
+    "rarity": "Uncommon",
+    "number": "10",
+    "image": "/assets/sets/scarlet-violet/cards/10_Vivillon_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-11-skiddo",
+    "name": "Skiddo",
+    "rarity": "Common",
+    "number": "11",
+    "image": "/assets/sets/scarlet-violet/cards/11_Skiddo_Common.png"
+  },
+  {
+    "id": "scarlet-violet-12-gogoat",
+    "name": "Gogoat",
+    "rarity": "Common",
+    "number": "12",
+    "image": "/assets/sets/scarlet-violet/cards/12_Gogoat_Common.png"
+  },
+  {
+    "id": "scarlet-violet-13-sprigatito",
+    "name": "Sprigatito",
+    "rarity": "Common",
+    "number": "13",
+    "image": "/assets/sets/scarlet-violet/cards/13_Sprigatito_Common.png"
+  },
+  {
+    "id": "scarlet-violet-14-floragato",
+    "name": "Floragato",
+    "rarity": "Uncommon",
+    "number": "14",
+    "image": "/assets/sets/scarlet-violet/cards/14_Floragato_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-15-meowscarada",
+    "name": "Meowscarada",
+    "rarity": "Rare",
+    "number": "15",
+    "image": "/assets/sets/scarlet-violet/cards/15_Meowscarada_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-16-tarountula",
+    "name": "Tarountula",
+    "rarity": "Common",
+    "number": "16",
+    "image": "/assets/sets/scarlet-violet/cards/16_Tarountula_Common.png"
+  },
+  {
+    "id": "scarlet-violet-17-tarountula",
+    "name": "Tarountula",
+    "rarity": "Common",
+    "number": "17",
+    "image": "/assets/sets/scarlet-violet/cards/17_Tarountula_Common.png"
+  },
+  {
+    "id": "scarlet-violet-18-tarountula",
+    "name": "Tarountula",
+    "rarity": "Common",
+    "number": "18",
+    "image": "/assets/sets/scarlet-violet/cards/18_Tarountula_Common.png"
+  },
+  {
+    "id": "scarlet-violet-19-spidops-ex",
+    "name": "Spidops ex",
+    "rarity": "Double Rare",
+    "number": "19",
+    "image": "/assets/sets/scarlet-violet/cards/19_Spidops_ex_Double_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-20-smoliv",
+    "name": "Smoliv",
+    "rarity": "Common",
+    "number": "20",
+    "image": "/assets/sets/scarlet-violet/cards/20_Smoliv_Common.png"
+  },
+  {
+    "id": "scarlet-violet-21-smoliv",
+    "name": "Smoliv",
+    "rarity": "Common",
+    "number": "21",
+    "image": "/assets/sets/scarlet-violet/cards/21_Smoliv_Common.png"
+  },
+  {
+    "id": "scarlet-violet-22-dolliv",
+    "name": "Dolliv",
+    "rarity": "Common",
+    "number": "22",
+    "image": "/assets/sets/scarlet-violet/cards/22_Dolliv_Common.png"
+  },
+  {
+    "id": "scarlet-violet-23-arboliva",
+    "name": "Arboliva",
+    "rarity": "Rare",
+    "number": "23",
+    "image": "/assets/sets/scarlet-violet/cards/23_Arboliva_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-24-toedscool",
+    "name": "Toedscool",
+    "rarity": "Common",
+    "number": "24",
+    "image": "/assets/sets/scarlet-violet/cards/24_Toedscool_Common.png"
+  },
+  {
+    "id": "scarlet-violet-25-toedscool",
+    "name": "Toedscool",
+    "rarity": "Common",
+    "number": "25",
+    "image": "/assets/sets/scarlet-violet/cards/25_Toedscool_Common.png"
+  },
+  {
+    "id": "scarlet-violet-26-toedscruel",
+    "name": "Toedscruel",
+    "rarity": "Uncommon",
+    "number": "26",
+    "image": "/assets/sets/scarlet-violet/cards/26_Toedscruel_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-27-capsakid",
+    "name": "Capsakid",
+    "rarity": "Common",
+    "number": "27",
+    "image": "/assets/sets/scarlet-violet/cards/27_Capsakid_Common.png"
+  },
+  {
+    "id": "scarlet-violet-28-capsakid",
+    "name": "Capsakid",
+    "rarity": "Common",
+    "number": "28",
+    "image": "/assets/sets/scarlet-violet/cards/28_Capsakid_Common.png"
+  },
+  {
+    "id": "scarlet-violet-29-scovillain",
+    "name": "Scovillain",
+    "rarity": "Uncommon",
+    "number": "29",
+    "image": "/assets/sets/scarlet-violet/cards/29_Scovillain_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-30-growlithe",
+    "name": "Growlithe",
+    "rarity": "Common",
+    "number": "30",
+    "image": "/assets/sets/scarlet-violet/cards/30_Growlithe_Common.png"
+  },
+  {
+    "id": "scarlet-violet-31-growlithe",
+    "name": "Growlithe",
+    "rarity": "Common",
+    "number": "31",
+    "image": "/assets/sets/scarlet-violet/cards/31_Growlithe_Common.png"
+  },
+  {
+    "id": "scarlet-violet-32-arcanine-ex",
+    "name": "Arcanine ex",
+    "rarity": "Double Rare",
+    "number": "32",
+    "image": "/assets/sets/scarlet-violet/cards/32_Arcanine_ex_Double_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-33-houndour",
+    "name": "Houndour",
+    "rarity": "Common",
+    "number": "33",
+    "image": "/assets/sets/scarlet-violet/cards/33_Houndour_Common.png"
+  },
+  {
+    "id": "scarlet-violet-34-houndoom",
+    "name": "Houndoom",
+    "rarity": "Common",
+    "number": "34",
+    "image": "/assets/sets/scarlet-violet/cards/34_Houndoom_Common.png"
+  },
+  {
+    "id": "scarlet-violet-35-torkoal",
+    "name": "Torkoal",
+    "rarity": "Uncommon",
+    "number": "35",
+    "image": "/assets/sets/scarlet-violet/cards/35_Torkoal_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-36-fuecoco",
+    "name": "Fuecoco",
+    "rarity": "Common",
+    "number": "36",
+    "image": "/assets/sets/scarlet-violet/cards/36_Fuecoco_Common.png"
+  },
+  {
+    "id": "scarlet-violet-37-crocalor",
+    "name": "Crocalor",
+    "rarity": "Uncommon",
+    "number": "37",
+    "image": "/assets/sets/scarlet-violet/cards/37_Crocalor_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-38-skeledirge",
+    "name": "Skeledirge",
+    "rarity": "Rare",
+    "number": "38",
+    "image": "/assets/sets/scarlet-violet/cards/38_Skeledirge_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-39-charcadet",
+    "name": "Charcadet",
+    "rarity": "Common",
+    "number": "39",
+    "image": "/assets/sets/scarlet-violet/cards/39_Charcadet_Common.png"
+  },
+  {
+    "id": "scarlet-violet-40-charcadet",
+    "name": "Charcadet",
+    "rarity": "Common",
+    "number": "40",
+    "image": "/assets/sets/scarlet-violet/cards/40_Charcadet_Common.png"
+  },
+  {
+    "id": "scarlet-violet-41-armarouge",
+    "name": "Armarouge",
+    "rarity": "Rare",
+    "number": "41",
+    "image": "/assets/sets/scarlet-violet/cards/41_Armarouge_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-42-slowpoke",
+    "name": "Slowpoke",
+    "rarity": "Common",
+    "number": "42",
+    "image": "/assets/sets/scarlet-violet/cards/42_Slowpoke_Common.png"
+  },
+  {
+    "id": "scarlet-violet-43-slowbro",
+    "name": "Slowbro",
+    "rarity": "Rare",
+    "number": "43",
+    "image": "/assets/sets/scarlet-violet/cards/43_Slowbro_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-44-magikarp",
+    "name": "Magikarp",
+    "rarity": "Common",
+    "number": "44",
+    "image": "/assets/sets/scarlet-violet/cards/44_Magikarp_Common.png"
+  },
+  {
+    "id": "scarlet-violet-45-gyarados-ex",
+    "name": "Gyarados ex",
+    "rarity": "Double Rare",
+    "number": "45",
+    "image": "/assets/sets/scarlet-violet/cards/45_Gyarados_ex_Double_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-46-buizel",
+    "name": "Buizel",
+    "rarity": "Common",
+    "number": "46",
+    "image": "/assets/sets/scarlet-violet/cards/46_Buizel_Common.png"
+  },
+  {
+    "id": "scarlet-violet-47-floatzel",
+    "name": "Floatzel",
+    "rarity": "Uncommon",
+    "number": "47",
+    "image": "/assets/sets/scarlet-violet/cards/47_Floatzel_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-48-alomomola",
+    "name": "Alomomola",
+    "rarity": "Common",
+    "number": "48",
+    "image": "/assets/sets/scarlet-violet/cards/48_Alomomola_Common.png"
+  },
+  {
+    "id": "scarlet-violet-49-clauncher",
+    "name": "Clauncher",
+    "rarity": "Common",
+    "number": "49",
+    "image": "/assets/sets/scarlet-violet/cards/49_Clauncher_Common.png"
+  },
+  {
+    "id": "scarlet-violet-50-clawitzer",
+    "name": "Clawitzer",
+    "rarity": "Common",
+    "number": "50",
+    "image": "/assets/sets/scarlet-violet/cards/50_Clawitzer_Common.png"
+  },
+  {
+    "id": "scarlet-violet-51-bruxish",
+    "name": "Bruxish",
+    "rarity": "Common",
+    "number": "51",
+    "image": "/assets/sets/scarlet-violet/cards/51_Bruxish_Common.png"
+  },
+  {
+    "id": "scarlet-violet-52-quaxly",
+    "name": "Quaxly",
+    "rarity": "Common",
+    "number": "52",
+    "image": "/assets/sets/scarlet-violet/cards/52_Quaxly_Common.png"
+  },
+  {
+    "id": "scarlet-violet-53-quaxwell",
+    "name": "Quaxwell",
+    "rarity": "Uncommon",
+    "number": "53",
+    "image": "/assets/sets/scarlet-violet/cards/53_Quaxwell_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-54-quaquaval",
+    "name": "Quaquaval",
+    "rarity": "Rare",
+    "number": "54",
+    "image": "/assets/sets/scarlet-violet/cards/54_Quaquaval_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-55-wiglett",
+    "name": "Wiglett",
+    "rarity": "Common",
+    "number": "55",
+    "image": "/assets/sets/scarlet-violet/cards/55_Wiglett_Common.png"
+  },
+  {
+    "id": "scarlet-violet-56-wiglett",
+    "name": "Wiglett",
+    "rarity": "Common",
+    "number": "56",
+    "image": "/assets/sets/scarlet-violet/cards/56_Wiglett_Common.png"
+  },
+  {
+    "id": "scarlet-violet-57-wugtrio",
+    "name": "Wugtrio",
+    "rarity": "Uncommon",
+    "number": "57",
+    "image": "/assets/sets/scarlet-violet/cards/57_Wugtrio_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-58-cetoddle",
+    "name": "Cetoddle",
+    "rarity": "Common",
+    "number": "58",
+    "image": "/assets/sets/scarlet-violet/cards/58_Cetoddle_Common.png"
+  },
+  {
+    "id": "scarlet-violet-59-cetoddle",
+    "name": "Cetoddle",
+    "rarity": "Common",
+    "number": "59",
+    "image": "/assets/sets/scarlet-violet/cards/59_Cetoddle_Common.png"
+  },
+  {
+    "id": "scarlet-violet-60-cetitan",
+    "name": "Cetitan",
+    "rarity": "Uncommon",
+    "number": "60",
+    "image": "/assets/sets/scarlet-violet/cards/60_Cetitan_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-61-dondozo",
+    "name": "Dondozo",
+    "rarity": "Rare",
+    "number": "61",
+    "image": "/assets/sets/scarlet-violet/cards/61_Dondozo_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-62-tatsugiri",
+    "name": "Tatsugiri",
+    "rarity": "Uncommon",
+    "number": "62",
+    "image": "/assets/sets/scarlet-violet/cards/62_Tatsugiri_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-63-magnemite",
+    "name": "Magnemite",
+    "rarity": "Common",
+    "number": "63",
+    "image": "/assets/sets/scarlet-violet/cards/63_Magnemite_Common.png"
+  },
+  {
+    "id": "scarlet-violet-64-magneton",
+    "name": "Magneton",
+    "rarity": "Common",
+    "number": "64",
+    "image": "/assets/sets/scarlet-violet/cards/64_Magneton_Common.png"
+  },
+  {
+    "id": "scarlet-violet-65-magnezone-ex",
+    "name": "Magnezone ex",
+    "rarity": "Double Rare",
+    "number": "65",
+    "image": "/assets/sets/scarlet-violet/cards/65_Magnezone_ex_Double_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-66-mareep",
+    "name": "Mareep",
+    "rarity": "Common",
+    "number": "66",
+    "image": "/assets/sets/scarlet-violet/cards/66_Mareep_Common.png"
+  },
+  {
+    "id": "scarlet-violet-67-flaaffy",
+    "name": "Flaaffy",
+    "rarity": "Uncommon",
+    "number": "67",
+    "image": "/assets/sets/scarlet-violet/cards/67_Flaaffy_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-68-pachirisu",
+    "name": "Pachirisu",
+    "rarity": "Uncommon",
+    "number": "68",
+    "image": "/assets/sets/scarlet-violet/cards/68_Pachirisu_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-69-rotom",
+    "name": "Rotom",
+    "rarity": "Common",
+    "number": "69",
+    "image": "/assets/sets/scarlet-violet/cards/69_Rotom_Common.png"
+  },
+  {
+    "id": "scarlet-violet-70-rotom",
+    "name": "Rotom",
+    "rarity": "Common",
+    "number": "70",
+    "image": "/assets/sets/scarlet-violet/cards/70_Rotom_Common.png"
+  },
+  {
+    "id": "scarlet-violet-71-toxel",
+    "name": "Toxel",
+    "rarity": "Common",
+    "number": "71",
+    "image": "/assets/sets/scarlet-violet/cards/71_Toxel_Common.png"
+  },
+  {
+    "id": "scarlet-violet-72-toxtricity",
+    "name": "Toxtricity",
+    "rarity": "Uncommon",
+    "number": "72",
+    "image": "/assets/sets/scarlet-violet/cards/72_Toxtricity_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-73-pawmi",
+    "name": "Pawmi",
+    "rarity": "Common",
+    "number": "73",
+    "image": "/assets/sets/scarlet-violet/cards/73_Pawmi_Common.png"
+  },
+  {
+    "id": "scarlet-violet-74-pawmi",
+    "name": "Pawmi",
+    "rarity": "Common",
+    "number": "74",
+    "image": "/assets/sets/scarlet-violet/cards/74_Pawmi_Common.png"
+  },
+  {
+    "id": "scarlet-violet-75-pawmo",
+    "name": "Pawmo",
+    "rarity": "Common",
+    "number": "75",
+    "image": "/assets/sets/scarlet-violet/cards/75_Pawmo_Common.png"
+  },
+  {
+    "id": "scarlet-violet-76-pawmot",
+    "name": "Pawmot",
+    "rarity": "Rare",
+    "number": "76",
+    "image": "/assets/sets/scarlet-violet/cards/76_Pawmot_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-77-wattrel",
+    "name": "Wattrel",
+    "rarity": "Common",
+    "number": "77",
+    "image": "/assets/sets/scarlet-violet/cards/77_Wattrel_Common.png"
+  },
+  {
+    "id": "scarlet-violet-78-wattrel",
+    "name": "Wattrel",
+    "rarity": "Common",
+    "number": "78",
+    "image": "/assets/sets/scarlet-violet/cards/78_Wattrel_Common.png"
+  },
+  {
+    "id": "scarlet-violet-79-kilowattrel",
+    "name": "Kilowattrel",
+    "rarity": "Uncommon",
+    "number": "79",
+    "image": "/assets/sets/scarlet-violet/cards/79_Kilowattrel_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-80-miraidon",
+    "name": "Miraidon",
+    "rarity": "Rare",
+    "number": "80",
+    "image": "/assets/sets/scarlet-violet/cards/80_Miraidon_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-81-miraidon-ex",
+    "name": "Miraidon ex",
+    "rarity": "Double Rare",
+    "number": "81",
+    "image": "/assets/sets/scarlet-violet/cards/81_Miraidon_ex_Double_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-82-drowzee",
+    "name": "Drowzee",
+    "rarity": "Common",
+    "number": "82",
+    "image": "/assets/sets/scarlet-violet/cards/82_Drowzee_Common.png"
+  },
+  {
+    "id": "scarlet-violet-83-hypno",
+    "name": "Hypno",
+    "rarity": "Uncommon",
+    "number": "83",
+    "image": "/assets/sets/scarlet-violet/cards/83_Hypno_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-84-ralts",
+    "name": "Ralts",
+    "rarity": "Common",
+    "number": "84",
+    "image": "/assets/sets/scarlet-violet/cards/84_Ralts_Common.png"
+  },
+  {
+    "id": "scarlet-violet-85-kirlia",
+    "name": "Kirlia",
+    "rarity": "Common",
+    "number": "85",
+    "image": "/assets/sets/scarlet-violet/cards/85_Kirlia_Common.png"
+  },
+  {
+    "id": "scarlet-violet-86-gardevoir-ex",
+    "name": "Gardevoir ex",
+    "rarity": "Double Rare",
+    "number": "86",
+    "image": "/assets/sets/scarlet-violet/cards/86_Gardevoir_ex_Double_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-87-shuppet",
+    "name": "Shuppet",
+    "rarity": "Common",
+    "number": "87",
+    "image": "/assets/sets/scarlet-violet/cards/87_Shuppet_Common.png"
+  },
+  {
+    "id": "scarlet-violet-88-banette-ex",
+    "name": "Banette ex",
+    "rarity": "Double Rare",
+    "number": "88",
+    "image": "/assets/sets/scarlet-violet/cards/88_Banette_ex_Double_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-89-drifloon",
+    "name": "Drifloon",
+    "rarity": "Common",
+    "number": "89",
+    "image": "/assets/sets/scarlet-violet/cards/89_Drifloon_Common.png"
+  },
+  {
+    "id": "scarlet-violet-90-drifblim",
+    "name": "Drifblim",
+    "rarity": "Uncommon",
+    "number": "90",
+    "image": "/assets/sets/scarlet-violet/cards/90_Drifblim_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-91-flab-b",
+    "name": "Flabébé",
+    "rarity": "Common",
+    "number": "91",
+    "image": "/assets/sets/scarlet-violet/cards/91_Flabébé_Common.png"
+  },
+  {
+    "id": "scarlet-violet-92-floette",
+    "name": "Floette",
+    "rarity": "Common",
+    "number": "92",
+    "image": "/assets/sets/scarlet-violet/cards/92_Floette_Common.png"
+  },
+  {
+    "id": "scarlet-violet-93-florges",
+    "name": "Florges",
+    "rarity": "Uncommon",
+    "number": "93",
+    "image": "/assets/sets/scarlet-violet/cards/93_Florges_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-94-dedenne",
+    "name": "Dedenne",
+    "rarity": "Common",
+    "number": "94",
+    "image": "/assets/sets/scarlet-violet/cards/94_Dedenne_Common.png"
+  },
+  {
+    "id": "scarlet-violet-95-dedenne",
+    "name": "Dedenne",
+    "rarity": "Common",
+    "number": "95",
+    "image": "/assets/sets/scarlet-violet/cards/95_Dedenne_Common.png"
+  },
+  {
+    "id": "scarlet-violet-96-klefki",
+    "name": "Klefki",
+    "rarity": "Rare",
+    "number": "96",
+    "image": "/assets/sets/scarlet-violet/cards/96_Klefki_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-97-fidough",
+    "name": "Fidough",
+    "rarity": "Common",
+    "number": "97",
+    "image": "/assets/sets/scarlet-violet/cards/97_Fidough_Common.png"
+  },
+  {
+    "id": "scarlet-violet-98-fidough",
+    "name": "Fidough",
+    "rarity": "Common",
+    "number": "98",
+    "image": "/assets/sets/scarlet-violet/cards/98_Fidough_Common.png"
+  },
+  {
+    "id": "scarlet-violet-99-dachsbun",
+    "name": "Dachsbun",
+    "rarity": "Uncommon",
+    "number": "99",
+    "image": "/assets/sets/scarlet-violet/cards/99_Dachsbun_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-100-flittle",
+    "name": "Flittle",
+    "rarity": "Common",
+    "number": "100",
+    "image": "/assets/sets/scarlet-violet/cards/100_Flittle_Common.png"
+  },
+  {
+    "id": "scarlet-violet-101-flittle",
+    "name": "Flittle",
+    "rarity": "Common",
+    "number": "101",
+    "image": "/assets/sets/scarlet-violet/cards/101_Flittle_Common.png"
+  },
+  {
+    "id": "scarlet-violet-102-flittle",
+    "name": "Flittle",
+    "rarity": "Common",
+    "number": "102",
+    "image": "/assets/sets/scarlet-violet/cards/102_Flittle_Common.png"
+  },
+  {
+    "id": "scarlet-violet-103-espathra",
+    "name": "Espathra",
+    "rarity": "Uncommon",
+    "number": "103",
+    "image": "/assets/sets/scarlet-violet/cards/103_Espathra_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-104-greavard",
+    "name": "Greavard",
+    "rarity": "Common",
+    "number": "104",
+    "image": "/assets/sets/scarlet-violet/cards/104_Greavard_Common.png"
+  },
+  {
+    "id": "scarlet-violet-105-greavard",
+    "name": "Greavard",
+    "rarity": "Common",
+    "number": "105",
+    "image": "/assets/sets/scarlet-violet/cards/105_Greavard_Common.png"
+  },
+  {
+    "id": "scarlet-violet-106-houndstone",
+    "name": "Houndstone",
+    "rarity": "Rare",
+    "number": "106",
+    "image": "/assets/sets/scarlet-violet/cards/106_Houndstone_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-107-mankey",
+    "name": "Mankey",
+    "rarity": "Common",
+    "number": "107",
+    "image": "/assets/sets/scarlet-violet/cards/107_Mankey_Common.png"
+  },
+  {
+    "id": "scarlet-violet-108-primeape",
+    "name": "Primeape",
+    "rarity": "Common",
+    "number": "108",
+    "image": "/assets/sets/scarlet-violet/cards/108_Primeape_Common.png"
+  },
+  {
+    "id": "scarlet-violet-109-annihilape",
+    "name": "Annihilape",
+    "rarity": "Rare",
+    "number": "109",
+    "image": "/assets/sets/scarlet-violet/cards/109_Annihilape_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-110-meditite",
+    "name": "Meditite",
+    "rarity": "Common",
+    "number": "110",
+    "image": "/assets/sets/scarlet-violet/cards/110_Meditite_Common.png"
+  },
+  {
+    "id": "scarlet-violet-111-medicham",
+    "name": "Medicham",
+    "rarity": "Uncommon",
+    "number": "111",
+    "image": "/assets/sets/scarlet-violet/cards/111_Medicham_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-112-riolu",
+    "name": "Riolu",
+    "rarity": "Common",
+    "number": "112",
+    "image": "/assets/sets/scarlet-violet/cards/112_Riolu_Common.png"
+  },
+  {
+    "id": "scarlet-violet-113-riolu",
+    "name": "Riolu",
+    "rarity": "Common",
+    "number": "113",
+    "image": "/assets/sets/scarlet-violet/cards/113_Riolu_Common.png"
+  },
+  {
+    "id": "scarlet-violet-114-lucario",
+    "name": "Lucario",
+    "rarity": "Uncommon",
+    "number": "114",
+    "image": "/assets/sets/scarlet-violet/cards/114_Lucario_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-115-sandile",
+    "name": "Sandile",
+    "rarity": "Common",
+    "number": "115",
+    "image": "/assets/sets/scarlet-violet/cards/115_Sandile_Common.png"
+  },
+  {
+    "id": "scarlet-violet-116-krokorok",
+    "name": "Krokorok",
+    "rarity": "Common",
+    "number": "116",
+    "image": "/assets/sets/scarlet-violet/cards/116_Krokorok_Common.png"
+  },
+  {
+    "id": "scarlet-violet-117-krookodile",
+    "name": "Krookodile",
+    "rarity": "Uncommon",
+    "number": "117",
+    "image": "/assets/sets/scarlet-violet/cards/117_Krookodile_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-118-hawlucha",
+    "name": "Hawlucha",
+    "rarity": "Rare",
+    "number": "118",
+    "image": "/assets/sets/scarlet-violet/cards/118_Hawlucha_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-119-silicobra",
+    "name": "Silicobra",
+    "rarity": "Common",
+    "number": "119",
+    "image": "/assets/sets/scarlet-violet/cards/119_Silicobra_Common.png"
+  },
+  {
+    "id": "scarlet-violet-120-sandaconda",
+    "name": "Sandaconda",
+    "rarity": "Uncommon",
+    "number": "120",
+    "image": "/assets/sets/scarlet-violet/cards/120_Sandaconda_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-121-stonjourner",
+    "name": "Stonjourner",
+    "rarity": "Uncommon",
+    "number": "121",
+    "image": "/assets/sets/scarlet-violet/cards/121_Stonjourner_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-122-klawf",
+    "name": "Klawf",
+    "rarity": "Rare",
+    "number": "122",
+    "image": "/assets/sets/scarlet-violet/cards/122_Klawf_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-123-great-tusk-ex",
+    "name": "Great Tusk ex",
+    "rarity": "Double Rare",
+    "number": "123",
+    "image": "/assets/sets/scarlet-violet/cards/123_Great_Tusk_ex_Double_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-124-koraidon",
+    "name": "Koraidon",
+    "rarity": "Rare",
+    "number": "124",
+    "image": "/assets/sets/scarlet-violet/cards/124_Koraidon_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-125-koraidon-ex",
+    "name": "Koraidon ex",
+    "rarity": "Double Rare",
+    "number": "125",
+    "image": "/assets/sets/scarlet-violet/cards/125_Koraidon_ex_Double_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-126-grimer",
+    "name": "Grimer",
+    "rarity": "Common",
+    "number": "126",
+    "image": "/assets/sets/scarlet-violet/cards/126_Grimer_Common.png"
+  },
+  {
+    "id": "scarlet-violet-127-muk",
+    "name": "Muk",
+    "rarity": "Uncommon",
+    "number": "127",
+    "image": "/assets/sets/scarlet-violet/cards/127_Muk_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-128-seviper",
+    "name": "Seviper",
+    "rarity": "Common",
+    "number": "128",
+    "image": "/assets/sets/scarlet-violet/cards/128_Seviper_Common.png"
+  },
+  {
+    "id": "scarlet-violet-129-spiritomb",
+    "name": "Spiritomb",
+    "rarity": "Uncommon",
+    "number": "129",
+    "image": "/assets/sets/scarlet-violet/cards/129_Spiritomb_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-130-croagunk",
+    "name": "Croagunk",
+    "rarity": "Common",
+    "number": "130",
+    "image": "/assets/sets/scarlet-violet/cards/130_Croagunk_Common.png"
+  },
+  {
+    "id": "scarlet-violet-131-toxicroak-ex",
+    "name": "Toxicroak ex",
+    "rarity": "Double Rare",
+    "number": "131",
+    "image": "/assets/sets/scarlet-violet/cards/131_Toxicroak_ex_Double_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-132-pawniard",
+    "name": "Pawniard",
+    "rarity": "Common",
+    "number": "132",
+    "image": "/assets/sets/scarlet-violet/cards/132_Pawniard_Common.png"
+  },
+  {
+    "id": "scarlet-violet-133-bisharp",
+    "name": "Bisharp",
+    "rarity": "Common",
+    "number": "133",
+    "image": "/assets/sets/scarlet-violet/cards/133_Bisharp_Common.png"
+  },
+  {
+    "id": "scarlet-violet-134-kingambit",
+    "name": "Kingambit",
+    "rarity": "Rare",
+    "number": "134",
+    "image": "/assets/sets/scarlet-violet/cards/134_Kingambit_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-135-maschiff",
+    "name": "Maschiff",
+    "rarity": "Common",
+    "number": "135",
+    "image": "/assets/sets/scarlet-violet/cards/135_Maschiff_Common.png"
+  },
+  {
+    "id": "scarlet-violet-136-maschiff",
+    "name": "Maschiff",
+    "rarity": "Common",
+    "number": "136",
+    "image": "/assets/sets/scarlet-violet/cards/136_Maschiff_Common.png"
+  },
+  {
+    "id": "scarlet-violet-137-mabosstiff",
+    "name": "Mabosstiff",
+    "rarity": "Uncommon",
+    "number": "137",
+    "image": "/assets/sets/scarlet-violet/cards/137_Mabosstiff_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-138-bombirdier",
+    "name": "Bombirdier",
+    "rarity": "Uncommon",
+    "number": "138",
+    "image": "/assets/sets/scarlet-violet/cards/138_Bombirdier_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-139-forretress",
+    "name": "Forretress",
+    "rarity": "Uncommon",
+    "number": "139",
+    "image": "/assets/sets/scarlet-violet/cards/139_Forretress_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-140-varoom",
+    "name": "Varoom",
+    "rarity": "Common",
+    "number": "140",
+    "image": "/assets/sets/scarlet-violet/cards/140_Varoom_Common.png"
+  },
+  {
+    "id": "scarlet-violet-141-varoom",
+    "name": "Varoom",
+    "rarity": "Common",
+    "number": "141",
+    "image": "/assets/sets/scarlet-violet/cards/141_Varoom_Common.png"
+  },
+  {
+    "id": "scarlet-violet-142-revavroom",
+    "name": "Revavroom",
+    "rarity": "Rare",
+    "number": "142",
+    "image": "/assets/sets/scarlet-violet/cards/142_Revavroom_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-143-iron-treads-ex",
+    "name": "Iron Treads ex",
+    "rarity": "Double Rare",
+    "number": "143",
+    "image": "/assets/sets/scarlet-violet/cards/143_Iron_Treads_ex_Double_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-144-chansey",
+    "name": "Chansey",
+    "rarity": "Common",
+    "number": "144",
+    "image": "/assets/sets/scarlet-violet/cards/144_Chansey_Common.png"
+  },
+  {
+    "id": "scarlet-violet-145-blissey",
+    "name": "Blissey",
+    "rarity": "Uncommon",
+    "number": "145",
+    "image": "/assets/sets/scarlet-violet/cards/145_Blissey_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-146-zangoose",
+    "name": "Zangoose",
+    "rarity": "Common",
+    "number": "146",
+    "image": "/assets/sets/scarlet-violet/cards/146_Zangoose_Common.png"
+  },
+  {
+    "id": "scarlet-violet-147-zangoose",
+    "name": "Zangoose",
+    "rarity": "Uncommon",
+    "number": "147",
+    "image": "/assets/sets/scarlet-violet/cards/147_Zangoose_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-148-starly",
+    "name": "Starly",
+    "rarity": "Common",
+    "number": "148",
+    "image": "/assets/sets/scarlet-violet/cards/148_Starly_Common.png"
+  },
+  {
+    "id": "scarlet-violet-149-staravia",
+    "name": "Staravia",
+    "rarity": "Common",
+    "number": "149",
+    "image": "/assets/sets/scarlet-violet/cards/149_Staravia_Common.png"
+  },
+  {
+    "id": "scarlet-violet-150-staraptor",
+    "name": "Staraptor",
+    "rarity": "Uncommon",
+    "number": "150",
+    "image": "/assets/sets/scarlet-violet/cards/150_Staraptor_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-151-skwovet",
+    "name": "Skwovet",
+    "rarity": "Common",
+    "number": "151",
+    "image": "/assets/sets/scarlet-violet/cards/151_Skwovet_Common.png"
+  },
+  {
+    "id": "scarlet-violet-152-greedent",
+    "name": "Greedent",
+    "rarity": "Uncommon",
+    "number": "152",
+    "image": "/assets/sets/scarlet-violet/cards/152_Greedent_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-153-indeedee",
+    "name": "Indeedee",
+    "rarity": "Rare",
+    "number": "153",
+    "image": "/assets/sets/scarlet-violet/cards/153_Indeedee_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-154-lechonk",
+    "name": "Lechonk",
+    "rarity": "Common",
+    "number": "154",
+    "image": "/assets/sets/scarlet-violet/cards/154_Lechonk_Common.png"
+  },
+  {
+    "id": "scarlet-violet-155-lechonk",
+    "name": "Lechonk",
+    "rarity": "Common",
+    "number": "155",
+    "image": "/assets/sets/scarlet-violet/cards/155_Lechonk_Common.png"
+  },
+  {
+    "id": "scarlet-violet-156-lechonk",
+    "name": "Lechonk",
+    "rarity": "Common",
+    "number": "156",
+    "image": "/assets/sets/scarlet-violet/cards/156_Lechonk_Common.png"
+  },
+  {
+    "id": "scarlet-violet-157-oinkologne",
+    "name": "Oinkologne",
+    "rarity": "Uncommon",
+    "number": "157",
+    "image": "/assets/sets/scarlet-violet/cards/157_Oinkologne_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-158-oinkologne-ex",
+    "name": "Oinkologne ex",
+    "rarity": "Double Rare",
+    "number": "158",
+    "image": "/assets/sets/scarlet-violet/cards/158_Oinkologne_ex_Double_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-159-tandemaus",
+    "name": "Tandemaus",
+    "rarity": "Common",
+    "number": "159",
+    "image": "/assets/sets/scarlet-violet/cards/159_Tandemaus_Common.png"
+  },
+  {
+    "id": "scarlet-violet-160-tandemaus",
+    "name": "Tandemaus",
+    "rarity": "Common",
+    "number": "160",
+    "image": "/assets/sets/scarlet-violet/cards/160_Tandemaus_Common.png"
+  },
+  {
+    "id": "scarlet-violet-161-maushold",
+    "name": "Maushold",
+    "rarity": "Uncommon",
+    "number": "161",
+    "image": "/assets/sets/scarlet-violet/cards/161_Maushold_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-162-squawkabilly",
+    "name": "Squawkabilly",
+    "rarity": "Common",
+    "number": "162",
+    "image": "/assets/sets/scarlet-violet/cards/162_Squawkabilly_Common.png"
+  },
+  {
+    "id": "scarlet-violet-163-cyclizar",
+    "name": "Cyclizar",
+    "rarity": "Uncommon",
+    "number": "163",
+    "image": "/assets/sets/scarlet-violet/cards/163_Cyclizar_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-164-cyclizar",
+    "name": "Cyclizar",
+    "rarity": "Rare",
+    "number": "164",
+    "image": "/assets/sets/scarlet-violet/cards/164_Cyclizar_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-165-flamigo",
+    "name": "Flamigo",
+    "rarity": "Uncommon",
+    "number": "165",
+    "image": "/assets/sets/scarlet-violet/cards/165_Flamigo_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-166-arven",
+    "name": "Arven",
+    "rarity": "Uncommon",
+    "number": "166",
+    "image": "/assets/sets/scarlet-violet/cards/166_Arven_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-167-beach-court",
+    "name": "Beach Court",
+    "rarity": "Uncommon",
+    "number": "167",
+    "image": "/assets/sets/scarlet-violet/cards/167_Beach_Court_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-168-crushing-hammer",
+    "name": "Crushing Hammer",
+    "rarity": "Common",
+    "number": "168",
+    "image": "/assets/sets/scarlet-violet/cards/168_Crushing_Hammer_Common.png"
+  },
+  {
+    "id": "scarlet-violet-169-defiance-band",
+    "name": "Defiance Band",
+    "rarity": "Uncommon",
+    "number": "169",
+    "image": "/assets/sets/scarlet-violet/cards/169_Defiance_Band_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-170-electric-generator",
+    "name": "Electric Generator",
+    "rarity": "Uncommon",
+    "number": "170",
+    "image": "/assets/sets/scarlet-violet/cards/170_Electric_Generator_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-171-energy-retrieval",
+    "name": "Energy Retrieval",
+    "rarity": "Common",
+    "number": "171",
+    "image": "/assets/sets/scarlet-violet/cards/171_Energy_Retrieval_Common.png"
+  },
+  {
+    "id": "scarlet-violet-172-energy-search",
+    "name": "Energy Search",
+    "rarity": "Common",
+    "number": "172",
+    "image": "/assets/sets/scarlet-violet/cards/172_Energy_Search_Common.png"
+  },
+  {
+    "id": "scarlet-violet-173-energy-switch",
+    "name": "Energy Switch",
+    "rarity": "Common",
+    "number": "173",
+    "image": "/assets/sets/scarlet-violet/cards/173_Energy_Switch_Common.png"
+  },
+  {
+    "id": "scarlet-violet-174-exp-share",
+    "name": "Exp. Share",
+    "rarity": "Uncommon",
+    "number": "174",
+    "image": "/assets/sets/scarlet-violet/cards/174_Exp._Share_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-175-jacq",
+    "name": "Jacq",
+    "rarity": "Uncommon",
+    "number": "175",
+    "image": "/assets/sets/scarlet-violet/cards/175_Jacq_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-176-judge",
+    "name": "Judge",
+    "rarity": "Uncommon",
+    "number": "176",
+    "image": "/assets/sets/scarlet-violet/cards/176_Judge_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-177-katy",
+    "name": "Katy",
+    "rarity": "Uncommon",
+    "number": "177",
+    "image": "/assets/sets/scarlet-violet/cards/177_Katy_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-178-mesagoza",
+    "name": "Mesagoza",
+    "rarity": "Uncommon",
+    "number": "178",
+    "image": "/assets/sets/scarlet-violet/cards/178_Mesagoza_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-179-miriam",
+    "name": "Miriam",
+    "rarity": "Uncommon",
+    "number": "179",
+    "image": "/assets/sets/scarlet-violet/cards/179_Miriam_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-180-nemona",
+    "name": "Nemona",
+    "rarity": "Common",
+    "number": "180",
+    "image": "/assets/sets/scarlet-violet/cards/180_Nemona_Common.png"
+  },
+  {
+    "id": "scarlet-violet-181-nest-ball",
+    "name": "Nest Ball",
+    "rarity": "Uncommon",
+    "number": "181",
+    "image": "/assets/sets/scarlet-violet/cards/181_Nest_Ball_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-182-pal-pad",
+    "name": "Pal Pad",
+    "rarity": "Common",
+    "number": "182",
+    "image": "/assets/sets/scarlet-violet/cards/182_Pal_Pad_Common.png"
+  },
+  {
+    "id": "scarlet-violet-183-penny",
+    "name": "Penny",
+    "rarity": "Uncommon",
+    "number": "183",
+    "image": "/assets/sets/scarlet-violet/cards/183_Penny_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-184-picnic-basket",
+    "name": "Picnic Basket",
+    "rarity": "Uncommon",
+    "number": "184",
+    "image": "/assets/sets/scarlet-violet/cards/184_Picnic_Basket_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-185-pok-ball",
+    "name": "Poké Ball",
+    "rarity": "Common",
+    "number": "185",
+    "image": "/assets/sets/scarlet-violet/cards/185_Poké_Ball_Common.png"
+  },
+  {
+    "id": "scarlet-violet-186-pok-gear-3-0",
+    "name": "Pokégear 3.0",
+    "rarity": "Common",
+    "number": "186",
+    "image": "/assets/sets/scarlet-violet/cards/186_Pokégear_3.0_Common.png"
+  },
+  {
+    "id": "scarlet-violet-187-pok-mon-catcher",
+    "name": "Pokémon Catcher",
+    "rarity": "Common",
+    "number": "187",
+    "image": "/assets/sets/scarlet-violet/cards/187_Pokémon_Catcher_Common.png"
+  },
+  {
+    "id": "scarlet-violet-188-potion",
+    "name": "Potion",
+    "rarity": "Common",
+    "number": "188",
+    "image": "/assets/sets/scarlet-violet/cards/188_Potion_Common.png"
+  },
+  {
+    "id": "scarlet-violet-189-professor-s-research-professor-sada",
+    "name": "Professor's Research (Professor Sada)",
+    "rarity": "Rare",
+    "number": "189",
+    "image": "/assets/sets/scarlet-violet/cards/189_Professor's_Research_(Professor_Sada)_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-190-professor-s-research-professor-turo",
+    "name": "Professor's Research (Professor Turo)",
+    "rarity": "Rare",
+    "number": "190",
+    "image": "/assets/sets/scarlet-violet/cards/190_Professor's_Research_(Professor_Turo)_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-191-rare-candy",
+    "name": "Rare Candy",
+    "rarity": "Common",
+    "number": "191",
+    "image": "/assets/sets/scarlet-violet/cards/191_Rare_Candy_Common.png"
+  },
+  {
+    "id": "scarlet-violet-192-rock-chestplate",
+    "name": "Rock Chestplate",
+    "rarity": "Uncommon",
+    "number": "192",
+    "image": "/assets/sets/scarlet-violet/cards/192_Rock_Chestplate_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-193-rocky-helmet",
+    "name": "Rocky Helmet",
+    "rarity": "Uncommon",
+    "number": "193",
+    "image": "/assets/sets/scarlet-violet/cards/193_Rocky_Helmet_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-194-switch",
+    "name": "Switch",
+    "rarity": "Common",
+    "number": "194",
+    "image": "/assets/sets/scarlet-violet/cards/194_Switch_Common.png"
+  },
+  {
+    "id": "scarlet-violet-195-team-star-grunt",
+    "name": "Team Star Grunt",
+    "rarity": "Uncommon",
+    "number": "195",
+    "image": "/assets/sets/scarlet-violet/cards/195_Team_Star_Grunt_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-196-ultra-ball",
+    "name": "Ultra Ball",
+    "rarity": "Uncommon",
+    "number": "196",
+    "image": "/assets/sets/scarlet-violet/cards/196_Ultra_Ball_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-197-vitality-band",
+    "name": "Vitality Band",
+    "rarity": "Uncommon",
+    "number": "197",
+    "image": "/assets/sets/scarlet-violet/cards/197_Vitality_Band_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-198-youngster",
+    "name": "Youngster",
+    "rarity": "Uncommon",
+    "number": "198",
+    "image": "/assets/sets/scarlet-violet/cards/198_Youngster_Uncommon.png"
+  },
+  {
+    "id": "scarlet-violet-199-tarountula",
+    "name": "Tarountula",
+    "rarity": "Illustration Rare",
+    "number": "199",
+    "image": "/assets/sets/scarlet-violet/cards/199_Tarountula_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-200-dolliv",
+    "name": "Dolliv",
+    "rarity": "Illustration Rare",
+    "number": "200",
+    "image": "/assets/sets/scarlet-violet/cards/200_Dolliv_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-201-toedscool",
+    "name": "Toedscool",
+    "rarity": "Illustration Rare",
+    "number": "201",
+    "image": "/assets/sets/scarlet-violet/cards/201_Toedscool_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-202-scovillain",
+    "name": "Scovillain",
+    "rarity": "Illustration Rare",
+    "number": "202",
+    "image": "/assets/sets/scarlet-violet/cards/202_Scovillain_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-203-armarouge",
+    "name": "Armarouge",
+    "rarity": "Illustration Rare",
+    "number": "203",
+    "image": "/assets/sets/scarlet-violet/cards/203_Armarouge_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-204-slowpoke",
+    "name": "Slowpoke",
+    "rarity": "Illustration Rare",
+    "number": "204",
+    "image": "/assets/sets/scarlet-violet/cards/204_Slowpoke_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-205-clauncher",
+    "name": "Clauncher",
+    "rarity": "Illustration Rare",
+    "number": "205",
+    "image": "/assets/sets/scarlet-violet/cards/205_Clauncher_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-206-wiglett",
+    "name": "Wiglett",
+    "rarity": "Illustration Rare",
+    "number": "206",
+    "image": "/assets/sets/scarlet-violet/cards/206_Wiglett_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-207-dondozo",
+    "name": "Dondozo",
+    "rarity": "Illustration Rare",
+    "number": "207",
+    "image": "/assets/sets/scarlet-violet/cards/207_Dondozo_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-208-pachirisu",
+    "name": "Pachirisu",
+    "rarity": "Illustration Rare",
+    "number": "208",
+    "image": "/assets/sets/scarlet-violet/cards/208_Pachirisu_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-209-pawmot",
+    "name": "Pawmot",
+    "rarity": "Illustration Rare",
+    "number": "209",
+    "image": "/assets/sets/scarlet-violet/cards/209_Pawmot_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-210-drowzee",
+    "name": "Drowzee",
+    "rarity": "Illustration Rare",
+    "number": "210",
+    "image": "/assets/sets/scarlet-violet/cards/210_Drowzee_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-211-ralts",
+    "name": "Ralts",
+    "rarity": "Illustration Rare",
+    "number": "211",
+    "image": "/assets/sets/scarlet-violet/cards/211_Ralts_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-212-kirlia",
+    "name": "Kirlia",
+    "rarity": "Illustration Rare",
+    "number": "212",
+    "image": "/assets/sets/scarlet-violet/cards/212_Kirlia_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-213-fidough",
+    "name": "Fidough",
+    "rarity": "Illustration Rare",
+    "number": "213",
+    "image": "/assets/sets/scarlet-violet/cards/213_Fidough_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-214-greavard",
+    "name": "Greavard",
+    "rarity": "Illustration Rare",
+    "number": "214",
+    "image": "/assets/sets/scarlet-violet/cards/214_Greavard_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-215-riolu",
+    "name": "Riolu",
+    "rarity": "Illustration Rare",
+    "number": "215",
+    "image": "/assets/sets/scarlet-violet/cards/215_Riolu_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-216-sandile",
+    "name": "Sandile",
+    "rarity": "Illustration Rare",
+    "number": "216",
+    "image": "/assets/sets/scarlet-violet/cards/216_Sandile_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-217-klawf",
+    "name": "Klawf",
+    "rarity": "Illustration Rare",
+    "number": "217",
+    "image": "/assets/sets/scarlet-violet/cards/217_Klawf_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-218-mabosstiff",
+    "name": "Mabosstiff",
+    "rarity": "Illustration Rare",
+    "number": "218",
+    "image": "/assets/sets/scarlet-violet/cards/218_Mabosstiff_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-219-bombirdier",
+    "name": "Bombirdier",
+    "rarity": "Illustration Rare",
+    "number": "219",
+    "image": "/assets/sets/scarlet-violet/cards/219_Bombirdier_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-220-kingambit",
+    "name": "Kingambit",
+    "rarity": "Illustration Rare",
+    "number": "220",
+    "image": "/assets/sets/scarlet-violet/cards/220_Kingambit_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-221-starly",
+    "name": "Starly",
+    "rarity": "Illustration Rare",
+    "number": "221",
+    "image": "/assets/sets/scarlet-violet/cards/221_Starly_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-222-skwovet",
+    "name": "Skwovet",
+    "rarity": "Illustration Rare",
+    "number": "222",
+    "image": "/assets/sets/scarlet-violet/cards/222_Skwovet_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-223-spidops-ex",
+    "name": "Spidops ex",
+    "rarity": "Ultra Rare",
+    "number": "223",
+    "image": "/assets/sets/scarlet-violet/cards/223_Spidops_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-224-arcanine-ex",
+    "name": "Arcanine ex",
+    "rarity": "Ultra Rare",
+    "number": "224",
+    "image": "/assets/sets/scarlet-violet/cards/224_Arcanine_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-225-gyarados-ex",
+    "name": "Gyarados ex",
+    "rarity": "Ultra Rare",
+    "number": "225",
+    "image": "/assets/sets/scarlet-violet/cards/225_Gyarados_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-226-magnezone-ex",
+    "name": "Magnezone ex",
+    "rarity": "Ultra Rare",
+    "number": "226",
+    "image": "/assets/sets/scarlet-violet/cards/226_Magnezone_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-227-miraidon-ex",
+    "name": "Miraidon ex",
+    "rarity": "Ultra Rare",
+    "number": "227",
+    "image": "/assets/sets/scarlet-violet/cards/227_Miraidon_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-228-gardevoir-ex",
+    "name": "Gardevoir ex",
+    "rarity": "Ultra Rare",
+    "number": "228",
+    "image": "/assets/sets/scarlet-violet/cards/228_Gardevoir_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-229-banette-ex",
+    "name": "Banette ex",
+    "rarity": "Ultra Rare",
+    "number": "229",
+    "image": "/assets/sets/scarlet-violet/cards/229_Banette_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-230-great-tusk-ex",
+    "name": "Great Tusk ex",
+    "rarity": "Ultra Rare",
+    "number": "230",
+    "image": "/assets/sets/scarlet-violet/cards/230_Great_Tusk_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-231-koraidon-ex",
+    "name": "Koraidon ex",
+    "rarity": "Ultra Rare",
+    "number": "231",
+    "image": "/assets/sets/scarlet-violet/cards/231_Koraidon_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-232-toxicroak-ex",
+    "name": "Toxicroak ex",
+    "rarity": "Ultra Rare",
+    "number": "232",
+    "image": "/assets/sets/scarlet-violet/cards/232_Toxicroak_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-233-iron-treads-ex",
+    "name": "Iron Treads ex",
+    "rarity": "Ultra Rare",
+    "number": "233",
+    "image": "/assets/sets/scarlet-violet/cards/233_Iron_Treads_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-234-oinkologne-ex",
+    "name": "Oinkologne ex",
+    "rarity": "Ultra Rare",
+    "number": "234",
+    "image": "/assets/sets/scarlet-violet/cards/234_Oinkologne_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-235-arven",
+    "name": "Arven",
+    "rarity": "Ultra Rare",
+    "number": "235",
+    "image": "/assets/sets/scarlet-violet/cards/235_Arven_Ultra_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-236-jacq",
+    "name": "Jacq",
+    "rarity": "Ultra Rare",
+    "number": "236",
+    "image": "/assets/sets/scarlet-violet/cards/236_Jacq_Ultra_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-237-katy",
+    "name": "Katy",
+    "rarity": "Ultra Rare",
+    "number": "237",
+    "image": "/assets/sets/scarlet-violet/cards/237_Katy_Ultra_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-238-miriam",
+    "name": "Miriam",
+    "rarity": "Ultra Rare",
+    "number": "238",
+    "image": "/assets/sets/scarlet-violet/cards/238_Miriam_Ultra_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-239-penny",
+    "name": "Penny",
+    "rarity": "Ultra Rare",
+    "number": "239",
+    "image": "/assets/sets/scarlet-violet/cards/239_Penny_Ultra_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-240-professor-s-research-professor-sada",
+    "name": "Professor's Research (Professor Sada)",
+    "rarity": "Ultra Rare",
+    "number": "240",
+    "image": "/assets/sets/scarlet-violet/cards/240_Professor's_Research_(Professor_Sada)_Ultra_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-241-professor-s-research-professor-turo",
+    "name": "Professor's Research (Professor Turo)",
+    "rarity": "Ultra Rare",
+    "number": "241",
+    "image": "/assets/sets/scarlet-violet/cards/241_Professor's_Research_(Professor_Turo)_Ultra_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-242-team-star-grunt",
+    "name": "Team Star Grunt",
+    "rarity": "Ultra Rare",
+    "number": "242",
+    "image": "/assets/sets/scarlet-violet/cards/242_Team_Star_Grunt_Ultra_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-243-spidops-ex",
+    "name": "Spidops ex",
+    "rarity": "Special Illustration Rare",
+    "number": "243",
+    "image": "/assets/sets/scarlet-violet/cards/243_Spidops_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-244-miraidon-ex",
+    "name": "Miraidon ex",
+    "rarity": "Special Illustration Rare",
+    "number": "244",
+    "image": "/assets/sets/scarlet-violet/cards/244_Miraidon_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-245-gardevoir-ex",
+    "name": "Gardevoir ex",
+    "rarity": "Special Illustration Rare",
+    "number": "245",
+    "image": "/assets/sets/scarlet-violet/cards/245_Gardevoir_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-246-great-tusk-ex",
+    "name": "Great Tusk ex",
+    "rarity": "Special Illustration Rare",
+    "number": "246",
+    "image": "/assets/sets/scarlet-violet/cards/246_Great_Tusk_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-247-koraidon-ex",
+    "name": "Koraidon ex",
+    "rarity": "Special Illustration Rare",
+    "number": "247",
+    "image": "/assets/sets/scarlet-violet/cards/247_Koraidon_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-248-iron-treads-ex",
+    "name": "Iron Treads ex",
+    "rarity": "Special Illustration Rare",
+    "number": "248",
+    "image": "/assets/sets/scarlet-violet/cards/248_Iron_Treads_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-249-arven",
+    "name": "Arven",
+    "rarity": "Special Illustration Rare",
+    "number": "249",
+    "image": "/assets/sets/scarlet-violet/cards/249_Arven_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-250-jacq",
+    "name": "Jacq",
+    "rarity": "Special Illustration Rare",
+    "number": "250",
+    "image": "/assets/sets/scarlet-violet/cards/250_Jacq_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-251-miriam",
+    "name": "Miriam",
+    "rarity": "Special Illustration Rare",
+    "number": "251",
+    "image": "/assets/sets/scarlet-violet/cards/251_Miriam_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-252-penny",
+    "name": "Penny",
+    "rarity": "Special Illustration Rare",
+    "number": "252",
+    "image": "/assets/sets/scarlet-violet/cards/252_Penny_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-253-miraidon-ex-hyper",
+    "name": "Miraidon ex Hyper",
+    "rarity": "Rare",
+    "number": "253",
+    "image": "/assets/sets/scarlet-violet/cards/253_Miraidon_ex_Hyper_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-254-koraidon-ex-hyper",
+    "name": "Koraidon ex Hyper",
+    "rarity": "Rare",
+    "number": "254",
+    "image": "/assets/sets/scarlet-violet/cards/254_Koraidon_ex_Hyper_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-255-nest-ball-hyper",
+    "name": "Nest Ball Hyper",
+    "rarity": "Rare",
+    "number": "255",
+    "image": "/assets/sets/scarlet-violet/cards/255_Nest_Ball_Hyper_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-256-rare-candy-hyper",
+    "name": "Rare Candy Hyper",
+    "rarity": "Rare",
+    "number": "256",
+    "image": "/assets/sets/scarlet-violet/cards/256_Rare_Candy_Hyper_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-257-basic-lightning-energy-hyper",
+    "name": "Basic Lightning Energy Hyper",
+    "rarity": "Rare",
+    "number": "257",
+    "image": "/assets/sets/scarlet-violet/cards/257_Basic_Lightning_Energy_Hyper_Rare.png"
+  },
+  {
+    "id": "scarlet-violet-258-basic-fighting-energy-hyper",
+    "name": "Basic Fighting Energy Hyper",
+    "rarity": "Rare",
+    "number": "258",
+    "image": "/assets/sets/scarlet-violet/cards/258_Basic_Fighting_Energy_Hyper_Rare.png"
+  }
+]

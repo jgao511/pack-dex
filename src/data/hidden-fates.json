@@ -1,0 +1,1237 @@
+[
+  {
+    "id": "hidden-fates-1-caterpie",
+    "name": "Caterpie",
+    "rarity": "Common",
+    "number": "1",
+    "image": "/assets/sets/hidden-fates/cards/1_Caterpie_Common.png"
+  },
+  {
+    "id": "hidden-fates-2-metapod",
+    "name": "Metapod",
+    "rarity": "Uncommon",
+    "number": "2",
+    "image": "/assets/sets/hidden-fates/cards/2_Metapod_Uncommon.png"
+  },
+  {
+    "id": "hidden-fates-3-butterfree",
+    "name": "Butterfree",
+    "rarity": "Rare",
+    "number": "3",
+    "image": "/assets/sets/hidden-fates/cards/3_Butterfree_Rare.png"
+  },
+  {
+    "id": "hidden-fates-4-paras",
+    "name": "Paras",
+    "rarity": "Common",
+    "number": "4",
+    "image": "/assets/sets/hidden-fates/cards/4_Paras_Common.png"
+  },
+  {
+    "id": "hidden-fates-5-scyther",
+    "name": "Scyther",
+    "rarity": "Uncommon",
+    "number": "5",
+    "image": "/assets/sets/hidden-fates/cards/5_Scyther_Uncommon.png"
+  },
+  {
+    "id": "hidden-fates-6-pinsir-gx",
+    "name": "Pinsir-GX",
+    "rarity": "Double Rare",
+    "number": "6",
+    "image": "/assets/sets/hidden-fates/cards/6_Pinsir-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "hidden-fates-7-charmander",
+    "name": "Charmander",
+    "rarity": "Common",
+    "number": "7",
+    "image": "/assets/sets/hidden-fates/cards/7_Charmander_Common.png"
+  },
+  {
+    "id": "hidden-fates-8-charmeleon",
+    "name": "Charmeleon",
+    "rarity": "Uncommon",
+    "number": "8",
+    "image": "/assets/sets/hidden-fates/cards/8_Charmeleon_Uncommon.png"
+  },
+  {
+    "id": "hidden-fates-9-charizard-gx",
+    "name": "Charizard-GX",
+    "rarity": "Double Rare",
+    "number": "9",
+    "image": "/assets/sets/hidden-fates/cards/9_Charizard-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "hidden-fates-10-magmar",
+    "name": "Magmar",
+    "rarity": "Uncommon",
+    "number": "10",
+    "image": "/assets/sets/hidden-fates/cards/10_Magmar_Uncommon.png"
+  },
+  {
+    "id": "hidden-fates-11-psyduck",
+    "name": "Psyduck",
+    "rarity": "Common",
+    "number": "11",
+    "image": "/assets/sets/hidden-fates/cards/11_Psyduck_Common.png"
+  },
+  {
+    "id": "hidden-fates-12-slowpoke",
+    "name": "Slowpoke",
+    "rarity": "Common",
+    "number": "12",
+    "image": "/assets/sets/hidden-fates/cards/12_Slowpoke_Common.png"
+  },
+  {
+    "id": "hidden-fates-13-staryu",
+    "name": "Staryu",
+    "rarity": "Common",
+    "number": "13",
+    "image": "/assets/sets/hidden-fates/cards/13_Staryu_Common.png"
+  },
+  {
+    "id": "hidden-fates-14-starmie-gx",
+    "name": "Starmie-GX",
+    "rarity": "Double Rare",
+    "number": "14",
+    "image": "/assets/sets/hidden-fates/cards/14_Starmie-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "hidden-fates-15-magikarp",
+    "name": "Magikarp",
+    "rarity": "Common",
+    "number": "15",
+    "image": "/assets/sets/hidden-fates/cards/15_Magikarp_Common.png"
+  },
+  {
+    "id": "hidden-fates-16-gyarados-gx",
+    "name": "Gyarados-GX",
+    "rarity": "Double Rare",
+    "number": "16",
+    "image": "/assets/sets/hidden-fates/cards/16_Gyarados-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "hidden-fates-17-lapras",
+    "name": "Lapras",
+    "rarity": "Rare",
+    "number": "17",
+    "image": "/assets/sets/hidden-fates/cards/17_Lapras_Rare.png"
+  },
+  {
+    "id": "hidden-fates-18-vaporeon",
+    "name": "Vaporeon",
+    "rarity": "Rare",
+    "number": "18",
+    "image": "/assets/sets/hidden-fates/cards/18_Vaporeon_Rare_Holo.png"
+  },
+  {
+    "id": "hidden-fates-19-pikachu",
+    "name": "Pikachu",
+    "rarity": "Common",
+    "number": "19",
+    "image": "/assets/sets/hidden-fates/cards/19_Pikachu_Common.png"
+  },
+  {
+    "id": "hidden-fates-20-raichu-gx",
+    "name": "Raichu-GX",
+    "rarity": "Double Rare",
+    "number": "20",
+    "image": "/assets/sets/hidden-fates/cards/20_Raichu-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "hidden-fates-21-voltorb",
+    "name": "Voltorb",
+    "rarity": "Common",
+    "number": "21",
+    "image": "/assets/sets/hidden-fates/cards/21_Voltorb_Common.png"
+  },
+  {
+    "id": "hidden-fates-22-electrode",
+    "name": "Electrode",
+    "rarity": "Rare",
+    "number": "22",
+    "image": "/assets/sets/hidden-fates/cards/22_Electrode_Rare.png"
+  },
+  {
+    "id": "hidden-fates-23-jolteon",
+    "name": "Jolteon",
+    "rarity": "Rare",
+    "number": "23",
+    "image": "/assets/sets/hidden-fates/cards/23_Jolteon_Rare.png"
+  },
+  {
+    "id": "hidden-fates-24-zapdos",
+    "name": "Zapdos",
+    "rarity": "Rare",
+    "number": "24",
+    "image": "/assets/sets/hidden-fates/cards/24_Zapdos_Rare_Holo.png"
+  },
+  {
+    "id": "hidden-fates-25-ekans",
+    "name": "Ekans",
+    "rarity": "Common",
+    "number": "25",
+    "image": "/assets/sets/hidden-fates/cards/25_Ekans_Common.png"
+  },
+  {
+    "id": "hidden-fates-26-ekans",
+    "name": "Ekans",
+    "rarity": "Common",
+    "number": "26",
+    "image": "/assets/sets/hidden-fates/cards/26_Ekans_Common.png"
+  },
+  {
+    "id": "hidden-fates-27-arbok",
+    "name": "Arbok",
+    "rarity": "Rare",
+    "number": "27",
+    "image": "/assets/sets/hidden-fates/cards/27_Arbok_Rare.png"
+  },
+  {
+    "id": "hidden-fates-28-koffing",
+    "name": "Koffing",
+    "rarity": "Common",
+    "number": "28",
+    "image": "/assets/sets/hidden-fates/cards/28_Koffing_Common.png"
+  },
+  {
+    "id": "hidden-fates-29-weezing",
+    "name": "Weezing",
+    "rarity": "Rare",
+    "number": "29",
+    "image": "/assets/sets/hidden-fates/cards/29_Weezing_Rare.png"
+  },
+  {
+    "id": "hidden-fates-30-jynx",
+    "name": "Jynx",
+    "rarity": "Uncommon",
+    "number": "30",
+    "image": "/assets/sets/hidden-fates/cards/30_Jynx_Uncommon.png"
+  },
+  {
+    "id": "hidden-fates-31-mewtwo-gx",
+    "name": "Mewtwo-GX",
+    "rarity": "Double Rare",
+    "number": "31",
+    "image": "/assets/sets/hidden-fates/cards/31_Mewtwo-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "hidden-fates-32-mew",
+    "name": "Mew",
+    "rarity": "Rare",
+    "number": "32",
+    "image": "/assets/sets/hidden-fates/cards/32_Mew_Rare.png"
+  },
+  {
+    "id": "hidden-fates-33-geodude",
+    "name": "Geodude",
+    "rarity": "Common",
+    "number": "33",
+    "image": "/assets/sets/hidden-fates/cards/33_Geodude_Common.png"
+  },
+  {
+    "id": "hidden-fates-34-graveler",
+    "name": "Graveler",
+    "rarity": "Uncommon",
+    "number": "34",
+    "image": "/assets/sets/hidden-fates/cards/34_Graveler_Uncommon.png"
+  },
+  {
+    "id": "hidden-fates-35-golem",
+    "name": "Golem",
+    "rarity": "Rare",
+    "number": "35",
+    "image": "/assets/sets/hidden-fates/cards/35_Golem_Rare.png"
+  },
+  {
+    "id": "hidden-fates-36-onix-gx",
+    "name": "Onix-GX",
+    "rarity": "Double Rare",
+    "number": "36",
+    "image": "/assets/sets/hidden-fates/cards/36_Onix-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "hidden-fates-37-cubone",
+    "name": "Cubone",
+    "rarity": "Common",
+    "number": "37",
+    "image": "/assets/sets/hidden-fates/cards/37_Cubone_Common.png"
+  },
+  {
+    "id": "hidden-fates-38-clefairy",
+    "name": "Clefairy",
+    "rarity": "Common",
+    "number": "38",
+    "image": "/assets/sets/hidden-fates/cards/38_Clefairy_Common.png"
+  },
+  {
+    "id": "hidden-fates-39-clefairy",
+    "name": "Clefairy",
+    "rarity": "Common",
+    "number": "39",
+    "image": "/assets/sets/hidden-fates/cards/39_Clefairy_Common.png"
+  },
+  {
+    "id": "hidden-fates-40-clefable",
+    "name": "Clefable",
+    "rarity": "Rare",
+    "number": "40",
+    "image": "/assets/sets/hidden-fates/cards/40_Clefable_Rare.png"
+  },
+  {
+    "id": "hidden-fates-41-jigglypuff",
+    "name": "Jigglypuff",
+    "rarity": "Common",
+    "number": "41",
+    "image": "/assets/sets/hidden-fates/cards/41_Jigglypuff_Common.png"
+  },
+  {
+    "id": "hidden-fates-42-wigglytuff-gx",
+    "name": "Wigglytuff-GX",
+    "rarity": "Double Rare",
+    "number": "42",
+    "image": "/assets/sets/hidden-fates/cards/42_Wigglytuff-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "hidden-fates-43-mr-mime",
+    "name": "Mr. Mime",
+    "rarity": "Rare",
+    "number": "43",
+    "image": "/assets/sets/hidden-fates/cards/43_Mr._Mime_Rare.png"
+  },
+  {
+    "id": "hidden-fates-44-moltres-zapdos-articuno-gx",
+    "name": "Moltres & Zapdos & Articuno-GX",
+    "rarity": "Double Rare",
+    "number": "44",
+    "image": "/assets/sets/hidden-fates/cards/44_Moltres_&_Zapdos_&_Articuno-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "hidden-fates-45-farfetch-d",
+    "name": "Farfetch'd",
+    "rarity": "Uncommon",
+    "number": "45",
+    "image": "/assets/sets/hidden-fates/cards/45_Farfetch'd_Uncommon.png"
+  },
+  {
+    "id": "hidden-fates-46-chansey",
+    "name": "Chansey",
+    "rarity": "Uncommon",
+    "number": "46",
+    "image": "/assets/sets/hidden-fates/cards/46_Chansey_Uncommon.png"
+  },
+  {
+    "id": "hidden-fates-47-kangaskhan",
+    "name": "Kangaskhan",
+    "rarity": "Rare",
+    "number": "47",
+    "image": "/assets/sets/hidden-fates/cards/47_Kangaskhan_Rare.png"
+  },
+  {
+    "id": "hidden-fates-48-eevee",
+    "name": "Eevee",
+    "rarity": "Rare",
+    "number": "48",
+    "image": "/assets/sets/hidden-fates/cards/48_Eevee_Rare_Holo.png"
+  },
+  {
+    "id": "hidden-fates-49-eevee",
+    "name": "Eevee",
+    "rarity": "Common",
+    "number": "49",
+    "image": "/assets/sets/hidden-fates/cards/49_Eevee_Common.png"
+  },
+  {
+    "id": "hidden-fates-50-snorlax",
+    "name": "Snorlax",
+    "rarity": "Rare",
+    "number": "50",
+    "image": "/assets/sets/hidden-fates/cards/50_Snorlax_Rare.png"
+  },
+  {
+    "id": "hidden-fates-51-bill-s-analysis",
+    "name": "Bill's Analysis",
+    "rarity": "Rare",
+    "number": "51",
+    "image": "/assets/sets/hidden-fates/cards/51_Bill's_Analysis_Rare.png"
+  },
+  {
+    "id": "hidden-fates-52-blaine-s-last-stand",
+    "name": "Blaine's Last Stand",
+    "rarity": "Rare",
+    "number": "52",
+    "image": "/assets/sets/hidden-fates/cards/52_Blaine's_Last_Stand_Rare.png"
+  },
+  {
+    "id": "hidden-fates-53-brock-s-grit",
+    "name": "Brock's Grit",
+    "rarity": "Uncommon",
+    "number": "53",
+    "image": "/assets/sets/hidden-fates/cards/53_Brock's_Grit_Uncommon.png"
+  },
+  {
+    "id": "hidden-fates-54-brock-s-pewter-city-gym",
+    "name": "Brock's Pewter City Gym",
+    "rarity": "Uncommon",
+    "number": "54",
+    "image": "/assets/sets/hidden-fates/cards/54_Brock's_Pewter_City_Gym_Uncommon.png"
+  },
+  {
+    "id": "hidden-fates-55-brock-s-training",
+    "name": "Brock's Training",
+    "rarity": "Rare",
+    "number": "55",
+    "image": "/assets/sets/hidden-fates/cards/55_Brock's_Training_Rare_Holo.png"
+  },
+  {
+    "id": "hidden-fates-56-erika-s-hospitality",
+    "name": "Erika's Hospitality",
+    "rarity": "Rare",
+    "number": "56",
+    "image": "/assets/sets/hidden-fates/cards/56_Erika's_Hospitality_Rare.png"
+  },
+  {
+    "id": "hidden-fates-57-giovanni-s-exile",
+    "name": "Giovanni's Exile",
+    "rarity": "Uncommon",
+    "number": "57",
+    "image": "/assets/sets/hidden-fates/cards/57_Giovanni's_Exile_Uncommon.png"
+  },
+  {
+    "id": "hidden-fates-58-jessie-james",
+    "name": "Jessie & James",
+    "rarity": "Rare",
+    "number": "58",
+    "image": "/assets/sets/hidden-fates/cards/58_Jessie_&_James_Rare_Holo.png"
+  },
+  {
+    "id": "hidden-fates-59-koga-s-trap",
+    "name": "Koga's Trap",
+    "rarity": "Uncommon",
+    "number": "59",
+    "image": "/assets/sets/hidden-fates/cards/59_Koga's_Trap_Uncommon.png"
+  },
+  {
+    "id": "hidden-fates-60-lt-surge-s-strategy",
+    "name": "Lt. Surge's Strategy",
+    "rarity": "Uncommon",
+    "number": "60",
+    "image": "/assets/sets/hidden-fates/cards/60_Lt._Surge's_Strategy_Uncommon.png"
+  },
+  {
+    "id": "hidden-fates-61-misty-s-cerulean-city-gym",
+    "name": "Misty's Cerulean City Gym",
+    "rarity": "Uncommon",
+    "number": "61",
+    "image": "/assets/sets/hidden-fates/cards/61_Misty's_Cerulean_City_Gym_Uncommon.png"
+  },
+  {
+    "id": "hidden-fates-62-misty-s-determination",
+    "name": "Misty's Determination",
+    "rarity": "Uncommon",
+    "number": "62",
+    "image": "/assets/sets/hidden-fates/cards/62_Misty's_Determination_Uncommon.png"
+  },
+  {
+    "id": "hidden-fates-63-misty-s-water-command",
+    "name": "Misty's Water Command",
+    "rarity": "Rare",
+    "number": "63",
+    "image": "/assets/sets/hidden-fates/cards/63_Misty's_Water_Command_Rare_Holo.png"
+  },
+  {
+    "id": "hidden-fates-64-pok-mon-center-lady",
+    "name": "Pokémon Center Lady",
+    "rarity": "Uncommon",
+    "number": "64",
+    "image": "/assets/sets/hidden-fates/cards/64_Pokémon_Center_Lady_Uncommon.png"
+  },
+  {
+    "id": "hidden-fates-65-sabrina-s-suggestion",
+    "name": "Sabrina's Suggestion",
+    "rarity": "Uncommon",
+    "number": "65",
+    "image": "/assets/sets/hidden-fates/cards/65_Sabrina's_Suggestion_Uncommon.png"
+  },
+  {
+    "id": "hidden-fates-66-moltres-zapdos-articuno-gx",
+    "name": "Moltres & Zapdos & Articuno-GX",
+    "rarity": "Ultra Rare",
+    "number": "66",
+    "image": "/assets/sets/hidden-fates/cards/66_Moltres_&_Zapdos_&_Articuno-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "hidden-fates-67-giovanni-s-exile",
+    "name": "Giovanni's Exile",
+    "rarity": "Ultra Rare",
+    "number": "67",
+    "image": "/assets/sets/hidden-fates/cards/67_Giovanni's_Exile_Rare_Ultra.png"
+  },
+  {
+    "id": "hidden-fates-68-jessie-james",
+    "name": "Jessie & James",
+    "rarity": "Ultra Rare",
+    "number": "68",
+    "image": "/assets/sets/hidden-fates/cards/68_Jessie_&_James_Rare_Ultra.png"
+  },
+  {
+    "id": "hidden-fates-69-moltres-zapdos-articuno-gx",
+    "name": "Moltres & Zapdos & Articuno-GX",
+    "rarity": "Secret Rare",
+    "number": "69",
+    "image": "/assets/sets/hidden-fates/cards/69_Moltres_&_Zapdos_&_Articuno-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "hidden-fates-SV1-scyther",
+    "name": "Scyther",
+    "rarity": "Rare Shiny",
+    "number": "SV1",
+    "image": "/assets/sets/hidden-fates/cards/SV1_Scyther_Rare_Shiny_sma-sv1.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV10-quagsire",
+    "name": "Quagsire",
+    "rarity": "Rare Shiny",
+    "number": "SV10",
+    "image": "/assets/sets/hidden-fates/cards/SV10_Quagsire_Rare_Shiny_sma-sv10.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV11-froakie",
+    "name": "Froakie",
+    "rarity": "Rare Shiny",
+    "number": "SV11",
+    "image": "/assets/sets/hidden-fates/cards/SV11_Froakie_Rare_Shiny_sma-sv11.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV12-frogadier",
+    "name": "Frogadier",
+    "rarity": "Rare Shiny",
+    "number": "SV12",
+    "image": "/assets/sets/hidden-fates/cards/SV12_Frogadier_Rare_Shiny_sma-sv12.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV13-voltorb",
+    "name": "Voltorb",
+    "rarity": "Rare Shiny",
+    "number": "SV13",
+    "image": "/assets/sets/hidden-fates/cards/SV13_Voltorb_Rare_Shiny_sma-sv13.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV14-xurkitree",
+    "name": "Xurkitree",
+    "rarity": "Rare Shiny",
+    "number": "SV14",
+    "image": "/assets/sets/hidden-fates/cards/SV14_Xurkitree_Rare_Shiny_sma-sv14.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV15-seviper",
+    "name": "Seviper",
+    "rarity": "Rare Shiny",
+    "number": "SV15",
+    "image": "/assets/sets/hidden-fates/cards/SV15_Seviper_Rare_Shiny_sma-sv15.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV16-shuppet",
+    "name": "Shuppet",
+    "rarity": "Rare Shiny",
+    "number": "SV16",
+    "image": "/assets/sets/hidden-fates/cards/SV16_Shuppet_Rare_Shiny_sma-sv16.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV17-inkay",
+    "name": "Inkay",
+    "rarity": "Rare Shiny",
+    "number": "SV17",
+    "image": "/assets/sets/hidden-fates/cards/SV17_Inkay_Rare_Shiny_sma-sv17.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV18-malamar",
+    "name": "Malamar",
+    "rarity": "Rare Shiny",
+    "number": "SV18",
+    "image": "/assets/sets/hidden-fates/cards/SV18_Malamar_Rare_Shiny_sma-sv18.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV19-poipole",
+    "name": "Poipole",
+    "rarity": "Rare Shiny",
+    "number": "SV19",
+    "image": "/assets/sets/hidden-fates/cards/SV19_Poipole_Rare_Shiny_sma-sv19.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV2-rowlet",
+    "name": "Rowlet",
+    "rarity": "Rare Shiny",
+    "number": "SV2",
+    "image": "/assets/sets/hidden-fates/cards/SV2_Rowlet_Rare_Shiny_sma-sv2.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV20-sudowoodo",
+    "name": "Sudowoodo",
+    "rarity": "Rare Shiny",
+    "number": "SV20",
+    "image": "/assets/sets/hidden-fates/cards/SV20_Sudowoodo_Rare_Shiny_sma-sv20.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV21-riolu",
+    "name": "Riolu",
+    "rarity": "Rare Shiny",
+    "number": "SV21",
+    "image": "/assets/sets/hidden-fates/cards/SV21_Riolu_Rare_Shiny_sma-sv21.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV22-lucario",
+    "name": "Lucario",
+    "rarity": "Rare Shiny",
+    "number": "SV22",
+    "image": "/assets/sets/hidden-fates/cards/SV22_Lucario_Rare_Shiny_sma-sv22.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV23-rockruff",
+    "name": "Rockruff",
+    "rarity": "Rare Shiny",
+    "number": "SV23",
+    "image": "/assets/sets/hidden-fates/cards/SV23_Rockruff_Rare_Shiny_sma-sv23.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV24-buzzwole",
+    "name": "Buzzwole",
+    "rarity": "Rare Shiny",
+    "number": "SV24",
+    "image": "/assets/sets/hidden-fates/cards/SV24_Buzzwole_Rare_Shiny_sma-sv24.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV25-zorua",
+    "name": "Zorua",
+    "rarity": "Rare Shiny",
+    "number": "SV25",
+    "image": "/assets/sets/hidden-fates/cards/SV25_Zorua_Rare_Shiny_sma-sv25.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV26-guzzlord",
+    "name": "Guzzlord",
+    "rarity": "Rare Shiny",
+    "number": "SV26",
+    "image": "/assets/sets/hidden-fates/cards/SV26_Guzzlord_Rare_Shiny_sma-sv26.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV27-magnemite",
+    "name": "Magnemite",
+    "rarity": "Rare Shiny",
+    "number": "SV27",
+    "image": "/assets/sets/hidden-fates/cards/SV27_Magnemite_Rare_Shiny_sma-sv27.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV28-magneton",
+    "name": "Magneton",
+    "rarity": "Rare Shiny",
+    "number": "SV28",
+    "image": "/assets/sets/hidden-fates/cards/SV28_Magneton_Rare_Shiny_sma-sv28.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV29-magnezone",
+    "name": "Magnezone",
+    "rarity": "Rare Shiny",
+    "number": "SV29",
+    "image": "/assets/sets/hidden-fates/cards/SV29_Magnezone_Rare_Shiny_sma-sv29.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV3-dartrix",
+    "name": "Dartrix",
+    "rarity": "Rare Shiny",
+    "number": "SV3",
+    "image": "/assets/sets/hidden-fates/cards/SV3_Dartrix_Rare_Shiny_sma-sv3.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV30-beldum",
+    "name": "Beldum",
+    "rarity": "Rare Shiny",
+    "number": "SV30",
+    "image": "/assets/sets/hidden-fates/cards/SV30_Beldum_Rare_Shiny_sma-sv30.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV31-metang",
+    "name": "Metang",
+    "rarity": "Rare Shiny",
+    "number": "SV31",
+    "image": "/assets/sets/hidden-fates/cards/SV31_Metang_Rare_Shiny_sma-sv31.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV32-celesteela",
+    "name": "Celesteela",
+    "rarity": "Rare Shiny",
+    "number": "SV32",
+    "image": "/assets/sets/hidden-fates/cards/SV32_Celesteela_Rare_Shiny_sma-sv32.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV33-kartana",
+    "name": "Kartana",
+    "rarity": "Rare Shiny",
+    "number": "SV33",
+    "image": "/assets/sets/hidden-fates/cards/SV33_Kartana_Rare_Shiny_sma-sv33.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV34-ralts",
+    "name": "Ralts",
+    "rarity": "Rare Shiny",
+    "number": "SV34",
+    "image": "/assets/sets/hidden-fates/cards/SV34_Ralts_Rare_Shiny_sma-sv34.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV35-kirlia",
+    "name": "Kirlia",
+    "rarity": "Rare Shiny",
+    "number": "SV35",
+    "image": "/assets/sets/hidden-fates/cards/SV35_Kirlia_Rare_Shiny_sma-sv35.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV36-diancie",
+    "name": "Diancie",
+    "rarity": "Rare Shiny",
+    "number": "SV36",
+    "image": "/assets/sets/hidden-fates/cards/SV36_Diancie_Rare_Shiny_sma-sv36.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV37-altaria",
+    "name": "Altaria",
+    "rarity": "Rare Shiny",
+    "number": "SV37",
+    "image": "/assets/sets/hidden-fates/cards/SV37_Altaria_Rare_Shiny_sma-sv37.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV38-gible",
+    "name": "Gible",
+    "rarity": "Rare Shiny",
+    "number": "SV38",
+    "image": "/assets/sets/hidden-fates/cards/SV38_Gible_Rare_Shiny_sma-sv38.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV39-gabite",
+    "name": "Gabite",
+    "rarity": "Rare Shiny",
+    "number": "SV39",
+    "image": "/assets/sets/hidden-fates/cards/SV39_Gabite_Rare_Shiny_sma-sv39.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV4-wimpod",
+    "name": "Wimpod",
+    "rarity": "Rare Shiny",
+    "number": "SV4",
+    "image": "/assets/sets/hidden-fates/cards/SV4_Wimpod_Rare_Shiny_sma-sv4.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV40-garchomp",
+    "name": "Garchomp",
+    "rarity": "Rare Shiny",
+    "number": "SV40",
+    "image": "/assets/sets/hidden-fates/cards/SV40_Garchomp_Rare_Shiny_sma-sv40.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV41-eevee",
+    "name": "Eevee",
+    "rarity": "Rare Shiny",
+    "number": "SV41",
+    "image": "/assets/sets/hidden-fates/cards/SV41_Eevee_Rare_Shiny_sma-sv41.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV42-swablu",
+    "name": "Swablu",
+    "rarity": "Rare Shiny",
+    "number": "SV42",
+    "image": "/assets/sets/hidden-fates/cards/SV42_Swablu_Rare_Shiny_sma-sv42.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV43-noibat",
+    "name": "Noibat",
+    "rarity": "Rare Shiny",
+    "number": "SV43",
+    "image": "/assets/sets/hidden-fates/cards/SV43_Noibat_Rare_Shiny_sma-sv43.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV44-oranguru",
+    "name": "Oranguru",
+    "rarity": "Rare Shiny",
+    "number": "SV44",
+    "image": "/assets/sets/hidden-fates/cards/SV44_Oranguru_Rare_Shiny_sma-sv44.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV45-type-null",
+    "name": "Type Null",
+    "rarity": "Rare Shiny",
+    "number": "SV45",
+    "image": "/assets/sets/hidden-fates/cards/SV45_Type_Null_Rare_Shiny_sma-sv45.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV46-leafeon-gx",
+    "name": "Leafeon-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV46",
+    "image": "/assets/sets/hidden-fates/cards/SV46_Leafeon-GX_Rare_Shiny_GX_sma-sv46.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV47-decidueye-gx",
+    "name": "Decidueye-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV47",
+    "image": "/assets/sets/hidden-fates/cards/SV47_Decidueye-GX_Rare_Shiny_GX_sma-sv47.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV48-golisopod-gx",
+    "name": "Golisopod-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV48",
+    "image": "/assets/sets/hidden-fates/cards/SV48_Golisopod-GX_Rare_Shiny_GX_sma-sv48.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV49-charizard-gx",
+    "name": "Charizard-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV49",
+    "image": "/assets/sets/hidden-fates/cards/SV49_Charizard-GX_Rare_Shiny_GX_sma-sv49.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV5-pheromosa",
+    "name": "Pheromosa",
+    "rarity": "Rare Shiny",
+    "number": "SV5",
+    "image": "/assets/sets/hidden-fates/cards/SV5_Pheromosa_Rare_Shiny_sma-sv5.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV50-ho-oh-gx",
+    "name": "Ho-Oh-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV50",
+    "image": "/assets/sets/hidden-fates/cards/SV50_Ho-Oh-GX_Rare_Shiny_GX_sma-sv50.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV51-reshiram-gx",
+    "name": "Reshiram-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV51",
+    "image": "/assets/sets/hidden-fates/cards/SV51_Reshiram-GX_Rare_Shiny_GX_sma-sv51.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV52-turtonator-gx",
+    "name": "Turtonator-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV52",
+    "image": "/assets/sets/hidden-fates/cards/SV52_Turtonator-GX_Rare_Shiny_GX_sma-sv52.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV53-alolan-ninetales-gx",
+    "name": "Alolan Ninetales-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV53",
+    "image": "/assets/sets/hidden-fates/cards/SV53_Alolan_Ninetales-GX_Rare_Shiny_GX_sma-sv53.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV54-articuno-gx",
+    "name": "Articuno-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV54",
+    "image": "/assets/sets/hidden-fates/cards/SV54_Articuno-GX_Rare_Shiny_GX_sma-sv54.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV55-glaceon-gx",
+    "name": "Glaceon-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV55",
+    "image": "/assets/sets/hidden-fates/cards/SV55_Glaceon-GX_Rare_Shiny_GX_sma-sv55.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV56-greninja-gx",
+    "name": "Greninja-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV56",
+    "image": "/assets/sets/hidden-fates/cards/SV56_Greninja-GX_Rare_Shiny_GX_sma-sv56.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV57-electrode-gx",
+    "name": "Electrode-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV57",
+    "image": "/assets/sets/hidden-fates/cards/SV57_Electrode-GX_Rare_Shiny_GX_sma-sv57.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV58-xurkitree-gx",
+    "name": "Xurkitree-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV58",
+    "image": "/assets/sets/hidden-fates/cards/SV58_Xurkitree-GX_Rare_Shiny_GX_sma-sv58.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV59-mewtwo-gx",
+    "name": "Mewtwo-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV59",
+    "image": "/assets/sets/hidden-fates/cards/SV59_Mewtwo-GX_Rare_Shiny_GX_sma-sv59.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV6-charmander",
+    "name": "Charmander",
+    "rarity": "Rare Shiny",
+    "number": "SV6",
+    "image": "/assets/sets/hidden-fates/cards/SV6_Charmander_Rare_Shiny_sma-sv6.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV60-espeon-gx",
+    "name": "Espeon-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV60",
+    "image": "/assets/sets/hidden-fates/cards/SV60_Espeon-GX_Rare_Shiny_GX_sma-sv60.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV61-banette-gx",
+    "name": "Banette-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV61",
+    "image": "/assets/sets/hidden-fates/cards/SV61_Banette-GX_Rare_Shiny_GX_sma-sv61.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV62-nihilego-gx",
+    "name": "Nihilego-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV62",
+    "image": "/assets/sets/hidden-fates/cards/SV62_Nihilego-GX_Rare_Shiny_GX_sma-sv62.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV63-naganadel-gx",
+    "name": "Naganadel-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV63",
+    "image": "/assets/sets/hidden-fates/cards/SV63_Naganadel-GX_Rare_Shiny_GX_sma-sv63.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV64-lucario-gx",
+    "name": "Lucario-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV64",
+    "image": "/assets/sets/hidden-fates/cards/SV64_Lucario-GX_Rare_Shiny_GX_sma-sv64.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV65-zygarde-gx",
+    "name": "Zygarde-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV65",
+    "image": "/assets/sets/hidden-fates/cards/SV65_Zygarde-GX_Rare_Shiny_GX_sma-sv65.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV66-lycanroc-gx",
+    "name": "Lycanroc-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV66",
+    "image": "/assets/sets/hidden-fates/cards/SV66_Lycanroc-GX_Rare_Shiny_GX_sma-sv66.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV67-lycanroc-gx",
+    "name": "Lycanroc-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV67",
+    "image": "/assets/sets/hidden-fates/cards/SV67_Lycanroc-GX_Rare_Shiny_GX_sma-sv67.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV68-buzzwole-gx",
+    "name": "Buzzwole-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV68",
+    "image": "/assets/sets/hidden-fates/cards/SV68_Buzzwole-GX_Rare_Shiny_GX_sma-sv68.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV69-umbreon-gx",
+    "name": "Umbreon-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV69",
+    "image": "/assets/sets/hidden-fates/cards/SV69_Umbreon-GX_Rare_Shiny_GX_sma-sv69.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV7-charmeleon",
+    "name": "Charmeleon",
+    "rarity": "Rare Shiny",
+    "number": "SV7",
+    "image": "/assets/sets/hidden-fates/cards/SV7_Charmeleon_Rare_Shiny_sma-sv7.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV70-darkrai-gx",
+    "name": "Darkrai-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV70",
+    "image": "/assets/sets/hidden-fates/cards/SV70_Darkrai-GX_Rare_Shiny_GX_sma-sv70.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV71-guzzlord-gx",
+    "name": "Guzzlord-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV71",
+    "image": "/assets/sets/hidden-fates/cards/SV71_Guzzlord-GX_Rare_Shiny_GX_sma-sv71.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV72-scizor-gx",
+    "name": "Scizor-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV72",
+    "image": "/assets/sets/hidden-fates/cards/SV72_Scizor-GX_Rare_Shiny_GX_sma-sv72.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV73-kartana-gx",
+    "name": "Kartana-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV73",
+    "image": "/assets/sets/hidden-fates/cards/SV73_Kartana-GX_Rare_Shiny_GX_sma-sv73.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV74-stakataka-gx",
+    "name": "Stakataka-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV74",
+    "image": "/assets/sets/hidden-fates/cards/SV74_Stakataka-GX_Rare_Shiny_GX_sma-sv74.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV75-gardevoir-gx",
+    "name": "Gardevoir-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV75",
+    "image": "/assets/sets/hidden-fates/cards/SV75_Gardevoir-GX_Rare_Shiny_GX_sma-sv75.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV76-sylveon-gx",
+    "name": "Sylveon-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV76",
+    "image": "/assets/sets/hidden-fates/cards/SV76_Sylveon-GX_Rare_Shiny_GX_sma-sv76.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV77-altaria-gx",
+    "name": "Altaria-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV77",
+    "image": "/assets/sets/hidden-fates/cards/SV77_Altaria-GX_Rare_Shiny_GX_sma-sv77.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV78-noivern-gx",
+    "name": "Noivern-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV78",
+    "image": "/assets/sets/hidden-fates/cards/SV78_Noivern-GX_Rare_Shiny_GX_sma-sv78.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV79-silvally-gx",
+    "name": "Silvally-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV79",
+    "image": "/assets/sets/hidden-fates/cards/SV79_Silvally-GX_Rare_Shiny_GX_sma-sv79.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV8-alolan-vulpix",
+    "name": "Alolan Vulpix",
+    "rarity": "Rare Shiny",
+    "number": "SV8",
+    "image": "/assets/sets/hidden-fates/cards/SV8_Alolan_Vulpix_Rare_Shiny_sma-sv8.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV80-drampa-gx",
+    "name": "Drampa-GX",
+    "rarity": "Rare Shiny GX",
+    "number": "SV80",
+    "image": "/assets/sets/hidden-fates/cards/SV80_Drampa-GX_Rare_Shiny_GX_sma-sv80.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV81-aether-foundation-employee",
+    "name": "Aether Foundation Employee",
+    "rarity": "Ultra Rare",
+    "number": "SV81",
+    "image": "/assets/sets/hidden-fates/cards/SV81_Aether_Foundation_Employee_Rare_Ultra_sma-sv81.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV82-cynthia",
+    "name": "Cynthia",
+    "rarity": "Ultra Rare",
+    "number": "SV82",
+    "image": "/assets/sets/hidden-fates/cards/SV82_Cynthia_Rare_Ultra_sma-sv82.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV83-fisherman",
+    "name": "Fisherman",
+    "rarity": "Ultra Rare",
+    "number": "SV83",
+    "image": "/assets/sets/hidden-fates/cards/SV83_Fisherman_Rare_Ultra_sma-sv83.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV84-guzma",
+    "name": "Guzma",
+    "rarity": "Ultra Rare",
+    "number": "SV84",
+    "image": "/assets/sets/hidden-fates/cards/SV84_Guzma_Rare_Ultra_sma-sv84.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV85-hiker",
+    "name": "Hiker",
+    "rarity": "Ultra Rare",
+    "number": "SV85",
+    "image": "/assets/sets/hidden-fates/cards/SV85_Hiker_Rare_Ultra_sma-sv85.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV86-lady",
+    "name": "Lady",
+    "rarity": "Ultra Rare",
+    "number": "SV86",
+    "image": "/assets/sets/hidden-fates/cards/SV86_Lady_Rare_Ultra_sma-sv86.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV87-aether-paradise-conservation-area",
+    "name": "Aether Paradise Conservation Area",
+    "rarity": "Secret Rare",
+    "number": "SV87",
+    "image": "/assets/sets/hidden-fates/cards/SV87_Aether_Paradise_Conservation_Area_Rare_Secret_sma-sv87.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV88-brooklet-hill",
+    "name": "Brooklet Hill",
+    "rarity": "Secret Rare",
+    "number": "SV88",
+    "image": "/assets/sets/hidden-fates/cards/SV88_Brooklet_Hill_Rare_Secret_sma-sv88.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV89-mt-coronet",
+    "name": "Mt. Coronet",
+    "rarity": "Secret Rare",
+    "number": "SV89",
+    "image": "/assets/sets/hidden-fates/cards/SV89_Mt._Coronet_Rare_Secret_sma-sv89.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV9-wooper",
+    "name": "Wooper",
+    "rarity": "Rare Shiny",
+    "number": "SV9",
+    "image": "/assets/sets/hidden-fates/cards/SV9_Wooper_Rare_Shiny_sma-sv9.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV90-shrine-of-punishment",
+    "name": "Shrine of Punishment",
+    "rarity": "Secret Rare",
+    "number": "SV90",
+    "image": "/assets/sets/hidden-fates/cards/SV90_Shrine_of_Punishment_Rare_Secret_sma-sv90.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV91-tapu-bulu-gx",
+    "name": "Tapu Bulu-GX",
+    "rarity": "Secret Rare",
+    "number": "SV91",
+    "image": "/assets/sets/hidden-fates/cards/SV91_Tapu_Bulu-GX_Rare_Secret_sma-sv91.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV92-tapu-fini-gx",
+    "name": "Tapu Fini-GX",
+    "rarity": "Secret Rare",
+    "number": "SV92",
+    "image": "/assets/sets/hidden-fates/cards/SV92_Tapu_Fini-GX_Rare_Secret_sma-sv92.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV93-tapu-koko-gx",
+    "name": "Tapu Koko-GX",
+    "rarity": "Secret Rare",
+    "number": "SV93",
+    "image": "/assets/sets/hidden-fates/cards/SV93_Tapu_Koko-GX_Rare_Secret_sma-sv93.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "hidden-fates-SV94-tapu-lele-gx",
+    "name": "Tapu Lele-GX",
+    "rarity": "Secret Rare",
+    "number": "SV94",
+    "image": "/assets/sets/hidden-fates/cards/SV94_Tapu_Lele-GX_Rare_Secret_sma-sv94.png",
+    "subset": "Shiny Vault"
+  }
+]

@@ -1,0 +1,1409 @@
+[
+  {
+    "id": "darkness-ablaze-1-butterfree-v",
+    "name": "Butterfree V",
+    "rarity": "Double Rare",
+    "number": "1",
+    "image": "/assets/sets/darkness-ablaze/cards/1_Butterfree_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "darkness-ablaze-2-butterfree-vmax",
+    "name": "Butterfree VMAX",
+    "rarity": "Ultra Rare",
+    "number": "2",
+    "image": "/assets/sets/darkness-ablaze/cards/2_Butterfree_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "darkness-ablaze-3-paras",
+    "name": "Paras",
+    "rarity": "Common",
+    "number": "3",
+    "image": "/assets/sets/darkness-ablaze/cards/3_Paras_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-4-parasect",
+    "name": "Parasect",
+    "rarity": "Uncommon",
+    "number": "4",
+    "image": "/assets/sets/darkness-ablaze/cards/4_Parasect_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-5-carnivine",
+    "name": "Carnivine",
+    "rarity": "Uncommon",
+    "number": "5",
+    "image": "/assets/sets/darkness-ablaze/cards/5_Carnivine_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-6-pansage",
+    "name": "Pansage",
+    "rarity": "Common",
+    "number": "6",
+    "image": "/assets/sets/darkness-ablaze/cards/6_Pansage_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-7-simisage",
+    "name": "Simisage",
+    "rarity": "Uncommon",
+    "number": "7",
+    "image": "/assets/sets/darkness-ablaze/cards/7_Simisage_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-8-karrablast",
+    "name": "Karrablast",
+    "rarity": "Common",
+    "number": "8",
+    "image": "/assets/sets/darkness-ablaze/cards/8_Karrablast_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-9-shelmet",
+    "name": "Shelmet",
+    "rarity": "Common",
+    "number": "9",
+    "image": "/assets/sets/darkness-ablaze/cards/9_Shelmet_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-10-accelgor",
+    "name": "Accelgor",
+    "rarity": "Rare",
+    "number": "10",
+    "image": "/assets/sets/darkness-ablaze/cards/10_Accelgor_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-11-rowlet",
+    "name": "Rowlet",
+    "rarity": "Common",
+    "number": "11",
+    "image": "/assets/sets/darkness-ablaze/cards/11_Rowlet_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-12-dartrix",
+    "name": "Dartrix",
+    "rarity": "Uncommon",
+    "number": "12",
+    "image": "/assets/sets/darkness-ablaze/cards/12_Dartrix_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-13-decidueye",
+    "name": "Decidueye",
+    "rarity": "Rare",
+    "number": "13",
+    "image": "/assets/sets/darkness-ablaze/cards/13_Decidueye_Rare_Holo.png"
+  },
+  {
+    "id": "darkness-ablaze-14-bounsweet",
+    "name": "Bounsweet",
+    "rarity": "Common",
+    "number": "14",
+    "image": "/assets/sets/darkness-ablaze/cards/14_Bounsweet_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-15-steenee",
+    "name": "Steenee",
+    "rarity": "Uncommon",
+    "number": "15",
+    "image": "/assets/sets/darkness-ablaze/cards/15_Steenee_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-16-tsareena",
+    "name": "Tsareena",
+    "rarity": "Rare",
+    "number": "16",
+    "image": "/assets/sets/darkness-ablaze/cards/16_Tsareena_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-17-wimpod",
+    "name": "Wimpod",
+    "rarity": "Common",
+    "number": "17",
+    "image": "/assets/sets/darkness-ablaze/cards/17_Wimpod_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-18-golisopod",
+    "name": "Golisopod",
+    "rarity": "Rare",
+    "number": "18",
+    "image": "/assets/sets/darkness-ablaze/cards/18_Golisopod_Rare_Holo.png"
+  },
+  {
+    "id": "darkness-ablaze-19-charizard-v",
+    "name": "Charizard V",
+    "rarity": "Double Rare",
+    "number": "19",
+    "image": "/assets/sets/darkness-ablaze/cards/19_Charizard_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "darkness-ablaze-20-charizard-vmax",
+    "name": "Charizard VMAX",
+    "rarity": "Ultra Rare",
+    "number": "20",
+    "image": "/assets/sets/darkness-ablaze/cards/20_Charizard_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "darkness-ablaze-21-houndoom-v",
+    "name": "Houndoom V",
+    "rarity": "Double Rare",
+    "number": "21",
+    "image": "/assets/sets/darkness-ablaze/cards/21_Houndoom_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "darkness-ablaze-22-torchic",
+    "name": "Torchic",
+    "rarity": "Common",
+    "number": "22",
+    "image": "/assets/sets/darkness-ablaze/cards/22_Torchic_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-23-combusken",
+    "name": "Combusken",
+    "rarity": "Uncommon",
+    "number": "23",
+    "image": "/assets/sets/darkness-ablaze/cards/23_Combusken_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-24-blaziken",
+    "name": "Blaziken",
+    "rarity": "Rare",
+    "number": "24",
+    "image": "/assets/sets/darkness-ablaze/cards/24_Blaziken_Rare_Holo.png"
+  },
+  {
+    "id": "darkness-ablaze-25-heatran",
+    "name": "Heatran",
+    "rarity": "Rare",
+    "number": "25",
+    "image": "/assets/sets/darkness-ablaze/cards/25_Heatran_Rare_Holo.png"
+  },
+  {
+    "id": "darkness-ablaze-26-pansear",
+    "name": "Pansear",
+    "rarity": "Common",
+    "number": "26",
+    "image": "/assets/sets/darkness-ablaze/cards/26_Pansear_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-27-simisear",
+    "name": "Simisear",
+    "rarity": "Uncommon",
+    "number": "27",
+    "image": "/assets/sets/darkness-ablaze/cards/27_Simisear_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-28-galarian-darmanitan",
+    "name": "Galarian Darmanitan",
+    "rarity": "Rare",
+    "number": "28",
+    "image": "/assets/sets/darkness-ablaze/cards/28_Galarian_Darmanitan_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-29-larvesta",
+    "name": "Larvesta",
+    "rarity": "Common",
+    "number": "29",
+    "image": "/assets/sets/darkness-ablaze/cards/29_Larvesta_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-30-volcarona",
+    "name": "Volcarona",
+    "rarity": "Rare",
+    "number": "30",
+    "image": "/assets/sets/darkness-ablaze/cards/30_Volcarona_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-31-fletchinder",
+    "name": "Fletchinder",
+    "rarity": "Uncommon",
+    "number": "31",
+    "image": "/assets/sets/darkness-ablaze/cards/31_Fletchinder_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-32-talonflame",
+    "name": "Talonflame",
+    "rarity": "Rare",
+    "number": "32",
+    "image": "/assets/sets/darkness-ablaze/cards/32_Talonflame_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-33-centiskorch-v",
+    "name": "Centiskorch V",
+    "rarity": "Double Rare",
+    "number": "33",
+    "image": "/assets/sets/darkness-ablaze/cards/33_Centiskorch_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "darkness-ablaze-34-centiskorch-vmax",
+    "name": "Centiskorch VMAX",
+    "rarity": "Ultra Rare",
+    "number": "34",
+    "image": "/assets/sets/darkness-ablaze/cards/34_Centiskorch_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "darkness-ablaze-35-galarian-mr-mime",
+    "name": "Galarian Mr. Mime",
+    "rarity": "Common",
+    "number": "35",
+    "image": "/assets/sets/darkness-ablaze/cards/35_Galarian_Mr._Mime_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-36-galarian-mr-rime",
+    "name": "Galarian Mr. Rime",
+    "rarity": "Rare",
+    "number": "36",
+    "image": "/assets/sets/darkness-ablaze/cards/36_Galarian_Mr._Rime_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-37-suicune",
+    "name": "Suicune",
+    "rarity": "Rare",
+    "number": "37",
+    "image": "/assets/sets/darkness-ablaze/cards/37_Suicune_Rare_Holo.png"
+  },
+  {
+    "id": "darkness-ablaze-38-feebas",
+    "name": "Feebas",
+    "rarity": "Common",
+    "number": "38",
+    "image": "/assets/sets/darkness-ablaze/cards/38_Feebas_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-39-milotic",
+    "name": "Milotic",
+    "rarity": "Rare",
+    "number": "39",
+    "image": "/assets/sets/darkness-ablaze/cards/39_Milotic_Rare_Holo.png"
+  },
+  {
+    "id": "darkness-ablaze-40-relicanth",
+    "name": "Relicanth",
+    "rarity": "Uncommon",
+    "number": "40",
+    "image": "/assets/sets/darkness-ablaze/cards/40_Relicanth_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-41-panpour",
+    "name": "Panpour",
+    "rarity": "Common",
+    "number": "41",
+    "image": "/assets/sets/darkness-ablaze/cards/41_Panpour_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-42-simipour",
+    "name": "Simipour",
+    "rarity": "Uncommon",
+    "number": "42",
+    "image": "/assets/sets/darkness-ablaze/cards/42_Simipour_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-43-galarian-darumaka",
+    "name": "Galarian Darumaka",
+    "rarity": "Common",
+    "number": "43",
+    "image": "/assets/sets/darkness-ablaze/cards/43_Galarian_Darumaka_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-44-galarian-darmanitan",
+    "name": "Galarian Darmanitan",
+    "rarity": "Rare",
+    "number": "44",
+    "image": "/assets/sets/darkness-ablaze/cards/44_Galarian_Darmanitan_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-45-vanillite",
+    "name": "Vanillite",
+    "rarity": "Common",
+    "number": "45",
+    "image": "/assets/sets/darkness-ablaze/cards/45_Vanillite_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-46-vanillish",
+    "name": "Vanillish",
+    "rarity": "Uncommon",
+    "number": "46",
+    "image": "/assets/sets/darkness-ablaze/cards/46_Vanillish_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-47-vanilluxe",
+    "name": "Vanilluxe",
+    "rarity": "Rare",
+    "number": "47",
+    "image": "/assets/sets/darkness-ablaze/cards/47_Vanilluxe_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-48-cubchoo",
+    "name": "Cubchoo",
+    "rarity": "Common",
+    "number": "48",
+    "image": "/assets/sets/darkness-ablaze/cards/48_Cubchoo_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-49-beartic",
+    "name": "Beartic",
+    "rarity": "Rare",
+    "number": "49",
+    "image": "/assets/sets/darkness-ablaze/cards/49_Beartic_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-50-wishiwashi",
+    "name": "Wishiwashi",
+    "rarity": "Common",
+    "number": "50",
+    "image": "/assets/sets/darkness-ablaze/cards/50_Wishiwashi_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-51-mareanie",
+    "name": "Mareanie",
+    "rarity": "Common",
+    "number": "51",
+    "image": "/assets/sets/darkness-ablaze/cards/51_Mareanie_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-52-toxapex",
+    "name": "Toxapex",
+    "rarity": "Uncommon",
+    "number": "52",
+    "image": "/assets/sets/darkness-ablaze/cards/52_Toxapex_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-53-dracovish",
+    "name": "Dracovish",
+    "rarity": "Rare",
+    "number": "53",
+    "image": "/assets/sets/darkness-ablaze/cards/53_Dracovish_Rare_Holo.png"
+  },
+  {
+    "id": "darkness-ablaze-54-arctovish",
+    "name": "Arctovish",
+    "rarity": "Rare",
+    "number": "54",
+    "image": "/assets/sets/darkness-ablaze/cards/54_Arctovish_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-55-mareep",
+    "name": "Mareep",
+    "rarity": "Common",
+    "number": "55",
+    "image": "/assets/sets/darkness-ablaze/cards/55_Mareep_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-56-flaaffy",
+    "name": "Flaaffy",
+    "rarity": "Uncommon",
+    "number": "56",
+    "image": "/assets/sets/darkness-ablaze/cards/56_Flaaffy_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-57-ampharos",
+    "name": "Ampharos",
+    "rarity": "Rare",
+    "number": "57",
+    "image": "/assets/sets/darkness-ablaze/cards/57_Ampharos_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-58-electrike",
+    "name": "Electrike",
+    "rarity": "Common",
+    "number": "58",
+    "image": "/assets/sets/darkness-ablaze/cards/58_Electrike_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-59-manectric",
+    "name": "Manectric",
+    "rarity": "Rare",
+    "number": "59",
+    "image": "/assets/sets/darkness-ablaze/cards/59_Manectric_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-60-vikavolt-v",
+    "name": "Vikavolt V",
+    "rarity": "Double Rare",
+    "number": "60",
+    "image": "/assets/sets/darkness-ablaze/cards/60_Vikavolt_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "darkness-ablaze-61-tapu-koko",
+    "name": "Tapu Koko",
+    "rarity": "Rare",
+    "number": "61",
+    "image": "/assets/sets/darkness-ablaze/cards/61_Tapu_Koko_Rare_Holo.png"
+  },
+  {
+    "id": "darkness-ablaze-62-toxel",
+    "name": "Toxel",
+    "rarity": "Common",
+    "number": "62",
+    "image": "/assets/sets/darkness-ablaze/cards/62_Toxel_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-63-toxtricity",
+    "name": "Toxtricity",
+    "rarity": "Rare",
+    "number": "63",
+    "image": "/assets/sets/darkness-ablaze/cards/63_Toxtricity_Rare_Holo.png"
+  },
+  {
+    "id": "darkness-ablaze-64-pincurchin",
+    "name": "Pincurchin",
+    "rarity": "Rare",
+    "number": "64",
+    "image": "/assets/sets/darkness-ablaze/cards/64_Pincurchin_Rare_Holo.png"
+  },
+  {
+    "id": "darkness-ablaze-65-dracozolt",
+    "name": "Dracozolt",
+    "rarity": "Rare",
+    "number": "65",
+    "image": "/assets/sets/darkness-ablaze/cards/65_Dracozolt_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-66-arctozolt",
+    "name": "Arctozolt",
+    "rarity": "Rare",
+    "number": "66",
+    "image": "/assets/sets/darkness-ablaze/cards/66_Arctozolt_Rare_Holo.png"
+  },
+  {
+    "id": "darkness-ablaze-67-jigglypuff",
+    "name": "Jigglypuff",
+    "rarity": "Common",
+    "number": "67",
+    "image": "/assets/sets/darkness-ablaze/cards/67_Jigglypuff_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-68-wigglytuff",
+    "name": "Wigglytuff",
+    "rarity": "Rare",
+    "number": "68",
+    "image": "/assets/sets/darkness-ablaze/cards/68_Wigglytuff_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-69-mew-v",
+    "name": "Mew V",
+    "rarity": "Double Rare",
+    "number": "69",
+    "image": "/assets/sets/darkness-ablaze/cards/69_Mew_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "darkness-ablaze-70-snubbull",
+    "name": "Snubbull",
+    "rarity": "Common",
+    "number": "70",
+    "image": "/assets/sets/darkness-ablaze/cards/70_Snubbull_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-71-granbull",
+    "name": "Granbull",
+    "rarity": "Rare",
+    "number": "71",
+    "image": "/assets/sets/darkness-ablaze/cards/71_Granbull_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-72-lunatone",
+    "name": "Lunatone",
+    "rarity": "Uncommon",
+    "number": "72",
+    "image": "/assets/sets/darkness-ablaze/cards/72_Lunatone_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-73-gothita",
+    "name": "Gothita",
+    "rarity": "Common",
+    "number": "73",
+    "image": "/assets/sets/darkness-ablaze/cards/73_Gothita_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-74-gothorita",
+    "name": "Gothorita",
+    "rarity": "Uncommon",
+    "number": "74",
+    "image": "/assets/sets/darkness-ablaze/cards/74_Gothorita_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-75-gothitelle",
+    "name": "Gothitelle",
+    "rarity": "Rare",
+    "number": "75",
+    "image": "/assets/sets/darkness-ablaze/cards/75_Gothitelle_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-76-golett",
+    "name": "Golett",
+    "rarity": "Common",
+    "number": "76",
+    "image": "/assets/sets/darkness-ablaze/cards/76_Golett_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-77-golurk",
+    "name": "Golurk",
+    "rarity": "Rare",
+    "number": "77",
+    "image": "/assets/sets/darkness-ablaze/cards/77_Golurk_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-78-dedenne",
+    "name": "Dedenne",
+    "rarity": "Uncommon",
+    "number": "78",
+    "image": "/assets/sets/darkness-ablaze/cards/78_Dedenne_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-79-morelull",
+    "name": "Morelull",
+    "rarity": "Common",
+    "number": "79",
+    "image": "/assets/sets/darkness-ablaze/cards/79_Morelull_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-80-shiinotic",
+    "name": "Shiinotic",
+    "rarity": "Uncommon",
+    "number": "80",
+    "image": "/assets/sets/darkness-ablaze/cards/80_Shiinotic_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-81-mimikyu",
+    "name": "Mimikyu",
+    "rarity": "Rare",
+    "number": "81",
+    "image": "/assets/sets/darkness-ablaze/cards/81_Mimikyu_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-82-sinistea",
+    "name": "Sinistea",
+    "rarity": "Common",
+    "number": "82",
+    "image": "/assets/sets/darkness-ablaze/cards/82_Sinistea_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-83-polteageist",
+    "name": "Polteageist",
+    "rarity": "Uncommon",
+    "number": "83",
+    "image": "/assets/sets/darkness-ablaze/cards/83_Polteageist_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-84-diglett",
+    "name": "Diglett",
+    "rarity": "Common",
+    "number": "84",
+    "image": "/assets/sets/darkness-ablaze/cards/84_Diglett_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-85-dugtrio",
+    "name": "Dugtrio",
+    "rarity": "Uncommon",
+    "number": "85",
+    "image": "/assets/sets/darkness-ablaze/cards/85_Dugtrio_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-86-larvitar",
+    "name": "Larvitar",
+    "rarity": "Common",
+    "number": "86",
+    "image": "/assets/sets/darkness-ablaze/cards/86_Larvitar_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-87-pupitar",
+    "name": "Pupitar",
+    "rarity": "Uncommon",
+    "number": "87",
+    "image": "/assets/sets/darkness-ablaze/cards/87_Pupitar_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-88-tyranitar",
+    "name": "Tyranitar",
+    "rarity": "Rare",
+    "number": "88",
+    "image": "/assets/sets/darkness-ablaze/cards/88_Tyranitar_Rare_Holo.png"
+  },
+  {
+    "id": "darkness-ablaze-89-trapinch",
+    "name": "Trapinch",
+    "rarity": "Common",
+    "number": "89",
+    "image": "/assets/sets/darkness-ablaze/cards/89_Trapinch_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-90-vibrava",
+    "name": "Vibrava",
+    "rarity": "Uncommon",
+    "number": "90",
+    "image": "/assets/sets/darkness-ablaze/cards/90_Vibrava_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-91-flygon",
+    "name": "Flygon",
+    "rarity": "Rare",
+    "number": "91",
+    "image": "/assets/sets/darkness-ablaze/cards/91_Flygon_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-92-solrock",
+    "name": "Solrock",
+    "rarity": "Uncommon",
+    "number": "92",
+    "image": "/assets/sets/darkness-ablaze/cards/92_Solrock_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-93-hippopotas",
+    "name": "Hippopotas",
+    "rarity": "Common",
+    "number": "93",
+    "image": "/assets/sets/darkness-ablaze/cards/93_Hippopotas_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-94-hippowdon",
+    "name": "Hippowdon",
+    "rarity": "Rare",
+    "number": "94",
+    "image": "/assets/sets/darkness-ablaze/cards/94_Hippowdon_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-95-rhyperior-v",
+    "name": "Rhyperior V",
+    "rarity": "Double Rare",
+    "number": "95",
+    "image": "/assets/sets/darkness-ablaze/cards/95_Rhyperior_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "darkness-ablaze-96-diggersby",
+    "name": "Diggersby",
+    "rarity": "Rare",
+    "number": "96",
+    "image": "/assets/sets/darkness-ablaze/cards/96_Diggersby_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-97-passimian",
+    "name": "Passimian",
+    "rarity": "Common",
+    "number": "97",
+    "image": "/assets/sets/darkness-ablaze/cards/97_Passimian_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-98-galarian-sirfetch-d",
+    "name": "Galarian Sirfetch'd",
+    "rarity": "Rare",
+    "number": "98",
+    "image": "/assets/sets/darkness-ablaze/cards/98_Galarian_Sirfetch'd_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-99-galarian-slowbro-v",
+    "name": "Galarian Slowbro V",
+    "rarity": "Double Rare",
+    "number": "99",
+    "image": "/assets/sets/darkness-ablaze/cards/99_Galarian_Slowbro_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "darkness-ablaze-100-grimer",
+    "name": "Grimer",
+    "rarity": "Common",
+    "number": "100",
+    "image": "/assets/sets/darkness-ablaze/cards/100_Grimer_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-101-muk",
+    "name": "Muk",
+    "rarity": "Rare",
+    "number": "101",
+    "image": "/assets/sets/darkness-ablaze/cards/101_Muk_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-102-spinarak",
+    "name": "Spinarak",
+    "rarity": "Common",
+    "number": "102",
+    "image": "/assets/sets/darkness-ablaze/cards/102_Spinarak_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-103-ariados",
+    "name": "Ariados",
+    "rarity": "Uncommon",
+    "number": "103",
+    "image": "/assets/sets/darkness-ablaze/cards/103_Ariados_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-104-crobat-v",
+    "name": "Crobat V",
+    "rarity": "Double Rare",
+    "number": "104",
+    "image": "/assets/sets/darkness-ablaze/cards/104_Crobat_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "darkness-ablaze-105-darkrai",
+    "name": "Darkrai",
+    "rarity": "Rare",
+    "number": "105",
+    "image": "/assets/sets/darkness-ablaze/cards/105_Darkrai_Rare_Holo.png"
+  },
+  {
+    "id": "darkness-ablaze-106-purrloin",
+    "name": "Purrloin",
+    "rarity": "Common",
+    "number": "106",
+    "image": "/assets/sets/darkness-ablaze/cards/106_Purrloin_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-107-liepard",
+    "name": "Liepard",
+    "rarity": "Rare",
+    "number": "107",
+    "image": "/assets/sets/darkness-ablaze/cards/107_Liepard_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-108-deino",
+    "name": "Deino",
+    "rarity": "Common",
+    "number": "108",
+    "image": "/assets/sets/darkness-ablaze/cards/108_Deino_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-109-zweilous",
+    "name": "Zweilous",
+    "rarity": "Uncommon",
+    "number": "109",
+    "image": "/assets/sets/darkness-ablaze/cards/109_Zweilous_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-110-hydreigon",
+    "name": "Hydreigon",
+    "rarity": "Rare",
+    "number": "110",
+    "image": "/assets/sets/darkness-ablaze/cards/110_Hydreigon_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-111-hoopa",
+    "name": "Hoopa",
+    "rarity": "Rare",
+    "number": "111",
+    "image": "/assets/sets/darkness-ablaze/cards/111_Hoopa_Rare_Holo.png"
+  },
+  {
+    "id": "darkness-ablaze-112-nickit",
+    "name": "Nickit",
+    "rarity": "Common",
+    "number": "112",
+    "image": "/assets/sets/darkness-ablaze/cards/112_Nickit_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-113-thievul",
+    "name": "Thievul",
+    "rarity": "Rare",
+    "number": "113",
+    "image": "/assets/sets/darkness-ablaze/cards/113_Thievul_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-114-grimmsnarl-v",
+    "name": "Grimmsnarl V",
+    "rarity": "Double Rare",
+    "number": "114",
+    "image": "/assets/sets/darkness-ablaze/cards/114_Grimmsnarl_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "darkness-ablaze-115-grimmsnarl-vmax",
+    "name": "Grimmsnarl VMAX",
+    "rarity": "Ultra Rare",
+    "number": "115",
+    "image": "/assets/sets/darkness-ablaze/cards/115_Grimmsnarl_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "darkness-ablaze-116-eternatus-v",
+    "name": "Eternatus V",
+    "rarity": "Double Rare",
+    "number": "116",
+    "image": "/assets/sets/darkness-ablaze/cards/116_Eternatus_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "darkness-ablaze-117-eternatus-vmax",
+    "name": "Eternatus VMAX",
+    "rarity": "Ultra Rare",
+    "number": "117",
+    "image": "/assets/sets/darkness-ablaze/cards/117_Eternatus_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "darkness-ablaze-118-scizor-v",
+    "name": "Scizor V",
+    "rarity": "Double Rare",
+    "number": "118",
+    "image": "/assets/sets/darkness-ablaze/cards/118_Scizor_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "darkness-ablaze-119-scizor-vmax",
+    "name": "Scizor VMAX",
+    "rarity": "Ultra Rare",
+    "number": "119",
+    "image": "/assets/sets/darkness-ablaze/cards/119_Scizor_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "darkness-ablaze-120-skarmory",
+    "name": "Skarmory",
+    "rarity": "Common",
+    "number": "120",
+    "image": "/assets/sets/darkness-ablaze/cards/120_Skarmory_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-121-aron",
+    "name": "Aron",
+    "rarity": "Common",
+    "number": "121",
+    "image": "/assets/sets/darkness-ablaze/cards/121_Aron_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-122-lairon",
+    "name": "Lairon",
+    "rarity": "Uncommon",
+    "number": "122",
+    "image": "/assets/sets/darkness-ablaze/cards/122_Lairon_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-123-aggron",
+    "name": "Aggron",
+    "rarity": "Rare",
+    "number": "123",
+    "image": "/assets/sets/darkness-ablaze/cards/123_Aggron_Rare_Holo.png"
+  },
+  {
+    "id": "darkness-ablaze-124-escavalier",
+    "name": "Escavalier",
+    "rarity": "Rare",
+    "number": "124",
+    "image": "/assets/sets/darkness-ablaze/cards/124_Escavalier_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-125-klink",
+    "name": "Klink",
+    "rarity": "Common",
+    "number": "125",
+    "image": "/assets/sets/darkness-ablaze/cards/125_Klink_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-126-klang",
+    "name": "Klang",
+    "rarity": "Uncommon",
+    "number": "126",
+    "image": "/assets/sets/darkness-ablaze/cards/126_Klang_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-127-klinklang",
+    "name": "Klinklang",
+    "rarity": "Rare",
+    "number": "127",
+    "image": "/assets/sets/darkness-ablaze/cards/127_Klinklang_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-128-galarian-stunfisk-v",
+    "name": "Galarian Stunfisk V",
+    "rarity": "Double Rare",
+    "number": "128",
+    "image": "/assets/sets/darkness-ablaze/cards/128_Galarian_Stunfisk_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "darkness-ablaze-129-meltan",
+    "name": "Meltan",
+    "rarity": "Common",
+    "number": "129",
+    "image": "/assets/sets/darkness-ablaze/cards/129_Meltan_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-130-melmetal",
+    "name": "Melmetal",
+    "rarity": "Rare",
+    "number": "130",
+    "image": "/assets/sets/darkness-ablaze/cards/130_Melmetal_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-131-cufant",
+    "name": "Cufant",
+    "rarity": "Common",
+    "number": "131",
+    "image": "/assets/sets/darkness-ablaze/cards/131_Cufant_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-132-copperajah",
+    "name": "Copperajah",
+    "rarity": "Rare",
+    "number": "132",
+    "image": "/assets/sets/darkness-ablaze/cards/132_Copperajah_Rare_Holo.png"
+  },
+  {
+    "id": "darkness-ablaze-133-kangaskhan",
+    "name": "Kangaskhan",
+    "rarity": "Rare",
+    "number": "133",
+    "image": "/assets/sets/darkness-ablaze/cards/133_Kangaskhan_Rare_Holo.png"
+  },
+  {
+    "id": "darkness-ablaze-134-tauros",
+    "name": "Tauros",
+    "rarity": "Common",
+    "number": "134",
+    "image": "/assets/sets/darkness-ablaze/cards/134_Tauros_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-135-sentret",
+    "name": "Sentret",
+    "rarity": "Common",
+    "number": "135",
+    "image": "/assets/sets/darkness-ablaze/cards/135_Sentret_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-136-furret",
+    "name": "Furret",
+    "rarity": "Uncommon",
+    "number": "136",
+    "image": "/assets/sets/darkness-ablaze/cards/136_Furret_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-137-dunsparce",
+    "name": "Dunsparce",
+    "rarity": "Common",
+    "number": "137",
+    "image": "/assets/sets/darkness-ablaze/cards/137_Dunsparce_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-138-teddiursa",
+    "name": "Teddiursa",
+    "rarity": "Common",
+    "number": "138",
+    "image": "/assets/sets/darkness-ablaze/cards/138_Teddiursa_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-139-ursaring",
+    "name": "Ursaring",
+    "rarity": "Uncommon",
+    "number": "139",
+    "image": "/assets/sets/darkness-ablaze/cards/139_Ursaring_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-140-lugia",
+    "name": "Lugia",
+    "rarity": "Rare",
+    "number": "140",
+    "image": "/assets/sets/darkness-ablaze/cards/140_Lugia_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-141-skitty",
+    "name": "Skitty",
+    "rarity": "Common",
+    "number": "141",
+    "image": "/assets/sets/darkness-ablaze/cards/141_Skitty_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-142-delcatty",
+    "name": "Delcatty",
+    "rarity": "Rare",
+    "number": "142",
+    "image": "/assets/sets/darkness-ablaze/cards/142_Delcatty_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-143-salamence-v",
+    "name": "Salamence V",
+    "rarity": "Double Rare",
+    "number": "143",
+    "image": "/assets/sets/darkness-ablaze/cards/143_Salamence_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "darkness-ablaze-144-salamence-vmax",
+    "name": "Salamence VMAX",
+    "rarity": "Ultra Rare",
+    "number": "144",
+    "image": "/assets/sets/darkness-ablaze/cards/144_Salamence_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "darkness-ablaze-145-starly",
+    "name": "Starly",
+    "rarity": "Common",
+    "number": "145",
+    "image": "/assets/sets/darkness-ablaze/cards/145_Starly_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-146-staravia",
+    "name": "Staravia",
+    "rarity": "Uncommon",
+    "number": "146",
+    "image": "/assets/sets/darkness-ablaze/cards/146_Staravia_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-147-staraptor",
+    "name": "Staraptor",
+    "rarity": "Rare",
+    "number": "147",
+    "image": "/assets/sets/darkness-ablaze/cards/147_Staraptor_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-148-ducklett",
+    "name": "Ducklett",
+    "rarity": "Common",
+    "number": "148",
+    "image": "/assets/sets/darkness-ablaze/cards/148_Ducklett_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-149-swanna",
+    "name": "Swanna",
+    "rarity": "Rare",
+    "number": "149",
+    "image": "/assets/sets/darkness-ablaze/cards/149_Swanna_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-150-bunnelby",
+    "name": "Bunnelby",
+    "rarity": "Common",
+    "number": "150",
+    "image": "/assets/sets/darkness-ablaze/cards/150_Bunnelby_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-151-fletchling",
+    "name": "Fletchling",
+    "rarity": "Common",
+    "number": "151",
+    "image": "/assets/sets/darkness-ablaze/cards/151_Fletchling_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-152-skwovet",
+    "name": "Skwovet",
+    "rarity": "Common",
+    "number": "152",
+    "image": "/assets/sets/darkness-ablaze/cards/152_Skwovet_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-153-greedent",
+    "name": "Greedent",
+    "rarity": "Rare",
+    "number": "153",
+    "image": "/assets/sets/darkness-ablaze/cards/153_Greedent_Rare.png"
+  },
+  {
+    "id": "darkness-ablaze-154-rookidee",
+    "name": "Rookidee",
+    "rarity": "Common",
+    "number": "154",
+    "image": "/assets/sets/darkness-ablaze/cards/154_Rookidee_Common.png"
+  },
+  {
+    "id": "darkness-ablaze-155-corvisquire",
+    "name": "Corvisquire",
+    "rarity": "Uncommon",
+    "number": "155",
+    "image": "/assets/sets/darkness-ablaze/cards/155_Corvisquire_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-156-corviknight",
+    "name": "Corviknight",
+    "rarity": "Rare",
+    "number": "156",
+    "image": "/assets/sets/darkness-ablaze/cards/156_Corviknight_Rare_Holo.png"
+  },
+  {
+    "id": "darkness-ablaze-157-big-parasol",
+    "name": "Big Parasol",
+    "rarity": "Uncommon",
+    "number": "157",
+    "image": "/assets/sets/darkness-ablaze/cards/157_Big_Parasol_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-158-billowing-smoke",
+    "name": "Billowing Smoke",
+    "rarity": "Uncommon",
+    "number": "158",
+    "image": "/assets/sets/darkness-ablaze/cards/158_Billowing_Smoke_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-159-bird-keeper",
+    "name": "Bird Keeper",
+    "rarity": "Uncommon",
+    "number": "159",
+    "image": "/assets/sets/darkness-ablaze/cards/159_Bird_Keeper_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-160-cape-of-toughness",
+    "name": "Cape of Toughness",
+    "rarity": "Uncommon",
+    "number": "160",
+    "image": "/assets/sets/darkness-ablaze/cards/160_Cape_of_Toughness_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-161-familiar-bell",
+    "name": "Familiar Bell",
+    "rarity": "Uncommon",
+    "number": "161",
+    "image": "/assets/sets/darkness-ablaze/cards/161_Familiar_Bell_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-162-glimwood-tangle",
+    "name": "Glimwood Tangle",
+    "rarity": "Uncommon",
+    "number": "162",
+    "image": "/assets/sets/darkness-ablaze/cards/162_Glimwood_Tangle_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-163-kabu",
+    "name": "Kabu",
+    "rarity": "Uncommon",
+    "number": "163",
+    "image": "/assets/sets/darkness-ablaze/cards/163_Kabu_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-164-old-pc",
+    "name": "Old PC",
+    "rarity": "Uncommon",
+    "number": "164",
+    "image": "/assets/sets/darkness-ablaze/cards/164_Old_PC_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-165-piers",
+    "name": "Piers",
+    "rarity": "Uncommon",
+    "number": "165",
+    "image": "/assets/sets/darkness-ablaze/cards/165_Piers_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-166-pok-mon-breeder-s-nurturing",
+    "name": "Pokémon Breeder's Nurturing",
+    "rarity": "Uncommon",
+    "number": "166",
+    "image": "/assets/sets/darkness-ablaze/cards/166_Pokémon_Breeder's_Nurturing_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-167-rare-fossil",
+    "name": "Rare Fossil",
+    "rarity": "Uncommon",
+    "number": "167",
+    "image": "/assets/sets/darkness-ablaze/cards/167_Rare_Fossil_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-168-rose",
+    "name": "Rose",
+    "rarity": "Uncommon",
+    "number": "168",
+    "image": "/assets/sets/darkness-ablaze/cards/168_Rose_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-169-rose-tower",
+    "name": "Rose Tower",
+    "rarity": "Uncommon",
+    "number": "169",
+    "image": "/assets/sets/darkness-ablaze/cards/169_Rose_Tower_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-170-spikemuth",
+    "name": "Spikemuth",
+    "rarity": "Uncommon",
+    "number": "170",
+    "image": "/assets/sets/darkness-ablaze/cards/170_Spikemuth_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-171-struggle-gloves",
+    "name": "Struggle Gloves",
+    "rarity": "Uncommon",
+    "number": "171",
+    "image": "/assets/sets/darkness-ablaze/cards/171_Struggle_Gloves_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-172-turbo-patch",
+    "name": "Turbo Patch",
+    "rarity": "Uncommon",
+    "number": "172",
+    "image": "/assets/sets/darkness-ablaze/cards/172_Turbo_Patch_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-173-yell-horn",
+    "name": "Yell Horn",
+    "rarity": "Uncommon",
+    "number": "173",
+    "image": "/assets/sets/darkness-ablaze/cards/173_Yell_Horn_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-174-heat-fire-energy",
+    "name": "Heat Fire Energy",
+    "rarity": "Uncommon",
+    "number": "174",
+    "image": "/assets/sets/darkness-ablaze/cards/174_Heat_Fire_Energy_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-175-hiding-darkness-energy",
+    "name": "Hiding Darkness Energy",
+    "rarity": "Uncommon",
+    "number": "175",
+    "image": "/assets/sets/darkness-ablaze/cards/175_Hiding_Darkness_Energy_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-176-powerful-colorless-energy",
+    "name": "Powerful Colorless Energy",
+    "rarity": "Uncommon",
+    "number": "176",
+    "image": "/assets/sets/darkness-ablaze/cards/176_Powerful_Colorless_Energy_Uncommon.png"
+  },
+  {
+    "id": "darkness-ablaze-177-butterfree-v",
+    "name": "Butterfree V",
+    "rarity": "Ultra Rare",
+    "number": "177",
+    "image": "/assets/sets/darkness-ablaze/cards/177_Butterfree_V_Rare_Ultra.png"
+  },
+  {
+    "id": "darkness-ablaze-178-houndoom-v",
+    "name": "Houndoom V",
+    "rarity": "Ultra Rare",
+    "number": "178",
+    "image": "/assets/sets/darkness-ablaze/cards/178_Houndoom_V_Rare_Ultra.png"
+  },
+  {
+    "id": "darkness-ablaze-179-centiskorch-v",
+    "name": "Centiskorch V",
+    "rarity": "Ultra Rare",
+    "number": "179",
+    "image": "/assets/sets/darkness-ablaze/cards/179_Centiskorch_V_Rare_Ultra.png"
+  },
+  {
+    "id": "darkness-ablaze-180-vikavolt-v",
+    "name": "Vikavolt V",
+    "rarity": "Ultra Rare",
+    "number": "180",
+    "image": "/assets/sets/darkness-ablaze/cards/180_Vikavolt_V_Rare_Ultra.png"
+  },
+  {
+    "id": "darkness-ablaze-181-rhyperior-v",
+    "name": "Rhyperior V",
+    "rarity": "Ultra Rare",
+    "number": "181",
+    "image": "/assets/sets/darkness-ablaze/cards/181_Rhyperior_V_Rare_Ultra.png"
+  },
+  {
+    "id": "darkness-ablaze-182-crobat-v",
+    "name": "Crobat V",
+    "rarity": "Ultra Rare",
+    "number": "182",
+    "image": "/assets/sets/darkness-ablaze/cards/182_Crobat_V_Rare_Ultra.png"
+  },
+  {
+    "id": "darkness-ablaze-183-scizor-v",
+    "name": "Scizor V",
+    "rarity": "Ultra Rare",
+    "number": "183",
+    "image": "/assets/sets/darkness-ablaze/cards/183_Scizor_V_Rare_Ultra.png"
+  },
+  {
+    "id": "darkness-ablaze-184-galarian-stunfisk-v",
+    "name": "Galarian Stunfisk V",
+    "rarity": "Ultra Rare",
+    "number": "184",
+    "image": "/assets/sets/darkness-ablaze/cards/184_Galarian_Stunfisk_V_Rare_Ultra.png"
+  },
+  {
+    "id": "darkness-ablaze-185-salamence-v",
+    "name": "Salamence V",
+    "rarity": "Ultra Rare",
+    "number": "185",
+    "image": "/assets/sets/darkness-ablaze/cards/185_Salamence_V_Rare_Ultra.png"
+  },
+  {
+    "id": "darkness-ablaze-186-kabu",
+    "name": "Kabu",
+    "rarity": "Ultra Rare",
+    "number": "186",
+    "image": "/assets/sets/darkness-ablaze/cards/186_Kabu_Rare_Ultra.png"
+  },
+  {
+    "id": "darkness-ablaze-187-piers",
+    "name": "Piers",
+    "rarity": "Ultra Rare",
+    "number": "187",
+    "image": "/assets/sets/darkness-ablaze/cards/187_Piers_Rare_Ultra.png"
+  },
+  {
+    "id": "darkness-ablaze-188-pok-mon-breeder-s-nurturing",
+    "name": "Pokémon Breeder's Nurturing",
+    "rarity": "Ultra Rare",
+    "number": "188",
+    "image": "/assets/sets/darkness-ablaze/cards/188_Pokémon_Breeder's_Nurturing_Rare_Ultra.png"
+  },
+  {
+    "id": "darkness-ablaze-189-rose",
+    "name": "Rose",
+    "rarity": "Ultra Rare",
+    "number": "189",
+    "image": "/assets/sets/darkness-ablaze/cards/189_Rose_Rare_Ultra.png"
+  },
+  {
+    "id": "darkness-ablaze-190-butterfree-vmax",
+    "name": "Butterfree VMAX",
+    "rarity": "Secret Rare",
+    "number": "190",
+    "image": "/assets/sets/darkness-ablaze/cards/190_Butterfree_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "darkness-ablaze-191-centiskorch-vmax",
+    "name": "Centiskorch VMAX",
+    "rarity": "Secret Rare",
+    "number": "191",
+    "image": "/assets/sets/darkness-ablaze/cards/191_Centiskorch_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "darkness-ablaze-192-eternatus-vmax",
+    "name": "Eternatus VMAX",
+    "rarity": "Secret Rare",
+    "number": "192",
+    "image": "/assets/sets/darkness-ablaze/cards/192_Eternatus_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "darkness-ablaze-193-scizor-vmax",
+    "name": "Scizor VMAX",
+    "rarity": "Secret Rare",
+    "number": "193",
+    "image": "/assets/sets/darkness-ablaze/cards/193_Scizor_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "darkness-ablaze-194-salamence-vmax",
+    "name": "Salamence VMAX",
+    "rarity": "Secret Rare",
+    "number": "194",
+    "image": "/assets/sets/darkness-ablaze/cards/194_Salamence_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "darkness-ablaze-195-pok-mon-breeder-s-nurturing",
+    "name": "Pokémon Breeder's Nurturing",
+    "rarity": "Secret Rare",
+    "number": "195",
+    "image": "/assets/sets/darkness-ablaze/cards/195_Pokémon_Breeder's_Nurturing_Rare_Rainbow.png"
+  },
+  {
+    "id": "darkness-ablaze-196-rose",
+    "name": "Rose",
+    "rarity": "Secret Rare",
+    "number": "196",
+    "image": "/assets/sets/darkness-ablaze/cards/196_Rose_Rare_Rainbow.png"
+  },
+  {
+    "id": "darkness-ablaze-197-rillaboom",
+    "name": "Rillaboom",
+    "rarity": "Secret Rare",
+    "number": "197",
+    "image": "/assets/sets/darkness-ablaze/cards/197_Rillaboom_Rare_Secret.png"
+  },
+  {
+    "id": "darkness-ablaze-198-coalossal",
+    "name": "Coalossal",
+    "rarity": "Secret Rare",
+    "number": "198",
+    "image": "/assets/sets/darkness-ablaze/cards/198_Coalossal_Rare_Secret.png"
+  },
+  {
+    "id": "darkness-ablaze-199-big-parasol",
+    "name": "Big Parasol",
+    "rarity": "Secret Rare",
+    "number": "199",
+    "image": "/assets/sets/darkness-ablaze/cards/199_Big_Parasol_Rare_Secret.png"
+  },
+  {
+    "id": "darkness-ablaze-200-turbo-patch",
+    "name": "Turbo Patch",
+    "rarity": "Secret Rare",
+    "number": "200",
+    "image": "/assets/sets/darkness-ablaze/cards/200_Turbo_Patch_Rare_Secret.png"
+  },
+  {
+    "id": "darkness-ablaze-201-capture-energy",
+    "name": "Capture Energy",
+    "rarity": "Secret Rare",
+    "number": "201",
+    "image": "/assets/sets/darkness-ablaze/cards/201_Capture_Energy_Rare_Secret.png"
+  }
+]

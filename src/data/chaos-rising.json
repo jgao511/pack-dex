@@ -1,0 +1,856 @@
+[
+  {
+    "id": "chaos-rising-1-weedle",
+    "name": "Weedle",
+    "rarity": "Common",
+    "number": "1",
+    "image": "/assets/sets/chaos-rising/cards/1_Weedle_Common.png"
+  },
+  {
+    "id": "chaos-rising-2-kakuna",
+    "name": "Kakuna",
+    "rarity": "Common",
+    "number": "2",
+    "image": "/assets/sets/chaos-rising/cards/2_Kakuna_Common.png"
+  },
+  {
+    "id": "chaos-rising-3-beedrill-ex",
+    "name": "Beedrill ex",
+    "rarity": "Double Rare",
+    "number": "3",
+    "image": "/assets/sets/chaos-rising/cards/3_Beedrill_ex_Double_Rare.png"
+  },
+  {
+    "id": "chaos-rising-4-carnivine",
+    "name": "Carnivine",
+    "rarity": "Common",
+    "number": "4",
+    "image": "/assets/sets/chaos-rising/cards/4_Carnivine_Common.png"
+  },
+  {
+    "id": "chaos-rising-5-chespin",
+    "name": "Chespin",
+    "rarity": "Common",
+    "number": "5",
+    "image": "/assets/sets/chaos-rising/cards/5_Chespin_Common.png"
+  },
+  {
+    "id": "chaos-rising-6-quilladin",
+    "name": "Quilladin",
+    "rarity": "Common",
+    "number": "6",
+    "image": "/assets/sets/chaos-rising/cards/6_Quilladin_Common.png"
+  },
+  {
+    "id": "chaos-rising-7-chesnaught",
+    "name": "Chesnaught",
+    "rarity": "Rare",
+    "number": "7",
+    "image": "/assets/sets/chaos-rising/cards/7_Chesnaught_Rare.png"
+  },
+  {
+    "id": "chaos-rising-8-vulpix",
+    "name": "Vulpix",
+    "rarity": "Common",
+    "number": "8",
+    "image": "/assets/sets/chaos-rising/cards/8_Vulpix_Common.png"
+  },
+  {
+    "id": "chaos-rising-9-ninetales",
+    "name": "Ninetales",
+    "rarity": "Uncommon",
+    "number": "9",
+    "image": "/assets/sets/chaos-rising/cards/9_Ninetales_Uncommon.png"
+  },
+  {
+    "id": "chaos-rising-10-ho-oh",
+    "name": "Ho-Oh",
+    "rarity": "Rare",
+    "number": "10",
+    "image": "/assets/sets/chaos-rising/cards/10_Ho-Oh_Rare.png"
+  },
+  {
+    "id": "chaos-rising-11-fennekin",
+    "name": "Fennekin",
+    "rarity": "Common",
+    "number": "11",
+    "image": "/assets/sets/chaos-rising/cards/11_Fennekin_Common.png"
+  },
+  {
+    "id": "chaos-rising-12-braixen",
+    "name": "Braixen",
+    "rarity": "Common",
+    "number": "12",
+    "image": "/assets/sets/chaos-rising/cards/12_Braixen_Common.png"
+  },
+  {
+    "id": "chaos-rising-13-delphox",
+    "name": "Delphox",
+    "rarity": "Rare",
+    "number": "13",
+    "image": "/assets/sets/chaos-rising/cards/13_Delphox_Rare.png"
+  },
+  {
+    "id": "chaos-rising-14-litleo",
+    "name": "Litleo",
+    "rarity": "Common",
+    "number": "14",
+    "image": "/assets/sets/chaos-rising/cards/14_Litleo_Common.png"
+  },
+  {
+    "id": "chaos-rising-15-mega-pyroar-ex",
+    "name": "Mega Pyroar ex",
+    "rarity": "Double Rare",
+    "number": "15",
+    "image": "/assets/sets/chaos-rising/cards/15_Mega_Pyroar_ex_Double_Rare.png"
+  },
+  {
+    "id": "chaos-rising-16-remoraid",
+    "name": "Remoraid",
+    "rarity": "Common",
+    "number": "16",
+    "image": "/assets/sets/chaos-rising/cards/16_Remoraid_Common.png"
+  },
+  {
+    "id": "chaos-rising-17-octillery",
+    "name": "Octillery",
+    "rarity": "Common",
+    "number": "17",
+    "image": "/assets/sets/chaos-rising/cards/17_Octillery_Common.png"
+  },
+  {
+    "id": "chaos-rising-18-delibird",
+    "name": "Delibird",
+    "rarity": "Uncommon",
+    "number": "18",
+    "image": "/assets/sets/chaos-rising/cards/18_Delibird_Uncommon.png"
+  },
+  {
+    "id": "chaos-rising-19-keldeo",
+    "name": "Keldeo",
+    "rarity": "Rare",
+    "number": "19",
+    "image": "/assets/sets/chaos-rising/cards/19_Keldeo_Rare.png"
+  },
+  {
+    "id": "chaos-rising-20-froakie",
+    "name": "Froakie",
+    "rarity": "Common",
+    "number": "20",
+    "image": "/assets/sets/chaos-rising/cards/20_Froakie_Common.png"
+  },
+  {
+    "id": "chaos-rising-21-frogadier",
+    "name": "Frogadier",
+    "rarity": "Common",
+    "number": "21",
+    "image": "/assets/sets/chaos-rising/cards/21_Frogadier_Common.png"
+  },
+  {
+    "id": "chaos-rising-22-mega-greninja-ex",
+    "name": "Mega Greninja ex",
+    "rarity": "Double Rare",
+    "number": "22",
+    "image": "/assets/sets/chaos-rising/cards/22_Mega_Greninja_ex_Double_Rare.png"
+  },
+  {
+    "id": "chaos-rising-23-bergmite",
+    "name": "Bergmite",
+    "rarity": "Common",
+    "number": "23",
+    "image": "/assets/sets/chaos-rising/cards/23_Bergmite_Common.png"
+  },
+  {
+    "id": "chaos-rising-24-avalugg",
+    "name": "Avalugg",
+    "rarity": "Uncommon",
+    "number": "24",
+    "image": "/assets/sets/chaos-rising/cards/24_Avalugg_Uncommon.png"
+  },
+  {
+    "id": "chaos-rising-25-wimpod",
+    "name": "Wimpod",
+    "rarity": "Common",
+    "number": "25",
+    "image": "/assets/sets/chaos-rising/cards/25_Wimpod_Common.png"
+  },
+  {
+    "id": "chaos-rising-26-golisopod",
+    "name": "Golisopod",
+    "rarity": "Uncommon",
+    "number": "26",
+    "image": "/assets/sets/chaos-rising/cards/26_Golisopod_Uncommon.png"
+  },
+  {
+    "id": "chaos-rising-27-mareep",
+    "name": "Mareep",
+    "rarity": "Common",
+    "number": "27",
+    "image": "/assets/sets/chaos-rising/cards/27_Mareep_Common.png"
+  },
+  {
+    "id": "chaos-rising-28-flaaffy",
+    "name": "Flaaffy",
+    "rarity": "Common",
+    "number": "28",
+    "image": "/assets/sets/chaos-rising/cards/28_Flaaffy_Common.png"
+  },
+  {
+    "id": "chaos-rising-29-ampharos",
+    "name": "Ampharos",
+    "rarity": "Rare",
+    "number": "29",
+    "image": "/assets/sets/chaos-rising/cards/29_Ampharos_Rare.png"
+  },
+  {
+    "id": "chaos-rising-30-emolga",
+    "name": "Emolga",
+    "rarity": "Common",
+    "number": "30",
+    "image": "/assets/sets/chaos-rising/cards/30_Emolga_Common.png"
+  },
+  {
+    "id": "chaos-rising-31-deoxys",
+    "name": "Deoxys",
+    "rarity": "Uncommon",
+    "number": "31",
+    "image": "/assets/sets/chaos-rising/cards/31_Deoxys_Uncommon.png"
+  },
+  {
+    "id": "chaos-rising-32-deoxys",
+    "name": "Deoxys",
+    "rarity": "Uncommon",
+    "number": "32",
+    "image": "/assets/sets/chaos-rising/cards/32_Deoxys_Uncommon.png"
+  },
+  {
+    "id": "chaos-rising-33-deoxys",
+    "name": "Deoxys",
+    "rarity": "Uncommon",
+    "number": "33",
+    "image": "/assets/sets/chaos-rising/cards/33_Deoxys_Uncommon.png"
+  },
+  {
+    "id": "chaos-rising-34-deoxys",
+    "name": "Deoxys",
+    "rarity": "Uncommon",
+    "number": "34",
+    "image": "/assets/sets/chaos-rising/cards/34_Deoxys_Uncommon.png"
+  },
+  {
+    "id": "chaos-rising-35-mega-floette-ex",
+    "name": "Mega Floette ex",
+    "rarity": "Double Rare",
+    "number": "35",
+    "image": "/assets/sets/chaos-rising/cards/35_Mega_Floette_ex_Double_Rare.png"
+  },
+  {
+    "id": "chaos-rising-36-espurr",
+    "name": "Espurr",
+    "rarity": "Common",
+    "number": "36",
+    "image": "/assets/sets/chaos-rising/cards/36_Espurr_Common.png"
+  },
+  {
+    "id": "chaos-rising-37-meowstic",
+    "name": "Meowstic",
+    "rarity": "Uncommon",
+    "number": "37",
+    "image": "/assets/sets/chaos-rising/cards/37_Meowstic_Uncommon.png"
+  },
+  {
+    "id": "chaos-rising-38-phantump",
+    "name": "Phantump",
+    "rarity": "Common",
+    "number": "38",
+    "image": "/assets/sets/chaos-rising/cards/38_Phantump_Common.png"
+  },
+  {
+    "id": "chaos-rising-39-trevenant",
+    "name": "Trevenant",
+    "rarity": "Rare",
+    "number": "39",
+    "image": "/assets/sets/chaos-rising/cards/39_Trevenant_Rare.png"
+  },
+  {
+    "id": "chaos-rising-40-pumpkaboo",
+    "name": "Pumpkaboo",
+    "rarity": "Common",
+    "number": "40",
+    "image": "/assets/sets/chaos-rising/cards/40_Pumpkaboo_Common.png"
+  },
+  {
+    "id": "chaos-rising-41-gourgeist-ex",
+    "name": "Gourgeist ex",
+    "rarity": "Double Rare",
+    "number": "41",
+    "image": "/assets/sets/chaos-rising/cards/41_Gourgeist_ex_Double_Rare.png"
+  },
+  {
+    "id": "chaos-rising-42-xerneas",
+    "name": "Xerneas",
+    "rarity": "Rare",
+    "number": "42",
+    "image": "/assets/sets/chaos-rising/cards/42_Xerneas_Rare.png"
+  },
+  {
+    "id": "chaos-rising-43-sudowoodo",
+    "name": "Sudowoodo",
+    "rarity": "Uncommon",
+    "number": "43",
+    "image": "/assets/sets/chaos-rising/cards/43_Sudowoodo_Uncommon.png"
+  },
+  {
+    "id": "chaos-rising-44-phanpy",
+    "name": "Phanpy",
+    "rarity": "Common",
+    "number": "44",
+    "image": "/assets/sets/chaos-rising/cards/44_Phanpy_Common.png"
+  },
+  {
+    "id": "chaos-rising-45-donphan",
+    "name": "Donphan",
+    "rarity": "Common",
+    "number": "45",
+    "image": "/assets/sets/chaos-rising/cards/45_Donphan_Common.png"
+  },
+  {
+    "id": "chaos-rising-46-baltoy",
+    "name": "Baltoy",
+    "rarity": "Common",
+    "number": "46",
+    "image": "/assets/sets/chaos-rising/cards/46_Baltoy_Common.png"
+  },
+  {
+    "id": "chaos-rising-47-claydol",
+    "name": "Claydol",
+    "rarity": "Uncommon",
+    "number": "47",
+    "image": "/assets/sets/chaos-rising/cards/47_Claydol_Uncommon.png"
+  },
+  {
+    "id": "chaos-rising-48-mega-gallade-ex",
+    "name": "Mega Gallade ex",
+    "rarity": "Double Rare",
+    "number": "48",
+    "image": "/assets/sets/chaos-rising/cards/48_Mega_Gallade_ex_Double_Rare.png"
+  },
+  {
+    "id": "chaos-rising-49-zubat",
+    "name": "Zubat",
+    "rarity": "Common",
+    "number": "49",
+    "image": "/assets/sets/chaos-rising/cards/49_Zubat_Common.png"
+  },
+  {
+    "id": "chaos-rising-50-golbat",
+    "name": "Golbat",
+    "rarity": "Common",
+    "number": "50",
+    "image": "/assets/sets/chaos-rising/cards/50_Golbat_Common.png"
+  },
+  {
+    "id": "chaos-rising-51-crobat",
+    "name": "Crobat",
+    "rarity": "Rare",
+    "number": "51",
+    "image": "/assets/sets/chaos-rising/cards/51_Crobat_Rare.png"
+  },
+  {
+    "id": "chaos-rising-52-qwilfish",
+    "name": "Qwilfish",
+    "rarity": "Common",
+    "number": "52",
+    "image": "/assets/sets/chaos-rising/cards/52_Qwilfish_Common.png"
+  },
+  {
+    "id": "chaos-rising-53-stunky",
+    "name": "Stunky",
+    "rarity": "Common",
+    "number": "53",
+    "image": "/assets/sets/chaos-rising/cards/53_Stunky_Common.png"
+  },
+  {
+    "id": "chaos-rising-54-skuntank",
+    "name": "Skuntank",
+    "rarity": "Uncommon",
+    "number": "54",
+    "image": "/assets/sets/chaos-rising/cards/54_Skuntank_Uncommon.png"
+  },
+  {
+    "id": "chaos-rising-55-krookodile-ex",
+    "name": "Krookodile ex",
+    "rarity": "Double Rare",
+    "number": "55",
+    "image": "/assets/sets/chaos-rising/cards/55_Krookodile_ex_Double_Rare.png"
+  },
+  {
+    "id": "chaos-rising-56-trubbish",
+    "name": "Trubbish",
+    "rarity": "Common",
+    "number": "56",
+    "image": "/assets/sets/chaos-rising/cards/56_Trubbish_Common.png"
+  },
+  {
+    "id": "chaos-rising-57-garbodor",
+    "name": "Garbodor",
+    "rarity": "Uncommon",
+    "number": "57",
+    "image": "/assets/sets/chaos-rising/cards/57_Garbodor_Uncommon.png"
+  },
+  {
+    "id": "chaos-rising-58-skrelp",
+    "name": "Skrelp",
+    "rarity": "Common",
+    "number": "58",
+    "image": "/assets/sets/chaos-rising/cards/58_Skrelp_Common.png"
+  },
+  {
+    "id": "chaos-rising-59-beldum",
+    "name": "Beldum",
+    "rarity": "Common",
+    "number": "59",
+    "image": "/assets/sets/chaos-rising/cards/59_Beldum_Common.png"
+  },
+  {
+    "id": "chaos-rising-60-metang",
+    "name": "Metang",
+    "rarity": "Common",
+    "number": "60",
+    "image": "/assets/sets/chaos-rising/cards/60_Metang_Common.png"
+  },
+  {
+    "id": "chaos-rising-61-metagross",
+    "name": "Metagross",
+    "rarity": "Uncommon",
+    "number": "61",
+    "image": "/assets/sets/chaos-rising/cards/61_Metagross_Uncommon.png"
+  },
+  {
+    "id": "chaos-rising-62-ferroseed",
+    "name": "Ferroseed",
+    "rarity": "Common",
+    "number": "62",
+    "image": "/assets/sets/chaos-rising/cards/62_Ferroseed_Common.png"
+  },
+  {
+    "id": "chaos-rising-63-ferrothorn",
+    "name": "Ferrothorn",
+    "rarity": "Uncommon",
+    "number": "63",
+    "image": "/assets/sets/chaos-rising/cards/63_Ferrothorn_Uncommon.png"
+  },
+  {
+    "id": "chaos-rising-64-cobalion-ex",
+    "name": "Cobalion ex",
+    "rarity": "Double Rare",
+    "number": "64",
+    "image": "/assets/sets/chaos-rising/cards/64_Cobalion_ex_Double_Rare.png"
+  },
+  {
+    "id": "chaos-rising-65-mega-dragalge-ex",
+    "name": "Mega Dragalge ex",
+    "rarity": "Double Rare",
+    "number": "65",
+    "image": "/assets/sets/chaos-rising/cards/65_Mega_Dragalge_ex_Double_Rare.png"
+  },
+  {
+    "id": "chaos-rising-66-goomy",
+    "name": "Goomy",
+    "rarity": "Common",
+    "number": "66",
+    "image": "/assets/sets/chaos-rising/cards/66_Goomy_Common.png"
+  },
+  {
+    "id": "chaos-rising-67-sliggoo",
+    "name": "Sliggoo",
+    "rarity": "Common",
+    "number": "67",
+    "image": "/assets/sets/chaos-rising/cards/67_Sliggoo_Common.png"
+  },
+  {
+    "id": "chaos-rising-68-goodra",
+    "name": "Goodra",
+    "rarity": "Rare",
+    "number": "68",
+    "image": "/assets/sets/chaos-rising/cards/68_Goodra_Rare.png"
+  },
+  {
+    "id": "chaos-rising-69-tauros",
+    "name": "Tauros",
+    "rarity": "Uncommon",
+    "number": "69",
+    "image": "/assets/sets/chaos-rising/cards/69_Tauros_Uncommon.png"
+  },
+  {
+    "id": "chaos-rising-70-patrat",
+    "name": "Patrat",
+    "rarity": "Common",
+    "number": "70",
+    "image": "/assets/sets/chaos-rising/cards/70_Patrat_Common.png"
+  },
+  {
+    "id": "chaos-rising-71-watchog",
+    "name": "Watchog",
+    "rarity": "Common",
+    "number": "71",
+    "image": "/assets/sets/chaos-rising/cards/71_Watchog_Common.png"
+  },
+  {
+    "id": "chaos-rising-72-minccino",
+    "name": "Minccino",
+    "rarity": "Common",
+    "number": "72",
+    "image": "/assets/sets/chaos-rising/cards/72_Minccino_Common.png"
+  },
+  {
+    "id": "chaos-rising-73-cinccino-ex",
+    "name": "Cinccino ex",
+    "rarity": "Double Rare",
+    "number": "73",
+    "image": "/assets/sets/chaos-rising/cards/73_Cinccino_ex_Double_Rare.png"
+  },
+  {
+    "id": "chaos-rising-74-adversity-policy",
+    "name": "Adversity Policy",
+    "rarity": "Uncommon",
+    "number": "74",
+    "image": "/assets/sets/chaos-rising/cards/74_Adversity_Policy_Uncommon.png"
+  },
+  {
+    "id": "chaos-rising-75-ange-floette",
+    "name": "Ange Floette",
+    "rarity": "Uncommon",
+    "number": "75",
+    "image": "/assets/sets/chaos-rising/cards/75_Ange_Floette_Uncommon.png"
+  },
+  {
+    "id": "chaos-rising-76-az-s-tranquility",
+    "name": "AZ's Tranquility",
+    "rarity": "Uncommon",
+    "number": "76",
+    "image": "/assets/sets/chaos-rising/cards/76_AZ's_Tranquility_Uncommon.png"
+  },
+  {
+    "id": "chaos-rising-77-emma",
+    "name": "Emma",
+    "rarity": "Uncommon",
+    "number": "77",
+    "image": "/assets/sets/chaos-rising/cards/77_Emma_Uncommon.png"
+  },
+  {
+    "id": "chaos-rising-78-great-haul-net",
+    "name": "Great Haul Net",
+    "rarity": "Uncommon",
+    "number": "78",
+    "image": "/assets/sets/chaos-rising/cards/78_Great_Haul_Net_Uncommon.png"
+  },
+  {
+    "id": "chaos-rising-79-philippe",
+    "name": "Philippe",
+    "rarity": "Uncommon",
+    "number": "79",
+    "image": "/assets/sets/chaos-rising/cards/79_Philippe_Uncommon.png"
+  },
+  {
+    "id": "chaos-rising-80-prism-tower",
+    "name": "Prism Tower",
+    "rarity": "Uncommon",
+    "number": "80",
+    "image": "/assets/sets/chaos-rising/cards/80_Prism_Tower_Uncommon.png"
+  },
+  {
+    "id": "chaos-rising-81-roxie-s-performance",
+    "name": "Roxie's Performance",
+    "rarity": "Uncommon",
+    "number": "81",
+    "image": "/assets/sets/chaos-rising/cards/81_Roxie's_Performance_Uncommon.png"
+  },
+  {
+    "id": "chaos-rising-82-special-red-card",
+    "name": "Special Red Card",
+    "rarity": "Uncommon",
+    "number": "82",
+    "image": "/assets/sets/chaos-rising/cards/82_Special_Red_Card_Uncommon.png"
+  },
+  {
+    "id": "chaos-rising-83-transformation-tome",
+    "name": "Transformation Tome",
+    "rarity": "Uncommon",
+    "number": "83",
+    "image": "/assets/sets/chaos-rising/cards/83_Transformation_Tome_Uncommon.png"
+  },
+  {
+    "id": "chaos-rising-84-bubbly-water-energy",
+    "name": "Bubbly Water Energy",
+    "rarity": "Rare",
+    "number": "84",
+    "image": "/assets/sets/chaos-rising/cards/84_Bubbly_Water_Energy_Rare.png"
+  },
+  {
+    "id": "chaos-rising-85-magnetic-metal-energy",
+    "name": "Magnetic Metal Energy",
+    "rarity": "Rare",
+    "number": "85",
+    "image": "/assets/sets/chaos-rising/cards/85_Magnetic_Metal_Energy_Rare.png"
+  },
+  {
+    "id": "chaos-rising-86-nitro-fire-energy",
+    "name": "Nitro Fire Energy",
+    "rarity": "Rare",
+    "number": "86",
+    "image": "/assets/sets/chaos-rising/cards/86_Nitro_Fire_Energy_Rare.png"
+  },
+  {
+    "id": "chaos-rising-87-chespin",
+    "name": "Chespin",
+    "rarity": "Illustration Rare",
+    "number": "87",
+    "image": "/assets/sets/chaos-rising/cards/87_Chespin_Illustration_Rare.png"
+  },
+  {
+    "id": "chaos-rising-88-froakie",
+    "name": "Froakie",
+    "rarity": "Illustration Rare",
+    "number": "88",
+    "image": "/assets/sets/chaos-rising/cards/88_Froakie_Illustration_Rare.png"
+  },
+  {
+    "id": "chaos-rising-89-frogadier",
+    "name": "Frogadier",
+    "rarity": "Illustration Rare",
+    "number": "89",
+    "image": "/assets/sets/chaos-rising/cards/89_Frogadier_Illustration_Rare.png"
+  },
+  {
+    "id": "chaos-rising-90-ampharos",
+    "name": "Ampharos",
+    "rarity": "Illustration Rare",
+    "number": "90",
+    "image": "/assets/sets/chaos-rising/cards/90_Ampharos_Illustration_Rare.png"
+  },
+  {
+    "id": "chaos-rising-91-xerneas",
+    "name": "Xerneas",
+    "rarity": "Illustration Rare",
+    "number": "91",
+    "image": "/assets/sets/chaos-rising/cards/91_Xerneas_Illustration_Rare.png"
+  },
+  {
+    "id": "chaos-rising-92-claydol",
+    "name": "Claydol",
+    "rarity": "Illustration Rare",
+    "number": "92",
+    "image": "/assets/sets/chaos-rising/cards/92_Claydol_Illustration_Rare.png"
+  },
+  {
+    "id": "chaos-rising-93-crobat",
+    "name": "Crobat",
+    "rarity": "Illustration Rare",
+    "number": "93",
+    "image": "/assets/sets/chaos-rising/cards/93_Crobat_Illustration_Rare.png"
+  },
+  {
+    "id": "chaos-rising-94-metang",
+    "name": "Metang",
+    "rarity": "Illustration Rare",
+    "number": "94",
+    "image": "/assets/sets/chaos-rising/cards/94_Metang_Illustration_Rare.png"
+  },
+  {
+    "id": "chaos-rising-95-sliggoo",
+    "name": "Sliggoo",
+    "rarity": "Illustration Rare",
+    "number": "95",
+    "image": "/assets/sets/chaos-rising/cards/95_Sliggoo_Illustration_Rare.png"
+  },
+  {
+    "id": "chaos-rising-96-tauros",
+    "name": "Tauros",
+    "rarity": "Illustration Rare",
+    "number": "96",
+    "image": "/assets/sets/chaos-rising/cards/96_Tauros_Illustration_Rare.png"
+  },
+  {
+    "id": "chaos-rising-97-watchog",
+    "name": "Watchog",
+    "rarity": "Illustration Rare",
+    "number": "97",
+    "image": "/assets/sets/chaos-rising/cards/97_Watchog_Illustration_Rare.png"
+  },
+  {
+    "id": "chaos-rising-98-beedrill-ex",
+    "name": "Beedrill ex",
+    "rarity": "Ultra Rare",
+    "number": "98",
+    "image": "/assets/sets/chaos-rising/cards/98_Beedrill_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "chaos-rising-99-mega-pyroar-ex",
+    "name": "Mega Pyroar ex",
+    "rarity": "Ultra Rare",
+    "number": "99",
+    "image": "/assets/sets/chaos-rising/cards/99_Mega_Pyroar_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "chaos-rising-100-mega-greninja-ex",
+    "name": "Mega Greninja ex",
+    "rarity": "Ultra Rare",
+    "number": "100",
+    "image": "/assets/sets/chaos-rising/cards/100_Mega_Greninja_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "chaos-rising-101-mega-floette-ex",
+    "name": "Mega Floette ex",
+    "rarity": "Ultra Rare",
+    "number": "101",
+    "image": "/assets/sets/chaos-rising/cards/101_Mega_Floette_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "chaos-rising-102-gourgeist-ex",
+    "name": "Gourgeist ex",
+    "rarity": "Ultra Rare",
+    "number": "102",
+    "image": "/assets/sets/chaos-rising/cards/102_Gourgeist_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "chaos-rising-103-cobalion-ex",
+    "name": "Cobalion ex",
+    "rarity": "Ultra Rare",
+    "number": "103",
+    "image": "/assets/sets/chaos-rising/cards/103_Cobalion_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "chaos-rising-104-mega-dragalge-ex",
+    "name": "Mega Dragalge ex",
+    "rarity": "Ultra Rare",
+    "number": "104",
+    "image": "/assets/sets/chaos-rising/cards/104_Mega_Dragalge_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "chaos-rising-105-cinccino-ex",
+    "name": "Cinccino ex",
+    "rarity": "Ultra Rare",
+    "number": "105",
+    "image": "/assets/sets/chaos-rising/cards/105_Cinccino_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "chaos-rising-106-az-s-tranquility",
+    "name": "AZ's Tranquility",
+    "rarity": "Ultra Rare",
+    "number": "106",
+    "image": "/assets/sets/chaos-rising/cards/106_AZ's_Tranquility_Ultra_Rare.png"
+  },
+  {
+    "id": "chaos-rising-107-emma",
+    "name": "Emma",
+    "rarity": "Ultra Rare",
+    "number": "107",
+    "image": "/assets/sets/chaos-rising/cards/107_Emma_Ultra_Rare.png"
+  },
+  {
+    "id": "chaos-rising-108-energy-retrieval",
+    "name": "Energy Retrieval",
+    "rarity": "Ultra Rare",
+    "number": "108",
+    "image": "/assets/sets/chaos-rising/cards/108_Energy_Retrieval_Ultra_Rare.png"
+  },
+  {
+    "id": "chaos-rising-109-jumbo-ice-cream",
+    "name": "Jumbo Ice Cream",
+    "rarity": "Ultra Rare",
+    "number": "109",
+    "image": "/assets/sets/chaos-rising/cards/109_Jumbo_Ice_Cream_Ultra_Rare.png"
+  },
+  {
+    "id": "chaos-rising-110-philippe",
+    "name": "Philippe",
+    "rarity": "Ultra Rare",
+    "number": "110",
+    "image": "/assets/sets/chaos-rising/cards/110_Philippe_Ultra_Rare.png"
+  },
+  {
+    "id": "chaos-rising-111-prism-tower",
+    "name": "Prism Tower",
+    "rarity": "Ultra Rare",
+    "number": "111",
+    "image": "/assets/sets/chaos-rising/cards/111_Prism_Tower_Ultra_Rare.png"
+  },
+  {
+    "id": "chaos-rising-112-roxie-s-performance",
+    "name": "Roxie's Performance",
+    "rarity": "Ultra Rare",
+    "number": "112",
+    "image": "/assets/sets/chaos-rising/cards/112_Roxie's_Performance_Ultra_Rare.png"
+  },
+  {
+    "id": "chaos-rising-113-special-red-card",
+    "name": "Special Red Card",
+    "rarity": "Ultra Rare",
+    "number": "113",
+    "image": "/assets/sets/chaos-rising/cards/113_Special_Red_Card_Ultra_Rare.png"
+  },
+  {
+    "id": "chaos-rising-114-surfing-beach",
+    "name": "Surfing Beach",
+    "rarity": "Ultra Rare",
+    "number": "114",
+    "image": "/assets/sets/chaos-rising/cards/114_Surfing_Beach_Ultra_Rare.png"
+  },
+  {
+    "id": "chaos-rising-115-tool-scrapper",
+    "name": "Tool Scrapper",
+    "rarity": "Ultra Rare",
+    "number": "115",
+    "image": "/assets/sets/chaos-rising/cards/115_Tool_Scrapper_Ultra_Rare.png"
+  },
+  {
+    "id": "chaos-rising-116-mega-greninja-ex",
+    "name": "Mega Greninja ex",
+    "rarity": "Special Illustration Rare",
+    "number": "116",
+    "image": "/assets/sets/chaos-rising/cards/116_Mega_Greninja_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "chaos-rising-117-mega-floette-ex",
+    "name": "Mega Floette ex",
+    "rarity": "Special Illustration Rare",
+    "number": "117",
+    "image": "/assets/sets/chaos-rising/cards/117_Mega_Floette_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "chaos-rising-118-mega-dragalge-ex",
+    "name": "Mega Dragalge ex",
+    "rarity": "Special Illustration Rare",
+    "number": "118",
+    "image": "/assets/sets/chaos-rising/cards/118_Mega_Dragalge_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "chaos-rising-119-cinccino-ex",
+    "name": "Cinccino ex",
+    "rarity": "Special Illustration Rare",
+    "number": "119",
+    "image": "/assets/sets/chaos-rising/cards/119_Cinccino_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "chaos-rising-120-az-s-tranquility",
+    "name": "AZ's Tranquility",
+    "rarity": "Special Illustration Rare",
+    "number": "120",
+    "image": "/assets/sets/chaos-rising/cards/120_AZ's_Tranquility_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "chaos-rising-121-roxie-s-performance",
+    "name": "Roxie's Performance",
+    "rarity": "Special Illustration Rare",
+    "number": "121",
+    "image": "/assets/sets/chaos-rising/cards/121_Roxie's_Performance_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "chaos-rising-122-mega-greninja-ex-mega-hyper",
+    "name": "Mega Greninja ex Mega Hyper",
+    "rarity": "Rare",
+    "number": "122",
+    "image": "/assets/sets/chaos-rising/cards/122_Mega_Greninja_ex_Mega_Hyper_Rare.png"
+  }
+]

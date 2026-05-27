@@ -1,0 +1,562 @@
+[
+  {
+    "id": "dragon-majesty-1-charmander",
+    "name": "Charmander",
+    "rarity": "Common",
+    "number": "1",
+    "image": "/assets/sets/dragon-majesty/cards/1_Charmander_Common.png"
+  },
+  {
+    "id": "dragon-majesty-2-charmeleon",
+    "name": "Charmeleon",
+    "rarity": "Uncommon",
+    "number": "2",
+    "image": "/assets/sets/dragon-majesty/cards/2_Charmeleon_Uncommon.png"
+  },
+  {
+    "id": "dragon-majesty-3-charizard",
+    "name": "Charizard",
+    "rarity": "Rare",
+    "number": "3",
+    "image": "/assets/sets/dragon-majesty/cards/3_Charizard_Rare_Holo.png"
+  },
+  {
+    "id": "dragon-majesty-4-torchic",
+    "name": "Torchic",
+    "rarity": "Common",
+    "number": "4",
+    "image": "/assets/sets/dragon-majesty/cards/4_Torchic_Common.png"
+  },
+  {
+    "id": "dragon-majesty-5-combusken",
+    "name": "Combusken",
+    "rarity": "Uncommon",
+    "number": "5",
+    "image": "/assets/sets/dragon-majesty/cards/5_Combusken_Uncommon.png"
+  },
+  {
+    "id": "dragon-majesty-6-blaziken",
+    "name": "Blaziken",
+    "rarity": "Rare",
+    "number": "6",
+    "image": "/assets/sets/dragon-majesty/cards/6_Blaziken_Rare_Holo.png"
+  },
+  {
+    "id": "dragon-majesty-7-victini",
+    "name": "Victini ◇",
+    "rarity": "Rare",
+    "number": "7",
+    "image": "/assets/sets/dragon-majesty/cards/7_Victini_◇_Rare_Prism_Star.png"
+  },
+  {
+    "id": "dragon-majesty-8-darumaka",
+    "name": "Darumaka",
+    "rarity": "Common",
+    "number": "8",
+    "image": "/assets/sets/dragon-majesty/cards/8_Darumaka_Common.png"
+  },
+  {
+    "id": "dragon-majesty-9-darmanitan",
+    "name": "Darmanitan",
+    "rarity": "Uncommon",
+    "number": "9",
+    "image": "/assets/sets/dragon-majesty/cards/9_Darmanitan_Uncommon.png"
+  },
+  {
+    "id": "dragon-majesty-10-heatmor",
+    "name": "Heatmor",
+    "rarity": "Uncommon",
+    "number": "10",
+    "image": "/assets/sets/dragon-majesty/cards/10_Heatmor_Uncommon.png"
+  },
+  {
+    "id": "dragon-majesty-11-reshiram-gx",
+    "name": "Reshiram-GX",
+    "rarity": "Double Rare",
+    "number": "11",
+    "image": "/assets/sets/dragon-majesty/cards/11_Reshiram-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "dragon-majesty-12-litten",
+    "name": "Litten",
+    "rarity": "Common",
+    "number": "12",
+    "image": "/assets/sets/dragon-majesty/cards/12_Litten_Common.png"
+  },
+  {
+    "id": "dragon-majesty-13-salandit",
+    "name": "Salandit",
+    "rarity": "Common",
+    "number": "13",
+    "image": "/assets/sets/dragon-majesty/cards/13_Salandit_Common.png"
+  },
+  {
+    "id": "dragon-majesty-14-salazzle",
+    "name": "Salazzle",
+    "rarity": "Uncommon",
+    "number": "14",
+    "image": "/assets/sets/dragon-majesty/cards/14_Salazzle_Uncommon.png"
+  },
+  {
+    "id": "dragon-majesty-15-horsea",
+    "name": "Horsea",
+    "rarity": "Common",
+    "number": "15",
+    "image": "/assets/sets/dragon-majesty/cards/15_Horsea_Common.png"
+  },
+  {
+    "id": "dragon-majesty-16-horsea",
+    "name": "Horsea",
+    "rarity": "Common",
+    "number": "16",
+    "image": "/assets/sets/dragon-majesty/cards/16_Horsea_Common.png"
+  },
+  {
+    "id": "dragon-majesty-17-seadra",
+    "name": "Seadra",
+    "rarity": "Uncommon",
+    "number": "17",
+    "image": "/assets/sets/dragon-majesty/cards/17_Seadra_Uncommon.png"
+  },
+  {
+    "id": "dragon-majesty-18-kingdra-gx",
+    "name": "Kingdra-GX",
+    "rarity": "Double Rare",
+    "number": "18",
+    "image": "/assets/sets/dragon-majesty/cards/18_Kingdra-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "dragon-majesty-19-magikarp",
+    "name": "Magikarp",
+    "rarity": "Common",
+    "number": "19",
+    "image": "/assets/sets/dragon-majesty/cards/19_Magikarp_Common.png"
+  },
+  {
+    "id": "dragon-majesty-20-gyarados",
+    "name": "Gyarados",
+    "rarity": "Rare",
+    "number": "20",
+    "image": "/assets/sets/dragon-majesty/cards/20_Gyarados_Rare_Holo.png"
+  },
+  {
+    "id": "dragon-majesty-21-lapras",
+    "name": "Lapras",
+    "rarity": "Uncommon",
+    "number": "21",
+    "image": "/assets/sets/dragon-majesty/cards/21_Lapras_Uncommon.png"
+  },
+  {
+    "id": "dragon-majesty-22-totodile",
+    "name": "Totodile",
+    "rarity": "Common",
+    "number": "22",
+    "image": "/assets/sets/dragon-majesty/cards/22_Totodile_Common.png"
+  },
+  {
+    "id": "dragon-majesty-23-croconaw",
+    "name": "Croconaw",
+    "rarity": "Uncommon",
+    "number": "23",
+    "image": "/assets/sets/dragon-majesty/cards/23_Croconaw_Uncommon.png"
+  },
+  {
+    "id": "dragon-majesty-24-feraligatr",
+    "name": "Feraligatr",
+    "rarity": "Rare",
+    "number": "24",
+    "image": "/assets/sets/dragon-majesty/cards/24_Feraligatr_Rare_Holo.png"
+  },
+  {
+    "id": "dragon-majesty-25-wooper",
+    "name": "Wooper",
+    "rarity": "Common",
+    "number": "25",
+    "image": "/assets/sets/dragon-majesty/cards/25_Wooper_Common.png"
+  },
+  {
+    "id": "dragon-majesty-26-quagsire",
+    "name": "Quagsire",
+    "rarity": "Uncommon",
+    "number": "26",
+    "image": "/assets/sets/dragon-majesty/cards/26_Quagsire_Uncommon.png"
+  },
+  {
+    "id": "dragon-majesty-27-corsola",
+    "name": "Corsola",
+    "rarity": "Common",
+    "number": "27",
+    "image": "/assets/sets/dragon-majesty/cards/27_Corsola_Common.png"
+  },
+  {
+    "id": "dragon-majesty-28-feebas",
+    "name": "Feebas",
+    "rarity": "Common",
+    "number": "28",
+    "image": "/assets/sets/dragon-majesty/cards/28_Feebas_Common.png"
+  },
+  {
+    "id": "dragon-majesty-29-milotic",
+    "name": "Milotic",
+    "rarity": "Uncommon",
+    "number": "29",
+    "image": "/assets/sets/dragon-majesty/cards/29_Milotic_Uncommon.png"
+  },
+  {
+    "id": "dragon-majesty-30-phione",
+    "name": "Phione",
+    "rarity": "Uncommon",
+    "number": "30",
+    "image": "/assets/sets/dragon-majesty/cards/30_Phione_Uncommon.png"
+  },
+  {
+    "id": "dragon-majesty-31-wishiwashi",
+    "name": "Wishiwashi",
+    "rarity": "Common",
+    "number": "31",
+    "image": "/assets/sets/dragon-majesty/cards/31_Wishiwashi_Common.png"
+  },
+  {
+    "id": "dragon-majesty-32-trapinch",
+    "name": "Trapinch",
+    "rarity": "Common",
+    "number": "32",
+    "image": "/assets/sets/dragon-majesty/cards/32_Trapinch_Common.png"
+  },
+  {
+    "id": "dragon-majesty-33-hydreigon",
+    "name": "Hydreigon",
+    "rarity": "Rare",
+    "number": "33",
+    "image": "/assets/sets/dragon-majesty/cards/33_Hydreigon_Rare_Holo.png"
+  },
+  {
+    "id": "dragon-majesty-34-dratini",
+    "name": "Dratini",
+    "rarity": "Common",
+    "number": "34",
+    "image": "/assets/sets/dragon-majesty/cards/34_Dratini_Common.png"
+  },
+  {
+    "id": "dragon-majesty-35-dratini",
+    "name": "Dratini",
+    "rarity": "Common",
+    "number": "35",
+    "image": "/assets/sets/dragon-majesty/cards/35_Dratini_Common.png"
+  },
+  {
+    "id": "dragon-majesty-36-dragonair",
+    "name": "Dragonair",
+    "rarity": "Uncommon",
+    "number": "36",
+    "image": "/assets/sets/dragon-majesty/cards/36_Dragonair_Uncommon.png"
+  },
+  {
+    "id": "dragon-majesty-37-dragonite-gx",
+    "name": "Dragonite-GX",
+    "rarity": "Double Rare",
+    "number": "37",
+    "image": "/assets/sets/dragon-majesty/cards/37_Dragonite-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "dragon-majesty-38-vibrava",
+    "name": "Vibrava",
+    "rarity": "Common",
+    "number": "38",
+    "image": "/assets/sets/dragon-majesty/cards/38_Vibrava_Common.png"
+  },
+  {
+    "id": "dragon-majesty-39-flygon",
+    "name": "Flygon",
+    "rarity": "Uncommon",
+    "number": "39",
+    "image": "/assets/sets/dragon-majesty/cards/39_Flygon_Uncommon.png"
+  },
+  {
+    "id": "dragon-majesty-40-altaria",
+    "name": "Altaria",
+    "rarity": "Rare",
+    "number": "40",
+    "image": "/assets/sets/dragon-majesty/cards/40_Altaria_Rare_Holo.png"
+  },
+  {
+    "id": "dragon-majesty-40a-altaria",
+    "name": "Altaria",
+    "rarity": "Rare",
+    "number": "40a",
+    "image": "/assets/sets/dragon-majesty/cards/40a_Altaria_Rare_Holo.png"
+  },
+  {
+    "id": "dragon-majesty-41-altaria-gx",
+    "name": "Altaria-GX",
+    "rarity": "Double Rare",
+    "number": "41",
+    "image": "/assets/sets/dragon-majesty/cards/41_Altaria-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "dragon-majesty-42-bagon",
+    "name": "Bagon",
+    "rarity": "Common",
+    "number": "42",
+    "image": "/assets/sets/dragon-majesty/cards/42_Bagon_Common.png"
+  },
+  {
+    "id": "dragon-majesty-43-shelgon",
+    "name": "Shelgon",
+    "rarity": "Uncommon",
+    "number": "43",
+    "image": "/assets/sets/dragon-majesty/cards/43_Shelgon_Uncommon.png"
+  },
+  {
+    "id": "dragon-majesty-44-salamence-gx",
+    "name": "Salamence-GX",
+    "rarity": "Double Rare",
+    "number": "44",
+    "image": "/assets/sets/dragon-majesty/cards/44_Salamence-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "dragon-majesty-45-druddigon",
+    "name": "Druddigon",
+    "rarity": "Uncommon",
+    "number": "45",
+    "image": "/assets/sets/dragon-majesty/cards/45_Druddigon_Uncommon.png"
+  },
+  {
+    "id": "dragon-majesty-46-zekrom",
+    "name": "Zekrom",
+    "rarity": "Rare",
+    "number": "46",
+    "image": "/assets/sets/dragon-majesty/cards/46_Zekrom_Rare_Holo.png"
+  },
+  {
+    "id": "dragon-majesty-47-kyurem",
+    "name": "Kyurem",
+    "rarity": "Rare",
+    "number": "47",
+    "image": "/assets/sets/dragon-majesty/cards/47_Kyurem_Rare_Holo.png"
+  },
+  {
+    "id": "dragon-majesty-48-white-kyurem-gx",
+    "name": "White Kyurem-GX",
+    "rarity": "Double Rare",
+    "number": "48",
+    "image": "/assets/sets/dragon-majesty/cards/48_White_Kyurem-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "dragon-majesty-49-zygarde",
+    "name": "Zygarde",
+    "rarity": "Uncommon",
+    "number": "49",
+    "image": "/assets/sets/dragon-majesty/cards/49_Zygarde_Uncommon.png"
+  },
+  {
+    "id": "dragon-majesty-50-turtonator",
+    "name": "Turtonator",
+    "rarity": "Uncommon",
+    "number": "50",
+    "image": "/assets/sets/dragon-majesty/cards/50_Turtonator_Uncommon.png"
+  },
+  {
+    "id": "dragon-majesty-51-drampa",
+    "name": "Drampa",
+    "rarity": "Uncommon",
+    "number": "51",
+    "image": "/assets/sets/dragon-majesty/cards/51_Drampa_Uncommon.png"
+  },
+  {
+    "id": "dragon-majesty-52-jangmo-o",
+    "name": "Jangmo-o",
+    "rarity": "Common",
+    "number": "52",
+    "image": "/assets/sets/dragon-majesty/cards/52_Jangmo-o_Common.png"
+  },
+  {
+    "id": "dragon-majesty-53-hakamo-o",
+    "name": "Hakamo-o",
+    "rarity": "Common",
+    "number": "53",
+    "image": "/assets/sets/dragon-majesty/cards/53_Hakamo-o_Common.png"
+  },
+  {
+    "id": "dragon-majesty-54-kommo-o",
+    "name": "Kommo-o",
+    "rarity": "Rare",
+    "number": "54",
+    "image": "/assets/sets/dragon-majesty/cards/54_Kommo-o_Rare_Holo.png"
+  },
+  {
+    "id": "dragon-majesty-55-kangaskhan",
+    "name": "Kangaskhan",
+    "rarity": "Common",
+    "number": "55",
+    "image": "/assets/sets/dragon-majesty/cards/55_Kangaskhan_Common.png"
+  },
+  {
+    "id": "dragon-majesty-56-swablu",
+    "name": "Swablu",
+    "rarity": "Common",
+    "number": "56",
+    "image": "/assets/sets/dragon-majesty/cards/56_Swablu_Common.png"
+  },
+  {
+    "id": "dragon-majesty-57-swablu",
+    "name": "Swablu",
+    "rarity": "Common",
+    "number": "57",
+    "image": "/assets/sets/dragon-majesty/cards/57_Swablu_Common.png"
+  },
+  {
+    "id": "dragon-majesty-58-blaine-s-last-stand",
+    "name": "Blaine's Last Stand",
+    "rarity": "Rare",
+    "number": "58",
+    "image": "/assets/sets/dragon-majesty/cards/58_Blaine's_Last_Stand_Rare_Holo.png"
+  },
+  {
+    "id": "dragon-majesty-59-dragon-talon",
+    "name": "Dragon Talon",
+    "rarity": "Uncommon",
+    "number": "59",
+    "image": "/assets/sets/dragon-majesty/cards/59_Dragon_Talon_Uncommon.png"
+  },
+  {
+    "id": "dragon-majesty-60-fiery-flint",
+    "name": "Fiery Flint",
+    "rarity": "Uncommon",
+    "number": "60",
+    "image": "/assets/sets/dragon-majesty/cards/60_Fiery_Flint_Uncommon.png"
+  },
+  {
+    "id": "dragon-majesty-60a-fiery-flint",
+    "name": "Fiery Flint",
+    "rarity": "Uncommon",
+    "number": "60a",
+    "image": "/assets/sets/dragon-majesty/cards/60a_Fiery_Flint_Uncommon.png"
+  },
+  {
+    "id": "dragon-majesty-61-lance",
+    "name": "Lance ◇",
+    "rarity": "Rare",
+    "number": "61",
+    "image": "/assets/sets/dragon-majesty/cards/61_Lance_◇_Rare_Prism_Star.png"
+  },
+  {
+    "id": "dragon-majesty-62-switch-raft",
+    "name": "Switch Raft",
+    "rarity": "Uncommon",
+    "number": "62",
+    "image": "/assets/sets/dragon-majesty/cards/62_Switch_Raft_Uncommon.png"
+  },
+  {
+    "id": "dragon-majesty-63-wela-volcano-park",
+    "name": "Wela Volcano Park",
+    "rarity": "Uncommon",
+    "number": "63",
+    "image": "/assets/sets/dragon-majesty/cards/63_Wela_Volcano_Park_Uncommon.png"
+  },
+  {
+    "id": "dragon-majesty-64-zinnia",
+    "name": "Zinnia",
+    "rarity": "Uncommon",
+    "number": "64",
+    "image": "/assets/sets/dragon-majesty/cards/64_Zinnia_Uncommon.png"
+  },
+  {
+    "id": "dragon-majesty-65-reshiram-gx",
+    "name": "Reshiram-GX",
+    "rarity": "Ultra Rare",
+    "number": "65",
+    "image": "/assets/sets/dragon-majesty/cards/65_Reshiram-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "dragon-majesty-66-kingdra-gx",
+    "name": "Kingdra-GX",
+    "rarity": "Ultra Rare",
+    "number": "66",
+    "image": "/assets/sets/dragon-majesty/cards/66_Kingdra-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "dragon-majesty-67-dragonite-gx",
+    "name": "Dragonite-GX",
+    "rarity": "Ultra Rare",
+    "number": "67",
+    "image": "/assets/sets/dragon-majesty/cards/67_Dragonite-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "dragon-majesty-68-altaria-gx",
+    "name": "Altaria-GX",
+    "rarity": "Ultra Rare",
+    "number": "68",
+    "image": "/assets/sets/dragon-majesty/cards/68_Altaria-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "dragon-majesty-69-blaine-s-last-stand",
+    "name": "Blaine's Last Stand",
+    "rarity": "Ultra Rare",
+    "number": "69",
+    "image": "/assets/sets/dragon-majesty/cards/69_Blaine's_Last_Stand_Rare_Ultra.png"
+  },
+  {
+    "id": "dragon-majesty-70-zinnia",
+    "name": "Zinnia",
+    "rarity": "Ultra Rare",
+    "number": "70",
+    "image": "/assets/sets/dragon-majesty/cards/70_Zinnia_Rare_Ultra.png"
+  },
+  {
+    "id": "dragon-majesty-71-reshiram-gx",
+    "name": "Reshiram-GX",
+    "rarity": "Secret Rare",
+    "number": "71",
+    "image": "/assets/sets/dragon-majesty/cards/71_Reshiram-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "dragon-majesty-72-altaria-gx",
+    "name": "Altaria-GX",
+    "rarity": "Secret Rare",
+    "number": "72",
+    "image": "/assets/sets/dragon-majesty/cards/72_Altaria-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "dragon-majesty-73-salamence-gx",
+    "name": "Salamence-GX",
+    "rarity": "Secret Rare",
+    "number": "73",
+    "image": "/assets/sets/dragon-majesty/cards/73_Salamence-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "dragon-majesty-74-white-kyurem-gx",
+    "name": "White Kyurem-GX",
+    "rarity": "Secret Rare",
+    "number": "74",
+    "image": "/assets/sets/dragon-majesty/cards/74_White_Kyurem-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "dragon-majesty-75-dragon-talon",
+    "name": "Dragon Talon",
+    "rarity": "Secret Rare",
+    "number": "75",
+    "image": "/assets/sets/dragon-majesty/cards/75_Dragon_Talon_Rare_Secret.png"
+  },
+  {
+    "id": "dragon-majesty-76-fiery-flint",
+    "name": "Fiery Flint",
+    "rarity": "Secret Rare",
+    "number": "76",
+    "image": "/assets/sets/dragon-majesty/cards/76_Fiery_Flint_Rare_Secret.png"
+  },
+  {
+    "id": "dragon-majesty-77-switch-raft",
+    "name": "Switch Raft",
+    "rarity": "Secret Rare",
+    "number": "77",
+    "image": "/assets/sets/dragon-majesty/cards/77_Switch_Raft_Rare_Secret.png"
+  },
+  {
+    "id": "dragon-majesty-78-ultra-necrozma-gx",
+    "name": "Ultra Necrozma-GX",
+    "rarity": "Secret Rare",
+    "number": "78",
+    "image": "/assets/sets/dragon-majesty/cards/78_Ultra_Necrozma-GX_Rare_Secret.png"
+  }
+]

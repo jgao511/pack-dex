@@ -1,0 +1,1955 @@
+[
+  {
+    "id": "paldea-evolved-1-hoppip",
+    "name": "Hoppip",
+    "rarity": "Common",
+    "number": "1",
+    "image": "/assets/sets/paldea-evolved/cards/1_Hoppip_Common.png"
+  },
+  {
+    "id": "paldea-evolved-2-skiploom",
+    "name": "Skiploom",
+    "rarity": "Uncommon",
+    "number": "2",
+    "image": "/assets/sets/paldea-evolved/cards/2_Skiploom_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-3-jumpluff",
+    "name": "Jumpluff",
+    "rarity": "Rare",
+    "number": "3",
+    "image": "/assets/sets/paldea-evolved/cards/3_Jumpluff_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-4-pineco",
+    "name": "Pineco",
+    "rarity": "Common",
+    "number": "4",
+    "image": "/assets/sets/paldea-evolved/cards/4_Pineco_Common.png"
+  },
+  {
+    "id": "paldea-evolved-5-forretress-ex",
+    "name": "Forretress ex",
+    "rarity": "Double Rare",
+    "number": "5",
+    "image": "/assets/sets/paldea-evolved/cards/5_Forretress_ex_Double_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-6-heracross",
+    "name": "Heracross",
+    "rarity": "Uncommon",
+    "number": "6",
+    "image": "/assets/sets/paldea-evolved/cards/6_Heracross_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-7-tropius",
+    "name": "Tropius",
+    "rarity": "Common",
+    "number": "7",
+    "image": "/assets/sets/paldea-evolved/cards/7_Tropius_Common.png"
+  },
+  {
+    "id": "paldea-evolved-8-combee",
+    "name": "Combee",
+    "rarity": "Common",
+    "number": "8",
+    "image": "/assets/sets/paldea-evolved/cards/8_Combee_Common.png"
+  },
+  {
+    "id": "paldea-evolved-9-vespiquen",
+    "name": "Vespiquen",
+    "rarity": "Uncommon",
+    "number": "9",
+    "image": "/assets/sets/paldea-evolved/cards/9_Vespiquen_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-10-snover",
+    "name": "Snover",
+    "rarity": "Common",
+    "number": "10",
+    "image": "/assets/sets/paldea-evolved/cards/10_Snover_Common.png"
+  },
+  {
+    "id": "paldea-evolved-11-abomasnow",
+    "name": "Abomasnow",
+    "rarity": "Rare",
+    "number": "11",
+    "image": "/assets/sets/paldea-evolved/cards/11_Abomasnow_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-12-sprigatito",
+    "name": "Sprigatito",
+    "rarity": "Common",
+    "number": "12",
+    "image": "/assets/sets/paldea-evolved/cards/12_Sprigatito_Common.png"
+  },
+  {
+    "id": "paldea-evolved-13-sprigatito",
+    "name": "Sprigatito",
+    "rarity": "Common",
+    "number": "13",
+    "image": "/assets/sets/paldea-evolved/cards/13_Sprigatito_Common.png"
+  },
+  {
+    "id": "paldea-evolved-14-floragato",
+    "name": "Floragato",
+    "rarity": "Uncommon",
+    "number": "14",
+    "image": "/assets/sets/paldea-evolved/cards/14_Floragato_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-15-meowscarada-ex",
+    "name": "Meowscarada ex",
+    "rarity": "Double Rare",
+    "number": "15",
+    "image": "/assets/sets/paldea-evolved/cards/15_Meowscarada_ex_Double_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-16-tarountula",
+    "name": "Tarountula",
+    "rarity": "Common",
+    "number": "16",
+    "image": "/assets/sets/paldea-evolved/cards/16_Tarountula_Common.png"
+  },
+  {
+    "id": "paldea-evolved-17-tarountula",
+    "name": "Tarountula",
+    "rarity": "Common",
+    "number": "17",
+    "image": "/assets/sets/paldea-evolved/cards/17_Tarountula_Common.png"
+  },
+  {
+    "id": "paldea-evolved-18-spidops",
+    "name": "Spidops",
+    "rarity": "Uncommon",
+    "number": "18",
+    "image": "/assets/sets/paldea-evolved/cards/18_Spidops_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-19-nymble",
+    "name": "Nymble",
+    "rarity": "Common",
+    "number": "19",
+    "image": "/assets/sets/paldea-evolved/cards/19_Nymble_Common.png"
+  },
+  {
+    "id": "paldea-evolved-20-nymble",
+    "name": "Nymble",
+    "rarity": "Common",
+    "number": "20",
+    "image": "/assets/sets/paldea-evolved/cards/20_Nymble_Common.png"
+  },
+  {
+    "id": "paldea-evolved-21-lokix",
+    "name": "Lokix",
+    "rarity": "Rare",
+    "number": "21",
+    "image": "/assets/sets/paldea-evolved/cards/21_Lokix_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-22-bramblin",
+    "name": "Bramblin",
+    "rarity": "Common",
+    "number": "22",
+    "image": "/assets/sets/paldea-evolved/cards/22_Bramblin_Common.png"
+  },
+  {
+    "id": "paldea-evolved-23-bramblin",
+    "name": "Bramblin",
+    "rarity": "Common",
+    "number": "23",
+    "image": "/assets/sets/paldea-evolved/cards/23_Bramblin_Common.png"
+  },
+  {
+    "id": "paldea-evolved-24-brambleghast",
+    "name": "Brambleghast",
+    "rarity": "Uncommon",
+    "number": "24",
+    "image": "/assets/sets/paldea-evolved/cards/24_Brambleghast_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-25-rellor",
+    "name": "Rellor",
+    "rarity": "Common",
+    "number": "25",
+    "image": "/assets/sets/paldea-evolved/cards/25_Rellor_Common.png"
+  },
+  {
+    "id": "paldea-evolved-26-rellor",
+    "name": "Rellor",
+    "rarity": "Common",
+    "number": "26",
+    "image": "/assets/sets/paldea-evolved/cards/26_Rellor_Common.png"
+  },
+  {
+    "id": "paldea-evolved-27-wo-chien-ex",
+    "name": "Wo-Chien ex",
+    "rarity": "Double Rare",
+    "number": "27",
+    "image": "/assets/sets/paldea-evolved/cards/27_Wo-Chien_ex_Double_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-28-paldean-tauros",
+    "name": "Paldean Tauros",
+    "rarity": "Uncommon",
+    "number": "28",
+    "image": "/assets/sets/paldea-evolved/cards/28_Paldean_Tauros_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-29-fletchinder",
+    "name": "Fletchinder",
+    "rarity": "Uncommon",
+    "number": "29",
+    "image": "/assets/sets/paldea-evolved/cards/29_Fletchinder_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-30-talonflame",
+    "name": "Talonflame",
+    "rarity": "Uncommon",
+    "number": "30",
+    "image": "/assets/sets/paldea-evolved/cards/30_Talonflame_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-31-litleo",
+    "name": "Litleo",
+    "rarity": "Common",
+    "number": "31",
+    "image": "/assets/sets/paldea-evolved/cards/31_Litleo_Common.png"
+  },
+  {
+    "id": "paldea-evolved-32-pyroar",
+    "name": "Pyroar",
+    "rarity": "Uncommon",
+    "number": "32",
+    "image": "/assets/sets/paldea-evolved/cards/32_Pyroar_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-33-oricorio",
+    "name": "Oricorio",
+    "rarity": "Rare",
+    "number": "33",
+    "image": "/assets/sets/paldea-evolved/cards/33_Oricorio_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-34-fuecoco",
+    "name": "Fuecoco",
+    "rarity": "Common",
+    "number": "34",
+    "image": "/assets/sets/paldea-evolved/cards/34_Fuecoco_Common.png"
+  },
+  {
+    "id": "paldea-evolved-35-fuecoco",
+    "name": "Fuecoco",
+    "rarity": "Common",
+    "number": "35",
+    "image": "/assets/sets/paldea-evolved/cards/35_Fuecoco_Common.png"
+  },
+  {
+    "id": "paldea-evolved-36-crocalor",
+    "name": "Crocalor",
+    "rarity": "Uncommon",
+    "number": "36",
+    "image": "/assets/sets/paldea-evolved/cards/36_Crocalor_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-37-skeledirge-ex",
+    "name": "Skeledirge ex",
+    "rarity": "Double Rare",
+    "number": "37",
+    "image": "/assets/sets/paldea-evolved/cards/37_Skeledirge_ex_Double_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-38-charcadet",
+    "name": "Charcadet",
+    "rarity": "Common",
+    "number": "38",
+    "image": "/assets/sets/paldea-evolved/cards/38_Charcadet_Common.png"
+  },
+  {
+    "id": "paldea-evolved-39-charcadet",
+    "name": "Charcadet",
+    "rarity": "Common",
+    "number": "39",
+    "image": "/assets/sets/paldea-evolved/cards/39_Charcadet_Common.png"
+  },
+  {
+    "id": "paldea-evolved-40-chi-yu-ex",
+    "name": "Chi-Yu ex",
+    "rarity": "Double Rare",
+    "number": "40",
+    "image": "/assets/sets/paldea-evolved/cards/40_Chi-Yu_ex_Double_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-41-paldean-tauros",
+    "name": "Paldean Tauros",
+    "rarity": "Uncommon",
+    "number": "41",
+    "image": "/assets/sets/paldea-evolved/cards/41_Paldean_Tauros_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-42-magikarp",
+    "name": "Magikarp",
+    "rarity": "Common",
+    "number": "42",
+    "image": "/assets/sets/paldea-evolved/cards/42_Magikarp_Common.png"
+  },
+  {
+    "id": "paldea-evolved-43-gyarados",
+    "name": "Gyarados",
+    "rarity": "Rare",
+    "number": "43",
+    "image": "/assets/sets/paldea-evolved/cards/43_Gyarados_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-44-marill",
+    "name": "Marill",
+    "rarity": "Common",
+    "number": "44",
+    "image": "/assets/sets/paldea-evolved/cards/44_Marill_Common.png"
+  },
+  {
+    "id": "paldea-evolved-45-azumarill",
+    "name": "Azumarill",
+    "rarity": "Uncommon",
+    "number": "45",
+    "image": "/assets/sets/paldea-evolved/cards/45_Azumarill_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-46-delibird",
+    "name": "Delibird",
+    "rarity": "Common",
+    "number": "46",
+    "image": "/assets/sets/paldea-evolved/cards/46_Delibird_Common.png"
+  },
+  {
+    "id": "paldea-evolved-47-luvdisc",
+    "name": "Luvdisc",
+    "rarity": "Common",
+    "number": "47",
+    "image": "/assets/sets/paldea-evolved/cards/47_Luvdisc_Common.png"
+  },
+  {
+    "id": "paldea-evolved-48-eiscue",
+    "name": "Eiscue",
+    "rarity": "Uncommon",
+    "number": "48",
+    "image": "/assets/sets/paldea-evolved/cards/48_Eiscue_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-49-quaxly",
+    "name": "Quaxly",
+    "rarity": "Common",
+    "number": "49",
+    "image": "/assets/sets/paldea-evolved/cards/49_Quaxly_Common.png"
+  },
+  {
+    "id": "paldea-evolved-50-quaxly",
+    "name": "Quaxly",
+    "rarity": "Common",
+    "number": "50",
+    "image": "/assets/sets/paldea-evolved/cards/50_Quaxly_Common.png"
+  },
+  {
+    "id": "paldea-evolved-51-quaxwell",
+    "name": "Quaxwell",
+    "rarity": "Uncommon",
+    "number": "51",
+    "image": "/assets/sets/paldea-evolved/cards/51_Quaxwell_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-52-quaquaval-ex",
+    "name": "Quaquaval ex",
+    "rarity": "Double Rare",
+    "number": "52",
+    "image": "/assets/sets/paldea-evolved/cards/52_Quaquaval_ex_Double_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-53-cetoddle",
+    "name": "Cetoddle",
+    "rarity": "Common",
+    "number": "53",
+    "image": "/assets/sets/paldea-evolved/cards/53_Cetoddle_Common.png"
+  },
+  {
+    "id": "paldea-evolved-54-cetoddle",
+    "name": "Cetoddle",
+    "rarity": "Common",
+    "number": "54",
+    "image": "/assets/sets/paldea-evolved/cards/54_Cetoddle_Common.png"
+  },
+  {
+    "id": "paldea-evolved-55-cetitan",
+    "name": "Cetitan",
+    "rarity": "Uncommon",
+    "number": "55",
+    "image": "/assets/sets/paldea-evolved/cards/55_Cetitan_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-56-veluza",
+    "name": "Veluza",
+    "rarity": "Rare",
+    "number": "56",
+    "image": "/assets/sets/paldea-evolved/cards/56_Veluza_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-57-frigibax",
+    "name": "Frigibax",
+    "rarity": "Common",
+    "number": "57",
+    "image": "/assets/sets/paldea-evolved/cards/57_Frigibax_Common.png"
+  },
+  {
+    "id": "paldea-evolved-58-frigibax",
+    "name": "Frigibax",
+    "rarity": "Common",
+    "number": "58",
+    "image": "/assets/sets/paldea-evolved/cards/58_Frigibax_Common.png"
+  },
+  {
+    "id": "paldea-evolved-59-arctibax",
+    "name": "Arctibax",
+    "rarity": "Uncommon",
+    "number": "59",
+    "image": "/assets/sets/paldea-evolved/cards/59_Arctibax_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-60-baxcalibur",
+    "name": "Baxcalibur",
+    "rarity": "Rare",
+    "number": "60",
+    "image": "/assets/sets/paldea-evolved/cards/60_Baxcalibur_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-61-chien-pao-ex",
+    "name": "Chien-Pao ex",
+    "rarity": "Double Rare",
+    "number": "61",
+    "image": "/assets/sets/paldea-evolved/cards/61_Chien-Pao_ex_Double_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-62-pikachu",
+    "name": "Pikachu",
+    "rarity": "Common",
+    "number": "62",
+    "image": "/assets/sets/paldea-evolved/cards/62_Pikachu_Common.png"
+  },
+  {
+    "id": "paldea-evolved-63-pikachu-ex",
+    "name": "Pikachu ex",
+    "rarity": "Double Rare",
+    "number": "63",
+    "image": "/assets/sets/paldea-evolved/cards/63_Pikachu_ex_Double_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-64-raichu",
+    "name": "Raichu",
+    "rarity": "Uncommon",
+    "number": "64",
+    "image": "/assets/sets/paldea-evolved/cards/64_Raichu_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-65-magnemite",
+    "name": "Magnemite",
+    "rarity": "Common",
+    "number": "65",
+    "image": "/assets/sets/paldea-evolved/cards/65_Magnemite_Common.png"
+  },
+  {
+    "id": "paldea-evolved-66-voltorb",
+    "name": "Voltorb",
+    "rarity": "Common",
+    "number": "66",
+    "image": "/assets/sets/paldea-evolved/cards/66_Voltorb_Common.png"
+  },
+  {
+    "id": "paldea-evolved-67-electrode",
+    "name": "Electrode",
+    "rarity": "Uncommon",
+    "number": "67",
+    "image": "/assets/sets/paldea-evolved/cards/67_Electrode_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-68-shinx",
+    "name": "Shinx",
+    "rarity": "Common",
+    "number": "68",
+    "image": "/assets/sets/paldea-evolved/cards/68_Shinx_Common.png"
+  },
+  {
+    "id": "paldea-evolved-69-shinx",
+    "name": "Shinx",
+    "rarity": "Common",
+    "number": "69",
+    "image": "/assets/sets/paldea-evolved/cards/69_Shinx_Common.png"
+  },
+  {
+    "id": "paldea-evolved-70-luxio",
+    "name": "Luxio",
+    "rarity": "Uncommon",
+    "number": "70",
+    "image": "/assets/sets/paldea-evolved/cards/70_Luxio_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-71-luxray",
+    "name": "Luxray",
+    "rarity": "Rare",
+    "number": "71",
+    "image": "/assets/sets/paldea-evolved/cards/71_Luxray_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-72-pincurchin",
+    "name": "Pincurchin",
+    "rarity": "Common",
+    "number": "72",
+    "image": "/assets/sets/paldea-evolved/cards/72_Pincurchin_Common.png"
+  },
+  {
+    "id": "paldea-evolved-73-pincurchin",
+    "name": "Pincurchin",
+    "rarity": "Uncommon",
+    "number": "73",
+    "image": "/assets/sets/paldea-evolved/cards/73_Pincurchin_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-74-pawmi",
+    "name": "Pawmi",
+    "rarity": "Common",
+    "number": "74",
+    "image": "/assets/sets/paldea-evolved/cards/74_Pawmi_Common.png"
+  },
+  {
+    "id": "paldea-evolved-75-pawmo",
+    "name": "Pawmo",
+    "rarity": "Uncommon",
+    "number": "75",
+    "image": "/assets/sets/paldea-evolved/cards/75_Pawmo_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-76-pawmot",
+    "name": "Pawmot",
+    "rarity": "Rare",
+    "number": "76",
+    "image": "/assets/sets/paldea-evolved/cards/76_Pawmot_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-77-tadbulb",
+    "name": "Tadbulb",
+    "rarity": "Common",
+    "number": "77",
+    "image": "/assets/sets/paldea-evolved/cards/77_Tadbulb_Common.png"
+  },
+  {
+    "id": "paldea-evolved-78-tadbulb",
+    "name": "Tadbulb",
+    "rarity": "Common",
+    "number": "78",
+    "image": "/assets/sets/paldea-evolved/cards/78_Tadbulb_Common.png"
+  },
+  {
+    "id": "paldea-evolved-79-bellibolt-ex",
+    "name": "Bellibolt ex",
+    "rarity": "Double Rare",
+    "number": "79",
+    "image": "/assets/sets/paldea-evolved/cards/79_Bellibolt_ex_Double_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-80-wattrel",
+    "name": "Wattrel",
+    "rarity": "Common",
+    "number": "80",
+    "image": "/assets/sets/paldea-evolved/cards/80_Wattrel_Common.png"
+  },
+  {
+    "id": "paldea-evolved-81-wattrel",
+    "name": "Wattrel",
+    "rarity": "Common",
+    "number": "81",
+    "image": "/assets/sets/paldea-evolved/cards/81_Wattrel_Common.png"
+  },
+  {
+    "id": "paldea-evolved-82-kilowattrel",
+    "name": "Kilowattrel",
+    "rarity": "Uncommon",
+    "number": "82",
+    "image": "/assets/sets/paldea-evolved/cards/82_Kilowattrel_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-83-jigglypuff",
+    "name": "Jigglypuff",
+    "rarity": "Common",
+    "number": "83",
+    "image": "/assets/sets/paldea-evolved/cards/83_Jigglypuff_Common.png"
+  },
+  {
+    "id": "paldea-evolved-84-wigglytuff",
+    "name": "Wigglytuff",
+    "rarity": "Rare",
+    "number": "84",
+    "image": "/assets/sets/paldea-evolved/cards/84_Wigglytuff_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-85-slowpoke",
+    "name": "Slowpoke",
+    "rarity": "Common",
+    "number": "85",
+    "image": "/assets/sets/paldea-evolved/cards/85_Slowpoke_Common.png"
+  },
+  {
+    "id": "paldea-evolved-86-slowking-ex",
+    "name": "Slowking ex",
+    "rarity": "Double Rare",
+    "number": "86",
+    "image": "/assets/sets/paldea-evolved/cards/86_Slowking_ex_Double_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-87-misdreavus",
+    "name": "Misdreavus",
+    "rarity": "Common",
+    "number": "87",
+    "image": "/assets/sets/paldea-evolved/cards/87_Misdreavus_Common.png"
+  },
+  {
+    "id": "paldea-evolved-88-mismagius",
+    "name": "Mismagius",
+    "rarity": "Uncommon",
+    "number": "88",
+    "image": "/assets/sets/paldea-evolved/cards/88_Mismagius_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-89-spiritomb",
+    "name": "Spiritomb",
+    "rarity": "Rare",
+    "number": "89",
+    "image": "/assets/sets/paldea-evolved/cards/89_Spiritomb_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-90-gothita",
+    "name": "Gothita",
+    "rarity": "Common",
+    "number": "90",
+    "image": "/assets/sets/paldea-evolved/cards/90_Gothita_Common.png"
+  },
+  {
+    "id": "paldea-evolved-91-gothorita",
+    "name": "Gothorita",
+    "rarity": "Uncommon",
+    "number": "91",
+    "image": "/assets/sets/paldea-evolved/cards/91_Gothorita_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-92-gothitelle",
+    "name": "Gothitelle",
+    "rarity": "Uncommon",
+    "number": "92",
+    "image": "/assets/sets/paldea-evolved/cards/92_Gothitelle_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-93-dedenne-ex",
+    "name": "Dedenne ex",
+    "rarity": "Double Rare",
+    "number": "93",
+    "image": "/assets/sets/paldea-evolved/cards/93_Dedenne_ex_Double_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-94-oranguru",
+    "name": "Oranguru",
+    "rarity": "Uncommon",
+    "number": "94",
+    "image": "/assets/sets/paldea-evolved/cards/94_Oranguru_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-95-sandygast",
+    "name": "Sandygast",
+    "rarity": "Common",
+    "number": "95",
+    "image": "/assets/sets/paldea-evolved/cards/95_Sandygast_Common.png"
+  },
+  {
+    "id": "paldea-evolved-96-palossand",
+    "name": "Palossand",
+    "rarity": "Uncommon",
+    "number": "96",
+    "image": "/assets/sets/paldea-evolved/cards/96_Palossand_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-97-mimikyu",
+    "name": "Mimikyu",
+    "rarity": "Rare",
+    "number": "97",
+    "image": "/assets/sets/paldea-evolved/cards/97_Mimikyu_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-98-ceruledge",
+    "name": "Ceruledge",
+    "rarity": "Rare",
+    "number": "98",
+    "image": "/assets/sets/paldea-evolved/cards/98_Ceruledge_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-99-rabsca",
+    "name": "Rabsca",
+    "rarity": "Rare",
+    "number": "99",
+    "image": "/assets/sets/paldea-evolved/cards/99_Rabsca_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-100-tinkatink",
+    "name": "Tinkatink",
+    "rarity": "Common",
+    "number": "100",
+    "image": "/assets/sets/paldea-evolved/cards/100_Tinkatink_Common.png"
+  },
+  {
+    "id": "paldea-evolved-101-tinkatink",
+    "name": "Tinkatink",
+    "rarity": "Common",
+    "number": "101",
+    "image": "/assets/sets/paldea-evolved/cards/101_Tinkatink_Common.png"
+  },
+  {
+    "id": "paldea-evolved-102-tinkatink",
+    "name": "Tinkatink",
+    "rarity": "Common",
+    "number": "102",
+    "image": "/assets/sets/paldea-evolved/cards/102_Tinkatink_Common.png"
+  },
+  {
+    "id": "paldea-evolved-103-tinkatuff",
+    "name": "Tinkatuff",
+    "rarity": "Uncommon",
+    "number": "103",
+    "image": "/assets/sets/paldea-evolved/cards/103_Tinkatuff_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-104-tinkatuff",
+    "name": "Tinkatuff",
+    "rarity": "Uncommon",
+    "number": "104",
+    "image": "/assets/sets/paldea-evolved/cards/104_Tinkatuff_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-105-tinkaton",
+    "name": "Tinkaton",
+    "rarity": "Rare",
+    "number": "105",
+    "image": "/assets/sets/paldea-evolved/cards/105_Tinkaton_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-106-mankey",
+    "name": "Mankey",
+    "rarity": "Common",
+    "number": "106",
+    "image": "/assets/sets/paldea-evolved/cards/106_Mankey_Common.png"
+  },
+  {
+    "id": "paldea-evolved-107-primeape",
+    "name": "Primeape",
+    "rarity": "Uncommon",
+    "number": "107",
+    "image": "/assets/sets/paldea-evolved/cards/107_Primeape_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-108-paldean-tauros",
+    "name": "Paldean Tauros",
+    "rarity": "Uncommon",
+    "number": "108",
+    "image": "/assets/sets/paldea-evolved/cards/108_Paldean_Tauros_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-109-sudowoodo",
+    "name": "Sudowoodo",
+    "rarity": "Uncommon",
+    "number": "109",
+    "image": "/assets/sets/paldea-evolved/cards/109_Sudowoodo_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-110-larvitar",
+    "name": "Larvitar",
+    "rarity": "Common",
+    "number": "110",
+    "image": "/assets/sets/paldea-evolved/cards/110_Larvitar_Common.png"
+  },
+  {
+    "id": "paldea-evolved-111-pupitar",
+    "name": "Pupitar",
+    "rarity": "Uncommon",
+    "number": "111",
+    "image": "/assets/sets/paldea-evolved/cards/111_Pupitar_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-112-makuhita",
+    "name": "Makuhita",
+    "rarity": "Common",
+    "number": "112",
+    "image": "/assets/sets/paldea-evolved/cards/112_Makuhita_Common.png"
+  },
+  {
+    "id": "paldea-evolved-113-hariyama",
+    "name": "Hariyama",
+    "rarity": "Rare",
+    "number": "113",
+    "image": "/assets/sets/paldea-evolved/cards/113_Hariyama_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-114-croagunk",
+    "name": "Croagunk",
+    "rarity": "Common",
+    "number": "114",
+    "image": "/assets/sets/paldea-evolved/cards/114_Croagunk_Common.png"
+  },
+  {
+    "id": "paldea-evolved-115-toxicroak",
+    "name": "Toxicroak",
+    "rarity": "Uncommon",
+    "number": "115",
+    "image": "/assets/sets/paldea-evolved/cards/115_Toxicroak_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-116-rockruff",
+    "name": "Rockruff",
+    "rarity": "Common",
+    "number": "116",
+    "image": "/assets/sets/paldea-evolved/cards/116_Rockruff_Common.png"
+  },
+  {
+    "id": "paldea-evolved-117-lycanroc-ex",
+    "name": "Lycanroc ex",
+    "rarity": "Double Rare",
+    "number": "117",
+    "image": "/assets/sets/paldea-evolved/cards/117_Lycanroc_ex_Double_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-118-passimian",
+    "name": "Passimian",
+    "rarity": "Uncommon",
+    "number": "118",
+    "image": "/assets/sets/paldea-evolved/cards/118_Passimian_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-119-falinks",
+    "name": "Falinks",
+    "rarity": "Common",
+    "number": "119",
+    "image": "/assets/sets/paldea-evolved/cards/119_Falinks_Common.png"
+  },
+  {
+    "id": "paldea-evolved-120-nacli",
+    "name": "Nacli",
+    "rarity": "Common",
+    "number": "120",
+    "image": "/assets/sets/paldea-evolved/cards/120_Nacli_Common.png"
+  },
+  {
+    "id": "paldea-evolved-121-nacli",
+    "name": "Nacli",
+    "rarity": "Common",
+    "number": "121",
+    "image": "/assets/sets/paldea-evolved/cards/121_Nacli_Common.png"
+  },
+  {
+    "id": "paldea-evolved-122-naclstack",
+    "name": "Naclstack",
+    "rarity": "Uncommon",
+    "number": "122",
+    "image": "/assets/sets/paldea-evolved/cards/122_Naclstack_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-123-garganacl",
+    "name": "Garganacl",
+    "rarity": "Rare",
+    "number": "123",
+    "image": "/assets/sets/paldea-evolved/cards/123_Garganacl_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-124-glimmet",
+    "name": "Glimmet",
+    "rarity": "Common",
+    "number": "124",
+    "image": "/assets/sets/paldea-evolved/cards/124_Glimmet_Common.png"
+  },
+  {
+    "id": "paldea-evolved-125-glimmet",
+    "name": "Glimmet",
+    "rarity": "Common",
+    "number": "125",
+    "image": "/assets/sets/paldea-evolved/cards/125_Glimmet_Common.png"
+  },
+  {
+    "id": "paldea-evolved-126-glimmora",
+    "name": "Glimmora",
+    "rarity": "Rare",
+    "number": "126",
+    "image": "/assets/sets/paldea-evolved/cards/126_Glimmora_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-127-ting-lu-ex",
+    "name": "Ting-Lu ex",
+    "rarity": "Double Rare",
+    "number": "127",
+    "image": "/assets/sets/paldea-evolved/cards/127_Ting-Lu_ex_Double_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-128-paldean-wooper",
+    "name": "Paldean Wooper",
+    "rarity": "Common",
+    "number": "128",
+    "image": "/assets/sets/paldea-evolved/cards/128_Paldean_Wooper_Common.png"
+  },
+  {
+    "id": "paldea-evolved-129-paldean-wooper",
+    "name": "Paldean Wooper",
+    "rarity": "Common",
+    "number": "129",
+    "image": "/assets/sets/paldea-evolved/cards/129_Paldean_Wooper_Common.png"
+  },
+  {
+    "id": "paldea-evolved-130-paldean-clodsire-ex",
+    "name": "Paldean Clodsire ex",
+    "rarity": "Double Rare",
+    "number": "130",
+    "image": "/assets/sets/paldea-evolved/cards/130_Paldean_Clodsire_ex_Double_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-131-murkrow",
+    "name": "Murkrow",
+    "rarity": "Common",
+    "number": "131",
+    "image": "/assets/sets/paldea-evolved/cards/131_Murkrow_Common.png"
+  },
+  {
+    "id": "paldea-evolved-132-honchkrow",
+    "name": "Honchkrow",
+    "rarity": "Uncommon",
+    "number": "132",
+    "image": "/assets/sets/paldea-evolved/cards/132_Honchkrow_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-133-sneasel",
+    "name": "Sneasel",
+    "rarity": "Common",
+    "number": "133",
+    "image": "/assets/sets/paldea-evolved/cards/133_Sneasel_Common.png"
+  },
+  {
+    "id": "paldea-evolved-134-weavile",
+    "name": "Weavile",
+    "rarity": "Rare",
+    "number": "134",
+    "image": "/assets/sets/paldea-evolved/cards/134_Weavile_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-135-tyranitar",
+    "name": "Tyranitar",
+    "rarity": "Rare",
+    "number": "135",
+    "image": "/assets/sets/paldea-evolved/cards/135_Tyranitar_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-136-sableye",
+    "name": "Sableye",
+    "rarity": "Rare",
+    "number": "136",
+    "image": "/assets/sets/paldea-evolved/cards/136_Sableye_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-137-seviper",
+    "name": "Seviper",
+    "rarity": "Uncommon",
+    "number": "137",
+    "image": "/assets/sets/paldea-evolved/cards/137_Seviper_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-138-deino",
+    "name": "Deino",
+    "rarity": "Common",
+    "number": "138",
+    "image": "/assets/sets/paldea-evolved/cards/138_Deino_Common.png"
+  },
+  {
+    "id": "paldea-evolved-139-zweilous",
+    "name": "Zweilous",
+    "rarity": "Uncommon",
+    "number": "139",
+    "image": "/assets/sets/paldea-evolved/cards/139_Zweilous_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-140-hydreigon",
+    "name": "Hydreigon",
+    "rarity": "Rare",
+    "number": "140",
+    "image": "/assets/sets/paldea-evolved/cards/140_Hydreigon_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-141-maschiff",
+    "name": "Maschiff",
+    "rarity": "Common",
+    "number": "141",
+    "image": "/assets/sets/paldea-evolved/cards/141_Maschiff_Common.png"
+  },
+  {
+    "id": "paldea-evolved-142-maschiff",
+    "name": "Maschiff",
+    "rarity": "Common",
+    "number": "142",
+    "image": "/assets/sets/paldea-evolved/cards/142_Maschiff_Common.png"
+  },
+  {
+    "id": "paldea-evolved-143-mabosstiff",
+    "name": "Mabosstiff",
+    "rarity": "Uncommon",
+    "number": "143",
+    "image": "/assets/sets/paldea-evolved/cards/143_Mabosstiff_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-144-shroodle",
+    "name": "Shroodle",
+    "rarity": "Common",
+    "number": "144",
+    "image": "/assets/sets/paldea-evolved/cards/144_Shroodle_Common.png"
+  },
+  {
+    "id": "paldea-evolved-145-shroodle",
+    "name": "Shroodle",
+    "rarity": "Common",
+    "number": "145",
+    "image": "/assets/sets/paldea-evolved/cards/145_Shroodle_Common.png"
+  },
+  {
+    "id": "paldea-evolved-146-grafaiai",
+    "name": "Grafaiai",
+    "rarity": "Uncommon",
+    "number": "146",
+    "image": "/assets/sets/paldea-evolved/cards/146_Grafaiai_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-147-bombirdier",
+    "name": "Bombirdier",
+    "rarity": "Uncommon",
+    "number": "147",
+    "image": "/assets/sets/paldea-evolved/cards/147_Bombirdier_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-148-corviknight",
+    "name": "Corviknight",
+    "rarity": "Uncommon",
+    "number": "148",
+    "image": "/assets/sets/paldea-evolved/cards/148_Corviknight_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-149-cufant",
+    "name": "Cufant",
+    "rarity": "Common",
+    "number": "149",
+    "image": "/assets/sets/paldea-evolved/cards/149_Cufant_Common.png"
+  },
+  {
+    "id": "paldea-evolved-150-copperajah-ex",
+    "name": "Copperajah ex",
+    "rarity": "Double Rare",
+    "number": "150",
+    "image": "/assets/sets/paldea-evolved/cards/150_Copperajah_ex_Double_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-151-orthworm",
+    "name": "Orthworm",
+    "rarity": "Rare",
+    "number": "151",
+    "image": "/assets/sets/paldea-evolved/cards/151_Orthworm_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-152-noibat",
+    "name": "Noibat",
+    "rarity": "Common",
+    "number": "152",
+    "image": "/assets/sets/paldea-evolved/cards/152_Noibat_Common.png"
+  },
+  {
+    "id": "paldea-evolved-153-noivern-ex",
+    "name": "Noivern ex",
+    "rarity": "Double Rare",
+    "number": "153",
+    "image": "/assets/sets/paldea-evolved/cards/153_Noivern_ex_Double_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-154-girafarig",
+    "name": "Girafarig",
+    "rarity": "Common",
+    "number": "154",
+    "image": "/assets/sets/paldea-evolved/cards/154_Girafarig_Common.png"
+  },
+  {
+    "id": "paldea-evolved-155-farigiraf",
+    "name": "Farigiraf",
+    "rarity": "Uncommon",
+    "number": "155",
+    "image": "/assets/sets/paldea-evolved/cards/155_Farigiraf_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-156-dunsparce",
+    "name": "Dunsparce",
+    "rarity": "Common",
+    "number": "156",
+    "image": "/assets/sets/paldea-evolved/cards/156_Dunsparce_Common.png"
+  },
+  {
+    "id": "paldea-evolved-157-dudunsparce",
+    "name": "Dudunsparce",
+    "rarity": "Uncommon",
+    "number": "157",
+    "image": "/assets/sets/paldea-evolved/cards/157_Dudunsparce_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-158-wingull",
+    "name": "Wingull",
+    "rarity": "Common",
+    "number": "158",
+    "image": "/assets/sets/paldea-evolved/cards/158_Wingull_Common.png"
+  },
+  {
+    "id": "paldea-evolved-159-pelipper",
+    "name": "Pelipper",
+    "rarity": "Uncommon",
+    "number": "159",
+    "image": "/assets/sets/paldea-evolved/cards/159_Pelipper_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-160-slakoth",
+    "name": "Slakoth",
+    "rarity": "Common",
+    "number": "160",
+    "image": "/assets/sets/paldea-evolved/cards/160_Slakoth_Common.png"
+  },
+  {
+    "id": "paldea-evolved-161-vigoroth",
+    "name": "Vigoroth",
+    "rarity": "Uncommon",
+    "number": "161",
+    "image": "/assets/sets/paldea-evolved/cards/161_Vigoroth_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-162-slaking",
+    "name": "Slaking",
+    "rarity": "Rare",
+    "number": "162",
+    "image": "/assets/sets/paldea-evolved/cards/162_Slaking_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-163-fletchling",
+    "name": "Fletchling",
+    "rarity": "Common",
+    "number": "163",
+    "image": "/assets/sets/paldea-evolved/cards/163_Fletchling_Common.png"
+  },
+  {
+    "id": "paldea-evolved-164-rookidee",
+    "name": "Rookidee",
+    "rarity": "Common",
+    "number": "164",
+    "image": "/assets/sets/paldea-evolved/cards/164_Rookidee_Common.png"
+  },
+  {
+    "id": "paldea-evolved-165-corvisquire",
+    "name": "Corvisquire",
+    "rarity": "Uncommon",
+    "number": "165",
+    "image": "/assets/sets/paldea-evolved/cards/165_Corvisquire_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-166-tandemaus",
+    "name": "Tandemaus",
+    "rarity": "Common",
+    "number": "166",
+    "image": "/assets/sets/paldea-evolved/cards/166_Tandemaus_Common.png"
+  },
+  {
+    "id": "paldea-evolved-167-tandemaus",
+    "name": "Tandemaus",
+    "rarity": "Common",
+    "number": "167",
+    "image": "/assets/sets/paldea-evolved/cards/167_Tandemaus_Common.png"
+  },
+  {
+    "id": "paldea-evolved-168-maushold",
+    "name": "Maushold",
+    "rarity": "Uncommon",
+    "number": "168",
+    "image": "/assets/sets/paldea-evolved/cards/168_Maushold_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-169-squawkabilly-ex",
+    "name": "Squawkabilly ex",
+    "rarity": "Double Rare",
+    "number": "169",
+    "image": "/assets/sets/paldea-evolved/cards/169_Squawkabilly_ex_Double_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-170-flamigo",
+    "name": "Flamigo",
+    "rarity": "Uncommon",
+    "number": "170",
+    "image": "/assets/sets/paldea-evolved/cards/170_Flamigo_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-171-artazon",
+    "name": "Artazon",
+    "rarity": "Uncommon",
+    "number": "171",
+    "image": "/assets/sets/paldea-evolved/cards/171_Artazon_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-172-boss-s-orders-ghetsis",
+    "name": "Boss's Orders (Ghetsis)",
+    "rarity": "Rare",
+    "number": "172",
+    "image": "/assets/sets/paldea-evolved/cards/172_Boss's_Orders_(Ghetsis)_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-173-bravery-charm",
+    "name": "Bravery Charm",
+    "rarity": "Uncommon",
+    "number": "173",
+    "image": "/assets/sets/paldea-evolved/cards/173_Bravery_Charm_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-174-calamitous-snowy-mountain",
+    "name": "Calamitous Snowy Mountain",
+    "rarity": "Uncommon",
+    "number": "174",
+    "image": "/assets/sets/paldea-evolved/cards/174_Calamitous_Snowy_Mountain_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-175-calamitous-wasteland",
+    "name": "Calamitous Wasteland",
+    "rarity": "Uncommon",
+    "number": "175",
+    "image": "/assets/sets/paldea-evolved/cards/175_Calamitous_Wasteland_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-176-choice-belt",
+    "name": "Choice Belt",
+    "rarity": "Uncommon",
+    "number": "176",
+    "image": "/assets/sets/paldea-evolved/cards/176_Choice_Belt_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-177-clavell",
+    "name": "Clavell",
+    "rarity": "Common",
+    "number": "177",
+    "image": "/assets/sets/paldea-evolved/cards/177_Clavell_Common.png"
+  },
+  {
+    "id": "paldea-evolved-178-delivery-drone",
+    "name": "Delivery Drone",
+    "rarity": "Uncommon",
+    "number": "178",
+    "image": "/assets/sets/paldea-evolved/cards/178_Delivery_Drone_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-179-dendra",
+    "name": "Dendra",
+    "rarity": "Uncommon",
+    "number": "179",
+    "image": "/assets/sets/paldea-evolved/cards/179_Dendra_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-180-falkner",
+    "name": "Falkner",
+    "rarity": "Uncommon",
+    "number": "180",
+    "image": "/assets/sets/paldea-evolved/cards/180_Falkner_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-181-fighting-au-lait",
+    "name": "Fighting Au Lait",
+    "rarity": "Uncommon",
+    "number": "181",
+    "image": "/assets/sets/paldea-evolved/cards/181_Fighting_Au_Lait_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-182-giacomo",
+    "name": "Giacomo",
+    "rarity": "Uncommon",
+    "number": "182",
+    "image": "/assets/sets/paldea-evolved/cards/182_Giacomo_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-183-great-ball",
+    "name": "Great Ball",
+    "rarity": "Common",
+    "number": "183",
+    "image": "/assets/sets/paldea-evolved/cards/183_Great_Ball_Common.png"
+  },
+  {
+    "id": "paldea-evolved-184-grusha",
+    "name": "Grusha",
+    "rarity": "Uncommon",
+    "number": "184",
+    "image": "/assets/sets/paldea-evolved/cards/184_Grusha_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-185-iono",
+    "name": "Iono",
+    "rarity": "Uncommon",
+    "number": "185",
+    "image": "/assets/sets/paldea-evolved/cards/185_Iono_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-186-practice-studio",
+    "name": "Practice Studio",
+    "rarity": "Uncommon",
+    "number": "186",
+    "image": "/assets/sets/paldea-evolved/cards/186_Practice_Studio_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-187-saguaro",
+    "name": "Saguaro",
+    "rarity": "Uncommon",
+    "number": "187",
+    "image": "/assets/sets/paldea-evolved/cards/187_Saguaro_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-188-super-rod",
+    "name": "Super Rod",
+    "rarity": "Common",
+    "number": "188",
+    "image": "/assets/sets/paldea-evolved/cards/188_Super_Rod_Common.png"
+  },
+  {
+    "id": "paldea-evolved-189-superior-energy-retrieval",
+    "name": "Superior Energy Retrieval",
+    "rarity": "Uncommon",
+    "number": "189",
+    "image": "/assets/sets/paldea-evolved/cards/189_Superior_Energy_Retrieval_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-190-jet-energy",
+    "name": "Jet Energy",
+    "rarity": "Uncommon",
+    "number": "190",
+    "image": "/assets/sets/paldea-evolved/cards/190_Jet_Energy_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-191-luminous-energy",
+    "name": "Luminous Energy",
+    "rarity": "Uncommon",
+    "number": "191",
+    "image": "/assets/sets/paldea-evolved/cards/191_Luminous_Energy_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-192-reversal-energy",
+    "name": "Reversal Energy",
+    "rarity": "Uncommon",
+    "number": "192",
+    "image": "/assets/sets/paldea-evolved/cards/192_Reversal_Energy_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-193-therapeutic-energy",
+    "name": "Therapeutic Energy",
+    "rarity": "Uncommon",
+    "number": "193",
+    "image": "/assets/sets/paldea-evolved/cards/193_Therapeutic_Energy_Uncommon.png"
+  },
+  {
+    "id": "paldea-evolved-194-heracross",
+    "name": "Heracross",
+    "rarity": "Illustration Rare",
+    "number": "194",
+    "image": "/assets/sets/paldea-evolved/cards/194_Heracross_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-195-tropius",
+    "name": "Tropius",
+    "rarity": "Illustration Rare",
+    "number": "195",
+    "image": "/assets/sets/paldea-evolved/cards/195_Tropius_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-196-sprigatito",
+    "name": "Sprigatito",
+    "rarity": "Illustration Rare",
+    "number": "196",
+    "image": "/assets/sets/paldea-evolved/cards/196_Sprigatito_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-197-floragato",
+    "name": "Floragato",
+    "rarity": "Illustration Rare",
+    "number": "197",
+    "image": "/assets/sets/paldea-evolved/cards/197_Floragato_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-198-bramblin",
+    "name": "Bramblin",
+    "rarity": "Illustration Rare",
+    "number": "198",
+    "image": "/assets/sets/paldea-evolved/cards/198_Bramblin_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-199-fletchinder",
+    "name": "Fletchinder",
+    "rarity": "Illustration Rare",
+    "number": "199",
+    "image": "/assets/sets/paldea-evolved/cards/199_Fletchinder_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-200-pyroar",
+    "name": "Pyroar",
+    "rarity": "Illustration Rare",
+    "number": "200",
+    "image": "/assets/sets/paldea-evolved/cards/200_Pyroar_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-201-fuecoco",
+    "name": "Fuecoco",
+    "rarity": "Illustration Rare",
+    "number": "201",
+    "image": "/assets/sets/paldea-evolved/cards/201_Fuecoco_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-202-crocalor",
+    "name": "Crocalor",
+    "rarity": "Illustration Rare",
+    "number": "202",
+    "image": "/assets/sets/paldea-evolved/cards/202_Crocalor_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-203-magikarp",
+    "name": "Magikarp",
+    "rarity": "Illustration Rare",
+    "number": "203",
+    "image": "/assets/sets/paldea-evolved/cards/203_Magikarp_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-204-marill",
+    "name": "Marill",
+    "rarity": "Illustration Rare",
+    "number": "204",
+    "image": "/assets/sets/paldea-evolved/cards/204_Marill_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-205-eiscue",
+    "name": "Eiscue",
+    "rarity": "Illustration Rare",
+    "number": "205",
+    "image": "/assets/sets/paldea-evolved/cards/205_Eiscue_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-206-quaxly",
+    "name": "Quaxly",
+    "rarity": "Illustration Rare",
+    "number": "206",
+    "image": "/assets/sets/paldea-evolved/cards/206_Quaxly_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-207-quaxwell",
+    "name": "Quaxwell",
+    "rarity": "Illustration Rare",
+    "number": "207",
+    "image": "/assets/sets/paldea-evolved/cards/207_Quaxwell_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-208-frigibax",
+    "name": "Frigibax",
+    "rarity": "Illustration Rare",
+    "number": "208",
+    "image": "/assets/sets/paldea-evolved/cards/208_Frigibax_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-209-arctibax",
+    "name": "Arctibax",
+    "rarity": "Illustration Rare",
+    "number": "209",
+    "image": "/assets/sets/paldea-evolved/cards/209_Arctibax_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-210-baxcalibur",
+    "name": "Baxcalibur",
+    "rarity": "Illustration Rare",
+    "number": "210",
+    "image": "/assets/sets/paldea-evolved/cards/210_Baxcalibur_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-211-raichu",
+    "name": "Raichu",
+    "rarity": "Illustration Rare",
+    "number": "211",
+    "image": "/assets/sets/paldea-evolved/cards/211_Raichu_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-212-mismagius",
+    "name": "Mismagius",
+    "rarity": "Illustration Rare",
+    "number": "212",
+    "image": "/assets/sets/paldea-evolved/cards/212_Mismagius_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-213-gothorita",
+    "name": "Gothorita",
+    "rarity": "Illustration Rare",
+    "number": "213",
+    "image": "/assets/sets/paldea-evolved/cards/213_Gothorita_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-214-sandygast",
+    "name": "Sandygast",
+    "rarity": "Illustration Rare",
+    "number": "214",
+    "image": "/assets/sets/paldea-evolved/cards/214_Sandygast_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-215-rabsca",
+    "name": "Rabsca",
+    "rarity": "Illustration Rare",
+    "number": "215",
+    "image": "/assets/sets/paldea-evolved/cards/215_Rabsca_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-216-tinkatink",
+    "name": "Tinkatink",
+    "rarity": "Illustration Rare",
+    "number": "216",
+    "image": "/assets/sets/paldea-evolved/cards/216_Tinkatink_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-217-tinkatuff",
+    "name": "Tinkatuff",
+    "rarity": "Illustration Rare",
+    "number": "217",
+    "image": "/assets/sets/paldea-evolved/cards/217_Tinkatuff_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-218-paldean-tauros",
+    "name": "Paldean Tauros",
+    "rarity": "Illustration Rare",
+    "number": "218",
+    "image": "/assets/sets/paldea-evolved/cards/218_Paldean_Tauros_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-219-sudowoodo",
+    "name": "Sudowoodo",
+    "rarity": "Illustration Rare",
+    "number": "219",
+    "image": "/assets/sets/paldea-evolved/cards/219_Sudowoodo_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-220-nacli",
+    "name": "Nacli",
+    "rarity": "Illustration Rare",
+    "number": "220",
+    "image": "/assets/sets/paldea-evolved/cards/220_Nacli_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-221-paldean-wooper",
+    "name": "Paldean Wooper",
+    "rarity": "Illustration Rare",
+    "number": "221",
+    "image": "/assets/sets/paldea-evolved/cards/221_Paldean_Wooper_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-222-tyranitar",
+    "name": "Tyranitar",
+    "rarity": "Illustration Rare",
+    "number": "222",
+    "image": "/assets/sets/paldea-evolved/cards/222_Tyranitar_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-223-grafaiai",
+    "name": "Grafaiai",
+    "rarity": "Illustration Rare",
+    "number": "223",
+    "image": "/assets/sets/paldea-evolved/cards/223_Grafaiai_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-224-orthworm",
+    "name": "Orthworm",
+    "rarity": "Illustration Rare",
+    "number": "224",
+    "image": "/assets/sets/paldea-evolved/cards/224_Orthworm_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-225-rookidee",
+    "name": "Rookidee",
+    "rarity": "Illustration Rare",
+    "number": "225",
+    "image": "/assets/sets/paldea-evolved/cards/225_Rookidee_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-226-maushold",
+    "name": "Maushold",
+    "rarity": "Illustration Rare",
+    "number": "226",
+    "image": "/assets/sets/paldea-evolved/cards/226_Maushold_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-227-flamigo",
+    "name": "Flamigo",
+    "rarity": "Illustration Rare",
+    "number": "227",
+    "image": "/assets/sets/paldea-evolved/cards/227_Flamigo_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-228-farigiraf",
+    "name": "Farigiraf",
+    "rarity": "Illustration Rare",
+    "number": "228",
+    "image": "/assets/sets/paldea-evolved/cards/228_Farigiraf_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-229-dudunsparce",
+    "name": "Dudunsparce",
+    "rarity": "Illustration Rare",
+    "number": "229",
+    "image": "/assets/sets/paldea-evolved/cards/229_Dudunsparce_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-230-forretress-ex",
+    "name": "Forretress ex",
+    "rarity": "Ultra Rare",
+    "number": "230",
+    "image": "/assets/sets/paldea-evolved/cards/230_Forretress_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-231-meowscarada-ex",
+    "name": "Meowscarada ex",
+    "rarity": "Ultra Rare",
+    "number": "231",
+    "image": "/assets/sets/paldea-evolved/cards/231_Meowscarada_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-232-wo-chien-ex",
+    "name": "Wo-Chien ex",
+    "rarity": "Ultra Rare",
+    "number": "232",
+    "image": "/assets/sets/paldea-evolved/cards/232_Wo-Chien_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-233-skeledirge-ex",
+    "name": "Skeledirge ex",
+    "rarity": "Ultra Rare",
+    "number": "233",
+    "image": "/assets/sets/paldea-evolved/cards/233_Skeledirge_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-234-chi-yu-ex",
+    "name": "Chi-Yu ex",
+    "rarity": "Ultra Rare",
+    "number": "234",
+    "image": "/assets/sets/paldea-evolved/cards/234_Chi-Yu_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-235-quaquaval-ex",
+    "name": "Quaquaval ex",
+    "rarity": "Ultra Rare",
+    "number": "235",
+    "image": "/assets/sets/paldea-evolved/cards/235_Quaquaval_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-236-chien-pao-ex",
+    "name": "Chien-Pao ex",
+    "rarity": "Ultra Rare",
+    "number": "236",
+    "image": "/assets/sets/paldea-evolved/cards/236_Chien-Pao_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-237-bellibolt-ex",
+    "name": "Bellibolt ex",
+    "rarity": "Ultra Rare",
+    "number": "237",
+    "image": "/assets/sets/paldea-evolved/cards/237_Bellibolt_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-238-slowking-ex",
+    "name": "Slowking ex",
+    "rarity": "Ultra Rare",
+    "number": "238",
+    "image": "/assets/sets/paldea-evolved/cards/238_Slowking_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-239-dedenne-ex",
+    "name": "Dedenne ex",
+    "rarity": "Ultra Rare",
+    "number": "239",
+    "image": "/assets/sets/paldea-evolved/cards/239_Dedenne_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-240-tinkaton-ex",
+    "name": "Tinkaton ex",
+    "rarity": "Ultra Rare",
+    "number": "240",
+    "image": "/assets/sets/paldea-evolved/cards/240_Tinkaton_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-241-lycanroc-ex",
+    "name": "Lycanroc ex",
+    "rarity": "Ultra Rare",
+    "number": "241",
+    "image": "/assets/sets/paldea-evolved/cards/241_Lycanroc_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-242-annihilape-ex",
+    "name": "Annihilape ex",
+    "rarity": "Ultra Rare",
+    "number": "242",
+    "image": "/assets/sets/paldea-evolved/cards/242_Annihilape_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-243-ting-lu-ex",
+    "name": "Ting-Lu ex",
+    "rarity": "Ultra Rare",
+    "number": "243",
+    "image": "/assets/sets/paldea-evolved/cards/243_Ting-Lu_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-244-paldean-clodsire-ex",
+    "name": "Paldean Clodsire ex",
+    "rarity": "Ultra Rare",
+    "number": "244",
+    "image": "/assets/sets/paldea-evolved/cards/244_Paldean_Clodsire_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-245-copperajah-ex",
+    "name": "Copperajah ex",
+    "rarity": "Ultra Rare",
+    "number": "245",
+    "image": "/assets/sets/paldea-evolved/cards/245_Copperajah_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-246-noivern-ex",
+    "name": "Noivern ex",
+    "rarity": "Ultra Rare",
+    "number": "246",
+    "image": "/assets/sets/paldea-evolved/cards/246_Noivern_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-247-squawkabilly-ex",
+    "name": "Squawkabilly ex",
+    "rarity": "Ultra Rare",
+    "number": "247",
+    "image": "/assets/sets/paldea-evolved/cards/247_Squawkabilly_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-248-boss-s-orders-ghetsis",
+    "name": "Boss's Orders (Ghetsis)",
+    "rarity": "Ultra Rare",
+    "number": "248",
+    "image": "/assets/sets/paldea-evolved/cards/248_Boss's_Orders_(Ghetsis)_Ultra_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-249-clavell",
+    "name": "Clavell",
+    "rarity": "Ultra Rare",
+    "number": "249",
+    "image": "/assets/sets/paldea-evolved/cards/249_Clavell_Ultra_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-250-dendra",
+    "name": "Dendra",
+    "rarity": "Ultra Rare",
+    "number": "250",
+    "image": "/assets/sets/paldea-evolved/cards/250_Dendra_Ultra_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-251-falkner",
+    "name": "Falkner",
+    "rarity": "Ultra Rare",
+    "number": "251",
+    "image": "/assets/sets/paldea-evolved/cards/251_Falkner_Ultra_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-252-giacomo",
+    "name": "Giacomo",
+    "rarity": "Ultra Rare",
+    "number": "252",
+    "image": "/assets/sets/paldea-evolved/cards/252_Giacomo_Ultra_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-253-grusha",
+    "name": "Grusha",
+    "rarity": "Ultra Rare",
+    "number": "253",
+    "image": "/assets/sets/paldea-evolved/cards/253_Grusha_Ultra_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-254-iono",
+    "name": "Iono",
+    "rarity": "Ultra Rare",
+    "number": "254",
+    "image": "/assets/sets/paldea-evolved/cards/254_Iono_Ultra_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-255-saguaro",
+    "name": "Saguaro",
+    "rarity": "Ultra Rare",
+    "number": "255",
+    "image": "/assets/sets/paldea-evolved/cards/255_Saguaro_Ultra_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-256-meowscarada-ex",
+    "name": "Meowscarada ex",
+    "rarity": "Special Illustration Rare",
+    "number": "256",
+    "image": "/assets/sets/paldea-evolved/cards/256_Meowscarada_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-257-wo-chien-ex",
+    "name": "Wo-Chien ex",
+    "rarity": "Special Illustration Rare",
+    "number": "257",
+    "image": "/assets/sets/paldea-evolved/cards/257_Wo-Chien_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-258-skeledirge-ex",
+    "name": "Skeledirge ex",
+    "rarity": "Special Illustration Rare",
+    "number": "258",
+    "image": "/assets/sets/paldea-evolved/cards/258_Skeledirge_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-259-chi-yu-ex",
+    "name": "Chi-Yu ex",
+    "rarity": "Special Illustration Rare",
+    "number": "259",
+    "image": "/assets/sets/paldea-evolved/cards/259_Chi-Yu_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-260-quaquaval-ex",
+    "name": "Quaquaval ex",
+    "rarity": "Special Illustration Rare",
+    "number": "260",
+    "image": "/assets/sets/paldea-evolved/cards/260_Quaquaval_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-261-chien-pao-ex",
+    "name": "Chien-Pao ex",
+    "rarity": "Special Illustration Rare",
+    "number": "261",
+    "image": "/assets/sets/paldea-evolved/cards/261_Chien-Pao_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-262-tinkaton-ex",
+    "name": "Tinkaton ex",
+    "rarity": "Special Illustration Rare",
+    "number": "262",
+    "image": "/assets/sets/paldea-evolved/cards/262_Tinkaton_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-263-ting-lu-ex",
+    "name": "Ting-Lu ex",
+    "rarity": "Special Illustration Rare",
+    "number": "263",
+    "image": "/assets/sets/paldea-evolved/cards/263_Ting-Lu_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-264-squawkabilly-ex",
+    "name": "Squawkabilly ex",
+    "rarity": "Special Illustration Rare",
+    "number": "264",
+    "image": "/assets/sets/paldea-evolved/cards/264_Squawkabilly_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-265-boss-s-orders-ghetsis",
+    "name": "Boss's Orders (Ghetsis)",
+    "rarity": "Special Illustration Rare",
+    "number": "265",
+    "image": "/assets/sets/paldea-evolved/cards/265_Boss's_Orders_(Ghetsis)_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-266-dendra",
+    "name": "Dendra",
+    "rarity": "Special Illustration Rare",
+    "number": "266",
+    "image": "/assets/sets/paldea-evolved/cards/266_Dendra_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-267-giacomo",
+    "name": "Giacomo",
+    "rarity": "Special Illustration Rare",
+    "number": "267",
+    "image": "/assets/sets/paldea-evolved/cards/267_Giacomo_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-268-grusha",
+    "name": "Grusha",
+    "rarity": "Special Illustration Rare",
+    "number": "268",
+    "image": "/assets/sets/paldea-evolved/cards/268_Grusha_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-269-iono",
+    "name": "Iono",
+    "rarity": "Special Illustration Rare",
+    "number": "269",
+    "image": "/assets/sets/paldea-evolved/cards/269_Iono_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-270-saguaro",
+    "name": "Saguaro",
+    "rarity": "Special Illustration Rare",
+    "number": "270",
+    "image": "/assets/sets/paldea-evolved/cards/270_Saguaro_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-271-meowscarada-ex-hyper",
+    "name": "Meowscarada ex Hyper",
+    "rarity": "Rare",
+    "number": "271",
+    "image": "/assets/sets/paldea-evolved/cards/271_Meowscarada_ex_Hyper_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-272-skeledirge-ex-hyper",
+    "name": "Skeledirge ex Hyper",
+    "rarity": "Rare",
+    "number": "272",
+    "image": "/assets/sets/paldea-evolved/cards/272_Skeledirge_ex_Hyper_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-273-quaquaval-ex-hyper",
+    "name": "Quaquaval ex Hyper",
+    "rarity": "Rare",
+    "number": "273",
+    "image": "/assets/sets/paldea-evolved/cards/273_Quaquaval_ex_Hyper_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-274-chien-pao-ex-hyper",
+    "name": "Chien-Pao ex Hyper",
+    "rarity": "Rare",
+    "number": "274",
+    "image": "/assets/sets/paldea-evolved/cards/274_Chien-Pao_ex_Hyper_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-275-ting-lu-ex-hyper",
+    "name": "Ting-Lu ex Hyper",
+    "rarity": "Rare",
+    "number": "275",
+    "image": "/assets/sets/paldea-evolved/cards/275_Ting-Lu_ex_Hyper_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-276-super-rod-hyper",
+    "name": "Super Rod Hyper",
+    "rarity": "Rare",
+    "number": "276",
+    "image": "/assets/sets/paldea-evolved/cards/276_Super_Rod_Hyper_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-277-superior-energy-retrieval-hyper",
+    "name": "Superior Energy Retrieval Hyper",
+    "rarity": "Rare",
+    "number": "277",
+    "image": "/assets/sets/paldea-evolved/cards/277_Superior_Energy_Retrieval_Hyper_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-278-basic-grass-energy-hyper",
+    "name": "Basic Grass Energy Hyper",
+    "rarity": "Rare",
+    "number": "278",
+    "image": "/assets/sets/paldea-evolved/cards/278_Basic_Grass_Energy_Hyper_Rare.png"
+  },
+  {
+    "id": "paldea-evolved-279-basic-water-energy-hyper",
+    "name": "Basic Water Energy Hyper",
+    "rarity": "Rare",
+    "number": "279",
+    "image": "/assets/sets/paldea-evolved/cards/279_Basic_Water_Energy_Hyper_Rare.png"
+  }
+]

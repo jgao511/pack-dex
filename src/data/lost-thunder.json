@@ -1,0 +1,1682 @@
+[
+  {
+    "id": "lost-thunder-1-tangela",
+    "name": "Tangela",
+    "rarity": "Common",
+    "number": "1",
+    "image": "/assets/sets/lost-thunder/cards/1_Tangela_Common.png"
+  },
+  {
+    "id": "lost-thunder-2-tangrowth",
+    "name": "Tangrowth",
+    "rarity": "Rare",
+    "number": "2",
+    "image": "/assets/sets/lost-thunder/cards/2_Tangrowth_Rare.png"
+  },
+  {
+    "id": "lost-thunder-3-scyther",
+    "name": "Scyther",
+    "rarity": "Common",
+    "number": "3",
+    "image": "/assets/sets/lost-thunder/cards/3_Scyther_Common.png"
+  },
+  {
+    "id": "lost-thunder-4-pinsir",
+    "name": "Pinsir",
+    "rarity": "Uncommon",
+    "number": "4",
+    "image": "/assets/sets/lost-thunder/cards/4_Pinsir_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-5-chikorita",
+    "name": "Chikorita",
+    "rarity": "Common",
+    "number": "5",
+    "image": "/assets/sets/lost-thunder/cards/5_Chikorita_Common.png"
+  },
+  {
+    "id": "lost-thunder-6-chikorita",
+    "name": "Chikorita",
+    "rarity": "Common",
+    "number": "6",
+    "image": "/assets/sets/lost-thunder/cards/6_Chikorita_Common.png"
+  },
+  {
+    "id": "lost-thunder-7-bayleef",
+    "name": "Bayleef",
+    "rarity": "Uncommon",
+    "number": "7",
+    "image": "/assets/sets/lost-thunder/cards/7_Bayleef_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-8-meganium",
+    "name": "Meganium",
+    "rarity": "Rare",
+    "number": "8",
+    "image": "/assets/sets/lost-thunder/cards/8_Meganium_Rare_Holo.png"
+  },
+  {
+    "id": "lost-thunder-9-spinarak",
+    "name": "Spinarak",
+    "rarity": "Common",
+    "number": "9",
+    "image": "/assets/sets/lost-thunder/cards/9_Spinarak_Common.png"
+  },
+  {
+    "id": "lost-thunder-10-ariados",
+    "name": "Ariados",
+    "rarity": "Uncommon",
+    "number": "10",
+    "image": "/assets/sets/lost-thunder/cards/10_Ariados_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-11-hoppip",
+    "name": "Hoppip",
+    "rarity": "Common",
+    "number": "11",
+    "image": "/assets/sets/lost-thunder/cards/11_Hoppip_Common.png"
+  },
+  {
+    "id": "lost-thunder-12-hoppip",
+    "name": "Hoppip",
+    "rarity": "Common",
+    "number": "12",
+    "image": "/assets/sets/lost-thunder/cards/12_Hoppip_Common.png"
+  },
+  {
+    "id": "lost-thunder-13-skiploom",
+    "name": "Skiploom",
+    "rarity": "Uncommon",
+    "number": "13",
+    "image": "/assets/sets/lost-thunder/cards/13_Skiploom_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-14-jumpluff",
+    "name": "Jumpluff",
+    "rarity": "Rare",
+    "number": "14",
+    "image": "/assets/sets/lost-thunder/cards/14_Jumpluff_Rare_Holo.png"
+  },
+  {
+    "id": "lost-thunder-15-pineco",
+    "name": "Pineco",
+    "rarity": "Common",
+    "number": "15",
+    "image": "/assets/sets/lost-thunder/cards/15_Pineco_Common.png"
+  },
+  {
+    "id": "lost-thunder-16-shuckle",
+    "name": "Shuckle",
+    "rarity": "Uncommon",
+    "number": "16",
+    "image": "/assets/sets/lost-thunder/cards/16_Shuckle_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-17-shuckle-gx",
+    "name": "Shuckle-GX",
+    "rarity": "Double Rare",
+    "number": "17",
+    "image": "/assets/sets/lost-thunder/cards/17_Shuckle-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "lost-thunder-18-heracross",
+    "name": "Heracross",
+    "rarity": "Uncommon",
+    "number": "18",
+    "image": "/assets/sets/lost-thunder/cards/18_Heracross_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-19-celebi",
+    "name": "Celebi ◇",
+    "rarity": "Rare",
+    "number": "19",
+    "image": "/assets/sets/lost-thunder/cards/19_Celebi_◇_Rare_Prism_Star.png"
+  },
+  {
+    "id": "lost-thunder-20-treecko",
+    "name": "Treecko",
+    "rarity": "Common",
+    "number": "20",
+    "image": "/assets/sets/lost-thunder/cards/20_Treecko_Common.png"
+  },
+  {
+    "id": "lost-thunder-21-grovyle",
+    "name": "Grovyle",
+    "rarity": "Uncommon",
+    "number": "21",
+    "image": "/assets/sets/lost-thunder/cards/21_Grovyle_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-22-sceptile-gx",
+    "name": "Sceptile-GX",
+    "rarity": "Double Rare",
+    "number": "22",
+    "image": "/assets/sets/lost-thunder/cards/22_Sceptile-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "lost-thunder-23-wurmple",
+    "name": "Wurmple",
+    "rarity": "Common",
+    "number": "23",
+    "image": "/assets/sets/lost-thunder/cards/23_Wurmple_Common.png"
+  },
+  {
+    "id": "lost-thunder-24-wurmple",
+    "name": "Wurmple",
+    "rarity": "Common",
+    "number": "24",
+    "image": "/assets/sets/lost-thunder/cards/24_Wurmple_Common.png"
+  },
+  {
+    "id": "lost-thunder-25-silcoon",
+    "name": "Silcoon",
+    "rarity": "Uncommon",
+    "number": "25",
+    "image": "/assets/sets/lost-thunder/cards/25_Silcoon_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-26-beautifly",
+    "name": "Beautifly",
+    "rarity": "Rare",
+    "number": "26",
+    "image": "/assets/sets/lost-thunder/cards/26_Beautifly_Rare.png"
+  },
+  {
+    "id": "lost-thunder-27-cascoon",
+    "name": "Cascoon",
+    "rarity": "Uncommon",
+    "number": "27",
+    "image": "/assets/sets/lost-thunder/cards/27_Cascoon_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-28-dustox",
+    "name": "Dustox",
+    "rarity": "Rare",
+    "number": "28",
+    "image": "/assets/sets/lost-thunder/cards/28_Dustox_Rare.png"
+  },
+  {
+    "id": "lost-thunder-29-nincada",
+    "name": "Nincada",
+    "rarity": "Common",
+    "number": "29",
+    "image": "/assets/sets/lost-thunder/cards/29_Nincada_Common.png"
+  },
+  {
+    "id": "lost-thunder-30-ninjask",
+    "name": "Ninjask",
+    "rarity": "Uncommon",
+    "number": "30",
+    "image": "/assets/sets/lost-thunder/cards/30_Ninjask_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-31-combee",
+    "name": "Combee",
+    "rarity": "Common",
+    "number": "31",
+    "image": "/assets/sets/lost-thunder/cards/31_Combee_Common.png"
+  },
+  {
+    "id": "lost-thunder-32-vespiquen",
+    "name": "Vespiquen",
+    "rarity": "Uncommon",
+    "number": "32",
+    "image": "/assets/sets/lost-thunder/cards/32_Vespiquen_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-33-shaymin",
+    "name": "Shaymin",
+    "rarity": "Rare",
+    "number": "33",
+    "image": "/assets/sets/lost-thunder/cards/33_Shaymin_Rare_Holo.png"
+  },
+  {
+    "id": "lost-thunder-34-virizion-gx",
+    "name": "Virizion-GX",
+    "rarity": "Double Rare",
+    "number": "34",
+    "image": "/assets/sets/lost-thunder/cards/34_Virizion-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "lost-thunder-35-skiddo",
+    "name": "Skiddo",
+    "rarity": "Common",
+    "number": "35",
+    "image": "/assets/sets/lost-thunder/cards/35_Skiddo_Common.png"
+  },
+  {
+    "id": "lost-thunder-36-gogoat",
+    "name": "Gogoat",
+    "rarity": "Uncommon",
+    "number": "36",
+    "image": "/assets/sets/lost-thunder/cards/36_Gogoat_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-37-tapu-bulu",
+    "name": "Tapu Bulu",
+    "rarity": "Rare",
+    "number": "37",
+    "image": "/assets/sets/lost-thunder/cards/37_Tapu_Bulu_Rare_Holo.png"
+  },
+  {
+    "id": "lost-thunder-38-moltres",
+    "name": "Moltres",
+    "rarity": "Rare",
+    "number": "38",
+    "image": "/assets/sets/lost-thunder/cards/38_Moltres_Rare.png"
+  },
+  {
+    "id": "lost-thunder-39-cyndaquil",
+    "name": "Cyndaquil",
+    "rarity": "Common",
+    "number": "39",
+    "image": "/assets/sets/lost-thunder/cards/39_Cyndaquil_Common.png"
+  },
+  {
+    "id": "lost-thunder-40-cyndaquil",
+    "name": "Cyndaquil",
+    "rarity": "Common",
+    "number": "40",
+    "image": "/assets/sets/lost-thunder/cards/40_Cyndaquil_Common.png"
+  },
+  {
+    "id": "lost-thunder-41-quilava",
+    "name": "Quilava",
+    "rarity": "Uncommon",
+    "number": "41",
+    "image": "/assets/sets/lost-thunder/cards/41_Quilava_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-42-typhlosion",
+    "name": "Typhlosion",
+    "rarity": "Rare",
+    "number": "42",
+    "image": "/assets/sets/lost-thunder/cards/42_Typhlosion_Rare_Holo.png"
+  },
+  {
+    "id": "lost-thunder-43-slugma",
+    "name": "Slugma",
+    "rarity": "Common",
+    "number": "43",
+    "image": "/assets/sets/lost-thunder/cards/43_Slugma_Common.png"
+  },
+  {
+    "id": "lost-thunder-44-magcargo-gx",
+    "name": "Magcargo-GX",
+    "rarity": "Double Rare",
+    "number": "44",
+    "image": "/assets/sets/lost-thunder/cards/44_Magcargo-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "lost-thunder-45-houndour",
+    "name": "Houndour",
+    "rarity": "Common",
+    "number": "45",
+    "image": "/assets/sets/lost-thunder/cards/45_Houndour_Common.png"
+  },
+  {
+    "id": "lost-thunder-46-houndoom",
+    "name": "Houndoom",
+    "rarity": "Rare",
+    "number": "46",
+    "image": "/assets/sets/lost-thunder/cards/46_Houndoom_Rare.png"
+  },
+  {
+    "id": "lost-thunder-47-entei",
+    "name": "Entei",
+    "rarity": "Rare",
+    "number": "47",
+    "image": "/assets/sets/lost-thunder/cards/47_Entei_Rare.png"
+  },
+  {
+    "id": "lost-thunder-48-heatran",
+    "name": "Heatran",
+    "rarity": "Rare",
+    "number": "48",
+    "image": "/assets/sets/lost-thunder/cards/48_Heatran_Rare_Holo.png"
+  },
+  {
+    "id": "lost-thunder-49-victini",
+    "name": "Victini",
+    "rarity": "Rare",
+    "number": "49",
+    "image": "/assets/sets/lost-thunder/cards/49_Victini_Rare.png"
+  },
+  {
+    "id": "lost-thunder-50-litleo",
+    "name": "Litleo",
+    "rarity": "Common",
+    "number": "50",
+    "image": "/assets/sets/lost-thunder/cards/50_Litleo_Common.png"
+  },
+  {
+    "id": "lost-thunder-51-pyroar",
+    "name": "Pyroar",
+    "rarity": "Rare",
+    "number": "51",
+    "image": "/assets/sets/lost-thunder/cards/51_Pyroar_Rare.png"
+  },
+  {
+    "id": "lost-thunder-52-blacephalon-gx",
+    "name": "Blacephalon-GX",
+    "rarity": "Double Rare",
+    "number": "52",
+    "image": "/assets/sets/lost-thunder/cards/52_Blacephalon-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "lost-thunder-53-alolan-vulpix",
+    "name": "Alolan Vulpix",
+    "rarity": "Common",
+    "number": "53",
+    "image": "/assets/sets/lost-thunder/cards/53_Alolan_Vulpix_Common.png"
+  },
+  {
+    "id": "lost-thunder-54-slowpoke",
+    "name": "Slowpoke",
+    "rarity": "Common",
+    "number": "54",
+    "image": "/assets/sets/lost-thunder/cards/54_Slowpoke_Common.png"
+  },
+  {
+    "id": "lost-thunder-55-slowking",
+    "name": "Slowking",
+    "rarity": "Rare",
+    "number": "55",
+    "image": "/assets/sets/lost-thunder/cards/55_Slowking_Rare.png"
+  },
+  {
+    "id": "lost-thunder-56-lapras",
+    "name": "Lapras",
+    "rarity": "Rare",
+    "number": "56",
+    "image": "/assets/sets/lost-thunder/cards/56_Lapras_Rare.png"
+  },
+  {
+    "id": "lost-thunder-57-delibird",
+    "name": "Delibird",
+    "rarity": "Uncommon",
+    "number": "57",
+    "image": "/assets/sets/lost-thunder/cards/57_Delibird_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-58-mantine",
+    "name": "Mantine",
+    "rarity": "Uncommon",
+    "number": "58",
+    "image": "/assets/sets/lost-thunder/cards/58_Mantine_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-59-suicune",
+    "name": "Suicune",
+    "rarity": "Rare",
+    "number": "59",
+    "image": "/assets/sets/lost-thunder/cards/59_Suicune_Rare_Holo.png"
+  },
+  {
+    "id": "lost-thunder-60-suicune-gx",
+    "name": "Suicune-GX",
+    "rarity": "Double Rare",
+    "number": "60",
+    "image": "/assets/sets/lost-thunder/cards/60_Suicune-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "lost-thunder-61-cubchoo",
+    "name": "Cubchoo",
+    "rarity": "Common",
+    "number": "61",
+    "image": "/assets/sets/lost-thunder/cards/61_Cubchoo_Common.png"
+  },
+  {
+    "id": "lost-thunder-62-beartic",
+    "name": "Beartic",
+    "rarity": "Rare",
+    "number": "62",
+    "image": "/assets/sets/lost-thunder/cards/62_Beartic_Rare.png"
+  },
+  {
+    "id": "lost-thunder-63-white-kyurem",
+    "name": "White Kyurem",
+    "rarity": "Rare",
+    "number": "63",
+    "image": "/assets/sets/lost-thunder/cards/63_White_Kyurem_Rare_Holo.png"
+  },
+  {
+    "id": "lost-thunder-64-popplio",
+    "name": "Popplio",
+    "rarity": "Common",
+    "number": "64",
+    "image": "/assets/sets/lost-thunder/cards/64_Popplio_Common.png"
+  },
+  {
+    "id": "lost-thunder-65-popplio",
+    "name": "Popplio",
+    "rarity": "Common",
+    "number": "65",
+    "image": "/assets/sets/lost-thunder/cards/65_Popplio_Common.png"
+  },
+  {
+    "id": "lost-thunder-66-brionne",
+    "name": "Brionne",
+    "rarity": "Uncommon",
+    "number": "66",
+    "image": "/assets/sets/lost-thunder/cards/66_Brionne_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-67-primarina",
+    "name": "Primarina",
+    "rarity": "Rare",
+    "number": "67",
+    "image": "/assets/sets/lost-thunder/cards/67_Primarina_Rare.png"
+  },
+  {
+    "id": "lost-thunder-68-mareanie",
+    "name": "Mareanie",
+    "rarity": "Common",
+    "number": "68",
+    "image": "/assets/sets/lost-thunder/cards/68_Mareanie_Common.png"
+  },
+  {
+    "id": "lost-thunder-69-toxapex",
+    "name": "Toxapex",
+    "rarity": "Rare",
+    "number": "69",
+    "image": "/assets/sets/lost-thunder/cards/69_Toxapex_Rare.png"
+  },
+  {
+    "id": "lost-thunder-70-bruxish",
+    "name": "Bruxish",
+    "rarity": "Common",
+    "number": "70",
+    "image": "/assets/sets/lost-thunder/cards/70_Bruxish_Common.png"
+  },
+  {
+    "id": "lost-thunder-71-electabuzz",
+    "name": "Electabuzz",
+    "rarity": "Uncommon",
+    "number": "71",
+    "image": "/assets/sets/lost-thunder/cards/71_Electabuzz_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-72-electivire",
+    "name": "Electivire",
+    "rarity": "Rare",
+    "number": "72",
+    "image": "/assets/sets/lost-thunder/cards/72_Electivire_Rare.png"
+  },
+  {
+    "id": "lost-thunder-73-chinchou",
+    "name": "Chinchou",
+    "rarity": "Common",
+    "number": "73",
+    "image": "/assets/sets/lost-thunder/cards/73_Chinchou_Common.png"
+  },
+  {
+    "id": "lost-thunder-74-lanturn",
+    "name": "Lanturn",
+    "rarity": "Rare",
+    "number": "74",
+    "image": "/assets/sets/lost-thunder/cards/74_Lanturn_Rare.png"
+  },
+  {
+    "id": "lost-thunder-75-mareep",
+    "name": "Mareep",
+    "rarity": "Common",
+    "number": "75",
+    "image": "/assets/sets/lost-thunder/cards/75_Mareep_Common.png"
+  },
+  {
+    "id": "lost-thunder-76-mareep",
+    "name": "Mareep",
+    "rarity": "Common",
+    "number": "76",
+    "image": "/assets/sets/lost-thunder/cards/76_Mareep_Common.png"
+  },
+  {
+    "id": "lost-thunder-77-flaaffy",
+    "name": "Flaaffy",
+    "rarity": "Uncommon",
+    "number": "77",
+    "image": "/assets/sets/lost-thunder/cards/77_Flaaffy_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-78-ampharos",
+    "name": "Ampharos",
+    "rarity": "Rare",
+    "number": "78",
+    "image": "/assets/sets/lost-thunder/cards/78_Ampharos_Rare_Holo.png"
+  },
+  {
+    "id": "lost-thunder-79-raikou",
+    "name": "Raikou",
+    "rarity": "Rare",
+    "number": "79",
+    "image": "/assets/sets/lost-thunder/cards/79_Raikou_Rare.png"
+  },
+  {
+    "id": "lost-thunder-80-pachirisu",
+    "name": "Pachirisu",
+    "rarity": "Common",
+    "number": "80",
+    "image": "/assets/sets/lost-thunder/cards/80_Pachirisu_Common.png"
+  },
+  {
+    "id": "lost-thunder-81-blitzle",
+    "name": "Blitzle",
+    "rarity": "Common",
+    "number": "81",
+    "image": "/assets/sets/lost-thunder/cards/81_Blitzle_Common.png"
+  },
+  {
+    "id": "lost-thunder-82-zebstrika",
+    "name": "Zebstrika",
+    "rarity": "Rare",
+    "number": "82",
+    "image": "/assets/sets/lost-thunder/cards/82_Zebstrika_Rare.png"
+  },
+  {
+    "id": "lost-thunder-83-stunfisk",
+    "name": "Stunfisk",
+    "rarity": "Common",
+    "number": "83",
+    "image": "/assets/sets/lost-thunder/cards/83_Stunfisk_Common.png"
+  },
+  {
+    "id": "lost-thunder-84-dedenne",
+    "name": "Dedenne",
+    "rarity": "Common",
+    "number": "84",
+    "image": "/assets/sets/lost-thunder/cards/84_Dedenne_Common.png"
+  },
+  {
+    "id": "lost-thunder-85-tapu-koko",
+    "name": "Tapu Koko",
+    "rarity": "Rare",
+    "number": "85",
+    "image": "/assets/sets/lost-thunder/cards/85_Tapu_Koko_Rare_Holo.png"
+  },
+  {
+    "id": "lost-thunder-86-zeraora-gx",
+    "name": "Zeraora-GX",
+    "rarity": "Double Rare",
+    "number": "86",
+    "image": "/assets/sets/lost-thunder/cards/86_Zeraora-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "lost-thunder-87-natu",
+    "name": "Natu",
+    "rarity": "Common",
+    "number": "87",
+    "image": "/assets/sets/lost-thunder/cards/87_Natu_Common.png"
+  },
+  {
+    "id": "lost-thunder-88-xatu",
+    "name": "Xatu",
+    "rarity": "Uncommon",
+    "number": "88",
+    "image": "/assets/sets/lost-thunder/cards/88_Xatu_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-89-espeon",
+    "name": "Espeon",
+    "rarity": "Rare",
+    "number": "89",
+    "image": "/assets/sets/lost-thunder/cards/89_Espeon_Rare.png"
+  },
+  {
+    "id": "lost-thunder-90-unown",
+    "name": "Unown",
+    "rarity": "Rare",
+    "number": "90",
+    "image": "/assets/sets/lost-thunder/cards/90_Unown_Rare.png"
+  },
+  {
+    "id": "lost-thunder-91-unown",
+    "name": "Unown",
+    "rarity": "Rare",
+    "number": "91",
+    "image": "/assets/sets/lost-thunder/cards/91_Unown_Rare.png"
+  },
+  {
+    "id": "lost-thunder-92-unown",
+    "name": "Unown",
+    "rarity": "Rare",
+    "number": "92",
+    "image": "/assets/sets/lost-thunder/cards/92_Unown_Rare.png"
+  },
+  {
+    "id": "lost-thunder-93-wobbuffet",
+    "name": "Wobbuffet",
+    "rarity": "Rare",
+    "number": "93",
+    "image": "/assets/sets/lost-thunder/cards/93_Wobbuffet_Rare.png"
+  },
+  {
+    "id": "lost-thunder-94-girafarig",
+    "name": "Girafarig",
+    "rarity": "Uncommon",
+    "number": "94",
+    "image": "/assets/sets/lost-thunder/cards/94_Girafarig_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-95-shedinja",
+    "name": "Shedinja",
+    "rarity": "Rare",
+    "number": "95",
+    "image": "/assets/sets/lost-thunder/cards/95_Shedinja_Rare.png"
+  },
+  {
+    "id": "lost-thunder-96-sableye",
+    "name": "Sableye",
+    "rarity": "Uncommon",
+    "number": "96",
+    "image": "/assets/sets/lost-thunder/cards/96_Sableye_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-97-giratina",
+    "name": "Giratina",
+    "rarity": "Rare",
+    "number": "97",
+    "image": "/assets/sets/lost-thunder/cards/97_Giratina_Rare_Holo.png"
+  },
+  {
+    "id": "lost-thunder-98-sigilyph-gx",
+    "name": "Sigilyph-GX",
+    "rarity": "Double Rare",
+    "number": "98",
+    "image": "/assets/sets/lost-thunder/cards/98_Sigilyph-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "lost-thunder-99-yamask",
+    "name": "Yamask",
+    "rarity": "Common",
+    "number": "99",
+    "image": "/assets/sets/lost-thunder/cards/99_Yamask_Common.png"
+  },
+  {
+    "id": "lost-thunder-100-cofagrigus",
+    "name": "Cofagrigus",
+    "rarity": "Rare",
+    "number": "100",
+    "image": "/assets/sets/lost-thunder/cards/100_Cofagrigus_Rare.png"
+  },
+  {
+    "id": "lost-thunder-101-litwick",
+    "name": "Litwick",
+    "rarity": "Common",
+    "number": "101",
+    "image": "/assets/sets/lost-thunder/cards/101_Litwick_Common.png"
+  },
+  {
+    "id": "lost-thunder-102-lampent",
+    "name": "Lampent",
+    "rarity": "Uncommon",
+    "number": "102",
+    "image": "/assets/sets/lost-thunder/cards/102_Lampent_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-103-chandelure",
+    "name": "Chandelure",
+    "rarity": "Rare",
+    "number": "103",
+    "image": "/assets/sets/lost-thunder/cards/103_Chandelure_Rare_Holo.png"
+  },
+  {
+    "id": "lost-thunder-104-meloetta",
+    "name": "Meloetta",
+    "rarity": "Rare",
+    "number": "104",
+    "image": "/assets/sets/lost-thunder/cards/104_Meloetta_Rare.png"
+  },
+  {
+    "id": "lost-thunder-105-mareanie",
+    "name": "Mareanie",
+    "rarity": "Common",
+    "number": "105",
+    "image": "/assets/sets/lost-thunder/cards/105_Mareanie_Common.png"
+  },
+  {
+    "id": "lost-thunder-106-nihilego",
+    "name": "Nihilego",
+    "rarity": "Rare",
+    "number": "106",
+    "image": "/assets/sets/lost-thunder/cards/106_Nihilego_Rare_Holo.png"
+  },
+  {
+    "id": "lost-thunder-107-poipole",
+    "name": "Poipole",
+    "rarity": "Common",
+    "number": "107",
+    "image": "/assets/sets/lost-thunder/cards/107_Poipole_Common.png"
+  },
+  {
+    "id": "lost-thunder-108-naganadel",
+    "name": "Naganadel",
+    "rarity": "Rare",
+    "number": "108",
+    "image": "/assets/sets/lost-thunder/cards/108_Naganadel_Rare_Holo.png"
+  },
+  {
+    "id": "lost-thunder-109-onix",
+    "name": "Onix",
+    "rarity": "Common",
+    "number": "109",
+    "image": "/assets/sets/lost-thunder/cards/109_Onix_Common.png"
+  },
+  {
+    "id": "lost-thunder-110-sudowoodo",
+    "name": "Sudowoodo",
+    "rarity": "Uncommon",
+    "number": "110",
+    "image": "/assets/sets/lost-thunder/cards/110_Sudowoodo_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-111-phanpy",
+    "name": "Phanpy",
+    "rarity": "Common",
+    "number": "111",
+    "image": "/assets/sets/lost-thunder/cards/111_Phanpy_Common.png"
+  },
+  {
+    "id": "lost-thunder-112-donphan",
+    "name": "Donphan",
+    "rarity": "Rare",
+    "number": "112",
+    "image": "/assets/sets/lost-thunder/cards/112_Donphan_Rare.png"
+  },
+  {
+    "id": "lost-thunder-113-hitmontop",
+    "name": "Hitmontop",
+    "rarity": "Uncommon",
+    "number": "113",
+    "image": "/assets/sets/lost-thunder/cards/113_Hitmontop_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-114-larvitar",
+    "name": "Larvitar",
+    "rarity": "Common",
+    "number": "114",
+    "image": "/assets/sets/lost-thunder/cards/114_Larvitar_Common.png"
+  },
+  {
+    "id": "lost-thunder-115-larvitar",
+    "name": "Larvitar",
+    "rarity": "Common",
+    "number": "115",
+    "image": "/assets/sets/lost-thunder/cards/115_Larvitar_Common.png"
+  },
+  {
+    "id": "lost-thunder-116-pupitar",
+    "name": "Pupitar",
+    "rarity": "Uncommon",
+    "number": "116",
+    "image": "/assets/sets/lost-thunder/cards/116_Pupitar_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-117-carbink",
+    "name": "Carbink",
+    "rarity": "Common",
+    "number": "117",
+    "image": "/assets/sets/lost-thunder/cards/117_Carbink_Common.png"
+  },
+  {
+    "id": "lost-thunder-118-alolan-meowth",
+    "name": "Alolan Meowth",
+    "rarity": "Common",
+    "number": "118",
+    "image": "/assets/sets/lost-thunder/cards/118_Alolan_Meowth_Common.png"
+  },
+  {
+    "id": "lost-thunder-119-alolan-persian",
+    "name": "Alolan Persian",
+    "rarity": "Rare",
+    "number": "119",
+    "image": "/assets/sets/lost-thunder/cards/119_Alolan_Persian_Rare.png"
+  },
+  {
+    "id": "lost-thunder-120-umbreon",
+    "name": "Umbreon",
+    "rarity": "Rare",
+    "number": "120",
+    "image": "/assets/sets/lost-thunder/cards/120_Umbreon_Rare.png"
+  },
+  {
+    "id": "lost-thunder-121-tyranitar-gx",
+    "name": "Tyranitar-GX",
+    "rarity": "Double Rare",
+    "number": "121",
+    "image": "/assets/sets/lost-thunder/cards/121_Tyranitar-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "lost-thunder-122-alolan-diglett",
+    "name": "Alolan Diglett",
+    "rarity": "Common",
+    "number": "122",
+    "image": "/assets/sets/lost-thunder/cards/122_Alolan_Diglett_Common.png"
+  },
+  {
+    "id": "lost-thunder-123-alolan-dugtrio",
+    "name": "Alolan Dugtrio",
+    "rarity": "Uncommon",
+    "number": "123",
+    "image": "/assets/sets/lost-thunder/cards/123_Alolan_Dugtrio_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-124-forretress",
+    "name": "Forretress",
+    "rarity": "Rare",
+    "number": "124",
+    "image": "/assets/sets/lost-thunder/cards/124_Forretress_Rare.png"
+  },
+  {
+    "id": "lost-thunder-125-steelix",
+    "name": "Steelix",
+    "rarity": "Rare",
+    "number": "125",
+    "image": "/assets/sets/lost-thunder/cards/125_Steelix_Rare.png"
+  },
+  {
+    "id": "lost-thunder-126-scizor",
+    "name": "Scizor",
+    "rarity": "Rare",
+    "number": "126",
+    "image": "/assets/sets/lost-thunder/cards/126_Scizor_Rare_Holo.png"
+  },
+  {
+    "id": "lost-thunder-127-dialga",
+    "name": "Dialga",
+    "rarity": "Rare",
+    "number": "127",
+    "image": "/assets/sets/lost-thunder/cards/127_Dialga_Rare_Holo.png"
+  },
+  {
+    "id": "lost-thunder-128-durant",
+    "name": "Durant",
+    "rarity": "Common",
+    "number": "128",
+    "image": "/assets/sets/lost-thunder/cards/128_Durant_Common.png"
+  },
+  {
+    "id": "lost-thunder-129-cobalion",
+    "name": "Cobalion",
+    "rarity": "Rare",
+    "number": "129",
+    "image": "/assets/sets/lost-thunder/cards/129_Cobalion_Rare_Holo.png"
+  },
+  {
+    "id": "lost-thunder-130-genesect-gx",
+    "name": "Genesect-GX",
+    "rarity": "Double Rare",
+    "number": "130",
+    "image": "/assets/sets/lost-thunder/cards/130_Genesect-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "lost-thunder-131-magearna",
+    "name": "Magearna",
+    "rarity": "Uncommon",
+    "number": "131",
+    "image": "/assets/sets/lost-thunder/cards/131_Magearna_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-132-alolan-ninetales-gx",
+    "name": "Alolan Ninetales-GX",
+    "rarity": "Double Rare",
+    "number": "132",
+    "image": "/assets/sets/lost-thunder/cards/132_Alolan_Ninetales-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "lost-thunder-133-jigglypuff",
+    "name": "Jigglypuff",
+    "rarity": "Common",
+    "number": "133",
+    "image": "/assets/sets/lost-thunder/cards/133_Jigglypuff_Common.png"
+  },
+  {
+    "id": "lost-thunder-134-wigglytuff",
+    "name": "Wigglytuff",
+    "rarity": "Rare",
+    "number": "134",
+    "image": "/assets/sets/lost-thunder/cards/134_Wigglytuff_Rare.png"
+  },
+  {
+    "id": "lost-thunder-135-marill",
+    "name": "Marill",
+    "rarity": "Common",
+    "number": "135",
+    "image": "/assets/sets/lost-thunder/cards/135_Marill_Common.png"
+  },
+  {
+    "id": "lost-thunder-136-azumarill",
+    "name": "Azumarill",
+    "rarity": "Rare",
+    "number": "136",
+    "image": "/assets/sets/lost-thunder/cards/136_Azumarill_Rare.png"
+  },
+  {
+    "id": "lost-thunder-137-snubbull",
+    "name": "Snubbull",
+    "rarity": "Common",
+    "number": "137",
+    "image": "/assets/sets/lost-thunder/cards/137_Snubbull_Common.png"
+  },
+  {
+    "id": "lost-thunder-138-granbull",
+    "name": "Granbull",
+    "rarity": "Rare",
+    "number": "138",
+    "image": "/assets/sets/lost-thunder/cards/138_Granbull_Rare.png"
+  },
+  {
+    "id": "lost-thunder-139-ralts",
+    "name": "Ralts",
+    "rarity": "Common",
+    "number": "139",
+    "image": "/assets/sets/lost-thunder/cards/139_Ralts_Common.png"
+  },
+  {
+    "id": "lost-thunder-140-kirlia",
+    "name": "Kirlia",
+    "rarity": "Uncommon",
+    "number": "140",
+    "image": "/assets/sets/lost-thunder/cards/140_Kirlia_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-141-gardevoir",
+    "name": "Gardevoir",
+    "rarity": "Rare",
+    "number": "141",
+    "image": "/assets/sets/lost-thunder/cards/141_Gardevoir_Rare_Holo.png"
+  },
+  {
+    "id": "lost-thunder-142-dedenne",
+    "name": "Dedenne",
+    "rarity": "Uncommon",
+    "number": "142",
+    "image": "/assets/sets/lost-thunder/cards/142_Dedenne_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-143-carbink",
+    "name": "Carbink",
+    "rarity": "Uncommon",
+    "number": "143",
+    "image": "/assets/sets/lost-thunder/cards/143_Carbink_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-144-xerneas",
+    "name": "Xerneas ◇",
+    "rarity": "Rare",
+    "number": "144",
+    "image": "/assets/sets/lost-thunder/cards/144_Xerneas_◇_Rare_Prism_Star.png"
+  },
+  {
+    "id": "lost-thunder-145-cutiefly",
+    "name": "Cutiefly",
+    "rarity": "Common",
+    "number": "145",
+    "image": "/assets/sets/lost-thunder/cards/145_Cutiefly_Common.png"
+  },
+  {
+    "id": "lost-thunder-146-ribombee",
+    "name": "Ribombee",
+    "rarity": "Rare",
+    "number": "146",
+    "image": "/assets/sets/lost-thunder/cards/146_Ribombee_Rare.png"
+  },
+  {
+    "id": "lost-thunder-147-morelull",
+    "name": "Morelull",
+    "rarity": "Common",
+    "number": "147",
+    "image": "/assets/sets/lost-thunder/cards/147_Morelull_Common.png"
+  },
+  {
+    "id": "lost-thunder-148-shiinotic",
+    "name": "Shiinotic",
+    "rarity": "Uncommon",
+    "number": "148",
+    "image": "/assets/sets/lost-thunder/cards/148_Shiinotic_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-149-mimikyu-gx",
+    "name": "Mimikyu-GX",
+    "rarity": "Double Rare",
+    "number": "149",
+    "image": "/assets/sets/lost-thunder/cards/149_Mimikyu-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "lost-thunder-150-tapu-lele",
+    "name": "Tapu Lele",
+    "rarity": "Rare",
+    "number": "150",
+    "image": "/assets/sets/lost-thunder/cards/150_Tapu_Lele_Rare_Holo.png"
+  },
+  {
+    "id": "lost-thunder-151-tapu-fini",
+    "name": "Tapu Fini",
+    "rarity": "Rare",
+    "number": "151",
+    "image": "/assets/sets/lost-thunder/cards/151_Tapu_Fini_Rare_Holo.png"
+  },
+  {
+    "id": "lost-thunder-152-chansey",
+    "name": "Chansey",
+    "rarity": "Common",
+    "number": "152",
+    "image": "/assets/sets/lost-thunder/cards/152_Chansey_Common.png"
+  },
+  {
+    "id": "lost-thunder-153-blissey",
+    "name": "Blissey",
+    "rarity": "Rare",
+    "number": "153",
+    "image": "/assets/sets/lost-thunder/cards/153_Blissey_Rare_Holo.png"
+  },
+  {
+    "id": "lost-thunder-154-ditto",
+    "name": "Ditto ◇",
+    "rarity": "Rare",
+    "number": "154",
+    "image": "/assets/sets/lost-thunder/cards/154_Ditto_◇_Rare_Prism_Star.png"
+  },
+  {
+    "id": "lost-thunder-155-eevee",
+    "name": "Eevee",
+    "rarity": "Common",
+    "number": "155",
+    "image": "/assets/sets/lost-thunder/cards/155_Eevee_Common.png"
+  },
+  {
+    "id": "lost-thunder-156-stantler",
+    "name": "Stantler",
+    "rarity": "Uncommon",
+    "number": "156",
+    "image": "/assets/sets/lost-thunder/cards/156_Stantler_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-157-smeargle",
+    "name": "Smeargle",
+    "rarity": "Rare",
+    "number": "157",
+    "image": "/assets/sets/lost-thunder/cards/157_Smeargle_Rare.png"
+  },
+  {
+    "id": "lost-thunder-158-miltank",
+    "name": "Miltank",
+    "rarity": "Rare",
+    "number": "158",
+    "image": "/assets/sets/lost-thunder/cards/158_Miltank_Rare.png"
+  },
+  {
+    "id": "lost-thunder-159-lugia-gx",
+    "name": "Lugia-GX",
+    "rarity": "Double Rare",
+    "number": "159",
+    "image": "/assets/sets/lost-thunder/cards/159_Lugia-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "lost-thunder-160-ho-oh",
+    "name": "Ho-Oh",
+    "rarity": "Rare",
+    "number": "160",
+    "image": "/assets/sets/lost-thunder/cards/160_Ho-Oh_Rare.png"
+  },
+  {
+    "id": "lost-thunder-161-kecleon",
+    "name": "Kecleon",
+    "rarity": "Uncommon",
+    "number": "161",
+    "image": "/assets/sets/lost-thunder/cards/161_Kecleon_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-162-kecleon",
+    "name": "Kecleon",
+    "rarity": "Uncommon",
+    "number": "162",
+    "image": "/assets/sets/lost-thunder/cards/162_Kecleon_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-163-pikipek",
+    "name": "Pikipek",
+    "rarity": "Common",
+    "number": "163",
+    "image": "/assets/sets/lost-thunder/cards/163_Pikipek_Common.png"
+  },
+  {
+    "id": "lost-thunder-164-pikipek",
+    "name": "Pikipek",
+    "rarity": "Common",
+    "number": "164",
+    "image": "/assets/sets/lost-thunder/cards/164_Pikipek_Common.png"
+  },
+  {
+    "id": "lost-thunder-165-trumbeak",
+    "name": "Trumbeak",
+    "rarity": "Uncommon",
+    "number": "165",
+    "image": "/assets/sets/lost-thunder/cards/165_Trumbeak_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-166-toucannon",
+    "name": "Toucannon",
+    "rarity": "Rare",
+    "number": "166",
+    "image": "/assets/sets/lost-thunder/cards/166_Toucannon_Rare.png"
+  },
+  {
+    "id": "lost-thunder-167-adventure-bag",
+    "name": "Adventure Bag",
+    "rarity": "Uncommon",
+    "number": "167",
+    "image": "/assets/sets/lost-thunder/cards/167_Adventure_Bag_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-168-aether-foundation-employee",
+    "name": "Aether Foundation Employee",
+    "rarity": "Uncommon",
+    "number": "168",
+    "image": "/assets/sets/lost-thunder/cards/168_Aether_Foundation_Employee_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-169-choice-helmet",
+    "name": "Choice Helmet",
+    "rarity": "Uncommon",
+    "number": "169",
+    "image": "/assets/sets/lost-thunder/cards/169_Choice_Helmet_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-170-counter-gain",
+    "name": "Counter Gain",
+    "rarity": "Uncommon",
+    "number": "170",
+    "image": "/assets/sets/lost-thunder/cards/170_Counter_Gain_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-171-custom-catcher",
+    "name": "Custom Catcher",
+    "rarity": "Uncommon",
+    "number": "171",
+    "image": "/assets/sets/lost-thunder/cards/171_Custom_Catcher_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-172-electropower",
+    "name": "Electropower",
+    "rarity": "Uncommon",
+    "number": "172",
+    "image": "/assets/sets/lost-thunder/cards/172_Electropower_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-172a-electropower",
+    "name": "Electropower",
+    "rarity": "Uncommon",
+    "number": "172a",
+    "image": "/assets/sets/lost-thunder/cards/172a_Electropower_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-173-faba",
+    "name": "Faba",
+    "rarity": "Uncommon",
+    "number": "173",
+    "image": "/assets/sets/lost-thunder/cards/173_Faba_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-174-fairy-charm-grass",
+    "name": "Fairy Charm Grass",
+    "rarity": "Uncommon",
+    "number": "174",
+    "image": "/assets/sets/lost-thunder/cards/174_Fairy_Charm_Grass_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-175-fairy-charm-psychic",
+    "name": "Fairy Charm Psychic",
+    "rarity": "Uncommon",
+    "number": "175",
+    "image": "/assets/sets/lost-thunder/cards/175_Fairy_Charm_Psychic_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-176-fairy-charm-fighting",
+    "name": "Fairy Charm Fighting",
+    "rarity": "Uncommon",
+    "number": "176",
+    "image": "/assets/sets/lost-thunder/cards/176_Fairy_Charm_Fighting_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-177-fairy-charm-dragon",
+    "name": "Fairy Charm Dragon",
+    "rarity": "Uncommon",
+    "number": "177",
+    "image": "/assets/sets/lost-thunder/cards/177_Fairy_Charm_Dragon_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-178-heat-factory",
+    "name": "Heat Factory ◇",
+    "rarity": "Rare",
+    "number": "178",
+    "image": "/assets/sets/lost-thunder/cards/178_Heat_Factory_◇_Rare_Prism_Star.png"
+  },
+  {
+    "id": "lost-thunder-179-kahili",
+    "name": "Kahili",
+    "rarity": "Uncommon",
+    "number": "179",
+    "image": "/assets/sets/lost-thunder/cards/179_Kahili_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-180-life-forest",
+    "name": "Life Forest ◇",
+    "rarity": "Rare",
+    "number": "180",
+    "image": "/assets/sets/lost-thunder/cards/180_Life_Forest_◇_Rare_Prism_Star.png"
+  },
+  {
+    "id": "lost-thunder-181-lost-blender",
+    "name": "Lost Blender",
+    "rarity": "Uncommon",
+    "number": "181",
+    "image": "/assets/sets/lost-thunder/cards/181_Lost_Blender_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-182-lusamine",
+    "name": "Lusamine ◇",
+    "rarity": "Rare",
+    "number": "182",
+    "image": "/assets/sets/lost-thunder/cards/182_Lusamine_◇_Rare_Prism_Star.png"
+  },
+  {
+    "id": "lost-thunder-183-mina",
+    "name": "Mina",
+    "rarity": "Uncommon",
+    "number": "183",
+    "image": "/assets/sets/lost-thunder/cards/183_Mina_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-184-mixed-herbs",
+    "name": "Mixed Herbs",
+    "rarity": "Uncommon",
+    "number": "184",
+    "image": "/assets/sets/lost-thunder/cards/184_Mixed_Herbs_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-185-moomoo-milk",
+    "name": "Moomoo Milk",
+    "rarity": "Uncommon",
+    "number": "185",
+    "image": "/assets/sets/lost-thunder/cards/185_Moomoo_Milk_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-186-morty",
+    "name": "Morty",
+    "rarity": "Uncommon",
+    "number": "186",
+    "image": "/assets/sets/lost-thunder/cards/186_Morty_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-187-net-ball",
+    "name": "Net Ball",
+    "rarity": "Uncommon",
+    "number": "187",
+    "image": "/assets/sets/lost-thunder/cards/187_Net_Ball_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-187a-net-ball",
+    "name": "Net Ball",
+    "rarity": "Uncommon",
+    "number": "187a",
+    "image": "/assets/sets/lost-thunder/cards/187a_Net_Ball_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-188-professor-elm-s-lecture",
+    "name": "Professor Elm's Lecture",
+    "rarity": "Uncommon",
+    "number": "188",
+    "image": "/assets/sets/lost-thunder/cards/188_Professor_Elm's_Lecture_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-188a-professor-elm-s-lecture",
+    "name": "Professor Elm's Lecture",
+    "rarity": "Uncommon",
+    "number": "188a",
+    "image": "/assets/sets/lost-thunder/cards/188a_Professor_Elm's_Lecture_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-189-sightseer",
+    "name": "Sightseer",
+    "rarity": "Uncommon",
+    "number": "189",
+    "image": "/assets/sets/lost-thunder/cards/189_Sightseer_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-189a-sightseer",
+    "name": "Sightseer",
+    "rarity": "Uncommon",
+    "number": "189a",
+    "image": "/assets/sets/lost-thunder/cards/189a_Sightseer_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-190-spell-tag",
+    "name": "Spell Tag",
+    "rarity": "Uncommon",
+    "number": "190",
+    "image": "/assets/sets/lost-thunder/cards/190_Spell_Tag_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-191-thunder-mountain",
+    "name": "Thunder Mountain ◇",
+    "rarity": "Rare",
+    "number": "191",
+    "image": "/assets/sets/lost-thunder/cards/191_Thunder_Mountain_◇_Rare_Prism_Star.png"
+  },
+  {
+    "id": "lost-thunder-192-wait-and-see-hammer",
+    "name": "Wait and See Hammer",
+    "rarity": "Uncommon",
+    "number": "192",
+    "image": "/assets/sets/lost-thunder/cards/192_Wait_and_See_Hammer_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-193-whitney",
+    "name": "Whitney",
+    "rarity": "Uncommon",
+    "number": "193",
+    "image": "/assets/sets/lost-thunder/cards/193_Whitney_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-194-memory-energy",
+    "name": "Memory Energy",
+    "rarity": "Uncommon",
+    "number": "194",
+    "image": "/assets/sets/lost-thunder/cards/194_Memory_Energy_Uncommon.png"
+  },
+  {
+    "id": "lost-thunder-195-shuckle-gx",
+    "name": "Shuckle-GX",
+    "rarity": "Ultra Rare",
+    "number": "195",
+    "image": "/assets/sets/lost-thunder/cards/195_Shuckle-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "lost-thunder-196-sceptile-gx",
+    "name": "Sceptile-GX",
+    "rarity": "Ultra Rare",
+    "number": "196",
+    "image": "/assets/sets/lost-thunder/cards/196_Sceptile-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "lost-thunder-197-virizion-gx",
+    "name": "Virizion-GX",
+    "rarity": "Ultra Rare",
+    "number": "197",
+    "image": "/assets/sets/lost-thunder/cards/197_Virizion-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "lost-thunder-198-magcargo-gx",
+    "name": "Magcargo-GX",
+    "rarity": "Ultra Rare",
+    "number": "198",
+    "image": "/assets/sets/lost-thunder/cards/198_Magcargo-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "lost-thunder-199-blacephalon-gx",
+    "name": "Blacephalon-GX",
+    "rarity": "Ultra Rare",
+    "number": "199",
+    "image": "/assets/sets/lost-thunder/cards/199_Blacephalon-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "lost-thunder-200-suicune-gx",
+    "name": "Suicune-GX",
+    "rarity": "Ultra Rare",
+    "number": "200",
+    "image": "/assets/sets/lost-thunder/cards/200_Suicune-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "lost-thunder-201-zeraora-gx",
+    "name": "Zeraora-GX",
+    "rarity": "Ultra Rare",
+    "number": "201",
+    "image": "/assets/sets/lost-thunder/cards/201_Zeraora-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "lost-thunder-202-sigilyph-gx",
+    "name": "Sigilyph-GX",
+    "rarity": "Ultra Rare",
+    "number": "202",
+    "image": "/assets/sets/lost-thunder/cards/202_Sigilyph-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "lost-thunder-203-tyranitar-gx",
+    "name": "Tyranitar-GX",
+    "rarity": "Ultra Rare",
+    "number": "203",
+    "image": "/assets/sets/lost-thunder/cards/203_Tyranitar-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "lost-thunder-204-genesect-gx",
+    "name": "Genesect-GX",
+    "rarity": "Ultra Rare",
+    "number": "204",
+    "image": "/assets/sets/lost-thunder/cards/204_Genesect-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "lost-thunder-205-alolan-ninetales-gx",
+    "name": "Alolan Ninetales-GX",
+    "rarity": "Ultra Rare",
+    "number": "205",
+    "image": "/assets/sets/lost-thunder/cards/205_Alolan_Ninetales-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "lost-thunder-206-mimikyu-gx",
+    "name": "Mimikyu-GX",
+    "rarity": "Ultra Rare",
+    "number": "206",
+    "image": "/assets/sets/lost-thunder/cards/206_Mimikyu-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "lost-thunder-207-lugia-gx",
+    "name": "Lugia-GX",
+    "rarity": "Ultra Rare",
+    "number": "207",
+    "image": "/assets/sets/lost-thunder/cards/207_Lugia-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "lost-thunder-208-faba",
+    "name": "Faba",
+    "rarity": "Ultra Rare",
+    "number": "208",
+    "image": "/assets/sets/lost-thunder/cards/208_Faba_Rare_Ultra.png"
+  },
+  {
+    "id": "lost-thunder-209-judge",
+    "name": "Judge",
+    "rarity": "Ultra Rare",
+    "number": "209",
+    "image": "/assets/sets/lost-thunder/cards/209_Judge_Rare_Ultra.png"
+  },
+  {
+    "id": "lost-thunder-210-kahili",
+    "name": "Kahili",
+    "rarity": "Ultra Rare",
+    "number": "210",
+    "image": "/assets/sets/lost-thunder/cards/210_Kahili_Rare_Ultra.png"
+  },
+  {
+    "id": "lost-thunder-211-mina",
+    "name": "Mina",
+    "rarity": "Ultra Rare",
+    "number": "211",
+    "image": "/assets/sets/lost-thunder/cards/211_Mina_Rare_Ultra.png"
+  },
+  {
+    "id": "lost-thunder-212-morty",
+    "name": "Morty",
+    "rarity": "Ultra Rare",
+    "number": "212",
+    "image": "/assets/sets/lost-thunder/cards/212_Morty_Rare_Ultra.png"
+  },
+  {
+    "id": "lost-thunder-213-professor-elm-s-lecture",
+    "name": "Professor Elm's Lecture",
+    "rarity": "Ultra Rare",
+    "number": "213",
+    "image": "/assets/sets/lost-thunder/cards/213_Professor_Elm's_Lecture_Rare_Ultra.png"
+  },
+  {
+    "id": "lost-thunder-214-whitney",
+    "name": "Whitney",
+    "rarity": "Ultra Rare",
+    "number": "214",
+    "image": "/assets/sets/lost-thunder/cards/214_Whitney_Rare_Ultra.png"
+  },
+  {
+    "id": "lost-thunder-215-shuckle-gx",
+    "name": "Shuckle-GX",
+    "rarity": "Secret Rare",
+    "number": "215",
+    "image": "/assets/sets/lost-thunder/cards/215_Shuckle-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "lost-thunder-216-sceptile-gx",
+    "name": "Sceptile-GX",
+    "rarity": "Secret Rare",
+    "number": "216",
+    "image": "/assets/sets/lost-thunder/cards/216_Sceptile-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "lost-thunder-217-virizion-gx",
+    "name": "Virizion-GX",
+    "rarity": "Secret Rare",
+    "number": "217",
+    "image": "/assets/sets/lost-thunder/cards/217_Virizion-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "lost-thunder-218-magcargo-gx",
+    "name": "Magcargo-GX",
+    "rarity": "Secret Rare",
+    "number": "218",
+    "image": "/assets/sets/lost-thunder/cards/218_Magcargo-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "lost-thunder-219-blacephalon-gx",
+    "name": "Blacephalon-GX",
+    "rarity": "Secret Rare",
+    "number": "219",
+    "image": "/assets/sets/lost-thunder/cards/219_Blacephalon-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "lost-thunder-220-suicune-gx",
+    "name": "Suicune-GX",
+    "rarity": "Secret Rare",
+    "number": "220",
+    "image": "/assets/sets/lost-thunder/cards/220_Suicune-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "lost-thunder-221-zeraora-gx",
+    "name": "Zeraora-GX",
+    "rarity": "Secret Rare",
+    "number": "221",
+    "image": "/assets/sets/lost-thunder/cards/221_Zeraora-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "lost-thunder-222-sigilyph-gx",
+    "name": "Sigilyph-GX",
+    "rarity": "Secret Rare",
+    "number": "222",
+    "image": "/assets/sets/lost-thunder/cards/222_Sigilyph-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "lost-thunder-223-tyranitar-gx",
+    "name": "Tyranitar-GX",
+    "rarity": "Secret Rare",
+    "number": "223",
+    "image": "/assets/sets/lost-thunder/cards/223_Tyranitar-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "lost-thunder-224-genesect-gx",
+    "name": "Genesect-GX",
+    "rarity": "Secret Rare",
+    "number": "224",
+    "image": "/assets/sets/lost-thunder/cards/224_Genesect-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "lost-thunder-225-alolan-ninetales-gx",
+    "name": "Alolan Ninetales-GX",
+    "rarity": "Secret Rare",
+    "number": "225",
+    "image": "/assets/sets/lost-thunder/cards/225_Alolan_Ninetales-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "lost-thunder-226-mimikyu-gx",
+    "name": "Mimikyu-GX",
+    "rarity": "Secret Rare",
+    "number": "226",
+    "image": "/assets/sets/lost-thunder/cards/226_Mimikyu-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "lost-thunder-227-lugia-gx",
+    "name": "Lugia-GX",
+    "rarity": "Secret Rare",
+    "number": "227",
+    "image": "/assets/sets/lost-thunder/cards/227_Lugia-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "lost-thunder-228-adventure-bag",
+    "name": "Adventure Bag",
+    "rarity": "Secret Rare",
+    "number": "228",
+    "image": "/assets/sets/lost-thunder/cards/228_Adventure_Bag_Rare_Secret.png"
+  },
+  {
+    "id": "lost-thunder-229-choice-helmet",
+    "name": "Choice Helmet",
+    "rarity": "Secret Rare",
+    "number": "229",
+    "image": "/assets/sets/lost-thunder/cards/229_Choice_Helmet_Rare_Secret.png"
+  },
+  {
+    "id": "lost-thunder-230-counter-gain",
+    "name": "Counter Gain",
+    "rarity": "Secret Rare",
+    "number": "230",
+    "image": "/assets/sets/lost-thunder/cards/230_Counter_Gain_Rare_Secret.png"
+  },
+  {
+    "id": "lost-thunder-231-custom-catcher",
+    "name": "Custom Catcher",
+    "rarity": "Secret Rare",
+    "number": "231",
+    "image": "/assets/sets/lost-thunder/cards/231_Custom_Catcher_Rare_Secret.png"
+  },
+  {
+    "id": "lost-thunder-232-electropower",
+    "name": "Electropower",
+    "rarity": "Secret Rare",
+    "number": "232",
+    "image": "/assets/sets/lost-thunder/cards/232_Electropower_Rare_Secret.png"
+  },
+  {
+    "id": "lost-thunder-233-lost-blender",
+    "name": "Lost Blender",
+    "rarity": "Secret Rare",
+    "number": "233",
+    "image": "/assets/sets/lost-thunder/cards/233_Lost_Blender_Rare_Secret.png"
+  },
+  {
+    "id": "lost-thunder-234-net-ball",
+    "name": "Net Ball",
+    "rarity": "Secret Rare",
+    "number": "234",
+    "image": "/assets/sets/lost-thunder/cards/234_Net_Ball_Rare_Secret.png"
+  },
+  {
+    "id": "lost-thunder-235-spell-tag",
+    "name": "Spell Tag",
+    "rarity": "Secret Rare",
+    "number": "235",
+    "image": "/assets/sets/lost-thunder/cards/235_Spell_Tag_Rare_Secret.png"
+  },
+  {
+    "id": "lost-thunder-236-wait-and-see-hammer",
+    "name": "Wait and See Hammer",
+    "rarity": "Secret Rare",
+    "number": "236",
+    "image": "/assets/sets/lost-thunder/cards/236_Wait_and_See_Hammer_Rare_Secret.png"
+  }
+]

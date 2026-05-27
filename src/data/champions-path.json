@@ -1,0 +1,562 @@
+[
+  {
+    "id": "champions-path-1-venusaur-v",
+    "name": "Venusaur V",
+    "rarity": "Double Rare",
+    "number": "1",
+    "image": "/assets/sets/champions-path/cards/1_Venusaur_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "champions-path-2-weedle",
+    "name": "Weedle",
+    "rarity": "Common",
+    "number": "2",
+    "image": "/assets/sets/champions-path/cards/2_Weedle_Common.png"
+  },
+  {
+    "id": "champions-path-3-kakuna",
+    "name": "Kakuna",
+    "rarity": "Common",
+    "number": "3",
+    "image": "/assets/sets/champions-path/cards/3_Kakuna_Common.png"
+  },
+  {
+    "id": "champions-path-4-beedrill",
+    "name": "Beedrill",
+    "rarity": "Uncommon",
+    "number": "4",
+    "image": "/assets/sets/champions-path/cards/4_Beedrill_Uncommon.png"
+  },
+  {
+    "id": "champions-path-5-eldegoss-v",
+    "name": "Eldegoss V",
+    "rarity": "Double Rare",
+    "number": "5",
+    "image": "/assets/sets/champions-path/cards/5_Eldegoss_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "champions-path-6-vulpix",
+    "name": "Vulpix",
+    "rarity": "Common",
+    "number": "6",
+    "image": "/assets/sets/champions-path/cards/6_Vulpix_Common.png"
+  },
+  {
+    "id": "champions-path-7-victini",
+    "name": "Victini",
+    "rarity": "Uncommon",
+    "number": "7",
+    "image": "/assets/sets/champions-path/cards/7_Victini_Uncommon.png"
+  },
+  {
+    "id": "champions-path-8-incineroar-v",
+    "name": "Incineroar V",
+    "rarity": "Double Rare",
+    "number": "8",
+    "image": "/assets/sets/champions-path/cards/8_Incineroar_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "champions-path-9-sizzlipede",
+    "name": "Sizzlipede",
+    "rarity": "Common",
+    "number": "9",
+    "image": "/assets/sets/champions-path/cards/9_Sizzlipede_Common.png"
+  },
+  {
+    "id": "champions-path-10-centiskorch",
+    "name": "Centiskorch",
+    "rarity": "Rare",
+    "number": "10",
+    "image": "/assets/sets/champions-path/cards/10_Centiskorch_Rare_Holo.png"
+  },
+  {
+    "id": "champions-path-11-carvanha",
+    "name": "Carvanha",
+    "rarity": "Common",
+    "number": "11",
+    "image": "/assets/sets/champions-path/cards/11_Carvanha_Common.png"
+  },
+  {
+    "id": "champions-path-12-sharpedo",
+    "name": "Sharpedo",
+    "rarity": "Uncommon",
+    "number": "12",
+    "image": "/assets/sets/champions-path/cards/12_Sharpedo_Uncommon.png"
+  },
+  {
+    "id": "champions-path-13-wailord-v",
+    "name": "Wailord V",
+    "rarity": "Double Rare",
+    "number": "13",
+    "image": "/assets/sets/champions-path/cards/13_Wailord_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "champions-path-14-drednaw-v",
+    "name": "Drednaw V",
+    "rarity": "Double Rare",
+    "number": "14",
+    "image": "/assets/sets/champions-path/cards/14_Drednaw_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "champions-path-15-drednaw-vmax",
+    "name": "Drednaw VMAX",
+    "rarity": "Ultra Rare",
+    "number": "15",
+    "image": "/assets/sets/champions-path/cards/15_Drednaw_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "champions-path-16-gardevoir-v",
+    "name": "Gardevoir V",
+    "rarity": "Double Rare",
+    "number": "16",
+    "image": "/assets/sets/champions-path/cards/16_Gardevoir_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "champions-path-17-gardevoir-vmax",
+    "name": "Gardevoir VMAX",
+    "rarity": "Ultra Rare",
+    "number": "17",
+    "image": "/assets/sets/champions-path/cards/17_Gardevoir_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "champions-path-18-hatenna",
+    "name": "Hatenna",
+    "rarity": "Common",
+    "number": "18",
+    "image": "/assets/sets/champions-path/cards/18_Hatenna_Common.png"
+  },
+  {
+    "id": "champions-path-19-hattrem",
+    "name": "Hattrem",
+    "rarity": "Uncommon",
+    "number": "19",
+    "image": "/assets/sets/champions-path/cards/19_Hattrem_Uncommon.png"
+  },
+  {
+    "id": "champions-path-20-hatterene",
+    "name": "Hatterene",
+    "rarity": "Rare",
+    "number": "20",
+    "image": "/assets/sets/champions-path/cards/20_Hatterene_Rare_Holo.png"
+  },
+  {
+    "id": "champions-path-21-galarian-cursola-v",
+    "name": "Galarian Cursola V",
+    "rarity": "Double Rare",
+    "number": "21",
+    "image": "/assets/sets/champions-path/cards/21_Galarian_Cursola_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "champions-path-22-alcremie-v",
+    "name": "Alcremie V",
+    "rarity": "Double Rare",
+    "number": "22",
+    "image": "/assets/sets/champions-path/cards/22_Alcremie_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "champions-path-23-alcremie-vmax",
+    "name": "Alcremie VMAX",
+    "rarity": "Ultra Rare",
+    "number": "23",
+    "image": "/assets/sets/champions-path/cards/23_Alcremie_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "champions-path-24-machop",
+    "name": "Machop",
+    "rarity": "Common",
+    "number": "24",
+    "image": "/assets/sets/champions-path/cards/24_Machop_Common.png"
+  },
+  {
+    "id": "champions-path-25-machoke",
+    "name": "Machoke",
+    "rarity": "Uncommon",
+    "number": "25",
+    "image": "/assets/sets/champions-path/cards/25_Machoke_Uncommon.png"
+  },
+  {
+    "id": "champions-path-26-machamp",
+    "name": "Machamp",
+    "rarity": "Rare",
+    "number": "26",
+    "image": "/assets/sets/champions-path/cards/26_Machamp_Rare_Holo.png"
+  },
+  {
+    "id": "champions-path-27-lucario-v",
+    "name": "Lucario V",
+    "rarity": "Double Rare",
+    "number": "27",
+    "image": "/assets/sets/champions-path/cards/27_Lucario_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "champions-path-28-zygarde",
+    "name": "Zygarde",
+    "rarity": "Rare",
+    "number": "28",
+    "image": "/assets/sets/champions-path/cards/28_Zygarde_Rare_Holo.png"
+  },
+  {
+    "id": "champions-path-29-rockruff",
+    "name": "Rockruff",
+    "rarity": "Common",
+    "number": "29",
+    "image": "/assets/sets/champions-path/cards/29_Rockruff_Common.png"
+  },
+  {
+    "id": "champions-path-30-lycanroc",
+    "name": "Lycanroc",
+    "rarity": "Rare",
+    "number": "30",
+    "image": "/assets/sets/champions-path/cards/30_Lycanroc_Rare_Holo.png"
+  },
+  {
+    "id": "champions-path-31-rolycoly",
+    "name": "Rolycoly",
+    "rarity": "Common",
+    "number": "31",
+    "image": "/assets/sets/champions-path/cards/31_Rolycoly_Common.png"
+  },
+  {
+    "id": "champions-path-32-grapploct-v",
+    "name": "Grapploct V",
+    "rarity": "Double Rare",
+    "number": "32",
+    "image": "/assets/sets/champions-path/cards/32_Grapploct_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "champions-path-33-ekans",
+    "name": "Ekans",
+    "rarity": "Common",
+    "number": "33",
+    "image": "/assets/sets/champions-path/cards/33_Ekans_Common.png"
+  },
+  {
+    "id": "champions-path-34-arbok",
+    "name": "Arbok",
+    "rarity": "Uncommon",
+    "number": "34",
+    "image": "/assets/sets/champions-path/cards/34_Arbok_Uncommon.png"
+  },
+  {
+    "id": "champions-path-35-galarian-zigzagoon",
+    "name": "Galarian Zigzagoon",
+    "rarity": "Common",
+    "number": "35",
+    "image": "/assets/sets/champions-path/cards/35_Galarian_Zigzagoon_Common.png"
+  },
+  {
+    "id": "champions-path-36-galarian-linoone",
+    "name": "Galarian Linoone",
+    "rarity": "Common",
+    "number": "36",
+    "image": "/assets/sets/champions-path/cards/36_Galarian_Linoone_Common.png"
+  },
+  {
+    "id": "champions-path-37-galarian-obstagoon",
+    "name": "Galarian Obstagoon",
+    "rarity": "Rare",
+    "number": "37",
+    "image": "/assets/sets/champions-path/cards/37_Galarian_Obstagoon_Rare_Holo.png"
+  },
+  {
+    "id": "champions-path-38-absol",
+    "name": "Absol",
+    "rarity": "Uncommon",
+    "number": "38",
+    "image": "/assets/sets/champions-path/cards/38_Absol_Uncommon.png"
+  },
+  {
+    "id": "champions-path-39-purrloin",
+    "name": "Purrloin",
+    "rarity": "Common",
+    "number": "39",
+    "image": "/assets/sets/champions-path/cards/39_Purrloin_Common.png"
+  },
+  {
+    "id": "champions-path-40-liepard",
+    "name": "Liepard",
+    "rarity": "Uncommon",
+    "number": "40",
+    "image": "/assets/sets/champions-path/cards/40_Liepard_Uncommon.png"
+  },
+  {
+    "id": "champions-path-41-scraggy",
+    "name": "Scraggy",
+    "rarity": "Common",
+    "number": "41",
+    "image": "/assets/sets/champions-path/cards/41_Scraggy_Common.png"
+  },
+  {
+    "id": "champions-path-42-scrafty",
+    "name": "Scrafty",
+    "rarity": "Rare",
+    "number": "42",
+    "image": "/assets/sets/champions-path/cards/42_Scrafty_Rare_Holo.png"
+  },
+  {
+    "id": "champions-path-43-trubbish",
+    "name": "Trubbish",
+    "rarity": "Common",
+    "number": "43",
+    "image": "/assets/sets/champions-path/cards/43_Trubbish_Common.png"
+  },
+  {
+    "id": "champions-path-44-inkay",
+    "name": "Inkay",
+    "rarity": "Common",
+    "number": "44",
+    "image": "/assets/sets/champions-path/cards/44_Inkay_Common.png"
+  },
+  {
+    "id": "champions-path-45-malamar",
+    "name": "Malamar",
+    "rarity": "Uncommon",
+    "number": "45",
+    "image": "/assets/sets/champions-path/cards/45_Malamar_Uncommon.png"
+  },
+  {
+    "id": "champions-path-46-nickit",
+    "name": "Nickit",
+    "rarity": "Common",
+    "number": "46",
+    "image": "/assets/sets/champions-path/cards/46_Nickit_Common.png"
+  },
+  {
+    "id": "champions-path-47-duraludon-v",
+    "name": "Duraludon V",
+    "rarity": "Double Rare",
+    "number": "47",
+    "image": "/assets/sets/champions-path/cards/47_Duraludon_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "champions-path-48-swablu",
+    "name": "Swablu",
+    "rarity": "Common",
+    "number": "48",
+    "image": "/assets/sets/champions-path/cards/48_Swablu_Common.png"
+  },
+  {
+    "id": "champions-path-49-altaria",
+    "name": "Altaria",
+    "rarity": "Rare",
+    "number": "49",
+    "image": "/assets/sets/champions-path/cards/49_Altaria_Rare_Holo.png"
+  },
+  {
+    "id": "champions-path-50-bede",
+    "name": "Bede",
+    "rarity": "Uncommon",
+    "number": "50",
+    "image": "/assets/sets/champions-path/cards/50_Bede_Uncommon.png"
+  },
+  {
+    "id": "champions-path-51-full-heal",
+    "name": "Full Heal",
+    "rarity": "Uncommon",
+    "number": "51",
+    "image": "/assets/sets/champions-path/cards/51_Full_Heal_Uncommon.png"
+  },
+  {
+    "id": "champions-path-52-great-ball",
+    "name": "Great Ball",
+    "rarity": "Uncommon",
+    "number": "52",
+    "image": "/assets/sets/champions-path/cards/52_Great_Ball_Uncommon.png"
+  },
+  {
+    "id": "champions-path-53-hop",
+    "name": "Hop",
+    "rarity": "Uncommon",
+    "number": "53",
+    "image": "/assets/sets/champions-path/cards/53_Hop_Uncommon.png"
+  },
+  {
+    "id": "champions-path-54-hyper-potion",
+    "name": "Hyper Potion",
+    "rarity": "Uncommon",
+    "number": "54",
+    "image": "/assets/sets/champions-path/cards/54_Hyper_Potion_Uncommon.png"
+  },
+  {
+    "id": "champions-path-55-kabu",
+    "name": "Kabu",
+    "rarity": "Uncommon",
+    "number": "55",
+    "image": "/assets/sets/champions-path/cards/55_Kabu_Uncommon.png"
+  },
+  {
+    "id": "champions-path-56-marnie",
+    "name": "Marnie",
+    "rarity": "Rare",
+    "number": "56",
+    "image": "/assets/sets/champions-path/cards/56_Marnie_Rare_Holo.png"
+  },
+  {
+    "id": "champions-path-57-milo",
+    "name": "Milo",
+    "rarity": "Uncommon",
+    "number": "57",
+    "image": "/assets/sets/champions-path/cards/57_Milo_Uncommon.png"
+  },
+  {
+    "id": "champions-path-58-piers",
+    "name": "Piers",
+    "rarity": "Uncommon",
+    "number": "58",
+    "image": "/assets/sets/champions-path/cards/58_Piers_Uncommon.png"
+  },
+  {
+    "id": "champions-path-59-pok-ball",
+    "name": "Poké Ball",
+    "rarity": "Common",
+    "number": "59",
+    "image": "/assets/sets/champions-path/cards/59_Poké_Ball_Common.png"
+  },
+  {
+    "id": "champions-path-60-pok-mon-center-lady",
+    "name": "Pokémon Center Lady",
+    "rarity": "Uncommon",
+    "number": "60",
+    "image": "/assets/sets/champions-path/cards/60_Pokémon_Center_Lady_Uncommon.png"
+  },
+  {
+    "id": "champions-path-61-potion",
+    "name": "Potion",
+    "rarity": "Common",
+    "number": "61",
+    "image": "/assets/sets/champions-path/cards/61_Potion_Common.png"
+  },
+  {
+    "id": "champions-path-62-professor-s-research-professor-magnolia",
+    "name": "Professor's Research (Professor Magnolia)",
+    "rarity": "Rare",
+    "number": "62",
+    "image": "/assets/sets/champions-path/cards/62_Professor's_Research_(Professor_Magnolia)_Rare_Holo.png"
+  },
+  {
+    "id": "champions-path-63-rotom-bike",
+    "name": "Rotom Bike",
+    "rarity": "Uncommon",
+    "number": "63",
+    "image": "/assets/sets/champions-path/cards/63_Rotom_Bike_Uncommon.png"
+  },
+  {
+    "id": "champions-path-64-rotom-phone",
+    "name": "Rotom Phone",
+    "rarity": "Uncommon",
+    "number": "64",
+    "image": "/assets/sets/champions-path/cards/64_Rotom_Phone_Uncommon.png"
+  },
+  {
+    "id": "champions-path-65-sonia",
+    "name": "Sonia",
+    "rarity": "Uncommon",
+    "number": "65",
+    "image": "/assets/sets/champions-path/cards/65_Sonia_Uncommon.png"
+  },
+  {
+    "id": "champions-path-66-suspicious-food-tin",
+    "name": "Suspicious Food Tin",
+    "rarity": "Uncommon",
+    "number": "66",
+    "image": "/assets/sets/champions-path/cards/66_Suspicious_Food_Tin_Uncommon.png"
+  },
+  {
+    "id": "champions-path-67-team-yell-grunt",
+    "name": "Team Yell Grunt",
+    "rarity": "Uncommon",
+    "number": "67",
+    "image": "/assets/sets/champions-path/cards/67_Team_Yell_Grunt_Uncommon.png"
+  },
+  {
+    "id": "champions-path-68-turffield-stadium",
+    "name": "Turffield Stadium",
+    "rarity": "Uncommon",
+    "number": "68",
+    "image": "/assets/sets/champions-path/cards/68_Turffield_Stadium_Uncommon.png"
+  },
+  {
+    "id": "champions-path-69-drednaw-v",
+    "name": "Drednaw V",
+    "rarity": "Ultra Rare",
+    "number": "69",
+    "image": "/assets/sets/champions-path/cards/69_Drednaw_V_Rare_Ultra.png"
+  },
+  {
+    "id": "champions-path-70-gardevoir-v",
+    "name": "Gardevoir V",
+    "rarity": "Ultra Rare",
+    "number": "70",
+    "image": "/assets/sets/champions-path/cards/70_Gardevoir_V_Rare_Ultra.png"
+  },
+  {
+    "id": "champions-path-71-galarian-cursola-v",
+    "name": "Galarian Cursola V",
+    "rarity": "Ultra Rare",
+    "number": "71",
+    "image": "/assets/sets/champions-path/cards/71_Galarian_Cursola_V_Rare_Ultra.png"
+  },
+  {
+    "id": "champions-path-72-grapploct-v",
+    "name": "Grapploct V",
+    "rarity": "Ultra Rare",
+    "number": "72",
+    "image": "/assets/sets/champions-path/cards/72_Grapploct_V_Rare_Ultra.png"
+  },
+  {
+    "id": "champions-path-73-hop",
+    "name": "Hop",
+    "rarity": "Ultra Rare",
+    "number": "73",
+    "image": "/assets/sets/champions-path/cards/73_Hop_Rare_Ultra.png"
+  },
+  {
+    "id": "champions-path-74-charizard-vmax",
+    "name": "Charizard VMAX",
+    "rarity": "Secret Rare",
+    "number": "74",
+    "image": "/assets/sets/champions-path/cards/74_Charizard_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "champions-path-75-drednaw-vmax",
+    "name": "Drednaw VMAX",
+    "rarity": "Secret Rare",
+    "number": "75",
+    "image": "/assets/sets/champions-path/cards/75_Drednaw_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "champions-path-76-gardevoir-vmax",
+    "name": "Gardevoir VMAX",
+    "rarity": "Secret Rare",
+    "number": "76",
+    "image": "/assets/sets/champions-path/cards/76_Gardevoir_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "champions-path-77-kabu",
+    "name": "Kabu",
+    "rarity": "Secret Rare",
+    "number": "77",
+    "image": "/assets/sets/champions-path/cards/77_Kabu_Rare_Rainbow.png"
+  },
+  {
+    "id": "champions-path-78-piers",
+    "name": "Piers",
+    "rarity": "Secret Rare",
+    "number": "78",
+    "image": "/assets/sets/champions-path/cards/78_Piers_Rare_Rainbow.png"
+  },
+  {
+    "id": "champions-path-79-charizard-v",
+    "name": "Charizard V",
+    "rarity": "Secret Rare",
+    "number": "79",
+    "image": "/assets/sets/champions-path/cards/79_Charizard_V_Rare_Secret.png"
+  },
+  {
+    "id": "champions-path-80-suspicious-food-tin",
+    "name": "Suspicious Food Tin",
+    "rarity": "Secret Rare",
+    "number": "80",
+    "image": "/assets/sets/champions-path/cards/80_Suspicious_Food_Tin_Rare_Secret.png"
+  }
+]

@@ -1,0 +1,1283 @@
+[
+  {
+    "id": "battle-styles-1-bellsprout",
+    "name": "Bellsprout",
+    "rarity": "Common",
+    "number": "1",
+    "image": "/assets/sets/battle-styles/cards/1_Bellsprout_Common.png"
+  },
+  {
+    "id": "battle-styles-2-weepinbell",
+    "name": "Weepinbell",
+    "rarity": "Uncommon",
+    "number": "2",
+    "image": "/assets/sets/battle-styles/cards/2_Weepinbell_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-3-victreebel",
+    "name": "Victreebel",
+    "rarity": "Rare",
+    "number": "3",
+    "image": "/assets/sets/battle-styles/cards/3_Victreebel_Rare.png"
+  },
+  {
+    "id": "battle-styles-4-cacnea",
+    "name": "Cacnea",
+    "rarity": "Common",
+    "number": "4",
+    "image": "/assets/sets/battle-styles/cards/4_Cacnea_Common.png"
+  },
+  {
+    "id": "battle-styles-5-cacturne",
+    "name": "Cacturne",
+    "rarity": "Uncommon",
+    "number": "5",
+    "image": "/assets/sets/battle-styles/cards/5_Cacturne_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-6-kricketune-v",
+    "name": "Kricketune V",
+    "rarity": "Double Rare",
+    "number": "6",
+    "image": "/assets/sets/battle-styles/cards/6_Kricketune_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "battle-styles-7-cherubi",
+    "name": "Cherubi",
+    "rarity": "Common",
+    "number": "7",
+    "image": "/assets/sets/battle-styles/cards/7_Cherubi_Common.png"
+  },
+  {
+    "id": "battle-styles-8-cherrim",
+    "name": "Cherrim",
+    "rarity": "Rare",
+    "number": "8",
+    "image": "/assets/sets/battle-styles/cards/8_Cherrim_Rare_Holo.png"
+  },
+  {
+    "id": "battle-styles-9-carnivine",
+    "name": "Carnivine",
+    "rarity": "Uncommon",
+    "number": "9",
+    "image": "/assets/sets/battle-styles/cards/9_Carnivine_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-10-durant",
+    "name": "Durant",
+    "rarity": "Uncommon",
+    "number": "10",
+    "image": "/assets/sets/battle-styles/cards/10_Durant_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-11-scatterbug",
+    "name": "Scatterbug",
+    "rarity": "Common",
+    "number": "11",
+    "image": "/assets/sets/battle-styles/cards/11_Scatterbug_Common.png"
+  },
+  {
+    "id": "battle-styles-12-spewpa",
+    "name": "Spewpa",
+    "rarity": "Uncommon",
+    "number": "12",
+    "image": "/assets/sets/battle-styles/cards/12_Spewpa_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-13-vivillon",
+    "name": "Vivillon",
+    "rarity": "Rare",
+    "number": "13",
+    "image": "/assets/sets/battle-styles/cards/13_Vivillon_Rare.png"
+  },
+  {
+    "id": "battle-styles-14-fomantis",
+    "name": "Fomantis",
+    "rarity": "Common",
+    "number": "14",
+    "image": "/assets/sets/battle-styles/cards/14_Fomantis_Common.png"
+  },
+  {
+    "id": "battle-styles-15-lurantis",
+    "name": "Lurantis",
+    "rarity": "Rare",
+    "number": "15",
+    "image": "/assets/sets/battle-styles/cards/15_Lurantis_Rare.png"
+  },
+  {
+    "id": "battle-styles-16-tapu-bulu",
+    "name": "Tapu Bulu",
+    "rarity": "Rare",
+    "number": "16",
+    "image": "/assets/sets/battle-styles/cards/16_Tapu_Bulu_Rare_Holo.png"
+  },
+  {
+    "id": "battle-styles-17-blipbug",
+    "name": "Blipbug",
+    "rarity": "Common",
+    "number": "17",
+    "image": "/assets/sets/battle-styles/cards/17_Blipbug_Common.png"
+  },
+  {
+    "id": "battle-styles-18-flapple-v",
+    "name": "Flapple V",
+    "rarity": "Double Rare",
+    "number": "18",
+    "image": "/assets/sets/battle-styles/cards/18_Flapple_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "battle-styles-19-flapple-vmax",
+    "name": "Flapple VMAX",
+    "rarity": "Ultra Rare",
+    "number": "19",
+    "image": "/assets/sets/battle-styles/cards/19_Flapple_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "battle-styles-20-entei",
+    "name": "Entei",
+    "rarity": "Rare",
+    "number": "20",
+    "image": "/assets/sets/battle-styles/cards/20_Entei_Rare_Holo.png"
+  },
+  {
+    "id": "battle-styles-21-victini-v",
+    "name": "Victini V",
+    "rarity": "Double Rare",
+    "number": "21",
+    "image": "/assets/sets/battle-styles/cards/21_Victini_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "battle-styles-22-victini-vmax",
+    "name": "Victini VMAX",
+    "rarity": "Ultra Rare",
+    "number": "22",
+    "image": "/assets/sets/battle-styles/cards/22_Victini_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "battle-styles-23-tepig",
+    "name": "Tepig",
+    "rarity": "Common",
+    "number": "23",
+    "image": "/assets/sets/battle-styles/cards/23_Tepig_Common.png"
+  },
+  {
+    "id": "battle-styles-24-pignite",
+    "name": "Pignite",
+    "rarity": "Uncommon",
+    "number": "24",
+    "image": "/assets/sets/battle-styles/cards/24_Pignite_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-25-emboar",
+    "name": "Emboar",
+    "rarity": "Rare",
+    "number": "25",
+    "image": "/assets/sets/battle-styles/cards/25_Emboar_Rare_Holo.png"
+  },
+  {
+    "id": "battle-styles-26-heatmor",
+    "name": "Heatmor",
+    "rarity": "Uncommon",
+    "number": "26",
+    "image": "/assets/sets/battle-styles/cards/26_Heatmor_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-27-salandit",
+    "name": "Salandit",
+    "rarity": "Common",
+    "number": "27",
+    "image": "/assets/sets/battle-styles/cards/27_Salandit_Common.png"
+  },
+  {
+    "id": "battle-styles-28-salazzle",
+    "name": "Salazzle",
+    "rarity": "Rare",
+    "number": "28",
+    "image": "/assets/sets/battle-styles/cards/28_Salazzle_Rare.png"
+  },
+  {
+    "id": "battle-styles-29-sizzlipede",
+    "name": "Sizzlipede",
+    "rarity": "Common",
+    "number": "29",
+    "image": "/assets/sets/battle-styles/cards/29_Sizzlipede_Common.png"
+  },
+  {
+    "id": "battle-styles-30-centiskorch",
+    "name": "Centiskorch",
+    "rarity": "Rare",
+    "number": "30",
+    "image": "/assets/sets/battle-styles/cards/30_Centiskorch_Rare.png"
+  },
+  {
+    "id": "battle-styles-31-horsea",
+    "name": "Horsea",
+    "rarity": "Common",
+    "number": "31",
+    "image": "/assets/sets/battle-styles/cards/31_Horsea_Common.png"
+  },
+  {
+    "id": "battle-styles-32-seadra",
+    "name": "Seadra",
+    "rarity": "Uncommon",
+    "number": "32",
+    "image": "/assets/sets/battle-styles/cards/32_Seadra_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-33-kingdra",
+    "name": "Kingdra",
+    "rarity": "Rare",
+    "number": "33",
+    "image": "/assets/sets/battle-styles/cards/33_Kingdra_Rare_Holo.png"
+  },
+  {
+    "id": "battle-styles-34-galarian-mr-mime",
+    "name": "Galarian Mr. Mime",
+    "rarity": "Common",
+    "number": "34",
+    "image": "/assets/sets/battle-styles/cards/34_Galarian_Mr._Mime_Common.png"
+  },
+  {
+    "id": "battle-styles-35-galarian-mr-rime",
+    "name": "Galarian Mr. Rime",
+    "rarity": "Rare",
+    "number": "35",
+    "image": "/assets/sets/battle-styles/cards/35_Galarian_Mr._Rime_Rare.png"
+  },
+  {
+    "id": "battle-styles-36-remoraid",
+    "name": "Remoraid",
+    "rarity": "Common",
+    "number": "36",
+    "image": "/assets/sets/battle-styles/cards/36_Remoraid_Common.png"
+  },
+  {
+    "id": "battle-styles-37-octillery",
+    "name": "Octillery",
+    "rarity": "Rare",
+    "number": "37",
+    "image": "/assets/sets/battle-styles/cards/37_Octillery_Rare_Holo.png"
+  },
+  {
+    "id": "battle-styles-38-corphish",
+    "name": "Corphish",
+    "rarity": "Common",
+    "number": "38",
+    "image": "/assets/sets/battle-styles/cards/38_Corphish_Common.png"
+  },
+  {
+    "id": "battle-styles-39-crawdaunt",
+    "name": "Crawdaunt",
+    "rarity": "Uncommon",
+    "number": "39",
+    "image": "/assets/sets/battle-styles/cards/39_Crawdaunt_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-40-empoleon-v",
+    "name": "Empoleon V",
+    "rarity": "Double Rare",
+    "number": "40",
+    "image": "/assets/sets/battle-styles/cards/40_Empoleon_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "battle-styles-41-frillish",
+    "name": "Frillish",
+    "rarity": "Common",
+    "number": "41",
+    "image": "/assets/sets/battle-styles/cards/41_Frillish_Common.png"
+  },
+  {
+    "id": "battle-styles-42-jellicent",
+    "name": "Jellicent",
+    "rarity": "Rare",
+    "number": "42",
+    "image": "/assets/sets/battle-styles/cards/42_Jellicent_Rare.png"
+  },
+  {
+    "id": "battle-styles-43-bruxish",
+    "name": "Bruxish",
+    "rarity": "Uncommon",
+    "number": "43",
+    "image": "/assets/sets/battle-styles/cards/43_Bruxish_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-44-electabuzz",
+    "name": "Electabuzz",
+    "rarity": "Common",
+    "number": "44",
+    "image": "/assets/sets/battle-styles/cards/44_Electabuzz_Common.png"
+  },
+  {
+    "id": "battle-styles-45-electivire",
+    "name": "Electivire",
+    "rarity": "Rare",
+    "number": "45",
+    "image": "/assets/sets/battle-styles/cards/45_Electivire_Rare.png"
+  },
+  {
+    "id": "battle-styles-46-shinx",
+    "name": "Shinx",
+    "rarity": "Common",
+    "number": "46",
+    "image": "/assets/sets/battle-styles/cards/46_Shinx_Common.png"
+  },
+  {
+    "id": "battle-styles-47-luxio",
+    "name": "Luxio",
+    "rarity": "Uncommon",
+    "number": "47",
+    "image": "/assets/sets/battle-styles/cards/47_Luxio_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-48-luxray",
+    "name": "Luxray",
+    "rarity": "Rare",
+    "number": "48",
+    "image": "/assets/sets/battle-styles/cards/48_Luxray_Rare_Holo.png"
+  },
+  {
+    "id": "battle-styles-49-pachirisu",
+    "name": "Pachirisu",
+    "rarity": "Common",
+    "number": "49",
+    "image": "/assets/sets/battle-styles/cards/49_Pachirisu_Common.png"
+  },
+  {
+    "id": "battle-styles-50-tapu-koko-v",
+    "name": "Tapu Koko V",
+    "rarity": "Double Rare",
+    "number": "50",
+    "image": "/assets/sets/battle-styles/cards/50_Tapu_Koko_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "battle-styles-51-tapu-koko-vmax",
+    "name": "Tapu Koko VMAX",
+    "rarity": "Ultra Rare",
+    "number": "51",
+    "image": "/assets/sets/battle-styles/cards/51_Tapu_Koko_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "battle-styles-52-yamper",
+    "name": "Yamper",
+    "rarity": "Common",
+    "number": "52",
+    "image": "/assets/sets/battle-styles/cards/52_Yamper_Common.png"
+  },
+  {
+    "id": "battle-styles-53-boltund",
+    "name": "Boltund",
+    "rarity": "Rare",
+    "number": "53",
+    "image": "/assets/sets/battle-styles/cards/53_Boltund_Rare.png"
+  },
+  {
+    "id": "battle-styles-54-galarian-slowpoke",
+    "name": "Galarian Slowpoke",
+    "rarity": "Common",
+    "number": "54",
+    "image": "/assets/sets/battle-styles/cards/54_Galarian_Slowpoke_Common.png"
+  },
+  {
+    "id": "battle-styles-55-spoink",
+    "name": "Spoink",
+    "rarity": "Common",
+    "number": "55",
+    "image": "/assets/sets/battle-styles/cards/55_Spoink_Common.png"
+  },
+  {
+    "id": "battle-styles-56-grumpig",
+    "name": "Grumpig",
+    "rarity": "Uncommon",
+    "number": "56",
+    "image": "/assets/sets/battle-styles/cards/56_Grumpig_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-57-baltoy",
+    "name": "Baltoy",
+    "rarity": "Common",
+    "number": "57",
+    "image": "/assets/sets/battle-styles/cards/57_Baltoy_Common.png"
+  },
+  {
+    "id": "battle-styles-58-claydol",
+    "name": "Claydol",
+    "rarity": "Rare",
+    "number": "58",
+    "image": "/assets/sets/battle-styles/cards/58_Claydol_Rare.png"
+  },
+  {
+    "id": "battle-styles-59-chimecho",
+    "name": "Chimecho",
+    "rarity": "Common",
+    "number": "59",
+    "image": "/assets/sets/battle-styles/cards/59_Chimecho_Common.png"
+  },
+  {
+    "id": "battle-styles-60-espurr",
+    "name": "Espurr",
+    "rarity": "Common",
+    "number": "60",
+    "image": "/assets/sets/battle-styles/cards/60_Espurr_Common.png"
+  },
+  {
+    "id": "battle-styles-61-meowstic",
+    "name": "Meowstic",
+    "rarity": "Rare",
+    "number": "61",
+    "image": "/assets/sets/battle-styles/cards/61_Meowstic_Rare_Holo.png"
+  },
+  {
+    "id": "battle-styles-62-mimikyu-v",
+    "name": "Mimikyu V",
+    "rarity": "Double Rare",
+    "number": "62",
+    "image": "/assets/sets/battle-styles/cards/62_Mimikyu_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "battle-styles-63-necrozma-v",
+    "name": "Necrozma V",
+    "rarity": "Double Rare",
+    "number": "63",
+    "image": "/assets/sets/battle-styles/cards/63_Necrozma_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "battle-styles-64-dottler",
+    "name": "Dottler",
+    "rarity": "Uncommon",
+    "number": "64",
+    "image": "/assets/sets/battle-styles/cards/64_Dottler_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-65-orbeetle",
+    "name": "Orbeetle",
+    "rarity": "Rare",
+    "number": "65",
+    "image": "/assets/sets/battle-styles/cards/65_Orbeetle_Rare_Holo.png"
+  },
+  {
+    "id": "battle-styles-66-mankey",
+    "name": "Mankey",
+    "rarity": "Common",
+    "number": "66",
+    "image": "/assets/sets/battle-styles/cards/66_Mankey_Common.png"
+  },
+  {
+    "id": "battle-styles-67-primeape",
+    "name": "Primeape",
+    "rarity": "Rare",
+    "number": "67",
+    "image": "/assets/sets/battle-styles/cards/67_Primeape_Rare.png"
+  },
+  {
+    "id": "battle-styles-68-onix",
+    "name": "Onix",
+    "rarity": "Common",
+    "number": "68",
+    "image": "/assets/sets/battle-styles/cards/68_Onix_Common.png"
+  },
+  {
+    "id": "battle-styles-69-cubone",
+    "name": "Cubone",
+    "rarity": "Common",
+    "number": "69",
+    "image": "/assets/sets/battle-styles/cards/69_Cubone_Common.png"
+  },
+  {
+    "id": "battle-styles-70-marowak",
+    "name": "Marowak",
+    "rarity": "Rare",
+    "number": "70",
+    "image": "/assets/sets/battle-styles/cards/70_Marowak_Rare.png"
+  },
+  {
+    "id": "battle-styles-71-gligar",
+    "name": "Gligar",
+    "rarity": "Common",
+    "number": "71",
+    "image": "/assets/sets/battle-styles/cards/71_Gligar_Common.png"
+  },
+  {
+    "id": "battle-styles-72-gliscor",
+    "name": "Gliscor",
+    "rarity": "Uncommon",
+    "number": "72",
+    "image": "/assets/sets/battle-styles/cards/72_Gliscor_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-73-timburr",
+    "name": "Timburr",
+    "rarity": "Common",
+    "number": "73",
+    "image": "/assets/sets/battle-styles/cards/73_Timburr_Common.png"
+  },
+  {
+    "id": "battle-styles-74-gurdurr",
+    "name": "Gurdurr",
+    "rarity": "Uncommon",
+    "number": "74",
+    "image": "/assets/sets/battle-styles/cards/74_Gurdurr_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-75-conkeldurr",
+    "name": "Conkeldurr",
+    "rarity": "Rare",
+    "number": "75",
+    "image": "/assets/sets/battle-styles/cards/75_Conkeldurr_Rare.png"
+  },
+  {
+    "id": "battle-styles-76-mienfoo",
+    "name": "Mienfoo",
+    "rarity": "Common",
+    "number": "76",
+    "image": "/assets/sets/battle-styles/cards/76_Mienfoo_Common.png"
+  },
+  {
+    "id": "battle-styles-77-mienshao",
+    "name": "Mienshao",
+    "rarity": "Rare",
+    "number": "77",
+    "image": "/assets/sets/battle-styles/cards/77_Mienshao_Rare.png"
+  },
+  {
+    "id": "battle-styles-78-rolycoly",
+    "name": "Rolycoly",
+    "rarity": "Common",
+    "number": "78",
+    "image": "/assets/sets/battle-styles/cards/78_Rolycoly_Common.png"
+  },
+  {
+    "id": "battle-styles-79-carkol",
+    "name": "Carkol",
+    "rarity": "Uncommon",
+    "number": "79",
+    "image": "/assets/sets/battle-styles/cards/79_Carkol_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-80-coalossal",
+    "name": "Coalossal",
+    "rarity": "Rare",
+    "number": "80",
+    "image": "/assets/sets/battle-styles/cards/80_Coalossal_Rare_Holo.png"
+  },
+  {
+    "id": "battle-styles-81-silicobra",
+    "name": "Silicobra",
+    "rarity": "Common",
+    "number": "81",
+    "image": "/assets/sets/battle-styles/cards/81_Silicobra_Common.png"
+  },
+  {
+    "id": "battle-styles-82-sandaconda",
+    "name": "Sandaconda",
+    "rarity": "Rare",
+    "number": "82",
+    "image": "/assets/sets/battle-styles/cards/82_Sandaconda_Rare_Holo.png"
+  },
+  {
+    "id": "battle-styles-83-falinks",
+    "name": "Falinks",
+    "rarity": "Rare",
+    "number": "83",
+    "image": "/assets/sets/battle-styles/cards/83_Falinks_Rare.png"
+  },
+  {
+    "id": "battle-styles-84-stonjourner",
+    "name": "Stonjourner",
+    "rarity": "Rare",
+    "number": "84",
+    "image": "/assets/sets/battle-styles/cards/84_Stonjourner_Rare.png"
+  },
+  {
+    "id": "battle-styles-85-single-strike-urshifu-v",
+    "name": "Single Strike Urshifu V",
+    "rarity": "Double Rare",
+    "number": "85",
+    "image": "/assets/sets/battle-styles/cards/85_Single_Strike_Urshifu_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "battle-styles-86-single-strike-urshifu-vmax",
+    "name": "Single Strike Urshifu VMAX",
+    "rarity": "Ultra Rare",
+    "number": "86",
+    "image": "/assets/sets/battle-styles/cards/86_Single_Strike_Urshifu_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "battle-styles-87-rapid-strike-urshifu-v",
+    "name": "Rapid Strike Urshifu V",
+    "rarity": "Double Rare",
+    "number": "87",
+    "image": "/assets/sets/battle-styles/cards/87_Rapid_Strike_Urshifu_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "battle-styles-88-rapid-strike-urshifu-vmax",
+    "name": "Rapid Strike Urshifu VMAX",
+    "rarity": "Ultra Rare",
+    "number": "88",
+    "image": "/assets/sets/battle-styles/cards/88_Rapid_Strike_Urshifu_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "battle-styles-89-zubat",
+    "name": "Zubat",
+    "rarity": "Common",
+    "number": "89",
+    "image": "/assets/sets/battle-styles/cards/89_Zubat_Common.png"
+  },
+  {
+    "id": "battle-styles-90-golbat",
+    "name": "Golbat",
+    "rarity": "Uncommon",
+    "number": "90",
+    "image": "/assets/sets/battle-styles/cards/90_Golbat_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-91-crobat",
+    "name": "Crobat",
+    "rarity": "Rare",
+    "number": "91",
+    "image": "/assets/sets/battle-styles/cards/91_Crobat_Rare_Holo.png"
+  },
+  {
+    "id": "battle-styles-92-galarian-slowbro",
+    "name": "Galarian Slowbro",
+    "rarity": "Rare",
+    "number": "92",
+    "image": "/assets/sets/battle-styles/cards/92_Galarian_Slowbro_Rare.png"
+  },
+  {
+    "id": "battle-styles-93-murkrow",
+    "name": "Murkrow",
+    "rarity": "Common",
+    "number": "93",
+    "image": "/assets/sets/battle-styles/cards/93_Murkrow_Common.png"
+  },
+  {
+    "id": "battle-styles-94-honchkrow",
+    "name": "Honchkrow",
+    "rarity": "Uncommon",
+    "number": "94",
+    "image": "/assets/sets/battle-styles/cards/94_Honchkrow_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-95-houndour",
+    "name": "Houndour",
+    "rarity": "Common",
+    "number": "95",
+    "image": "/assets/sets/battle-styles/cards/95_Houndour_Common.png"
+  },
+  {
+    "id": "battle-styles-96-houndoom",
+    "name": "Houndoom",
+    "rarity": "Rare",
+    "number": "96",
+    "image": "/assets/sets/battle-styles/cards/96_Houndoom_Rare_Holo.png"
+  },
+  {
+    "id": "battle-styles-97-tyranitar-v",
+    "name": "Tyranitar V",
+    "rarity": "Double Rare",
+    "number": "97",
+    "image": "/assets/sets/battle-styles/cards/97_Tyranitar_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "battle-styles-98-morpeko",
+    "name": "Morpeko",
+    "rarity": "Uncommon",
+    "number": "98",
+    "image": "/assets/sets/battle-styles/cards/98_Morpeko_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-99-steelix",
+    "name": "Steelix",
+    "rarity": "Rare",
+    "number": "99",
+    "image": "/assets/sets/battle-styles/cards/99_Steelix_Rare_Holo.png"
+  },
+  {
+    "id": "battle-styles-100-mawile",
+    "name": "Mawile",
+    "rarity": "Common",
+    "number": "100",
+    "image": "/assets/sets/battle-styles/cards/100_Mawile_Common.png"
+  },
+  {
+    "id": "battle-styles-101-bronzor",
+    "name": "Bronzor",
+    "rarity": "Common",
+    "number": "101",
+    "image": "/assets/sets/battle-styles/cards/101_Bronzor_Common.png"
+  },
+  {
+    "id": "battle-styles-102-bronzong",
+    "name": "Bronzong",
+    "rarity": "Rare",
+    "number": "102",
+    "image": "/assets/sets/battle-styles/cards/102_Bronzong_Rare_Holo.png"
+  },
+  {
+    "id": "battle-styles-103-pawniard",
+    "name": "Pawniard",
+    "rarity": "Common",
+    "number": "103",
+    "image": "/assets/sets/battle-styles/cards/103_Pawniard_Common.png"
+  },
+  {
+    "id": "battle-styles-104-bisharp",
+    "name": "Bisharp",
+    "rarity": "Uncommon",
+    "number": "104",
+    "image": "/assets/sets/battle-styles/cards/104_Bisharp_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-105-honedge",
+    "name": "Honedge",
+    "rarity": "Common",
+    "number": "105",
+    "image": "/assets/sets/battle-styles/cards/105_Honedge_Common.png"
+  },
+  {
+    "id": "battle-styles-106-doublade",
+    "name": "Doublade",
+    "rarity": "Uncommon",
+    "number": "106",
+    "image": "/assets/sets/battle-styles/cards/106_Doublade_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-107-aegislash",
+    "name": "Aegislash",
+    "rarity": "Rare",
+    "number": "107",
+    "image": "/assets/sets/battle-styles/cards/107_Aegislash_Rare_Holo.png"
+  },
+  {
+    "id": "battle-styles-108-aegislash",
+    "name": "Aegislash",
+    "rarity": "Rare",
+    "number": "108",
+    "image": "/assets/sets/battle-styles/cards/108_Aegislash_Rare.png"
+  },
+  {
+    "id": "battle-styles-109-corviknight-v",
+    "name": "Corviknight V",
+    "rarity": "Double Rare",
+    "number": "109",
+    "image": "/assets/sets/battle-styles/cards/109_Corviknight_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "battle-styles-110-corviknight-vmax",
+    "name": "Corviknight VMAX",
+    "rarity": "Ultra Rare",
+    "number": "110",
+    "image": "/assets/sets/battle-styles/cards/110_Corviknight_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "battle-styles-111-spearow",
+    "name": "Spearow",
+    "rarity": "Common",
+    "number": "111",
+    "image": "/assets/sets/battle-styles/cards/111_Spearow_Common.png"
+  },
+  {
+    "id": "battle-styles-112-fearow",
+    "name": "Fearow",
+    "rarity": "Uncommon",
+    "number": "112",
+    "image": "/assets/sets/battle-styles/cards/112_Fearow_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-113-lickitung",
+    "name": "Lickitung",
+    "rarity": "Common",
+    "number": "113",
+    "image": "/assets/sets/battle-styles/cards/113_Lickitung_Common.png"
+  },
+  {
+    "id": "battle-styles-114-lickilicky",
+    "name": "Lickilicky",
+    "rarity": "Rare",
+    "number": "114",
+    "image": "/assets/sets/battle-styles/cards/114_Lickilicky_Rare.png"
+  },
+  {
+    "id": "battle-styles-115-glameow",
+    "name": "Glameow",
+    "rarity": "Common",
+    "number": "115",
+    "image": "/assets/sets/battle-styles/cards/115_Glameow_Common.png"
+  },
+  {
+    "id": "battle-styles-116-purugly",
+    "name": "Purugly",
+    "rarity": "Uncommon",
+    "number": "116",
+    "image": "/assets/sets/battle-styles/cards/116_Purugly_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-117-stoutland-v",
+    "name": "Stoutland V",
+    "rarity": "Double Rare",
+    "number": "117",
+    "image": "/assets/sets/battle-styles/cards/117_Stoutland_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "battle-styles-118-bouffalant",
+    "name": "Bouffalant",
+    "rarity": "Uncommon",
+    "number": "118",
+    "image": "/assets/sets/battle-styles/cards/118_Bouffalant_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-119-drampa",
+    "name": "Drampa",
+    "rarity": "Rare",
+    "number": "119",
+    "image": "/assets/sets/battle-styles/cards/119_Drampa_Rare.png"
+  },
+  {
+    "id": "battle-styles-120-indeedee",
+    "name": "Indeedee",
+    "rarity": "Uncommon",
+    "number": "120",
+    "image": "/assets/sets/battle-styles/cards/120_Indeedee_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-121-bruno",
+    "name": "Bruno",
+    "rarity": "Uncommon",
+    "number": "121",
+    "image": "/assets/sets/battle-styles/cards/121_Bruno_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-122-camping-gear",
+    "name": "Camping Gear",
+    "rarity": "Uncommon",
+    "number": "122",
+    "image": "/assets/sets/battle-styles/cards/122_Camping_Gear_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-123-cheryl",
+    "name": "Cheryl",
+    "rarity": "Uncommon",
+    "number": "123",
+    "image": "/assets/sets/battle-styles/cards/123_Cheryl_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-124-energy-recycler",
+    "name": "Energy Recycler",
+    "rarity": "Uncommon",
+    "number": "124",
+    "image": "/assets/sets/battle-styles/cards/124_Energy_Recycler_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-125-escape-rope",
+    "name": "Escape Rope",
+    "rarity": "Uncommon",
+    "number": "125",
+    "image": "/assets/sets/battle-styles/cards/125_Escape_Rope_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-126-exp-share",
+    "name": "Exp. Share",
+    "rarity": "Uncommon",
+    "number": "126",
+    "image": "/assets/sets/battle-styles/cards/126_Exp._Share_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-127-fan-of-waves",
+    "name": "Fan of Waves",
+    "rarity": "Uncommon",
+    "number": "127",
+    "image": "/assets/sets/battle-styles/cards/127_Fan_of_Waves_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-128-korrina-s-focus",
+    "name": "Korrina's Focus",
+    "rarity": "Uncommon",
+    "number": "128",
+    "image": "/assets/sets/battle-styles/cards/128_Korrina's_Focus_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-129-level-ball",
+    "name": "Level Ball",
+    "rarity": "Uncommon",
+    "number": "129",
+    "image": "/assets/sets/battle-styles/cards/129_Level_Ball_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-130-phoebe",
+    "name": "Phoebe",
+    "rarity": "Uncommon",
+    "number": "130",
+    "image": "/assets/sets/battle-styles/cards/130_Phoebe_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-131-rapid-strike-scroll-of-swirls",
+    "name": "Rapid Strike Scroll of Swirls",
+    "rarity": "Uncommon",
+    "number": "131",
+    "image": "/assets/sets/battle-styles/cards/131_Rapid_Strike_Scroll_of_Swirls_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-132-rapid-strike-style-mustard",
+    "name": "Rapid Strike Style Mustard",
+    "rarity": "Uncommon",
+    "number": "132",
+    "image": "/assets/sets/battle-styles/cards/132_Rapid_Strike_Style_Mustard_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-133-single-strike-scroll-of-scorn",
+    "name": "Single Strike Scroll of Scorn",
+    "rarity": "Uncommon",
+    "number": "133",
+    "image": "/assets/sets/battle-styles/cards/133_Single_Strike_Scroll_of_Scorn_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-134-single-strike-style-mustard",
+    "name": "Single Strike Style Mustard",
+    "rarity": "Uncommon",
+    "number": "134",
+    "image": "/assets/sets/battle-styles/cards/134_Single_Strike_Style_Mustard_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-135-sordward-shielbert",
+    "name": "Sordward & Shielbert",
+    "rarity": "Uncommon",
+    "number": "135",
+    "image": "/assets/sets/battle-styles/cards/135_Sordward_&_Shielbert_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-136-tool-jammer",
+    "name": "Tool Jammer",
+    "rarity": "Uncommon",
+    "number": "136",
+    "image": "/assets/sets/battle-styles/cards/136_Tool_Jammer_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-137-tower-of-darkness",
+    "name": "Tower of Darkness",
+    "rarity": "Uncommon",
+    "number": "137",
+    "image": "/assets/sets/battle-styles/cards/137_Tower_of_Darkness_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-138-tower-of-waters",
+    "name": "Tower of Waters",
+    "rarity": "Uncommon",
+    "number": "138",
+    "image": "/assets/sets/battle-styles/cards/138_Tower_of_Waters_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-139-urn-of-vitality",
+    "name": "Urn of Vitality",
+    "rarity": "Uncommon",
+    "number": "139",
+    "image": "/assets/sets/battle-styles/cards/139_Urn_of_Vitality_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-140-rapid-strike-energy",
+    "name": "Rapid Strike Energy",
+    "rarity": "Uncommon",
+    "number": "140",
+    "image": "/assets/sets/battle-styles/cards/140_Rapid_Strike_Energy_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-141-single-strike-energy",
+    "name": "Single Strike Energy",
+    "rarity": "Uncommon",
+    "number": "141",
+    "image": "/assets/sets/battle-styles/cards/141_Single_Strike_Energy_Uncommon.png"
+  },
+  {
+    "id": "battle-styles-142-kricketune-v",
+    "name": "Kricketune V",
+    "rarity": "Ultra Rare",
+    "number": "142",
+    "image": "/assets/sets/battle-styles/cards/142_Kricketune_V_Rare_Ultra.png"
+  },
+  {
+    "id": "battle-styles-143-flapple-v",
+    "name": "Flapple V",
+    "rarity": "Ultra Rare",
+    "number": "143",
+    "image": "/assets/sets/battle-styles/cards/143_Flapple_V_Rare_Ultra.png"
+  },
+  {
+    "id": "battle-styles-144-victini-v",
+    "name": "Victini V",
+    "rarity": "Ultra Rare",
+    "number": "144",
+    "image": "/assets/sets/battle-styles/cards/144_Victini_V_Rare_Ultra.png"
+  },
+  {
+    "id": "battle-styles-145-empoleon-v",
+    "name": "Empoleon V",
+    "rarity": "Ultra Rare",
+    "number": "145",
+    "image": "/assets/sets/battle-styles/cards/145_Empoleon_V_Rare_Ultra.png"
+  },
+  {
+    "id": "battle-styles-146-empoleon-v",
+    "name": "Empoleon V",
+    "rarity": "Ultra Rare",
+    "number": "146",
+    "image": "/assets/sets/battle-styles/cards/146_Empoleon_V_Rare_Ultra.png"
+  },
+  {
+    "id": "battle-styles-147-tapu-koko-v",
+    "name": "Tapu Koko V",
+    "rarity": "Ultra Rare",
+    "number": "147",
+    "image": "/assets/sets/battle-styles/cards/147_Tapu_Koko_V_Rare_Ultra.png"
+  },
+  {
+    "id": "battle-styles-148-mimikyu-v",
+    "name": "Mimikyu V",
+    "rarity": "Ultra Rare",
+    "number": "148",
+    "image": "/assets/sets/battle-styles/cards/148_Mimikyu_V_Rare_Ultra.png"
+  },
+  {
+    "id": "battle-styles-149-necrozma-v",
+    "name": "Necrozma V",
+    "rarity": "Ultra Rare",
+    "number": "149",
+    "image": "/assets/sets/battle-styles/cards/149_Necrozma_V_Rare_Ultra.png"
+  },
+  {
+    "id": "battle-styles-150-single-strike-urshifu-v",
+    "name": "Single Strike Urshifu V",
+    "rarity": "Ultra Rare",
+    "number": "150",
+    "image": "/assets/sets/battle-styles/cards/150_Single_Strike_Urshifu_V_Rare_Ultra.png"
+  },
+  {
+    "id": "battle-styles-151-single-strike-urshifu-v",
+    "name": "Single Strike Urshifu V",
+    "rarity": "Ultra Rare",
+    "number": "151",
+    "image": "/assets/sets/battle-styles/cards/151_Single_Strike_Urshifu_V_Rare_Ultra.png"
+  },
+  {
+    "id": "battle-styles-152-rapid-strike-urshifu-v",
+    "name": "Rapid Strike Urshifu V",
+    "rarity": "Ultra Rare",
+    "number": "152",
+    "image": "/assets/sets/battle-styles/cards/152_Rapid_Strike_Urshifu_V_Rare_Ultra.png"
+  },
+  {
+    "id": "battle-styles-153-rapid-strike-urshifu-v",
+    "name": "Rapid Strike Urshifu V",
+    "rarity": "Ultra Rare",
+    "number": "153",
+    "image": "/assets/sets/battle-styles/cards/153_Rapid_Strike_Urshifu_V_Rare_Ultra.png"
+  },
+  {
+    "id": "battle-styles-154-tyranitar-v",
+    "name": "Tyranitar V",
+    "rarity": "Ultra Rare",
+    "number": "154",
+    "image": "/assets/sets/battle-styles/cards/154_Tyranitar_V_Rare_Ultra.png"
+  },
+  {
+    "id": "battle-styles-155-tyranitar-v",
+    "name": "Tyranitar V",
+    "rarity": "Ultra Rare",
+    "number": "155",
+    "image": "/assets/sets/battle-styles/cards/155_Tyranitar_V_Rare_Ultra.png"
+  },
+  {
+    "id": "battle-styles-156-corviknight-v",
+    "name": "Corviknight V",
+    "rarity": "Ultra Rare",
+    "number": "156",
+    "image": "/assets/sets/battle-styles/cards/156_Corviknight_V_Rare_Ultra.png"
+  },
+  {
+    "id": "battle-styles-157-stoutland-v",
+    "name": "Stoutland V",
+    "rarity": "Ultra Rare",
+    "number": "157",
+    "image": "/assets/sets/battle-styles/cards/157_Stoutland_V_Rare_Ultra.png"
+  },
+  {
+    "id": "battle-styles-158-bruno",
+    "name": "Bruno",
+    "rarity": "Ultra Rare",
+    "number": "158",
+    "image": "/assets/sets/battle-styles/cards/158_Bruno_Rare_Ultra.png"
+  },
+  {
+    "id": "battle-styles-159-cheryl",
+    "name": "Cheryl",
+    "rarity": "Ultra Rare",
+    "number": "159",
+    "image": "/assets/sets/battle-styles/cards/159_Cheryl_Rare_Ultra.png"
+  },
+  {
+    "id": "battle-styles-160-korrina-s-focus",
+    "name": "Korrina's Focus",
+    "rarity": "Ultra Rare",
+    "number": "160",
+    "image": "/assets/sets/battle-styles/cards/160_Korrina's_Focus_Rare_Ultra.png"
+  },
+  {
+    "id": "battle-styles-161-phoebe",
+    "name": "Phoebe",
+    "rarity": "Ultra Rare",
+    "number": "161",
+    "image": "/assets/sets/battle-styles/cards/161_Phoebe_Rare_Ultra.png"
+  },
+  {
+    "id": "battle-styles-162-rapid-strike-style-mustard",
+    "name": "Rapid Strike Style Mustard",
+    "rarity": "Ultra Rare",
+    "number": "162",
+    "image": "/assets/sets/battle-styles/cards/162_Rapid_Strike_Style_Mustard_Rare_Ultra.png"
+  },
+  {
+    "id": "battle-styles-163-single-strike-style-mustard",
+    "name": "Single Strike Style Mustard",
+    "rarity": "Ultra Rare",
+    "number": "163",
+    "image": "/assets/sets/battle-styles/cards/163_Single_Strike_Style_Mustard_Rare_Ultra.png"
+  },
+  {
+    "id": "battle-styles-164-flapple-vmax",
+    "name": "Flapple VMAX",
+    "rarity": "Secret Rare",
+    "number": "164",
+    "image": "/assets/sets/battle-styles/cards/164_Flapple_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "battle-styles-165-victini-vmax",
+    "name": "Victini VMAX",
+    "rarity": "Secret Rare",
+    "number": "165",
+    "image": "/assets/sets/battle-styles/cards/165_Victini_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "battle-styles-166-tapu-koko-vmax",
+    "name": "Tapu Koko VMAX",
+    "rarity": "Secret Rare",
+    "number": "166",
+    "image": "/assets/sets/battle-styles/cards/166_Tapu_Koko_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "battle-styles-167-single-strike-urshifu-vmax",
+    "name": "Single Strike Urshifu VMAX",
+    "rarity": "Secret Rare",
+    "number": "167",
+    "image": "/assets/sets/battle-styles/cards/167_Single_Strike_Urshifu_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "battle-styles-168-single-strike-urshifu-vmax",
+    "name": "Single Strike Urshifu VMAX",
+    "rarity": "Secret Rare",
+    "number": "168",
+    "image": "/assets/sets/battle-styles/cards/168_Single_Strike_Urshifu_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "battle-styles-169-rapid-strike-urshifu-vmax",
+    "name": "Rapid Strike Urshifu VMAX",
+    "rarity": "Secret Rare",
+    "number": "169",
+    "image": "/assets/sets/battle-styles/cards/169_Rapid_Strike_Urshifu_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "battle-styles-170-rapid-strike-urshifu-vmax",
+    "name": "Rapid Strike Urshifu VMAX",
+    "rarity": "Secret Rare",
+    "number": "170",
+    "image": "/assets/sets/battle-styles/cards/170_Rapid_Strike_Urshifu_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "battle-styles-171-corviknight-vmax",
+    "name": "Corviknight VMAX",
+    "rarity": "Secret Rare",
+    "number": "171",
+    "image": "/assets/sets/battle-styles/cards/171_Corviknight_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "battle-styles-172-bruno",
+    "name": "Bruno",
+    "rarity": "Secret Rare",
+    "number": "172",
+    "image": "/assets/sets/battle-styles/cards/172_Bruno_Rare_Rainbow.png"
+  },
+  {
+    "id": "battle-styles-173-cheryl",
+    "name": "Cheryl",
+    "rarity": "Secret Rare",
+    "number": "173",
+    "image": "/assets/sets/battle-styles/cards/173_Cheryl_Rare_Rainbow.png"
+  },
+  {
+    "id": "battle-styles-174-korrina-s-focus",
+    "name": "Korrina's Focus",
+    "rarity": "Secret Rare",
+    "number": "174",
+    "image": "/assets/sets/battle-styles/cards/174_Korrina's_Focus_Rare_Rainbow.png"
+  },
+  {
+    "id": "battle-styles-175-phoebe",
+    "name": "Phoebe",
+    "rarity": "Secret Rare",
+    "number": "175",
+    "image": "/assets/sets/battle-styles/cards/175_Phoebe_Rare_Rainbow.png"
+  },
+  {
+    "id": "battle-styles-176-rapid-strike-style-mustard",
+    "name": "Rapid Strike Style Mustard",
+    "rarity": "Secret Rare",
+    "number": "176",
+    "image": "/assets/sets/battle-styles/cards/176_Rapid_Strike_Style_Mustard_Rare_Rainbow.png"
+  },
+  {
+    "id": "battle-styles-177-single-strike-style-mustard",
+    "name": "Single Strike Style Mustard",
+    "rarity": "Secret Rare",
+    "number": "177",
+    "image": "/assets/sets/battle-styles/cards/177_Single_Strike_Style_Mustard_Rare_Rainbow.png"
+  },
+  {
+    "id": "battle-styles-178-octillery",
+    "name": "Octillery",
+    "rarity": "Secret Rare",
+    "number": "178",
+    "image": "/assets/sets/battle-styles/cards/178_Octillery_Rare_Secret.png"
+  },
+  {
+    "id": "battle-styles-179-houndoom",
+    "name": "Houndoom",
+    "rarity": "Secret Rare",
+    "number": "179",
+    "image": "/assets/sets/battle-styles/cards/179_Houndoom_Rare_Secret.png"
+  },
+  {
+    "id": "battle-styles-180-exp-share",
+    "name": "Exp. Share",
+    "rarity": "Secret Rare",
+    "number": "180",
+    "image": "/assets/sets/battle-styles/cards/180_Exp._Share_Rare_Secret.png"
+  },
+  {
+    "id": "battle-styles-181-level-ball",
+    "name": "Level Ball",
+    "rarity": "Secret Rare",
+    "number": "181",
+    "image": "/assets/sets/battle-styles/cards/181_Level_Ball_Rare_Secret.png"
+  },
+  {
+    "id": "battle-styles-182-rapid-strike-energy",
+    "name": "Rapid Strike Energy",
+    "rarity": "Secret Rare",
+    "number": "182",
+    "image": "/assets/sets/battle-styles/cards/182_Rapid_Strike_Energy_Rare_Secret.png"
+  },
+  {
+    "id": "battle-styles-183-single-strike-energy",
+    "name": "Single Strike Energy",
+    "rarity": "Secret Rare",
+    "number": "183",
+    "image": "/assets/sets/battle-styles/cards/183_Single_Strike_Energy_Rare_Secret.png"
+  }
+]

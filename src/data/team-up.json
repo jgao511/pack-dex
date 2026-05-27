@@ -1,0 +1,1395 @@
+[
+  {
+    "id": "team-up-1-celebi-venusaur-gx",
+    "name": "Celebi & Venusaur-GX",
+    "rarity": "Double Rare",
+    "number": "1",
+    "image": "/assets/sets/team-up/cards/1_Celebi_&_Venusaur-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "team-up-2-weedle",
+    "name": "Weedle",
+    "rarity": "Common",
+    "number": "2",
+    "image": "/assets/sets/team-up/cards/2_Weedle_Common.png"
+  },
+  {
+    "id": "team-up-3-weedle",
+    "name": "Weedle",
+    "rarity": "Common",
+    "number": "3",
+    "image": "/assets/sets/team-up/cards/3_Weedle_Common.png"
+  },
+  {
+    "id": "team-up-4-kakuna",
+    "name": "Kakuna",
+    "rarity": "Uncommon",
+    "number": "4",
+    "image": "/assets/sets/team-up/cards/4_Kakuna_Uncommon.png"
+  },
+  {
+    "id": "team-up-5-beedrill",
+    "name": "Beedrill",
+    "rarity": "Rare",
+    "number": "5",
+    "image": "/assets/sets/team-up/cards/5_Beedrill_Rare.png"
+  },
+  {
+    "id": "team-up-6-paras",
+    "name": "Paras",
+    "rarity": "Common",
+    "number": "6",
+    "image": "/assets/sets/team-up/cards/6_Paras_Common.png"
+  },
+  {
+    "id": "team-up-7-parasect",
+    "name": "Parasect",
+    "rarity": "Rare",
+    "number": "7",
+    "image": "/assets/sets/team-up/cards/7_Parasect_Rare.png"
+  },
+  {
+    "id": "team-up-8-exeggcute",
+    "name": "Exeggcute",
+    "rarity": "Common",
+    "number": "8",
+    "image": "/assets/sets/team-up/cards/8_Exeggcute_Common.png"
+  },
+  {
+    "id": "team-up-9-pinsir",
+    "name": "Pinsir",
+    "rarity": "Rare",
+    "number": "9",
+    "image": "/assets/sets/team-up/cards/9_Pinsir_Rare.png"
+  },
+  {
+    "id": "team-up-10-shaymin",
+    "name": "Shaymin ◇",
+    "rarity": "Rare",
+    "number": "10",
+    "image": "/assets/sets/team-up/cards/10_Shaymin_◇_Rare_Prism_Star.png"
+  },
+  {
+    "id": "team-up-11-charmander",
+    "name": "Charmander",
+    "rarity": "Common",
+    "number": "11",
+    "image": "/assets/sets/team-up/cards/11_Charmander_Common.png"
+  },
+  {
+    "id": "team-up-12-charmander",
+    "name": "Charmander",
+    "rarity": "Common",
+    "number": "12",
+    "image": "/assets/sets/team-up/cards/12_Charmander_Common.png"
+  },
+  {
+    "id": "team-up-13-charmeleon",
+    "name": "Charmeleon",
+    "rarity": "Uncommon",
+    "number": "13",
+    "image": "/assets/sets/team-up/cards/13_Charmeleon_Uncommon.png"
+  },
+  {
+    "id": "team-up-14-charizard",
+    "name": "Charizard",
+    "rarity": "Rare",
+    "number": "14",
+    "image": "/assets/sets/team-up/cards/14_Charizard_Rare.png"
+  },
+  {
+    "id": "team-up-15-vulpix",
+    "name": "Vulpix",
+    "rarity": "Common",
+    "number": "15",
+    "image": "/assets/sets/team-up/cards/15_Vulpix_Common.png"
+  },
+  {
+    "id": "team-up-16-ninetales",
+    "name": "Ninetales",
+    "rarity": "Rare",
+    "number": "16",
+    "image": "/assets/sets/team-up/cards/16_Ninetales_Rare.png"
+  },
+  {
+    "id": "team-up-17-ponyta",
+    "name": "Ponyta",
+    "rarity": "Common",
+    "number": "17",
+    "image": "/assets/sets/team-up/cards/17_Ponyta_Common.png"
+  },
+  {
+    "id": "team-up-18-rapidash",
+    "name": "Rapidash",
+    "rarity": "Uncommon",
+    "number": "18",
+    "image": "/assets/sets/team-up/cards/18_Rapidash_Uncommon.png"
+  },
+  {
+    "id": "team-up-19-moltres",
+    "name": "Moltres",
+    "rarity": "Rare",
+    "number": "19",
+    "image": "/assets/sets/team-up/cards/19_Moltres_Rare_Holo.png"
+  },
+  {
+    "id": "team-up-20-litten",
+    "name": "Litten",
+    "rarity": "Common",
+    "number": "20",
+    "image": "/assets/sets/team-up/cards/20_Litten_Common.png"
+  },
+  {
+    "id": "team-up-21-torracat",
+    "name": "Torracat",
+    "rarity": "Uncommon",
+    "number": "21",
+    "image": "/assets/sets/team-up/cards/21_Torracat_Uncommon.png"
+  },
+  {
+    "id": "team-up-22-squirtle",
+    "name": "Squirtle",
+    "rarity": "Common",
+    "number": "22",
+    "image": "/assets/sets/team-up/cards/22_Squirtle_Common.png"
+  },
+  {
+    "id": "team-up-23-squirtle",
+    "name": "Squirtle",
+    "rarity": "Common",
+    "number": "23",
+    "image": "/assets/sets/team-up/cards/23_Squirtle_Common.png"
+  },
+  {
+    "id": "team-up-24-wartortle",
+    "name": "Wartortle",
+    "rarity": "Uncommon",
+    "number": "24",
+    "image": "/assets/sets/team-up/cards/24_Wartortle_Uncommon.png"
+  },
+  {
+    "id": "team-up-25-blastoise",
+    "name": "Blastoise",
+    "rarity": "Rare",
+    "number": "25",
+    "image": "/assets/sets/team-up/cards/25_Blastoise_Rare.png"
+  },
+  {
+    "id": "team-up-26-psyduck",
+    "name": "Psyduck",
+    "rarity": "Common",
+    "number": "26",
+    "image": "/assets/sets/team-up/cards/26_Psyduck_Common.png"
+  },
+  {
+    "id": "team-up-27-golduck",
+    "name": "Golduck",
+    "rarity": "Uncommon",
+    "number": "27",
+    "image": "/assets/sets/team-up/cards/27_Golduck_Uncommon.png"
+  },
+  {
+    "id": "team-up-28-staryu",
+    "name": "Staryu",
+    "rarity": "Common",
+    "number": "28",
+    "image": "/assets/sets/team-up/cards/28_Staryu_Common.png"
+  },
+  {
+    "id": "team-up-29-magikarp",
+    "name": "Magikarp",
+    "rarity": "Common",
+    "number": "29",
+    "image": "/assets/sets/team-up/cards/29_Magikarp_Common.png"
+  },
+  {
+    "id": "team-up-30-gyarados",
+    "name": "Gyarados",
+    "rarity": "Rare",
+    "number": "30",
+    "image": "/assets/sets/team-up/cards/30_Gyarados_Rare_Holo.png"
+  },
+  {
+    "id": "team-up-31-lapras",
+    "name": "Lapras",
+    "rarity": "Rare",
+    "number": "31",
+    "image": "/assets/sets/team-up/cards/31_Lapras_Rare.png"
+  },
+  {
+    "id": "team-up-32-articuno",
+    "name": "Articuno",
+    "rarity": "Rare",
+    "number": "32",
+    "image": "/assets/sets/team-up/cards/32_Articuno_Rare_Holo.png"
+  },
+  {
+    "id": "team-up-33-pikachu-zekrom-gx",
+    "name": "Pikachu & Zekrom-GX",
+    "rarity": "Double Rare",
+    "number": "33",
+    "image": "/assets/sets/team-up/cards/33_Pikachu_&_Zekrom-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "team-up-34-alolan-geodude",
+    "name": "Alolan Geodude",
+    "rarity": "Common",
+    "number": "34",
+    "image": "/assets/sets/team-up/cards/34_Alolan_Geodude_Common.png"
+  },
+  {
+    "id": "team-up-35-alolan-geodude",
+    "name": "Alolan Geodude",
+    "rarity": "Common",
+    "number": "35",
+    "image": "/assets/sets/team-up/cards/35_Alolan_Geodude_Common.png"
+  },
+  {
+    "id": "team-up-36-alolan-graveler",
+    "name": "Alolan Graveler",
+    "rarity": "Uncommon",
+    "number": "36",
+    "image": "/assets/sets/team-up/cards/36_Alolan_Graveler_Uncommon.png"
+  },
+  {
+    "id": "team-up-37-alolan-golem",
+    "name": "Alolan Golem",
+    "rarity": "Rare",
+    "number": "37",
+    "image": "/assets/sets/team-up/cards/37_Alolan_Golem_Rare.png"
+  },
+  {
+    "id": "team-up-38-voltorb",
+    "name": "Voltorb",
+    "rarity": "Common",
+    "number": "38",
+    "image": "/assets/sets/team-up/cards/38_Voltorb_Common.png"
+  },
+  {
+    "id": "team-up-39-electrode",
+    "name": "Electrode",
+    "rarity": "Rare",
+    "number": "39",
+    "image": "/assets/sets/team-up/cards/39_Electrode_Rare_Holo.png"
+  },
+  {
+    "id": "team-up-40-zapdos",
+    "name": "Zapdos",
+    "rarity": "Rare",
+    "number": "40",
+    "image": "/assets/sets/team-up/cards/40_Zapdos_Rare_Holo.png"
+  },
+  {
+    "id": "team-up-41-mareep",
+    "name": "Mareep",
+    "rarity": "Common",
+    "number": "41",
+    "image": "/assets/sets/team-up/cards/41_Mareep_Common.png"
+  },
+  {
+    "id": "team-up-42-flaaffy",
+    "name": "Flaaffy",
+    "rarity": "Uncommon",
+    "number": "42",
+    "image": "/assets/sets/team-up/cards/42_Flaaffy_Uncommon.png"
+  },
+  {
+    "id": "team-up-43-ampharos-gx",
+    "name": "Ampharos-GX",
+    "rarity": "Double Rare",
+    "number": "43",
+    "image": "/assets/sets/team-up/cards/43_Ampharos-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "team-up-44-blitzle",
+    "name": "Blitzle",
+    "rarity": "Common",
+    "number": "44",
+    "image": "/assets/sets/team-up/cards/44_Blitzle_Common.png"
+  },
+  {
+    "id": "team-up-45-zebstrika",
+    "name": "Zebstrika",
+    "rarity": "Rare",
+    "number": "45",
+    "image": "/assets/sets/team-up/cards/45_Zebstrika_Rare.png"
+  },
+  {
+    "id": "team-up-46-emolga",
+    "name": "Emolga",
+    "rarity": "Common",
+    "number": "46",
+    "image": "/assets/sets/team-up/cards/46_Emolga_Common.png"
+  },
+  {
+    "id": "team-up-47-joltik",
+    "name": "Joltik",
+    "rarity": "Common",
+    "number": "47",
+    "image": "/assets/sets/team-up/cards/47_Joltik_Common.png"
+  },
+  {
+    "id": "team-up-48-galvantula",
+    "name": "Galvantula",
+    "rarity": "Rare",
+    "number": "48",
+    "image": "/assets/sets/team-up/cards/48_Galvantula_Rare.png"
+  },
+  {
+    "id": "team-up-49-helioptile",
+    "name": "Helioptile",
+    "rarity": "Common",
+    "number": "49",
+    "image": "/assets/sets/team-up/cards/49_Helioptile_Common.png"
+  },
+  {
+    "id": "team-up-50-heliolisk",
+    "name": "Heliolisk",
+    "rarity": "Uncommon",
+    "number": "50",
+    "image": "/assets/sets/team-up/cards/50_Heliolisk_Uncommon.png"
+  },
+  {
+    "id": "team-up-51-tapu-koko",
+    "name": "Tapu Koko ◇",
+    "rarity": "Rare",
+    "number": "51",
+    "image": "/assets/sets/team-up/cards/51_Tapu_Koko_◇_Rare_Prism_Star.png"
+  },
+  {
+    "id": "team-up-52-zeraora",
+    "name": "Zeraora",
+    "rarity": "Rare",
+    "number": "52",
+    "image": "/assets/sets/team-up/cards/52_Zeraora_Rare_Holo.png"
+  },
+  {
+    "id": "team-up-53-gengar-mimikyu-gx",
+    "name": "Gengar & Mimikyu-GX",
+    "rarity": "Double Rare",
+    "number": "53",
+    "image": "/assets/sets/team-up/cards/53_Gengar_&_Mimikyu-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "team-up-54-nidoran",
+    "name": "Nidoran ♀",
+    "rarity": "Common",
+    "number": "54",
+    "image": "/assets/sets/team-up/cards/54_Nidoran_♀_Common.png"
+  },
+  {
+    "id": "team-up-55-nidorina",
+    "name": "Nidorina",
+    "rarity": "Uncommon",
+    "number": "55",
+    "image": "/assets/sets/team-up/cards/55_Nidorina_Uncommon.png"
+  },
+  {
+    "id": "team-up-56-nidoqueen",
+    "name": "Nidoqueen",
+    "rarity": "Rare",
+    "number": "56",
+    "image": "/assets/sets/team-up/cards/56_Nidoqueen_Rare.png"
+  },
+  {
+    "id": "team-up-57-nidoran",
+    "name": "Nidoran ♂",
+    "rarity": "Common",
+    "number": "57",
+    "image": "/assets/sets/team-up/cards/57_Nidoran_♂_Common.png"
+  },
+  {
+    "id": "team-up-58-nidorino",
+    "name": "Nidorino",
+    "rarity": "Uncommon",
+    "number": "58",
+    "image": "/assets/sets/team-up/cards/58_Nidorino_Uncommon.png"
+  },
+  {
+    "id": "team-up-59-nidoking",
+    "name": "Nidoking",
+    "rarity": "Rare",
+    "number": "59",
+    "image": "/assets/sets/team-up/cards/59_Nidoking_Rare.png"
+  },
+  {
+    "id": "team-up-60-tentacool",
+    "name": "Tentacool",
+    "rarity": "Common",
+    "number": "60",
+    "image": "/assets/sets/team-up/cards/60_Tentacool_Common.png"
+  },
+  {
+    "id": "team-up-61-tentacruel",
+    "name": "Tentacruel",
+    "rarity": "Uncommon",
+    "number": "61",
+    "image": "/assets/sets/team-up/cards/61_Tentacruel_Uncommon.png"
+  },
+  {
+    "id": "team-up-62-grimer",
+    "name": "Grimer",
+    "rarity": "Common",
+    "number": "62",
+    "image": "/assets/sets/team-up/cards/62_Grimer_Common.png"
+  },
+  {
+    "id": "team-up-63-muk",
+    "name": "Muk",
+    "rarity": "Rare",
+    "number": "63",
+    "image": "/assets/sets/team-up/cards/63_Muk_Rare.png"
+  },
+  {
+    "id": "team-up-64-alolan-marowak",
+    "name": "Alolan Marowak",
+    "rarity": "Rare",
+    "number": "64",
+    "image": "/assets/sets/team-up/cards/64_Alolan_Marowak_Rare.png"
+  },
+  {
+    "id": "team-up-65-starmie",
+    "name": "Starmie",
+    "rarity": "Rare",
+    "number": "65",
+    "image": "/assets/sets/team-up/cards/65_Starmie_Rare.png"
+  },
+  {
+    "id": "team-up-66-mr-mime",
+    "name": "Mr. Mime",
+    "rarity": "Rare",
+    "number": "66",
+    "image": "/assets/sets/team-up/cards/66_Mr._Mime_Rare.png"
+  },
+  {
+    "id": "team-up-67-mr-mime-gx",
+    "name": "Mr. Mime-GX",
+    "rarity": "Double Rare",
+    "number": "67",
+    "image": "/assets/sets/team-up/cards/67_Mr._Mime-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "team-up-68-jynx",
+    "name": "Jynx",
+    "rarity": "Uncommon",
+    "number": "68",
+    "image": "/assets/sets/team-up/cards/68_Jynx_Uncommon.png"
+  },
+  {
+    "id": "team-up-69-cosmog",
+    "name": "Cosmog",
+    "rarity": "Common",
+    "number": "69",
+    "image": "/assets/sets/team-up/cards/69_Cosmog_Common.png"
+  },
+  {
+    "id": "team-up-70-cosmoem",
+    "name": "Cosmoem",
+    "rarity": "Uncommon",
+    "number": "70",
+    "image": "/assets/sets/team-up/cards/70_Cosmoem_Uncommon.png"
+  },
+  {
+    "id": "team-up-71-mankey",
+    "name": "Mankey",
+    "rarity": "Common",
+    "number": "71",
+    "image": "/assets/sets/team-up/cards/71_Mankey_Common.png"
+  },
+  {
+    "id": "team-up-72-primeape",
+    "name": "Primeape",
+    "rarity": "Rare",
+    "number": "72",
+    "image": "/assets/sets/team-up/cards/72_Primeape_Rare.png"
+  },
+  {
+    "id": "team-up-73-hitmonlee",
+    "name": "Hitmonlee",
+    "rarity": "Uncommon",
+    "number": "73",
+    "image": "/assets/sets/team-up/cards/73_Hitmonlee_Uncommon.png"
+  },
+  {
+    "id": "team-up-74-hitmonchan",
+    "name": "Hitmonchan",
+    "rarity": "Uncommon",
+    "number": "74",
+    "image": "/assets/sets/team-up/cards/74_Hitmonchan_Uncommon.png"
+  },
+  {
+    "id": "team-up-75-omanyte",
+    "name": "Omanyte",
+    "rarity": "Uncommon",
+    "number": "75",
+    "image": "/assets/sets/team-up/cards/75_Omanyte_Uncommon.png"
+  },
+  {
+    "id": "team-up-76-omastar",
+    "name": "Omastar",
+    "rarity": "Rare",
+    "number": "76",
+    "image": "/assets/sets/team-up/cards/76_Omastar_Rare_Holo.png"
+  },
+  {
+    "id": "team-up-77-kabuto",
+    "name": "Kabuto",
+    "rarity": "Uncommon",
+    "number": "77",
+    "image": "/assets/sets/team-up/cards/77_Kabuto_Uncommon.png"
+  },
+  {
+    "id": "team-up-78-kabutops",
+    "name": "Kabutops",
+    "rarity": "Rare",
+    "number": "78",
+    "image": "/assets/sets/team-up/cards/78_Kabutops_Rare.png"
+  },
+  {
+    "id": "team-up-79-larvitar",
+    "name": "Larvitar",
+    "rarity": "Common",
+    "number": "79",
+    "image": "/assets/sets/team-up/cards/79_Larvitar_Common.png"
+  },
+  {
+    "id": "team-up-80-pupitar",
+    "name": "Pupitar",
+    "rarity": "Uncommon",
+    "number": "80",
+    "image": "/assets/sets/team-up/cards/80_Pupitar_Uncommon.png"
+  },
+  {
+    "id": "team-up-81-pancham",
+    "name": "Pancham",
+    "rarity": "Common",
+    "number": "81",
+    "image": "/assets/sets/team-up/cards/81_Pancham_Common.png"
+  },
+  {
+    "id": "team-up-82-lycanroc-gx",
+    "name": "Lycanroc-GX",
+    "rarity": "Double Rare",
+    "number": "82",
+    "image": "/assets/sets/team-up/cards/82_Lycanroc-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "team-up-83-alolan-grimer",
+    "name": "Alolan Grimer",
+    "rarity": "Common",
+    "number": "83",
+    "image": "/assets/sets/team-up/cards/83_Alolan_Grimer_Common.png"
+  },
+  {
+    "id": "team-up-84-alolan-muk",
+    "name": "Alolan Muk",
+    "rarity": "Rare",
+    "number": "84",
+    "image": "/assets/sets/team-up/cards/84_Alolan_Muk_Rare.png"
+  },
+  {
+    "id": "team-up-85-tyranitar",
+    "name": "Tyranitar",
+    "rarity": "Rare",
+    "number": "85",
+    "image": "/assets/sets/team-up/cards/85_Tyranitar_Rare_Holo.png"
+  },
+  {
+    "id": "team-up-86-poochyena",
+    "name": "Poochyena",
+    "rarity": "Common",
+    "number": "86",
+    "image": "/assets/sets/team-up/cards/86_Poochyena_Common.png"
+  },
+  {
+    "id": "team-up-87-mightyena",
+    "name": "Mightyena",
+    "rarity": "Rare",
+    "number": "87",
+    "image": "/assets/sets/team-up/cards/87_Mightyena_Rare.png"
+  },
+  {
+    "id": "team-up-88-absol",
+    "name": "Absol",
+    "rarity": "Rare",
+    "number": "88",
+    "image": "/assets/sets/team-up/cards/88_Absol_Rare_Holo.png"
+  },
+  {
+    "id": "team-up-89-spiritomb",
+    "name": "Spiritomb",
+    "rarity": "Uncommon",
+    "number": "89",
+    "image": "/assets/sets/team-up/cards/89_Spiritomb_Uncommon.png"
+  },
+  {
+    "id": "team-up-90-zorua",
+    "name": "Zorua",
+    "rarity": "Common",
+    "number": "90",
+    "image": "/assets/sets/team-up/cards/90_Zorua_Common.png"
+  },
+  {
+    "id": "team-up-91-zoroark",
+    "name": "Zoroark",
+    "rarity": "Rare",
+    "number": "91",
+    "image": "/assets/sets/team-up/cards/91_Zoroark_Rare_Holo.png"
+  },
+  {
+    "id": "team-up-92-vullaby",
+    "name": "Vullaby",
+    "rarity": "Common",
+    "number": "92",
+    "image": "/assets/sets/team-up/cards/92_Vullaby_Common.png"
+  },
+  {
+    "id": "team-up-93-mandibuzz",
+    "name": "Mandibuzz",
+    "rarity": "Rare",
+    "number": "93",
+    "image": "/assets/sets/team-up/cards/93_Mandibuzz_Rare.png"
+  },
+  {
+    "id": "team-up-94-pangoro",
+    "name": "Pangoro",
+    "rarity": "Rare",
+    "number": "94",
+    "image": "/assets/sets/team-up/cards/94_Pangoro_Rare.png"
+  },
+  {
+    "id": "team-up-95-team-rocket-s-pupitar",
+    "name": "Team Rocket's Pupitar",
+    "rarity": "Common",
+    "number": "95",
+    "image": "/assets/sets/team-up/cards/95_Team_Rocket's_Pupitar_Common.png"
+  },
+  {
+    "id": "team-up-95-yveltal",
+    "name": "Yveltal",
+    "rarity": "Rare",
+    "number": "95",
+    "image": "/assets/sets/team-up/cards/95_Yveltal_Rare_Holo.png"
+  },
+  {
+    "id": "team-up-96-hoopa-gx",
+    "name": "Hoopa-GX",
+    "rarity": "Double Rare",
+    "number": "96",
+    "image": "/assets/sets/team-up/cards/96_Hoopa-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "team-up-97-incineroar-gx",
+    "name": "Incineroar-GX",
+    "rarity": "Double Rare",
+    "number": "97",
+    "image": "/assets/sets/team-up/cards/97_Incineroar-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "team-up-98-skarmory",
+    "name": "Skarmory",
+    "rarity": "Rare",
+    "number": "98",
+    "image": "/assets/sets/team-up/cards/98_Skarmory_Rare.png"
+  },
+  {
+    "id": "team-up-99-jirachi",
+    "name": "Jirachi",
+    "rarity": "Rare",
+    "number": "99",
+    "image": "/assets/sets/team-up/cards/99_Jirachi_Rare_Holo.png"
+  },
+  {
+    "id": "team-up-100-bronzor",
+    "name": "Bronzor",
+    "rarity": "Common",
+    "number": "100",
+    "image": "/assets/sets/team-up/cards/100_Bronzor_Common.png"
+  },
+  {
+    "id": "team-up-101-bronzong",
+    "name": "Bronzong",
+    "rarity": "Rare",
+    "number": "101",
+    "image": "/assets/sets/team-up/cards/101_Bronzong_Rare.png"
+  },
+  {
+    "id": "team-up-102-ferroseed",
+    "name": "Ferroseed",
+    "rarity": "Common",
+    "number": "102",
+    "image": "/assets/sets/team-up/cards/102_Ferroseed_Common.png"
+  },
+  {
+    "id": "team-up-103-ferrothorn",
+    "name": "Ferrothorn",
+    "rarity": "Rare",
+    "number": "103",
+    "image": "/assets/sets/team-up/cards/103_Ferrothorn_Rare.png"
+  },
+  {
+    "id": "team-up-104-pawniard",
+    "name": "Pawniard",
+    "rarity": "Common",
+    "number": "104",
+    "image": "/assets/sets/team-up/cards/104_Pawniard_Common.png"
+  },
+  {
+    "id": "team-up-105-bisharp",
+    "name": "Bisharp",
+    "rarity": "Rare",
+    "number": "105",
+    "image": "/assets/sets/team-up/cards/105_Bisharp_Rare.png"
+  },
+  {
+    "id": "team-up-106-cobalion-gx",
+    "name": "Cobalion-GX",
+    "rarity": "Double Rare",
+    "number": "106",
+    "image": "/assets/sets/team-up/cards/106_Cobalion-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "team-up-107-honedge",
+    "name": "Honedge",
+    "rarity": "Common",
+    "number": "107",
+    "image": "/assets/sets/team-up/cards/107_Honedge_Common.png"
+  },
+  {
+    "id": "team-up-108-doublade",
+    "name": "Doublade",
+    "rarity": "Uncommon",
+    "number": "108",
+    "image": "/assets/sets/team-up/cards/108_Doublade_Uncommon.png"
+  },
+  {
+    "id": "team-up-109-aegislash",
+    "name": "Aegislash",
+    "rarity": "Rare",
+    "number": "109",
+    "image": "/assets/sets/team-up/cards/109_Aegislash_Rare_Holo.png"
+  },
+  {
+    "id": "team-up-110-klefki",
+    "name": "Klefki",
+    "rarity": "Common",
+    "number": "110",
+    "image": "/assets/sets/team-up/cards/110_Klefki_Common.png"
+  },
+  {
+    "id": "team-up-111-alolan-ninetales",
+    "name": "Alolan Ninetales",
+    "rarity": "Rare",
+    "number": "111",
+    "image": "/assets/sets/team-up/cards/111_Alolan_Ninetales_Rare_Holo.png"
+  },
+  {
+    "id": "team-up-112-mimikyu",
+    "name": "Mimikyu",
+    "rarity": "Rare",
+    "number": "112",
+    "image": "/assets/sets/team-up/cards/112_Mimikyu_Rare.png"
+  },
+  {
+    "id": "team-up-113-latias-latios-gx",
+    "name": "Latias & Latios-GX",
+    "rarity": "Double Rare",
+    "number": "113",
+    "image": "/assets/sets/team-up/cards/113_Latias_&_Latios-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "team-up-114-alolan-exeggutor",
+    "name": "Alolan Exeggutor",
+    "rarity": "Rare",
+    "number": "114",
+    "image": "/assets/sets/team-up/cards/114_Alolan_Exeggutor_Rare.png"
+  },
+  {
+    "id": "team-up-115-alolan-exeggutor",
+    "name": "Alolan Exeggutor",
+    "rarity": "Rare",
+    "number": "115",
+    "image": "/assets/sets/team-up/cards/115_Alolan_Exeggutor_Rare.png"
+  },
+  {
+    "id": "team-up-116-dratini",
+    "name": "Dratini",
+    "rarity": "Common",
+    "number": "116",
+    "image": "/assets/sets/team-up/cards/116_Dratini_Common.png"
+  },
+  {
+    "id": "team-up-117-dratini",
+    "name": "Dratini",
+    "rarity": "Common",
+    "number": "117",
+    "image": "/assets/sets/team-up/cards/117_Dratini_Common.png"
+  },
+  {
+    "id": "team-up-118-dragonair",
+    "name": "Dragonair",
+    "rarity": "Uncommon",
+    "number": "118",
+    "image": "/assets/sets/team-up/cards/118_Dragonair_Uncommon.png"
+  },
+  {
+    "id": "team-up-119-dragonite",
+    "name": "Dragonite",
+    "rarity": "Rare",
+    "number": "119",
+    "image": "/assets/sets/team-up/cards/119_Dragonite_Rare_Holo.png"
+  },
+  {
+    "id": "team-up-120-eevee-snorlax-gx",
+    "name": "Eevee & Snorlax-GX",
+    "rarity": "Double Rare",
+    "number": "120",
+    "image": "/assets/sets/team-up/cards/120_Eevee_&_Snorlax-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "team-up-121-pidgey",
+    "name": "Pidgey",
+    "rarity": "Common",
+    "number": "121",
+    "image": "/assets/sets/team-up/cards/121_Pidgey_Common.png"
+  },
+  {
+    "id": "team-up-122-pidgey",
+    "name": "Pidgey",
+    "rarity": "Common",
+    "number": "122",
+    "image": "/assets/sets/team-up/cards/122_Pidgey_Common.png"
+  },
+  {
+    "id": "team-up-123-pidgeotto",
+    "name": "Pidgeotto",
+    "rarity": "Common",
+    "number": "123",
+    "image": "/assets/sets/team-up/cards/123_Pidgeotto_Common.png"
+  },
+  {
+    "id": "team-up-124-pidgeot",
+    "name": "Pidgeot",
+    "rarity": "Rare",
+    "number": "124",
+    "image": "/assets/sets/team-up/cards/124_Pidgeot_Rare.png"
+  },
+  {
+    "id": "team-up-125-meowth",
+    "name": "Meowth",
+    "rarity": "Common",
+    "number": "125",
+    "image": "/assets/sets/team-up/cards/125_Meowth_Common.png"
+  },
+  {
+    "id": "team-up-126-persian",
+    "name": "Persian",
+    "rarity": "Uncommon",
+    "number": "126",
+    "image": "/assets/sets/team-up/cards/126_Persian_Uncommon.png"
+  },
+  {
+    "id": "team-up-127-farfetch-d",
+    "name": "Farfetch'd",
+    "rarity": "Uncommon",
+    "number": "127",
+    "image": "/assets/sets/team-up/cards/127_Farfetch'd_Uncommon.png"
+  },
+  {
+    "id": "team-up-128-kangaskhan",
+    "name": "Kangaskhan",
+    "rarity": "Uncommon",
+    "number": "128",
+    "image": "/assets/sets/team-up/cards/128_Kangaskhan_Uncommon.png"
+  },
+  {
+    "id": "team-up-129-tauros",
+    "name": "Tauros",
+    "rarity": "Uncommon",
+    "number": "129",
+    "image": "/assets/sets/team-up/cards/129_Tauros_Uncommon.png"
+  },
+  {
+    "id": "team-up-130-aerodactyl",
+    "name": "Aerodactyl",
+    "rarity": "Rare",
+    "number": "130",
+    "image": "/assets/sets/team-up/cards/130_Aerodactyl_Rare.png"
+  },
+  {
+    "id": "team-up-131-lugia",
+    "name": "Lugia",
+    "rarity": "Rare",
+    "number": "131",
+    "image": "/assets/sets/team-up/cards/131_Lugia_Rare_Holo.png"
+  },
+  {
+    "id": "team-up-132-zangoose",
+    "name": "Zangoose",
+    "rarity": "Rare",
+    "number": "132",
+    "image": "/assets/sets/team-up/cards/132_Zangoose_Rare_Holo.png"
+  },
+  {
+    "id": "team-up-133-bill-s-analysis",
+    "name": "Bill's Analysis",
+    "rarity": "Rare",
+    "number": "133",
+    "image": "/assets/sets/team-up/cards/133_Bill's_Analysis_Rare_Holo.png"
+  },
+  {
+    "id": "team-up-134-black-market",
+    "name": "Black Market ◇",
+    "rarity": "Rare",
+    "number": "134",
+    "image": "/assets/sets/team-up/cards/134_Black_Market_◇_Rare_Prism_Star.png"
+  },
+  {
+    "id": "team-up-135-brock-s-grit",
+    "name": "Brock's Grit",
+    "rarity": "Uncommon",
+    "number": "135",
+    "image": "/assets/sets/team-up/cards/135_Brock's_Grit_Uncommon.png"
+  },
+  {
+    "id": "team-up-136-buff-padding",
+    "name": "Buff Padding",
+    "rarity": "Uncommon",
+    "number": "136",
+    "image": "/assets/sets/team-up/cards/136_Buff_Padding_Uncommon.png"
+  },
+  {
+    "id": "team-up-137-dana",
+    "name": "Dana",
+    "rarity": "Uncommon",
+    "number": "137",
+    "image": "/assets/sets/team-up/cards/137_Dana_Uncommon.png"
+  },
+  {
+    "id": "team-up-138-dangerous-drill",
+    "name": "Dangerous Drill",
+    "rarity": "Uncommon",
+    "number": "138",
+    "image": "/assets/sets/team-up/cards/138_Dangerous_Drill_Uncommon.png"
+  },
+  {
+    "id": "team-up-139-electrocharger",
+    "name": "Electrocharger",
+    "rarity": "Uncommon",
+    "number": "139",
+    "image": "/assets/sets/team-up/cards/139_Electrocharger_Uncommon.png"
+  },
+  {
+    "id": "team-up-140-erika-s-hospitality",
+    "name": "Erika's Hospitality",
+    "rarity": "Rare",
+    "number": "140",
+    "image": "/assets/sets/team-up/cards/140_Erika's_Hospitality_Rare_Holo.png"
+  },
+  {
+    "id": "team-up-141-evelyn",
+    "name": "Evelyn",
+    "rarity": "Uncommon",
+    "number": "141",
+    "image": "/assets/sets/team-up/cards/141_Evelyn_Uncommon.png"
+  },
+  {
+    "id": "team-up-142-fairy-charm-ub",
+    "name": "Fairy Charm UB",
+    "rarity": "Uncommon",
+    "number": "142",
+    "image": "/assets/sets/team-up/cards/142_Fairy_Charm_UB_Uncommon.png"
+  },
+  {
+    "id": "team-up-143-grass-memory",
+    "name": "Grass Memory",
+    "rarity": "Uncommon",
+    "number": "143",
+    "image": "/assets/sets/team-up/cards/143_Grass_Memory_Uncommon.png"
+  },
+  {
+    "id": "team-up-144-ingo-emmet",
+    "name": "Ingo & Emmet",
+    "rarity": "Uncommon",
+    "number": "144",
+    "image": "/assets/sets/team-up/cards/144_Ingo_&_Emmet_Uncommon.png"
+  },
+  {
+    "id": "team-up-145-jasmine",
+    "name": "Jasmine",
+    "rarity": "Uncommon",
+    "number": "145",
+    "image": "/assets/sets/team-up/cards/145_Jasmine_Uncommon.png"
+  },
+  {
+    "id": "team-up-146-judge-whistle",
+    "name": "Judge Whistle",
+    "rarity": "Uncommon",
+    "number": "146",
+    "image": "/assets/sets/team-up/cards/146_Judge_Whistle_Uncommon.png"
+  },
+  {
+    "id": "team-up-147-lavender-town",
+    "name": "Lavender Town",
+    "rarity": "Uncommon",
+    "number": "147",
+    "image": "/assets/sets/team-up/cards/147_Lavender_Town_Uncommon.png"
+  },
+  {
+    "id": "team-up-148-metal-goggles",
+    "name": "Metal Goggles",
+    "rarity": "Uncommon",
+    "number": "148",
+    "image": "/assets/sets/team-up/cards/148_Metal_Goggles_Uncommon.png"
+  },
+  {
+    "id": "team-up-149-morgan",
+    "name": "Morgan",
+    "rarity": "Uncommon",
+    "number": "149",
+    "image": "/assets/sets/team-up/cards/149_Morgan_Uncommon.png"
+  },
+  {
+    "id": "team-up-150-nanu",
+    "name": "Nanu",
+    "rarity": "Uncommon",
+    "number": "150",
+    "image": "/assets/sets/team-up/cards/150_Nanu_Uncommon.png"
+  },
+  {
+    "id": "team-up-151-nita",
+    "name": "Nita",
+    "rarity": "Uncommon",
+    "number": "151",
+    "image": "/assets/sets/team-up/cards/151_Nita_Uncommon.png"
+  },
+  {
+    "id": "team-up-152-pok-mon-communication",
+    "name": "Pokémon Communication",
+    "rarity": "Uncommon",
+    "number": "152",
+    "image": "/assets/sets/team-up/cards/152_Pokémon_Communication_Uncommon.png"
+  },
+  {
+    "id": "team-up-152a-pok-mon-communication",
+    "name": "Pokémon Communication",
+    "rarity": "Uncommon",
+    "number": "152a",
+    "image": "/assets/sets/team-up/cards/152a_Pokémon_Communication_Uncommon.png"
+  },
+  {
+    "id": "team-up-152b-pok-mon-communication",
+    "name": "Pokémon Communication",
+    "rarity": "Uncommon",
+    "number": "152b",
+    "image": "/assets/sets/team-up/cards/152b_Pokémon_Communication_Uncommon.png"
+  },
+  {
+    "id": "team-up-153-return-label",
+    "name": "Return Label",
+    "rarity": "Uncommon",
+    "number": "153",
+    "image": "/assets/sets/team-up/cards/153_Return_Label_Uncommon.png"
+  },
+  {
+    "id": "team-up-154-sabrina-s-suggestion",
+    "name": "Sabrina's Suggestion",
+    "rarity": "Uncommon",
+    "number": "154",
+    "image": "/assets/sets/team-up/cards/154_Sabrina's_Suggestion_Uncommon.png"
+  },
+  {
+    "id": "team-up-155-unidentified-fossil",
+    "name": "Unidentified Fossil",
+    "rarity": "Uncommon",
+    "number": "155",
+    "image": "/assets/sets/team-up/cards/155_Unidentified_Fossil_Uncommon.png"
+  },
+  {
+    "id": "team-up-156-viridian-forest",
+    "name": "Viridian Forest",
+    "rarity": "Uncommon",
+    "number": "156",
+    "image": "/assets/sets/team-up/cards/156_Viridian_Forest_Uncommon.png"
+  },
+  {
+    "id": "team-up-157-water-memory",
+    "name": "Water Memory",
+    "rarity": "Uncommon",
+    "number": "157",
+    "image": "/assets/sets/team-up/cards/157_Water_Memory_Uncommon.png"
+  },
+  {
+    "id": "team-up-158-wondrous-labyrinth",
+    "name": "Wondrous Labyrinth ◇",
+    "rarity": "Rare",
+    "number": "158",
+    "image": "/assets/sets/team-up/cards/158_Wondrous_Labyrinth_◇_Rare_Prism_Star.png"
+  },
+  {
+    "id": "team-up-159-celebi-venusaur-gx",
+    "name": "Celebi & Venusaur-GX",
+    "rarity": "Ultra Rare",
+    "number": "159",
+    "image": "/assets/sets/team-up/cards/159_Celebi_&_Venusaur-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "team-up-160-magikarp-wailord-gx",
+    "name": "Magikarp & Wailord-GX",
+    "rarity": "Ultra Rare",
+    "number": "160",
+    "image": "/assets/sets/team-up/cards/160_Magikarp_&_Wailord-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "team-up-161-magikarp-wailord-gx",
+    "name": "Magikarp & Wailord-GX",
+    "rarity": "Ultra Rare",
+    "number": "161",
+    "image": "/assets/sets/team-up/cards/161_Magikarp_&_Wailord-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "team-up-162-pikachu-zekrom-gx",
+    "name": "Pikachu & Zekrom-GX",
+    "rarity": "Ultra Rare",
+    "number": "162",
+    "image": "/assets/sets/team-up/cards/162_Pikachu_&_Zekrom-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "team-up-163-ampharos-gx",
+    "name": "Ampharos-GX",
+    "rarity": "Ultra Rare",
+    "number": "163",
+    "image": "/assets/sets/team-up/cards/163_Ampharos-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "team-up-164-gengar-mimikyu-gx",
+    "name": "Gengar & Mimikyu-GX",
+    "rarity": "Ultra Rare",
+    "number": "164",
+    "image": "/assets/sets/team-up/cards/164_Gengar_&_Mimikyu-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "team-up-165-gengar-mimikyu-gx",
+    "name": "Gengar & Mimikyu-GX",
+    "rarity": "Ultra Rare",
+    "number": "165",
+    "image": "/assets/sets/team-up/cards/165_Gengar_&_Mimikyu-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "team-up-166-hoopa-gx",
+    "name": "Hoopa-GX",
+    "rarity": "Ultra Rare",
+    "number": "166",
+    "image": "/assets/sets/team-up/cards/166_Hoopa-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "team-up-167-incineroar-gx",
+    "name": "Incineroar-GX",
+    "rarity": "Ultra Rare",
+    "number": "167",
+    "image": "/assets/sets/team-up/cards/167_Incineroar-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "team-up-168-cobalion-gx",
+    "name": "Cobalion-GX",
+    "rarity": "Ultra Rare",
+    "number": "168",
+    "image": "/assets/sets/team-up/cards/168_Cobalion-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "team-up-169-latias-latios-gx",
+    "name": "Latias & Latios-GX",
+    "rarity": "Ultra Rare",
+    "number": "169",
+    "image": "/assets/sets/team-up/cards/169_Latias_&_Latios-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "team-up-170-latias-latios-gx",
+    "name": "Latias & Latios-GX",
+    "rarity": "Ultra Rare",
+    "number": "170",
+    "image": "/assets/sets/team-up/cards/170_Latias_&_Latios-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "team-up-171-eevee-snorlax-gx",
+    "name": "Eevee & Snorlax-GX",
+    "rarity": "Ultra Rare",
+    "number": "171",
+    "image": "/assets/sets/team-up/cards/171_Eevee_&_Snorlax-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "team-up-172-brock-s-grit",
+    "name": "Brock's Grit",
+    "rarity": "Ultra Rare",
+    "number": "172",
+    "image": "/assets/sets/team-up/cards/172_Brock's_Grit_Rare_Ultra.png"
+  },
+  {
+    "id": "team-up-173-dana",
+    "name": "Dana",
+    "rarity": "Ultra Rare",
+    "number": "173",
+    "image": "/assets/sets/team-up/cards/173_Dana_Rare_Ultra.png"
+  },
+  {
+    "id": "team-up-174-erika-s-hospitality",
+    "name": "Erika's Hospitality",
+    "rarity": "Ultra Rare",
+    "number": "174",
+    "image": "/assets/sets/team-up/cards/174_Erika's_Hospitality_Rare_Ultra.png"
+  },
+  {
+    "id": "team-up-175-evelyn",
+    "name": "Evelyn",
+    "rarity": "Ultra Rare",
+    "number": "175",
+    "image": "/assets/sets/team-up/cards/175_Evelyn_Rare_Ultra.png"
+  },
+  {
+    "id": "team-up-176-ingo-emmet",
+    "name": "Ingo & Emmet",
+    "rarity": "Ultra Rare",
+    "number": "176",
+    "image": "/assets/sets/team-up/cards/176_Ingo_&_Emmet_Rare_Ultra.png"
+  },
+  {
+    "id": "team-up-177-jasmine",
+    "name": "Jasmine",
+    "rarity": "Ultra Rare",
+    "number": "177",
+    "image": "/assets/sets/team-up/cards/177_Jasmine_Rare_Ultra.png"
+  },
+  {
+    "id": "team-up-178-morgan",
+    "name": "Morgan",
+    "rarity": "Ultra Rare",
+    "number": "178",
+    "image": "/assets/sets/team-up/cards/178_Morgan_Rare_Ultra.png"
+  },
+  {
+    "id": "team-up-179-nanu",
+    "name": "Nanu",
+    "rarity": "Ultra Rare",
+    "number": "179",
+    "image": "/assets/sets/team-up/cards/179_Nanu_Rare_Ultra.png"
+  },
+  {
+    "id": "team-up-180-nita",
+    "name": "Nita",
+    "rarity": "Ultra Rare",
+    "number": "180",
+    "image": "/assets/sets/team-up/cards/180_Nita_Rare_Ultra.png"
+  },
+  {
+    "id": "team-up-181-sabrina-s-suggestion",
+    "name": "Sabrina's Suggestion",
+    "rarity": "Ultra Rare",
+    "number": "181",
+    "image": "/assets/sets/team-up/cards/181_Sabrina's_Suggestion_Rare_Ultra.png"
+  },
+  {
+    "id": "team-up-182-celebi-venusaur-gx",
+    "name": "Celebi & Venusaur-GX",
+    "rarity": "Secret Rare",
+    "number": "182",
+    "image": "/assets/sets/team-up/cards/182_Celebi_&_Venusaur-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "team-up-183-magikarp-wailord-gx",
+    "name": "Magikarp & Wailord-GX",
+    "rarity": "Secret Rare",
+    "number": "183",
+    "image": "/assets/sets/team-up/cards/183_Magikarp_&_Wailord-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "team-up-184-pikachu-zekrom-gx",
+    "name": "Pikachu & Zekrom-GX",
+    "rarity": "Secret Rare",
+    "number": "184",
+    "image": "/assets/sets/team-up/cards/184_Pikachu_&_Zekrom-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "team-up-185-ampharos-gx",
+    "name": "Ampharos-GX",
+    "rarity": "Secret Rare",
+    "number": "185",
+    "image": "/assets/sets/team-up/cards/185_Ampharos-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "team-up-186-gengar-mimikyu-gx",
+    "name": "Gengar & Mimikyu-GX",
+    "rarity": "Secret Rare",
+    "number": "186",
+    "image": "/assets/sets/team-up/cards/186_Gengar_&_Mimikyu-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "team-up-187-hoopa-gx",
+    "name": "Hoopa-GX",
+    "rarity": "Secret Rare",
+    "number": "187",
+    "image": "/assets/sets/team-up/cards/187_Hoopa-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "team-up-188-incineroar-gx",
+    "name": "Incineroar-GX",
+    "rarity": "Secret Rare",
+    "number": "188",
+    "image": "/assets/sets/team-up/cards/188_Incineroar-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "team-up-189-cobalion-gx",
+    "name": "Cobalion-GX",
+    "rarity": "Secret Rare",
+    "number": "189",
+    "image": "/assets/sets/team-up/cards/189_Cobalion-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "team-up-190-latias-latios-gx",
+    "name": "Latias & Latios-GX",
+    "rarity": "Secret Rare",
+    "number": "190",
+    "image": "/assets/sets/team-up/cards/190_Latias_&_Latios-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "team-up-191-eevee-snorlax-gx",
+    "name": "Eevee & Snorlax-GX",
+    "rarity": "Secret Rare",
+    "number": "191",
+    "image": "/assets/sets/team-up/cards/191_Eevee_&_Snorlax-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "team-up-192-dangerous-drill",
+    "name": "Dangerous Drill",
+    "rarity": "Secret Rare",
+    "number": "192",
+    "image": "/assets/sets/team-up/cards/192_Dangerous_Drill_Rare_Secret.png"
+  },
+  {
+    "id": "team-up-193-electrocharger",
+    "name": "Electrocharger",
+    "rarity": "Secret Rare",
+    "number": "193",
+    "image": "/assets/sets/team-up/cards/193_Electrocharger_Rare_Secret.png"
+  },
+  {
+    "id": "team-up-194-judge-whistle",
+    "name": "Judge Whistle",
+    "rarity": "Secret Rare",
+    "number": "194",
+    "image": "/assets/sets/team-up/cards/194_Judge_Whistle_Rare_Secret.png"
+  },
+  {
+    "id": "team-up-195-metal-goggles",
+    "name": "Metal Goggles",
+    "rarity": "Secret Rare",
+    "number": "195",
+    "image": "/assets/sets/team-up/cards/195_Metal_Goggles_Rare_Secret.png"
+  },
+  {
+    "id": "team-up-196-pok-mon-communication",
+    "name": "Pokémon Communication",
+    "rarity": "Secret Rare",
+    "number": "196",
+    "image": "/assets/sets/team-up/cards/196_Pokémon_Communication_Rare_Secret.png"
+  }
+]

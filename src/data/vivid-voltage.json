@@ -1,0 +1,1423 @@
+[
+  {
+    "id": "vivid-voltage-1-weedle",
+    "name": "Weedle",
+    "rarity": "Common",
+    "number": "1",
+    "image": "/assets/sets/vivid-voltage/cards/1_Weedle_Common.png"
+  },
+  {
+    "id": "vivid-voltage-2-kakuna",
+    "name": "Kakuna",
+    "rarity": "Uncommon",
+    "number": "2",
+    "image": "/assets/sets/vivid-voltage/cards/2_Kakuna_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-3-beedrill",
+    "name": "Beedrill",
+    "rarity": "Rare",
+    "number": "3",
+    "image": "/assets/sets/vivid-voltage/cards/3_Beedrill_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-4-exeggcute",
+    "name": "Exeggcute",
+    "rarity": "Common",
+    "number": "4",
+    "image": "/assets/sets/vivid-voltage/cards/4_Exeggcute_Common.png"
+  },
+  {
+    "id": "vivid-voltage-5-exeggutor",
+    "name": "Exeggutor",
+    "rarity": "Rare",
+    "number": "5",
+    "image": "/assets/sets/vivid-voltage/cards/5_Exeggutor_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-6-yanma",
+    "name": "Yanma",
+    "rarity": "Common",
+    "number": "6",
+    "image": "/assets/sets/vivid-voltage/cards/6_Yanma_Common.png"
+  },
+  {
+    "id": "vivid-voltage-7-yanmega",
+    "name": "Yanmega",
+    "rarity": "Rare",
+    "number": "7",
+    "image": "/assets/sets/vivid-voltage/cards/7_Yanmega_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-8-pineco",
+    "name": "Pineco",
+    "rarity": "Common",
+    "number": "8",
+    "image": "/assets/sets/vivid-voltage/cards/8_Pineco_Common.png"
+  },
+  {
+    "id": "vivid-voltage-9-celebi-amazing",
+    "name": "Celebi Amazing",
+    "rarity": "Rare",
+    "number": "9",
+    "image": "/assets/sets/vivid-voltage/cards/9_Celebi_Amazing_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-10-seedot",
+    "name": "Seedot",
+    "rarity": "Common",
+    "number": "10",
+    "image": "/assets/sets/vivid-voltage/cards/10_Seedot_Common.png"
+  },
+  {
+    "id": "vivid-voltage-11-nuzleaf",
+    "name": "Nuzleaf",
+    "rarity": "Uncommon",
+    "number": "11",
+    "image": "/assets/sets/vivid-voltage/cards/11_Nuzleaf_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-12-shiftry",
+    "name": "Shiftry",
+    "rarity": "Rare",
+    "number": "12",
+    "image": "/assets/sets/vivid-voltage/cards/12_Shiftry_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-13-nincada",
+    "name": "Nincada",
+    "rarity": "Common",
+    "number": "13",
+    "image": "/assets/sets/vivid-voltage/cards/13_Nincada_Common.png"
+  },
+  {
+    "id": "vivid-voltage-14-ninjask",
+    "name": "Ninjask",
+    "rarity": "Rare",
+    "number": "14",
+    "image": "/assets/sets/vivid-voltage/cards/14_Ninjask_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-15-shaymin",
+    "name": "Shaymin",
+    "rarity": "Rare",
+    "number": "15",
+    "image": "/assets/sets/vivid-voltage/cards/15_Shaymin_Rare_Holo.png"
+  },
+  {
+    "id": "vivid-voltage-16-genesect",
+    "name": "Genesect",
+    "rarity": "Rare",
+    "number": "16",
+    "image": "/assets/sets/vivid-voltage/cards/16_Genesect_Rare_Holo.png"
+  },
+  {
+    "id": "vivid-voltage-17-skiddo",
+    "name": "Skiddo",
+    "rarity": "Common",
+    "number": "17",
+    "image": "/assets/sets/vivid-voltage/cards/17_Skiddo_Common.png"
+  },
+  {
+    "id": "vivid-voltage-18-gogoat",
+    "name": "Gogoat",
+    "rarity": "Uncommon",
+    "number": "18",
+    "image": "/assets/sets/vivid-voltage/cards/18_Gogoat_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-19-dhelmise",
+    "name": "Dhelmise",
+    "rarity": "Uncommon",
+    "number": "19",
+    "image": "/assets/sets/vivid-voltage/cards/19_Dhelmise_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-20-orbeetle-v",
+    "name": "Orbeetle V",
+    "rarity": "Double Rare",
+    "number": "20",
+    "image": "/assets/sets/vivid-voltage/cards/20_Orbeetle_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "vivid-voltage-21-orbeetle-vmax",
+    "name": "Orbeetle VMAX",
+    "rarity": "Ultra Rare",
+    "number": "21",
+    "image": "/assets/sets/vivid-voltage/cards/21_Orbeetle_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "vivid-voltage-22-zarude-v",
+    "name": "Zarude V",
+    "rarity": "Double Rare",
+    "number": "22",
+    "image": "/assets/sets/vivid-voltage/cards/22_Zarude_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "vivid-voltage-23-charmander",
+    "name": "Charmander",
+    "rarity": "Common",
+    "number": "23",
+    "image": "/assets/sets/vivid-voltage/cards/23_Charmander_Common.png"
+  },
+  {
+    "id": "vivid-voltage-24-charmeleon",
+    "name": "Charmeleon",
+    "rarity": "Uncommon",
+    "number": "24",
+    "image": "/assets/sets/vivid-voltage/cards/24_Charmeleon_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-25-charizard",
+    "name": "Charizard",
+    "rarity": "Rare",
+    "number": "25",
+    "image": "/assets/sets/vivid-voltage/cards/25_Charizard_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-26-flareon",
+    "name": "Flareon",
+    "rarity": "Rare",
+    "number": "26",
+    "image": "/assets/sets/vivid-voltage/cards/26_Flareon_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-27-slugma",
+    "name": "Slugma",
+    "rarity": "Common",
+    "number": "27",
+    "image": "/assets/sets/vivid-voltage/cards/27_Slugma_Common.png"
+  },
+  {
+    "id": "vivid-voltage-28-magcargo",
+    "name": "Magcargo",
+    "rarity": "Uncommon",
+    "number": "28",
+    "image": "/assets/sets/vivid-voltage/cards/28_Magcargo_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-29-talonflame-v",
+    "name": "Talonflame V",
+    "rarity": "Double Rare",
+    "number": "29",
+    "image": "/assets/sets/vivid-voltage/cards/29_Talonflame_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "vivid-voltage-30-vaporeon",
+    "name": "Vaporeon",
+    "rarity": "Rare",
+    "number": "30",
+    "image": "/assets/sets/vivid-voltage/cards/30_Vaporeon_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-31-wailmer",
+    "name": "Wailmer",
+    "rarity": "Common",
+    "number": "31",
+    "image": "/assets/sets/vivid-voltage/cards/31_Wailmer_Common.png"
+  },
+  {
+    "id": "vivid-voltage-32-wailord",
+    "name": "Wailord",
+    "rarity": "Rare",
+    "number": "32",
+    "image": "/assets/sets/vivid-voltage/cards/32_Wailord_Rare_Holo.png"
+  },
+  {
+    "id": "vivid-voltage-33-oshawott",
+    "name": "Oshawott",
+    "rarity": "Common",
+    "number": "33",
+    "image": "/assets/sets/vivid-voltage/cards/33_Oshawott_Common.png"
+  },
+  {
+    "id": "vivid-voltage-34-dewott",
+    "name": "Dewott",
+    "rarity": "Uncommon",
+    "number": "34",
+    "image": "/assets/sets/vivid-voltage/cards/34_Dewott_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-35-samurott",
+    "name": "Samurott",
+    "rarity": "Rare",
+    "number": "35",
+    "image": "/assets/sets/vivid-voltage/cards/35_Samurott_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-36-galarian-darmanitan-v",
+    "name": "Galarian Darmanitan V",
+    "rarity": "Double Rare",
+    "number": "36",
+    "image": "/assets/sets/vivid-voltage/cards/36_Galarian_Darmanitan_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "vivid-voltage-37-galarian-darmanitan-vmax",
+    "name": "Galarian Darmanitan VMAX",
+    "rarity": "Ultra Rare",
+    "number": "37",
+    "image": "/assets/sets/vivid-voltage/cards/37_Galarian_Darmanitan_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "vivid-voltage-38-chewtle",
+    "name": "Chewtle",
+    "rarity": "Common",
+    "number": "38",
+    "image": "/assets/sets/vivid-voltage/cards/38_Chewtle_Common.png"
+  },
+  {
+    "id": "vivid-voltage-39-drednaw",
+    "name": "Drednaw",
+    "rarity": "Rare",
+    "number": "39",
+    "image": "/assets/sets/vivid-voltage/cards/39_Drednaw_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-40-cramorant",
+    "name": "Cramorant",
+    "rarity": "Uncommon",
+    "number": "40",
+    "image": "/assets/sets/vivid-voltage/cards/40_Cramorant_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-41-arrokuda",
+    "name": "Arrokuda",
+    "rarity": "Common",
+    "number": "41",
+    "image": "/assets/sets/vivid-voltage/cards/41_Arrokuda_Common.png"
+  },
+  {
+    "id": "vivid-voltage-42-barraskewda",
+    "name": "Barraskewda",
+    "rarity": "Rare",
+    "number": "42",
+    "image": "/assets/sets/vivid-voltage/cards/42_Barraskewda_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-43-pikachu-v",
+    "name": "Pikachu V",
+    "rarity": "Double Rare",
+    "number": "43",
+    "image": "/assets/sets/vivid-voltage/cards/43_Pikachu_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "vivid-voltage-44-pikachu-vmax",
+    "name": "Pikachu VMAX",
+    "rarity": "Ultra Rare",
+    "number": "44",
+    "image": "/assets/sets/vivid-voltage/cards/44_Pikachu_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "vivid-voltage-45-voltorb",
+    "name": "Voltorb",
+    "rarity": "Common",
+    "number": "45",
+    "image": "/assets/sets/vivid-voltage/cards/45_Voltorb_Common.png"
+  },
+  {
+    "id": "vivid-voltage-46-electrode",
+    "name": "Electrode",
+    "rarity": "Rare",
+    "number": "46",
+    "image": "/assets/sets/vivid-voltage/cards/46_Electrode_Rare_Holo.png"
+  },
+  {
+    "id": "vivid-voltage-47-jolteon",
+    "name": "Jolteon",
+    "rarity": "Rare",
+    "number": "47",
+    "image": "/assets/sets/vivid-voltage/cards/47_Jolteon_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-48-zapdos",
+    "name": "Zapdos",
+    "rarity": "Rare",
+    "number": "48",
+    "image": "/assets/sets/vivid-voltage/cards/48_Zapdos_Rare_Holo.png"
+  },
+  {
+    "id": "vivid-voltage-49-ampharos-v",
+    "name": "Ampharos V",
+    "rarity": "Double Rare",
+    "number": "49",
+    "image": "/assets/sets/vivid-voltage/cards/49_Ampharos_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "vivid-voltage-50-raikou-amazing",
+    "name": "Raikou Amazing",
+    "rarity": "Rare",
+    "number": "50",
+    "image": "/assets/sets/vivid-voltage/cards/50_Raikou_Amazing_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-51-electrike",
+    "name": "Electrike",
+    "rarity": "Common",
+    "number": "51",
+    "image": "/assets/sets/vivid-voltage/cards/51_Electrike_Common.png"
+  },
+  {
+    "id": "vivid-voltage-52-manectric",
+    "name": "Manectric",
+    "rarity": "Rare",
+    "number": "52",
+    "image": "/assets/sets/vivid-voltage/cards/52_Manectric_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-53-blitzle",
+    "name": "Blitzle",
+    "rarity": "Common",
+    "number": "53",
+    "image": "/assets/sets/vivid-voltage/cards/53_Blitzle_Common.png"
+  },
+  {
+    "id": "vivid-voltage-54-zebstrika",
+    "name": "Zebstrika",
+    "rarity": "Uncommon",
+    "number": "54",
+    "image": "/assets/sets/vivid-voltage/cards/54_Zebstrika_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-55-joltik",
+    "name": "Joltik",
+    "rarity": "Common",
+    "number": "55",
+    "image": "/assets/sets/vivid-voltage/cards/55_Joltik_Common.png"
+  },
+  {
+    "id": "vivid-voltage-56-galvantula",
+    "name": "Galvantula",
+    "rarity": "Uncommon",
+    "number": "56",
+    "image": "/assets/sets/vivid-voltage/cards/56_Galvantula_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-57-tynamo",
+    "name": "Tynamo",
+    "rarity": "Common",
+    "number": "57",
+    "image": "/assets/sets/vivid-voltage/cards/57_Tynamo_Common.png"
+  },
+  {
+    "id": "vivid-voltage-58-eelektrik",
+    "name": "Eelektrik",
+    "rarity": "Uncommon",
+    "number": "58",
+    "image": "/assets/sets/vivid-voltage/cards/58_Eelektrik_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-59-eelektross",
+    "name": "Eelektross",
+    "rarity": "Rare",
+    "number": "59",
+    "image": "/assets/sets/vivid-voltage/cards/59_Eelektross_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-60-zekrom",
+    "name": "Zekrom",
+    "rarity": "Rare",
+    "number": "60",
+    "image": "/assets/sets/vivid-voltage/cards/60_Zekrom_Rare_Holo.png"
+  },
+  {
+    "id": "vivid-voltage-61-zeraora",
+    "name": "Zeraora",
+    "rarity": "Rare",
+    "number": "61",
+    "image": "/assets/sets/vivid-voltage/cards/61_Zeraora_Rare_Holo.png"
+  },
+  {
+    "id": "vivid-voltage-62-pincurchin",
+    "name": "Pincurchin",
+    "rarity": "Uncommon",
+    "number": "62",
+    "image": "/assets/sets/vivid-voltage/cards/62_Pincurchin_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-63-clefairy",
+    "name": "Clefairy",
+    "rarity": "Common",
+    "number": "63",
+    "image": "/assets/sets/vivid-voltage/cards/63_Clefairy_Common.png"
+  },
+  {
+    "id": "vivid-voltage-64-clefable",
+    "name": "Clefable",
+    "rarity": "Rare",
+    "number": "64",
+    "image": "/assets/sets/vivid-voltage/cards/64_Clefable_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-65-girafarig",
+    "name": "Girafarig",
+    "rarity": "Uncommon",
+    "number": "65",
+    "image": "/assets/sets/vivid-voltage/cards/65_Girafarig_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-66-shedinja",
+    "name": "Shedinja",
+    "rarity": "Rare",
+    "number": "66",
+    "image": "/assets/sets/vivid-voltage/cards/66_Shedinja_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-67-shuppet",
+    "name": "Shuppet",
+    "rarity": "Common",
+    "number": "67",
+    "image": "/assets/sets/vivid-voltage/cards/67_Shuppet_Common.png"
+  },
+  {
+    "id": "vivid-voltage-68-banette",
+    "name": "Banette",
+    "rarity": "Rare",
+    "number": "68",
+    "image": "/assets/sets/vivid-voltage/cards/68_Banette_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-69-duskull",
+    "name": "Duskull",
+    "rarity": "Common",
+    "number": "69",
+    "image": "/assets/sets/vivid-voltage/cards/69_Duskull_Common.png"
+  },
+  {
+    "id": "vivid-voltage-70-dusclops",
+    "name": "Dusclops",
+    "rarity": "Uncommon",
+    "number": "70",
+    "image": "/assets/sets/vivid-voltage/cards/70_Dusclops_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-71-dusknoir",
+    "name": "Dusknoir",
+    "rarity": "Rare",
+    "number": "71",
+    "image": "/assets/sets/vivid-voltage/cards/71_Dusknoir_Rare_Holo.png"
+  },
+  {
+    "id": "vivid-voltage-72-chimecho",
+    "name": "Chimecho",
+    "rarity": "Common",
+    "number": "72",
+    "image": "/assets/sets/vivid-voltage/cards/72_Chimecho_Common.png"
+  },
+  {
+    "id": "vivid-voltage-73-woobat",
+    "name": "Woobat",
+    "rarity": "Common",
+    "number": "73",
+    "image": "/assets/sets/vivid-voltage/cards/73_Woobat_Common.png"
+  },
+  {
+    "id": "vivid-voltage-74-swoobat",
+    "name": "Swoobat",
+    "rarity": "Uncommon",
+    "number": "74",
+    "image": "/assets/sets/vivid-voltage/cards/74_Swoobat_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-75-cottonee",
+    "name": "Cottonee",
+    "rarity": "Common",
+    "number": "75",
+    "image": "/assets/sets/vivid-voltage/cards/75_Cottonee_Common.png"
+  },
+  {
+    "id": "vivid-voltage-76-whimsicott",
+    "name": "Whimsicott",
+    "rarity": "Rare",
+    "number": "76",
+    "image": "/assets/sets/vivid-voltage/cards/76_Whimsicott_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-77-dedenne",
+    "name": "Dedenne",
+    "rarity": "Common",
+    "number": "77",
+    "image": "/assets/sets/vivid-voltage/cards/77_Dedenne_Common.png"
+  },
+  {
+    "id": "vivid-voltage-78-xerneas",
+    "name": "Xerneas",
+    "rarity": "Rare",
+    "number": "78",
+    "image": "/assets/sets/vivid-voltage/cards/78_Xerneas_Rare_Holo.png"
+  },
+  {
+    "id": "vivid-voltage-79-diancie",
+    "name": "Diancie",
+    "rarity": "Rare",
+    "number": "79",
+    "image": "/assets/sets/vivid-voltage/cards/79_Diancie_Rare_Holo.png"
+  },
+  {
+    "id": "vivid-voltage-80-milcery",
+    "name": "Milcery",
+    "rarity": "Common",
+    "number": "80",
+    "image": "/assets/sets/vivid-voltage/cards/80_Milcery_Common.png"
+  },
+  {
+    "id": "vivid-voltage-81-alcremie",
+    "name": "Alcremie",
+    "rarity": "Rare",
+    "number": "81",
+    "image": "/assets/sets/vivid-voltage/cards/81_Alcremie_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-82-zacian-amazing",
+    "name": "Zacian Amazing",
+    "rarity": "Rare",
+    "number": "82",
+    "image": "/assets/sets/vivid-voltage/cards/82_Zacian_Amazing_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-83-wooper",
+    "name": "Wooper",
+    "rarity": "Common",
+    "number": "83",
+    "image": "/assets/sets/vivid-voltage/cards/83_Wooper_Common.png"
+  },
+  {
+    "id": "vivid-voltage-84-quagsire",
+    "name": "Quagsire",
+    "rarity": "Rare",
+    "number": "84",
+    "image": "/assets/sets/vivid-voltage/cards/84_Quagsire_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-85-shuckle",
+    "name": "Shuckle",
+    "rarity": "Uncommon",
+    "number": "85",
+    "image": "/assets/sets/vivid-voltage/cards/85_Shuckle_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-86-phanpy",
+    "name": "Phanpy",
+    "rarity": "Common",
+    "number": "86",
+    "image": "/assets/sets/vivid-voltage/cards/86_Phanpy_Common.png"
+  },
+  {
+    "id": "vivid-voltage-87-donphan",
+    "name": "Donphan",
+    "rarity": "Rare",
+    "number": "87",
+    "image": "/assets/sets/vivid-voltage/cards/87_Donphan_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-88-hitmontop",
+    "name": "Hitmontop",
+    "rarity": "Uncommon",
+    "number": "88",
+    "image": "/assets/sets/vivid-voltage/cards/88_Hitmontop_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-89-regirock",
+    "name": "Regirock",
+    "rarity": "Rare",
+    "number": "89",
+    "image": "/assets/sets/vivid-voltage/cards/89_Regirock_Rare_Holo.png"
+  },
+  {
+    "id": "vivid-voltage-90-riolu",
+    "name": "Riolu",
+    "rarity": "Common",
+    "number": "90",
+    "image": "/assets/sets/vivid-voltage/cards/90_Riolu_Common.png"
+  },
+  {
+    "id": "vivid-voltage-91-drilbur",
+    "name": "Drilbur",
+    "rarity": "Common",
+    "number": "91",
+    "image": "/assets/sets/vivid-voltage/cards/91_Drilbur_Common.png"
+  },
+  {
+    "id": "vivid-voltage-92-terrakion",
+    "name": "Terrakion",
+    "rarity": "Rare",
+    "number": "92",
+    "image": "/assets/sets/vivid-voltage/cards/92_Terrakion_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-93-zygarde",
+    "name": "Zygarde",
+    "rarity": "Rare",
+    "number": "93",
+    "image": "/assets/sets/vivid-voltage/cards/93_Zygarde_Rare_Holo.png"
+  },
+  {
+    "id": "vivid-voltage-94-rockruff",
+    "name": "Rockruff",
+    "rarity": "Common",
+    "number": "94",
+    "image": "/assets/sets/vivid-voltage/cards/94_Rockruff_Common.png"
+  },
+  {
+    "id": "vivid-voltage-95-lycanroc",
+    "name": "Lycanroc",
+    "rarity": "Rare",
+    "number": "95",
+    "image": "/assets/sets/vivid-voltage/cards/95_Lycanroc_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-96-mudbray",
+    "name": "Mudbray",
+    "rarity": "Common",
+    "number": "96",
+    "image": "/assets/sets/vivid-voltage/cards/96_Mudbray_Common.png"
+  },
+  {
+    "id": "vivid-voltage-97-mudsdale",
+    "name": "Mudsdale",
+    "rarity": "Rare",
+    "number": "97",
+    "image": "/assets/sets/vivid-voltage/cards/97_Mudsdale_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-98-coalossal-v",
+    "name": "Coalossal V",
+    "rarity": "Double Rare",
+    "number": "98",
+    "image": "/assets/sets/vivid-voltage/cards/98_Coalossal_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "vivid-voltage-99-coalossal-vmax",
+    "name": "Coalossal VMAX",
+    "rarity": "Ultra Rare",
+    "number": "99",
+    "image": "/assets/sets/vivid-voltage/cards/99_Coalossal_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "vivid-voltage-100-clobbopus",
+    "name": "Clobbopus",
+    "rarity": "Common",
+    "number": "100",
+    "image": "/assets/sets/vivid-voltage/cards/100_Clobbopus_Common.png"
+  },
+  {
+    "id": "vivid-voltage-101-grapploct",
+    "name": "Grapploct",
+    "rarity": "Rare",
+    "number": "101",
+    "image": "/assets/sets/vivid-voltage/cards/101_Grapploct_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-102-zamazenta-amazing",
+    "name": "Zamazenta Amazing",
+    "rarity": "Rare",
+    "number": "102",
+    "image": "/assets/sets/vivid-voltage/cards/102_Zamazenta_Amazing_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-103-poochyena",
+    "name": "Poochyena",
+    "rarity": "Common",
+    "number": "103",
+    "image": "/assets/sets/vivid-voltage/cards/103_Poochyena_Common.png"
+  },
+  {
+    "id": "vivid-voltage-104-mightyena",
+    "name": "Mightyena",
+    "rarity": "Uncommon",
+    "number": "104",
+    "image": "/assets/sets/vivid-voltage/cards/104_Mightyena_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-105-sableye",
+    "name": "Sableye",
+    "rarity": "Uncommon",
+    "number": "105",
+    "image": "/assets/sets/vivid-voltage/cards/105_Sableye_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-106-drapion-v",
+    "name": "Drapion V",
+    "rarity": "Double Rare",
+    "number": "106",
+    "image": "/assets/sets/vivid-voltage/cards/106_Drapion_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "vivid-voltage-107-sandile",
+    "name": "Sandile",
+    "rarity": "Common",
+    "number": "107",
+    "image": "/assets/sets/vivid-voltage/cards/107_Sandile_Common.png"
+  },
+  {
+    "id": "vivid-voltage-108-krokorok",
+    "name": "Krokorok",
+    "rarity": "Uncommon",
+    "number": "108",
+    "image": "/assets/sets/vivid-voltage/cards/108_Krokorok_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-109-krookodile",
+    "name": "Krookodile",
+    "rarity": "Rare",
+    "number": "109",
+    "image": "/assets/sets/vivid-voltage/cards/109_Krookodile_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-110-trubbish",
+    "name": "Trubbish",
+    "rarity": "Common",
+    "number": "110",
+    "image": "/assets/sets/vivid-voltage/cards/110_Trubbish_Common.png"
+  },
+  {
+    "id": "vivid-voltage-111-garbodor",
+    "name": "Garbodor",
+    "rarity": "Rare",
+    "number": "111",
+    "image": "/assets/sets/vivid-voltage/cards/111_Garbodor_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-112-galarian-meowth",
+    "name": "Galarian Meowth",
+    "rarity": "Common",
+    "number": "112",
+    "image": "/assets/sets/vivid-voltage/cards/112_Galarian_Meowth_Common.png"
+  },
+  {
+    "id": "vivid-voltage-113-galarian-perrserker",
+    "name": "Galarian Perrserker",
+    "rarity": "Rare",
+    "number": "113",
+    "image": "/assets/sets/vivid-voltage/cards/113_Galarian_Perrserker_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-114-forretress",
+    "name": "Forretress",
+    "rarity": "Rare",
+    "number": "114",
+    "image": "/assets/sets/vivid-voltage/cards/114_Forretress_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-115-steelix-v",
+    "name": "Steelix V",
+    "rarity": "Double Rare",
+    "number": "115",
+    "image": "/assets/sets/vivid-voltage/cards/115_Steelix_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "vivid-voltage-116-beldum",
+    "name": "Beldum",
+    "rarity": "Common",
+    "number": "116",
+    "image": "/assets/sets/vivid-voltage/cards/116_Beldum_Common.png"
+  },
+  {
+    "id": "vivid-voltage-117-metang",
+    "name": "Metang",
+    "rarity": "Uncommon",
+    "number": "117",
+    "image": "/assets/sets/vivid-voltage/cards/117_Metang_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-118-metagross",
+    "name": "Metagross",
+    "rarity": "Rare",
+    "number": "118",
+    "image": "/assets/sets/vivid-voltage/cards/118_Metagross_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-119-jirachi-amazing",
+    "name": "Jirachi Amazing",
+    "rarity": "Rare",
+    "number": "119",
+    "image": "/assets/sets/vivid-voltage/cards/119_Jirachi_Amazing_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-120-lucario",
+    "name": "Lucario",
+    "rarity": "Rare",
+    "number": "120",
+    "image": "/assets/sets/vivid-voltage/cards/120_Lucario_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-121-dialga",
+    "name": "Dialga",
+    "rarity": "Rare",
+    "number": "121",
+    "image": "/assets/sets/vivid-voltage/cards/121_Dialga_Rare_Holo.png"
+  },
+  {
+    "id": "vivid-voltage-122-excadrill",
+    "name": "Excadrill",
+    "rarity": "Uncommon",
+    "number": "122",
+    "image": "/assets/sets/vivid-voltage/cards/122_Excadrill_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-123-ferroseed",
+    "name": "Ferroseed",
+    "rarity": "Common",
+    "number": "123",
+    "image": "/assets/sets/vivid-voltage/cards/123_Ferroseed_Common.png"
+  },
+  {
+    "id": "vivid-voltage-124-ferrothorn",
+    "name": "Ferrothorn",
+    "rarity": "Uncommon",
+    "number": "124",
+    "image": "/assets/sets/vivid-voltage/cards/124_Ferrothorn_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-125-galarian-stunfisk",
+    "name": "Galarian Stunfisk",
+    "rarity": "Uncommon",
+    "number": "125",
+    "image": "/assets/sets/vivid-voltage/cards/125_Galarian_Stunfisk_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-126-aegislash-v",
+    "name": "Aegislash V",
+    "rarity": "Double Rare",
+    "number": "126",
+    "image": "/assets/sets/vivid-voltage/cards/126_Aegislash_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "vivid-voltage-127-aegislash-vmax",
+    "name": "Aegislash VMAX",
+    "rarity": "Ultra Rare",
+    "number": "127",
+    "image": "/assets/sets/vivid-voltage/cards/127_Aegislash_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "vivid-voltage-128-magearna",
+    "name": "Magearna",
+    "rarity": "Rare",
+    "number": "128",
+    "image": "/assets/sets/vivid-voltage/cards/128_Magearna_Rare_Holo.png"
+  },
+  {
+    "id": "vivid-voltage-129-duraludon",
+    "name": "Duraludon",
+    "rarity": "Rare",
+    "number": "129",
+    "image": "/assets/sets/vivid-voltage/cards/129_Duraludon_Rare_Holo.png"
+  },
+  {
+    "id": "vivid-voltage-130-eevee",
+    "name": "Eevee",
+    "rarity": "Common",
+    "number": "130",
+    "image": "/assets/sets/vivid-voltage/cards/130_Eevee_Common.png"
+  },
+  {
+    "id": "vivid-voltage-131-snorlax",
+    "name": "Snorlax",
+    "rarity": "Rare",
+    "number": "131",
+    "image": "/assets/sets/vivid-voltage/cards/131_Snorlax_Rare_Holo.png"
+  },
+  {
+    "id": "vivid-voltage-132-lugia",
+    "name": "Lugia",
+    "rarity": "Rare",
+    "number": "132",
+    "image": "/assets/sets/vivid-voltage/cards/132_Lugia_Rare_Holo.png"
+  },
+  {
+    "id": "vivid-voltage-133-taillow",
+    "name": "Taillow",
+    "rarity": "Common",
+    "number": "133",
+    "image": "/assets/sets/vivid-voltage/cards/133_Taillow_Common.png"
+  },
+  {
+    "id": "vivid-voltage-134-swellow",
+    "name": "Swellow",
+    "rarity": "Uncommon",
+    "number": "134",
+    "image": "/assets/sets/vivid-voltage/cards/134_Swellow_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-135-whismur",
+    "name": "Whismur",
+    "rarity": "Common",
+    "number": "135",
+    "image": "/assets/sets/vivid-voltage/cards/135_Whismur_Common.png"
+  },
+  {
+    "id": "vivid-voltage-136-loudred",
+    "name": "Loudred",
+    "rarity": "Uncommon",
+    "number": "136",
+    "image": "/assets/sets/vivid-voltage/cards/136_Loudred_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-137-exploud",
+    "name": "Exploud",
+    "rarity": "Rare",
+    "number": "137",
+    "image": "/assets/sets/vivid-voltage/cards/137_Exploud_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-138-rayquaza-amazing",
+    "name": "Rayquaza Amazing",
+    "rarity": "Rare",
+    "number": "138",
+    "image": "/assets/sets/vivid-voltage/cards/138_Rayquaza_Amazing_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-139-chatot",
+    "name": "Chatot",
+    "rarity": "Common",
+    "number": "139",
+    "image": "/assets/sets/vivid-voltage/cards/139_Chatot_Common.png"
+  },
+  {
+    "id": "vivid-voltage-140-togekiss-v",
+    "name": "Togekiss V",
+    "rarity": "Double Rare",
+    "number": "140",
+    "image": "/assets/sets/vivid-voltage/cards/140_Togekiss_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "vivid-voltage-141-togekiss-vmax",
+    "name": "Togekiss VMAX",
+    "rarity": "Ultra Rare",
+    "number": "141",
+    "image": "/assets/sets/vivid-voltage/cards/141_Togekiss_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "vivid-voltage-142-tornadus",
+    "name": "Tornadus",
+    "rarity": "Rare",
+    "number": "142",
+    "image": "/assets/sets/vivid-voltage/cards/142_Tornadus_Rare_Holo.png"
+  },
+  {
+    "id": "vivid-voltage-143-pikipek",
+    "name": "Pikipek",
+    "rarity": "Common",
+    "number": "143",
+    "image": "/assets/sets/vivid-voltage/cards/143_Pikipek_Common.png"
+  },
+  {
+    "id": "vivid-voltage-144-trumbeak",
+    "name": "Trumbeak",
+    "rarity": "Uncommon",
+    "number": "144",
+    "image": "/assets/sets/vivid-voltage/cards/144_Trumbeak_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-145-toucannon",
+    "name": "Toucannon",
+    "rarity": "Rare",
+    "number": "145",
+    "image": "/assets/sets/vivid-voltage/cards/145_Toucannon_Rare.png"
+  },
+  {
+    "id": "vivid-voltage-146-allister",
+    "name": "Allister",
+    "rarity": "Uncommon",
+    "number": "146",
+    "image": "/assets/sets/vivid-voltage/cards/146_Allister_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-147-bea",
+    "name": "Bea",
+    "rarity": "Uncommon",
+    "number": "147",
+    "image": "/assets/sets/vivid-voltage/cards/147_Bea_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-148-beauty",
+    "name": "Beauty",
+    "rarity": "Uncommon",
+    "number": "148",
+    "image": "/assets/sets/vivid-voltage/cards/148_Beauty_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-149-cara-liss",
+    "name": "Cara Liss",
+    "rarity": "Uncommon",
+    "number": "149",
+    "image": "/assets/sets/vivid-voltage/cards/149_Cara_Liss_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-150-circhester-bath",
+    "name": "Circhester Bath",
+    "rarity": "Uncommon",
+    "number": "150",
+    "image": "/assets/sets/vivid-voltage/cards/150_Circhester_Bath_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-151-drone-rotom",
+    "name": "Drone Rotom",
+    "rarity": "Uncommon",
+    "number": "151",
+    "image": "/assets/sets/vivid-voltage/cards/151_Drone_Rotom_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-152-hero-s-medal",
+    "name": "Hero's Medal",
+    "rarity": "Uncommon",
+    "number": "152",
+    "image": "/assets/sets/vivid-voltage/cards/152_Hero's_Medal_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-153-league-staff",
+    "name": "League Staff",
+    "rarity": "Uncommon",
+    "number": "153",
+    "image": "/assets/sets/vivid-voltage/cards/153_League_Staff_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-154-leon",
+    "name": "Leon",
+    "rarity": "Rare",
+    "number": "154",
+    "image": "/assets/sets/vivid-voltage/cards/154_Leon_Rare_Holo.png"
+  },
+  {
+    "id": "vivid-voltage-155-memory-capsule",
+    "name": "Memory Capsule",
+    "rarity": "Uncommon",
+    "number": "155",
+    "image": "/assets/sets/vivid-voltage/cards/155_Memory_Capsule_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-156-moomoo-cheese",
+    "name": "Moomoo Cheese",
+    "rarity": "Uncommon",
+    "number": "156",
+    "image": "/assets/sets/vivid-voltage/cards/156_Moomoo_Cheese_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-157-nessa",
+    "name": "Nessa",
+    "rarity": "Uncommon",
+    "number": "157",
+    "image": "/assets/sets/vivid-voltage/cards/157_Nessa_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-158-opal",
+    "name": "Opal",
+    "rarity": "Uncommon",
+    "number": "158",
+    "image": "/assets/sets/vivid-voltage/cards/158_Opal_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-159-rocky-helmet",
+    "name": "Rocky Helmet",
+    "rarity": "Uncommon",
+    "number": "159",
+    "image": "/assets/sets/vivid-voltage/cards/159_Rocky_Helmet_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-160-telescopic-sight",
+    "name": "Telescopic Sight",
+    "rarity": "Uncommon",
+    "number": "160",
+    "image": "/assets/sets/vivid-voltage/cards/160_Telescopic_Sight_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-161-wyndon-stadium",
+    "name": "Wyndon Stadium",
+    "rarity": "Uncommon",
+    "number": "161",
+    "image": "/assets/sets/vivid-voltage/cards/161_Wyndon_Stadium_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-162-aromatic-grass-energy",
+    "name": "Aromatic Grass Energy",
+    "rarity": "Uncommon",
+    "number": "162",
+    "image": "/assets/sets/vivid-voltage/cards/162_Aromatic_Grass_Energy_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-163-coating-metal-energy",
+    "name": "Coating Metal Energy",
+    "rarity": "Uncommon",
+    "number": "163",
+    "image": "/assets/sets/vivid-voltage/cards/163_Coating_Metal_Energy_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-164-stone-fighting-energy",
+    "name": "Stone Fighting Energy",
+    "rarity": "Uncommon",
+    "number": "164",
+    "image": "/assets/sets/vivid-voltage/cards/164_Stone_Fighting_Energy_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-165-wash-water-energy",
+    "name": "Wash Water Energy",
+    "rarity": "Uncommon",
+    "number": "165",
+    "image": "/assets/sets/vivid-voltage/cards/165_Wash_Water_Energy_Uncommon.png"
+  },
+  {
+    "id": "vivid-voltage-166-orbeetle-v",
+    "name": "Orbeetle V",
+    "rarity": "Ultra Rare",
+    "number": "166",
+    "image": "/assets/sets/vivid-voltage/cards/166_Orbeetle_V_Rare_Ultra.png"
+  },
+  {
+    "id": "vivid-voltage-167-zarude-v",
+    "name": "Zarude V",
+    "rarity": "Ultra Rare",
+    "number": "167",
+    "image": "/assets/sets/vivid-voltage/cards/167_Zarude_V_Rare_Ultra.png"
+  },
+  {
+    "id": "vivid-voltage-168-talonflame-v",
+    "name": "Talonflame V",
+    "rarity": "Ultra Rare",
+    "number": "168",
+    "image": "/assets/sets/vivid-voltage/cards/168_Talonflame_V_Rare_Ultra.png"
+  },
+  {
+    "id": "vivid-voltage-169-galarian-darmanitan-v",
+    "name": "Galarian Darmanitan V",
+    "rarity": "Ultra Rare",
+    "number": "169",
+    "image": "/assets/sets/vivid-voltage/cards/169_Galarian_Darmanitan_V_Rare_Ultra.png"
+  },
+  {
+    "id": "vivid-voltage-170-pikachu-v",
+    "name": "Pikachu V",
+    "rarity": "Ultra Rare",
+    "number": "170",
+    "image": "/assets/sets/vivid-voltage/cards/170_Pikachu_V_Rare_Ultra.png"
+  },
+  {
+    "id": "vivid-voltage-171-ampharos-v",
+    "name": "Ampharos V",
+    "rarity": "Ultra Rare",
+    "number": "171",
+    "image": "/assets/sets/vivid-voltage/cards/171_Ampharos_V_Rare_Ultra.png"
+  },
+  {
+    "id": "vivid-voltage-172-alakazam-v",
+    "name": "Alakazam V",
+    "rarity": "Ultra Rare",
+    "number": "172",
+    "image": "/assets/sets/vivid-voltage/cards/172_Alakazam_V_Rare_Ultra.png"
+  },
+  {
+    "id": "vivid-voltage-173-coalossal-v",
+    "name": "Coalossal V",
+    "rarity": "Ultra Rare",
+    "number": "173",
+    "image": "/assets/sets/vivid-voltage/cards/173_Coalossal_V_Rare_Ultra.png"
+  },
+  {
+    "id": "vivid-voltage-174-galarian-sirfetch-d-v",
+    "name": "Galarian Sirfetch'd V",
+    "rarity": "Ultra Rare",
+    "number": "174",
+    "image": "/assets/sets/vivid-voltage/cards/174_Galarian_Sirfetch'd_V_Rare_Ultra.png"
+  },
+  {
+    "id": "vivid-voltage-175-drapion-v",
+    "name": "Drapion V",
+    "rarity": "Ultra Rare",
+    "number": "175",
+    "image": "/assets/sets/vivid-voltage/cards/175_Drapion_V_Rare_Ultra.png"
+  },
+  {
+    "id": "vivid-voltage-176-steelix-v",
+    "name": "Steelix V",
+    "rarity": "Ultra Rare",
+    "number": "176",
+    "image": "/assets/sets/vivid-voltage/cards/176_Steelix_V_Rare_Ultra.png"
+  },
+  {
+    "id": "vivid-voltage-177-aegislash-v",
+    "name": "Aegislash V",
+    "rarity": "Ultra Rare",
+    "number": "177",
+    "image": "/assets/sets/vivid-voltage/cards/177_Aegislash_V_Rare_Ultra.png"
+  },
+  {
+    "id": "vivid-voltage-178-togekiss-v",
+    "name": "Togekiss V",
+    "rarity": "Ultra Rare",
+    "number": "178",
+    "image": "/assets/sets/vivid-voltage/cards/178_Togekiss_V_Rare_Ultra.png"
+  },
+  {
+    "id": "vivid-voltage-179-allister",
+    "name": "Allister",
+    "rarity": "Ultra Rare",
+    "number": "179",
+    "image": "/assets/sets/vivid-voltage/cards/179_Allister_Rare_Ultra.png"
+  },
+  {
+    "id": "vivid-voltage-180-bea",
+    "name": "Bea",
+    "rarity": "Ultra Rare",
+    "number": "180",
+    "image": "/assets/sets/vivid-voltage/cards/180_Bea_Rare_Ultra.png"
+  },
+  {
+    "id": "vivid-voltage-181-beauty",
+    "name": "Beauty",
+    "rarity": "Ultra Rare",
+    "number": "181",
+    "image": "/assets/sets/vivid-voltage/cards/181_Beauty_Rare_Ultra.png"
+  },
+  {
+    "id": "vivid-voltage-182-leon",
+    "name": "Leon",
+    "rarity": "Ultra Rare",
+    "number": "182",
+    "image": "/assets/sets/vivid-voltage/cards/182_Leon_Rare_Ultra.png"
+  },
+  {
+    "id": "vivid-voltage-183-nessa",
+    "name": "Nessa",
+    "rarity": "Ultra Rare",
+    "number": "183",
+    "image": "/assets/sets/vivid-voltage/cards/183_Nessa_Rare_Ultra.png"
+  },
+  {
+    "id": "vivid-voltage-184-opal",
+    "name": "Opal",
+    "rarity": "Ultra Rare",
+    "number": "184",
+    "image": "/assets/sets/vivid-voltage/cards/184_Opal_Rare_Ultra.png"
+  },
+  {
+    "id": "vivid-voltage-185-pok-mon-center-lady",
+    "name": "Pokémon Center Lady",
+    "rarity": "Ultra Rare",
+    "number": "185",
+    "image": "/assets/sets/vivid-voltage/cards/185_Pokémon_Center_Lady_Rare_Ultra.png"
+  },
+  {
+    "id": "vivid-voltage-186-orbeetle-vmax",
+    "name": "Orbeetle VMAX",
+    "rarity": "Secret Rare",
+    "number": "186",
+    "image": "/assets/sets/vivid-voltage/cards/186_Orbeetle_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "vivid-voltage-187-galarian-darmanitan-vmax",
+    "name": "Galarian Darmanitan VMAX",
+    "rarity": "Secret Rare",
+    "number": "187",
+    "image": "/assets/sets/vivid-voltage/cards/187_Galarian_Darmanitan_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "vivid-voltage-188-pikachu-vmax",
+    "name": "Pikachu VMAX",
+    "rarity": "Secret Rare",
+    "number": "188",
+    "image": "/assets/sets/vivid-voltage/cards/188_Pikachu_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "vivid-voltage-189-coalossal-vmax",
+    "name": "Coalossal VMAX",
+    "rarity": "Secret Rare",
+    "number": "189",
+    "image": "/assets/sets/vivid-voltage/cards/189_Coalossal_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "vivid-voltage-190-aegislash-vmax",
+    "name": "Aegislash VMAX",
+    "rarity": "Secret Rare",
+    "number": "190",
+    "image": "/assets/sets/vivid-voltage/cards/190_Aegislash_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "vivid-voltage-191-togekiss-vmax",
+    "name": "Togekiss VMAX",
+    "rarity": "Secret Rare",
+    "number": "191",
+    "image": "/assets/sets/vivid-voltage/cards/191_Togekiss_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "vivid-voltage-192-allister",
+    "name": "Allister",
+    "rarity": "Secret Rare",
+    "number": "192",
+    "image": "/assets/sets/vivid-voltage/cards/192_Allister_Rare_Rainbow.png"
+  },
+  {
+    "id": "vivid-voltage-193-bea",
+    "name": "Bea",
+    "rarity": "Secret Rare",
+    "number": "193",
+    "image": "/assets/sets/vivid-voltage/cards/193_Bea_Rare_Rainbow.png"
+  },
+  {
+    "id": "vivid-voltage-194-beauty",
+    "name": "Beauty",
+    "rarity": "Secret Rare",
+    "number": "194",
+    "image": "/assets/sets/vivid-voltage/cards/194_Beauty_Rare_Rainbow.png"
+  },
+  {
+    "id": "vivid-voltage-195-leon",
+    "name": "Leon",
+    "rarity": "Secret Rare",
+    "number": "195",
+    "image": "/assets/sets/vivid-voltage/cards/195_Leon_Rare_Rainbow.png"
+  },
+  {
+    "id": "vivid-voltage-196-nessa",
+    "name": "Nessa",
+    "rarity": "Secret Rare",
+    "number": "196",
+    "image": "/assets/sets/vivid-voltage/cards/196_Nessa_Rare_Rainbow.png"
+  },
+  {
+    "id": "vivid-voltage-197-opal",
+    "name": "Opal",
+    "rarity": "Secret Rare",
+    "number": "197",
+    "image": "/assets/sets/vivid-voltage/cards/197_Opal_Rare_Rainbow.png"
+  },
+  {
+    "id": "vivid-voltage-198-galarian-obstagoon",
+    "name": "Galarian Obstagoon",
+    "rarity": "Secret Rare",
+    "number": "198",
+    "image": "/assets/sets/vivid-voltage/cards/198_Galarian_Obstagoon_Rare_Secret.png"
+  },
+  {
+    "id": "vivid-voltage-199-oranguru",
+    "name": "Oranguru",
+    "rarity": "Secret Rare",
+    "number": "199",
+    "image": "/assets/sets/vivid-voltage/cards/199_Oranguru_Rare_Secret.png"
+  },
+  {
+    "id": "vivid-voltage-200-cape-of-toughness",
+    "name": "Cape of Toughness",
+    "rarity": "Secret Rare",
+    "number": "200",
+    "image": "/assets/sets/vivid-voltage/cards/200_Cape_of_Toughness_Rare_Secret.png"
+  },
+  {
+    "id": "vivid-voltage-201-hero-s-medal",
+    "name": "Hero's Medal",
+    "rarity": "Secret Rare",
+    "number": "201",
+    "image": "/assets/sets/vivid-voltage/cards/201_Hero's_Medal_Rare_Secret.png"
+  },
+  {
+    "id": "vivid-voltage-202-memory-capsule",
+    "name": "Memory Capsule",
+    "rarity": "Secret Rare",
+    "number": "202",
+    "image": "/assets/sets/vivid-voltage/cards/202_Memory_Capsule_Rare_Secret.png"
+  },
+  {
+    "id": "vivid-voltage-203-telescopic-sight",
+    "name": "Telescopic Sight",
+    "rarity": "Secret Rare",
+    "number": "203",
+    "image": "/assets/sets/vivid-voltage/cards/203_Telescopic_Sight_Rare_Secret.png"
+  }
+]

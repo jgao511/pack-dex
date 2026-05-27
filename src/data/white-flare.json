@@ -1,0 +1,1213 @@
+[
+  {
+    "id": "white-flare-1-sewaddle",
+    "name": "Sewaddle",
+    "rarity": "Common",
+    "number": "1",
+    "image": "/assets/sets/white-flare/cards/1_Sewaddle_Common.png"
+  },
+  {
+    "id": "white-flare-2-swadloon",
+    "name": "Swadloon",
+    "rarity": "Common",
+    "number": "2",
+    "image": "/assets/sets/white-flare/cards/2_Swadloon_Common.png"
+  },
+  {
+    "id": "white-flare-3-leavanny",
+    "name": "Leavanny",
+    "rarity": "Uncommon",
+    "number": "3",
+    "image": "/assets/sets/white-flare/cards/3_Leavanny_Uncommon.png"
+  },
+  {
+    "id": "white-flare-4-cottonee",
+    "name": "Cottonee",
+    "rarity": "Common",
+    "number": "4",
+    "image": "/assets/sets/white-flare/cards/4_Cottonee_Common.png"
+  },
+  {
+    "id": "white-flare-5-whimsicott-ex",
+    "name": "Whimsicott ex",
+    "rarity": "Double Rare",
+    "number": "5",
+    "image": "/assets/sets/white-flare/cards/5_Whimsicott_ex_Double_Rare.png"
+  },
+  {
+    "id": "white-flare-6-deerling",
+    "name": "Deerling",
+    "rarity": "Common",
+    "number": "6",
+    "image": "/assets/sets/white-flare/cards/6_Deerling_Common.png"
+  },
+  {
+    "id": "white-flare-7-sawsbuck",
+    "name": "Sawsbuck",
+    "rarity": "Uncommon",
+    "number": "7",
+    "image": "/assets/sets/white-flare/cards/7_Sawsbuck_Uncommon.png"
+  },
+  {
+    "id": "white-flare-8-shelmet",
+    "name": "Shelmet",
+    "rarity": "Common",
+    "number": "8",
+    "image": "/assets/sets/white-flare/cards/8_Shelmet_Common.png"
+  },
+  {
+    "id": "white-flare-9-accelgor",
+    "name": "Accelgor",
+    "rarity": "Uncommon",
+    "number": "9",
+    "image": "/assets/sets/white-flare/cards/9_Accelgor_Uncommon.png"
+  },
+  {
+    "id": "white-flare-10-virizion",
+    "name": "Virizion",
+    "rarity": "Rare",
+    "number": "10",
+    "image": "/assets/sets/white-flare/cards/10_Virizion_Rare.png"
+  },
+  {
+    "id": "white-flare-11-tepig",
+    "name": "Tepig",
+    "rarity": "Common",
+    "number": "11",
+    "image": "/assets/sets/white-flare/cards/11_Tepig_Common.png"
+  },
+  {
+    "id": "white-flare-12-pignite",
+    "name": "Pignite",
+    "rarity": "Common",
+    "number": "12",
+    "image": "/assets/sets/white-flare/cards/12_Pignite_Common.png"
+  },
+  {
+    "id": "white-flare-13-emboar",
+    "name": "Emboar",
+    "rarity": "Rare",
+    "number": "13",
+    "image": "/assets/sets/white-flare/cards/13_Emboar_Rare.png"
+  },
+  {
+    "id": "white-flare-14-pansear",
+    "name": "Pansear",
+    "rarity": "Common",
+    "number": "14",
+    "image": "/assets/sets/white-flare/cards/14_Pansear_Common.png"
+  },
+  {
+    "id": "white-flare-15-simisear",
+    "name": "Simisear",
+    "rarity": "Uncommon",
+    "number": "15",
+    "image": "/assets/sets/white-flare/cards/15_Simisear_Uncommon.png"
+  },
+  {
+    "id": "white-flare-16-litwick",
+    "name": "Litwick",
+    "rarity": "Common",
+    "number": "16",
+    "image": "/assets/sets/white-flare/cards/16_Litwick_Common.png"
+  },
+  {
+    "id": "white-flare-17-lampent",
+    "name": "Lampent",
+    "rarity": "Common",
+    "number": "17",
+    "image": "/assets/sets/white-flare/cards/17_Lampent_Common.png"
+  },
+  {
+    "id": "white-flare-18-chandelure",
+    "name": "Chandelure",
+    "rarity": "Rare",
+    "number": "18",
+    "image": "/assets/sets/white-flare/cards/18_Chandelure_Rare.png"
+  },
+  {
+    "id": "white-flare-19-heatmor",
+    "name": "Heatmor",
+    "rarity": "Uncommon",
+    "number": "19",
+    "image": "/assets/sets/white-flare/cards/19_Heatmor_Uncommon.png"
+  },
+  {
+    "id": "white-flare-20-reshiram-ex",
+    "name": "Reshiram ex",
+    "rarity": "Double Rare",
+    "number": "20",
+    "image": "/assets/sets/white-flare/cards/20_Reshiram_ex_Double_Rare.png"
+  },
+  {
+    "id": "white-flare-21-oshawott",
+    "name": "Oshawott",
+    "rarity": "Common",
+    "number": "21",
+    "image": "/assets/sets/white-flare/cards/21_Oshawott_Common.png"
+  },
+  {
+    "id": "white-flare-22-dewott",
+    "name": "Dewott",
+    "rarity": "Common",
+    "number": "22",
+    "image": "/assets/sets/white-flare/cards/22_Dewott_Common.png"
+  },
+  {
+    "id": "white-flare-23-samurott",
+    "name": "Samurott",
+    "rarity": "Rare",
+    "number": "23",
+    "image": "/assets/sets/white-flare/cards/23_Samurott_Rare.png"
+  },
+  {
+    "id": "white-flare-24-basculin",
+    "name": "Basculin",
+    "rarity": "Common",
+    "number": "24",
+    "image": "/assets/sets/white-flare/cards/24_Basculin_Common.png"
+  },
+  {
+    "id": "white-flare-25-ducklett",
+    "name": "Ducklett",
+    "rarity": "Common",
+    "number": "25",
+    "image": "/assets/sets/white-flare/cards/25_Ducklett_Common.png"
+  },
+  {
+    "id": "white-flare-26-swanna",
+    "name": "Swanna",
+    "rarity": "Uncommon",
+    "number": "26",
+    "image": "/assets/sets/white-flare/cards/26_Swanna_Uncommon.png"
+  },
+  {
+    "id": "white-flare-27-vanillite",
+    "name": "Vanillite",
+    "rarity": "Common",
+    "number": "27",
+    "image": "/assets/sets/white-flare/cards/27_Vanillite_Common.png"
+  },
+  {
+    "id": "white-flare-28-vanillish",
+    "name": "Vanillish",
+    "rarity": "Common",
+    "number": "28",
+    "image": "/assets/sets/white-flare/cards/28_Vanillish_Common.png"
+  },
+  {
+    "id": "white-flare-29-vanilluxe",
+    "name": "Vanilluxe",
+    "rarity": "Uncommon",
+    "number": "29",
+    "image": "/assets/sets/white-flare/cards/29_Vanilluxe_Uncommon.png"
+  },
+  {
+    "id": "white-flare-30-keldeo-ex",
+    "name": "Keldeo ex",
+    "rarity": "Double Rare",
+    "number": "30",
+    "image": "/assets/sets/white-flare/cards/30_Keldeo_ex_Double_Rare.png"
+  },
+  {
+    "id": "white-flare-31-blitzle",
+    "name": "Blitzle",
+    "rarity": "Common",
+    "number": "31",
+    "image": "/assets/sets/white-flare/cards/31_Blitzle_Common.png"
+  },
+  {
+    "id": "white-flare-32-zebstrika",
+    "name": "Zebstrika",
+    "rarity": "Uncommon",
+    "number": "32",
+    "image": "/assets/sets/white-flare/cards/32_Zebstrika_Uncommon.png"
+  },
+  {
+    "id": "white-flare-33-joltik",
+    "name": "Joltik",
+    "rarity": "Common",
+    "number": "33",
+    "image": "/assets/sets/white-flare/cards/33_Joltik_Common.png"
+  },
+  {
+    "id": "white-flare-34-galvantula",
+    "name": "Galvantula",
+    "rarity": "Uncommon",
+    "number": "34",
+    "image": "/assets/sets/white-flare/cards/34_Galvantula_Uncommon.png"
+  },
+  {
+    "id": "white-flare-35-stunfisk",
+    "name": "Stunfisk",
+    "rarity": "Uncommon",
+    "number": "35",
+    "image": "/assets/sets/white-flare/cards/35_Stunfisk_Uncommon.png"
+  },
+  {
+    "id": "white-flare-36-woobat",
+    "name": "Woobat",
+    "rarity": "Common",
+    "number": "36",
+    "image": "/assets/sets/white-flare/cards/36_Woobat_Common.png"
+  },
+  {
+    "id": "white-flare-37-swoobat",
+    "name": "Swoobat",
+    "rarity": "Uncommon",
+    "number": "37",
+    "image": "/assets/sets/white-flare/cards/37_Swoobat_Uncommon.png"
+  },
+  {
+    "id": "white-flare-38-sigilyph",
+    "name": "Sigilyph",
+    "rarity": "Uncommon",
+    "number": "38",
+    "image": "/assets/sets/white-flare/cards/38_Sigilyph_Uncommon.png"
+  },
+  {
+    "id": "white-flare-39-yamask",
+    "name": "Yamask",
+    "rarity": "Common",
+    "number": "39",
+    "image": "/assets/sets/white-flare/cards/39_Yamask_Common.png"
+  },
+  {
+    "id": "white-flare-40-cofagrigus",
+    "name": "Cofagrigus",
+    "rarity": "Rare",
+    "number": "40",
+    "image": "/assets/sets/white-flare/cards/40_Cofagrigus_Rare.png"
+  },
+  {
+    "id": "white-flare-41-gothita",
+    "name": "Gothita",
+    "rarity": "Common",
+    "number": "41",
+    "image": "/assets/sets/white-flare/cards/41_Gothita_Common.png"
+  },
+  {
+    "id": "white-flare-42-gothorita",
+    "name": "Gothorita",
+    "rarity": "Common",
+    "number": "42",
+    "image": "/assets/sets/white-flare/cards/42_Gothorita_Common.png"
+  },
+  {
+    "id": "white-flare-43-gothitelle",
+    "name": "Gothitelle",
+    "rarity": "Rare",
+    "number": "43",
+    "image": "/assets/sets/white-flare/cards/43_Gothitelle_Rare.png"
+  },
+  {
+    "id": "white-flare-44-frillish",
+    "name": "Frillish",
+    "rarity": "Common",
+    "number": "44",
+    "image": "/assets/sets/white-flare/cards/44_Frillish_Common.png"
+  },
+  {
+    "id": "white-flare-45-jellicent-ex",
+    "name": "Jellicent ex",
+    "rarity": "Double Rare",
+    "number": "45",
+    "image": "/assets/sets/white-flare/cards/45_Jellicent_ex_Double_Rare.png"
+  },
+  {
+    "id": "white-flare-46-roggenrola",
+    "name": "Roggenrola",
+    "rarity": "Common",
+    "number": "46",
+    "image": "/assets/sets/white-flare/cards/46_Roggenrola_Common.png"
+  },
+  {
+    "id": "white-flare-47-boldore",
+    "name": "Boldore",
+    "rarity": "Common",
+    "number": "47",
+    "image": "/assets/sets/white-flare/cards/47_Boldore_Common.png"
+  },
+  {
+    "id": "white-flare-48-gigalith",
+    "name": "Gigalith",
+    "rarity": "Uncommon",
+    "number": "48",
+    "image": "/assets/sets/white-flare/cards/48_Gigalith_Uncommon.png"
+  },
+  {
+    "id": "white-flare-49-sawk",
+    "name": "Sawk",
+    "rarity": "Uncommon",
+    "number": "49",
+    "image": "/assets/sets/white-flare/cards/49_Sawk_Uncommon.png"
+  },
+  {
+    "id": "white-flare-50-archen",
+    "name": "Archen",
+    "rarity": "Uncommon",
+    "number": "50",
+    "image": "/assets/sets/white-flare/cards/50_Archen_Uncommon.png"
+  },
+  {
+    "id": "white-flare-51-archeops",
+    "name": "Archeops",
+    "rarity": "Rare",
+    "number": "51",
+    "image": "/assets/sets/white-flare/cards/51_Archeops_Rare.png"
+  },
+  {
+    "id": "white-flare-52-mienfoo",
+    "name": "Mienfoo",
+    "rarity": "Common",
+    "number": "52",
+    "image": "/assets/sets/white-flare/cards/52_Mienfoo_Common.png"
+  },
+  {
+    "id": "white-flare-53-mienshao",
+    "name": "Mienshao",
+    "rarity": "Uncommon",
+    "number": "53",
+    "image": "/assets/sets/white-flare/cards/53_Mienshao_Uncommon.png"
+  },
+  {
+    "id": "white-flare-54-terrakion",
+    "name": "Terrakion",
+    "rarity": "Rare",
+    "number": "54",
+    "image": "/assets/sets/white-flare/cards/54_Terrakion_Rare.png"
+  },
+  {
+    "id": "white-flare-55-purrloin",
+    "name": "Purrloin",
+    "rarity": "Common",
+    "number": "55",
+    "image": "/assets/sets/white-flare/cards/55_Purrloin_Common.png"
+  },
+  {
+    "id": "white-flare-56-liepard",
+    "name": "Liepard",
+    "rarity": "Uncommon",
+    "number": "56",
+    "image": "/assets/sets/white-flare/cards/56_Liepard_Uncommon.png"
+  },
+  {
+    "id": "white-flare-57-scraggy",
+    "name": "Scraggy",
+    "rarity": "Common",
+    "number": "57",
+    "image": "/assets/sets/white-flare/cards/57_Scraggy_Common.png"
+  },
+  {
+    "id": "white-flare-58-scrafty",
+    "name": "Scrafty",
+    "rarity": "Uncommon",
+    "number": "58",
+    "image": "/assets/sets/white-flare/cards/58_Scrafty_Uncommon.png"
+  },
+  {
+    "id": "white-flare-59-trubbish",
+    "name": "Trubbish",
+    "rarity": "Common",
+    "number": "59",
+    "image": "/assets/sets/white-flare/cards/59_Trubbish_Common.png"
+  },
+  {
+    "id": "white-flare-60-garbodor",
+    "name": "Garbodor",
+    "rarity": "Uncommon",
+    "number": "60",
+    "image": "/assets/sets/white-flare/cards/60_Garbodor_Uncommon.png"
+  },
+  {
+    "id": "white-flare-61-zorua",
+    "name": "Zorua",
+    "rarity": "Common",
+    "number": "61",
+    "image": "/assets/sets/white-flare/cards/61_Zorua_Common.png"
+  },
+  {
+    "id": "white-flare-62-zoroark",
+    "name": "Zoroark",
+    "rarity": "Rare",
+    "number": "62",
+    "image": "/assets/sets/white-flare/cards/62_Zoroark_Rare.png"
+  },
+  {
+    "id": "white-flare-63-vullaby",
+    "name": "Vullaby",
+    "rarity": "Common",
+    "number": "63",
+    "image": "/assets/sets/white-flare/cards/63_Vullaby_Common.png"
+  },
+  {
+    "id": "white-flare-64-mandibuzz",
+    "name": "Mandibuzz",
+    "rarity": "Uncommon",
+    "number": "64",
+    "image": "/assets/sets/white-flare/cards/64_Mandibuzz_Uncommon.png"
+  },
+  {
+    "id": "white-flare-65-deino",
+    "name": "Deino",
+    "rarity": "Common",
+    "number": "65",
+    "image": "/assets/sets/white-flare/cards/65_Deino_Common.png"
+  },
+  {
+    "id": "white-flare-66-zweilous",
+    "name": "Zweilous",
+    "rarity": "Common",
+    "number": "66",
+    "image": "/assets/sets/white-flare/cards/66_Zweilous_Common.png"
+  },
+  {
+    "id": "white-flare-67-hydreigon-ex",
+    "name": "Hydreigon ex",
+    "rarity": "Double Rare",
+    "number": "67",
+    "image": "/assets/sets/white-flare/cards/67_Hydreigon_ex_Double_Rare.png"
+  },
+  {
+    "id": "white-flare-68-ferroseed",
+    "name": "Ferroseed",
+    "rarity": "Common",
+    "number": "68",
+    "image": "/assets/sets/white-flare/cards/68_Ferroseed_Common.png"
+  },
+  {
+    "id": "white-flare-69-ferrothorn",
+    "name": "Ferrothorn",
+    "rarity": "Uncommon",
+    "number": "69",
+    "image": "/assets/sets/white-flare/cards/69_Ferrothorn_Uncommon.png"
+  },
+  {
+    "id": "white-flare-70-durant",
+    "name": "Durant",
+    "rarity": "Uncommon",
+    "number": "70",
+    "image": "/assets/sets/white-flare/cards/70_Durant_Uncommon.png"
+  },
+  {
+    "id": "white-flare-71-druddigon",
+    "name": "Druddigon",
+    "rarity": "Uncommon",
+    "number": "71",
+    "image": "/assets/sets/white-flare/cards/71_Druddigon_Uncommon.png"
+  },
+  {
+    "id": "white-flare-72-patrat",
+    "name": "Patrat",
+    "rarity": "Common",
+    "number": "72",
+    "image": "/assets/sets/white-flare/cards/72_Patrat_Common.png"
+  },
+  {
+    "id": "white-flare-73-watchog",
+    "name": "Watchog",
+    "rarity": "Uncommon",
+    "number": "73",
+    "image": "/assets/sets/white-flare/cards/73_Watchog_Uncommon.png"
+  },
+  {
+    "id": "white-flare-74-lillipup",
+    "name": "Lillipup",
+    "rarity": "Common",
+    "number": "74",
+    "image": "/assets/sets/white-flare/cards/74_Lillipup_Common.png"
+  },
+  {
+    "id": "white-flare-75-herdier",
+    "name": "Herdier",
+    "rarity": "Common",
+    "number": "75",
+    "image": "/assets/sets/white-flare/cards/75_Herdier_Common.png"
+  },
+  {
+    "id": "white-flare-76-stoutland",
+    "name": "Stoutland",
+    "rarity": "Uncommon",
+    "number": "76",
+    "image": "/assets/sets/white-flare/cards/76_Stoutland_Uncommon.png"
+  },
+  {
+    "id": "white-flare-77-bouffalant-ex",
+    "name": "Bouffalant ex",
+    "rarity": "Double Rare",
+    "number": "77",
+    "image": "/assets/sets/white-flare/cards/77_Bouffalant_ex_Double_Rare.png"
+  },
+  {
+    "id": "white-flare-78-tornadus",
+    "name": "Tornadus",
+    "rarity": "Rare",
+    "number": "78",
+    "image": "/assets/sets/white-flare/cards/78_Tornadus_Rare.png"
+  },
+  {
+    "id": "white-flare-79-antique-plume-fossil",
+    "name": "Antique Plume Fossil",
+    "rarity": "Common",
+    "number": "79",
+    "image": "/assets/sets/white-flare/cards/79_Antique_Plume_Fossil_Common.png"
+  },
+  {
+    "id": "white-flare-80-brave-bangle",
+    "name": "Brave Bangle",
+    "rarity": "Uncommon",
+    "number": "80",
+    "image": "/assets/sets/white-flare/cards/80_Brave_Bangle_Uncommon.png"
+  },
+  {
+    "id": "white-flare-81-cheren",
+    "name": "Cheren",
+    "rarity": "Uncommon",
+    "number": "81",
+    "image": "/assets/sets/white-flare/cards/81_Cheren_Uncommon.png"
+  },
+  {
+    "id": "white-flare-82-energy-retrieval",
+    "name": "Energy Retrieval",
+    "rarity": "Uncommon",
+    "number": "82",
+    "image": "/assets/sets/white-flare/cards/82_Energy_Retrieval_Uncommon.png"
+  },
+  {
+    "id": "white-flare-83-harlequin",
+    "name": "Harlequin",
+    "rarity": "Uncommon",
+    "number": "83",
+    "image": "/assets/sets/white-flare/cards/83_Harlequin_Uncommon.png"
+  },
+  {
+    "id": "white-flare-84-hilda",
+    "name": "Hilda",
+    "rarity": "Uncommon",
+    "number": "84",
+    "image": "/assets/sets/white-flare/cards/84_Hilda_Uncommon.png"
+  },
+  {
+    "id": "white-flare-85-tool-scrapper",
+    "name": "Tool Scrapper",
+    "rarity": "Uncommon",
+    "number": "85",
+    "image": "/assets/sets/white-flare/cards/85_Tool_Scrapper_Uncommon.png"
+  },
+  {
+    "id": "white-flare-86-ignition-energy",
+    "name": "Ignition Energy",
+    "rarity": "Uncommon",
+    "number": "86",
+    "image": "/assets/sets/white-flare/cards/86_Ignition_Energy_Uncommon.png"
+  },
+  {
+    "id": "white-flare-87-sewaddle",
+    "name": "Sewaddle",
+    "rarity": "Illustration Rare",
+    "number": "87",
+    "image": "/assets/sets/white-flare/cards/87_Sewaddle_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-88-swadloon",
+    "name": "Swadloon",
+    "rarity": "Illustration Rare",
+    "number": "88",
+    "image": "/assets/sets/white-flare/cards/88_Swadloon_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-89-leavanny",
+    "name": "Leavanny",
+    "rarity": "Illustration Rare",
+    "number": "89",
+    "image": "/assets/sets/white-flare/cards/89_Leavanny_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-90-cottonee",
+    "name": "Cottonee",
+    "rarity": "Illustration Rare",
+    "number": "90",
+    "image": "/assets/sets/white-flare/cards/90_Cottonee_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-91-deerling",
+    "name": "Deerling",
+    "rarity": "Illustration Rare",
+    "number": "91",
+    "image": "/assets/sets/white-flare/cards/91_Deerling_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-92-sawsbuck",
+    "name": "Sawsbuck",
+    "rarity": "Illustration Rare",
+    "number": "92",
+    "image": "/assets/sets/white-flare/cards/92_Sawsbuck_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-93-shelmet",
+    "name": "Shelmet",
+    "rarity": "Illustration Rare",
+    "number": "93",
+    "image": "/assets/sets/white-flare/cards/93_Shelmet_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-94-accelgor",
+    "name": "Accelgor",
+    "rarity": "Illustration Rare",
+    "number": "94",
+    "image": "/assets/sets/white-flare/cards/94_Accelgor_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-95-virizion",
+    "name": "Virizion",
+    "rarity": "Illustration Rare",
+    "number": "95",
+    "image": "/assets/sets/white-flare/cards/95_Virizion_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-96-tepig",
+    "name": "Tepig",
+    "rarity": "Illustration Rare",
+    "number": "96",
+    "image": "/assets/sets/white-flare/cards/96_Tepig_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-97-pignite",
+    "name": "Pignite",
+    "rarity": "Illustration Rare",
+    "number": "97",
+    "image": "/assets/sets/white-flare/cards/97_Pignite_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-98-emboar",
+    "name": "Emboar",
+    "rarity": "Illustration Rare",
+    "number": "98",
+    "image": "/assets/sets/white-flare/cards/98_Emboar_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-99-pansear",
+    "name": "Pansear",
+    "rarity": "Illustration Rare",
+    "number": "99",
+    "image": "/assets/sets/white-flare/cards/99_Pansear_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-100-simisear",
+    "name": "Simisear",
+    "rarity": "Illustration Rare",
+    "number": "100",
+    "image": "/assets/sets/white-flare/cards/100_Simisear_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-101-litwick",
+    "name": "Litwick",
+    "rarity": "Illustration Rare",
+    "number": "101",
+    "image": "/assets/sets/white-flare/cards/101_Litwick_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-102-lampent",
+    "name": "Lampent",
+    "rarity": "Illustration Rare",
+    "number": "102",
+    "image": "/assets/sets/white-flare/cards/102_Lampent_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-103-chandelure",
+    "name": "Chandelure",
+    "rarity": "Illustration Rare",
+    "number": "103",
+    "image": "/assets/sets/white-flare/cards/103_Chandelure_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-104-heatmor",
+    "name": "Heatmor",
+    "rarity": "Illustration Rare",
+    "number": "104",
+    "image": "/assets/sets/white-flare/cards/104_Heatmor_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-105-oshawott",
+    "name": "Oshawott",
+    "rarity": "Illustration Rare",
+    "number": "105",
+    "image": "/assets/sets/white-flare/cards/105_Oshawott_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-106-dewott",
+    "name": "Dewott",
+    "rarity": "Illustration Rare",
+    "number": "106",
+    "image": "/assets/sets/white-flare/cards/106_Dewott_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-107-samurott",
+    "name": "Samurott",
+    "rarity": "Illustration Rare",
+    "number": "107",
+    "image": "/assets/sets/white-flare/cards/107_Samurott_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-108-basculin",
+    "name": "Basculin",
+    "rarity": "Illustration Rare",
+    "number": "108",
+    "image": "/assets/sets/white-flare/cards/108_Basculin_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-109-ducklett",
+    "name": "Ducklett",
+    "rarity": "Illustration Rare",
+    "number": "109",
+    "image": "/assets/sets/white-flare/cards/109_Ducklett_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-110-swanna",
+    "name": "Swanna",
+    "rarity": "Illustration Rare",
+    "number": "110",
+    "image": "/assets/sets/white-flare/cards/110_Swanna_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-111-vanillite",
+    "name": "Vanillite",
+    "rarity": "Illustration Rare",
+    "number": "111",
+    "image": "/assets/sets/white-flare/cards/111_Vanillite_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-112-vanillish",
+    "name": "Vanillish",
+    "rarity": "Illustration Rare",
+    "number": "112",
+    "image": "/assets/sets/white-flare/cards/112_Vanillish_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-113-vanilluxe",
+    "name": "Vanilluxe",
+    "rarity": "Illustration Rare",
+    "number": "113",
+    "image": "/assets/sets/white-flare/cards/113_Vanilluxe_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-114-blitzle",
+    "name": "Blitzle",
+    "rarity": "Illustration Rare",
+    "number": "114",
+    "image": "/assets/sets/white-flare/cards/114_Blitzle_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-115-zebstrika",
+    "name": "Zebstrika",
+    "rarity": "Illustration Rare",
+    "number": "115",
+    "image": "/assets/sets/white-flare/cards/115_Zebstrika_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-116-joltik",
+    "name": "Joltik",
+    "rarity": "Illustration Rare",
+    "number": "116",
+    "image": "/assets/sets/white-flare/cards/116_Joltik_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-117-galvantula",
+    "name": "Galvantula",
+    "rarity": "Illustration Rare",
+    "number": "117",
+    "image": "/assets/sets/white-flare/cards/117_Galvantula_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-118-stunfisk",
+    "name": "Stunfisk",
+    "rarity": "Illustration Rare",
+    "number": "118",
+    "image": "/assets/sets/white-flare/cards/118_Stunfisk_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-119-woobat",
+    "name": "Woobat",
+    "rarity": "Illustration Rare",
+    "number": "119",
+    "image": "/assets/sets/white-flare/cards/119_Woobat_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-120-swoobat",
+    "name": "Swoobat",
+    "rarity": "Illustration Rare",
+    "number": "120",
+    "image": "/assets/sets/white-flare/cards/120_Swoobat_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-121-sigilyph",
+    "name": "Sigilyph",
+    "rarity": "Illustration Rare",
+    "number": "121",
+    "image": "/assets/sets/white-flare/cards/121_Sigilyph_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-122-yamask",
+    "name": "Yamask",
+    "rarity": "Illustration Rare",
+    "number": "122",
+    "image": "/assets/sets/white-flare/cards/122_Yamask_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-123-cofagrigus",
+    "name": "Cofagrigus",
+    "rarity": "Illustration Rare",
+    "number": "123",
+    "image": "/assets/sets/white-flare/cards/123_Cofagrigus_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-124-gothita",
+    "name": "Gothita",
+    "rarity": "Illustration Rare",
+    "number": "124",
+    "image": "/assets/sets/white-flare/cards/124_Gothita_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-125-gothorita",
+    "name": "Gothorita",
+    "rarity": "Illustration Rare",
+    "number": "125",
+    "image": "/assets/sets/white-flare/cards/125_Gothorita_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-126-frillish",
+    "name": "Frillish",
+    "rarity": "Illustration Rare",
+    "number": "126",
+    "image": "/assets/sets/white-flare/cards/126_Frillish_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-127-roggenrola",
+    "name": "Roggenrola",
+    "rarity": "Illustration Rare",
+    "number": "127",
+    "image": "/assets/sets/white-flare/cards/127_Roggenrola_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-128-boldore",
+    "name": "Boldore",
+    "rarity": "Illustration Rare",
+    "number": "128",
+    "image": "/assets/sets/white-flare/cards/128_Boldore_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-129-gigalith",
+    "name": "Gigalith",
+    "rarity": "Illustration Rare",
+    "number": "129",
+    "image": "/assets/sets/white-flare/cards/129_Gigalith_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-130-sawk",
+    "name": "Sawk",
+    "rarity": "Illustration Rare",
+    "number": "130",
+    "image": "/assets/sets/white-flare/cards/130_Sawk_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-131-archen",
+    "name": "Archen",
+    "rarity": "Uncommon",
+    "number": "131",
+    "image": "/assets/sets/white-flare/cards/131_Archen_Uncommon.png"
+  },
+  {
+    "id": "white-flare-132-archeops",
+    "name": "Archeops",
+    "rarity": "Illustration Rare",
+    "number": "132",
+    "image": "/assets/sets/white-flare/cards/132_Archeops_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-133-mienfoo",
+    "name": "Mienfoo",
+    "rarity": "Illustration Rare",
+    "number": "133",
+    "image": "/assets/sets/white-flare/cards/133_Mienfoo_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-134-mienshao",
+    "name": "Mienshao",
+    "rarity": "Illustration Rare",
+    "number": "134",
+    "image": "/assets/sets/white-flare/cards/134_Mienshao_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-135-terrakion",
+    "name": "Terrakion",
+    "rarity": "Illustration Rare",
+    "number": "135",
+    "image": "/assets/sets/white-flare/cards/135_Terrakion_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-136-purrloin",
+    "name": "Purrloin",
+    "rarity": "Illustration Rare",
+    "number": "136",
+    "image": "/assets/sets/white-flare/cards/136_Purrloin_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-137-liepard",
+    "name": "Liepard",
+    "rarity": "Illustration Rare",
+    "number": "137",
+    "image": "/assets/sets/white-flare/cards/137_Liepard_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-138-scraggy",
+    "name": "Scraggy",
+    "rarity": "Illustration Rare",
+    "number": "138",
+    "image": "/assets/sets/white-flare/cards/138_Scraggy_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-139-scrafty",
+    "name": "Scrafty",
+    "rarity": "Illustration Rare",
+    "number": "139",
+    "image": "/assets/sets/white-flare/cards/139_Scrafty_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-140-trubbish",
+    "name": "Trubbish",
+    "rarity": "Illustration Rare",
+    "number": "140",
+    "image": "/assets/sets/white-flare/cards/140_Trubbish_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-141-garbodor",
+    "name": "Garbodor",
+    "rarity": "Illustration Rare",
+    "number": "141",
+    "image": "/assets/sets/white-flare/cards/141_Garbodor_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-142-zorua",
+    "name": "Zorua",
+    "rarity": "Illustration Rare",
+    "number": "142",
+    "image": "/assets/sets/white-flare/cards/142_Zorua_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-143-zoroark",
+    "name": "Zoroark",
+    "rarity": "Illustration Rare",
+    "number": "143",
+    "image": "/assets/sets/white-flare/cards/143_Zoroark_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-144-vullaby",
+    "name": "Vullaby",
+    "rarity": "Illustration Rare",
+    "number": "144",
+    "image": "/assets/sets/white-flare/cards/144_Vullaby_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-145-mandibuzz",
+    "name": "Mandibuzz",
+    "rarity": "Illustration Rare",
+    "number": "145",
+    "image": "/assets/sets/white-flare/cards/145_Mandibuzz_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-146-deino",
+    "name": "Deino",
+    "rarity": "Illustration Rare",
+    "number": "146",
+    "image": "/assets/sets/white-flare/cards/146_Deino_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-147-zweilous",
+    "name": "Zweilous",
+    "rarity": "Illustration Rare",
+    "number": "147",
+    "image": "/assets/sets/white-flare/cards/147_Zweilous_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-148-ferroseed",
+    "name": "Ferroseed",
+    "rarity": "Illustration Rare",
+    "number": "148",
+    "image": "/assets/sets/white-flare/cards/148_Ferroseed_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-149-ferrothorn",
+    "name": "Ferrothorn",
+    "rarity": "Illustration Rare",
+    "number": "149",
+    "image": "/assets/sets/white-flare/cards/149_Ferrothorn_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-150-durant",
+    "name": "Durant",
+    "rarity": "Illustration Rare",
+    "number": "150",
+    "image": "/assets/sets/white-flare/cards/150_Durant_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-151-druddigon",
+    "name": "Druddigon",
+    "rarity": "Illustration Rare",
+    "number": "151",
+    "image": "/assets/sets/white-flare/cards/151_Druddigon_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-152-patrat",
+    "name": "Patrat",
+    "rarity": "Illustration Rare",
+    "number": "152",
+    "image": "/assets/sets/white-flare/cards/152_Patrat_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-153-watchog",
+    "name": "Watchog",
+    "rarity": "Illustration Rare",
+    "number": "153",
+    "image": "/assets/sets/white-flare/cards/153_Watchog_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-154-lillipup",
+    "name": "Lillipup",
+    "rarity": "Illustration Rare",
+    "number": "154",
+    "image": "/assets/sets/white-flare/cards/154_Lillipup_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-155-herdier",
+    "name": "Herdier",
+    "rarity": "Illustration Rare",
+    "number": "155",
+    "image": "/assets/sets/white-flare/cards/155_Herdier_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-156-stoutland",
+    "name": "Stoutland",
+    "rarity": "Illustration Rare",
+    "number": "156",
+    "image": "/assets/sets/white-flare/cards/156_Stoutland_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-157-whimsicott-ex",
+    "name": "Whimsicott ex",
+    "rarity": "Ultra Rare",
+    "number": "157",
+    "image": "/assets/sets/white-flare/cards/157_Whimsicott_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "white-flare-158-reshiram-ex",
+    "name": "Reshiram ex",
+    "rarity": "Ultra Rare",
+    "number": "158",
+    "image": "/assets/sets/white-flare/cards/158_Reshiram_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "white-flare-159-keldeo-ex",
+    "name": "Keldeo ex",
+    "rarity": "Ultra Rare",
+    "number": "159",
+    "image": "/assets/sets/white-flare/cards/159_Keldeo_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "white-flare-160-jellicent-ex",
+    "name": "Jellicent ex",
+    "rarity": "Ultra Rare",
+    "number": "160",
+    "image": "/assets/sets/white-flare/cards/160_Jellicent_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "white-flare-161-hydreigon-ex",
+    "name": "Hydreigon ex",
+    "rarity": "Ultra Rare",
+    "number": "161",
+    "image": "/assets/sets/white-flare/cards/161_Hydreigon_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "white-flare-162-bouffalant-ex",
+    "name": "Bouffalant ex",
+    "rarity": "Ultra Rare",
+    "number": "162",
+    "image": "/assets/sets/white-flare/cards/162_Bouffalant_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "white-flare-163-harlequin",
+    "name": "Harlequin",
+    "rarity": "Ultra Rare",
+    "number": "163",
+    "image": "/assets/sets/white-flare/cards/163_Harlequin_Ultra_Rare.png"
+  },
+  {
+    "id": "white-flare-164-hilda",
+    "name": "Hilda",
+    "rarity": "Ultra Rare",
+    "number": "164",
+    "image": "/assets/sets/white-flare/cards/164_Hilda_Ultra_Rare.png"
+  },
+  {
+    "id": "white-flare-165-whimsicott-ex",
+    "name": "Whimsicott ex",
+    "rarity": "Special Illustration Rare",
+    "number": "165",
+    "image": "/assets/sets/white-flare/cards/165_Whimsicott_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-166-reshiram-ex",
+    "name": "Reshiram ex",
+    "rarity": "Special Illustration Rare",
+    "number": "166",
+    "image": "/assets/sets/white-flare/cards/166_Reshiram_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-167-keldeo-ex",
+    "name": "Keldeo ex",
+    "rarity": "Special Illustration Rare",
+    "number": "167",
+    "image": "/assets/sets/white-flare/cards/167_Keldeo_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-168-jellicent-ex",
+    "name": "Jellicent ex",
+    "rarity": "Special Illustration Rare",
+    "number": "168",
+    "image": "/assets/sets/white-flare/cards/168_Jellicent_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-169-hydreigon-ex",
+    "name": "Hydreigon ex",
+    "rarity": "Special Illustration Rare",
+    "number": "169",
+    "image": "/assets/sets/white-flare/cards/169_Hydreigon_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-170-bouffalant-ex",
+    "name": "Bouffalant ex",
+    "rarity": "Special Illustration Rare",
+    "number": "170",
+    "image": "/assets/sets/white-flare/cards/170_Bouffalant_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-171-hilda",
+    "name": "Hilda",
+    "rarity": "Special Illustration Rare",
+    "number": "171",
+    "image": "/assets/sets/white-flare/cards/171_Hilda_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "white-flare-172-victini",
+    "name": "Victini",
+    "rarity": "Rare",
+    "number": "172",
+    "image": "/assets/sets/white-flare/cards/172_Victini_Rare.png"
+  },
+  {
+    "id": "white-flare-173-reshiram-ex",
+    "name": "Reshiram ex",
+    "rarity": "Black White Rare",
+    "number": "173",
+    "image": "/assets/sets/white-flare/cards/173_Reshiram_ex_Black_White_Rare.png"
+  }
+]

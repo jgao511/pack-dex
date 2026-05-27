@@ -1,0 +1,618 @@
+[
+  {
+    "id": "pokemon-go-1-bulbasaur",
+    "name": "Bulbasaur",
+    "rarity": "Common",
+    "number": "1",
+    "image": "/assets/sets/pokemon-go/cards/1_Bulbasaur_Common.png"
+  },
+  {
+    "id": "pokemon-go-2-ivysaur",
+    "name": "Ivysaur",
+    "rarity": "Uncommon",
+    "number": "2",
+    "image": "/assets/sets/pokemon-go/cards/2_Ivysaur_Uncommon.png"
+  },
+  {
+    "id": "pokemon-go-3-venusaur",
+    "name": "Venusaur",
+    "rarity": "Rare",
+    "number": "3",
+    "image": "/assets/sets/pokemon-go/cards/3_Venusaur_Rare_Holo.png"
+  },
+  {
+    "id": "pokemon-go-4-radiant-venusaur-radiant",
+    "name": "Radiant Venusaur Radiant",
+    "rarity": "Rare",
+    "number": "4",
+    "image": "/assets/sets/pokemon-go/cards/4_Radiant_Venusaur_Radiant_Rare.png"
+  },
+  {
+    "id": "pokemon-go-5-alolan-exeggutor-v",
+    "name": "Alolan Exeggutor V",
+    "rarity": "Double Rare",
+    "number": "5",
+    "image": "/assets/sets/pokemon-go/cards/5_Alolan_Exeggutor_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "pokemon-go-6-spinarak",
+    "name": "Spinarak",
+    "rarity": "Common",
+    "number": "6",
+    "image": "/assets/sets/pokemon-go/cards/6_Spinarak_Common.png"
+  },
+  {
+    "id": "pokemon-go-7-ariados",
+    "name": "Ariados",
+    "rarity": "Uncommon",
+    "number": "7",
+    "image": "/assets/sets/pokemon-go/cards/7_Ariados_Uncommon.png"
+  },
+  {
+    "id": "pokemon-go-8-charmander",
+    "name": "Charmander",
+    "rarity": "Common",
+    "number": "8",
+    "image": "/assets/sets/pokemon-go/cards/8_Charmander_Common.png"
+  },
+  {
+    "id": "pokemon-go-9-charmeleon",
+    "name": "Charmeleon",
+    "rarity": "Uncommon",
+    "number": "9",
+    "image": "/assets/sets/pokemon-go/cards/9_Charmeleon_Uncommon.png"
+  },
+  {
+    "id": "pokemon-go-10-charizard",
+    "name": "Charizard",
+    "rarity": "Rare",
+    "number": "10",
+    "image": "/assets/sets/pokemon-go/cards/10_Charizard_Rare_Holo.png"
+  },
+  {
+    "id": "pokemon-go-11-radiant-charizard-radiant",
+    "name": "Radiant Charizard Radiant",
+    "rarity": "Rare",
+    "number": "11",
+    "image": "/assets/sets/pokemon-go/cards/11_Radiant_Charizard_Radiant_Rare.png"
+  },
+  {
+    "id": "pokemon-go-12-moltres",
+    "name": "Moltres",
+    "rarity": "Rare",
+    "number": "12",
+    "image": "/assets/sets/pokemon-go/cards/12_Moltres_Rare_Holo.png"
+  },
+  {
+    "id": "pokemon-go-13-numel",
+    "name": "Numel",
+    "rarity": "Common",
+    "number": "13",
+    "image": "/assets/sets/pokemon-go/cards/13_Numel_Common.png"
+  },
+  {
+    "id": "pokemon-go-14-camerupt",
+    "name": "Camerupt",
+    "rarity": "Uncommon",
+    "number": "14",
+    "image": "/assets/sets/pokemon-go/cards/14_Camerupt_Uncommon.png"
+  },
+  {
+    "id": "pokemon-go-15-squirtle",
+    "name": "Squirtle",
+    "rarity": "Common",
+    "number": "15",
+    "image": "/assets/sets/pokemon-go/cards/15_Squirtle_Common.png"
+  },
+  {
+    "id": "pokemon-go-16-wartortle",
+    "name": "Wartortle",
+    "rarity": "Uncommon",
+    "number": "16",
+    "image": "/assets/sets/pokemon-go/cards/16_Wartortle_Uncommon.png"
+  },
+  {
+    "id": "pokemon-go-17-blastoise",
+    "name": "Blastoise",
+    "rarity": "Rare",
+    "number": "17",
+    "image": "/assets/sets/pokemon-go/cards/17_Blastoise_Rare_Holo.png"
+  },
+  {
+    "id": "pokemon-go-18-radiant-blastoise-radiant",
+    "name": "Radiant Blastoise Radiant",
+    "rarity": "Rare",
+    "number": "18",
+    "image": "/assets/sets/pokemon-go/cards/18_Radiant_Blastoise_Radiant_Rare.png"
+  },
+  {
+    "id": "pokemon-go-19-slowpoke",
+    "name": "Slowpoke",
+    "rarity": "Common",
+    "number": "19",
+    "image": "/assets/sets/pokemon-go/cards/19_Slowpoke_Common.png"
+  },
+  {
+    "id": "pokemon-go-20-slowbro",
+    "name": "Slowbro",
+    "rarity": "Uncommon",
+    "number": "20",
+    "image": "/assets/sets/pokemon-go/cards/20_Slowbro_Uncommon.png"
+  },
+  {
+    "id": "pokemon-go-21-magikarp",
+    "name": "Magikarp",
+    "rarity": "Common",
+    "number": "21",
+    "image": "/assets/sets/pokemon-go/cards/21_Magikarp_Common.png"
+  },
+  {
+    "id": "pokemon-go-22-gyarados",
+    "name": "Gyarados",
+    "rarity": "Rare",
+    "number": "22",
+    "image": "/assets/sets/pokemon-go/cards/22_Gyarados_Rare_Holo.png"
+  },
+  {
+    "id": "pokemon-go-23-lapras",
+    "name": "Lapras",
+    "rarity": "Rare",
+    "number": "23",
+    "image": "/assets/sets/pokemon-go/cards/23_Lapras_Rare_Holo.png"
+  },
+  {
+    "id": "pokemon-go-24-articuno",
+    "name": "Articuno",
+    "rarity": "Rare",
+    "number": "24",
+    "image": "/assets/sets/pokemon-go/cards/24_Articuno_Rare_Holo.png"
+  },
+  {
+    "id": "pokemon-go-25-wimpod",
+    "name": "Wimpod",
+    "rarity": "Common",
+    "number": "25",
+    "image": "/assets/sets/pokemon-go/cards/25_Wimpod_Common.png"
+  },
+  {
+    "id": "pokemon-go-26-golisopod",
+    "name": "Golisopod",
+    "rarity": "Rare",
+    "number": "26",
+    "image": "/assets/sets/pokemon-go/cards/26_Golisopod_Rare_Holo.png"
+  },
+  {
+    "id": "pokemon-go-27-pikachu",
+    "name": "Pikachu",
+    "rarity": "Common",
+    "number": "27",
+    "image": "/assets/sets/pokemon-go/cards/27_Pikachu_Common.png"
+  },
+  {
+    "id": "pokemon-go-28-pikachu",
+    "name": "Pikachu",
+    "rarity": "Rare",
+    "number": "28",
+    "image": "/assets/sets/pokemon-go/cards/28_Pikachu_Rare_Holo.png"
+  },
+  {
+    "id": "pokemon-go-29-zapdos",
+    "name": "Zapdos",
+    "rarity": "Rare",
+    "number": "29",
+    "image": "/assets/sets/pokemon-go/cards/29_Zapdos_Rare_Holo.png"
+  },
+  {
+    "id": "pokemon-go-30-mewtwo-v",
+    "name": "Mewtwo V",
+    "rarity": "Double Rare",
+    "number": "30",
+    "image": "/assets/sets/pokemon-go/cards/30_Mewtwo_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "pokemon-go-31-mewtwo-vstar",
+    "name": "Mewtwo VSTAR",
+    "rarity": "Ultra Rare",
+    "number": "31",
+    "image": "/assets/sets/pokemon-go/cards/31_Mewtwo_VSTAR_Rare_Holo_VSTAR.png"
+  },
+  {
+    "id": "pokemon-go-32-natu",
+    "name": "Natu",
+    "rarity": "Common",
+    "number": "32",
+    "image": "/assets/sets/pokemon-go/cards/32_Natu_Common.png"
+  },
+  {
+    "id": "pokemon-go-33-xatu",
+    "name": "Xatu",
+    "rarity": "Uncommon",
+    "number": "33",
+    "image": "/assets/sets/pokemon-go/cards/33_Xatu_Uncommon.png"
+  },
+  {
+    "id": "pokemon-go-34-lunatone",
+    "name": "Lunatone",
+    "rarity": "Uncommon",
+    "number": "34",
+    "image": "/assets/sets/pokemon-go/cards/34_Lunatone_Uncommon.png"
+  },
+  {
+    "id": "pokemon-go-35-sylveon",
+    "name": "Sylveon",
+    "rarity": "Rare",
+    "number": "35",
+    "image": "/assets/sets/pokemon-go/cards/35_Sylveon_Rare_Holo.png"
+  },
+  {
+    "id": "pokemon-go-36-onix",
+    "name": "Onix",
+    "rarity": "Common",
+    "number": "36",
+    "image": "/assets/sets/pokemon-go/cards/36_Onix_Common.png"
+  },
+  {
+    "id": "pokemon-go-37-larvitar",
+    "name": "Larvitar",
+    "rarity": "Common",
+    "number": "37",
+    "image": "/assets/sets/pokemon-go/cards/37_Larvitar_Common.png"
+  },
+  {
+    "id": "pokemon-go-38-pupitar",
+    "name": "Pupitar",
+    "rarity": "Uncommon",
+    "number": "38",
+    "image": "/assets/sets/pokemon-go/cards/38_Pupitar_Uncommon.png"
+  },
+  {
+    "id": "pokemon-go-39-solrock",
+    "name": "Solrock",
+    "rarity": "Uncommon",
+    "number": "39",
+    "image": "/assets/sets/pokemon-go/cards/39_Solrock_Uncommon.png"
+  },
+  {
+    "id": "pokemon-go-40-conkeldurr-v",
+    "name": "Conkeldurr V",
+    "rarity": "Double Rare",
+    "number": "40",
+    "image": "/assets/sets/pokemon-go/cards/40_Conkeldurr_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "pokemon-go-41-alolan-rattata",
+    "name": "Alolan Rattata",
+    "rarity": "Common",
+    "number": "41",
+    "image": "/assets/sets/pokemon-go/cards/41_Alolan_Rattata_Common.png"
+  },
+  {
+    "id": "pokemon-go-42-alolan-raticate",
+    "name": "Alolan Raticate",
+    "rarity": "Common",
+    "number": "42",
+    "image": "/assets/sets/pokemon-go/cards/42_Alolan_Raticate_Common.png"
+  },
+  {
+    "id": "pokemon-go-43-tyranitar",
+    "name": "Tyranitar",
+    "rarity": "Rare",
+    "number": "43",
+    "image": "/assets/sets/pokemon-go/cards/43_Tyranitar_Rare_Holo.png"
+  },
+  {
+    "id": "pokemon-go-44-steelix",
+    "name": "Steelix",
+    "rarity": "Uncommon",
+    "number": "44",
+    "image": "/assets/sets/pokemon-go/cards/44_Steelix_Uncommon.png"
+  },
+  {
+    "id": "pokemon-go-45-meltan",
+    "name": "Meltan",
+    "rarity": "Common",
+    "number": "45",
+    "image": "/assets/sets/pokemon-go/cards/45_Meltan_Common.png"
+  },
+  {
+    "id": "pokemon-go-46-melmetal",
+    "name": "Melmetal",
+    "rarity": "Rare",
+    "number": "46",
+    "image": "/assets/sets/pokemon-go/cards/46_Melmetal_Rare_Holo.png"
+  },
+  {
+    "id": "pokemon-go-47-melmetal-v",
+    "name": "Melmetal V",
+    "rarity": "Double Rare",
+    "number": "47",
+    "image": "/assets/sets/pokemon-go/cards/47_Melmetal_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "pokemon-go-48-melmetal-vmax",
+    "name": "Melmetal VMAX",
+    "rarity": "Ultra Rare",
+    "number": "48",
+    "image": "/assets/sets/pokemon-go/cards/48_Melmetal_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "pokemon-go-49-dragonite-v",
+    "name": "Dragonite V",
+    "rarity": "Double Rare",
+    "number": "49",
+    "image": "/assets/sets/pokemon-go/cards/49_Dragonite_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "pokemon-go-50-dragonite-vstar",
+    "name": "Dragonite VSTAR",
+    "rarity": "Ultra Rare",
+    "number": "50",
+    "image": "/assets/sets/pokemon-go/cards/50_Dragonite_VSTAR_Rare_Holo_VSTAR.png"
+  },
+  {
+    "id": "pokemon-go-51-chansey",
+    "name": "Chansey",
+    "rarity": "Uncommon",
+    "number": "51",
+    "image": "/assets/sets/pokemon-go/cards/51_Chansey_Uncommon.png"
+  },
+  {
+    "id": "pokemon-go-52-blissey",
+    "name": "Blissey",
+    "rarity": "Rare",
+    "number": "52",
+    "image": "/assets/sets/pokemon-go/cards/52_Blissey_Rare_Holo.png"
+  },
+  {
+    "id": "pokemon-go-53-ditto",
+    "name": "Ditto",
+    "rarity": "Rare",
+    "number": "53",
+    "image": "/assets/sets/pokemon-go/cards/53_Ditto_Rare_Holo.png"
+  },
+  {
+    "id": "pokemon-go-54-eevee",
+    "name": "Eevee",
+    "rarity": "Common",
+    "number": "54",
+    "image": "/assets/sets/pokemon-go/cards/54_Eevee_Common.png"
+  },
+  {
+    "id": "pokemon-go-55-snorlax",
+    "name": "Snorlax",
+    "rarity": "Rare",
+    "number": "55",
+    "image": "/assets/sets/pokemon-go/cards/55_Snorlax_Rare_Holo.png"
+  },
+  {
+    "id": "pokemon-go-56-aipom",
+    "name": "Aipom",
+    "rarity": "Common",
+    "number": "56",
+    "image": "/assets/sets/pokemon-go/cards/56_Aipom_Common.png"
+  },
+  {
+    "id": "pokemon-go-57-ambipom",
+    "name": "Ambipom",
+    "rarity": "Common",
+    "number": "57",
+    "image": "/assets/sets/pokemon-go/cards/57_Ambipom_Common.png"
+  },
+  {
+    "id": "pokemon-go-58-slaking-v",
+    "name": "Slaking V",
+    "rarity": "Double Rare",
+    "number": "58",
+    "image": "/assets/sets/pokemon-go/cards/58_Slaking_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "pokemon-go-59-bidoof",
+    "name": "Bidoof",
+    "rarity": "Common",
+    "number": "59",
+    "image": "/assets/sets/pokemon-go/cards/59_Bidoof_Common.png"
+  },
+  {
+    "id": "pokemon-go-60-bibarel",
+    "name": "Bibarel",
+    "rarity": "Common",
+    "number": "60",
+    "image": "/assets/sets/pokemon-go/cards/60_Bibarel_Common.png"
+  },
+  {
+    "id": "pokemon-go-61-pidove",
+    "name": "Pidove",
+    "rarity": "Common",
+    "number": "61",
+    "image": "/assets/sets/pokemon-go/cards/61_Pidove_Common.png"
+  },
+  {
+    "id": "pokemon-go-62-tranquill",
+    "name": "Tranquill",
+    "rarity": "Common",
+    "number": "62",
+    "image": "/assets/sets/pokemon-go/cards/62_Tranquill_Common.png"
+  },
+  {
+    "id": "pokemon-go-63-unfezant",
+    "name": "Unfezant",
+    "rarity": "Uncommon",
+    "number": "63",
+    "image": "/assets/sets/pokemon-go/cards/63_Unfezant_Uncommon.png"
+  },
+  {
+    "id": "pokemon-go-64-blanche",
+    "name": "Blanche",
+    "rarity": "Uncommon",
+    "number": "64",
+    "image": "/assets/sets/pokemon-go/cards/64_Blanche_Uncommon.png"
+  },
+  {
+    "id": "pokemon-go-65-candela",
+    "name": "Candela",
+    "rarity": "Uncommon",
+    "number": "65",
+    "image": "/assets/sets/pokemon-go/cards/65_Candela_Uncommon.png"
+  },
+  {
+    "id": "pokemon-go-66-egg-incubator",
+    "name": "Egg Incubator",
+    "rarity": "Uncommon",
+    "number": "66",
+    "image": "/assets/sets/pokemon-go/cards/66_Egg_Incubator_Uncommon.png"
+  },
+  {
+    "id": "pokemon-go-67-lure-module",
+    "name": "Lure Module",
+    "rarity": "Uncommon",
+    "number": "67",
+    "image": "/assets/sets/pokemon-go/cards/67_Lure_Module_Uncommon.png"
+  },
+  {
+    "id": "pokemon-go-68-pok-stop",
+    "name": "PokéStop",
+    "rarity": "Uncommon",
+    "number": "68",
+    "image": "/assets/sets/pokemon-go/cards/68_PokéStop_Uncommon.png"
+  },
+  {
+    "id": "pokemon-go-69-rare-candy",
+    "name": "Rare Candy",
+    "rarity": "Uncommon",
+    "number": "69",
+    "image": "/assets/sets/pokemon-go/cards/69_Rare_Candy_Uncommon.png"
+  },
+  {
+    "id": "pokemon-go-70-spark",
+    "name": "Spark",
+    "rarity": "Uncommon",
+    "number": "70",
+    "image": "/assets/sets/pokemon-go/cards/70_Spark_Uncommon.png"
+  },
+  {
+    "id": "pokemon-go-71-alolan-exeggutor-v",
+    "name": "Alolan Exeggutor V",
+    "rarity": "Ultra Rare",
+    "number": "71",
+    "image": "/assets/sets/pokemon-go/cards/71_Alolan_Exeggutor_V_Rare_Ultra.png"
+  },
+  {
+    "id": "pokemon-go-72-mewtwo-v",
+    "name": "Mewtwo V",
+    "rarity": "Ultra Rare",
+    "number": "72",
+    "image": "/assets/sets/pokemon-go/cards/72_Mewtwo_V_Rare_Ultra.png"
+  },
+  {
+    "id": "pokemon-go-73-conkeldurr-v",
+    "name": "Conkeldurr V",
+    "rarity": "Ultra Rare",
+    "number": "73",
+    "image": "/assets/sets/pokemon-go/cards/73_Conkeldurr_V_Rare_Ultra.png"
+  },
+  {
+    "id": "pokemon-go-74-conkeldurr-v",
+    "name": "Conkeldurr V",
+    "rarity": "Ultra Rare",
+    "number": "74",
+    "image": "/assets/sets/pokemon-go/cards/74_Conkeldurr_V_Rare_Ultra.png"
+  },
+  {
+    "id": "pokemon-go-75-melmetal-v",
+    "name": "Melmetal V",
+    "rarity": "Ultra Rare",
+    "number": "75",
+    "image": "/assets/sets/pokemon-go/cards/75_Melmetal_V_Rare_Ultra.png"
+  },
+  {
+    "id": "pokemon-go-76-dragonite-v",
+    "name": "Dragonite V",
+    "rarity": "Ultra Rare",
+    "number": "76",
+    "image": "/assets/sets/pokemon-go/cards/76_Dragonite_V_Rare_Ultra.png"
+  },
+  {
+    "id": "pokemon-go-77-slaking-v",
+    "name": "Slaking V",
+    "rarity": "Ultra Rare",
+    "number": "77",
+    "image": "/assets/sets/pokemon-go/cards/77_Slaking_V_Rare_Ultra.png"
+  },
+  {
+    "id": "pokemon-go-78-professor-s-research",
+    "name": "Professor's Research",
+    "rarity": "Ultra Rare",
+    "number": "78",
+    "image": "/assets/sets/pokemon-go/cards/78_Professor's_Research_Rare_Ultra.png"
+  },
+  {
+    "id": "pokemon-go-79-mewtwo-vstar",
+    "name": "Mewtwo VSTAR",
+    "rarity": "Secret Rare",
+    "number": "79",
+    "image": "/assets/sets/pokemon-go/cards/79_Mewtwo_VSTAR_Rare_Rainbow.png"
+  },
+  {
+    "id": "pokemon-go-80-melmetal-vmax",
+    "name": "Melmetal VMAX",
+    "rarity": "Secret Rare",
+    "number": "80",
+    "image": "/assets/sets/pokemon-go/cards/80_Melmetal_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "pokemon-go-81-dragonite-vstar",
+    "name": "Dragonite VSTAR",
+    "rarity": "Secret Rare",
+    "number": "81",
+    "image": "/assets/sets/pokemon-go/cards/81_Dragonite_VSTAR_Rare_Rainbow.png"
+  },
+  {
+    "id": "pokemon-go-82-blanche",
+    "name": "Blanche",
+    "rarity": "Secret Rare",
+    "number": "82",
+    "image": "/assets/sets/pokemon-go/cards/82_Blanche_Rare_Rainbow.png"
+  },
+  {
+    "id": "pokemon-go-83-candela",
+    "name": "Candela",
+    "rarity": "Secret Rare",
+    "number": "83",
+    "image": "/assets/sets/pokemon-go/cards/83_Candela_Rare_Rainbow.png"
+  },
+  {
+    "id": "pokemon-go-84-professor-s-research",
+    "name": "Professor's Research",
+    "rarity": "Secret Rare",
+    "number": "84",
+    "image": "/assets/sets/pokemon-go/cards/84_Professor's_Research_Rare_Rainbow.png"
+  },
+  {
+    "id": "pokemon-go-85-spark",
+    "name": "Spark",
+    "rarity": "Secret Rare",
+    "number": "85",
+    "image": "/assets/sets/pokemon-go/cards/85_Spark_Rare_Rainbow.png"
+  },
+  {
+    "id": "pokemon-go-86-mewtwo-vstar",
+    "name": "Mewtwo VSTAR",
+    "rarity": "Secret Rare",
+    "number": "86",
+    "image": "/assets/sets/pokemon-go/cards/86_Mewtwo_VSTAR_Rare_Secret.png"
+  },
+  {
+    "id": "pokemon-go-87-egg-incubator",
+    "name": "Egg Incubator",
+    "rarity": "Secret Rare",
+    "number": "87",
+    "image": "/assets/sets/pokemon-go/cards/87_Egg_Incubator_Rare_Secret.png"
+  },
+  {
+    "id": "pokemon-go-88-lure-module",
+    "name": "Lure Module",
+    "rarity": "Secret Rare",
+    "number": "88",
+    "image": "/assets/sets/pokemon-go/cards/88_Lure_Module_Rare_Secret.png"
+  }
+]

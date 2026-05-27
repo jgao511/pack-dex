@@ -1,0 +1,1227 @@
+[
+  {
+    "id": "stellar-crown-1-venusaur-ex",
+    "name": "Venusaur ex",
+    "rarity": "Double Rare",
+    "number": "1",
+    "image": "/assets/sets/stellar-crown/cards/1_Venusaur_ex_Double_Rare.png"
+  },
+  {
+    "id": "stellar-crown-2-ledyba",
+    "name": "Ledyba",
+    "rarity": "Common",
+    "number": "2",
+    "image": "/assets/sets/stellar-crown/cards/2_Ledyba_Common.png"
+  },
+  {
+    "id": "stellar-crown-3-ledian",
+    "name": "Ledian",
+    "rarity": "Rare",
+    "number": "3",
+    "image": "/assets/sets/stellar-crown/cards/3_Ledian_Rare.png"
+  },
+  {
+    "id": "stellar-crown-4-celebi",
+    "name": "Celebi",
+    "rarity": "Uncommon",
+    "number": "4",
+    "image": "/assets/sets/stellar-crown/cards/4_Celebi_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-5-lileep",
+    "name": "Lileep",
+    "rarity": "Common",
+    "number": "5",
+    "image": "/assets/sets/stellar-crown/cards/5_Lileep_Common.png"
+  },
+  {
+    "id": "stellar-crown-6-cradily",
+    "name": "Cradily",
+    "rarity": "Rare",
+    "number": "6",
+    "image": "/assets/sets/stellar-crown/cards/6_Cradily_Rare.png"
+  },
+  {
+    "id": "stellar-crown-7-carnivine",
+    "name": "Carnivine",
+    "rarity": "Common",
+    "number": "7",
+    "image": "/assets/sets/stellar-crown/cards/7_Carnivine_Common.png"
+  },
+  {
+    "id": "stellar-crown-8-mow-rotom",
+    "name": "Mow Rotom",
+    "rarity": "Common",
+    "number": "8",
+    "image": "/assets/sets/stellar-crown/cards/8_Mow_Rotom_Common.png"
+  },
+  {
+    "id": "stellar-crown-9-grubbin",
+    "name": "Grubbin",
+    "rarity": "Common",
+    "number": "9",
+    "image": "/assets/sets/stellar-crown/cards/9_Grubbin_Common.png"
+  },
+  {
+    "id": "stellar-crown-10-gossifleur",
+    "name": "Gossifleur",
+    "rarity": "Common",
+    "number": "10",
+    "image": "/assets/sets/stellar-crown/cards/10_Gossifleur_Common.png"
+  },
+  {
+    "id": "stellar-crown-11-eldegoss",
+    "name": "Eldegoss",
+    "rarity": "Uncommon",
+    "number": "11",
+    "image": "/assets/sets/stellar-crown/cards/11_Eldegoss_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-12-applin",
+    "name": "Applin",
+    "rarity": "Common",
+    "number": "12",
+    "image": "/assets/sets/stellar-crown/cards/12_Applin_Common.png"
+  },
+  {
+    "id": "stellar-crown-13-dipplin",
+    "name": "Dipplin",
+    "rarity": "Common",
+    "number": "13",
+    "image": "/assets/sets/stellar-crown/cards/13_Dipplin_Common.png"
+  },
+  {
+    "id": "stellar-crown-14-hydrapple-ex",
+    "name": "Hydrapple ex",
+    "rarity": "Double Rare",
+    "number": "14",
+    "image": "/assets/sets/stellar-crown/cards/14_Hydrapple_ex_Double_Rare.png"
+  },
+  {
+    "id": "stellar-crown-15-nymble",
+    "name": "Nymble",
+    "rarity": "Common",
+    "number": "15",
+    "image": "/assets/sets/stellar-crown/cards/15_Nymble_Common.png"
+  },
+  {
+    "id": "stellar-crown-16-lokix",
+    "name": "Lokix",
+    "rarity": "Common",
+    "number": "16",
+    "image": "/assets/sets/stellar-crown/cards/16_Lokix_Common.png"
+  },
+  {
+    "id": "stellar-crown-17-toedscool",
+    "name": "Toedscool",
+    "rarity": "Common",
+    "number": "17",
+    "image": "/assets/sets/stellar-crown/cards/17_Toedscool_Common.png"
+  },
+  {
+    "id": "stellar-crown-18-toedscruel",
+    "name": "Toedscruel",
+    "rarity": "Uncommon",
+    "number": "18",
+    "image": "/assets/sets/stellar-crown/cards/18_Toedscruel_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-19-ponyta",
+    "name": "Ponyta",
+    "rarity": "Common",
+    "number": "19",
+    "image": "/assets/sets/stellar-crown/cards/19_Ponyta_Common.png"
+  },
+  {
+    "id": "stellar-crown-20-rapidash",
+    "name": "Rapidash",
+    "rarity": "Uncommon",
+    "number": "20",
+    "image": "/assets/sets/stellar-crown/cards/20_Rapidash_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-21-pansear",
+    "name": "Pansear",
+    "rarity": "Common",
+    "number": "21",
+    "image": "/assets/sets/stellar-crown/cards/21_Pansear_Common.png"
+  },
+  {
+    "id": "stellar-crown-22-reshiram",
+    "name": "Reshiram",
+    "rarity": "Uncommon",
+    "number": "22",
+    "image": "/assets/sets/stellar-crown/cards/22_Reshiram_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-23-salandit",
+    "name": "Salandit",
+    "rarity": "Common",
+    "number": "23",
+    "image": "/assets/sets/stellar-crown/cards/23_Salandit_Common.png"
+  },
+  {
+    "id": "stellar-crown-24-salazzle",
+    "name": "Salazzle",
+    "rarity": "Uncommon",
+    "number": "24",
+    "image": "/assets/sets/stellar-crown/cards/24_Salazzle_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-25-turtonator",
+    "name": "Turtonator",
+    "rarity": "Common",
+    "number": "25",
+    "image": "/assets/sets/stellar-crown/cards/25_Turtonator_Common.png"
+  },
+  {
+    "id": "stellar-crown-26-scorbunny",
+    "name": "Scorbunny",
+    "rarity": "Common",
+    "number": "26",
+    "image": "/assets/sets/stellar-crown/cards/26_Scorbunny_Common.png"
+  },
+  {
+    "id": "stellar-crown-27-raboot",
+    "name": "Raboot",
+    "rarity": "Common",
+    "number": "27",
+    "image": "/assets/sets/stellar-crown/cards/27_Raboot_Common.png"
+  },
+  {
+    "id": "stellar-crown-28-cinderace-ex",
+    "name": "Cinderace ex",
+    "rarity": "Double Rare",
+    "number": "28",
+    "image": "/assets/sets/stellar-crown/cards/28_Cinderace_ex_Double_Rare.png"
+  },
+  {
+    "id": "stellar-crown-29-charcadet",
+    "name": "Charcadet",
+    "rarity": "Common",
+    "number": "29",
+    "image": "/assets/sets/stellar-crown/cards/29_Charcadet_Common.png"
+  },
+  {
+    "id": "stellar-crown-30-blastoise-ex",
+    "name": "Blastoise ex",
+    "rarity": "Double Rare",
+    "number": "30",
+    "image": "/assets/sets/stellar-crown/cards/30_Blastoise_ex_Double_Rare.png"
+  },
+  {
+    "id": "stellar-crown-31-lapras",
+    "name": "Lapras",
+    "rarity": "Uncommon",
+    "number": "31",
+    "image": "/assets/sets/stellar-crown/cards/31_Lapras_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-32-lapras-ex",
+    "name": "Lapras ex",
+    "rarity": "Double Rare",
+    "number": "32",
+    "image": "/assets/sets/stellar-crown/cards/32_Lapras_ex_Double_Rare.png"
+  },
+  {
+    "id": "stellar-crown-33-marill",
+    "name": "Marill",
+    "rarity": "Common",
+    "number": "33",
+    "image": "/assets/sets/stellar-crown/cards/33_Marill_Common.png"
+  },
+  {
+    "id": "stellar-crown-34-azumarill",
+    "name": "Azumarill",
+    "rarity": "Uncommon",
+    "number": "34",
+    "image": "/assets/sets/stellar-crown/cards/34_Azumarill_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-35-finneon",
+    "name": "Finneon",
+    "rarity": "Common",
+    "number": "35",
+    "image": "/assets/sets/stellar-crown/cards/35_Finneon_Common.png"
+  },
+  {
+    "id": "stellar-crown-36-lumineon",
+    "name": "Lumineon",
+    "rarity": "Uncommon",
+    "number": "36",
+    "image": "/assets/sets/stellar-crown/cards/36_Lumineon_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-37-tirtouga",
+    "name": "Tirtouga",
+    "rarity": "Common",
+    "number": "37",
+    "image": "/assets/sets/stellar-crown/cards/37_Tirtouga_Common.png"
+  },
+  {
+    "id": "stellar-crown-38-carracosta",
+    "name": "Carracosta",
+    "rarity": "Rare",
+    "number": "38",
+    "image": "/assets/sets/stellar-crown/cards/38_Carracosta_Rare.png"
+  },
+  {
+    "id": "stellar-crown-39-froakie",
+    "name": "Froakie",
+    "rarity": "Common",
+    "number": "39",
+    "image": "/assets/sets/stellar-crown/cards/39_Froakie_Common.png"
+  },
+  {
+    "id": "stellar-crown-40-frogadier",
+    "name": "Frogadier",
+    "rarity": "Uncommon",
+    "number": "40",
+    "image": "/assets/sets/stellar-crown/cards/40_Frogadier_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-41-greninja-ex",
+    "name": "Greninja ex",
+    "rarity": "Double Rare",
+    "number": "41",
+    "image": "/assets/sets/stellar-crown/cards/41_Greninja_ex_Double_Rare.png"
+  },
+  {
+    "id": "stellar-crown-42-crabominable",
+    "name": "Crabominable",
+    "rarity": "Uncommon",
+    "number": "42",
+    "image": "/assets/sets/stellar-crown/cards/42_Crabominable_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-43-chewtle",
+    "name": "Chewtle",
+    "rarity": "Common",
+    "number": "43",
+    "image": "/assets/sets/stellar-crown/cards/43_Chewtle_Common.png"
+  },
+  {
+    "id": "stellar-crown-44-drednaw",
+    "name": "Drednaw",
+    "rarity": "Rare",
+    "number": "44",
+    "image": "/assets/sets/stellar-crown/cards/44_Drednaw_Rare.png"
+  },
+  {
+    "id": "stellar-crown-45-veluza",
+    "name": "Veluza",
+    "rarity": "Uncommon",
+    "number": "45",
+    "image": "/assets/sets/stellar-crown/cards/45_Veluza_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-46-electabuzz",
+    "name": "Electabuzz",
+    "rarity": "Common",
+    "number": "46",
+    "image": "/assets/sets/stellar-crown/cards/46_Electabuzz_Common.png"
+  },
+  {
+    "id": "stellar-crown-47-electivire",
+    "name": "Electivire",
+    "rarity": "Uncommon",
+    "number": "47",
+    "image": "/assets/sets/stellar-crown/cards/47_Electivire_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-48-chinchou",
+    "name": "Chinchou",
+    "rarity": "Common",
+    "number": "48",
+    "image": "/assets/sets/stellar-crown/cards/48_Chinchou_Common.png"
+  },
+  {
+    "id": "stellar-crown-49-lanturn",
+    "name": "Lanturn",
+    "rarity": "Uncommon",
+    "number": "49",
+    "image": "/assets/sets/stellar-crown/cards/49_Lanturn_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-50-joltik",
+    "name": "Joltik",
+    "rarity": "Common",
+    "number": "50",
+    "image": "/assets/sets/stellar-crown/cards/50_Joltik_Common.png"
+  },
+  {
+    "id": "stellar-crown-51-galvantula-ex",
+    "name": "Galvantula ex",
+    "rarity": "Double Rare",
+    "number": "51",
+    "image": "/assets/sets/stellar-crown/cards/51_Galvantula_ex_Double_Rare.png"
+  },
+  {
+    "id": "stellar-crown-52-charjabug",
+    "name": "Charjabug",
+    "rarity": "Common",
+    "number": "52",
+    "image": "/assets/sets/stellar-crown/cards/52_Charjabug_Common.png"
+  },
+  {
+    "id": "stellar-crown-53-vikavolt",
+    "name": "Vikavolt",
+    "rarity": "Uncommon",
+    "number": "53",
+    "image": "/assets/sets/stellar-crown/cards/53_Vikavolt_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-54-togedemaru",
+    "name": "Togedemaru",
+    "rarity": "Uncommon",
+    "number": "54",
+    "image": "/assets/sets/stellar-crown/cards/54_Togedemaru_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-55-zeraora",
+    "name": "Zeraora",
+    "rarity": "Rare",
+    "number": "55",
+    "image": "/assets/sets/stellar-crown/cards/55_Zeraora_Rare.png"
+  },
+  {
+    "id": "stellar-crown-56-pawmi",
+    "name": "Pawmi",
+    "rarity": "Common",
+    "number": "56",
+    "image": "/assets/sets/stellar-crown/cards/56_Pawmi_Common.png"
+  },
+  {
+    "id": "stellar-crown-57-slowpoke",
+    "name": "Slowpoke",
+    "rarity": "Common",
+    "number": "57",
+    "image": "/assets/sets/stellar-crown/cards/57_Slowpoke_Common.png"
+  },
+  {
+    "id": "stellar-crown-58-slowking",
+    "name": "Slowking",
+    "rarity": "Uncommon",
+    "number": "58",
+    "image": "/assets/sets/stellar-crown/cards/58_Slowking_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-59-mewtwo",
+    "name": "Mewtwo",
+    "rarity": "Uncommon",
+    "number": "59",
+    "image": "/assets/sets/stellar-crown/cards/59_Mewtwo_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-60-drifloon",
+    "name": "Drifloon",
+    "rarity": "Common",
+    "number": "60",
+    "image": "/assets/sets/stellar-crown/cards/60_Drifloon_Common.png"
+  },
+  {
+    "id": "stellar-crown-61-drifblim",
+    "name": "Drifblim",
+    "rarity": "Uncommon",
+    "number": "61",
+    "image": "/assets/sets/stellar-crown/cards/61_Drifblim_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-62-yamask",
+    "name": "Yamask",
+    "rarity": "Common",
+    "number": "62",
+    "image": "/assets/sets/stellar-crown/cards/62_Yamask_Common.png"
+  },
+  {
+    "id": "stellar-crown-63-comfey",
+    "name": "Comfey",
+    "rarity": "Common",
+    "number": "63",
+    "image": "/assets/sets/stellar-crown/cards/63_Comfey_Common.png"
+  },
+  {
+    "id": "stellar-crown-64-milcery",
+    "name": "Milcery",
+    "rarity": "Common",
+    "number": "64",
+    "image": "/assets/sets/stellar-crown/cards/64_Milcery_Common.png"
+  },
+  {
+    "id": "stellar-crown-65-alcremie",
+    "name": "Alcremie",
+    "rarity": "Rare",
+    "number": "65",
+    "image": "/assets/sets/stellar-crown/cards/65_Alcremie_Rare.png"
+  },
+  {
+    "id": "stellar-crown-66-fidough",
+    "name": "Fidough",
+    "rarity": "Common",
+    "number": "66",
+    "image": "/assets/sets/stellar-crown/cards/66_Fidough_Common.png"
+  },
+  {
+    "id": "stellar-crown-67-dachsbun-ex",
+    "name": "Dachsbun ex",
+    "rarity": "Double Rare",
+    "number": "67",
+    "image": "/assets/sets/stellar-crown/cards/67_Dachsbun_ex_Double_Rare.png"
+  },
+  {
+    "id": "stellar-crown-68-flittle",
+    "name": "Flittle",
+    "rarity": "Common",
+    "number": "68",
+    "image": "/assets/sets/stellar-crown/cards/68_Flittle_Common.png"
+  },
+  {
+    "id": "stellar-crown-69-espathra",
+    "name": "Espathra",
+    "rarity": "Common",
+    "number": "69",
+    "image": "/assets/sets/stellar-crown/cards/69_Espathra_Common.png"
+  },
+  {
+    "id": "stellar-crown-70-greavard",
+    "name": "Greavard",
+    "rarity": "Common",
+    "number": "70",
+    "image": "/assets/sets/stellar-crown/cards/70_Greavard_Common.png"
+  },
+  {
+    "id": "stellar-crown-71-iron-boulder",
+    "name": "Iron Boulder",
+    "rarity": "Rare",
+    "number": "71",
+    "image": "/assets/sets/stellar-crown/cards/71_Iron_Boulder_Rare.png"
+  },
+  {
+    "id": "stellar-crown-72-cubone",
+    "name": "Cubone",
+    "rarity": "Common",
+    "number": "72",
+    "image": "/assets/sets/stellar-crown/cards/72_Cubone_Common.png"
+  },
+  {
+    "id": "stellar-crown-73-marowak",
+    "name": "Marowak",
+    "rarity": "Uncommon",
+    "number": "73",
+    "image": "/assets/sets/stellar-crown/cards/73_Marowak_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-74-rhyhorn",
+    "name": "Rhyhorn",
+    "rarity": "Common",
+    "number": "74",
+    "image": "/assets/sets/stellar-crown/cards/74_Rhyhorn_Common.png"
+  },
+  {
+    "id": "stellar-crown-75-rhydon",
+    "name": "Rhydon",
+    "rarity": "Common",
+    "number": "75",
+    "image": "/assets/sets/stellar-crown/cards/75_Rhydon_Common.png"
+  },
+  {
+    "id": "stellar-crown-76-rhyperior",
+    "name": "Rhyperior",
+    "rarity": "Rare",
+    "number": "76",
+    "image": "/assets/sets/stellar-crown/cards/76_Rhyperior_Rare.png"
+  },
+  {
+    "id": "stellar-crown-77-meditite",
+    "name": "Meditite",
+    "rarity": "Common",
+    "number": "77",
+    "image": "/assets/sets/stellar-crown/cards/77_Meditite_Common.png"
+  },
+  {
+    "id": "stellar-crown-78-meditite",
+    "name": "Meditite",
+    "rarity": "Common",
+    "number": "78",
+    "image": "/assets/sets/stellar-crown/cards/78_Meditite_Common.png"
+  },
+  {
+    "id": "stellar-crown-79-medicham",
+    "name": "Medicham",
+    "rarity": "Common",
+    "number": "79",
+    "image": "/assets/sets/stellar-crown/cards/79_Medicham_Common.png"
+  },
+  {
+    "id": "stellar-crown-80-medicham-ex",
+    "name": "Medicham ex",
+    "rarity": "Double Rare",
+    "number": "80",
+    "image": "/assets/sets/stellar-crown/cards/80_Medicham_ex_Double_Rare.png"
+  },
+  {
+    "id": "stellar-crown-81-riolu",
+    "name": "Riolu",
+    "rarity": "Common",
+    "number": "81",
+    "image": "/assets/sets/stellar-crown/cards/81_Riolu_Common.png"
+  },
+  {
+    "id": "stellar-crown-82-lucario-ex",
+    "name": "Lucario ex",
+    "rarity": "Double Rare",
+    "number": "82",
+    "image": "/assets/sets/stellar-crown/cards/82_Lucario_ex_Double_Rare.png"
+  },
+  {
+    "id": "stellar-crown-83-mienfoo",
+    "name": "Mienfoo",
+    "rarity": "Common",
+    "number": "83",
+    "image": "/assets/sets/stellar-crown/cards/83_Mienfoo_Common.png"
+  },
+  {
+    "id": "stellar-crown-84-mienshao",
+    "name": "Mienshao",
+    "rarity": "Uncommon",
+    "number": "84",
+    "image": "/assets/sets/stellar-crown/cards/84_Mienshao_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-85-pancham",
+    "name": "Pancham",
+    "rarity": "Common",
+    "number": "85",
+    "image": "/assets/sets/stellar-crown/cards/85_Pancham_Common.png"
+  },
+  {
+    "id": "stellar-crown-86-diancie",
+    "name": "Diancie",
+    "rarity": "Uncommon",
+    "number": "86",
+    "image": "/assets/sets/stellar-crown/cards/86_Diancie_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-87-crabrawler",
+    "name": "Crabrawler",
+    "rarity": "Common",
+    "number": "87",
+    "image": "/assets/sets/stellar-crown/cards/87_Crabrawler_Common.png"
+  },
+  {
+    "id": "stellar-crown-88-falinks",
+    "name": "Falinks",
+    "rarity": "Common",
+    "number": "88",
+    "image": "/assets/sets/stellar-crown/cards/88_Falinks_Common.png"
+  },
+  {
+    "id": "stellar-crown-89-garganacl-ex",
+    "name": "Garganacl ex",
+    "rarity": "Double Rare",
+    "number": "89",
+    "image": "/assets/sets/stellar-crown/cards/89_Garganacl_ex_Double_Rare.png"
+  },
+  {
+    "id": "stellar-crown-90-koraidon",
+    "name": "Koraidon",
+    "rarity": "Uncommon",
+    "number": "90",
+    "image": "/assets/sets/stellar-crown/cards/90_Koraidon_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-91-gulpin",
+    "name": "Gulpin",
+    "rarity": "Common",
+    "number": "91",
+    "image": "/assets/sets/stellar-crown/cards/91_Gulpin_Common.png"
+  },
+  {
+    "id": "stellar-crown-92-swalot",
+    "name": "Swalot",
+    "rarity": "Uncommon",
+    "number": "92",
+    "image": "/assets/sets/stellar-crown/cards/92_Swalot_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-93-pangoro",
+    "name": "Pangoro",
+    "rarity": "Uncommon",
+    "number": "93",
+    "image": "/assets/sets/stellar-crown/cards/93_Pangoro_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-94-impidimp",
+    "name": "Impidimp",
+    "rarity": "Common",
+    "number": "94",
+    "image": "/assets/sets/stellar-crown/cards/94_Impidimp_Common.png"
+  },
+  {
+    "id": "stellar-crown-95-morgrem",
+    "name": "Morgrem",
+    "rarity": "Common",
+    "number": "95",
+    "image": "/assets/sets/stellar-crown/cards/95_Morgrem_Common.png"
+  },
+  {
+    "id": "stellar-crown-96-grimmsnarl",
+    "name": "Grimmsnarl",
+    "rarity": "Rare",
+    "number": "96",
+    "image": "/assets/sets/stellar-crown/cards/96_Grimmsnarl_Rare.png"
+  },
+  {
+    "id": "stellar-crown-97-bombirdier",
+    "name": "Bombirdier",
+    "rarity": "Common",
+    "number": "97",
+    "image": "/assets/sets/stellar-crown/cards/97_Bombirdier_Common.png"
+  },
+  {
+    "id": "stellar-crown-98-jirachi",
+    "name": "Jirachi",
+    "rarity": "Uncommon",
+    "number": "98",
+    "image": "/assets/sets/stellar-crown/cards/98_Jirachi_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-99-klink",
+    "name": "Klink",
+    "rarity": "Common",
+    "number": "99",
+    "image": "/assets/sets/stellar-crown/cards/99_Klink_Common.png"
+  },
+  {
+    "id": "stellar-crown-100-klang",
+    "name": "Klang",
+    "rarity": "Common",
+    "number": "100",
+    "image": "/assets/sets/stellar-crown/cards/100_Klang_Common.png"
+  },
+  {
+    "id": "stellar-crown-101-klinklang",
+    "name": "Klinklang",
+    "rarity": "Rare",
+    "number": "101",
+    "image": "/assets/sets/stellar-crown/cards/101_Klinklang_Rare.png"
+  },
+  {
+    "id": "stellar-crown-102-meltan",
+    "name": "Meltan",
+    "rarity": "Common",
+    "number": "102",
+    "image": "/assets/sets/stellar-crown/cards/102_Meltan_Common.png"
+  },
+  {
+    "id": "stellar-crown-103-meltan",
+    "name": "Meltan",
+    "rarity": "Common",
+    "number": "103",
+    "image": "/assets/sets/stellar-crown/cards/103_Meltan_Common.png"
+  },
+  {
+    "id": "stellar-crown-104-melmetal",
+    "name": "Melmetal",
+    "rarity": "Rare",
+    "number": "104",
+    "image": "/assets/sets/stellar-crown/cards/104_Melmetal_Rare.png"
+  },
+  {
+    "id": "stellar-crown-105-melmetal-ex",
+    "name": "Melmetal ex",
+    "rarity": "Double Rare",
+    "number": "105",
+    "image": "/assets/sets/stellar-crown/cards/105_Melmetal_ex_Double_Rare.png"
+  },
+  {
+    "id": "stellar-crown-106-duraludon",
+    "name": "Duraludon",
+    "rarity": "Common",
+    "number": "106",
+    "image": "/assets/sets/stellar-crown/cards/106_Duraludon_Common.png"
+  },
+  {
+    "id": "stellar-crown-107-archaludon",
+    "name": "Archaludon",
+    "rarity": "Rare",
+    "number": "107",
+    "image": "/assets/sets/stellar-crown/cards/107_Archaludon_Rare.png"
+  },
+  {
+    "id": "stellar-crown-108-varoom",
+    "name": "Varoom",
+    "rarity": "Common",
+    "number": "108",
+    "image": "/assets/sets/stellar-crown/cards/108_Varoom_Common.png"
+  },
+  {
+    "id": "stellar-crown-109-revavroom",
+    "name": "Revavroom",
+    "rarity": "Uncommon",
+    "number": "109",
+    "image": "/assets/sets/stellar-crown/cards/109_Revavroom_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-110-orthworm-ex",
+    "name": "Orthworm ex",
+    "rarity": "Double Rare",
+    "number": "110",
+    "image": "/assets/sets/stellar-crown/cards/110_Orthworm_ex_Double_Rare.png"
+  },
+  {
+    "id": "stellar-crown-111-raging-bolt",
+    "name": "Raging Bolt",
+    "rarity": "Rare",
+    "number": "111",
+    "image": "/assets/sets/stellar-crown/cards/111_Raging_Bolt_Rare.png"
+  },
+  {
+    "id": "stellar-crown-112-tauros",
+    "name": "Tauros",
+    "rarity": "Common",
+    "number": "112",
+    "image": "/assets/sets/stellar-crown/cards/112_Tauros_Common.png"
+  },
+  {
+    "id": "stellar-crown-113-eevee",
+    "name": "Eevee",
+    "rarity": "Common",
+    "number": "113",
+    "image": "/assets/sets/stellar-crown/cards/113_Eevee_Common.png"
+  },
+  {
+    "id": "stellar-crown-114-hoothoot",
+    "name": "Hoothoot",
+    "rarity": "Common",
+    "number": "114",
+    "image": "/assets/sets/stellar-crown/cards/114_Hoothoot_Common.png"
+  },
+  {
+    "id": "stellar-crown-115-noctowl",
+    "name": "Noctowl",
+    "rarity": "Rare",
+    "number": "115",
+    "image": "/assets/sets/stellar-crown/cards/115_Noctowl_Rare.png"
+  },
+  {
+    "id": "stellar-crown-116-glameow",
+    "name": "Glameow",
+    "rarity": "Common",
+    "number": "116",
+    "image": "/assets/sets/stellar-crown/cards/116_Glameow_Common.png"
+  },
+  {
+    "id": "stellar-crown-117-purugly",
+    "name": "Purugly",
+    "rarity": "Common",
+    "number": "117",
+    "image": "/assets/sets/stellar-crown/cards/117_Purugly_Common.png"
+  },
+  {
+    "id": "stellar-crown-118-fan-rotom",
+    "name": "Fan Rotom",
+    "rarity": "Common",
+    "number": "118",
+    "image": "/assets/sets/stellar-crown/cards/118_Fan_Rotom_Common.png"
+  },
+  {
+    "id": "stellar-crown-119-bouffalant",
+    "name": "Bouffalant",
+    "rarity": "Rare",
+    "number": "119",
+    "image": "/assets/sets/stellar-crown/cards/119_Bouffalant_Rare.png"
+  },
+  {
+    "id": "stellar-crown-120-tornadus",
+    "name": "Tornadus",
+    "rarity": "Uncommon",
+    "number": "120",
+    "image": "/assets/sets/stellar-crown/cards/120_Tornadus_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-121-fletchling",
+    "name": "Fletchling",
+    "rarity": "Common",
+    "number": "121",
+    "image": "/assets/sets/stellar-crown/cards/121_Fletchling_Common.png"
+  },
+  {
+    "id": "stellar-crown-122-fletchinder",
+    "name": "Fletchinder",
+    "rarity": "Common",
+    "number": "122",
+    "image": "/assets/sets/stellar-crown/cards/122_Fletchinder_Common.png"
+  },
+  {
+    "id": "stellar-crown-123-talonflame",
+    "name": "Talonflame",
+    "rarity": "Uncommon",
+    "number": "123",
+    "image": "/assets/sets/stellar-crown/cards/123_Talonflame_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-124-wooloo",
+    "name": "Wooloo",
+    "rarity": "Common",
+    "number": "124",
+    "image": "/assets/sets/stellar-crown/cards/124_Wooloo_Common.png"
+  },
+  {
+    "id": "stellar-crown-125-dubwool",
+    "name": "Dubwool",
+    "rarity": "Uncommon",
+    "number": "125",
+    "image": "/assets/sets/stellar-crown/cards/125_Dubwool_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-126-lechonk",
+    "name": "Lechonk",
+    "rarity": "Common",
+    "number": "126",
+    "image": "/assets/sets/stellar-crown/cards/126_Lechonk_Common.png"
+  },
+  {
+    "id": "stellar-crown-127-cyclizar",
+    "name": "Cyclizar",
+    "rarity": "Common",
+    "number": "127",
+    "image": "/assets/sets/stellar-crown/cards/127_Cyclizar_Common.png"
+  },
+  {
+    "id": "stellar-crown-128-terapagos-ex",
+    "name": "Terapagos ex",
+    "rarity": "Double Rare",
+    "number": "128",
+    "image": "/assets/sets/stellar-crown/cards/128_Terapagos_ex_Double_Rare.png"
+  },
+  {
+    "id": "stellar-crown-129-antique-cover-fossil",
+    "name": "Antique Cover Fossil",
+    "rarity": "Common",
+    "number": "129",
+    "image": "/assets/sets/stellar-crown/cards/129_Antique_Cover_Fossil_Common.png"
+  },
+  {
+    "id": "stellar-crown-130-antique-root-fossil",
+    "name": "Antique Root Fossil",
+    "rarity": "Common",
+    "number": "130",
+    "image": "/assets/sets/stellar-crown/cards/130_Antique_Root_Fossil_Common.png"
+  },
+  {
+    "id": "stellar-crown-131-area-zero-underdepths",
+    "name": "Area Zero Underdepths",
+    "rarity": "Uncommon",
+    "number": "131",
+    "image": "/assets/sets/stellar-crown/cards/131_Area_Zero_Underdepths_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-132-briar",
+    "name": "Briar",
+    "rarity": "Uncommon",
+    "number": "132",
+    "image": "/assets/sets/stellar-crown/cards/132_Briar_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-133-crispin",
+    "name": "Crispin",
+    "rarity": "Uncommon",
+    "number": "133",
+    "image": "/assets/sets/stellar-crown/cards/133_Crispin_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-134-deluxe-bomb-ace-spec",
+    "name": "Deluxe Bomb ACE SPEC",
+    "rarity": "Rare",
+    "number": "134",
+    "image": "/assets/sets/stellar-crown/cards/134_Deluxe_Bomb_ACE_SPEC_Rare.png"
+  },
+  {
+    "id": "stellar-crown-135-glass-trumpet",
+    "name": "Glass Trumpet",
+    "rarity": "Uncommon",
+    "number": "135",
+    "image": "/assets/sets/stellar-crown/cards/135_Glass_Trumpet_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-136-grand-tree-ace-spec",
+    "name": "Grand Tree ACE SPEC",
+    "rarity": "Rare",
+    "number": "136",
+    "image": "/assets/sets/stellar-crown/cards/136_Grand_Tree_ACE_SPEC_Rare.png"
+  },
+  {
+    "id": "stellar-crown-137-gravity-gemstone",
+    "name": "Gravity Gemstone",
+    "rarity": "Uncommon",
+    "number": "137",
+    "image": "/assets/sets/stellar-crown/cards/137_Gravity_Gemstone_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-138-kofu",
+    "name": "Kofu",
+    "rarity": "Uncommon",
+    "number": "138",
+    "image": "/assets/sets/stellar-crown/cards/138_Kofu_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-139-lacey",
+    "name": "Lacey",
+    "rarity": "Uncommon",
+    "number": "139",
+    "image": "/assets/sets/stellar-crown/cards/139_Lacey_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-140-occa-berry",
+    "name": "Occa Berry",
+    "rarity": "Uncommon",
+    "number": "140",
+    "image": "/assets/sets/stellar-crown/cards/140_Occa_Berry_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-141-payapa-berry",
+    "name": "Payapa Berry",
+    "rarity": "Uncommon",
+    "number": "141",
+    "image": "/assets/sets/stellar-crown/cards/141_Payapa_Berry_Uncommon.png"
+  },
+  {
+    "id": "stellar-crown-142-sparkling-crystal-ace-spec",
+    "name": "Sparkling Crystal ACE SPEC",
+    "rarity": "Rare",
+    "number": "142",
+    "image": "/assets/sets/stellar-crown/cards/142_Sparkling_Crystal_ACE_SPEC_Rare.png"
+  },
+  {
+    "id": "stellar-crown-143-bulbasaur",
+    "name": "Bulbasaur",
+    "rarity": "Illustration Rare",
+    "number": "143",
+    "image": "/assets/sets/stellar-crown/cards/143_Bulbasaur_Illustration_Rare.png"
+  },
+  {
+    "id": "stellar-crown-144-ledian",
+    "name": "Ledian",
+    "rarity": "Illustration Rare",
+    "number": "144",
+    "image": "/assets/sets/stellar-crown/cards/144_Ledian_Illustration_Rare.png"
+  },
+  {
+    "id": "stellar-crown-145-lileep",
+    "name": "Lileep",
+    "rarity": "Illustration Rare",
+    "number": "145",
+    "image": "/assets/sets/stellar-crown/cards/145_Lileep_Illustration_Rare.png"
+  },
+  {
+    "id": "stellar-crown-146-turtonator",
+    "name": "Turtonator",
+    "rarity": "Illustration Rare",
+    "number": "146",
+    "image": "/assets/sets/stellar-crown/cards/146_Turtonator_Illustration_Rare.png"
+  },
+  {
+    "id": "stellar-crown-147-raboot",
+    "name": "Raboot",
+    "rarity": "Illustration Rare",
+    "number": "147",
+    "image": "/assets/sets/stellar-crown/cards/147_Raboot_Illustration_Rare.png"
+  },
+  {
+    "id": "stellar-crown-148-squirtle",
+    "name": "Squirtle",
+    "rarity": "Illustration Rare",
+    "number": "148",
+    "image": "/assets/sets/stellar-crown/cards/148_Squirtle_Illustration_Rare.png"
+  },
+  {
+    "id": "stellar-crown-149-crabominable",
+    "name": "Crabominable",
+    "rarity": "Illustration Rare",
+    "number": "149",
+    "image": "/assets/sets/stellar-crown/cards/149_Crabominable_Illustration_Rare.png"
+  },
+  {
+    "id": "stellar-crown-150-joltik",
+    "name": "Joltik",
+    "rarity": "Illustration Rare",
+    "number": "150",
+    "image": "/assets/sets/stellar-crown/cards/150_Joltik_Illustration_Rare.png"
+  },
+  {
+    "id": "stellar-crown-151-zeraora",
+    "name": "Zeraora",
+    "rarity": "Illustration Rare",
+    "number": "151",
+    "image": "/assets/sets/stellar-crown/cards/151_Zeraora_Illustration_Rare.png"
+  },
+  {
+    "id": "stellar-crown-152-milcery",
+    "name": "Milcery",
+    "rarity": "Illustration Rare",
+    "number": "152",
+    "image": "/assets/sets/stellar-crown/cards/152_Milcery_Illustration_Rare.png"
+  },
+  {
+    "id": "stellar-crown-153-meditite",
+    "name": "Meditite",
+    "rarity": "Illustration Rare",
+    "number": "153",
+    "image": "/assets/sets/stellar-crown/cards/153_Meditite_Illustration_Rare.png"
+  },
+  {
+    "id": "stellar-crown-154-gulpin",
+    "name": "Gulpin",
+    "rarity": "Illustration Rare",
+    "number": "154",
+    "image": "/assets/sets/stellar-crown/cards/154_Gulpin_Illustration_Rare.png"
+  },
+  {
+    "id": "stellar-crown-155-archaludon",
+    "name": "Archaludon",
+    "rarity": "Illustration Rare",
+    "number": "155",
+    "image": "/assets/sets/stellar-crown/cards/155_Archaludon_Illustration_Rare.png"
+  },
+  {
+    "id": "stellar-crown-156-hydrapple-ex",
+    "name": "Hydrapple ex",
+    "rarity": "Ultra Rare",
+    "number": "156",
+    "image": "/assets/sets/stellar-crown/cards/156_Hydrapple_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "stellar-crown-157-cinderace-ex",
+    "name": "Cinderace ex",
+    "rarity": "Ultra Rare",
+    "number": "157",
+    "image": "/assets/sets/stellar-crown/cards/157_Cinderace_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "stellar-crown-158-lapras-ex",
+    "name": "Lapras ex",
+    "rarity": "Ultra Rare",
+    "number": "158",
+    "image": "/assets/sets/stellar-crown/cards/158_Lapras_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "stellar-crown-159-galvantula-ex",
+    "name": "Galvantula ex",
+    "rarity": "Ultra Rare",
+    "number": "159",
+    "image": "/assets/sets/stellar-crown/cards/159_Galvantula_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "stellar-crown-160-dachsbun-ex",
+    "name": "Dachsbun ex",
+    "rarity": "Ultra Rare",
+    "number": "160",
+    "image": "/assets/sets/stellar-crown/cards/160_Dachsbun_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "stellar-crown-161-medicham-ex",
+    "name": "Medicham ex",
+    "rarity": "Ultra Rare",
+    "number": "161",
+    "image": "/assets/sets/stellar-crown/cards/161_Medicham_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "stellar-crown-162-orthworm-ex",
+    "name": "Orthworm ex",
+    "rarity": "Ultra Rare",
+    "number": "162",
+    "image": "/assets/sets/stellar-crown/cards/162_Orthworm_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "stellar-crown-163-briar",
+    "name": "Briar",
+    "rarity": "Ultra Rare",
+    "number": "163",
+    "image": "/assets/sets/stellar-crown/cards/163_Briar_Ultra_Rare.png"
+  },
+  {
+    "id": "stellar-crown-164-crispin",
+    "name": "Crispin",
+    "rarity": "Ultra Rare",
+    "number": "164",
+    "image": "/assets/sets/stellar-crown/cards/164_Crispin_Ultra_Rare.png"
+  },
+  {
+    "id": "stellar-crown-165-kofu",
+    "name": "Kofu",
+    "rarity": "Ultra Rare",
+    "number": "165",
+    "image": "/assets/sets/stellar-crown/cards/165_Kofu_Ultra_Rare.png"
+  },
+  {
+    "id": "stellar-crown-166-lacey",
+    "name": "Lacey",
+    "rarity": "Ultra Rare",
+    "number": "166",
+    "image": "/assets/sets/stellar-crown/cards/166_Lacey_Ultra_Rare.png"
+  },
+  {
+    "id": "stellar-crown-167-hydrapple-ex",
+    "name": "Hydrapple ex",
+    "rarity": "Special Illustration Rare",
+    "number": "167",
+    "image": "/assets/sets/stellar-crown/cards/167_Hydrapple_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "stellar-crown-168-galvantula-ex",
+    "name": "Galvantula ex",
+    "rarity": "Special Illustration Rare",
+    "number": "168",
+    "image": "/assets/sets/stellar-crown/cards/168_Galvantula_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "stellar-crown-169-dachsbun-ex",
+    "name": "Dachsbun ex",
+    "rarity": "Special Illustration Rare",
+    "number": "169",
+    "image": "/assets/sets/stellar-crown/cards/169_Dachsbun_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "stellar-crown-170-terapagos-ex",
+    "name": "Terapagos ex",
+    "rarity": "Special Illustration Rare",
+    "number": "170",
+    "image": "/assets/sets/stellar-crown/cards/170_Terapagos_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "stellar-crown-171-briar",
+    "name": "Briar",
+    "rarity": "Special Illustration Rare",
+    "number": "171",
+    "image": "/assets/sets/stellar-crown/cards/171_Briar_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "stellar-crown-172-lacey",
+    "name": "Lacey",
+    "rarity": "Special Illustration Rare",
+    "number": "172",
+    "image": "/assets/sets/stellar-crown/cards/172_Lacey_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "stellar-crown-173-terapagos-ex-hyper",
+    "name": "Terapagos ex Hyper",
+    "rarity": "Rare",
+    "number": "173",
+    "image": "/assets/sets/stellar-crown/cards/173_Terapagos_ex_Hyper_Rare.png"
+  },
+  {
+    "id": "stellar-crown-174-area-zero-underdepths-hyper",
+    "name": "Area Zero Underdepths Hyper",
+    "rarity": "Rare",
+    "number": "174",
+    "image": "/assets/sets/stellar-crown/cards/174_Area_Zero_Underdepths_Hyper_Rare.png"
+  },
+  {
+    "id": "stellar-crown-175-bravery-charm-hyper",
+    "name": "Bravery Charm Hyper",
+    "rarity": "Rare",
+    "number": "175",
+    "image": "/assets/sets/stellar-crown/cards/175_Bravery_Charm_Hyper_Rare.png"
+  }
+]

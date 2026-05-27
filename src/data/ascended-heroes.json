@@ -1,0 +1,2067 @@
+[
+  {
+    "id": "ascended-heroes-1-erika-s-oddish",
+    "name": "Erika's Oddish",
+    "rarity": "Common",
+    "number": "1",
+    "image": "/assets/sets/ascended-heroes/cards/1_Erika's_Oddish_Common.png"
+  },
+  {
+    "id": "ascended-heroes-2-erika-s-gloom",
+    "name": "Erika's Gloom",
+    "rarity": "Uncommon",
+    "number": "2",
+    "image": "/assets/sets/ascended-heroes/cards/2_Erika's_Gloom_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-3-erika-s-vileplume-ex",
+    "name": "Erika's Vileplume ex",
+    "rarity": "Double Rare",
+    "number": "3",
+    "image": "/assets/sets/ascended-heroes/cards/3_Erika's_Vileplume_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-4-erika-s-bellsprout",
+    "name": "Erika's Bellsprout",
+    "rarity": "Common",
+    "number": "4",
+    "image": "/assets/sets/ascended-heroes/cards/4_Erika's_Bellsprout_Common.png"
+  },
+  {
+    "id": "ascended-heroes-5-erika-s-weepinbell",
+    "name": "Erika's Weepinbell",
+    "rarity": "Uncommon",
+    "number": "5",
+    "image": "/assets/sets/ascended-heroes/cards/5_Erika's_Weepinbell_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-6-erika-s-victreebel",
+    "name": "Erika's Victreebel",
+    "rarity": "Rare",
+    "number": "6",
+    "image": "/assets/sets/ascended-heroes/cards/6_Erika's_Victreebel_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-7-erika-s-tangela",
+    "name": "Erika's Tangela",
+    "rarity": "Common",
+    "number": "7",
+    "image": "/assets/sets/ascended-heroes/cards/7_Erika's_Tangela_Common.png"
+  },
+  {
+    "id": "ascended-heroes-8-chikorita",
+    "name": "Chikorita",
+    "rarity": "Common",
+    "number": "8",
+    "image": "/assets/sets/ascended-heroes/cards/8_Chikorita_Common.png"
+  },
+  {
+    "id": "ascended-heroes-9-bayleef",
+    "name": "Bayleef",
+    "rarity": "Uncommon",
+    "number": "9",
+    "image": "/assets/sets/ascended-heroes/cards/9_Bayleef_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-10-mega-meganium-ex",
+    "name": "Mega Meganium ex",
+    "rarity": "Double Rare",
+    "number": "10",
+    "image": "/assets/sets/ascended-heroes/cards/10_Mega_Meganium_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-11-wurmple",
+    "name": "Wurmple",
+    "rarity": "Common",
+    "number": "11",
+    "image": "/assets/sets/ascended-heroes/cards/11_Wurmple_Common.png"
+  },
+  {
+    "id": "ascended-heroes-12-silcoon",
+    "name": "Silcoon",
+    "rarity": "Common",
+    "number": "12",
+    "image": "/assets/sets/ascended-heroes/cards/12_Silcoon_Common.png"
+  },
+  {
+    "id": "ascended-heroes-13-beautifly",
+    "name": "Beautifly",
+    "rarity": "Uncommon",
+    "number": "13",
+    "image": "/assets/sets/ascended-heroes/cards/13_Beautifly_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-14-cascoon",
+    "name": "Cascoon",
+    "rarity": "Common",
+    "number": "14",
+    "image": "/assets/sets/ascended-heroes/cards/14_Cascoon_Common.png"
+  },
+  {
+    "id": "ascended-heroes-15-dustox",
+    "name": "Dustox",
+    "rarity": "Uncommon",
+    "number": "15",
+    "image": "/assets/sets/ascended-heroes/cards/15_Dustox_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-16-budew",
+    "name": "Budew",
+    "rarity": "Common",
+    "number": "16",
+    "image": "/assets/sets/ascended-heroes/cards/16_Budew_Common.png"
+  },
+  {
+    "id": "ascended-heroes-17-grubbin",
+    "name": "Grubbin",
+    "rarity": "Common",
+    "number": "17",
+    "image": "/assets/sets/ascended-heroes/cards/17_Grubbin_Common.png"
+  },
+  {
+    "id": "ascended-heroes-18-team-rocket-s-tarountula",
+    "name": "Team Rocket's Tarountula",
+    "rarity": "Common",
+    "number": "18",
+    "image": "/assets/sets/ascended-heroes/cards/18_Team_Rocket's_Tarountula_Common.png"
+  },
+  {
+    "id": "ascended-heroes-19-team-rocket-s-spidops",
+    "name": "Team Rocket's Spidops",
+    "rarity": "Rare",
+    "number": "19",
+    "image": "/assets/sets/ascended-heroes/cards/19_Team_Rocket's_Spidops_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-20-charmander",
+    "name": "Charmander",
+    "rarity": "Common",
+    "number": "20",
+    "image": "/assets/sets/ascended-heroes/cards/20_Charmander_Common.png"
+  },
+  {
+    "id": "ascended-heroes-21-charmeleon",
+    "name": "Charmeleon",
+    "rarity": "Uncommon",
+    "number": "21",
+    "image": "/assets/sets/ascended-heroes/cards/21_Charmeleon_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-22-mega-charizard-y-ex",
+    "name": "Mega Charizard Y ex",
+    "rarity": "Double Rare",
+    "number": "22",
+    "image": "/assets/sets/ascended-heroes/cards/22_Mega_Charizard_Y_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-23-ethan-s-slugma",
+    "name": "Ethan's Slugma",
+    "rarity": "Common",
+    "number": "23",
+    "image": "/assets/sets/ascended-heroes/cards/23_Ethan's_Slugma_Common.png"
+  },
+  {
+    "id": "ascended-heroes-24-ethan-s-magcargo",
+    "name": "Ethan's Magcargo",
+    "rarity": "Rare",
+    "number": "24",
+    "image": "/assets/sets/ascended-heroes/cards/24_Ethan's_Magcargo_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-25-entei",
+    "name": "Entei",
+    "rarity": "Rare",
+    "number": "25",
+    "image": "/assets/sets/ascended-heroes/cards/25_Entei_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-26-ethan-s-ho-oh-ex",
+    "name": "Ethan's Ho-Oh ex",
+    "rarity": "Double Rare",
+    "number": "26",
+    "image": "/assets/sets/ascended-heroes/cards/26_Ethan's_Ho-Oh_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-27-numel",
+    "name": "Numel",
+    "rarity": "Common",
+    "number": "27",
+    "image": "/assets/sets/ascended-heroes/cards/27_Numel_Common.png"
+  },
+  {
+    "id": "ascended-heroes-28-camerupt",
+    "name": "Camerupt",
+    "rarity": "Uncommon",
+    "number": "28",
+    "image": "/assets/sets/ascended-heroes/cards/28_Camerupt_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-29-tepig",
+    "name": "Tepig",
+    "rarity": "Common",
+    "number": "29",
+    "image": "/assets/sets/ascended-heroes/cards/29_Tepig_Common.png"
+  },
+  {
+    "id": "ascended-heroes-30-pignite",
+    "name": "Pignite",
+    "rarity": "Uncommon",
+    "number": "30",
+    "image": "/assets/sets/ascended-heroes/cards/30_Pignite_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-31-mega-emboar-ex",
+    "name": "Mega Emboar ex",
+    "rarity": "Double Rare",
+    "number": "31",
+    "image": "/assets/sets/ascended-heroes/cards/31_Mega_Emboar_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-32-n-s-darumaka",
+    "name": "N's Darumaka",
+    "rarity": "Common",
+    "number": "32",
+    "image": "/assets/sets/ascended-heroes/cards/32_N's_Darumaka_Common.png"
+  },
+  {
+    "id": "ascended-heroes-33-n-s-darmanitan",
+    "name": "N's Darmanitan",
+    "rarity": "Uncommon",
+    "number": "33",
+    "image": "/assets/sets/ascended-heroes/cards/33_N's_Darmanitan_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-34-salandit",
+    "name": "Salandit",
+    "rarity": "Common",
+    "number": "34",
+    "image": "/assets/sets/ascended-heroes/cards/34_Salandit_Common.png"
+  },
+  {
+    "id": "ascended-heroes-35-salazzle",
+    "name": "Salazzle",
+    "rarity": "Uncommon",
+    "number": "35",
+    "image": "/assets/sets/ascended-heroes/cards/35_Salazzle_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-36-scorbunny",
+    "name": "Scorbunny",
+    "rarity": "Common",
+    "number": "36",
+    "image": "/assets/sets/ascended-heroes/cards/36_Scorbunny_Common.png"
+  },
+  {
+    "id": "ascended-heroes-37-raboot",
+    "name": "Raboot",
+    "rarity": "Common",
+    "number": "37",
+    "image": "/assets/sets/ascended-heroes/cards/37_Raboot_Common.png"
+  },
+  {
+    "id": "ascended-heroes-38-cinderace-ex",
+    "name": "Cinderace ex",
+    "rarity": "Double Rare",
+    "number": "38",
+    "image": "/assets/sets/ascended-heroes/cards/38_Cinderace_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-39-psyduck",
+    "name": "Psyduck",
+    "rarity": "Common",
+    "number": "39",
+    "image": "/assets/sets/ascended-heroes/cards/39_Psyduck_Common.png"
+  },
+  {
+    "id": "ascended-heroes-40-golduck",
+    "name": "Golduck",
+    "rarity": "Uncommon",
+    "number": "40",
+    "image": "/assets/sets/ascended-heroes/cards/40_Golduck_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-41-totodile",
+    "name": "Totodile",
+    "rarity": "Common",
+    "number": "41",
+    "image": "/assets/sets/ascended-heroes/cards/41_Totodile_Common.png"
+  },
+  {
+    "id": "ascended-heroes-42-croconaw",
+    "name": "Croconaw",
+    "rarity": "Uncommon",
+    "number": "42",
+    "image": "/assets/sets/ascended-heroes/cards/42_Croconaw_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-43-mega-feraligatr-ex",
+    "name": "Mega Feraligatr ex",
+    "rarity": "Double Rare",
+    "number": "43",
+    "image": "/assets/sets/ascended-heroes/cards/43_Mega_Feraligatr_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-44-sneasel",
+    "name": "Sneasel",
+    "rarity": "Common",
+    "number": "44",
+    "image": "/assets/sets/ascended-heroes/cards/44_Sneasel_Common.png"
+  },
+  {
+    "id": "ascended-heroes-45-weavile",
+    "name": "Weavile",
+    "rarity": "Uncommon",
+    "number": "45",
+    "image": "/assets/sets/ascended-heroes/cards/45_Weavile_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-46-snorunt",
+    "name": "Snorunt",
+    "rarity": "Common",
+    "number": "46",
+    "image": "/assets/sets/ascended-heroes/cards/46_Snorunt_Common.png"
+  },
+  {
+    "id": "ascended-heroes-47-mega-froslass-ex",
+    "name": "Mega Froslass ex",
+    "rarity": "Double Rare",
+    "number": "47",
+    "image": "/assets/sets/ascended-heroes/cards/47_Mega_Froslass_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-48-regice-ex",
+    "name": "Regice ex",
+    "rarity": "Double Rare",
+    "number": "48",
+    "image": "/assets/sets/ascended-heroes/cards/48_Regice_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-49-n-s-vanillite",
+    "name": "N's Vanillite",
+    "rarity": "Common",
+    "number": "49",
+    "image": "/assets/sets/ascended-heroes/cards/49_N's_Vanillite_Common.png"
+  },
+  {
+    "id": "ascended-heroes-50-n-s-vanillish",
+    "name": "N's Vanillish",
+    "rarity": "Common",
+    "number": "50",
+    "image": "/assets/sets/ascended-heroes/cards/50_N's_Vanillish_Common.png"
+  },
+  {
+    "id": "ascended-heroes-51-n-s-vanilluxe",
+    "name": "N's Vanilluxe",
+    "rarity": "Uncommon",
+    "number": "51",
+    "image": "/assets/sets/ascended-heroes/cards/51_N's_Vanilluxe_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-52-snom",
+    "name": "Snom",
+    "rarity": "Common",
+    "number": "52",
+    "image": "/assets/sets/ascended-heroes/cards/52_Snom_Common.png"
+  },
+  {
+    "id": "ascended-heroes-53-frosmoth",
+    "name": "Frosmoth",
+    "rarity": "Uncommon",
+    "number": "53",
+    "image": "/assets/sets/ascended-heroes/cards/53_Frosmoth_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-54-glastrier",
+    "name": "Glastrier",
+    "rarity": "Uncommon",
+    "number": "54",
+    "image": "/assets/sets/ascended-heroes/cards/54_Glastrier_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-55-pikachu",
+    "name": "Pikachu",
+    "rarity": "Common",
+    "number": "55",
+    "image": "/assets/sets/ascended-heroes/cards/55_Pikachu_Common.png"
+  },
+  {
+    "id": "ascended-heroes-56-raichu",
+    "name": "Raichu",
+    "rarity": "Uncommon",
+    "number": "56",
+    "image": "/assets/sets/ascended-heroes/cards/56_Raichu_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-57-pikachu-ex",
+    "name": "Pikachu ex",
+    "rarity": "Double Rare",
+    "number": "57",
+    "image": "/assets/sets/ascended-heroes/cards/57_Pikachu_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-58-voltorb-ex",
+    "name": "Voltorb ex",
+    "rarity": "Double Rare",
+    "number": "58",
+    "image": "/assets/sets/ascended-heroes/cards/58_Voltorb_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-59-tynamo",
+    "name": "Tynamo",
+    "rarity": "Common",
+    "number": "59",
+    "image": "/assets/sets/ascended-heroes/cards/59_Tynamo_Common.png"
+  },
+  {
+    "id": "ascended-heroes-60-eelektrik",
+    "name": "Eelektrik",
+    "rarity": "Uncommon",
+    "number": "60",
+    "image": "/assets/sets/ascended-heroes/cards/60_Eelektrik_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-61-mega-eelektross-ex",
+    "name": "Mega Eelektross ex",
+    "rarity": "Double Rare",
+    "number": "61",
+    "image": "/assets/sets/ascended-heroes/cards/61_Mega_Eelektross_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-62-stunfisk",
+    "name": "Stunfisk",
+    "rarity": "Common",
+    "number": "62",
+    "image": "/assets/sets/ascended-heroes/cards/62_Stunfisk_Common.png"
+  },
+  {
+    "id": "ascended-heroes-63-helioptile",
+    "name": "Helioptile",
+    "rarity": "Common",
+    "number": "63",
+    "image": "/assets/sets/ascended-heroes/cards/63_Helioptile_Common.png"
+  },
+  {
+    "id": "ascended-heroes-64-heliolisk",
+    "name": "Heliolisk",
+    "rarity": "Uncommon",
+    "number": "64",
+    "image": "/assets/sets/ascended-heroes/cards/64_Heliolisk_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-65-charjabug",
+    "name": "Charjabug",
+    "rarity": "Common",
+    "number": "65",
+    "image": "/assets/sets/ascended-heroes/cards/65_Charjabug_Common.png"
+  },
+  {
+    "id": "ascended-heroes-66-vikavolt",
+    "name": "Vikavolt",
+    "rarity": "Uncommon",
+    "number": "66",
+    "image": "/assets/sets/ascended-heroes/cards/66_Vikavolt_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-67-tapu-koko",
+    "name": "Tapu Koko",
+    "rarity": "Rare",
+    "number": "67",
+    "image": "/assets/sets/ascended-heroes/cards/67_Tapu_Koko_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-68-hop-s-pincurchin-ex",
+    "name": "Hop's Pincurchin ex",
+    "rarity": "Double Rare",
+    "number": "68",
+    "image": "/assets/sets/ascended-heroes/cards/68_Hop's_Pincurchin_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-69-iono-s-tadbulb",
+    "name": "Iono's Tadbulb",
+    "rarity": "Common",
+    "number": "69",
+    "image": "/assets/sets/ascended-heroes/cards/69_Iono's_Tadbulb_Common.png"
+  },
+  {
+    "id": "ascended-heroes-70-iono-s-bellibolt-ex",
+    "name": "Iono's Bellibolt ex",
+    "rarity": "Double Rare",
+    "number": "70",
+    "image": "/assets/sets/ascended-heroes/cards/70_Iono's_Bellibolt_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-71-iono-s-wattrel",
+    "name": "Iono's Wattrel",
+    "rarity": "Common",
+    "number": "71",
+    "image": "/assets/sets/ascended-heroes/cards/71_Iono's_Wattrel_Common.png"
+  },
+  {
+    "id": "ascended-heroes-72-iono-s-kilowattrel",
+    "name": "Iono's Kilowattrel",
+    "rarity": "Rare",
+    "number": "72",
+    "image": "/assets/sets/ascended-heroes/cards/72_Iono's_Kilowattrel_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-73-miraidon-ex",
+    "name": "Miraidon ex",
+    "rarity": "Double Rare",
+    "number": "73",
+    "image": "/assets/sets/ascended-heroes/cards/73_Miraidon_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-74-clefairy",
+    "name": "Clefairy",
+    "rarity": "Common",
+    "number": "74",
+    "image": "/assets/sets/ascended-heroes/cards/74_Clefairy_Common.png"
+  },
+  {
+    "id": "ascended-heroes-75-clefable",
+    "name": "Clefable",
+    "rarity": "Uncommon",
+    "number": "75",
+    "image": "/assets/sets/ascended-heroes/cards/75_Clefable_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-76-lillie-s-clefairy-ex",
+    "name": "Lillie's Clefairy ex",
+    "rarity": "Double Rare",
+    "number": "76",
+    "image": "/assets/sets/ascended-heroes/cards/76_Lillie's_Clefairy_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-77-team-rocket-s-exeggcute",
+    "name": "Team Rocket's Exeggcute",
+    "rarity": "Common",
+    "number": "77",
+    "image": "/assets/sets/ascended-heroes/cards/77_Team_Rocket's_Exeggcute_Common.png"
+  },
+  {
+    "id": "ascended-heroes-78-team-rocket-s-exeggutor",
+    "name": "Team Rocket's Exeggutor",
+    "rarity": "Rare",
+    "number": "78",
+    "image": "/assets/sets/ascended-heroes/cards/78_Team_Rocket's_Exeggutor_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-79-team-rocket-s-mewtwo-ex",
+    "name": "Team Rocket's Mewtwo ex",
+    "rarity": "Double Rare",
+    "number": "79",
+    "image": "/assets/sets/ascended-heroes/cards/79_Team_Rocket's_Mewtwo_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-80-togepi",
+    "name": "Togepi",
+    "rarity": "Common",
+    "number": "80",
+    "image": "/assets/sets/ascended-heroes/cards/80_Togepi_Common.png"
+  },
+  {
+    "id": "ascended-heroes-81-togetic",
+    "name": "Togetic",
+    "rarity": "Common",
+    "number": "81",
+    "image": "/assets/sets/ascended-heroes/cards/81_Togetic_Common.png"
+  },
+  {
+    "id": "ascended-heroes-82-togekiss",
+    "name": "Togekiss",
+    "rarity": "Rare",
+    "number": "82",
+    "image": "/assets/sets/ascended-heroes/cards/82_Togekiss_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-83-marill",
+    "name": "Marill",
+    "rarity": "Common",
+    "number": "83",
+    "image": "/assets/sets/ascended-heroes/cards/83_Marill_Common.png"
+  },
+  {
+    "id": "ascended-heroes-84-azumarill-ex",
+    "name": "Azumarill ex",
+    "rarity": "Double Rare",
+    "number": "84",
+    "image": "/assets/sets/ascended-heroes/cards/84_Azumarill_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-85-misdreavus",
+    "name": "Misdreavus",
+    "rarity": "Common",
+    "number": "85",
+    "image": "/assets/sets/ascended-heroes/cards/85_Misdreavus_Common.png"
+  },
+  {
+    "id": "ascended-heroes-86-mismagius",
+    "name": "Mismagius",
+    "rarity": "Rare",
+    "number": "86",
+    "image": "/assets/sets/ascended-heroes/cards/86_Mismagius_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-87-ralts",
+    "name": "Ralts",
+    "rarity": "Common",
+    "number": "87",
+    "image": "/assets/sets/ascended-heroes/cards/87_Ralts_Common.png"
+  },
+  {
+    "id": "ascended-heroes-88-kirlia",
+    "name": "Kirlia",
+    "rarity": "Common",
+    "number": "88",
+    "image": "/assets/sets/ascended-heroes/cards/88_Kirlia_Common.png"
+  },
+  {
+    "id": "ascended-heroes-89-mega-gardevoir-ex",
+    "name": "Mega Gardevoir ex",
+    "rarity": "Double Rare",
+    "number": "89",
+    "image": "/assets/sets/ascended-heroes/cards/89_Mega_Gardevoir_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-90-shuppet",
+    "name": "Shuppet",
+    "rarity": "Common",
+    "number": "90",
+    "image": "/assets/sets/ascended-heroes/cards/90_Shuppet_Common.png"
+  },
+  {
+    "id": "ascended-heroes-91-banette",
+    "name": "Banette",
+    "rarity": "Uncommon",
+    "number": "91",
+    "image": "/assets/sets/ascended-heroes/cards/91_Banette_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-92-rotom",
+    "name": "Rotom",
+    "rarity": "Common",
+    "number": "92",
+    "image": "/assets/sets/ascended-heroes/cards/92_Rotom_Common.png"
+  },
+  {
+    "id": "ascended-heroes-93-swirlix",
+    "name": "Swirlix",
+    "rarity": "Common",
+    "number": "93",
+    "image": "/assets/sets/ascended-heroes/cards/93_Swirlix_Common.png"
+  },
+  {
+    "id": "ascended-heroes-94-slurpuff",
+    "name": "Slurpuff",
+    "rarity": "Uncommon",
+    "number": "94",
+    "image": "/assets/sets/ascended-heroes/cards/94_Slurpuff_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-95-hop-s-phantump",
+    "name": "Hop's Phantump",
+    "rarity": "Common",
+    "number": "95",
+    "image": "/assets/sets/ascended-heroes/cards/95_Hop's_Phantump_Common.png"
+  },
+  {
+    "id": "ascended-heroes-96-hop-s-trevenant",
+    "name": "Hop's Trevenant",
+    "rarity": "Rare",
+    "number": "96",
+    "image": "/assets/sets/ascended-heroes/cards/96_Hop's_Trevenant_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-97-team-rocket-s-mimikyu",
+    "name": "Team Rocket's Mimikyu",
+    "rarity": "Uncommon",
+    "number": "97",
+    "image": "/assets/sets/ascended-heroes/cards/97_Team_Rocket's_Mimikyu_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-98-spectrier",
+    "name": "Spectrier",
+    "rarity": "Rare",
+    "number": "98",
+    "image": "/assets/sets/ascended-heroes/cards/98_Spectrier_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-99-munkidori",
+    "name": "Munkidori",
+    "rarity": "Rare",
+    "number": "99",
+    "image": "/assets/sets/ascended-heroes/cards/99_Munkidori_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-100-team-rocket-s-diglett",
+    "name": "Team Rocket's Diglett",
+    "rarity": "Common",
+    "number": "100",
+    "image": "/assets/sets/ascended-heroes/cards/100_Team_Rocket's_Diglett_Common.png"
+  },
+  {
+    "id": "ascended-heroes-101-team-rocket-s-dugtrio",
+    "name": "Team Rocket's Dugtrio",
+    "rarity": "Uncommon",
+    "number": "101",
+    "image": "/assets/sets/ascended-heroes/cards/101_Team_Rocket's_Dugtrio_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-102-hitmontop",
+    "name": "Hitmontop",
+    "rarity": "Common",
+    "number": "102",
+    "image": "/assets/sets/ascended-heroes/cards/102_Hitmontop_Common.png"
+  },
+  {
+    "id": "ascended-heroes-103-meditite",
+    "name": "Meditite",
+    "rarity": "Common",
+    "number": "103",
+    "image": "/assets/sets/ascended-heroes/cards/103_Meditite_Common.png"
+  },
+  {
+    "id": "ascended-heroes-104-medicham",
+    "name": "Medicham",
+    "rarity": "Common",
+    "number": "104",
+    "image": "/assets/sets/ascended-heroes/cards/104_Medicham_Common.png"
+  },
+  {
+    "id": "ascended-heroes-105-lunatone",
+    "name": "Lunatone",
+    "rarity": "Rare",
+    "number": "105",
+    "image": "/assets/sets/ascended-heroes/cards/105_Lunatone_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-106-solrock",
+    "name": "Solrock",
+    "rarity": "Uncommon",
+    "number": "106",
+    "image": "/assets/sets/ascended-heroes/cards/106_Solrock_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-107-regirock-ex",
+    "name": "Regirock ex",
+    "rarity": "Double Rare",
+    "number": "107",
+    "image": "/assets/sets/ascended-heroes/cards/107_Regirock_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-108-groudon",
+    "name": "Groudon",
+    "rarity": "Rare",
+    "number": "108",
+    "image": "/assets/sets/ascended-heroes/cards/108_Groudon_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-109-cynthia-s-gible",
+    "name": "Cynthia's Gible",
+    "rarity": "Common",
+    "number": "109",
+    "image": "/assets/sets/ascended-heroes/cards/109_Cynthia's_Gible_Common.png"
+  },
+  {
+    "id": "ascended-heroes-110-cynthia-s-gabite",
+    "name": "Cynthia's Gabite",
+    "rarity": "Uncommon",
+    "number": "110",
+    "image": "/assets/sets/ascended-heroes/cards/110_Cynthia's_Gabite_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-111-cynthia-s-garchomp-ex",
+    "name": "Cynthia's Garchomp ex",
+    "rarity": "Double Rare",
+    "number": "111",
+    "image": "/assets/sets/ascended-heroes/cards/111_Cynthia's_Garchomp_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-112-riolu",
+    "name": "Riolu",
+    "rarity": "Common",
+    "number": "112",
+    "image": "/assets/sets/ascended-heroes/cards/112_Riolu_Common.png"
+  },
+  {
+    "id": "ascended-heroes-113-mega-lucario-ex",
+    "name": "Mega Lucario ex",
+    "rarity": "Double Rare",
+    "number": "113",
+    "image": "/assets/sets/ascended-heroes/cards/113_Mega_Lucario_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-114-stunfisk-ex",
+    "name": "Stunfisk ex",
+    "rarity": "Double Rare",
+    "number": "114",
+    "image": "/assets/sets/ascended-heroes/cards/114_Stunfisk_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-115-pancham",
+    "name": "Pancham",
+    "rarity": "Common",
+    "number": "115",
+    "image": "/assets/sets/ascended-heroes/cards/115_Pancham_Common.png"
+  },
+  {
+    "id": "ascended-heroes-116-mega-hawlucha-ex",
+    "name": "Mega Hawlucha ex",
+    "rarity": "Double Rare",
+    "number": "116",
+    "image": "/assets/sets/ascended-heroes/cards/116_Mega_Hawlucha_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-117-carbink",
+    "name": "Carbink",
+    "rarity": "Uncommon",
+    "number": "117",
+    "image": "/assets/sets/ascended-heroes/cards/117_Carbink_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-118-rolycoly",
+    "name": "Rolycoly",
+    "rarity": "Common",
+    "number": "118",
+    "image": "/assets/sets/ascended-heroes/cards/118_Rolycoly_Common.png"
+  },
+  {
+    "id": "ascended-heroes-119-carkol",
+    "name": "Carkol",
+    "rarity": "Common",
+    "number": "119",
+    "image": "/assets/sets/ascended-heroes/cards/119_Carkol_Common.png"
+  },
+  {
+    "id": "ascended-heroes-120-coalossal",
+    "name": "Coalossal",
+    "rarity": "Rare",
+    "number": "120",
+    "image": "/assets/sets/ascended-heroes/cards/120_Coalossal_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-121-koraidon-ex",
+    "name": "Koraidon ex",
+    "rarity": "Double Rare",
+    "number": "121",
+    "image": "/assets/sets/ascended-heroes/cards/121_Koraidon_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-122-okidogi",
+    "name": "Okidogi",
+    "rarity": "Rare",
+    "number": "122",
+    "image": "/assets/sets/ascended-heroes/cards/122_Okidogi_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-123-gastly",
+    "name": "Gastly",
+    "rarity": "Common",
+    "number": "123",
+    "image": "/assets/sets/ascended-heroes/cards/123_Gastly_Common.png"
+  },
+  {
+    "id": "ascended-heroes-124-haunter",
+    "name": "Haunter",
+    "rarity": "Uncommon",
+    "number": "124",
+    "image": "/assets/sets/ascended-heroes/cards/124_Haunter_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-125-mega-gengar-ex",
+    "name": "Mega Gengar ex",
+    "rarity": "Double Rare",
+    "number": "125",
+    "image": "/assets/sets/ascended-heroes/cards/125_Mega_Gengar_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-126-team-rocket-s-murkrow",
+    "name": "Team Rocket's Murkrow",
+    "rarity": "Common",
+    "number": "126",
+    "image": "/assets/sets/ascended-heroes/cards/126_Team_Rocket's_Murkrow_Common.png"
+  },
+  {
+    "id": "ascended-heroes-127-team-rocket-s-honchkrow",
+    "name": "Team Rocket's Honchkrow",
+    "rarity": "Rare",
+    "number": "127",
+    "image": "/assets/sets/ascended-heroes/cards/127_Team_Rocket's_Honchkrow_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-128-poochyena",
+    "name": "Poochyena",
+    "rarity": "Common",
+    "number": "128",
+    "image": "/assets/sets/ascended-heroes/cards/128_Poochyena_Common.png"
+  },
+  {
+    "id": "ascended-heroes-129-mightyena",
+    "name": "Mightyena",
+    "rarity": "Uncommon",
+    "number": "129",
+    "image": "/assets/sets/ascended-heroes/cards/129_Mightyena_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-130-galarian-zigzagoon",
+    "name": "Galarian Zigzagoon",
+    "rarity": "Common",
+    "number": "130",
+    "image": "/assets/sets/ascended-heroes/cards/130_Galarian_Zigzagoon_Common.png"
+  },
+  {
+    "id": "ascended-heroes-131-galarian-linoone",
+    "name": "Galarian Linoone",
+    "rarity": "Common",
+    "number": "131",
+    "image": "/assets/sets/ascended-heroes/cards/131_Galarian_Linoone_Common.png"
+  },
+  {
+    "id": "ascended-heroes-132-galarian-obstagoon",
+    "name": "Galarian Obstagoon",
+    "rarity": "Uncommon",
+    "number": "132",
+    "image": "/assets/sets/ascended-heroes/cards/132_Galarian_Obstagoon_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-133-cynthia-s-spiritomb",
+    "name": "Cynthia's Spiritomb",
+    "rarity": "Uncommon",
+    "number": "133",
+    "image": "/assets/sets/ascended-heroes/cards/133_Cynthia's_Spiritomb_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-134-scraggy",
+    "name": "Scraggy",
+    "rarity": "Common",
+    "number": "134",
+    "image": "/assets/sets/ascended-heroes/cards/134_Scraggy_Common.png"
+  },
+  {
+    "id": "ascended-heroes-135-mega-scrafty-ex",
+    "name": "Mega Scrafty ex",
+    "rarity": "Double Rare",
+    "number": "135",
+    "image": "/assets/sets/ascended-heroes/cards/135_Mega_Scrafty_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-136-n-s-zorua",
+    "name": "N's Zorua",
+    "rarity": "Common",
+    "number": "136",
+    "image": "/assets/sets/ascended-heroes/cards/136_N's_Zorua_Common.png"
+  },
+  {
+    "id": "ascended-heroes-137-n-s-zoroark-ex",
+    "name": "N's Zoroark ex",
+    "rarity": "Double Rare",
+    "number": "137",
+    "image": "/assets/sets/ascended-heroes/cards/137_N's_Zoroark_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-138-vullaby",
+    "name": "Vullaby",
+    "rarity": "Common",
+    "number": "138",
+    "image": "/assets/sets/ascended-heroes/cards/138_Vullaby_Common.png"
+  },
+  {
+    "id": "ascended-heroes-139-mandibuzz-ex",
+    "name": "Mandibuzz ex",
+    "rarity": "Double Rare",
+    "number": "139",
+    "image": "/assets/sets/ascended-heroes/cards/139_Mandibuzz_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-140-pangoro",
+    "name": "Pangoro",
+    "rarity": "Uncommon",
+    "number": "140",
+    "image": "/assets/sets/ascended-heroes/cards/140_Pangoro_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-141-hoopa",
+    "name": "Hoopa",
+    "rarity": "Rare",
+    "number": "141",
+    "image": "/assets/sets/ascended-heroes/cards/141_Hoopa_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-142-fezandipiti-ex",
+    "name": "Fezandipiti ex",
+    "rarity": "Double Rare",
+    "number": "142",
+    "image": "/assets/sets/ascended-heroes/cards/142_Fezandipiti_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-143-pecharunt",
+    "name": "Pecharunt",
+    "rarity": "Rare",
+    "number": "143",
+    "image": "/assets/sets/ascended-heroes/cards/143_Pecharunt_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-144-mawile",
+    "name": "Mawile",
+    "rarity": "Uncommon",
+    "number": "144",
+    "image": "/assets/sets/ascended-heroes/cards/144_Mawile_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-145-registeel-ex",
+    "name": "Registeel ex",
+    "rarity": "Double Rare",
+    "number": "145",
+    "image": "/assets/sets/ascended-heroes/cards/145_Registeel_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-146-pawniard",
+    "name": "Pawniard",
+    "rarity": "Common",
+    "number": "146",
+    "image": "/assets/sets/ascended-heroes/cards/146_Pawniard_Common.png"
+  },
+  {
+    "id": "ascended-heroes-147-bisharp",
+    "name": "Bisharp",
+    "rarity": "Common",
+    "number": "147",
+    "image": "/assets/sets/ascended-heroes/cards/147_Bisharp_Common.png"
+  },
+  {
+    "id": "ascended-heroes-148-kingambit",
+    "name": "Kingambit",
+    "rarity": "Rare",
+    "number": "148",
+    "image": "/assets/sets/ascended-heroes/cards/148_Kingambit_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-149-togedemaru-ex",
+    "name": "Togedemaru ex",
+    "rarity": "Double Rare",
+    "number": "149",
+    "image": "/assets/sets/ascended-heroes/cards/149_Togedemaru_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-150-dratini",
+    "name": "Dratini",
+    "rarity": "Common",
+    "number": "150",
+    "image": "/assets/sets/ascended-heroes/cards/150_Dratini_Common.png"
+  },
+  {
+    "id": "ascended-heroes-151-dragonair",
+    "name": "Dragonair",
+    "rarity": "Uncommon",
+    "number": "151",
+    "image": "/assets/sets/ascended-heroes/cards/151_Dragonair_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-152-mega-dragonite-ex",
+    "name": "Mega Dragonite ex",
+    "rarity": "Double Rare",
+    "number": "152",
+    "image": "/assets/sets/ascended-heroes/cards/152_Mega_Dragonite_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-153-rayquaza",
+    "name": "Rayquaza",
+    "rarity": "Rare",
+    "number": "153",
+    "image": "/assets/sets/ascended-heroes/cards/153_Rayquaza_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-154-n-s-reshiram",
+    "name": "N's Reshiram",
+    "rarity": "Rare",
+    "number": "154",
+    "image": "/assets/sets/ascended-heroes/cards/154_N's_Reshiram_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-155-n-s-zekrom",
+    "name": "N's Zekrom",
+    "rarity": "Rare",
+    "number": "155",
+    "image": "/assets/sets/ascended-heroes/cards/155_N's_Zekrom_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-156-noibat",
+    "name": "Noibat",
+    "rarity": "Common",
+    "number": "156",
+    "image": "/assets/sets/ascended-heroes/cards/156_Noibat_Common.png"
+  },
+  {
+    "id": "ascended-heroes-157-noivern",
+    "name": "Noivern",
+    "rarity": "Uncommon",
+    "number": "157",
+    "image": "/assets/sets/ascended-heroes/cards/157_Noivern_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-158-dreepy",
+    "name": "Dreepy",
+    "rarity": "Common",
+    "number": "158",
+    "image": "/assets/sets/ascended-heroes/cards/158_Dreepy_Common.png"
+  },
+  {
+    "id": "ascended-heroes-159-drakloak",
+    "name": "Drakloak",
+    "rarity": "Common",
+    "number": "159",
+    "image": "/assets/sets/ascended-heroes/cards/159_Drakloak_Common.png"
+  },
+  {
+    "id": "ascended-heroes-160-dragapult-ex",
+    "name": "Dragapult ex",
+    "rarity": "Double Rare",
+    "number": "160",
+    "image": "/assets/sets/ascended-heroes/cards/160_Dragapult_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-161-team-rocket-s-meowth",
+    "name": "Team Rocket's Meowth",
+    "rarity": "Common",
+    "number": "161",
+    "image": "/assets/sets/ascended-heroes/cards/161_Team_Rocket's_Meowth_Common.png"
+  },
+  {
+    "id": "ascended-heroes-162-team-rocket-s-kangaskhan-ex",
+    "name": "Team Rocket's Kangaskhan ex",
+    "rarity": "Double Rare",
+    "number": "162",
+    "image": "/assets/sets/ascended-heroes/cards/162_Team_Rocket's_Kangaskhan_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-163-larry-s-dunsparce",
+    "name": "Larry's Dunsparce",
+    "rarity": "Common",
+    "number": "163",
+    "image": "/assets/sets/ascended-heroes/cards/163_Larry's_Dunsparce_Common.png"
+  },
+  {
+    "id": "ascended-heroes-164-larry-s-dudunsparce-ex",
+    "name": "Larry's Dudunsparce ex",
+    "rarity": "Double Rare",
+    "number": "164",
+    "image": "/assets/sets/ascended-heroes/cards/164_Larry's_Dudunsparce_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-165-skitty",
+    "name": "Skitty",
+    "rarity": "Common",
+    "number": "165",
+    "image": "/assets/sets/ascended-heroes/cards/165_Skitty_Common.png"
+  },
+  {
+    "id": "ascended-heroes-166-delcatty",
+    "name": "Delcatty",
+    "rarity": "Uncommon",
+    "number": "166",
+    "image": "/assets/sets/ascended-heroes/cards/166_Delcatty_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-167-zangoose-ex",
+    "name": "Zangoose ex",
+    "rarity": "Double Rare",
+    "number": "167",
+    "image": "/assets/sets/ascended-heroes/cards/167_Zangoose_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-168-larry-s-starly",
+    "name": "Larry's Starly",
+    "rarity": "Common",
+    "number": "168",
+    "image": "/assets/sets/ascended-heroes/cards/168_Larry's_Starly_Common.png"
+  },
+  {
+    "id": "ascended-heroes-169-larry-s-staravia",
+    "name": "Larry's Staravia",
+    "rarity": "Uncommon",
+    "number": "169",
+    "image": "/assets/sets/ascended-heroes/cards/169_Larry's_Staravia_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-170-larry-s-staraptor",
+    "name": "Larry's Staraptor",
+    "rarity": "Rare",
+    "number": "170",
+    "image": "/assets/sets/ascended-heroes/cards/170_Larry's_Staraptor_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-171-fan-rotom",
+    "name": "Fan Rotom",
+    "rarity": "Common",
+    "number": "171",
+    "image": "/assets/sets/ascended-heroes/cards/171_Fan_Rotom_Common.png"
+  },
+  {
+    "id": "ascended-heroes-172-mega-audino-ex",
+    "name": "Mega Audino ex",
+    "rarity": "Double Rare",
+    "number": "172",
+    "image": "/assets/sets/ascended-heroes/cards/172_Mega_Audino_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-173-larry-s-rufflet",
+    "name": "Larry's Rufflet",
+    "rarity": "Common",
+    "number": "173",
+    "image": "/assets/sets/ascended-heroes/cards/173_Larry's_Rufflet_Common.png"
+  },
+  {
+    "id": "ascended-heroes-174-larry-s-braviary",
+    "name": "Larry's Braviary",
+    "rarity": "Uncommon",
+    "number": "174",
+    "image": "/assets/sets/ascended-heroes/cards/174_Larry's_Braviary_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-175-larry-s-komala",
+    "name": "Larry's Komala",
+    "rarity": "Common",
+    "number": "175",
+    "image": "/assets/sets/ascended-heroes/cards/175_Larry's_Komala_Common.png"
+  },
+  {
+    "id": "ascended-heroes-176-drampa",
+    "name": "Drampa",
+    "rarity": "Uncommon",
+    "number": "176",
+    "image": "/assets/sets/ascended-heroes/cards/176_Drampa_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-177-hop-s-cramorant",
+    "name": "Hop's Cramorant",
+    "rarity": "Uncommon",
+    "number": "177",
+    "image": "/assets/sets/ascended-heroes/cards/177_Hop's_Cramorant_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-178-terapagos",
+    "name": "Terapagos",
+    "rarity": "Rare",
+    "number": "178",
+    "image": "/assets/sets/ascended-heroes/cards/178_Terapagos_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-179-terapagos-ex",
+    "name": "Terapagos ex",
+    "rarity": "Double Rare",
+    "number": "179",
+    "image": "/assets/sets/ascended-heroes/cards/179_Terapagos_ex_Double_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-180-acerola-s-mischief",
+    "name": "Acerola's Mischief",
+    "rarity": "Uncommon",
+    "number": "180",
+    "image": "/assets/sets/ascended-heroes/cards/180_Acerola's_Mischief_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-181-air-balloon",
+    "name": "Air Balloon",
+    "rarity": "Uncommon",
+    "number": "181",
+    "image": "/assets/sets/ascended-heroes/cards/181_Air_Balloon_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-182-anthea-concordia",
+    "name": "Anthea & Concordia",
+    "rarity": "Uncommon",
+    "number": "182",
+    "image": "/assets/sets/ascended-heroes/cards/182_Anthea_&_Concordia_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-183-boss-s-orders",
+    "name": "Boss's Orders",
+    "rarity": "Uncommon",
+    "number": "183",
+    "image": "/assets/sets/ascended-heroes/cards/183_Boss's_Orders_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-184-buddy-buddy-poffin",
+    "name": "Buddy-Buddy Poffin",
+    "rarity": "Common",
+    "number": "184",
+    "image": "/assets/sets/ascended-heroes/cards/184_Buddy-Buddy_Poffin_Common.png"
+  },
+  {
+    "id": "ascended-heroes-185-canari",
+    "name": "Canari",
+    "rarity": "Uncommon",
+    "number": "185",
+    "image": "/assets/sets/ascended-heroes/cards/185_Canari_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-186-counter-gain",
+    "name": "Counter Gain",
+    "rarity": "Common",
+    "number": "186",
+    "image": "/assets/sets/ascended-heroes/cards/186_Counter_Gain_Common.png"
+  },
+  {
+    "id": "ascended-heroes-187-fighting-gong",
+    "name": "Fighting Gong",
+    "rarity": "Uncommon",
+    "number": "187",
+    "image": "/assets/sets/ascended-heroes/cards/187_Fighting_Gong_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-188-forest-of-vitality",
+    "name": "Forest of Vitality",
+    "rarity": "Uncommon",
+    "number": "188",
+    "image": "/assets/sets/ascended-heroes/cards/188_Forest_of_Vitality_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-189-glass-trumpet",
+    "name": "Glass Trumpet",
+    "rarity": "Common",
+    "number": "189",
+    "image": "/assets/sets/ascended-heroes/cards/189_Glass_Trumpet_Common.png"
+  },
+  {
+    "id": "ascended-heroes-190-iris-s-fighting-spirit",
+    "name": "Iris's Fighting Spirit",
+    "rarity": "Uncommon",
+    "number": "190",
+    "image": "/assets/sets/ascended-heroes/cards/190_Iris's_Fighting_Spirit_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-191-light-ball",
+    "name": "Light Ball",
+    "rarity": "Uncommon",
+    "number": "191",
+    "image": "/assets/sets/ascended-heroes/cards/191_Light_Ball_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-192-lillie-s-determination",
+    "name": "Lillie's Determination",
+    "rarity": "Uncommon",
+    "number": "192",
+    "image": "/assets/sets/ascended-heroes/cards/192_Lillie's_Determination_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-193-mega-signal",
+    "name": "Mega Signal",
+    "rarity": "Common",
+    "number": "193",
+    "image": "/assets/sets/ascended-heroes/cards/193_Mega_Signal_Common.png"
+  },
+  {
+    "id": "ascended-heroes-194-mystery-garden",
+    "name": "Mystery Garden",
+    "rarity": "Uncommon",
+    "number": "194",
+    "image": "/assets/sets/ascended-heroes/cards/194_Mystery_Garden_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-195-n-s-pp-up",
+    "name": "N's PP Up",
+    "rarity": "Uncommon",
+    "number": "195",
+    "image": "/assets/sets/ascended-heroes/cards/195_N's_PP_Up_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-196-night-stretcher",
+    "name": "Night Stretcher",
+    "rarity": "Common",
+    "number": "196",
+    "image": "/assets/sets/ascended-heroes/cards/196_Night_Stretcher_Common.png"
+  },
+  {
+    "id": "ascended-heroes-197-nighttime-mine",
+    "name": "Nighttime Mine",
+    "rarity": "Uncommon",
+    "number": "197",
+    "image": "/assets/sets/ascended-heroes/cards/197_Nighttime_Mine_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-198-pok-pad",
+    "name": "Poké Pad",
+    "rarity": "Common",
+    "number": "198",
+    "image": "/assets/sets/ascended-heroes/cards/198_Poké_Pad_Common.png"
+  },
+  {
+    "id": "ascended-heroes-199-premium-power-pro",
+    "name": "Premium Power Pro",
+    "rarity": "Uncommon",
+    "number": "199",
+    "image": "/assets/sets/ascended-heroes/cards/199_Premium_Power_Pro_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-200-surfer",
+    "name": "Surfer",
+    "rarity": "Common",
+    "number": "200",
+    "image": "/assets/sets/ascended-heroes/cards/200_Surfer_Common.png"
+  },
+  {
+    "id": "ascended-heroes-201-team-rocket-s-archer",
+    "name": "Team Rocket's Archer",
+    "rarity": "Uncommon",
+    "number": "201",
+    "image": "/assets/sets/ascended-heroes/cards/201_Team_Rocket's_Archer_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-202-team-rocket-s-ariana",
+    "name": "Team Rocket's Ariana",
+    "rarity": "Uncommon",
+    "number": "202",
+    "image": "/assets/sets/ascended-heroes/cards/202_Team_Rocket's_Ariana_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-203-team-rocket-s-factory",
+    "name": "Team Rocket's Factory",
+    "rarity": "Uncommon",
+    "number": "203",
+    "image": "/assets/sets/ascended-heroes/cards/203_Team_Rocket's_Factory_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-204-team-rocket-s-giovanni",
+    "name": "Team Rocket's Giovanni",
+    "rarity": "Uncommon",
+    "number": "204",
+    "image": "/assets/sets/ascended-heroes/cards/204_Team_Rocket's_Giovanni_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-205-team-rocket-s-great-ball",
+    "name": "Team Rocket's Great Ball",
+    "rarity": "Uncommon",
+    "number": "205",
+    "image": "/assets/sets/ascended-heroes/cards/205_Team_Rocket's_Great_Ball_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-206-team-rocket-s-hypnotizer",
+    "name": "Team Rocket's Hypnotizer",
+    "rarity": "Uncommon",
+    "number": "206",
+    "image": "/assets/sets/ascended-heroes/cards/206_Team_Rocket's_Hypnotizer_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-207-team-rocket-s-petrel",
+    "name": "Team Rocket's Petrel",
+    "rarity": "Uncommon",
+    "number": "207",
+    "image": "/assets/sets/ascended-heroes/cards/207_Team_Rocket's_Petrel_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-208-team-rocket-s-proton",
+    "name": "Team Rocket's Proton",
+    "rarity": "Uncommon",
+    "number": "208",
+    "image": "/assets/sets/ascended-heroes/cards/208_Team_Rocket's_Proton_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-209-team-rocket-s-transceiver",
+    "name": "Team Rocket's Transceiver",
+    "rarity": "Uncommon",
+    "number": "209",
+    "image": "/assets/sets/ascended-heroes/cards/209_Team_Rocket's_Transceiver_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-210-team-rocket-s-watchtower",
+    "name": "Team Rocket's Watchtower",
+    "rarity": "Uncommon",
+    "number": "210",
+    "image": "/assets/sets/ascended-heroes/cards/210_Team_Rocket's_Watchtower_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-211-thick-scale",
+    "name": "Thick Scale",
+    "rarity": "Uncommon",
+    "number": "211",
+    "image": "/assets/sets/ascended-heroes/cards/211_Thick_Scale_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-212-tool-scrapper",
+    "name": "Tool Scrapper",
+    "rarity": "Common",
+    "number": "212",
+    "image": "/assets/sets/ascended-heroes/cards/212_Tool_Scrapper_Common.png"
+  },
+  {
+    "id": "ascended-heroes-213-ultra-ball",
+    "name": "Ultra Ball",
+    "rarity": "Common",
+    "number": "213",
+    "image": "/assets/sets/ascended-heroes/cards/213_Ultra_Ball_Common.png"
+  },
+  {
+    "id": "ascended-heroes-214-urbain",
+    "name": "Urbain",
+    "rarity": "Uncommon",
+    "number": "214",
+    "image": "/assets/sets/ascended-heroes/cards/214_Urbain_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-215-waitress",
+    "name": "Waitress",
+    "rarity": "Common",
+    "number": "215",
+    "image": "/assets/sets/ascended-heroes/cards/215_Waitress_Common.png"
+  },
+  {
+    "id": "ascended-heroes-216-prism-energy",
+    "name": "Prism Energy",
+    "rarity": "Uncommon",
+    "number": "216",
+    "image": "/assets/sets/ascended-heroes/cards/216_Prism_Energy_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-217-team-rocket-s-energy",
+    "name": "Team Rocket's Energy",
+    "rarity": "Uncommon",
+    "number": "217",
+    "image": "/assets/sets/ascended-heroes/cards/217_Team_Rocket's_Energy_Uncommon.png"
+  },
+  {
+    "id": "ascended-heroes-218-erika-s-tangela",
+    "name": "Erika's Tangela",
+    "rarity": "Illustration Rare",
+    "number": "218",
+    "image": "/assets/sets/ascended-heroes/cards/218_Erika's_Tangela_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-219-beautifly",
+    "name": "Beautifly",
+    "rarity": "Illustration Rare",
+    "number": "219",
+    "image": "/assets/sets/ascended-heroes/cards/219_Beautifly_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-220-dustox",
+    "name": "Dustox",
+    "rarity": "Illustration Rare",
+    "number": "220",
+    "image": "/assets/sets/ascended-heroes/cards/220_Dustox_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-221-budew",
+    "name": "Budew",
+    "rarity": "Illustration Rare",
+    "number": "221",
+    "image": "/assets/sets/ascended-heroes/cards/221_Budew_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-222-ethan-s-magcargo",
+    "name": "Ethan's Magcargo",
+    "rarity": "Illustration Rare",
+    "number": "222",
+    "image": "/assets/sets/ascended-heroes/cards/222_Ethan's_Magcargo_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-223-numel",
+    "name": "Numel",
+    "rarity": "Illustration Rare",
+    "number": "223",
+    "image": "/assets/sets/ascended-heroes/cards/223_Numel_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-224-salazzle",
+    "name": "Salazzle",
+    "rarity": "Illustration Rare",
+    "number": "224",
+    "image": "/assets/sets/ascended-heroes/cards/224_Salazzle_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-225-scorbunny",
+    "name": "Scorbunny",
+    "rarity": "Illustration Rare",
+    "number": "225",
+    "image": "/assets/sets/ascended-heroes/cards/225_Scorbunny_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-226-psyduck",
+    "name": "Psyduck",
+    "rarity": "Illustration Rare",
+    "number": "226",
+    "image": "/assets/sets/ascended-heroes/cards/226_Psyduck_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-227-snorunt",
+    "name": "Snorunt",
+    "rarity": "Illustration Rare",
+    "number": "227",
+    "image": "/assets/sets/ascended-heroes/cards/227_Snorunt_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-228-weavile",
+    "name": "Weavile",
+    "rarity": "Illustration Rare",
+    "number": "228",
+    "image": "/assets/sets/ascended-heroes/cards/228_Weavile_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-229-heliolisk",
+    "name": "Heliolisk",
+    "rarity": "Illustration Rare",
+    "number": "229",
+    "image": "/assets/sets/ascended-heroes/cards/229_Heliolisk_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-230-vikavolt",
+    "name": "Vikavolt",
+    "rarity": "Illustration Rare",
+    "number": "230",
+    "image": "/assets/sets/ascended-heroes/cards/230_Vikavolt_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-231-iono-s-wattrel",
+    "name": "Iono's Wattrel",
+    "rarity": "Illustration Rare",
+    "number": "231",
+    "image": "/assets/sets/ascended-heroes/cards/231_Iono's_Wattrel_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-232-marill",
+    "name": "Marill",
+    "rarity": "Illustration Rare",
+    "number": "232",
+    "image": "/assets/sets/ascended-heroes/cards/232_Marill_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-233-misdreavus",
+    "name": "Misdreavus",
+    "rarity": "Illustration Rare",
+    "number": "233",
+    "image": "/assets/sets/ascended-heroes/cards/233_Misdreavus_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-234-banette",
+    "name": "Banette",
+    "rarity": "Illustration Rare",
+    "number": "234",
+    "image": "/assets/sets/ascended-heroes/cards/234_Banette_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-235-togekiss",
+    "name": "Togekiss",
+    "rarity": "Illustration Rare",
+    "number": "235",
+    "image": "/assets/sets/ascended-heroes/cards/235_Togekiss_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-236-slurpuff",
+    "name": "Slurpuff",
+    "rarity": "Illustration Rare",
+    "number": "236",
+    "image": "/assets/sets/ascended-heroes/cards/236_Slurpuff_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-237-hop-s-trevenant",
+    "name": "Hop's Trevenant",
+    "rarity": "Illustration Rare",
+    "number": "237",
+    "image": "/assets/sets/ascended-heroes/cards/237_Hop's_Trevenant_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-238-team-rocket-s-mimikyu",
+    "name": "Team Rocket's Mimikyu",
+    "rarity": "Illustration Rare",
+    "number": "238",
+    "image": "/assets/sets/ascended-heroes/cards/238_Team_Rocket's_Mimikyu_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-239-team-rocket-s-dugtrio",
+    "name": "Team Rocket's Dugtrio",
+    "rarity": "Illustration Rare",
+    "number": "239",
+    "image": "/assets/sets/ascended-heroes/cards/239_Team_Rocket's_Dugtrio_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-240-hitmontop",
+    "name": "Hitmontop",
+    "rarity": "Illustration Rare",
+    "number": "240",
+    "image": "/assets/sets/ascended-heroes/cards/240_Hitmontop_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-241-medicham",
+    "name": "Medicham",
+    "rarity": "Illustration Rare",
+    "number": "241",
+    "image": "/assets/sets/ascended-heroes/cards/241_Medicham_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-242-carbink",
+    "name": "Carbink",
+    "rarity": "Illustration Rare",
+    "number": "242",
+    "image": "/assets/sets/ascended-heroes/cards/242_Carbink_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-243-mightyena",
+    "name": "Mightyena",
+    "rarity": "Illustration Rare",
+    "number": "243",
+    "image": "/assets/sets/ascended-heroes/cards/243_Mightyena_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-244-cynthia-s-spiritomb",
+    "name": "Cynthia's Spiritomb",
+    "rarity": "Illustration Rare",
+    "number": "244",
+    "image": "/assets/sets/ascended-heroes/cards/244_Cynthia's_Spiritomb_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-245-galarian-obstagoon",
+    "name": "Galarian Obstagoon",
+    "rarity": "Illustration Rare",
+    "number": "245",
+    "image": "/assets/sets/ascended-heroes/cards/245_Galarian_Obstagoon_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-246-mawile",
+    "name": "Mawile",
+    "rarity": "Illustration Rare",
+    "number": "246",
+    "image": "/assets/sets/ascended-heroes/cards/246_Mawile_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-247-dreepy",
+    "name": "Dreepy",
+    "rarity": "Illustration Rare",
+    "number": "247",
+    "image": "/assets/sets/ascended-heroes/cards/247_Dreepy_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-248-drakloak",
+    "name": "Drakloak",
+    "rarity": "Illustration Rare",
+    "number": "248",
+    "image": "/assets/sets/ascended-heroes/cards/248_Drakloak_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-249-larry-s-staraptor",
+    "name": "Larry's Staraptor",
+    "rarity": "Illustration Rare",
+    "number": "249",
+    "image": "/assets/sets/ascended-heroes/cards/249_Larry's_Staraptor_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-250-fan-rotom",
+    "name": "Fan Rotom",
+    "rarity": "Illustration Rare",
+    "number": "250",
+    "image": "/assets/sets/ascended-heroes/cards/250_Fan_Rotom_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-251-sprigatito-ex",
+    "name": "Sprigatito ex",
+    "rarity": "Ultra Rare",
+    "number": "251",
+    "image": "/assets/sets/ascended-heroes/cards/251_Sprigatito_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-252-stunfisk-ex",
+    "name": "Stunfisk ex",
+    "rarity": "Ultra Rare",
+    "number": "252",
+    "image": "/assets/sets/ascended-heroes/cards/252_Stunfisk_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-253-mega-audino-ex",
+    "name": "Mega Audino ex",
+    "rarity": "Ultra Rare",
+    "number": "253",
+    "image": "/assets/sets/ascended-heroes/cards/253_Mega_Audino_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-254-anthea-concordia",
+    "name": "Anthea & Concordia",
+    "rarity": "Ultra Rare",
+    "number": "254",
+    "image": "/assets/sets/ascended-heroes/cards/254_Anthea_&_Concordia_Ultra_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-255-black-belt-s-training",
+    "name": "Black Belt's Training",
+    "rarity": "Ultra Rare",
+    "number": "255",
+    "image": "/assets/sets/ascended-heroes/cards/255_Black_Belt's_Training_Ultra_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-256-boss-s-orders",
+    "name": "Boss's Orders",
+    "rarity": "Ultra Rare",
+    "number": "256",
+    "image": "/assets/sets/ascended-heroes/cards/256_Boss's_Orders_Ultra_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-257-canari",
+    "name": "Canari",
+    "rarity": "Ultra Rare",
+    "number": "257",
+    "image": "/assets/sets/ascended-heroes/cards/257_Canari_Ultra_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-258-cheren",
+    "name": "Cheren",
+    "rarity": "Ultra Rare",
+    "number": "258",
+    "image": "/assets/sets/ascended-heroes/cards/258_Cheren_Ultra_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-259-counter-gain",
+    "name": "Counter Gain",
+    "rarity": "Ultra Rare",
+    "number": "259",
+    "image": "/assets/sets/ascended-heroes/cards/259_Counter_Gain_Ultra_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-260-glass-trumpet",
+    "name": "Glass Trumpet",
+    "rarity": "Ultra Rare",
+    "number": "260",
+    "image": "/assets/sets/ascended-heroes/cards/260_Glass_Trumpet_Ultra_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-261-jamming-tower",
+    "name": "Jamming Tower",
+    "rarity": "Ultra Rare",
+    "number": "261",
+    "image": "/assets/sets/ascended-heroes/cards/261_Jamming_Tower_Ultra_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-262-n-s-pp-up",
+    "name": "N's PP Up",
+    "rarity": "Ultra Rare",
+    "number": "262",
+    "image": "/assets/sets/ascended-heroes/cards/262_N's_PP_Up_Ultra_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-263-team-rocket-s-transceiver",
+    "name": "Team Rocket's Transceiver",
+    "rarity": "Ultra Rare",
+    "number": "263",
+    "image": "/assets/sets/ascended-heroes/cards/263_Team_Rocket's_Transceiver_Ultra_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-264-ultra-ball",
+    "name": "Ultra Ball",
+    "rarity": "Ultra Rare",
+    "number": "264",
+    "image": "/assets/sets/ascended-heroes/cards/264_Ultra_Ball_Ultra_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-265-mega-froslass-ex-mega-att",
+    "name": "Mega Froslass ex MEGA ATT",
+    "rarity": "Unknown",
+    "number": "265",
+    "image": "/assets/sets/ascended-heroes/cards/265_Mega_Froslass_ex_MEGA_ATTACK_RARE.png"
+  },
+  {
+    "id": "ascended-heroes-266-mega-eelektross-ex-mega-att",
+    "name": "Mega Eelektross ex MEGA ATT",
+    "rarity": "Unknown",
+    "number": "266",
+    "image": "/assets/sets/ascended-heroes/cards/266_Mega_Eelektross_ex_MEGA_ATTACK_RARE.png"
+  },
+  {
+    "id": "ascended-heroes-267-mega-diancie-ex-mega-att",
+    "name": "Mega Diancie ex MEGA ATT",
+    "rarity": "Unknown",
+    "number": "267",
+    "image": "/assets/sets/ascended-heroes/cards/267_Mega_Diancie_ex_MEGA_ATTACK_RARE.png"
+  },
+  {
+    "id": "ascended-heroes-268-mega-hawlucha-ex-mega-att",
+    "name": "Mega Hawlucha ex MEGA ATT",
+    "rarity": "Unknown",
+    "number": "268",
+    "image": "/assets/sets/ascended-heroes/cards/268_Mega_Hawlucha_ex_MEGA_ATTACK_RARE.png"
+  },
+  {
+    "id": "ascended-heroes-269-mega-gengar-ex-mega-att",
+    "name": "Mega Gengar ex MEGA ATT",
+    "rarity": "Unknown",
+    "number": "269",
+    "image": "/assets/sets/ascended-heroes/cards/269_Mega_Gengar_ex_MEGA_ATTACK_RARE.png"
+  },
+  {
+    "id": "ascended-heroes-270-mega-scrafty-ex-mega-att",
+    "name": "Mega Scrafty ex MEGA ATT",
+    "rarity": "Unknown",
+    "number": "270",
+    "image": "/assets/sets/ascended-heroes/cards/270_Mega_Scrafty_ex_MEGA_ATTACK_RARE.png"
+  },
+  {
+    "id": "ascended-heroes-271-mega-dragonite-ex-mega-att",
+    "name": "Mega Dragonite ex MEGA ATT",
+    "rarity": "Unknown",
+    "number": "271",
+    "image": "/assets/sets/ascended-heroes/cards/271_Mega_Dragonite_ex_MEGA_ATTACK_RARE.png"
+  },
+  {
+    "id": "ascended-heroes-272-mega-meganium-ex",
+    "name": "Mega Meganium ex",
+    "rarity": "Special Illustration Rare",
+    "number": "272",
+    "image": "/assets/sets/ascended-heroes/cards/272_Mega_Meganium_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-273-mega-emboar-ex",
+    "name": "Mega Emboar ex",
+    "rarity": "Special Illustration Rare",
+    "number": "273",
+    "image": "/assets/sets/ascended-heroes/cards/273_Mega_Emboar_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-274-mega-feraligatr-ex",
+    "name": "Mega Feraligatr ex",
+    "rarity": "Special Illustration Rare",
+    "number": "274",
+    "image": "/assets/sets/ascended-heroes/cards/274_Mega_Feraligatr_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-275-mega-froslass-ex",
+    "name": "Mega Froslass ex",
+    "rarity": "Special Illustration Rare",
+    "number": "275",
+    "image": "/assets/sets/ascended-heroes/cards/275_Mega_Froslass_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-276-pikachu-ex",
+    "name": "Pikachu ex",
+    "rarity": "Special Illustration Rare",
+    "number": "276",
+    "image": "/assets/sets/ascended-heroes/cards/276_Pikachu_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-277-pikachu-ex",
+    "name": "Pikachu ex",
+    "rarity": "Special Illustration Rare",
+    "number": "277",
+    "image": "/assets/sets/ascended-heroes/cards/277_Pikachu_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-278-mega-eelektross-ex",
+    "name": "Mega Eelektross ex",
+    "rarity": "Special Illustration Rare",
+    "number": "278",
+    "image": "/assets/sets/ascended-heroes/cards/278_Mega_Eelektross_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-279-iono-s-bellibolt-ex",
+    "name": "Iono's Bellibolt ex",
+    "rarity": "Special Illustration Rare",
+    "number": "279",
+    "image": "/assets/sets/ascended-heroes/cards/279_Iono's_Bellibolt_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-280-lillie-s-clefairy-ex",
+    "name": "Lillie's Clefairy ex",
+    "rarity": "Special Illustration Rare",
+    "number": "280",
+    "image": "/assets/sets/ascended-heroes/cards/280_Lillie's_Clefairy_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-281-team-rocket-s-mewtwo-ex",
+    "name": "Team Rocket's Mewtwo ex",
+    "rarity": "Special Illustration Rare",
+    "number": "281",
+    "image": "/assets/sets/ascended-heroes/cards/281_Team_Rocket's_Mewtwo_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-282-mega-diancie-ex",
+    "name": "Mega Diancie ex",
+    "rarity": "Special Illustration Rare",
+    "number": "282",
+    "image": "/assets/sets/ascended-heroes/cards/282_Mega_Diancie_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-283-mega-hawlucha-ex",
+    "name": "Mega Hawlucha ex",
+    "rarity": "Special Illustration Rare",
+    "number": "283",
+    "image": "/assets/sets/ascended-heroes/cards/283_Mega_Hawlucha_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-284-mega-gengar-ex",
+    "name": "Mega Gengar ex",
+    "rarity": "Special Illustration Rare",
+    "number": "284",
+    "image": "/assets/sets/ascended-heroes/cards/284_Mega_Gengar_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-285-mega-scrafty-ex",
+    "name": "Mega Scrafty ex",
+    "rarity": "Special Illustration Rare",
+    "number": "285",
+    "image": "/assets/sets/ascended-heroes/cards/285_Mega_Scrafty_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-286-n-s-zoroark-ex",
+    "name": "N's Zoroark ex",
+    "rarity": "Special Illustration Rare",
+    "number": "286",
+    "image": "/assets/sets/ascended-heroes/cards/286_N's_Zoroark_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-287-marnie-s-grimmsnarl-ex",
+    "name": "Marnie's Grimmsnarl ex",
+    "rarity": "Special Illustration Rare",
+    "number": "287",
+    "image": "/assets/sets/ascended-heroes/cards/287_Marnie's_Grimmsnarl_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-288-fezandipiti-ex",
+    "name": "Fezandipiti ex",
+    "rarity": "Special Illustration Rare",
+    "number": "288",
+    "image": "/assets/sets/ascended-heroes/cards/288_Fezandipiti_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-289-steven-s-metagross-ex",
+    "name": "Steven's Metagross ex",
+    "rarity": "Special Illustration Rare",
+    "number": "289",
+    "image": "/assets/sets/ascended-heroes/cards/289_Steven's_Metagross_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-290-mega-dragonite-ex",
+    "name": "Mega Dragonite ex",
+    "rarity": "Special Illustration Rare",
+    "number": "290",
+    "image": "/assets/sets/ascended-heroes/cards/290_Mega_Dragonite_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-291-canari",
+    "name": "Canari",
+    "rarity": "Special Illustration Rare",
+    "number": "291",
+    "image": "/assets/sets/ascended-heroes/cards/291_Canari_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-292-iris-s-fighting-spirit",
+    "name": "Iris's Fighting Spirit",
+    "rarity": "Special Illustration Rare",
+    "number": "292",
+    "image": "/assets/sets/ascended-heroes/cards/292_Iris's_Fighting_Spirit_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-293-surfer",
+    "name": "Surfer",
+    "rarity": "Special Illustration Rare",
+    "number": "293",
+    "image": "/assets/sets/ascended-heroes/cards/293_Surfer_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-294-mega-charizard-y-ex-mega-hyper",
+    "name": "Mega Charizard Y ex Mega Hyper",
+    "rarity": "Rare",
+    "number": "294",
+    "image": "/assets/sets/ascended-heroes/cards/294_Mega_Charizard_Y_ex_Mega_Hyper_Rare.png"
+  },
+  {
+    "id": "ascended-heroes-295-mega-dragonite-ex-mega-hyper",
+    "name": "Mega Dragonite ex Mega Hyper",
+    "rarity": "Rare",
+    "number": "295",
+    "image": "/assets/sets/ascended-heroes/cards/295_Mega_Dragonite_ex_Mega_Hyper_Rare.png"
+  }
+]

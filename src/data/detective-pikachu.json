@@ -1,0 +1,128 @@
+[
+  {
+    "id": "detective-pikachu-1-bulbasaur",
+    "name": "Bulbasaur",
+    "rarity": "Common",
+    "number": "1",
+    "image": "/assets/sets/detective-pikachu/cards/1_Bulbasaur_Common.png"
+  },
+  {
+    "id": "detective-pikachu-2-ludicolo",
+    "name": "Ludicolo",
+    "rarity": "Rare",
+    "number": "2",
+    "image": "/assets/sets/detective-pikachu/cards/2_Ludicolo_Rare.png"
+  },
+  {
+    "id": "detective-pikachu-3-morelull",
+    "name": "Morelull",
+    "rarity": "Common",
+    "number": "3",
+    "image": "/assets/sets/detective-pikachu/cards/3_Morelull_Common.png"
+  },
+  {
+    "id": "detective-pikachu-4-charmander",
+    "name": "Charmander",
+    "rarity": "Common",
+    "number": "4",
+    "image": "/assets/sets/detective-pikachu/cards/4_Charmander_Common.png"
+  },
+  {
+    "id": "detective-pikachu-5-charizard",
+    "name": "Charizard",
+    "rarity": "Ultra Rare",
+    "number": "5",
+    "image": "/assets/sets/detective-pikachu/cards/5_Charizard_Rare_Ultra.png"
+  },
+  {
+    "id": "detective-pikachu-6-arcanine",
+    "name": "Arcanine",
+    "rarity": "Rare",
+    "number": "6",
+    "image": "/assets/sets/detective-pikachu/cards/6_Arcanine_Rare.png"
+  },
+  {
+    "id": "detective-pikachu-7-psyduck",
+    "name": "Psyduck",
+    "rarity": "Common",
+    "number": "7",
+    "image": "/assets/sets/detective-pikachu/cards/7_Psyduck_Common.png"
+  },
+  {
+    "id": "detective-pikachu-8-magikarp",
+    "name": "Magikarp",
+    "rarity": "Common",
+    "number": "8",
+    "image": "/assets/sets/detective-pikachu/cards/8_Magikarp_Common.png"
+  },
+  {
+    "id": "detective-pikachu-9-greninja",
+    "name": "Greninja",
+    "rarity": "Ultra Rare",
+    "number": "9",
+    "image": "/assets/sets/detective-pikachu/cards/9_Greninja_Rare_Ultra.png"
+  },
+  {
+    "id": "detective-pikachu-10-detective-pikachu",
+    "name": "Detective Pikachu",
+    "rarity": "Rare",
+    "number": "10",
+    "image": "/assets/sets/detective-pikachu/cards/10_Detective_Pikachu_Rare.png"
+  },
+  {
+    "id": "detective-pikachu-11-mr-mime",
+    "name": "Mr. Mime",
+    "rarity": "Rare",
+    "number": "11",
+    "image": "/assets/sets/detective-pikachu/cards/11_Mr._Mime_Rare.png"
+  },
+  {
+    "id": "detective-pikachu-12-mewtwo",
+    "name": "Mewtwo",
+    "rarity": "Ultra Rare",
+    "number": "12",
+    "image": "/assets/sets/detective-pikachu/cards/12_Mewtwo_Rare_Ultra.png"
+  },
+  {
+    "id": "detective-pikachu-13-machamp",
+    "name": "Machamp",
+    "rarity": "Rare",
+    "number": "13",
+    "image": "/assets/sets/detective-pikachu/cards/13_Machamp_Rare.png"
+  },
+  {
+    "id": "detective-pikachu-14-jigglypuff",
+    "name": "Jigglypuff",
+    "rarity": "Common",
+    "number": "14",
+    "image": "/assets/sets/detective-pikachu/cards/14_Jigglypuff_Common.png"
+  },
+  {
+    "id": "detective-pikachu-15-snubbull",
+    "name": "Snubbull",
+    "rarity": "Common",
+    "number": "15",
+    "image": "/assets/sets/detective-pikachu/cards/15_Snubbull_Common.png"
+  },
+  {
+    "id": "detective-pikachu-16-lickitung",
+    "name": "Lickitung",
+    "rarity": "Common",
+    "number": "16",
+    "image": "/assets/sets/detective-pikachu/cards/16_Lickitung_Common.png"
+  },
+  {
+    "id": "detective-pikachu-17-ditto",
+    "name": "Ditto",
+    "rarity": "Ultra Rare",
+    "number": "17",
+    "image": "/assets/sets/detective-pikachu/cards/17_Ditto_Rare_Ultra.png"
+  },
+  {
+    "id": "detective-pikachu-18-slaking",
+    "name": "Slaking",
+    "rarity": "Rare",
+    "number": "18",
+    "image": "/assets/sets/detective-pikachu/cards/18_Slaking_Rare.png"
+  }
+]

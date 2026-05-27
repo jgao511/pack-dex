@@ -1,0 +1,1465 @@
+[
+  {
+    "id": "rebel-clash-1-caterpie",
+    "name": "Caterpie",
+    "rarity": "Common",
+    "number": "1",
+    "image": "/assets/sets/rebel-clash/cards/1_Caterpie_Common.png"
+  },
+  {
+    "id": "rebel-clash-2-metapod",
+    "name": "Metapod",
+    "rarity": "Uncommon",
+    "number": "2",
+    "image": "/assets/sets/rebel-clash/cards/2_Metapod_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-3-butterfree",
+    "name": "Butterfree",
+    "rarity": "Rare",
+    "number": "3",
+    "image": "/assets/sets/rebel-clash/cards/3_Butterfree_Rare.png"
+  },
+  {
+    "id": "rebel-clash-4-scyther",
+    "name": "Scyther",
+    "rarity": "Common",
+    "number": "4",
+    "image": "/assets/sets/rebel-clash/cards/4_Scyther_Common.png"
+  },
+  {
+    "id": "rebel-clash-5-shuckle",
+    "name": "Shuckle",
+    "rarity": "Uncommon",
+    "number": "5",
+    "image": "/assets/sets/rebel-clash/cards/5_Shuckle_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-6-heracross",
+    "name": "Heracross",
+    "rarity": "Uncommon",
+    "number": "6",
+    "image": "/assets/sets/rebel-clash/cards/6_Heracross_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-7-lotad",
+    "name": "Lotad",
+    "rarity": "Common",
+    "number": "7",
+    "image": "/assets/sets/rebel-clash/cards/7_Lotad_Common.png"
+  },
+  {
+    "id": "rebel-clash-8-lombre",
+    "name": "Lombre",
+    "rarity": "Uncommon",
+    "number": "8",
+    "image": "/assets/sets/rebel-clash/cards/8_Lombre_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-9-ludicolo",
+    "name": "Ludicolo",
+    "rarity": "Rare",
+    "number": "9",
+    "image": "/assets/sets/rebel-clash/cards/9_Ludicolo_Rare.png"
+  },
+  {
+    "id": "rebel-clash-10-surskit",
+    "name": "Surskit",
+    "rarity": "Common",
+    "number": "10",
+    "image": "/assets/sets/rebel-clash/cards/10_Surskit_Common.png"
+  },
+  {
+    "id": "rebel-clash-11-masquerain",
+    "name": "Masquerain",
+    "rarity": "Uncommon",
+    "number": "11",
+    "image": "/assets/sets/rebel-clash/cards/11_Masquerain_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-12-snover",
+    "name": "Snover",
+    "rarity": "Common",
+    "number": "12",
+    "image": "/assets/sets/rebel-clash/cards/12_Snover_Common.png"
+  },
+  {
+    "id": "rebel-clash-13-abomasnow",
+    "name": "Abomasnow",
+    "rarity": "Rare",
+    "number": "13",
+    "image": "/assets/sets/rebel-clash/cards/13_Abomasnow_Rare.png"
+  },
+  {
+    "id": "rebel-clash-14-phantump",
+    "name": "Phantump",
+    "rarity": "Common",
+    "number": "14",
+    "image": "/assets/sets/rebel-clash/cards/14_Phantump_Common.png"
+  },
+  {
+    "id": "rebel-clash-15-trevenant",
+    "name": "Trevenant",
+    "rarity": "Rare",
+    "number": "15",
+    "image": "/assets/sets/rebel-clash/cards/15_Trevenant_Rare.png"
+  },
+  {
+    "id": "rebel-clash-16-grubbin",
+    "name": "Grubbin",
+    "rarity": "Common",
+    "number": "16",
+    "image": "/assets/sets/rebel-clash/cards/16_Grubbin_Common.png"
+  },
+  {
+    "id": "rebel-clash-17-rillaboom-v",
+    "name": "Rillaboom V",
+    "rarity": "Double Rare",
+    "number": "17",
+    "image": "/assets/sets/rebel-clash/cards/17_Rillaboom_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "rebel-clash-18-rillaboom-vmax",
+    "name": "Rillaboom VMAX",
+    "rarity": "Ultra Rare",
+    "number": "18",
+    "image": "/assets/sets/rebel-clash/cards/18_Rillaboom_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "rebel-clash-19-eldegoss-v",
+    "name": "Eldegoss V",
+    "rarity": "Double Rare",
+    "number": "19",
+    "image": "/assets/sets/rebel-clash/cards/19_Eldegoss_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "rebel-clash-20-applin",
+    "name": "Applin",
+    "rarity": "Common",
+    "number": "20",
+    "image": "/assets/sets/rebel-clash/cards/20_Applin_Common.png"
+  },
+  {
+    "id": "rebel-clash-21-applin",
+    "name": "Applin",
+    "rarity": "Common",
+    "number": "21",
+    "image": "/assets/sets/rebel-clash/cards/21_Applin_Common.png"
+  },
+  {
+    "id": "rebel-clash-22-flapple",
+    "name": "Flapple",
+    "rarity": "Rare",
+    "number": "22",
+    "image": "/assets/sets/rebel-clash/cards/22_Flapple_Rare_Holo.png"
+  },
+  {
+    "id": "rebel-clash-23-appletun",
+    "name": "Appletun",
+    "rarity": "Rare",
+    "number": "23",
+    "image": "/assets/sets/rebel-clash/cards/23_Appletun_Rare_Holo.png"
+  },
+  {
+    "id": "rebel-clash-24-vulpix",
+    "name": "Vulpix",
+    "rarity": "Common",
+    "number": "24",
+    "image": "/assets/sets/rebel-clash/cards/24_Vulpix_Common.png"
+  },
+  {
+    "id": "rebel-clash-25-ninetales",
+    "name": "Ninetales",
+    "rarity": "Rare",
+    "number": "25",
+    "image": "/assets/sets/rebel-clash/cards/25_Ninetales_Rare.png"
+  },
+  {
+    "id": "rebel-clash-26-ninetales-v",
+    "name": "Ninetales V",
+    "rarity": "Double Rare",
+    "number": "26",
+    "image": "/assets/sets/rebel-clash/cards/26_Ninetales_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "rebel-clash-27-growlithe",
+    "name": "Growlithe",
+    "rarity": "Common",
+    "number": "27",
+    "image": "/assets/sets/rebel-clash/cards/27_Growlithe_Common.png"
+  },
+  {
+    "id": "rebel-clash-28-arcanine",
+    "name": "Arcanine",
+    "rarity": "Rare",
+    "number": "28",
+    "image": "/assets/sets/rebel-clash/cards/28_Arcanine_Rare.png"
+  },
+  {
+    "id": "rebel-clash-29-magmar",
+    "name": "Magmar",
+    "rarity": "Common",
+    "number": "29",
+    "image": "/assets/sets/rebel-clash/cards/29_Magmar_Common.png"
+  },
+  {
+    "id": "rebel-clash-30-magmortar",
+    "name": "Magmortar",
+    "rarity": "Rare",
+    "number": "30",
+    "image": "/assets/sets/rebel-clash/cards/30_Magmortar_Rare.png"
+  },
+  {
+    "id": "rebel-clash-31-litwick",
+    "name": "Litwick",
+    "rarity": "Common",
+    "number": "31",
+    "image": "/assets/sets/rebel-clash/cards/31_Litwick_Common.png"
+  },
+  {
+    "id": "rebel-clash-32-lampent",
+    "name": "Lampent",
+    "rarity": "Uncommon",
+    "number": "32",
+    "image": "/assets/sets/rebel-clash/cards/32_Lampent_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-33-chandelure",
+    "name": "Chandelure",
+    "rarity": "Rare",
+    "number": "33",
+    "image": "/assets/sets/rebel-clash/cards/33_Chandelure_Rare_Holo.png"
+  },
+  {
+    "id": "rebel-clash-34-heatmor",
+    "name": "Heatmor",
+    "rarity": "Uncommon",
+    "number": "34",
+    "image": "/assets/sets/rebel-clash/cards/34_Heatmor_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-35-cinderace-v",
+    "name": "Cinderace V",
+    "rarity": "Double Rare",
+    "number": "35",
+    "image": "/assets/sets/rebel-clash/cards/35_Cinderace_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "rebel-clash-36-cinderace-vmax",
+    "name": "Cinderace VMAX",
+    "rarity": "Ultra Rare",
+    "number": "36",
+    "image": "/assets/sets/rebel-clash/cards/36_Cinderace_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "rebel-clash-37-galarian-mr-mime",
+    "name": "Galarian Mr. Mime",
+    "rarity": "Common",
+    "number": "37",
+    "image": "/assets/sets/rebel-clash/cards/37_Galarian_Mr._Mime_Common.png"
+  },
+  {
+    "id": "rebel-clash-38-galarian-mr-rime",
+    "name": "Galarian Mr. Rime",
+    "rarity": "Rare",
+    "number": "38",
+    "image": "/assets/sets/rebel-clash/cards/38_Galarian_Mr._Rime_Rare.png"
+  },
+  {
+    "id": "rebel-clash-39-magikarp",
+    "name": "Magikarp",
+    "rarity": "Common",
+    "number": "39",
+    "image": "/assets/sets/rebel-clash/cards/39_Magikarp_Common.png"
+  },
+  {
+    "id": "rebel-clash-40-gyarados",
+    "name": "Gyarados",
+    "rarity": "Rare",
+    "number": "40",
+    "image": "/assets/sets/rebel-clash/cards/40_Gyarados_Rare_Holo.png"
+  },
+  {
+    "id": "rebel-clash-41-wingull",
+    "name": "Wingull",
+    "rarity": "Common",
+    "number": "41",
+    "image": "/assets/sets/rebel-clash/cards/41_Wingull_Common.png"
+  },
+  {
+    "id": "rebel-clash-42-pelipper",
+    "name": "Pelipper",
+    "rarity": "Uncommon",
+    "number": "42",
+    "image": "/assets/sets/rebel-clash/cards/42_Pelipper_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-43-milotic-v",
+    "name": "Milotic V",
+    "rarity": "Double Rare",
+    "number": "43",
+    "image": "/assets/sets/rebel-clash/cards/43_Milotic_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "rebel-clash-44-tympole",
+    "name": "Tympole",
+    "rarity": "Common",
+    "number": "44",
+    "image": "/assets/sets/rebel-clash/cards/44_Tympole_Common.png"
+  },
+  {
+    "id": "rebel-clash-45-palpitoad",
+    "name": "Palpitoad",
+    "rarity": "Uncommon",
+    "number": "45",
+    "image": "/assets/sets/rebel-clash/cards/45_Palpitoad_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-46-seismitoad",
+    "name": "Seismitoad",
+    "rarity": "Rare",
+    "number": "46",
+    "image": "/assets/sets/rebel-clash/cards/46_Seismitoad_Rare.png"
+  },
+  {
+    "id": "rebel-clash-47-galarian-darumaka",
+    "name": "Galarian Darumaka",
+    "rarity": "Common",
+    "number": "47",
+    "image": "/assets/sets/rebel-clash/cards/47_Galarian_Darumaka_Common.png"
+  },
+  {
+    "id": "rebel-clash-48-galarian-darmanitan",
+    "name": "Galarian Darmanitan",
+    "rarity": "Rare",
+    "number": "48",
+    "image": "/assets/sets/rebel-clash/cards/48_Galarian_Darmanitan_Rare.png"
+  },
+  {
+    "id": "rebel-clash-49-inteleon-v",
+    "name": "Inteleon V",
+    "rarity": "Double Rare",
+    "number": "49",
+    "image": "/assets/sets/rebel-clash/cards/49_Inteleon_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "rebel-clash-50-inteleon-vmax",
+    "name": "Inteleon VMAX",
+    "rarity": "Ultra Rare",
+    "number": "50",
+    "image": "/assets/sets/rebel-clash/cards/50_Inteleon_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "rebel-clash-51-cramorant",
+    "name": "Cramorant",
+    "rarity": "Rare",
+    "number": "51",
+    "image": "/assets/sets/rebel-clash/cards/51_Cramorant_Rare.png"
+  },
+  {
+    "id": "rebel-clash-52-arrokuda",
+    "name": "Arrokuda",
+    "rarity": "Common",
+    "number": "52",
+    "image": "/assets/sets/rebel-clash/cards/52_Arrokuda_Common.png"
+  },
+  {
+    "id": "rebel-clash-53-barraskewda",
+    "name": "Barraskewda",
+    "rarity": "Rare",
+    "number": "53",
+    "image": "/assets/sets/rebel-clash/cards/53_Barraskewda_Rare.png"
+  },
+  {
+    "id": "rebel-clash-54-eiscue",
+    "name": "Eiscue",
+    "rarity": "Rare",
+    "number": "54",
+    "image": "/assets/sets/rebel-clash/cards/54_Eiscue_Rare_Holo.png"
+  },
+  {
+    "id": "rebel-clash-55-eiscue-v",
+    "name": "Eiscue V",
+    "rarity": "Double Rare",
+    "number": "55",
+    "image": "/assets/sets/rebel-clash/cards/55_Eiscue_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "rebel-clash-56-voltorb",
+    "name": "Voltorb",
+    "rarity": "Common",
+    "number": "56",
+    "image": "/assets/sets/rebel-clash/cards/56_Voltorb_Common.png"
+  },
+  {
+    "id": "rebel-clash-57-electrode",
+    "name": "Electrode",
+    "rarity": "Uncommon",
+    "number": "57",
+    "image": "/assets/sets/rebel-clash/cards/57_Electrode_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-58-electabuzz",
+    "name": "Electabuzz",
+    "rarity": "Common",
+    "number": "58",
+    "image": "/assets/sets/rebel-clash/cards/58_Electabuzz_Common.png"
+  },
+  {
+    "id": "rebel-clash-59-electivire",
+    "name": "Electivire",
+    "rarity": "Rare",
+    "number": "59",
+    "image": "/assets/sets/rebel-clash/cards/59_Electivire_Rare.png"
+  },
+  {
+    "id": "rebel-clash-60-shinx",
+    "name": "Shinx",
+    "rarity": "Common",
+    "number": "60",
+    "image": "/assets/sets/rebel-clash/cards/60_Shinx_Common.png"
+  },
+  {
+    "id": "rebel-clash-61-luxio",
+    "name": "Luxio",
+    "rarity": "Uncommon",
+    "number": "61",
+    "image": "/assets/sets/rebel-clash/cards/61_Luxio_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-62-luxray",
+    "name": "Luxray",
+    "rarity": "Rare",
+    "number": "62",
+    "image": "/assets/sets/rebel-clash/cards/62_Luxray_Rare_Holo.png"
+  },
+  {
+    "id": "rebel-clash-63-helioptile",
+    "name": "Helioptile",
+    "rarity": "Common",
+    "number": "63",
+    "image": "/assets/sets/rebel-clash/cards/63_Helioptile_Common.png"
+  },
+  {
+    "id": "rebel-clash-64-heliolisk",
+    "name": "Heliolisk",
+    "rarity": "Uncommon",
+    "number": "64",
+    "image": "/assets/sets/rebel-clash/cards/64_Heliolisk_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-65-charjabug",
+    "name": "Charjabug",
+    "rarity": "Uncommon",
+    "number": "65",
+    "image": "/assets/sets/rebel-clash/cards/65_Charjabug_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-66-vikavolt",
+    "name": "Vikavolt",
+    "rarity": "Rare",
+    "number": "66",
+    "image": "/assets/sets/rebel-clash/cards/66_Vikavolt_Rare_Holo.png"
+  },
+  {
+    "id": "rebel-clash-67-boltund-v",
+    "name": "Boltund V",
+    "rarity": "Double Rare",
+    "number": "67",
+    "image": "/assets/sets/rebel-clash/cards/67_Boltund_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "rebel-clash-68-toxel",
+    "name": "Toxel",
+    "rarity": "Common",
+    "number": "68",
+    "image": "/assets/sets/rebel-clash/cards/68_Toxel_Common.png"
+  },
+  {
+    "id": "rebel-clash-69-toxtricity",
+    "name": "Toxtricity",
+    "rarity": "Rare",
+    "number": "69",
+    "image": "/assets/sets/rebel-clash/cards/69_Toxtricity_Rare.png"
+  },
+  {
+    "id": "rebel-clash-70-toxtricity-v",
+    "name": "Toxtricity V",
+    "rarity": "Double Rare",
+    "number": "70",
+    "image": "/assets/sets/rebel-clash/cards/70_Toxtricity_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "rebel-clash-71-toxtricity-vmax",
+    "name": "Toxtricity VMAX",
+    "rarity": "Ultra Rare",
+    "number": "71",
+    "image": "/assets/sets/rebel-clash/cards/71_Toxtricity_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "rebel-clash-72-pincurchin-v",
+    "name": "Pincurchin V",
+    "rarity": "Double Rare",
+    "number": "72",
+    "image": "/assets/sets/rebel-clash/cards/72_Pincurchin_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "rebel-clash-73-morpeko",
+    "name": "Morpeko",
+    "rarity": "Uncommon",
+    "number": "73",
+    "image": "/assets/sets/rebel-clash/cards/73_Morpeko_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-74-clefairy",
+    "name": "Clefairy",
+    "rarity": "Common",
+    "number": "74",
+    "image": "/assets/sets/rebel-clash/cards/74_Clefairy_Common.png"
+  },
+  {
+    "id": "rebel-clash-75-clefable",
+    "name": "Clefable",
+    "rarity": "Rare",
+    "number": "75",
+    "image": "/assets/sets/rebel-clash/cards/75_Clefable_Rare_Holo.png"
+  },
+  {
+    "id": "rebel-clash-76-natu",
+    "name": "Natu",
+    "rarity": "Common",
+    "number": "76",
+    "image": "/assets/sets/rebel-clash/cards/76_Natu_Common.png"
+  },
+  {
+    "id": "rebel-clash-77-xatu",
+    "name": "Xatu",
+    "rarity": "Uncommon",
+    "number": "77",
+    "image": "/assets/sets/rebel-clash/cards/77_Xatu_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-78-galarian-corsola",
+    "name": "Galarian Corsola",
+    "rarity": "Common",
+    "number": "78",
+    "image": "/assets/sets/rebel-clash/cards/78_Galarian_Corsola_Common.png"
+  },
+  {
+    "id": "rebel-clash-79-galarian-cursola",
+    "name": "Galarian Cursola",
+    "rarity": "Rare",
+    "number": "79",
+    "image": "/assets/sets/rebel-clash/cards/79_Galarian_Cursola_Rare_Holo.png"
+  },
+  {
+    "id": "rebel-clash-80-sigilyph",
+    "name": "Sigilyph",
+    "rarity": "Rare",
+    "number": "80",
+    "image": "/assets/sets/rebel-clash/cards/80_Sigilyph_Rare.png"
+  },
+  {
+    "id": "rebel-clash-81-sandygast",
+    "name": "Sandygast",
+    "rarity": "Common",
+    "number": "81",
+    "image": "/assets/sets/rebel-clash/cards/81_Sandygast_Common.png"
+  },
+  {
+    "id": "rebel-clash-82-palossand",
+    "name": "Palossand",
+    "rarity": "Uncommon",
+    "number": "82",
+    "image": "/assets/sets/rebel-clash/cards/82_Palossand_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-83-hatenna",
+    "name": "Hatenna",
+    "rarity": "Common",
+    "number": "83",
+    "image": "/assets/sets/rebel-clash/cards/83_Hatenna_Common.png"
+  },
+  {
+    "id": "rebel-clash-84-hattrem",
+    "name": "Hattrem",
+    "rarity": "Uncommon",
+    "number": "84",
+    "image": "/assets/sets/rebel-clash/cards/84_Hattrem_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-85-hatterene",
+    "name": "Hatterene",
+    "rarity": "Rare",
+    "number": "85",
+    "image": "/assets/sets/rebel-clash/cards/85_Hatterene_Rare_Holo.png"
+  },
+  {
+    "id": "rebel-clash-86-milcery",
+    "name": "Milcery",
+    "rarity": "Common",
+    "number": "86",
+    "image": "/assets/sets/rebel-clash/cards/86_Milcery_Common.png"
+  },
+  {
+    "id": "rebel-clash-87-alcremie",
+    "name": "Alcremie",
+    "rarity": "Rare",
+    "number": "87",
+    "image": "/assets/sets/rebel-clash/cards/87_Alcremie_Rare.png"
+  },
+  {
+    "id": "rebel-clash-88-indeedee",
+    "name": "Indeedee",
+    "rarity": "Uncommon",
+    "number": "88",
+    "image": "/assets/sets/rebel-clash/cards/88_Indeedee_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-89-dreepy",
+    "name": "Dreepy",
+    "rarity": "Common",
+    "number": "89",
+    "image": "/assets/sets/rebel-clash/cards/89_Dreepy_Common.png"
+  },
+  {
+    "id": "rebel-clash-90-drakloak",
+    "name": "Drakloak",
+    "rarity": "Uncommon",
+    "number": "90",
+    "image": "/assets/sets/rebel-clash/cards/90_Drakloak_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-91-dragapult",
+    "name": "Dragapult",
+    "rarity": "Rare",
+    "number": "91",
+    "image": "/assets/sets/rebel-clash/cards/91_Dragapult_Rare_Holo.png"
+  },
+  {
+    "id": "rebel-clash-92-dragapult-v",
+    "name": "Dragapult V",
+    "rarity": "Double Rare",
+    "number": "92",
+    "image": "/assets/sets/rebel-clash/cards/92_Dragapult_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "rebel-clash-93-dragapult-vmax",
+    "name": "Dragapult VMAX",
+    "rarity": "Ultra Rare",
+    "number": "93",
+    "image": "/assets/sets/rebel-clash/cards/93_Dragapult_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "rebel-clash-94-galarian-farfetch-d",
+    "name": "Galarian Farfetch'd",
+    "rarity": "Common",
+    "number": "94",
+    "image": "/assets/sets/rebel-clash/cards/94_Galarian_Farfetch'd_Common.png"
+  },
+  {
+    "id": "rebel-clash-95-galarian-sirfetch-d",
+    "name": "Galarian Sirfetch'd",
+    "rarity": "Rare",
+    "number": "95",
+    "image": "/assets/sets/rebel-clash/cards/95_Galarian_Sirfetch'd_Rare_Holo.png"
+  },
+  {
+    "id": "rebel-clash-96-nosepass",
+    "name": "Nosepass",
+    "rarity": "Common",
+    "number": "96",
+    "image": "/assets/sets/rebel-clash/cards/96_Nosepass_Common.png"
+  },
+  {
+    "id": "rebel-clash-97-meditite",
+    "name": "Meditite",
+    "rarity": "Common",
+    "number": "97",
+    "image": "/assets/sets/rebel-clash/cards/97_Meditite_Common.png"
+  },
+  {
+    "id": "rebel-clash-98-medicham",
+    "name": "Medicham",
+    "rarity": "Uncommon",
+    "number": "98",
+    "image": "/assets/sets/rebel-clash/cards/98_Medicham_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-99-barboach",
+    "name": "Barboach",
+    "rarity": "Common",
+    "number": "99",
+    "image": "/assets/sets/rebel-clash/cards/99_Barboach_Common.png"
+  },
+  {
+    "id": "rebel-clash-100-whiscash",
+    "name": "Whiscash",
+    "rarity": "Rare",
+    "number": "100",
+    "image": "/assets/sets/rebel-clash/cards/100_Whiscash_Rare.png"
+  },
+  {
+    "id": "rebel-clash-101-galarian-yamask",
+    "name": "Galarian Yamask",
+    "rarity": "Common",
+    "number": "101",
+    "image": "/assets/sets/rebel-clash/cards/101_Galarian_Yamask_Common.png"
+  },
+  {
+    "id": "rebel-clash-102-galarian-runerigus",
+    "name": "Galarian Runerigus",
+    "rarity": "Rare",
+    "number": "102",
+    "image": "/assets/sets/rebel-clash/cards/102_Galarian_Runerigus_Rare.png"
+  },
+  {
+    "id": "rebel-clash-103-binacle",
+    "name": "Binacle",
+    "rarity": "Common",
+    "number": "103",
+    "image": "/assets/sets/rebel-clash/cards/103_Binacle_Common.png"
+  },
+  {
+    "id": "rebel-clash-104-barbaracle",
+    "name": "Barbaracle",
+    "rarity": "Rare",
+    "number": "104",
+    "image": "/assets/sets/rebel-clash/cards/104_Barbaracle_Rare.png"
+  },
+  {
+    "id": "rebel-clash-105-rolycoly",
+    "name": "Rolycoly",
+    "rarity": "Common",
+    "number": "105",
+    "image": "/assets/sets/rebel-clash/cards/105_Rolycoly_Common.png"
+  },
+  {
+    "id": "rebel-clash-106-carkol",
+    "name": "Carkol",
+    "rarity": "Uncommon",
+    "number": "106",
+    "image": "/assets/sets/rebel-clash/cards/106_Carkol_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-107-coalossal",
+    "name": "Coalossal",
+    "rarity": "Rare",
+    "number": "107",
+    "image": "/assets/sets/rebel-clash/cards/107_Coalossal_Rare_Holo.png"
+  },
+  {
+    "id": "rebel-clash-108-sandaconda-v",
+    "name": "Sandaconda V",
+    "rarity": "Double Rare",
+    "number": "108",
+    "image": "/assets/sets/rebel-clash/cards/108_Sandaconda_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "rebel-clash-109-falinks",
+    "name": "Falinks",
+    "rarity": "Uncommon",
+    "number": "109",
+    "image": "/assets/sets/rebel-clash/cards/109_Falinks_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-110-falinks-v",
+    "name": "Falinks V",
+    "rarity": "Double Rare",
+    "number": "110",
+    "image": "/assets/sets/rebel-clash/cards/110_Falinks_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "rebel-clash-111-stonjourner",
+    "name": "Stonjourner",
+    "rarity": "Rare",
+    "number": "111",
+    "image": "/assets/sets/rebel-clash/cards/111_Stonjourner_Rare_Holo.png"
+  },
+  {
+    "id": "rebel-clash-112-koffing",
+    "name": "Koffing",
+    "rarity": "Common",
+    "number": "112",
+    "image": "/assets/sets/rebel-clash/cards/112_Koffing_Common.png"
+  },
+  {
+    "id": "rebel-clash-113-galarian-weezing",
+    "name": "Galarian Weezing",
+    "rarity": "Rare",
+    "number": "113",
+    "image": "/assets/sets/rebel-clash/cards/113_Galarian_Weezing_Rare_Holo.png"
+  },
+  {
+    "id": "rebel-clash-114-stunky",
+    "name": "Stunky",
+    "rarity": "Common",
+    "number": "114",
+    "image": "/assets/sets/rebel-clash/cards/114_Stunky_Common.png"
+  },
+  {
+    "id": "rebel-clash-115-skuntank",
+    "name": "Skuntank",
+    "rarity": "Uncommon",
+    "number": "115",
+    "image": "/assets/sets/rebel-clash/cards/115_Skuntank_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-116-spiritomb",
+    "name": "Spiritomb",
+    "rarity": "Rare",
+    "number": "116",
+    "image": "/assets/sets/rebel-clash/cards/116_Spiritomb_Rare.png"
+  },
+  {
+    "id": "rebel-clash-117-trubbish",
+    "name": "Trubbish",
+    "rarity": "Common",
+    "number": "117",
+    "image": "/assets/sets/rebel-clash/cards/117_Trubbish_Common.png"
+  },
+  {
+    "id": "rebel-clash-118-garbodor",
+    "name": "Garbodor",
+    "rarity": "Rare",
+    "number": "118",
+    "image": "/assets/sets/rebel-clash/cards/118_Garbodor_Rare.png"
+  },
+  {
+    "id": "rebel-clash-119-vullaby",
+    "name": "Vullaby",
+    "rarity": "Common",
+    "number": "119",
+    "image": "/assets/sets/rebel-clash/cards/119_Vullaby_Common.png"
+  },
+  {
+    "id": "rebel-clash-120-mandibuzz",
+    "name": "Mandibuzz",
+    "rarity": "Rare",
+    "number": "120",
+    "image": "/assets/sets/rebel-clash/cards/120_Mandibuzz_Rare.png"
+  },
+  {
+    "id": "rebel-clash-121-malamar-v",
+    "name": "Malamar V",
+    "rarity": "Double Rare",
+    "number": "121",
+    "image": "/assets/sets/rebel-clash/cards/121_Malamar_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "rebel-clash-122-malamar-vmax",
+    "name": "Malamar VMAX",
+    "rarity": "Ultra Rare",
+    "number": "122",
+    "image": "/assets/sets/rebel-clash/cards/122_Malamar_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "rebel-clash-123-impidimp",
+    "name": "Impidimp",
+    "rarity": "Common",
+    "number": "123",
+    "image": "/assets/sets/rebel-clash/cards/123_Impidimp_Common.png"
+  },
+  {
+    "id": "rebel-clash-124-morgrem",
+    "name": "Morgrem",
+    "rarity": "Uncommon",
+    "number": "124",
+    "image": "/assets/sets/rebel-clash/cards/124_Morgrem_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-125-grimmsnarl",
+    "name": "Grimmsnarl",
+    "rarity": "Rare",
+    "number": "125",
+    "image": "/assets/sets/rebel-clash/cards/125_Grimmsnarl_Rare_Holo.png"
+  },
+  {
+    "id": "rebel-clash-126-galarian-meowth",
+    "name": "Galarian Meowth",
+    "rarity": "Common",
+    "number": "126",
+    "image": "/assets/sets/rebel-clash/cards/126_Galarian_Meowth_Common.png"
+  },
+  {
+    "id": "rebel-clash-127-galarian-perrserker",
+    "name": "Galarian Perrserker",
+    "rarity": "Rare",
+    "number": "127",
+    "image": "/assets/sets/rebel-clash/cards/127_Galarian_Perrserker_Rare.png"
+  },
+  {
+    "id": "rebel-clash-128-scizor",
+    "name": "Scizor",
+    "rarity": "Rare",
+    "number": "128",
+    "image": "/assets/sets/rebel-clash/cards/128_Scizor_Rare.png"
+  },
+  {
+    "id": "rebel-clash-129-bronzor",
+    "name": "Bronzor",
+    "rarity": "Common",
+    "number": "129",
+    "image": "/assets/sets/rebel-clash/cards/129_Bronzor_Common.png"
+  },
+  {
+    "id": "rebel-clash-130-bronzong",
+    "name": "Bronzong",
+    "rarity": "Uncommon",
+    "number": "130",
+    "image": "/assets/sets/rebel-clash/cards/130_Bronzong_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-131-probopass",
+    "name": "Probopass",
+    "rarity": "Rare",
+    "number": "131",
+    "image": "/assets/sets/rebel-clash/cards/131_Probopass_Rare.png"
+  },
+  {
+    "id": "rebel-clash-132-durant",
+    "name": "Durant",
+    "rarity": "Uncommon",
+    "number": "132",
+    "image": "/assets/sets/rebel-clash/cards/132_Durant_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-133-honedge",
+    "name": "Honedge",
+    "rarity": "Common",
+    "number": "133",
+    "image": "/assets/sets/rebel-clash/cards/133_Honedge_Common.png"
+  },
+  {
+    "id": "rebel-clash-134-doublade",
+    "name": "Doublade",
+    "rarity": "Uncommon",
+    "number": "134",
+    "image": "/assets/sets/rebel-clash/cards/134_Doublade_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-135-aegislash",
+    "name": "Aegislash",
+    "rarity": "Rare",
+    "number": "135",
+    "image": "/assets/sets/rebel-clash/cards/135_Aegislash_Rare.png"
+  },
+  {
+    "id": "rebel-clash-136-copperajah-v",
+    "name": "Copperajah V",
+    "rarity": "Double Rare",
+    "number": "136",
+    "image": "/assets/sets/rebel-clash/cards/136_Copperajah_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "rebel-clash-137-copperajah-vmax",
+    "name": "Copperajah VMAX",
+    "rarity": "Ultra Rare",
+    "number": "137",
+    "image": "/assets/sets/rebel-clash/cards/137_Copperajah_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "rebel-clash-138-duraludon",
+    "name": "Duraludon",
+    "rarity": "Rare",
+    "number": "138",
+    "image": "/assets/sets/rebel-clash/cards/138_Duraludon_Rare_Holo.png"
+  },
+  {
+    "id": "rebel-clash-139-zacian",
+    "name": "Zacian",
+    "rarity": "Rare",
+    "number": "139",
+    "image": "/assets/sets/rebel-clash/cards/139_Zacian_Rare.png"
+  },
+  {
+    "id": "rebel-clash-140-zamazenta",
+    "name": "Zamazenta",
+    "rarity": "Rare",
+    "number": "140",
+    "image": "/assets/sets/rebel-clash/cards/140_Zamazenta_Rare.png"
+  },
+  {
+    "id": "rebel-clash-141-snorlax",
+    "name": "Snorlax",
+    "rarity": "Rare",
+    "number": "141",
+    "image": "/assets/sets/rebel-clash/cards/141_Snorlax_Rare.png"
+  },
+  {
+    "id": "rebel-clash-142-chatot",
+    "name": "Chatot",
+    "rarity": "Uncommon",
+    "number": "142",
+    "image": "/assets/sets/rebel-clash/cards/142_Chatot_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-143-pidove",
+    "name": "Pidove",
+    "rarity": "Common",
+    "number": "143",
+    "image": "/assets/sets/rebel-clash/cards/143_Pidove_Common.png"
+  },
+  {
+    "id": "rebel-clash-144-tranquill",
+    "name": "Tranquill",
+    "rarity": "Uncommon",
+    "number": "144",
+    "image": "/assets/sets/rebel-clash/cards/144_Tranquill_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-145-unfezant",
+    "name": "Unfezant",
+    "rarity": "Rare",
+    "number": "145",
+    "image": "/assets/sets/rebel-clash/cards/145_Unfezant_Rare.png"
+  },
+  {
+    "id": "rebel-clash-146-bunnelby",
+    "name": "Bunnelby",
+    "rarity": "Common",
+    "number": "146",
+    "image": "/assets/sets/rebel-clash/cards/146_Bunnelby_Common.png"
+  },
+  {
+    "id": "rebel-clash-147-diggersby",
+    "name": "Diggersby",
+    "rarity": "Rare",
+    "number": "147",
+    "image": "/assets/sets/rebel-clash/cards/147_Diggersby_Rare.png"
+  },
+  {
+    "id": "rebel-clash-148-hawlucha",
+    "name": "Hawlucha",
+    "rarity": "Uncommon",
+    "number": "148",
+    "image": "/assets/sets/rebel-clash/cards/148_Hawlucha_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-149-stufful",
+    "name": "Stufful",
+    "rarity": "Common",
+    "number": "149",
+    "image": "/assets/sets/rebel-clash/cards/149_Stufful_Common.png"
+  },
+  {
+    "id": "rebel-clash-150-bewear",
+    "name": "Bewear",
+    "rarity": "Uncommon",
+    "number": "150",
+    "image": "/assets/sets/rebel-clash/cards/150_Bewear_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-151-skwovet",
+    "name": "Skwovet",
+    "rarity": "Common",
+    "number": "151",
+    "image": "/assets/sets/rebel-clash/cards/151_Skwovet_Common.png"
+  },
+  {
+    "id": "rebel-clash-152-greedent",
+    "name": "Greedent",
+    "rarity": "Rare",
+    "number": "152",
+    "image": "/assets/sets/rebel-clash/cards/152_Greedent_Rare.png"
+  },
+  {
+    "id": "rebel-clash-153-dubwool-v",
+    "name": "Dubwool V",
+    "rarity": "Double Rare",
+    "number": "153",
+    "image": "/assets/sets/rebel-clash/cards/153_Dubwool_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "rebel-clash-154-boss-s-orders",
+    "name": "Boss's Orders",
+    "rarity": "Rare",
+    "number": "154",
+    "image": "/assets/sets/rebel-clash/cards/154_Boss's_Orders_Rare_Holo.png"
+  },
+  {
+    "id": "rebel-clash-155-burning-scarf",
+    "name": "Burning Scarf",
+    "rarity": "Uncommon",
+    "number": "155",
+    "image": "/assets/sets/rebel-clash/cards/155_Burning_Scarf_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-156-capacious-bucket",
+    "name": "Capacious Bucket",
+    "rarity": "Uncommon",
+    "number": "156",
+    "image": "/assets/sets/rebel-clash/cards/156_Capacious_Bucket_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-157-cursed-shovel",
+    "name": "Cursed Shovel",
+    "rarity": "Uncommon",
+    "number": "157",
+    "image": "/assets/sets/rebel-clash/cards/157_Cursed_Shovel_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-158-dan",
+    "name": "Dan",
+    "rarity": "Uncommon",
+    "number": "158",
+    "image": "/assets/sets/rebel-clash/cards/158_Dan_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-159-full-heal",
+    "name": "Full Heal",
+    "rarity": "Uncommon",
+    "number": "159",
+    "image": "/assets/sets/rebel-clash/cards/159_Full_Heal_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-160-galar-mine",
+    "name": "Galar Mine",
+    "rarity": "Uncommon",
+    "number": "160",
+    "image": "/assets/sets/rebel-clash/cards/160_Galar_Mine_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-161-milo",
+    "name": "Milo",
+    "rarity": "Uncommon",
+    "number": "161",
+    "image": "/assets/sets/rebel-clash/cards/161_Milo_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-162-nugget",
+    "name": "Nugget",
+    "rarity": "Uncommon",
+    "number": "162",
+    "image": "/assets/sets/rebel-clash/cards/162_Nugget_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-163-oleana",
+    "name": "Oleana",
+    "rarity": "Uncommon",
+    "number": "163",
+    "image": "/assets/sets/rebel-clash/cards/163_Oleana_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-164-pok-ball",
+    "name": "Poké Ball",
+    "rarity": "Uncommon",
+    "number": "164",
+    "image": "/assets/sets/rebel-clash/cards/164_Poké_Ball_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-165-scoop-up-net",
+    "name": "Scoop Up Net",
+    "rarity": "Uncommon",
+    "number": "165",
+    "image": "/assets/sets/rebel-clash/cards/165_Scoop_Up_Net_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-166-skyla",
+    "name": "Skyla",
+    "rarity": "Uncommon",
+    "number": "166",
+    "image": "/assets/sets/rebel-clash/cards/166_Skyla_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-167-sonia",
+    "name": "Sonia",
+    "rarity": "Uncommon",
+    "number": "167",
+    "image": "/assets/sets/rebel-clash/cards/167_Sonia_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-168-tool-scrapper",
+    "name": "Tool Scrapper",
+    "rarity": "Uncommon",
+    "number": "168",
+    "image": "/assets/sets/rebel-clash/cards/168_Tool_Scrapper_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-169-training-court",
+    "name": "Training Court",
+    "rarity": "Uncommon",
+    "number": "169",
+    "image": "/assets/sets/rebel-clash/cards/169_Training_Court_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-170-turffield-stadium",
+    "name": "Turffield Stadium",
+    "rarity": "Uncommon",
+    "number": "170",
+    "image": "/assets/sets/rebel-clash/cards/170_Turffield_Stadium_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-171-capture-energy",
+    "name": "Capture Energy",
+    "rarity": "Uncommon",
+    "number": "171",
+    "image": "/assets/sets/rebel-clash/cards/171_Capture_Energy_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-172-horror-psychic-energy",
+    "name": "Horror Psychic Energy",
+    "rarity": "Uncommon",
+    "number": "172",
+    "image": "/assets/sets/rebel-clash/cards/172_Horror_Psychic_Energy_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-173-speed-lightning-energy",
+    "name": "Speed Lightning Energy",
+    "rarity": "Uncommon",
+    "number": "173",
+    "image": "/assets/sets/rebel-clash/cards/173_Speed_Lightning_Energy_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-174-twin-energy",
+    "name": "Twin Energy",
+    "rarity": "Uncommon",
+    "number": "174",
+    "image": "/assets/sets/rebel-clash/cards/174_Twin_Energy_Uncommon.png"
+  },
+  {
+    "id": "rebel-clash-175-rillaboom-v",
+    "name": "Rillaboom V",
+    "rarity": "Ultra Rare",
+    "number": "175",
+    "image": "/assets/sets/rebel-clash/cards/175_Rillaboom_V_Rare_Ultra.png"
+  },
+  {
+    "id": "rebel-clash-176-eldegoss-v",
+    "name": "Eldegoss V",
+    "rarity": "Ultra Rare",
+    "number": "176",
+    "image": "/assets/sets/rebel-clash/cards/176_Eldegoss_V_Rare_Ultra.png"
+  },
+  {
+    "id": "rebel-clash-177-ninetales-v",
+    "name": "Ninetales V",
+    "rarity": "Ultra Rare",
+    "number": "177",
+    "image": "/assets/sets/rebel-clash/cards/177_Ninetales_V_Rare_Ultra.png"
+  },
+  {
+    "id": "rebel-clash-178-cinderace-v",
+    "name": "Cinderace V",
+    "rarity": "Ultra Rare",
+    "number": "178",
+    "image": "/assets/sets/rebel-clash/cards/178_Cinderace_V_Rare_Ultra.png"
+  },
+  {
+    "id": "rebel-clash-179-milotic-v",
+    "name": "Milotic V",
+    "rarity": "Ultra Rare",
+    "number": "179",
+    "image": "/assets/sets/rebel-clash/cards/179_Milotic_V_Rare_Ultra.png"
+  },
+  {
+    "id": "rebel-clash-180-inteleon-v",
+    "name": "Inteleon V",
+    "rarity": "Ultra Rare",
+    "number": "180",
+    "image": "/assets/sets/rebel-clash/cards/180_Inteleon_V_Rare_Ultra.png"
+  },
+  {
+    "id": "rebel-clash-181-boltund-v",
+    "name": "Boltund V",
+    "rarity": "Ultra Rare",
+    "number": "181",
+    "image": "/assets/sets/rebel-clash/cards/181_Boltund_V_Rare_Ultra.png"
+  },
+  {
+    "id": "rebel-clash-182-toxtricity-v",
+    "name": "Toxtricity V",
+    "rarity": "Ultra Rare",
+    "number": "182",
+    "image": "/assets/sets/rebel-clash/cards/182_Toxtricity_V_Rare_Ultra.png"
+  },
+  {
+    "id": "rebel-clash-183-dragapult-v",
+    "name": "Dragapult V",
+    "rarity": "Ultra Rare",
+    "number": "183",
+    "image": "/assets/sets/rebel-clash/cards/183_Dragapult_V_Rare_Ultra.png"
+  },
+  {
+    "id": "rebel-clash-184-sandaconda-v",
+    "name": "Sandaconda V",
+    "rarity": "Ultra Rare",
+    "number": "184",
+    "image": "/assets/sets/rebel-clash/cards/184_Sandaconda_V_Rare_Ultra.png"
+  },
+  {
+    "id": "rebel-clash-185-falinks-v",
+    "name": "Falinks V",
+    "rarity": "Ultra Rare",
+    "number": "185",
+    "image": "/assets/sets/rebel-clash/cards/185_Falinks_V_Rare_Ultra.png"
+  },
+  {
+    "id": "rebel-clash-186-malamar-v",
+    "name": "Malamar V",
+    "rarity": "Ultra Rare",
+    "number": "186",
+    "image": "/assets/sets/rebel-clash/cards/186_Malamar_V_Rare_Ultra.png"
+  },
+  {
+    "id": "rebel-clash-187-copperajah-v",
+    "name": "Copperajah V",
+    "rarity": "Ultra Rare",
+    "number": "187",
+    "image": "/assets/sets/rebel-clash/cards/187_Copperajah_V_Rare_Ultra.png"
+  },
+  {
+    "id": "rebel-clash-188-dubwool-v",
+    "name": "Dubwool V",
+    "rarity": "Ultra Rare",
+    "number": "188",
+    "image": "/assets/sets/rebel-clash/cards/188_Dubwool_V_Rare_Ultra.png"
+  },
+  {
+    "id": "rebel-clash-189-boss-s-orders",
+    "name": "Boss's Orders",
+    "rarity": "Ultra Rare",
+    "number": "189",
+    "image": "/assets/sets/rebel-clash/cards/189_Boss's_Orders_Rare_Ultra.png"
+  },
+  {
+    "id": "rebel-clash-190-milo",
+    "name": "Milo",
+    "rarity": "Ultra Rare",
+    "number": "190",
+    "image": "/assets/sets/rebel-clash/cards/190_Milo_Rare_Ultra.png"
+  },
+  {
+    "id": "rebel-clash-191-oleana",
+    "name": "Oleana",
+    "rarity": "Ultra Rare",
+    "number": "191",
+    "image": "/assets/sets/rebel-clash/cards/191_Oleana_Rare_Ultra.png"
+  },
+  {
+    "id": "rebel-clash-192-sonia",
+    "name": "Sonia",
+    "rarity": "Ultra Rare",
+    "number": "192",
+    "image": "/assets/sets/rebel-clash/cards/192_Sonia_Rare_Ultra.png"
+  },
+  {
+    "id": "rebel-clash-193-rillaboom-vmax",
+    "name": "Rillaboom VMAX",
+    "rarity": "Secret Rare",
+    "number": "193",
+    "image": "/assets/sets/rebel-clash/cards/193_Rillaboom_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "rebel-clash-194-cinderace-vmax",
+    "name": "Cinderace VMAX",
+    "rarity": "Secret Rare",
+    "number": "194",
+    "image": "/assets/sets/rebel-clash/cards/194_Cinderace_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "rebel-clash-195-inteleon-vmax",
+    "name": "Inteleon VMAX",
+    "rarity": "Secret Rare",
+    "number": "195",
+    "image": "/assets/sets/rebel-clash/cards/195_Inteleon_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "rebel-clash-196-toxtricity-vmax",
+    "name": "Toxtricity VMAX",
+    "rarity": "Secret Rare",
+    "number": "196",
+    "image": "/assets/sets/rebel-clash/cards/196_Toxtricity_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "rebel-clash-197-dragapult-vmax",
+    "name": "Dragapult VMAX",
+    "rarity": "Secret Rare",
+    "number": "197",
+    "image": "/assets/sets/rebel-clash/cards/197_Dragapult_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "rebel-clash-198-malamar-vmax",
+    "name": "Malamar VMAX",
+    "rarity": "Secret Rare",
+    "number": "198",
+    "image": "/assets/sets/rebel-clash/cards/198_Malamar_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "rebel-clash-199-copperajah-vmax",
+    "name": "Copperajah VMAX",
+    "rarity": "Secret Rare",
+    "number": "199",
+    "image": "/assets/sets/rebel-clash/cards/199_Copperajah_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "rebel-clash-200-boss-s-orders",
+    "name": "Boss's Orders",
+    "rarity": "Secret Rare",
+    "number": "200",
+    "image": "/assets/sets/rebel-clash/cards/200_Boss's_Orders_Rare_Rainbow.png"
+  },
+  {
+    "id": "rebel-clash-201-milo",
+    "name": "Milo",
+    "rarity": "Secret Rare",
+    "number": "201",
+    "image": "/assets/sets/rebel-clash/cards/201_Milo_Rare_Rainbow.png"
+  },
+  {
+    "id": "rebel-clash-202-oleana",
+    "name": "Oleana",
+    "rarity": "Secret Rare",
+    "number": "202",
+    "image": "/assets/sets/rebel-clash/cards/202_Oleana_Rare_Rainbow.png"
+  },
+  {
+    "id": "rebel-clash-203-sonia",
+    "name": "Sonia",
+    "rarity": "Secret Rare",
+    "number": "203",
+    "image": "/assets/sets/rebel-clash/cards/203_Sonia_Rare_Rainbow.png"
+  },
+  {
+    "id": "rebel-clash-204-frosmoth",
+    "name": "Frosmoth",
+    "rarity": "Secret Rare",
+    "number": "204",
+    "image": "/assets/sets/rebel-clash/cards/204_Frosmoth_Rare_Secret.png"
+  },
+  {
+    "id": "rebel-clash-205-galarian-perrserker",
+    "name": "Galarian Perrserker",
+    "rarity": "Secret Rare",
+    "number": "205",
+    "image": "/assets/sets/rebel-clash/cards/205_Galarian_Perrserker_Rare_Secret.png"
+  },
+  {
+    "id": "rebel-clash-206-big-charm",
+    "name": "Big Charm",
+    "rarity": "Secret Rare",
+    "number": "206",
+    "image": "/assets/sets/rebel-clash/cards/206_Big_Charm_Rare_Secret.png"
+  },
+  {
+    "id": "rebel-clash-207-scoop-up-net",
+    "name": "Scoop Up Net",
+    "rarity": "Secret Rare",
+    "number": "207",
+    "image": "/assets/sets/rebel-clash/cards/207_Scoop_Up_Net_Rare_Secret.png"
+  },
+  {
+    "id": "rebel-clash-208-tool-scrapper",
+    "name": "Tool Scrapper",
+    "rarity": "Secret Rare",
+    "number": "208",
+    "image": "/assets/sets/rebel-clash/cards/208_Tool_Scrapper_Rare_Secret.png"
+  },
+  {
+    "id": "rebel-clash-209-twin-energy",
+    "name": "Twin Energy",
+    "rarity": "Secret Rare",
+    "number": "209",
+    "image": "/assets/sets/rebel-clash/cards/209_Twin_Energy_Rare_Secret.png"
+  }
+]

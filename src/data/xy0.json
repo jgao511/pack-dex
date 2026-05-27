@@ -1,0 +1,275 @@
+[
+  {
+    "id": "xy0-1-weedle",
+    "name": "Weedle",
+    "rarity": "Common",
+    "number": "1",
+    "image": "/assets/sets/xy0/cards/1_Weedle_Unknown_Rarity_xy0-1.png"
+  },
+  {
+    "id": "xy0-2-pansage",
+    "name": "Pansage",
+    "rarity": "Common",
+    "number": "2",
+    "image": "/assets/sets/xy0/cards/2_Pansage_Unknown_Rarity_xy0-2.png"
+  },
+  {
+    "id": "xy0-3-chespin",
+    "name": "Chespin",
+    "rarity": "Common",
+    "number": "3",
+    "image": "/assets/sets/xy0/cards/3_Chespin_Unknown_Rarity_xy0-3.png"
+  },
+  {
+    "id": "xy0-4-quilladin",
+    "name": "Quilladin",
+    "rarity": "Common",
+    "number": "4",
+    "image": "/assets/sets/xy0/cards/4_Quilladin_Unknown_Rarity_xy0-4.png"
+  },
+  {
+    "id": "xy0-5-chesnaught",
+    "name": "Chesnaught",
+    "rarity": "Common",
+    "number": "5",
+    "image": "/assets/sets/xy0/cards/5_Chesnaught_Unknown_Rarity_xy0-5.png"
+  },
+  {
+    "id": "xy0-6-slugma",
+    "name": "Slugma",
+    "rarity": "Common",
+    "number": "6",
+    "image": "/assets/sets/xy0/cards/6_Slugma_Unknown_Rarity_xy0-6.png"
+  },
+  {
+    "id": "xy0-7-pansear",
+    "name": "Pansear",
+    "rarity": "Common",
+    "number": "7",
+    "image": "/assets/sets/xy0/cards/7_Pansear_Unknown_Rarity_xy0-7.png"
+  },
+  {
+    "id": "xy0-8-fennekin",
+    "name": "Fennekin",
+    "rarity": "Common",
+    "number": "8",
+    "image": "/assets/sets/xy0/cards/8_Fennekin_Unknown_Rarity_xy0-8.png"
+  },
+  {
+    "id": "xy0-9-braixen",
+    "name": "Braixen",
+    "rarity": "Common",
+    "number": "9",
+    "image": "/assets/sets/xy0/cards/9_Braixen_Unknown_Rarity_xy0-9.png"
+  },
+  {
+    "id": "xy0-10-delphox",
+    "name": "Delphox",
+    "rarity": "Common",
+    "number": "10",
+    "image": "/assets/sets/xy0/cards/10_Delphox_Unknown_Rarity_xy0-10.png"
+  },
+  {
+    "id": "xy0-11-panpour",
+    "name": "Panpour",
+    "rarity": "Common",
+    "number": "11",
+    "image": "/assets/sets/xy0/cards/11_Panpour_Unknown_Rarity_xy0-11.png"
+  },
+  {
+    "id": "xy0-12-froakie",
+    "name": "Froakie",
+    "rarity": "Common",
+    "number": "12",
+    "image": "/assets/sets/xy0/cards/12_Froakie_Unknown_Rarity_xy0-12.png"
+  },
+  {
+    "id": "xy0-13-frogadier",
+    "name": "Frogadier",
+    "rarity": "Common",
+    "number": "13",
+    "image": "/assets/sets/xy0/cards/13_Frogadier_Unknown_Rarity_xy0-13.png"
+  },
+  {
+    "id": "xy0-14-greninja",
+    "name": "Greninja",
+    "rarity": "Common",
+    "number": "14",
+    "image": "/assets/sets/xy0/cards/14_Greninja_Unknown_Rarity_xy0-14.png"
+  },
+  {
+    "id": "xy0-15-clauncher",
+    "name": "Clauncher",
+    "rarity": "Common",
+    "number": "15",
+    "image": "/assets/sets/xy0/cards/15_Clauncher_Unknown_Rarity_xy0-15.png"
+  },
+  {
+    "id": "xy0-16-poochyena",
+    "name": "Poochyena",
+    "rarity": "Common",
+    "number": "16",
+    "image": "/assets/sets/xy0/cards/16_Poochyena_Unknown_Rarity_xy0-16.png"
+  },
+  {
+    "id": "xy0-17-mightyena",
+    "name": "Mightyena",
+    "rarity": "Common",
+    "number": "17",
+    "image": "/assets/sets/xy0/cards/17_Mightyena_Unknown_Rarity_xy0-17.png"
+  },
+  {
+    "id": "xy0-18-inkay",
+    "name": "Inkay",
+    "rarity": "Common",
+    "number": "18",
+    "image": "/assets/sets/xy0/cards/18_Inkay_Unknown_Rarity_xy0-18.png"
+  },
+  {
+    "id": "xy0-19-pawniard",
+    "name": "Pawniard",
+    "rarity": "Common",
+    "number": "19",
+    "image": "/assets/sets/xy0/cards/19_Pawniard_Unknown_Rarity_xy0-19.png"
+  },
+  {
+    "id": "xy0-20-bisharp",
+    "name": "Bisharp",
+    "rarity": "Common",
+    "number": "20",
+    "image": "/assets/sets/xy0/cards/20_Bisharp_Unknown_Rarity_xy0-20.png"
+  },
+  {
+    "id": "xy0-21-honedge",
+    "name": "Honedge",
+    "rarity": "Common",
+    "number": "21",
+    "image": "/assets/sets/xy0/cards/21_Honedge_Unknown_Rarity_xy0-21.png"
+  },
+  {
+    "id": "xy0-22-snubbull",
+    "name": "Snubbull",
+    "rarity": "Common",
+    "number": "22",
+    "image": "/assets/sets/xy0/cards/22_Snubbull_Unknown_Rarity_xy0-22.png"
+  },
+  {
+    "id": "xy0-23-granbull",
+    "name": "Granbull",
+    "rarity": "Common",
+    "number": "23",
+    "image": "/assets/sets/xy0/cards/23_Granbull_Unknown_Rarity_xy0-23.png"
+  },
+  {
+    "id": "xy0-24-swirlix",
+    "name": "Swirlix",
+    "rarity": "Common",
+    "number": "24",
+    "image": "/assets/sets/xy0/cards/24_Swirlix_Unknown_Rarity_xy0-24.png"
+  },
+  {
+    "id": "xy0-25-farfetchd",
+    "name": "Farfetchd",
+    "rarity": "Common",
+    "number": "25",
+    "image": "/assets/sets/xy0/cards/25_Farfetchd_Unknown_Rarity_xy0-25.png"
+  },
+  {
+    "id": "xy0-26-snorlax",
+    "name": "Snorlax",
+    "rarity": "Common",
+    "number": "26",
+    "image": "/assets/sets/xy0/cards/26_Snorlax_Unknown_Rarity_xy0-26.png"
+  },
+  {
+    "id": "xy0-27-miltank",
+    "name": "Miltank",
+    "rarity": "Common",
+    "number": "27",
+    "image": "/assets/sets/xy0/cards/27_Miltank_Unknown_Rarity_xy0-27.png"
+  },
+  {
+    "id": "xy0-28-skitty",
+    "name": "Skitty",
+    "rarity": "Common",
+    "number": "28",
+    "image": "/assets/sets/xy0/cards/28_Skitty_Unknown_Rarity_xy0-28.png"
+  },
+  {
+    "id": "xy0-29-bidoof",
+    "name": "Bidoof",
+    "rarity": "Common",
+    "number": "29",
+    "image": "/assets/sets/xy0/cards/29_Bidoof_Unknown_Rarity_xy0-29.png"
+  },
+  {
+    "id": "xy0-30-bunnelby",
+    "name": "Bunnelby",
+    "rarity": "Common",
+    "number": "30",
+    "image": "/assets/sets/xy0/cards/30_Bunnelby_Unknown_Rarity_xy0-30.png"
+  },
+  {
+    "id": "xy0-31-fletchling",
+    "name": "Fletchling",
+    "rarity": "Common",
+    "number": "31",
+    "image": "/assets/sets/xy0/cards/31_Fletchling_Unknown_Rarity_xy0-31.png"
+  },
+  {
+    "id": "xy0-32-furfrou",
+    "name": "Furfrou",
+    "rarity": "Common",
+    "number": "32",
+    "image": "/assets/sets/xy0/cards/32_Furfrou_Unknown_Rarity_xy0-32.png"
+  },
+  {
+    "id": "xy0-33-furfrou",
+    "name": "Furfrou",
+    "rarity": "Common",
+    "number": "33",
+    "image": "/assets/sets/xy0/cards/33_Furfrou_Unknown_Rarity_xy0-33.png"
+  },
+  {
+    "id": "xy0-34-crushing_hammer",
+    "name": "Crushing Hammer",
+    "rarity": "Common",
+    "number": "34",
+    "image": "/assets/sets/xy0/cards/34_Crushing_Hammer_Unknown_Rarity_xy0-34.png"
+  },
+  {
+    "id": "xy0-35-poke_ball",
+    "name": "Poké Ball",
+    "rarity": "Common",
+    "number": "35",
+    "image": "/assets/sets/xy0/cards/35_Poké_Ball_Unknown_Rarity_xy0-35.png"
+  },
+  {
+    "id": "xy0-36-pokemon_catcher",
+    "name": "Pokémon Catcher",
+    "rarity": "Common",
+    "number": "36",
+    "image": "/assets/sets/xy0/cards/36_Pokémon_Catcher_Unknown_Rarity_xy0-36.png"
+  },
+  {
+    "id": "xy0-37-potion",
+    "name": "Potion",
+    "rarity": "Common",
+    "number": "37",
+    "image": "/assets/sets/xy0/cards/37_Potion_Unknown_Rarity_xy0-37.png"
+  },
+  {
+    "id": "xy0-38-switch",
+    "name": "Switch",
+    "rarity": "Common",
+    "number": "38",
+    "image": "/assets/sets/xy0/cards/38_Switch_Unknown_Rarity_xy0-38.png"
+  },
+  {
+    "id": "xy0-39-tierno",
+    "name": "Tierno",
+    "rarity": "Common",
+    "number": "39",
+    "image": "/assets/sets/xy0/cards/39_Tierno_Unknown_Rarity_xy0-39.png"
+  }
+]

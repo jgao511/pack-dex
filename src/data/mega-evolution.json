@@ -1,0 +1,1318 @@
+[
+  {
+    "id": "mega-evolution-1-bulbasaur",
+    "name": "Bulbasaur",
+    "rarity": "Common",
+    "number": "1",
+    "image": "/assets/sets/mega-evolution/cards/1_Bulbasaur_Common.png"
+  },
+  {
+    "id": "mega-evolution-2-ivysaur",
+    "name": "Ivysaur",
+    "rarity": "Common",
+    "number": "2",
+    "image": "/assets/sets/mega-evolution/cards/2_Ivysaur_Common.png"
+  },
+  {
+    "id": "mega-evolution-3-mega-venusaur-ex",
+    "name": "Mega Venusaur ex",
+    "rarity": "Double Rare",
+    "number": "3",
+    "image": "/assets/sets/mega-evolution/cards/3_Mega_Venusaur_ex_Double_Rare.png"
+  },
+  {
+    "id": "mega-evolution-4-exeggcute",
+    "name": "Exeggcute",
+    "rarity": "Common",
+    "number": "4",
+    "image": "/assets/sets/mega-evolution/cards/4_Exeggcute_Common.png"
+  },
+  {
+    "id": "mega-evolution-5-exeggutor",
+    "name": "Exeggutor",
+    "rarity": "Uncommon",
+    "number": "5",
+    "image": "/assets/sets/mega-evolution/cards/5_Exeggutor_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-6-tangela",
+    "name": "Tangela",
+    "rarity": "Common",
+    "number": "6",
+    "image": "/assets/sets/mega-evolution/cards/6_Tangela_Common.png"
+  },
+  {
+    "id": "mega-evolution-7-tangrowth",
+    "name": "Tangrowth",
+    "rarity": "Uncommon",
+    "number": "7",
+    "image": "/assets/sets/mega-evolution/cards/7_Tangrowth_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-8-chikorita",
+    "name": "Chikorita",
+    "rarity": "Common",
+    "number": "8",
+    "image": "/assets/sets/mega-evolution/cards/8_Chikorita_Common.png"
+  },
+  {
+    "id": "mega-evolution-9-bayleef",
+    "name": "Bayleef",
+    "rarity": "Common",
+    "number": "9",
+    "image": "/assets/sets/mega-evolution/cards/9_Bayleef_Common.png"
+  },
+  {
+    "id": "mega-evolution-10-meganium",
+    "name": "Meganium",
+    "rarity": "Rare",
+    "number": "10",
+    "image": "/assets/sets/mega-evolution/cards/10_Meganium_Rare.png"
+  },
+  {
+    "id": "mega-evolution-11-shuckle",
+    "name": "Shuckle",
+    "rarity": "Uncommon",
+    "number": "11",
+    "image": "/assets/sets/mega-evolution/cards/11_Shuckle_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-12-celebi",
+    "name": "Celebi",
+    "rarity": "Uncommon",
+    "number": "12",
+    "image": "/assets/sets/mega-evolution/cards/12_Celebi_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-13-seedot",
+    "name": "Seedot",
+    "rarity": "Common",
+    "number": "13",
+    "image": "/assets/sets/mega-evolution/cards/13_Seedot_Common.png"
+  },
+  {
+    "id": "mega-evolution-14-nuzleaf",
+    "name": "Nuzleaf",
+    "rarity": "Common",
+    "number": "14",
+    "image": "/assets/sets/mega-evolution/cards/14_Nuzleaf_Common.png"
+  },
+  {
+    "id": "mega-evolution-15-shiftry",
+    "name": "Shiftry",
+    "rarity": "Uncommon",
+    "number": "15",
+    "image": "/assets/sets/mega-evolution/cards/15_Shiftry_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-16-nincada",
+    "name": "Nincada",
+    "rarity": "Common",
+    "number": "16",
+    "image": "/assets/sets/mega-evolution/cards/16_Nincada_Common.png"
+  },
+  {
+    "id": "mega-evolution-17-ninjask",
+    "name": "Ninjask",
+    "rarity": "Uncommon",
+    "number": "17",
+    "image": "/assets/sets/mega-evolution/cards/17_Ninjask_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-18-dhelmise",
+    "name": "Dhelmise",
+    "rarity": "Common",
+    "number": "18",
+    "image": "/assets/sets/mega-evolution/cards/18_Dhelmise_Common.png"
+  },
+  {
+    "id": "mega-evolution-19-vulpix",
+    "name": "Vulpix",
+    "rarity": "Common",
+    "number": "19",
+    "image": "/assets/sets/mega-evolution/cards/19_Vulpix_Common.png"
+  },
+  {
+    "id": "mega-evolution-20-ninetales",
+    "name": "Ninetales",
+    "rarity": "Uncommon",
+    "number": "20",
+    "image": "/assets/sets/mega-evolution/cards/20_Ninetales_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-21-numel",
+    "name": "Numel",
+    "rarity": "Common",
+    "number": "21",
+    "image": "/assets/sets/mega-evolution/cards/21_Numel_Common.png"
+  },
+  {
+    "id": "mega-evolution-22-mega-camerupt-ex",
+    "name": "Mega Camerupt ex",
+    "rarity": "Double Rare",
+    "number": "22",
+    "image": "/assets/sets/mega-evolution/cards/22_Mega_Camerupt_ex_Double_Rare.png"
+  },
+  {
+    "id": "mega-evolution-23-litleo",
+    "name": "Litleo",
+    "rarity": "Common",
+    "number": "23",
+    "image": "/assets/sets/mega-evolution/cards/23_Litleo_Common.png"
+  },
+  {
+    "id": "mega-evolution-24-pyroar",
+    "name": "Pyroar",
+    "rarity": "Uncommon",
+    "number": "24",
+    "image": "/assets/sets/mega-evolution/cards/24_Pyroar_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-25-volcanion",
+    "name": "Volcanion",
+    "rarity": "Uncommon",
+    "number": "25",
+    "image": "/assets/sets/mega-evolution/cards/25_Volcanion_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-26-scorbunny",
+    "name": "Scorbunny",
+    "rarity": "Common",
+    "number": "26",
+    "image": "/assets/sets/mega-evolution/cards/26_Scorbunny_Common.png"
+  },
+  {
+    "id": "mega-evolution-27-raboot",
+    "name": "Raboot",
+    "rarity": "Common",
+    "number": "27",
+    "image": "/assets/sets/mega-evolution/cards/27_Raboot_Common.png"
+  },
+  {
+    "id": "mega-evolution-28-cinderace",
+    "name": "Cinderace",
+    "rarity": "Rare",
+    "number": "28",
+    "image": "/assets/sets/mega-evolution/cards/28_Cinderace_Rare.png"
+  },
+  {
+    "id": "mega-evolution-29-sizzlipede",
+    "name": "Sizzlipede",
+    "rarity": "Common",
+    "number": "29",
+    "image": "/assets/sets/mega-evolution/cards/29_Sizzlipede_Common.png"
+  },
+  {
+    "id": "mega-evolution-30-centiskorch",
+    "name": "Centiskorch",
+    "rarity": "Uncommon",
+    "number": "30",
+    "image": "/assets/sets/mega-evolution/cards/30_Centiskorch_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-31-chi-yu",
+    "name": "Chi-Yu",
+    "rarity": "Uncommon",
+    "number": "31",
+    "image": "/assets/sets/mega-evolution/cards/31_Chi-Yu_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-32-mantine",
+    "name": "Mantine",
+    "rarity": "Common",
+    "number": "32",
+    "image": "/assets/sets/mega-evolution/cards/32_Mantine_Common.png"
+  },
+  {
+    "id": "mega-evolution-33-corphish",
+    "name": "Corphish",
+    "rarity": "Common",
+    "number": "33",
+    "image": "/assets/sets/mega-evolution/cards/33_Corphish_Common.png"
+  },
+  {
+    "id": "mega-evolution-34-kyogre",
+    "name": "Kyogre",
+    "rarity": "Rare",
+    "number": "34",
+    "image": "/assets/sets/mega-evolution/cards/34_Kyogre_Rare.png"
+  },
+  {
+    "id": "mega-evolution-35-snover",
+    "name": "Snover",
+    "rarity": "Common",
+    "number": "35",
+    "image": "/assets/sets/mega-evolution/cards/35_Snover_Common.png"
+  },
+  {
+    "id": "mega-evolution-36-mega-abomasnow-ex",
+    "name": "Mega Abomasnow ex",
+    "rarity": "Double Rare",
+    "number": "36",
+    "image": "/assets/sets/mega-evolution/cards/36_Mega_Abomasnow_ex_Double_Rare.png"
+  },
+  {
+    "id": "mega-evolution-37-clauncher",
+    "name": "Clauncher",
+    "rarity": "Common",
+    "number": "37",
+    "image": "/assets/sets/mega-evolution/cards/37_Clauncher_Common.png"
+  },
+  {
+    "id": "mega-evolution-38-clawitzer",
+    "name": "Clawitzer",
+    "rarity": "Rare",
+    "number": "38",
+    "image": "/assets/sets/mega-evolution/cards/38_Clawitzer_Rare.png"
+  },
+  {
+    "id": "mega-evolution-39-sobble",
+    "name": "Sobble",
+    "rarity": "Common",
+    "number": "39",
+    "image": "/assets/sets/mega-evolution/cards/39_Sobble_Common.png"
+  },
+  {
+    "id": "mega-evolution-40-drizzile",
+    "name": "Drizzile",
+    "rarity": "Common",
+    "number": "40",
+    "image": "/assets/sets/mega-evolution/cards/40_Drizzile_Common.png"
+  },
+  {
+    "id": "mega-evolution-41-inteleon",
+    "name": "Inteleon",
+    "rarity": "Uncommon",
+    "number": "41",
+    "image": "/assets/sets/mega-evolution/cards/41_Inteleon_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-42-snom",
+    "name": "Snom",
+    "rarity": "Common",
+    "number": "42",
+    "image": "/assets/sets/mega-evolution/cards/42_Snom_Common.png"
+  },
+  {
+    "id": "mega-evolution-43-frosmoth",
+    "name": "Frosmoth",
+    "rarity": "Uncommon",
+    "number": "43",
+    "image": "/assets/sets/mega-evolution/cards/43_Frosmoth_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-44-eiscue",
+    "name": "Eiscue",
+    "rarity": "Common",
+    "number": "44",
+    "image": "/assets/sets/mega-evolution/cards/44_Eiscue_Common.png"
+  },
+  {
+    "id": "mega-evolution-45-magnemite",
+    "name": "Magnemite",
+    "rarity": "Common",
+    "number": "45",
+    "image": "/assets/sets/mega-evolution/cards/45_Magnemite_Common.png"
+  },
+  {
+    "id": "mega-evolution-46-magneton",
+    "name": "Magneton",
+    "rarity": "Common",
+    "number": "46",
+    "image": "/assets/sets/mega-evolution/cards/46_Magneton_Common.png"
+  },
+  {
+    "id": "mega-evolution-47-magnezone",
+    "name": "Magnezone",
+    "rarity": "Uncommon",
+    "number": "47",
+    "image": "/assets/sets/mega-evolution/cards/47_Magnezone_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-48-raikou",
+    "name": "Raikou",
+    "rarity": "Rare",
+    "number": "48",
+    "image": "/assets/sets/mega-evolution/cards/48_Raikou_Rare.png"
+  },
+  {
+    "id": "mega-evolution-49-electrike",
+    "name": "Electrike",
+    "rarity": "Common",
+    "number": "49",
+    "image": "/assets/sets/mega-evolution/cards/49_Electrike_Common.png"
+  },
+  {
+    "id": "mega-evolution-50-mega-manectric-ex",
+    "name": "Mega Manectric ex",
+    "rarity": "Double Rare",
+    "number": "50",
+    "image": "/assets/sets/mega-evolution/cards/50_Mega_Manectric_ex_Double_Rare.png"
+  },
+  {
+    "id": "mega-evolution-51-pachirisu",
+    "name": "Pachirisu",
+    "rarity": "Common",
+    "number": "51",
+    "image": "/assets/sets/mega-evolution/cards/51_Pachirisu_Common.png"
+  },
+  {
+    "id": "mega-evolution-52-helioptile",
+    "name": "Helioptile",
+    "rarity": "Common",
+    "number": "52",
+    "image": "/assets/sets/mega-evolution/cards/52_Helioptile_Common.png"
+  },
+  {
+    "id": "mega-evolution-53-heliolisk",
+    "name": "Heliolisk",
+    "rarity": "Common",
+    "number": "53",
+    "image": "/assets/sets/mega-evolution/cards/53_Heliolisk_Common.png"
+  },
+  {
+    "id": "mega-evolution-54-abra",
+    "name": "Abra",
+    "rarity": "Common",
+    "number": "54",
+    "image": "/assets/sets/mega-evolution/cards/54_Abra_Common.png"
+  },
+  {
+    "id": "mega-evolution-55-kadabra",
+    "name": "Kadabra",
+    "rarity": "Uncommon",
+    "number": "55",
+    "image": "/assets/sets/mega-evolution/cards/55_Kadabra_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-56-alakazam",
+    "name": "Alakazam",
+    "rarity": "Rare",
+    "number": "56",
+    "image": "/assets/sets/mega-evolution/cards/56_Alakazam_Rare.png"
+  },
+  {
+    "id": "mega-evolution-57-jynx",
+    "name": "Jynx",
+    "rarity": "Common",
+    "number": "57",
+    "image": "/assets/sets/mega-evolution/cards/57_Jynx_Common.png"
+  },
+  {
+    "id": "mega-evolution-58-ralts",
+    "name": "Ralts",
+    "rarity": "Common",
+    "number": "58",
+    "image": "/assets/sets/mega-evolution/cards/58_Ralts_Common.png"
+  },
+  {
+    "id": "mega-evolution-59-kirlia",
+    "name": "Kirlia",
+    "rarity": "Common",
+    "number": "59",
+    "image": "/assets/sets/mega-evolution/cards/59_Kirlia_Common.png"
+  },
+  {
+    "id": "mega-evolution-60-mega-gardevoir-ex",
+    "name": "Mega Gardevoir ex",
+    "rarity": "Double Rare",
+    "number": "60",
+    "image": "/assets/sets/mega-evolution/cards/60_Mega_Gardevoir_ex_Double_Rare.png"
+  },
+  {
+    "id": "mega-evolution-61-shedinja",
+    "name": "Shedinja",
+    "rarity": "Uncommon",
+    "number": "61",
+    "image": "/assets/sets/mega-evolution/cards/61_Shedinja_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-62-spoink",
+    "name": "Spoink",
+    "rarity": "Common",
+    "number": "62",
+    "image": "/assets/sets/mega-evolution/cards/62_Spoink_Common.png"
+  },
+  {
+    "id": "mega-evolution-63-grumpig",
+    "name": "Grumpig",
+    "rarity": "Uncommon",
+    "number": "63",
+    "image": "/assets/sets/mega-evolution/cards/63_Grumpig_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-64-xerneas",
+    "name": "Xerneas",
+    "rarity": "Rare",
+    "number": "64",
+    "image": "/assets/sets/mega-evolution/cards/64_Xerneas_Rare.png"
+  },
+  {
+    "id": "mega-evolution-65-greavard",
+    "name": "Greavard",
+    "rarity": "Common",
+    "number": "65",
+    "image": "/assets/sets/mega-evolution/cards/65_Greavard_Common.png"
+  },
+  {
+    "id": "mega-evolution-66-houndstone",
+    "name": "Houndstone",
+    "rarity": "Uncommon",
+    "number": "66",
+    "image": "/assets/sets/mega-evolution/cards/66_Houndstone_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-67-gimmighoul",
+    "name": "Gimmighoul",
+    "rarity": "Common",
+    "number": "67",
+    "image": "/assets/sets/mega-evolution/cards/67_Gimmighoul_Common.png"
+  },
+  {
+    "id": "mega-evolution-68-sandshrew",
+    "name": "Sandshrew",
+    "rarity": "Common",
+    "number": "68",
+    "image": "/assets/sets/mega-evolution/cards/68_Sandshrew_Common.png"
+  },
+  {
+    "id": "mega-evolution-69-sandslash",
+    "name": "Sandslash",
+    "rarity": "Common",
+    "number": "69",
+    "image": "/assets/sets/mega-evolution/cards/69_Sandslash_Common.png"
+  },
+  {
+    "id": "mega-evolution-70-onix",
+    "name": "Onix",
+    "rarity": "Common",
+    "number": "70",
+    "image": "/assets/sets/mega-evolution/cards/70_Onix_Common.png"
+  },
+  {
+    "id": "mega-evolution-71-tyrogue",
+    "name": "Tyrogue",
+    "rarity": "Common",
+    "number": "71",
+    "image": "/assets/sets/mega-evolution/cards/71_Tyrogue_Common.png"
+  },
+  {
+    "id": "mega-evolution-72-makuhita",
+    "name": "Makuhita",
+    "rarity": "Common",
+    "number": "72",
+    "image": "/assets/sets/mega-evolution/cards/72_Makuhita_Common.png"
+  },
+  {
+    "id": "mega-evolution-73-hariyama",
+    "name": "Hariyama",
+    "rarity": "Rare",
+    "number": "73",
+    "image": "/assets/sets/mega-evolution/cards/73_Hariyama_Rare.png"
+  },
+  {
+    "id": "mega-evolution-74-lunatone",
+    "name": "Lunatone",
+    "rarity": "Rare",
+    "number": "74",
+    "image": "/assets/sets/mega-evolution/cards/74_Lunatone_Rare.png"
+  },
+  {
+    "id": "mega-evolution-75-solrock",
+    "name": "Solrock",
+    "rarity": "Uncommon",
+    "number": "75",
+    "image": "/assets/sets/mega-evolution/cards/75_Solrock_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-76-riolu",
+    "name": "Riolu",
+    "rarity": "Common",
+    "number": "76",
+    "image": "/assets/sets/mega-evolution/cards/76_Riolu_Common.png"
+  },
+  {
+    "id": "mega-evolution-77-mega-lucario-ex",
+    "name": "Mega Lucario ex",
+    "rarity": "Double Rare",
+    "number": "77",
+    "image": "/assets/sets/mega-evolution/cards/77_Mega_Lucario_ex_Double_Rare.png"
+  },
+  {
+    "id": "mega-evolution-78-croagunk",
+    "name": "Croagunk",
+    "rarity": "Common",
+    "number": "78",
+    "image": "/assets/sets/mega-evolution/cards/78_Croagunk_Common.png"
+  },
+  {
+    "id": "mega-evolution-79-toxicroak",
+    "name": "Toxicroak",
+    "rarity": "Common",
+    "number": "79",
+    "image": "/assets/sets/mega-evolution/cards/79_Toxicroak_Common.png"
+  },
+  {
+    "id": "mega-evolution-80-marshadow",
+    "name": "Marshadow",
+    "rarity": "Uncommon",
+    "number": "80",
+    "image": "/assets/sets/mega-evolution/cards/80_Marshadow_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-81-stonjourner",
+    "name": "Stonjourner",
+    "rarity": "Uncommon",
+    "number": "81",
+    "image": "/assets/sets/mega-evolution/cards/81_Stonjourner_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-82-nacli",
+    "name": "Nacli",
+    "rarity": "Common",
+    "number": "82",
+    "image": "/assets/sets/mega-evolution/cards/82_Nacli_Common.png"
+  },
+  {
+    "id": "mega-evolution-83-naclstack",
+    "name": "Naclstack",
+    "rarity": "Common",
+    "number": "83",
+    "image": "/assets/sets/mega-evolution/cards/83_Naclstack_Common.png"
+  },
+  {
+    "id": "mega-evolution-84-garganacl",
+    "name": "Garganacl",
+    "rarity": "Uncommon",
+    "number": "84",
+    "image": "/assets/sets/mega-evolution/cards/84_Garganacl_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-85-crawdaunt",
+    "name": "Crawdaunt",
+    "rarity": "Uncommon",
+    "number": "85",
+    "image": "/assets/sets/mega-evolution/cards/85_Crawdaunt_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-86-mega-absol-ex",
+    "name": "Mega Absol ex",
+    "rarity": "Double Rare",
+    "number": "86",
+    "image": "/assets/sets/mega-evolution/cards/86_Mega_Absol_ex_Double_Rare.png"
+  },
+  {
+    "id": "mega-evolution-87-spiritomb",
+    "name": "Spiritomb",
+    "rarity": "Uncommon",
+    "number": "87",
+    "image": "/assets/sets/mega-evolution/cards/87_Spiritomb_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-88-yveltal",
+    "name": "Yveltal",
+    "rarity": "Rare",
+    "number": "88",
+    "image": "/assets/sets/mega-evolution/cards/88_Yveltal_Rare.png"
+  },
+  {
+    "id": "mega-evolution-89-nickit",
+    "name": "Nickit",
+    "rarity": "Common",
+    "number": "89",
+    "image": "/assets/sets/mega-evolution/cards/89_Nickit_Common.png"
+  },
+  {
+    "id": "mega-evolution-90-thievul",
+    "name": "Thievul",
+    "rarity": "Common",
+    "number": "90",
+    "image": "/assets/sets/mega-evolution/cards/90_Thievul_Common.png"
+  },
+  {
+    "id": "mega-evolution-91-shroodle",
+    "name": "Shroodle",
+    "rarity": "Common",
+    "number": "91",
+    "image": "/assets/sets/mega-evolution/cards/91_Shroodle_Common.png"
+  },
+  {
+    "id": "mega-evolution-92-grafaiai",
+    "name": "Grafaiai",
+    "rarity": "Common",
+    "number": "92",
+    "image": "/assets/sets/mega-evolution/cards/92_Grafaiai_Common.png"
+  },
+  {
+    "id": "mega-evolution-93-steelix",
+    "name": "Steelix",
+    "rarity": "Rare",
+    "number": "93",
+    "image": "/assets/sets/mega-evolution/cards/93_Steelix_Rare.png"
+  },
+  {
+    "id": "mega-evolution-94-mega-mawile-ex",
+    "name": "Mega Mawile ex",
+    "rarity": "Double Rare",
+    "number": "94",
+    "image": "/assets/sets/mega-evolution/cards/94_Mega_Mawile_ex_Double_Rare.png"
+  },
+  {
+    "id": "mega-evolution-95-dialga",
+    "name": "Dialga",
+    "rarity": "Rare",
+    "number": "95",
+    "image": "/assets/sets/mega-evolution/cards/95_Dialga_Rare.png"
+  },
+  {
+    "id": "mega-evolution-96-tinkatink",
+    "name": "Tinkatink",
+    "rarity": "Common",
+    "number": "96",
+    "image": "/assets/sets/mega-evolution/cards/96_Tinkatink_Common.png"
+  },
+  {
+    "id": "mega-evolution-97-tinkatuff",
+    "name": "Tinkatuff",
+    "rarity": "Common",
+    "number": "97",
+    "image": "/assets/sets/mega-evolution/cards/97_Tinkatuff_Common.png"
+  },
+  {
+    "id": "mega-evolution-98-tinkaton",
+    "name": "Tinkaton",
+    "rarity": "Uncommon",
+    "number": "98",
+    "image": "/assets/sets/mega-evolution/cards/98_Tinkaton_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-99-gholdengo",
+    "name": "Gholdengo",
+    "rarity": "Uncommon",
+    "number": "99",
+    "image": "/assets/sets/mega-evolution/cards/99_Gholdengo_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-100-mega-latias-ex",
+    "name": "Mega Latias ex",
+    "rarity": "Double Rare",
+    "number": "100",
+    "image": "/assets/sets/mega-evolution/cards/100_Mega_Latias_ex_Double_Rare.png"
+  },
+  {
+    "id": "mega-evolution-101-latios",
+    "name": "Latios",
+    "rarity": "Uncommon",
+    "number": "101",
+    "image": "/assets/sets/mega-evolution/cards/101_Latios_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-102-spearow",
+    "name": "Spearow",
+    "rarity": "Common",
+    "number": "102",
+    "image": "/assets/sets/mega-evolution/cards/102_Spearow_Common.png"
+  },
+  {
+    "id": "mega-evolution-103-fearow",
+    "name": "Fearow",
+    "rarity": "Common",
+    "number": "103",
+    "image": "/assets/sets/mega-evolution/cards/103_Fearow_Common.png"
+  },
+  {
+    "id": "mega-evolution-104-mega-kangaskhan-ex",
+    "name": "Mega Kangaskhan ex",
+    "rarity": "Double Rare",
+    "number": "104",
+    "image": "/assets/sets/mega-evolution/cards/104_Mega_Kangaskhan_ex_Double_Rare.png"
+  },
+  {
+    "id": "mega-evolution-105-delibird",
+    "name": "Delibird",
+    "rarity": "Common",
+    "number": "105",
+    "image": "/assets/sets/mega-evolution/cards/105_Delibird_Common.png"
+  },
+  {
+    "id": "mega-evolution-106-miltank",
+    "name": "Miltank",
+    "rarity": "Common",
+    "number": "106",
+    "image": "/assets/sets/mega-evolution/cards/106_Miltank_Common.png"
+  },
+  {
+    "id": "mega-evolution-107-buneary",
+    "name": "Buneary",
+    "rarity": "Common",
+    "number": "107",
+    "image": "/assets/sets/mega-evolution/cards/107_Buneary_Common.png"
+  },
+  {
+    "id": "mega-evolution-108-lopunny",
+    "name": "Lopunny",
+    "rarity": "Common",
+    "number": "108",
+    "image": "/assets/sets/mega-evolution/cards/108_Lopunny_Common.png"
+  },
+  {
+    "id": "mega-evolution-109-yungoos",
+    "name": "Yungoos",
+    "rarity": "Common",
+    "number": "109",
+    "image": "/assets/sets/mega-evolution/cards/109_Yungoos_Common.png"
+  },
+  {
+    "id": "mega-evolution-110-gumshoos",
+    "name": "Gumshoos",
+    "rarity": "Uncommon",
+    "number": "110",
+    "image": "/assets/sets/mega-evolution/cards/110_Gumshoos_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-111-stufful",
+    "name": "Stufful",
+    "rarity": "Common",
+    "number": "111",
+    "image": "/assets/sets/mega-evolution/cards/111_Stufful_Common.png"
+  },
+  {
+    "id": "mega-evolution-112-bewear",
+    "name": "Bewear",
+    "rarity": "Common",
+    "number": "112",
+    "image": "/assets/sets/mega-evolution/cards/112_Bewear_Common.png"
+  },
+  {
+    "id": "mega-evolution-113-acerola-s-mischief",
+    "name": "Acerola's Mischief",
+    "rarity": "Uncommon",
+    "number": "113",
+    "image": "/assets/sets/mega-evolution/cards/113_Acerola's_Mischief_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-114-boss-s-orders",
+    "name": "Boss's Orders",
+    "rarity": "Uncommon",
+    "number": "114",
+    "image": "/assets/sets/mega-evolution/cards/114_Boss's_Orders_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-115-energy-switch",
+    "name": "Energy Switch",
+    "rarity": "Common",
+    "number": "115",
+    "image": "/assets/sets/mega-evolution/cards/115_Energy_Switch_Common.png"
+  },
+  {
+    "id": "mega-evolution-116-fighting-gong",
+    "name": "Fighting Gong",
+    "rarity": "Uncommon",
+    "number": "116",
+    "image": "/assets/sets/mega-evolution/cards/116_Fighting_Gong_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-117-forest-of-vitality",
+    "name": "Forest of Vitality",
+    "rarity": "Uncommon",
+    "number": "117",
+    "image": "/assets/sets/mega-evolution/cards/117_Forest_of_Vitality_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-118-iron-defender",
+    "name": "Iron Defender",
+    "rarity": "Uncommon",
+    "number": "118",
+    "image": "/assets/sets/mega-evolution/cards/118_Iron_Defender_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-119-lillie-s-determination",
+    "name": "Lillie's Determination",
+    "rarity": "Uncommon",
+    "number": "119",
+    "image": "/assets/sets/mega-evolution/cards/119_Lillie's_Determination_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-120-lt-surge-s-bargain",
+    "name": "Lt. Surge's Bargain",
+    "rarity": "Uncommon",
+    "number": "120",
+    "image": "/assets/sets/mega-evolution/cards/120_Lt._Surge's_Bargain_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-121-mega-signal",
+    "name": "Mega Signal",
+    "rarity": "Uncommon",
+    "number": "121",
+    "image": "/assets/sets/mega-evolution/cards/121_Mega_Signal_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-122-mystery-garden",
+    "name": "Mystery Garden",
+    "rarity": "Uncommon",
+    "number": "122",
+    "image": "/assets/sets/mega-evolution/cards/122_Mystery_Garden_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-123-pok-mon-center-lady",
+    "name": "Pokémon Center Lady",
+    "rarity": "Common",
+    "number": "123",
+    "image": "/assets/sets/mega-evolution/cards/123_Pokémon_Center_Lady_Common.png"
+  },
+  {
+    "id": "mega-evolution-124-premium-power-pro",
+    "name": "Premium Power Pro",
+    "rarity": "Uncommon",
+    "number": "124",
+    "image": "/assets/sets/mega-evolution/cards/124_Premium_Power_Pro_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-125-rare-candy",
+    "name": "Rare Candy",
+    "rarity": "Common",
+    "number": "125",
+    "image": "/assets/sets/mega-evolution/cards/125_Rare_Candy_Common.png"
+  },
+  {
+    "id": "mega-evolution-126-repel",
+    "name": "Repel",
+    "rarity": "Uncommon",
+    "number": "126",
+    "image": "/assets/sets/mega-evolution/cards/126_Repel_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-127-risky-ruins",
+    "name": "Risky Ruins",
+    "rarity": "Uncommon",
+    "number": "127",
+    "image": "/assets/sets/mega-evolution/cards/127_Risky_Ruins_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-128-strange-timepiece",
+    "name": "Strange Timepiece",
+    "rarity": "Uncommon",
+    "number": "128",
+    "image": "/assets/sets/mega-evolution/cards/128_Strange_Timepiece_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-129-surfing-beach",
+    "name": "Surfing Beach",
+    "rarity": "Uncommon",
+    "number": "129",
+    "image": "/assets/sets/mega-evolution/cards/129_Surfing_Beach_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-130-switch",
+    "name": "Switch",
+    "rarity": "Common",
+    "number": "130",
+    "image": "/assets/sets/mega-evolution/cards/130_Switch_Common.png"
+  },
+  {
+    "id": "mega-evolution-131-ultra-ball",
+    "name": "Ultra Ball",
+    "rarity": "Common",
+    "number": "131",
+    "image": "/assets/sets/mega-evolution/cards/131_Ultra_Ball_Common.png"
+  },
+  {
+    "id": "mega-evolution-132-wally-s-compassion",
+    "name": "Wally's Compassion",
+    "rarity": "Uncommon",
+    "number": "132",
+    "image": "/assets/sets/mega-evolution/cards/132_Wally's_Compassion_Uncommon.png"
+  },
+  {
+    "id": "mega-evolution-133-bulbasaur",
+    "name": "Bulbasaur",
+    "rarity": "Illustration Rare",
+    "number": "133",
+    "image": "/assets/sets/mega-evolution/cards/133_Bulbasaur_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-134-ivysaur",
+    "name": "Ivysaur",
+    "rarity": "Illustration Rare",
+    "number": "134",
+    "image": "/assets/sets/mega-evolution/cards/134_Ivysaur_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-135-exeggutor",
+    "name": "Exeggutor",
+    "rarity": "Illustration Rare",
+    "number": "135",
+    "image": "/assets/sets/mega-evolution/cards/135_Exeggutor_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-136-shuckle",
+    "name": "Shuckle",
+    "rarity": "Illustration Rare",
+    "number": "136",
+    "image": "/assets/sets/mega-evolution/cards/136_Shuckle_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-137-ninjask",
+    "name": "Ninjask",
+    "rarity": "Illustration Rare",
+    "number": "137",
+    "image": "/assets/sets/mega-evolution/cards/137_Ninjask_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-138-vulpix",
+    "name": "Vulpix",
+    "rarity": "Illustration Rare",
+    "number": "138",
+    "image": "/assets/sets/mega-evolution/cards/138_Vulpix_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-139-litleo",
+    "name": "Litleo",
+    "rarity": "Illustration Rare",
+    "number": "139",
+    "image": "/assets/sets/mega-evolution/cards/139_Litleo_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-140-snover",
+    "name": "Snover",
+    "rarity": "Illustration Rare",
+    "number": "140",
+    "image": "/assets/sets/mega-evolution/cards/140_Snover_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-141-clawitzer",
+    "name": "Clawitzer",
+    "rarity": "Illustration Rare",
+    "number": "141",
+    "image": "/assets/sets/mega-evolution/cards/141_Clawitzer_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-142-inteleon",
+    "name": "Inteleon",
+    "rarity": "Illustration Rare",
+    "number": "142",
+    "image": "/assets/sets/mega-evolution/cards/142_Inteleon_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-143-helioptile",
+    "name": "Helioptile",
+    "rarity": "Illustration Rare",
+    "number": "143",
+    "image": "/assets/sets/mega-evolution/cards/143_Helioptile_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-144-shedinja",
+    "name": "Shedinja",
+    "rarity": "Illustration Rare",
+    "number": "144",
+    "image": "/assets/sets/mega-evolution/cards/144_Shedinja_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-145-houndstone",
+    "name": "Houndstone",
+    "rarity": "Illustration Rare",
+    "number": "145",
+    "image": "/assets/sets/mega-evolution/cards/145_Houndstone_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-146-marshadow",
+    "name": "Marshadow",
+    "rarity": "Illustration Rare",
+    "number": "146",
+    "image": "/assets/sets/mega-evolution/cards/146_Marshadow_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-147-garganacl",
+    "name": "Garganacl",
+    "rarity": "Illustration Rare",
+    "number": "147",
+    "image": "/assets/sets/mega-evolution/cards/147_Garganacl_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-148-spiritomb",
+    "name": "Spiritomb",
+    "rarity": "Illustration Rare",
+    "number": "148",
+    "image": "/assets/sets/mega-evolution/cards/148_Spiritomb_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-149-shroodle",
+    "name": "Shroodle",
+    "rarity": "Illustration Rare",
+    "number": "149",
+    "image": "/assets/sets/mega-evolution/cards/149_Shroodle_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-150-steelix",
+    "name": "Steelix",
+    "rarity": "Illustration Rare",
+    "number": "150",
+    "image": "/assets/sets/mega-evolution/cards/150_Steelix_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-151-spearow",
+    "name": "Spearow",
+    "rarity": "Illustration Rare",
+    "number": "151",
+    "image": "/assets/sets/mega-evolution/cards/151_Spearow_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-152-delibird",
+    "name": "Delibird",
+    "rarity": "Illustration Rare",
+    "number": "152",
+    "image": "/assets/sets/mega-evolution/cards/152_Delibird_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-153-gumshoos",
+    "name": "Gumshoos",
+    "rarity": "Illustration Rare",
+    "number": "153",
+    "image": "/assets/sets/mega-evolution/cards/153_Gumshoos_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-154-stufful",
+    "name": "Stufful",
+    "rarity": "Illustration Rare",
+    "number": "154",
+    "image": "/assets/sets/mega-evolution/cards/154_Stufful_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-155-mega-venusaur-ex",
+    "name": "Mega Venusaur ex",
+    "rarity": "Ultra Rare",
+    "number": "155",
+    "image": "/assets/sets/mega-evolution/cards/155_Mega_Venusaur_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "mega-evolution-156-mega-camerupt-ex",
+    "name": "Mega Camerupt ex",
+    "rarity": "Ultra Rare",
+    "number": "156",
+    "image": "/assets/sets/mega-evolution/cards/156_Mega_Camerupt_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "mega-evolution-157-mega-abomasnow-ex",
+    "name": "Mega Abomasnow ex",
+    "rarity": "Ultra Rare",
+    "number": "157",
+    "image": "/assets/sets/mega-evolution/cards/157_Mega_Abomasnow_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "mega-evolution-158-mega-manectric-ex",
+    "name": "Mega Manectric ex",
+    "rarity": "Ultra Rare",
+    "number": "158",
+    "image": "/assets/sets/mega-evolution/cards/158_Mega_Manectric_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "mega-evolution-159-mega-gardevoir-ex",
+    "name": "Mega Gardevoir ex",
+    "rarity": "Ultra Rare",
+    "number": "159",
+    "image": "/assets/sets/mega-evolution/cards/159_Mega_Gardevoir_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "mega-evolution-160-mega-lucario-ex",
+    "name": "Mega Lucario ex",
+    "rarity": "Ultra Rare",
+    "number": "160",
+    "image": "/assets/sets/mega-evolution/cards/160_Mega_Lucario_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "mega-evolution-161-mega-absol-ex",
+    "name": "Mega Absol ex",
+    "rarity": "Ultra Rare",
+    "number": "161",
+    "image": "/assets/sets/mega-evolution/cards/161_Mega_Absol_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "mega-evolution-162-mega-mawile-ex",
+    "name": "Mega Mawile ex",
+    "rarity": "Ultra Rare",
+    "number": "162",
+    "image": "/assets/sets/mega-evolution/cards/162_Mega_Mawile_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "mega-evolution-163-mega-latias-ex",
+    "name": "Mega Latias ex",
+    "rarity": "Ultra Rare",
+    "number": "163",
+    "image": "/assets/sets/mega-evolution/cards/163_Mega_Latias_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "mega-evolution-164-mega-kangaskhan-ex",
+    "name": "Mega Kangaskhan ex",
+    "rarity": "Ultra Rare",
+    "number": "164",
+    "image": "/assets/sets/mega-evolution/cards/164_Mega_Kangaskhan_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "mega-evolution-165-acerola-s-mischief",
+    "name": "Acerola's Mischief",
+    "rarity": "Ultra Rare",
+    "number": "165",
+    "image": "/assets/sets/mega-evolution/cards/165_Acerola's_Mischief_Ultra_Rare.png"
+  },
+  {
+    "id": "mega-evolution-166-air-balloon",
+    "name": "Air Balloon",
+    "rarity": "Ultra Rare",
+    "number": "166",
+    "image": "/assets/sets/mega-evolution/cards/166_Air_Balloon_Ultra_Rare.png"
+  },
+  {
+    "id": "mega-evolution-167-buddy-buddy-poffin",
+    "name": "Buddy-Buddy Poffin",
+    "rarity": "Ultra Rare",
+    "number": "167",
+    "image": "/assets/sets/mega-evolution/cards/167_Buddy-Buddy_Poffin_Ultra_Rare.png"
+  },
+  {
+    "id": "mega-evolution-168-fighting-gong",
+    "name": "Fighting Gong",
+    "rarity": "Ultra Rare",
+    "number": "168",
+    "image": "/assets/sets/mega-evolution/cards/168_Fighting_Gong_Ultra_Rare.png"
+  },
+  {
+    "id": "mega-evolution-169-lillie-s-determination",
+    "name": "Lillie's Determination",
+    "rarity": "Ultra Rare",
+    "number": "169",
+    "image": "/assets/sets/mega-evolution/cards/169_Lillie's_Determination_Ultra_Rare.png"
+  },
+  {
+    "id": "mega-evolution-170-lt-surge-s-bargain",
+    "name": "Lt. Surge's Bargain",
+    "rarity": "Ultra Rare",
+    "number": "170",
+    "image": "/assets/sets/mega-evolution/cards/170_Lt._Surge's_Bargain_Ultra_Rare.png"
+  },
+  {
+    "id": "mega-evolution-171-mega-signal",
+    "name": "Mega Signal",
+    "rarity": "Ultra Rare",
+    "number": "171",
+    "image": "/assets/sets/mega-evolution/cards/171_Mega_Signal_Ultra_Rare.png"
+  },
+  {
+    "id": "mega-evolution-172-mystery-garden",
+    "name": "Mystery Garden",
+    "rarity": "Ultra Rare",
+    "number": "172",
+    "image": "/assets/sets/mega-evolution/cards/172_Mystery_Garden_Ultra_Rare.png"
+  },
+  {
+    "id": "mega-evolution-173-night-stretcher",
+    "name": "Night Stretcher",
+    "rarity": "Ultra Rare",
+    "number": "173",
+    "image": "/assets/sets/mega-evolution/cards/173_Night_Stretcher_Ultra_Rare.png"
+  },
+  {
+    "id": "mega-evolution-174-premium-power-pro",
+    "name": "Premium Power Pro",
+    "rarity": "Ultra Rare",
+    "number": "174",
+    "image": "/assets/sets/mega-evolution/cards/174_Premium_Power_Pro_Ultra_Rare.png"
+  },
+  {
+    "id": "mega-evolution-175-rare-candy",
+    "name": "Rare Candy",
+    "rarity": "Ultra Rare",
+    "number": "175",
+    "image": "/assets/sets/mega-evolution/cards/175_Rare_Candy_Ultra_Rare.png"
+  },
+  {
+    "id": "mega-evolution-176-wally-s-compassion",
+    "name": "Wally's Compassion",
+    "rarity": "Ultra Rare",
+    "number": "176",
+    "image": "/assets/sets/mega-evolution/cards/176_Wally's_Compassion_Ultra_Rare.png"
+  },
+  {
+    "id": "mega-evolution-177-mega-venusaur-ex",
+    "name": "Mega Venusaur ex",
+    "rarity": "Special Illustration Rare",
+    "number": "177",
+    "image": "/assets/sets/mega-evolution/cards/177_Mega_Venusaur_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-178-mega-gardevoir-ex",
+    "name": "Mega Gardevoir ex",
+    "rarity": "Special Illustration Rare",
+    "number": "178",
+    "image": "/assets/sets/mega-evolution/cards/178_Mega_Gardevoir_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-179-mega-lucario-ex",
+    "name": "Mega Lucario ex",
+    "rarity": "Special Illustration Rare",
+    "number": "179",
+    "image": "/assets/sets/mega-evolution/cards/179_Mega_Lucario_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-180-mega-absol-ex",
+    "name": "Mega Absol ex",
+    "rarity": "Special Illustration Rare",
+    "number": "180",
+    "image": "/assets/sets/mega-evolution/cards/180_Mega_Absol_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-181-mega-latias-ex",
+    "name": "Mega Latias ex",
+    "rarity": "Special Illustration Rare",
+    "number": "181",
+    "image": "/assets/sets/mega-evolution/cards/181_Mega_Latias_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-182-mega-kangaskhan-ex",
+    "name": "Mega Kangaskhan ex",
+    "rarity": "Special Illustration Rare",
+    "number": "182",
+    "image": "/assets/sets/mega-evolution/cards/182_Mega_Kangaskhan_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-183-acerola-s-mischief",
+    "name": "Acerola's Mischief",
+    "rarity": "Special Illustration Rare",
+    "number": "183",
+    "image": "/assets/sets/mega-evolution/cards/183_Acerola's_Mischief_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-184-lillie-s-determination",
+    "name": "Lillie's Determination",
+    "rarity": "Special Illustration Rare",
+    "number": "184",
+    "image": "/assets/sets/mega-evolution/cards/184_Lillie's_Determination_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-185-lt-surge-s-bargain",
+    "name": "Lt. Surge's Bargain",
+    "rarity": "Special Illustration Rare",
+    "number": "185",
+    "image": "/assets/sets/mega-evolution/cards/185_Lt._Surge's_Bargain_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-186-wally-s-compassion",
+    "name": "Wally's Compassion",
+    "rarity": "Special Illustration Rare",
+    "number": "186",
+    "image": "/assets/sets/mega-evolution/cards/186_Wally's_Compassion_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "mega-evolution-187-mega-gardevoir-ex-mega-hyper",
+    "name": "Mega Gardevoir ex Mega Hyper",
+    "rarity": "Rare",
+    "number": "187",
+    "image": "/assets/sets/mega-evolution/cards/187_Mega_Gardevoir_ex_Mega_Hyper_Rare.png"
+  },
+  {
+    "id": "mega-evolution-188-mega-lucario-ex-mega-hyper",
+    "name": "Mega Lucario ex Mega Hyper",
+    "rarity": "Rare",
+    "number": "188",
+    "image": "/assets/sets/mega-evolution/cards/188_Mega_Lucario_ex_Mega_Hyper_Rare.png"
+  }
+]

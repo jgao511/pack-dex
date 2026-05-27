@@ -1,0 +1,884 @@
+[
+  {
+    "id": "crimson-invasion-1-weedle",
+    "name": "Weedle",
+    "rarity": "Common",
+    "number": "1",
+    "image": "/assets/sets/crimson-invasion/cards/1_Weedle_Common.png"
+  },
+  {
+    "id": "crimson-invasion-2-kakuna",
+    "name": "Kakuna",
+    "rarity": "Uncommon",
+    "number": "2",
+    "image": "/assets/sets/crimson-invasion/cards/2_Kakuna_Uncommon.png"
+  },
+  {
+    "id": "crimson-invasion-3-beedrill",
+    "name": "Beedrill",
+    "rarity": "Rare",
+    "number": "3",
+    "image": "/assets/sets/crimson-invasion/cards/3_Beedrill_Rare.png"
+  },
+  {
+    "id": "crimson-invasion-4-exeggcute",
+    "name": "Exeggcute",
+    "rarity": "Common",
+    "number": "4",
+    "image": "/assets/sets/crimson-invasion/cards/4_Exeggcute_Common.png"
+  },
+  {
+    "id": "crimson-invasion-5-cacnea",
+    "name": "Cacnea",
+    "rarity": "Common",
+    "number": "5",
+    "image": "/assets/sets/crimson-invasion/cards/5_Cacnea_Common.png"
+  },
+  {
+    "id": "crimson-invasion-6-cacturne",
+    "name": "Cacturne",
+    "rarity": "Rare",
+    "number": "6",
+    "image": "/assets/sets/crimson-invasion/cards/6_Cacturne_Rare.png"
+  },
+  {
+    "id": "crimson-invasion-7-karrablast",
+    "name": "Karrablast",
+    "rarity": "Common",
+    "number": "7",
+    "image": "/assets/sets/crimson-invasion/cards/7_Karrablast_Common.png"
+  },
+  {
+    "id": "crimson-invasion-8-shelmet",
+    "name": "Shelmet",
+    "rarity": "Common",
+    "number": "8",
+    "image": "/assets/sets/crimson-invasion/cards/8_Shelmet_Common.png"
+  },
+  {
+    "id": "crimson-invasion-9-accelgor",
+    "name": "Accelgor",
+    "rarity": "Uncommon",
+    "number": "9",
+    "image": "/assets/sets/crimson-invasion/cards/9_Accelgor_Uncommon.png"
+  },
+  {
+    "id": "crimson-invasion-10-skiddo",
+    "name": "Skiddo",
+    "rarity": "Common",
+    "number": "10",
+    "image": "/assets/sets/crimson-invasion/cards/10_Skiddo_Common.png"
+  },
+  {
+    "id": "crimson-invasion-11-gogoat",
+    "name": "Gogoat",
+    "rarity": "Rare",
+    "number": "11",
+    "image": "/assets/sets/crimson-invasion/cards/11_Gogoat_Rare_Holo.png"
+  },
+  {
+    "id": "crimson-invasion-12-alolan-marowak",
+    "name": "Alolan Marowak",
+    "rarity": "Rare",
+    "number": "12",
+    "image": "/assets/sets/crimson-invasion/cards/12_Alolan_Marowak_Rare_Holo.png"
+  },
+  {
+    "id": "crimson-invasion-13-numel",
+    "name": "Numel",
+    "rarity": "Common",
+    "number": "13",
+    "image": "/assets/sets/crimson-invasion/cards/13_Numel_Common.png"
+  },
+  {
+    "id": "crimson-invasion-14-camerupt",
+    "name": "Camerupt",
+    "rarity": "Rare",
+    "number": "14",
+    "image": "/assets/sets/crimson-invasion/cards/14_Camerupt_Rare.png"
+  },
+  {
+    "id": "crimson-invasion-15-staryu",
+    "name": "Staryu",
+    "rarity": "Common",
+    "number": "15",
+    "image": "/assets/sets/crimson-invasion/cards/15_Staryu_Common.png"
+  },
+  {
+    "id": "crimson-invasion-16-starmie",
+    "name": "Starmie",
+    "rarity": "Rare",
+    "number": "16",
+    "image": "/assets/sets/crimson-invasion/cards/16_Starmie_Rare.png"
+  },
+  {
+    "id": "crimson-invasion-17-magikarp",
+    "name": "Magikarp",
+    "rarity": "Common",
+    "number": "17",
+    "image": "/assets/sets/crimson-invasion/cards/17_Magikarp_Common.png"
+  },
+  {
+    "id": "crimson-invasion-18-gyarados-gx",
+    "name": "Gyarados-GX",
+    "rarity": "Double Rare",
+    "number": "18",
+    "image": "/assets/sets/crimson-invasion/cards/18_Gyarados-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "crimson-invasion-19-swinub",
+    "name": "Swinub",
+    "rarity": "Common",
+    "number": "19",
+    "image": "/assets/sets/crimson-invasion/cards/19_Swinub_Common.png"
+  },
+  {
+    "id": "crimson-invasion-20-piloswine",
+    "name": "Piloswine",
+    "rarity": "Uncommon",
+    "number": "20",
+    "image": "/assets/sets/crimson-invasion/cards/20_Piloswine_Uncommon.png"
+  },
+  {
+    "id": "crimson-invasion-21-mamoswine",
+    "name": "Mamoswine",
+    "rarity": "Rare",
+    "number": "21",
+    "image": "/assets/sets/crimson-invasion/cards/21_Mamoswine_Rare.png"
+  },
+  {
+    "id": "crimson-invasion-22-remoraid",
+    "name": "Remoraid",
+    "rarity": "Common",
+    "number": "22",
+    "image": "/assets/sets/crimson-invasion/cards/22_Remoraid_Common.png"
+  },
+  {
+    "id": "crimson-invasion-23-octillery",
+    "name": "Octillery",
+    "rarity": "Rare",
+    "number": "23",
+    "image": "/assets/sets/crimson-invasion/cards/23_Octillery_Rare.png"
+  },
+  {
+    "id": "crimson-invasion-24-corphish",
+    "name": "Corphish",
+    "rarity": "Common",
+    "number": "24",
+    "image": "/assets/sets/crimson-invasion/cards/24_Corphish_Common.png"
+  },
+  {
+    "id": "crimson-invasion-25-crawdaunt",
+    "name": "Crawdaunt",
+    "rarity": "Rare",
+    "number": "25",
+    "image": "/assets/sets/crimson-invasion/cards/25_Crawdaunt_Rare.png"
+  },
+  {
+    "id": "crimson-invasion-26-feebas",
+    "name": "Feebas",
+    "rarity": "Common",
+    "number": "26",
+    "image": "/assets/sets/crimson-invasion/cards/26_Feebas_Common.png"
+  },
+  {
+    "id": "crimson-invasion-27-milotic",
+    "name": "Milotic",
+    "rarity": "Rare",
+    "number": "27",
+    "image": "/assets/sets/crimson-invasion/cards/27_Milotic_Rare_Holo.png"
+  },
+  {
+    "id": "crimson-invasion-28-regice",
+    "name": "Regice",
+    "rarity": "Rare",
+    "number": "28",
+    "image": "/assets/sets/crimson-invasion/cards/28_Regice_Rare_Holo.png"
+  },
+  {
+    "id": "crimson-invasion-29-shellos",
+    "name": "Shellos",
+    "rarity": "Common",
+    "number": "29",
+    "image": "/assets/sets/crimson-invasion/cards/29_Shellos_Common.png"
+  },
+  {
+    "id": "crimson-invasion-30-pikachu",
+    "name": "Pikachu",
+    "rarity": "Common",
+    "number": "30",
+    "image": "/assets/sets/crimson-invasion/cards/30_Pikachu_Common.png"
+  },
+  {
+    "id": "crimson-invasion-31-alolan-raichu",
+    "name": "Alolan Raichu",
+    "rarity": "Rare",
+    "number": "31",
+    "image": "/assets/sets/crimson-invasion/cards/31_Alolan_Raichu_Rare_Holo.png"
+  },
+  {
+    "id": "crimson-invasion-32-alolan-geodude",
+    "name": "Alolan Geodude",
+    "rarity": "Common",
+    "number": "32",
+    "image": "/assets/sets/crimson-invasion/cards/32_Alolan_Geodude_Common.png"
+  },
+  {
+    "id": "crimson-invasion-33-alolan-graveler",
+    "name": "Alolan Graveler",
+    "rarity": "Uncommon",
+    "number": "33",
+    "image": "/assets/sets/crimson-invasion/cards/33_Alolan_Graveler_Uncommon.png"
+  },
+  {
+    "id": "crimson-invasion-34-alolan-golem-gx",
+    "name": "Alolan Golem-GX",
+    "rarity": "Double Rare",
+    "number": "34",
+    "image": "/assets/sets/crimson-invasion/cards/34_Alolan_Golem-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "crimson-invasion-35-emolga",
+    "name": "Emolga",
+    "rarity": "Uncommon",
+    "number": "35",
+    "image": "/assets/sets/crimson-invasion/cards/35_Emolga_Uncommon.png"
+  },
+  {
+    "id": "crimson-invasion-36-gastly",
+    "name": "Gastly",
+    "rarity": "Common",
+    "number": "36",
+    "image": "/assets/sets/crimson-invasion/cards/36_Gastly_Common.png"
+  },
+  {
+    "id": "crimson-invasion-37-haunter",
+    "name": "Haunter",
+    "rarity": "Uncommon",
+    "number": "37",
+    "image": "/assets/sets/crimson-invasion/cards/37_Haunter_Uncommon.png"
+  },
+  {
+    "id": "crimson-invasion-38-gengar",
+    "name": "Gengar",
+    "rarity": "Rare",
+    "number": "38",
+    "image": "/assets/sets/crimson-invasion/cards/38_Gengar_Rare_Holo.png"
+  },
+  {
+    "id": "crimson-invasion-39-misdreavus",
+    "name": "Misdreavus",
+    "rarity": "Common",
+    "number": "39",
+    "image": "/assets/sets/crimson-invasion/cards/39_Misdreavus_Common.png"
+  },
+  {
+    "id": "crimson-invasion-40-mismagius",
+    "name": "Mismagius",
+    "rarity": "Rare",
+    "number": "40",
+    "image": "/assets/sets/crimson-invasion/cards/40_Mismagius_Rare.png"
+  },
+  {
+    "id": "crimson-invasion-41-spoink",
+    "name": "Spoink",
+    "rarity": "Common",
+    "number": "41",
+    "image": "/assets/sets/crimson-invasion/cards/41_Spoink_Common.png"
+  },
+  {
+    "id": "crimson-invasion-42-grumpig",
+    "name": "Grumpig",
+    "rarity": "Uncommon",
+    "number": "42",
+    "image": "/assets/sets/crimson-invasion/cards/42_Grumpig_Uncommon.png"
+  },
+  {
+    "id": "crimson-invasion-43-chimecho",
+    "name": "Chimecho",
+    "rarity": "Common",
+    "number": "43",
+    "image": "/assets/sets/crimson-invasion/cards/43_Chimecho_Common.png"
+  },
+  {
+    "id": "crimson-invasion-44-pumpkaboo",
+    "name": "Pumpkaboo",
+    "rarity": "Common",
+    "number": "44",
+    "image": "/assets/sets/crimson-invasion/cards/44_Pumpkaboo_Common.png"
+  },
+  {
+    "id": "crimson-invasion-45-gourgeist",
+    "name": "Gourgeist",
+    "rarity": "Rare",
+    "number": "45",
+    "image": "/assets/sets/crimson-invasion/cards/45_Gourgeist_Rare.png"
+  },
+  {
+    "id": "crimson-invasion-46-salandit",
+    "name": "Salandit",
+    "rarity": "Common",
+    "number": "46",
+    "image": "/assets/sets/crimson-invasion/cards/46_Salandit_Common.png"
+  },
+  {
+    "id": "crimson-invasion-47-salazzle",
+    "name": "Salazzle",
+    "rarity": "Rare",
+    "number": "47",
+    "image": "/assets/sets/crimson-invasion/cards/47_Salazzle_Rare_Holo.png"
+  },
+  {
+    "id": "crimson-invasion-48-oranguru",
+    "name": "Oranguru",
+    "rarity": "Rare",
+    "number": "48",
+    "image": "/assets/sets/crimson-invasion/cards/48_Oranguru_Rare.png"
+  },
+  {
+    "id": "crimson-invasion-49-nihilego-gx",
+    "name": "Nihilego-GX",
+    "rarity": "Double Rare",
+    "number": "49",
+    "image": "/assets/sets/crimson-invasion/cards/49_Nihilego-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "crimson-invasion-50-mankey",
+    "name": "Mankey",
+    "rarity": "Common",
+    "number": "50",
+    "image": "/assets/sets/crimson-invasion/cards/50_Mankey_Common.png"
+  },
+  {
+    "id": "crimson-invasion-51-primeape",
+    "name": "Primeape",
+    "rarity": "Rare",
+    "number": "51",
+    "image": "/assets/sets/crimson-invasion/cards/51_Primeape_Rare.png"
+  },
+  {
+    "id": "crimson-invasion-52-cubone",
+    "name": "Cubone",
+    "rarity": "Common",
+    "number": "52",
+    "image": "/assets/sets/crimson-invasion/cards/52_Cubone_Common.png"
+  },
+  {
+    "id": "crimson-invasion-53-regirock",
+    "name": "Regirock",
+    "rarity": "Rare",
+    "number": "53",
+    "image": "/assets/sets/crimson-invasion/cards/53_Regirock_Rare.png"
+  },
+  {
+    "id": "crimson-invasion-54-gastrodon",
+    "name": "Gastrodon",
+    "rarity": "Uncommon",
+    "number": "54",
+    "image": "/assets/sets/crimson-invasion/cards/54_Gastrodon_Uncommon.png"
+  },
+  {
+    "id": "crimson-invasion-55-stufful",
+    "name": "Stufful",
+    "rarity": "Common",
+    "number": "55",
+    "image": "/assets/sets/crimson-invasion/cards/55_Stufful_Common.png"
+  },
+  {
+    "id": "crimson-invasion-56-bewear",
+    "name": "Bewear",
+    "rarity": "Rare",
+    "number": "56",
+    "image": "/assets/sets/crimson-invasion/cards/56_Bewear_Rare_Holo.png"
+  },
+  {
+    "id": "crimson-invasion-57-buzzwole-gx",
+    "name": "Buzzwole-GX",
+    "rarity": "Double Rare",
+    "number": "57",
+    "image": "/assets/sets/crimson-invasion/cards/57_Buzzwole-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "crimson-invasion-58-houndour",
+    "name": "Houndour",
+    "rarity": "Common",
+    "number": "58",
+    "image": "/assets/sets/crimson-invasion/cards/58_Houndour_Common.png"
+  },
+  {
+    "id": "crimson-invasion-59-houndoom",
+    "name": "Houndoom",
+    "rarity": "Rare",
+    "number": "59",
+    "image": "/assets/sets/crimson-invasion/cards/59_Houndoom_Rare.png"
+  },
+  {
+    "id": "crimson-invasion-60-deino",
+    "name": "Deino",
+    "rarity": "Common",
+    "number": "60",
+    "image": "/assets/sets/crimson-invasion/cards/60_Deino_Common.png"
+  },
+  {
+    "id": "crimson-invasion-61-zweilous",
+    "name": "Zweilous",
+    "rarity": "Uncommon",
+    "number": "61",
+    "image": "/assets/sets/crimson-invasion/cards/61_Zweilous_Uncommon.png"
+  },
+  {
+    "id": "crimson-invasion-62-hydreigon",
+    "name": "Hydreigon",
+    "rarity": "Rare",
+    "number": "62",
+    "image": "/assets/sets/crimson-invasion/cards/62_Hydreigon_Rare.png"
+  },
+  {
+    "id": "crimson-invasion-63-guzzlord-gx",
+    "name": "Guzzlord-GX",
+    "rarity": "Double Rare",
+    "number": "63",
+    "image": "/assets/sets/crimson-invasion/cards/63_Guzzlord-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "crimson-invasion-63a-guzzlord-gx",
+    "name": "Guzzlord-GX",
+    "rarity": "Double Rare",
+    "number": "63a",
+    "image": "/assets/sets/crimson-invasion/cards/63a_Guzzlord-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "crimson-invasion-64-mawile",
+    "name": "Mawile",
+    "rarity": "Uncommon",
+    "number": "64",
+    "image": "/assets/sets/crimson-invasion/cards/64_Mawile_Uncommon.png"
+  },
+  {
+    "id": "crimson-invasion-65-aron",
+    "name": "Aron",
+    "rarity": "Common",
+    "number": "65",
+    "image": "/assets/sets/crimson-invasion/cards/65_Aron_Common.png"
+  },
+  {
+    "id": "crimson-invasion-66-lairon",
+    "name": "Lairon",
+    "rarity": "Uncommon",
+    "number": "66",
+    "image": "/assets/sets/crimson-invasion/cards/66_Lairon_Uncommon.png"
+  },
+  {
+    "id": "crimson-invasion-67-aggron",
+    "name": "Aggron",
+    "rarity": "Rare",
+    "number": "67",
+    "image": "/assets/sets/crimson-invasion/cards/67_Aggron_Rare_Holo.png"
+  },
+  {
+    "id": "crimson-invasion-68-registeel",
+    "name": "Registeel",
+    "rarity": "Rare",
+    "number": "68",
+    "image": "/assets/sets/crimson-invasion/cards/68_Registeel_Rare.png"
+  },
+  {
+    "id": "crimson-invasion-69-escavalier",
+    "name": "Escavalier",
+    "rarity": "Rare",
+    "number": "69",
+    "image": "/assets/sets/crimson-invasion/cards/69_Escavalier_Rare.png"
+  },
+  {
+    "id": "crimson-invasion-70-kartana-gx",
+    "name": "Kartana-GX",
+    "rarity": "Double Rare",
+    "number": "70",
+    "image": "/assets/sets/crimson-invasion/cards/70_Kartana-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "crimson-invasion-71-jigglypuff",
+    "name": "Jigglypuff",
+    "rarity": "Common",
+    "number": "71",
+    "image": "/assets/sets/crimson-invasion/cards/71_Jigglypuff_Common.png"
+  },
+  {
+    "id": "crimson-invasion-72-wigglytuff",
+    "name": "Wigglytuff",
+    "rarity": "Rare",
+    "number": "72",
+    "image": "/assets/sets/crimson-invasion/cards/72_Wigglytuff_Rare.png"
+  },
+  {
+    "id": "crimson-invasion-73-xerneas",
+    "name": "Xerneas",
+    "rarity": "Rare",
+    "number": "73",
+    "image": "/assets/sets/crimson-invasion/cards/73_Xerneas_Rare_Holo.png"
+  },
+  {
+    "id": "crimson-invasion-74-alolan-exeggutor-gx",
+    "name": "Alolan Exeggutor-GX",
+    "rarity": "Double Rare",
+    "number": "74",
+    "image": "/assets/sets/crimson-invasion/cards/74_Alolan_Exeggutor-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "crimson-invasion-75-jangmo-o",
+    "name": "Jangmo-o",
+    "rarity": "Common",
+    "number": "75",
+    "image": "/assets/sets/crimson-invasion/cards/75_Jangmo-o_Common.png"
+  },
+  {
+    "id": "crimson-invasion-76-hakamo-o",
+    "name": "Hakamo-o",
+    "rarity": "Uncommon",
+    "number": "76",
+    "image": "/assets/sets/crimson-invasion/cards/76_Hakamo-o_Uncommon.png"
+  },
+  {
+    "id": "crimson-invasion-77-kommo-o",
+    "name": "Kommo-o",
+    "rarity": "Rare",
+    "number": "77",
+    "image": "/assets/sets/crimson-invasion/cards/77_Kommo-o_Rare.png"
+  },
+  {
+    "id": "crimson-invasion-78-miltank",
+    "name": "Miltank",
+    "rarity": "Uncommon",
+    "number": "78",
+    "image": "/assets/sets/crimson-invasion/cards/78_Miltank_Uncommon.png"
+  },
+  {
+    "id": "crimson-invasion-79-swablu",
+    "name": "Swablu",
+    "rarity": "Common",
+    "number": "79",
+    "image": "/assets/sets/crimson-invasion/cards/79_Swablu_Common.png"
+  },
+  {
+    "id": "crimson-invasion-80-altaria",
+    "name": "Altaria",
+    "rarity": "Rare",
+    "number": "80",
+    "image": "/assets/sets/crimson-invasion/cards/80_Altaria_Rare.png"
+  },
+  {
+    "id": "crimson-invasion-81-starly",
+    "name": "Starly",
+    "rarity": "Common",
+    "number": "81",
+    "image": "/assets/sets/crimson-invasion/cards/81_Starly_Common.png"
+  },
+  {
+    "id": "crimson-invasion-82-staravia",
+    "name": "Staravia",
+    "rarity": "Uncommon",
+    "number": "82",
+    "image": "/assets/sets/crimson-invasion/cards/82_Staravia_Uncommon.png"
+  },
+  {
+    "id": "crimson-invasion-83-staraptor",
+    "name": "Staraptor",
+    "rarity": "Rare",
+    "number": "83",
+    "image": "/assets/sets/crimson-invasion/cards/83_Staraptor_Rare.png"
+  },
+  {
+    "id": "crimson-invasion-84-regigigas",
+    "name": "Regigigas",
+    "rarity": "Rare",
+    "number": "84",
+    "image": "/assets/sets/crimson-invasion/cards/84_Regigigas_Rare_Holo.png"
+  },
+  {
+    "id": "crimson-invasion-84a-regigigas",
+    "name": "Regigigas",
+    "rarity": "Rare",
+    "number": "84a",
+    "image": "/assets/sets/crimson-invasion/cards/84a_Regigigas_Rare_Holo.png"
+  },
+  {
+    "id": "crimson-invasion-85-minccino",
+    "name": "Minccino",
+    "rarity": "Common",
+    "number": "85",
+    "image": "/assets/sets/crimson-invasion/cards/85_Minccino_Common.png"
+  },
+  {
+    "id": "crimson-invasion-86-cinccino",
+    "name": "Cinccino",
+    "rarity": "Uncommon",
+    "number": "86",
+    "image": "/assets/sets/crimson-invasion/cards/86_Cinccino_Uncommon.png"
+  },
+  {
+    "id": "crimson-invasion-87-bunnelby",
+    "name": "Bunnelby",
+    "rarity": "Common",
+    "number": "87",
+    "image": "/assets/sets/crimson-invasion/cards/87_Bunnelby_Common.png"
+  },
+  {
+    "id": "crimson-invasion-88-diggersby",
+    "name": "Diggersby",
+    "rarity": "Uncommon",
+    "number": "88",
+    "image": "/assets/sets/crimson-invasion/cards/88_Diggersby_Uncommon.png"
+  },
+  {
+    "id": "crimson-invasion-89-type-null",
+    "name": "Type Null",
+    "rarity": "Rare",
+    "number": "89",
+    "image": "/assets/sets/crimson-invasion/cards/89_Type_Null_Rare_Holo.png"
+  },
+  {
+    "id": "crimson-invasion-90-silvally-gx",
+    "name": "Silvally-GX",
+    "rarity": "Double Rare",
+    "number": "90",
+    "image": "/assets/sets/crimson-invasion/cards/90_Silvally-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "crimson-invasion-91-counter-catcher",
+    "name": "Counter Catcher",
+    "rarity": "Uncommon",
+    "number": "91",
+    "image": "/assets/sets/crimson-invasion/cards/91_Counter_Catcher_Uncommon.png"
+  },
+  {
+    "id": "crimson-invasion-92-dashing-pouch",
+    "name": "Dashing Pouch",
+    "rarity": "Uncommon",
+    "number": "92",
+    "image": "/assets/sets/crimson-invasion/cards/92_Dashing_Pouch_Uncommon.png"
+  },
+  {
+    "id": "crimson-invasion-93-devoured-field",
+    "name": "Devoured Field",
+    "rarity": "Uncommon",
+    "number": "93",
+    "image": "/assets/sets/crimson-invasion/cards/93_Devoured_Field_Uncommon.png"
+  },
+  {
+    "id": "crimson-invasion-94-fighting-memory",
+    "name": "Fighting Memory",
+    "rarity": "Uncommon",
+    "number": "94",
+    "image": "/assets/sets/crimson-invasion/cards/94_Fighting_Memory_Uncommon.png"
+  },
+  {
+    "id": "crimson-invasion-95-gladion",
+    "name": "Gladion",
+    "rarity": "Uncommon",
+    "number": "95",
+    "image": "/assets/sets/crimson-invasion/cards/95_Gladion_Uncommon.png"
+  },
+  {
+    "id": "crimson-invasion-96-lusamine",
+    "name": "Lusamine",
+    "rarity": "Uncommon",
+    "number": "96",
+    "image": "/assets/sets/crimson-invasion/cards/96_Lusamine_Uncommon.png"
+  },
+  {
+    "id": "crimson-invasion-97-peeking-red-card",
+    "name": "Peeking Red Card",
+    "rarity": "Uncommon",
+    "number": "97",
+    "image": "/assets/sets/crimson-invasion/cards/97_Peeking_Red_Card_Uncommon.png"
+  },
+  {
+    "id": "crimson-invasion-98-psychic-memory",
+    "name": "Psychic Memory",
+    "rarity": "Uncommon",
+    "number": "98",
+    "image": "/assets/sets/crimson-invasion/cards/98_Psychic_Memory_Uncommon.png"
+  },
+  {
+    "id": "crimson-invasion-99-sea-of-nothingness",
+    "name": "Sea of Nothingness",
+    "rarity": "Uncommon",
+    "number": "99",
+    "image": "/assets/sets/crimson-invasion/cards/99_Sea_of_Nothingness_Uncommon.png"
+  },
+  {
+    "id": "crimson-invasion-100-counter-energy",
+    "name": "Counter Energy",
+    "rarity": "Uncommon",
+    "number": "100",
+    "image": "/assets/sets/crimson-invasion/cards/100_Counter_Energy_Uncommon.png"
+  },
+  {
+    "id": "crimson-invasion-101-gyarados-gx",
+    "name": "Gyarados-GX",
+    "rarity": "Ultra Rare",
+    "number": "101",
+    "image": "/assets/sets/crimson-invasion/cards/101_Gyarados-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "crimson-invasion-102-alolan-golem-gx",
+    "name": "Alolan Golem-GX",
+    "rarity": "Ultra Rare",
+    "number": "102",
+    "image": "/assets/sets/crimson-invasion/cards/102_Alolan_Golem-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "crimson-invasion-103-nihilego-gx",
+    "name": "Nihilego-GX",
+    "rarity": "Ultra Rare",
+    "number": "103",
+    "image": "/assets/sets/crimson-invasion/cards/103_Nihilego-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "crimson-invasion-104-buzzwole-gx",
+    "name": "Buzzwole-GX",
+    "rarity": "Ultra Rare",
+    "number": "104",
+    "image": "/assets/sets/crimson-invasion/cards/104_Buzzwole-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "crimson-invasion-105-guzzlord-gx",
+    "name": "Guzzlord-GX",
+    "rarity": "Ultra Rare",
+    "number": "105",
+    "image": "/assets/sets/crimson-invasion/cards/105_Guzzlord-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "crimson-invasion-106-kartana-gx",
+    "name": "Kartana-GX",
+    "rarity": "Ultra Rare",
+    "number": "106",
+    "image": "/assets/sets/crimson-invasion/cards/106_Kartana-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "crimson-invasion-107-alolan-exeggutor-gx",
+    "name": "Alolan Exeggutor-GX",
+    "rarity": "Ultra Rare",
+    "number": "107",
+    "image": "/assets/sets/crimson-invasion/cards/107_Alolan_Exeggutor-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "crimson-invasion-108-silvally-gx",
+    "name": "Silvally-GX",
+    "rarity": "Ultra Rare",
+    "number": "108",
+    "image": "/assets/sets/crimson-invasion/cards/108_Silvally-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "crimson-invasion-109-gladion",
+    "name": "Gladion",
+    "rarity": "Ultra Rare",
+    "number": "109",
+    "image": "/assets/sets/crimson-invasion/cards/109_Gladion_Rare_Ultra.png"
+  },
+  {
+    "id": "crimson-invasion-110-lusamine",
+    "name": "Lusamine",
+    "rarity": "Ultra Rare",
+    "number": "110",
+    "image": "/assets/sets/crimson-invasion/cards/110_Lusamine_Rare_Ultra.png"
+  },
+  {
+    "id": "crimson-invasion-111-olivia",
+    "name": "Olivia",
+    "rarity": "Ultra Rare",
+    "number": "111",
+    "image": "/assets/sets/crimson-invasion/cards/111_Olivia_Rare_Ultra.png"
+  },
+  {
+    "id": "crimson-invasion-112-gyarados-gx",
+    "name": "Gyarados-GX",
+    "rarity": "Secret Rare",
+    "number": "112",
+    "image": "/assets/sets/crimson-invasion/cards/112_Gyarados-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "crimson-invasion-113-alolan-golem-gx",
+    "name": "Alolan Golem-GX",
+    "rarity": "Secret Rare",
+    "number": "113",
+    "image": "/assets/sets/crimson-invasion/cards/113_Alolan_Golem-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "crimson-invasion-114-nihilego-gx",
+    "name": "Nihilego-GX",
+    "rarity": "Secret Rare",
+    "number": "114",
+    "image": "/assets/sets/crimson-invasion/cards/114_Nihilego-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "crimson-invasion-115-buzzwole-gx",
+    "name": "Buzzwole-GX",
+    "rarity": "Secret Rare",
+    "number": "115",
+    "image": "/assets/sets/crimson-invasion/cards/115_Buzzwole-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "crimson-invasion-116-guzzlord-gx",
+    "name": "Guzzlord-GX",
+    "rarity": "Secret Rare",
+    "number": "116",
+    "image": "/assets/sets/crimson-invasion/cards/116_Guzzlord-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "crimson-invasion-117-kartana-gx",
+    "name": "Kartana-GX",
+    "rarity": "Secret Rare",
+    "number": "117",
+    "image": "/assets/sets/crimson-invasion/cards/117_Kartana-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "crimson-invasion-118-alolan-exeggutor-gx",
+    "name": "Alolan Exeggutor-GX",
+    "rarity": "Secret Rare",
+    "number": "118",
+    "image": "/assets/sets/crimson-invasion/cards/118_Alolan_Exeggutor-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "crimson-invasion-119-silvally-gx",
+    "name": "Silvally-GX",
+    "rarity": "Secret Rare",
+    "number": "119",
+    "image": "/assets/sets/crimson-invasion/cards/119_Silvally-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "crimson-invasion-120-counter-catcher",
+    "name": "Counter Catcher",
+    "rarity": "Secret Rare",
+    "number": "120",
+    "image": "/assets/sets/crimson-invasion/cards/120_Counter_Catcher_Rare_Secret.png"
+  },
+  {
+    "id": "crimson-invasion-121-wishful-baton",
+    "name": "Wishful Baton",
+    "rarity": "Secret Rare",
+    "number": "121",
+    "image": "/assets/sets/crimson-invasion/cards/121_Wishful_Baton_Rare_Secret.png"
+  },
+  {
+    "id": "crimson-invasion-122-counter-energy",
+    "name": "Counter Energy",
+    "rarity": "Secret Rare",
+    "number": "122",
+    "image": "/assets/sets/crimson-invasion/cards/122_Counter_Energy_Rare_Secret.png"
+  },
+  {
+    "id": "crimson-invasion-123-warp-energy",
+    "name": "Warp Energy",
+    "rarity": "Secret Rare",
+    "number": "123",
+    "image": "/assets/sets/crimson-invasion/cards/123_Warp_Energy_Rare_Secret.png"
+  },
+  {
+    "id": "crimson-invasion-124-water-energy",
+    "name": "Water Energy",
+    "rarity": "Secret Rare",
+    "number": "124",
+    "image": "/assets/sets/crimson-invasion/cards/124_Water_Energy_Rare_Secret.png"
+  }
+]

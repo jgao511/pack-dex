@@ -1,0 +1,1024 @@
+[
+  {
+    "id": "xy1-1-venusaur-ex",
+    "name": "Venusaur-EX",
+    "rarity": "Rare Holo EX",
+    "number": "1",
+    "image": "/assets/sets/xy1/cards/1_Venusaur-EX_Rare_Holo_EX_xy1-1.png"
+  },
+  {
+    "id": "xy1-2-m_venusaur-ex",
+    "name": "M Venusaur-EX",
+    "rarity": "Rare Holo EX",
+    "number": "2",
+    "image": "/assets/sets/xy1/cards/2_M_Venusaur-EX_Rare_Holo_EX_xy1-2.png"
+  },
+  {
+    "id": "xy1-3-weedle",
+    "name": "Weedle",
+    "rarity": "Common",
+    "number": "3",
+    "image": "/assets/sets/xy1/cards/3_Weedle_Common_xy1-3.png"
+  },
+  {
+    "id": "xy1-4-kakuna",
+    "name": "Kakuna",
+    "rarity": "Uncommon",
+    "number": "4",
+    "image": "/assets/sets/xy1/cards/4_Kakuna_Uncommon_xy1-4.png"
+  },
+  {
+    "id": "xy1-5-beedrill",
+    "name": "Beedrill",
+    "rarity": "Rare",
+    "number": "5",
+    "image": "/assets/sets/xy1/cards/5_Beedrill_Rare_xy1-5.png"
+  },
+  {
+    "id": "xy1-6-ledyba",
+    "name": "Ledyba",
+    "rarity": "Common",
+    "number": "6",
+    "image": "/assets/sets/xy1/cards/6_Ledyba_Common_xy1-6.png"
+  },
+  {
+    "id": "xy1-7-ledian",
+    "name": "Ledian",
+    "rarity": "Uncommon",
+    "number": "7",
+    "image": "/assets/sets/xy1/cards/7_Ledian_Uncommon_xy1-7.png"
+  },
+  {
+    "id": "xy1-8-volbeat",
+    "name": "Volbeat",
+    "rarity": "Uncommon",
+    "number": "8",
+    "image": "/assets/sets/xy1/cards/8_Volbeat_Uncommon_xy1-8.png"
+  },
+  {
+    "id": "xy1-9-illumise",
+    "name": "Illumise",
+    "rarity": "Uncommon",
+    "number": "9",
+    "image": "/assets/sets/xy1/cards/9_Illumise_Uncommon_xy1-9.png"
+  },
+  {
+    "id": "xy1-10-pansage",
+    "name": "Pansage",
+    "rarity": "Common",
+    "number": "10",
+    "image": "/assets/sets/xy1/cards/10_Pansage_Common_xy1-10.png"
+  },
+  {
+    "id": "xy1-11-simisage",
+    "name": "Simisage",
+    "rarity": "Rare",
+    "number": "11",
+    "image": "/assets/sets/xy1/cards/11_Simisage_Rare_xy1-11.png"
+  },
+  {
+    "id": "xy1-12-chespin",
+    "name": "Chespin",
+    "rarity": "Common",
+    "number": "12",
+    "image": "/assets/sets/xy1/cards/12_Chespin_Common_xy1-12.png"
+  },
+  {
+    "id": "xy1-13-quilladin",
+    "name": "Quilladin",
+    "rarity": "Uncommon",
+    "number": "13",
+    "image": "/assets/sets/xy1/cards/13_Quilladin_Uncommon_xy1-13.png"
+  },
+  {
+    "id": "xy1-14-chesnaught",
+    "name": "Chesnaught",
+    "rarity": "Rare Holo",
+    "number": "14",
+    "image": "/assets/sets/xy1/cards/14_Chesnaught_Rare_Holo_xy1-14.png"
+  },
+  {
+    "id": "xy1-15-scatterbug",
+    "name": "Scatterbug",
+    "rarity": "Common",
+    "number": "15",
+    "image": "/assets/sets/xy1/cards/15_Scatterbug_Common_xy1-15.png"
+  },
+  {
+    "id": "xy1-16-spewpa",
+    "name": "Spewpa",
+    "rarity": "Uncommon",
+    "number": "16",
+    "image": "/assets/sets/xy1/cards/16_Spewpa_Uncommon_xy1-16.png"
+  },
+  {
+    "id": "xy1-17-vivillon",
+    "name": "Vivillon",
+    "rarity": "Rare Holo",
+    "number": "17",
+    "image": "/assets/sets/xy1/cards/17_Vivillon_Rare_Holo_xy1-17.png"
+  },
+  {
+    "id": "xy1-18-skiddo",
+    "name": "Skiddo",
+    "rarity": "Common",
+    "number": "18",
+    "image": "/assets/sets/xy1/cards/18_Skiddo_Common_xy1-18.png"
+  },
+  {
+    "id": "xy1-19-gogoat",
+    "name": "Gogoat",
+    "rarity": "Rare Holo",
+    "number": "19",
+    "image": "/assets/sets/xy1/cards/19_Gogoat_Rare_Holo_xy1-19.png"
+  },
+  {
+    "id": "xy1-20-slugma",
+    "name": "Slugma",
+    "rarity": "Common",
+    "number": "20",
+    "image": "/assets/sets/xy1/cards/20_Slugma_Common_xy1-20.png"
+  },
+  {
+    "id": "xy1-21-magcargo",
+    "name": "Magcargo",
+    "rarity": "Rare",
+    "number": "21",
+    "image": "/assets/sets/xy1/cards/21_Magcargo_Rare_xy1-21.png"
+  },
+  {
+    "id": "xy1-22-pansear",
+    "name": "Pansear",
+    "rarity": "Common",
+    "number": "22",
+    "image": "/assets/sets/xy1/cards/22_Pansear_Common_xy1-22.png"
+  },
+  {
+    "id": "xy1-23-simisear",
+    "name": "Simisear",
+    "rarity": "Rare",
+    "number": "23",
+    "image": "/assets/sets/xy1/cards/23_Simisear_Rare_xy1-23.png"
+  },
+  {
+    "id": "xy1-24-fennekin",
+    "name": "Fennekin",
+    "rarity": "Common",
+    "number": "24",
+    "image": "/assets/sets/xy1/cards/24_Fennekin_Common_xy1-24.png"
+  },
+  {
+    "id": "xy1-25-braixen",
+    "name": "Braixen",
+    "rarity": "Uncommon",
+    "number": "25",
+    "image": "/assets/sets/xy1/cards/25_Braixen_Uncommon_xy1-25.png"
+  },
+  {
+    "id": "xy1-26-delphox",
+    "name": "Delphox",
+    "rarity": "Rare Holo",
+    "number": "26",
+    "image": "/assets/sets/xy1/cards/26_Delphox_Rare_Holo_xy1-26.png"
+  },
+  {
+    "id": "xy1-27-fletchinder",
+    "name": "Fletchinder",
+    "rarity": "Uncommon",
+    "number": "27",
+    "image": "/assets/sets/xy1/cards/27_Fletchinder_Uncommon_xy1-27.png"
+  },
+  {
+    "id": "xy1-28-talonflame",
+    "name": "Talonflame",
+    "rarity": "Rare Holo",
+    "number": "28",
+    "image": "/assets/sets/xy1/cards/28_Talonflame_Rare_Holo_xy1-28.png"
+  },
+  {
+    "id": "xy1-29-blastoise-ex",
+    "name": "Blastoise-EX",
+    "rarity": "Rare Holo EX",
+    "number": "29",
+    "image": "/assets/sets/xy1/cards/29_Blastoise-EX_Rare_Holo_EX_xy1-29.png"
+  },
+  {
+    "id": "xy1-30-m_blastoise-ex",
+    "name": "M Blastoise-EX",
+    "rarity": "Rare Holo EX",
+    "number": "30",
+    "image": "/assets/sets/xy1/cards/30_M_Blastoise-EX_Rare_Holo_EX_xy1-30.png"
+  },
+  {
+    "id": "xy1-31-shellder",
+    "name": "Shellder",
+    "rarity": "Common",
+    "number": "31",
+    "image": "/assets/sets/xy1/cards/31_Shellder_Common_xy1-31.png"
+  },
+  {
+    "id": "xy1-32-cloyster",
+    "name": "Cloyster",
+    "rarity": "Rare",
+    "number": "32",
+    "image": "/assets/sets/xy1/cards/32_Cloyster_Rare_xy1-32.png"
+  },
+  {
+    "id": "xy1-33-staryu",
+    "name": "Staryu",
+    "rarity": "Common",
+    "number": "33",
+    "image": "/assets/sets/xy1/cards/33_Staryu_Common_xy1-33.png"
+  },
+  {
+    "id": "xy1-34-starmie",
+    "name": "Starmie",
+    "rarity": "Rare",
+    "number": "34",
+    "image": "/assets/sets/xy1/cards/34_Starmie_Rare_xy1-34.png"
+  },
+  {
+    "id": "xy1-35-lapras",
+    "name": "Lapras",
+    "rarity": "Rare Holo",
+    "number": "35",
+    "image": "/assets/sets/xy1/cards/35_Lapras_Rare_Holo_xy1-35.png"
+  },
+  {
+    "id": "xy1-36-corsola",
+    "name": "Corsola",
+    "rarity": "Uncommon",
+    "number": "36",
+    "image": "/assets/sets/xy1/cards/36_Corsola_Uncommon_xy1-36.png"
+  },
+  {
+    "id": "xy1-37-panpour",
+    "name": "Panpour",
+    "rarity": "Common",
+    "number": "37",
+    "image": "/assets/sets/xy1/cards/37_Panpour_Common_xy1-37.png"
+  },
+  {
+    "id": "xy1-38-simipour",
+    "name": "Simipour",
+    "rarity": "Rare",
+    "number": "38",
+    "image": "/assets/sets/xy1/cards/38_Simipour_Rare_xy1-38.png"
+  },
+  {
+    "id": "xy1-39-froakie",
+    "name": "Froakie",
+    "rarity": "Common",
+    "number": "39",
+    "image": "/assets/sets/xy1/cards/39_Froakie_Common_xy1-39.png"
+  },
+  {
+    "id": "xy1-40-frogadier",
+    "name": "Frogadier",
+    "rarity": "Uncommon",
+    "number": "40",
+    "image": "/assets/sets/xy1/cards/40_Frogadier_Uncommon_xy1-40.png"
+  },
+  {
+    "id": "xy1-41-greninja",
+    "name": "Greninja",
+    "rarity": "Rare Holo",
+    "number": "41",
+    "image": "/assets/sets/xy1/cards/41_Greninja_Rare_Holo_xy1-41.png"
+  },
+  {
+    "id": "xy1-42-pikachu",
+    "name": "Pikachu",
+    "rarity": "Common",
+    "number": "42",
+    "image": "/assets/sets/xy1/cards/42_Pikachu_Common_xy1-42.png"
+  },
+  {
+    "id": "xy1-43-raichu",
+    "name": "Raichu",
+    "rarity": "Rare Holo",
+    "number": "43",
+    "image": "/assets/sets/xy1/cards/43_Raichu_Rare_Holo_xy1-43.png"
+  },
+  {
+    "id": "xy1-44-voltorb",
+    "name": "Voltorb",
+    "rarity": "Common",
+    "number": "44",
+    "image": "/assets/sets/xy1/cards/44_Voltorb_Common_xy1-44.png"
+  },
+  {
+    "id": "xy1-45-electrode",
+    "name": "Electrode",
+    "rarity": "Uncommon",
+    "number": "45",
+    "image": "/assets/sets/xy1/cards/45_Electrode_Uncommon_xy1-45.png"
+  },
+  {
+    "id": "xy1-46-emolga-ex",
+    "name": "Emolga-EX",
+    "rarity": "Rare Holo EX",
+    "number": "46",
+    "image": "/assets/sets/xy1/cards/46_Emolga-EX_Rare_Holo_EX_xy1-46.png"
+  },
+  {
+    "id": "xy1-47-ekans",
+    "name": "Ekans",
+    "rarity": "Common",
+    "number": "47",
+    "image": "/assets/sets/xy1/cards/47_Ekans_Common_xy1-47.png"
+  },
+  {
+    "id": "xy1-48-arbok",
+    "name": "Arbok",
+    "rarity": "Rare",
+    "number": "48",
+    "image": "/assets/sets/xy1/cards/48_Arbok_Rare_xy1-48.png"
+  },
+  {
+    "id": "xy1-49-spoink",
+    "name": "Spoink",
+    "rarity": "Common",
+    "number": "49",
+    "image": "/assets/sets/xy1/cards/49_Spoink_Common_xy1-49.png"
+  },
+  {
+    "id": "xy1-50-grumpig",
+    "name": "Grumpig",
+    "rarity": "Rare",
+    "number": "50",
+    "image": "/assets/sets/xy1/cards/50_Grumpig_Rare_xy1-50.png"
+  },
+  {
+    "id": "xy1-51-venipede",
+    "name": "Venipede",
+    "rarity": "Common",
+    "number": "51",
+    "image": "/assets/sets/xy1/cards/51_Venipede_Common_xy1-51.png"
+  },
+  {
+    "id": "xy1-52-whirlipede",
+    "name": "Whirlipede",
+    "rarity": "Uncommon",
+    "number": "52",
+    "image": "/assets/sets/xy1/cards/52_Whirlipede_Uncommon_xy1-52.png"
+  },
+  {
+    "id": "xy1-53-scolipede",
+    "name": "Scolipede",
+    "rarity": "Rare",
+    "number": "53",
+    "image": "/assets/sets/xy1/cards/53_Scolipede_Rare_xy1-53.png"
+  },
+  {
+    "id": "xy1-54-phantump",
+    "name": "Phantump",
+    "rarity": "Common",
+    "number": "54",
+    "image": "/assets/sets/xy1/cards/54_Phantump_Common_xy1-54.png"
+  },
+  {
+    "id": "xy1-55-trevenant",
+    "name": "Trevenant",
+    "rarity": "Rare Holo",
+    "number": "55",
+    "image": "/assets/sets/xy1/cards/55_Trevenant_Rare_Holo_xy1-55.png"
+  },
+  {
+    "id": "xy1-56-pumpkaboo",
+    "name": "Pumpkaboo",
+    "rarity": "Common",
+    "number": "56",
+    "image": "/assets/sets/xy1/cards/56_Pumpkaboo_Common_xy1-56.png"
+  },
+  {
+    "id": "xy1-57-gourgeist",
+    "name": "Gourgeist",
+    "rarity": "Rare Holo",
+    "number": "57",
+    "image": "/assets/sets/xy1/cards/57_Gourgeist_Rare_Holo_xy1-57.png"
+  },
+  {
+    "id": "xy1-58-diglett",
+    "name": "Diglett",
+    "rarity": "Common",
+    "number": "58",
+    "image": "/assets/sets/xy1/cards/58_Diglett_Common_xy1-58.png"
+  },
+  {
+    "id": "xy1-59-dugtrio",
+    "name": "Dugtrio",
+    "rarity": "Rare",
+    "number": "59",
+    "image": "/assets/sets/xy1/cards/59_Dugtrio_Rare_xy1-59.png"
+  },
+  {
+    "id": "xy1-60-rhyhorn",
+    "name": "Rhyhorn",
+    "rarity": "Common",
+    "number": "60",
+    "image": "/assets/sets/xy1/cards/60_Rhyhorn_Common_xy1-60.png"
+  },
+  {
+    "id": "xy1-61-rhydon",
+    "name": "Rhydon",
+    "rarity": "Rare",
+    "number": "61",
+    "image": "/assets/sets/xy1/cards/61_Rhydon_Rare_xy1-61.png"
+  },
+  {
+    "id": "xy1-62-rhyperior",
+    "name": "Rhyperior",
+    "rarity": "Rare Holo",
+    "number": "62",
+    "image": "/assets/sets/xy1/cards/62_Rhyperior_Rare_Holo_xy1-62.png"
+  },
+  {
+    "id": "xy1-63-lunatone",
+    "name": "Lunatone",
+    "rarity": "Uncommon",
+    "number": "63",
+    "image": "/assets/sets/xy1/cards/63_Lunatone_Uncommon_xy1-63.png"
+  },
+  {
+    "id": "xy1-64-solrock",
+    "name": "Solrock",
+    "rarity": "Uncommon",
+    "number": "64",
+    "image": "/assets/sets/xy1/cards/64_Solrock_Uncommon_xy1-64.png"
+  },
+  {
+    "id": "xy1-65-timburr",
+    "name": "Timburr",
+    "rarity": "Common",
+    "number": "65",
+    "image": "/assets/sets/xy1/cards/65_Timburr_Common_xy1-65.png"
+  },
+  {
+    "id": "xy1-66-gurdurr",
+    "name": "Gurdurr",
+    "rarity": "Uncommon",
+    "number": "66",
+    "image": "/assets/sets/xy1/cards/66_Gurdurr_Uncommon_xy1-66.png"
+  },
+  {
+    "id": "xy1-67-conkeldurr",
+    "name": "Conkeldurr",
+    "rarity": "Rare",
+    "number": "67",
+    "image": "/assets/sets/xy1/cards/67_Conkeldurr_Rare_xy1-67.png"
+  },
+  {
+    "id": "xy1-68-sableye",
+    "name": "Sableye",
+    "rarity": "Uncommon",
+    "number": "68",
+    "image": "/assets/sets/xy1/cards/68_Sableye_Uncommon_xy1-68.png"
+  },
+  {
+    "id": "xy1-69-sandile",
+    "name": "Sandile",
+    "rarity": "Common",
+    "number": "69",
+    "image": "/assets/sets/xy1/cards/69_Sandile_Common_xy1-69.png"
+  },
+  {
+    "id": "xy1-70-krokorok",
+    "name": "Krokorok",
+    "rarity": "Uncommon",
+    "number": "70",
+    "image": "/assets/sets/xy1/cards/70_Krokorok_Uncommon_xy1-70.png"
+  },
+  {
+    "id": "xy1-71-krookodile",
+    "name": "Krookodile",
+    "rarity": "Rare",
+    "number": "71",
+    "image": "/assets/sets/xy1/cards/71_Krookodile_Rare_xy1-71.png"
+  },
+  {
+    "id": "xy1-72-zorua",
+    "name": "Zorua",
+    "rarity": "Common",
+    "number": "72",
+    "image": "/assets/sets/xy1/cards/72_Zorua_Common_xy1-72.png"
+  },
+  {
+    "id": "xy1-73-zoroark",
+    "name": "Zoroark",
+    "rarity": "Rare Holo",
+    "number": "73",
+    "image": "/assets/sets/xy1/cards/73_Zoroark_Rare_Holo_xy1-73.png"
+  },
+  {
+    "id": "xy1-74-inkay",
+    "name": "Inkay",
+    "rarity": "Uncommon",
+    "number": "74",
+    "image": "/assets/sets/xy1/cards/74_Inkay_Uncommon_xy1-74.png"
+  },
+  {
+    "id": "xy1-75-inkay",
+    "name": "Inkay",
+    "rarity": "Common",
+    "number": "75",
+    "image": "/assets/sets/xy1/cards/75_Inkay_Common_xy1-75.png"
+  },
+  {
+    "id": "xy1-76-malamar",
+    "name": "Malamar",
+    "rarity": "Rare",
+    "number": "76",
+    "image": "/assets/sets/xy1/cards/76_Malamar_Rare_xy1-76.png"
+  },
+  {
+    "id": "xy1-77-malamar",
+    "name": "Malamar",
+    "rarity": "Rare",
+    "number": "77",
+    "image": "/assets/sets/xy1/cards/77_Malamar_Rare_xy1-77.png"
+  },
+  {
+    "id": "xy1-78-yveltal",
+    "name": "Yveltal",
+    "rarity": "Rare",
+    "number": "78",
+    "image": "/assets/sets/xy1/cards/78_Yveltal_Rare_xy1-78.png"
+  },
+  {
+    "id": "xy1-79-yveltal-ex",
+    "name": "Yveltal-EX",
+    "rarity": "Rare Holo EX",
+    "number": "79",
+    "image": "/assets/sets/xy1/cards/79_Yveltal-EX_Rare_Holo_EX_xy1-79.png"
+  },
+  {
+    "id": "xy1-80-skarmory-ex",
+    "name": "Skarmory-EX",
+    "rarity": "Rare Holo EX",
+    "number": "80",
+    "image": "/assets/sets/xy1/cards/80_Skarmory-EX_Rare_Holo_EX_xy1-80.png"
+  },
+  {
+    "id": "xy1-81-pawniard",
+    "name": "Pawniard",
+    "rarity": "Common",
+    "number": "81",
+    "image": "/assets/sets/xy1/cards/81_Pawniard_Common_xy1-81.png"
+  },
+  {
+    "id": "xy1-82-bisharp",
+    "name": "Bisharp",
+    "rarity": "Rare",
+    "number": "82",
+    "image": "/assets/sets/xy1/cards/82_Bisharp_Rare_xy1-82.png"
+  },
+  {
+    "id": "xy1-83-honedge",
+    "name": "Honedge",
+    "rarity": "Common",
+    "number": "83",
+    "image": "/assets/sets/xy1/cards/83_Honedge_Common_xy1-83.png"
+  },
+  {
+    "id": "xy1-84-doublade",
+    "name": "Doublade",
+    "rarity": "Uncommon",
+    "number": "84",
+    "image": "/assets/sets/xy1/cards/84_Doublade_Uncommon_xy1-84.png"
+  },
+  {
+    "id": "xy1-85-aegislash",
+    "name": "Aegislash",
+    "rarity": "Rare",
+    "number": "85",
+    "image": "/assets/sets/xy1/cards/85_Aegislash_Rare_xy1-85.png"
+  },
+  {
+    "id": "xy1-86-aegislash",
+    "name": "Aegislash",
+    "rarity": "Rare Holo",
+    "number": "86",
+    "image": "/assets/sets/xy1/cards/86_Aegislash_Rare_Holo_xy1-86.png"
+  },
+  {
+    "id": "xy1-87-jigglypuff",
+    "name": "Jigglypuff",
+    "rarity": "Common",
+    "number": "87",
+    "image": "/assets/sets/xy1/cards/87_Jigglypuff_Common_xy1-87.png"
+  },
+  {
+    "id": "xy1-88-jigglypuff",
+    "name": "Jigglypuff",
+    "rarity": "Common",
+    "number": "88",
+    "image": "/assets/sets/xy1/cards/88_Jigglypuff_Common_xy1-88.png"
+  },
+  {
+    "id": "xy1-89-wigglytuff",
+    "name": "Wigglytuff",
+    "rarity": "Rare",
+    "number": "89",
+    "image": "/assets/sets/xy1/cards/89_Wigglytuff_Rare_xy1-89.png"
+  },
+  {
+    "id": "xy1-90-wigglytuff",
+    "name": "Wigglytuff",
+    "rarity": "Rare",
+    "number": "90",
+    "image": "/assets/sets/xy1/cards/90_Wigglytuff_Rare_xy1-90.png"
+  },
+  {
+    "id": "xy1-91-mr._mime",
+    "name": "Mr. Mime",
+    "rarity": "Uncommon",
+    "number": "91",
+    "image": "/assets/sets/xy1/cards/91_Mr._Mime_Uncommon_xy1-91.png"
+  },
+  {
+    "id": "xy1-92-spritzee",
+    "name": "Spritzee",
+    "rarity": "Common",
+    "number": "92",
+    "image": "/assets/sets/xy1/cards/92_Spritzee_Common_xy1-92.png"
+  },
+  {
+    "id": "xy1-93-aromatisse",
+    "name": "Aromatisse",
+    "rarity": "Rare Holo",
+    "number": "93",
+    "image": "/assets/sets/xy1/cards/93_Aromatisse_Rare_Holo_xy1-93.png"
+  },
+  {
+    "id": "xy1-94-swirlix",
+    "name": "Swirlix",
+    "rarity": "Common",
+    "number": "94",
+    "image": "/assets/sets/xy1/cards/94_Swirlix_Common_xy1-94.png"
+  },
+  {
+    "id": "xy1-95-slurpuff",
+    "name": "Slurpuff",
+    "rarity": "Rare Holo",
+    "number": "95",
+    "image": "/assets/sets/xy1/cards/95_Slurpuff_Rare_Holo_xy1-95.png"
+  },
+  {
+    "id": "xy1-96-xerneas",
+    "name": "Xerneas",
+    "rarity": "Rare",
+    "number": "96",
+    "image": "/assets/sets/xy1/cards/96_Xerneas_Rare_xy1-96.png"
+  },
+  {
+    "id": "xy1-97-xerneas-ex",
+    "name": "Xerneas-EX",
+    "rarity": "Rare Holo EX",
+    "number": "97",
+    "image": "/assets/sets/xy1/cards/97_Xerneas-EX_Rare_Holo_EX_xy1-97.png"
+  },
+  {
+    "id": "xy1-98-doduo",
+    "name": "Doduo",
+    "rarity": "Common",
+    "number": "98",
+    "image": "/assets/sets/xy1/cards/98_Doduo_Common_xy1-98.png"
+  },
+  {
+    "id": "xy1-99-dodrio",
+    "name": "Dodrio",
+    "rarity": "Uncommon",
+    "number": "99",
+    "image": "/assets/sets/xy1/cards/99_Dodrio_Uncommon_xy1-99.png"
+  },
+  {
+    "id": "xy1-100-tauros",
+    "name": "Tauros",
+    "rarity": "Rare",
+    "number": "100",
+    "image": "/assets/sets/xy1/cards/100_Tauros_Rare_xy1-100.png"
+  },
+  {
+    "id": "xy1-101-dunsparce",
+    "name": "Dunsparce",
+    "rarity": "Uncommon",
+    "number": "101",
+    "image": "/assets/sets/xy1/cards/101_Dunsparce_Uncommon_xy1-101.png"
+  },
+  {
+    "id": "xy1-102-taillow",
+    "name": "Taillow",
+    "rarity": "Common",
+    "number": "102",
+    "image": "/assets/sets/xy1/cards/102_Taillow_Common_xy1-102.png"
+  },
+  {
+    "id": "xy1-103-swellow",
+    "name": "Swellow",
+    "rarity": "Rare",
+    "number": "103",
+    "image": "/assets/sets/xy1/cards/103_Swellow_Rare_xy1-103.png"
+  },
+  {
+    "id": "xy1-104-skitty",
+    "name": "Skitty",
+    "rarity": "Common",
+    "number": "104",
+    "image": "/assets/sets/xy1/cards/104_Skitty_Common_xy1-104.png"
+  },
+  {
+    "id": "xy1-105-delcatty",
+    "name": "Delcatty",
+    "rarity": "Uncommon",
+    "number": "105",
+    "image": "/assets/sets/xy1/cards/105_Delcatty_Uncommon_xy1-105.png"
+  },
+  {
+    "id": "xy1-106-bidoof",
+    "name": "Bidoof",
+    "rarity": "Common",
+    "number": "106",
+    "image": "/assets/sets/xy1/cards/106_Bidoof_Common_xy1-106.png"
+  },
+  {
+    "id": "xy1-107-bibarel",
+    "name": "Bibarel",
+    "rarity": "Rare",
+    "number": "107",
+    "image": "/assets/sets/xy1/cards/107_Bibarel_Rare_xy1-107.png"
+  },
+  {
+    "id": "xy1-108-lillipup",
+    "name": "Lillipup",
+    "rarity": "Common",
+    "number": "108",
+    "image": "/assets/sets/xy1/cards/108_Lillipup_Common_xy1-108.png"
+  },
+  {
+    "id": "xy1-109-herdier",
+    "name": "Herdier",
+    "rarity": "Uncommon",
+    "number": "109",
+    "image": "/assets/sets/xy1/cards/109_Herdier_Uncommon_xy1-109.png"
+  },
+  {
+    "id": "xy1-110-stoutland",
+    "name": "Stoutland",
+    "rarity": "Rare",
+    "number": "110",
+    "image": "/assets/sets/xy1/cards/110_Stoutland_Rare_xy1-110.png"
+  },
+  {
+    "id": "xy1-111-bunnelby",
+    "name": "Bunnelby",
+    "rarity": "Common",
+    "number": "111",
+    "image": "/assets/sets/xy1/cards/111_Bunnelby_Common_xy1-111.png"
+  },
+  {
+    "id": "xy1-112-diggersby",
+    "name": "Diggersby",
+    "rarity": "Uncommon",
+    "number": "112",
+    "image": "/assets/sets/xy1/cards/112_Diggersby_Uncommon_xy1-112.png"
+  },
+  {
+    "id": "xy1-113-fletchling",
+    "name": "Fletchling",
+    "rarity": "Common",
+    "number": "113",
+    "image": "/assets/sets/xy1/cards/113_Fletchling_Common_xy1-113.png"
+  },
+  {
+    "id": "xy1-114-furfrou",
+    "name": "Furfrou",
+    "rarity": "Rare Holo",
+    "number": "114",
+    "image": "/assets/sets/xy1/cards/114_Furfrou_Rare_Holo_xy1-114.png"
+  },
+  {
+    "id": "xy1-115-cassius",
+    "name": "Cassius",
+    "rarity": "Uncommon",
+    "number": "115",
+    "image": "/assets/sets/xy1/cards/115_Cassius_Uncommon_xy1-115.png"
+  },
+  {
+    "id": "xy1-116-evosoda",
+    "name": "Evosoda",
+    "rarity": "Uncommon",
+    "number": "116",
+    "image": "/assets/sets/xy1/cards/116_Evosoda_Uncommon_xy1-116.png"
+  },
+  {
+    "id": "xy1-117-fairy_garden",
+    "name": "Fairy Garden",
+    "rarity": "Uncommon",
+    "number": "117",
+    "image": "/assets/sets/xy1/cards/117_Fairy_Garden_Uncommon_xy1-117.png"
+  },
+  {
+    "id": "xy1-118-great_ball",
+    "name": "Great Ball",
+    "rarity": "Uncommon",
+    "number": "118",
+    "image": "/assets/sets/xy1/cards/118_Great_Ball_Uncommon_xy1-118.png"
+  },
+  {
+    "id": "xy1-119-hard_charm",
+    "name": "Hard Charm",
+    "rarity": "Uncommon",
+    "number": "119",
+    "image": "/assets/sets/xy1/cards/119_Hard_Charm_Uncommon_xy1-119.png"
+  },
+  {
+    "id": "xy1-120-max_revive",
+    "name": "Max Revive",
+    "rarity": "Uncommon",
+    "number": "120",
+    "image": "/assets/sets/xy1/cards/120_Max_Revive_Uncommon_xy1-120.png"
+  },
+  {
+    "id": "xy1-121-muscle_band",
+    "name": "Muscle Band",
+    "rarity": "Uncommon",
+    "number": "121",
+    "image": "/assets/sets/xy1/cards/121_Muscle_Band_Uncommon_xy1-121.png"
+  },
+  {
+    "id": "xy1-122-professor_sycamore",
+    "name": "Professor Sycamore",
+    "rarity": "Uncommon",
+    "number": "122",
+    "image": "/assets/sets/xy1/cards/122_Professor_Sycamore_Uncommon_xy1-122.png"
+  },
+  {
+    "id": "xy1-123-professors_letter",
+    "name": "Professors Letter",
+    "rarity": "Uncommon",
+    "number": "123",
+    "image": "/assets/sets/xy1/cards/123_Professors_Letter_Uncommon_xy1-123.png"
+  },
+  {
+    "id": "xy1-124-red_card",
+    "name": "Red Card",
+    "rarity": "Uncommon",
+    "number": "124",
+    "image": "/assets/sets/xy1/cards/124_Red_Card_Uncommon_xy1-124.png"
+  },
+  {
+    "id": "xy1-125-roller_skates",
+    "name": "Roller Skates",
+    "rarity": "Uncommon",
+    "number": "125",
+    "image": "/assets/sets/xy1/cards/125_Roller_Skates_Uncommon_xy1-125.png"
+  },
+  {
+    "id": "xy1-126-shadow_circle",
+    "name": "Shadow Circle",
+    "rarity": "Uncommon",
+    "number": "126",
+    "image": "/assets/sets/xy1/cards/126_Shadow_Circle_Uncommon_xy1-126.png"
+  },
+  {
+    "id": "xy1-127-shauna",
+    "name": "Shauna",
+    "rarity": "Uncommon",
+    "number": "127",
+    "image": "/assets/sets/xy1/cards/127_Shauna_Uncommon_xy1-127.png"
+  },
+  {
+    "id": "xy1-128-super_potion",
+    "name": "Super Potion",
+    "rarity": "Uncommon",
+    "number": "128",
+    "image": "/assets/sets/xy1/cards/128_Super_Potion_Uncommon_xy1-128.png"
+  },
+  {
+    "id": "xy1-129-team_flare_grunt",
+    "name": "Team Flare Grunt",
+    "rarity": "Uncommon",
+    "number": "129",
+    "image": "/assets/sets/xy1/cards/129_Team_Flare_Grunt_Uncommon_xy1-129.png"
+  },
+  {
+    "id": "xy1-130-double_colorless_energy",
+    "name": "Double Colorless Energy",
+    "rarity": "Uncommon",
+    "number": "130",
+    "image": "/assets/sets/xy1/cards/130_Double_Colorless_Energy_Uncommon_xy1-130.png"
+  },
+  {
+    "id": "xy1-131-rainbow_energy",
+    "name": "Rainbow Energy",
+    "rarity": "Uncommon",
+    "number": "131",
+    "image": "/assets/sets/xy1/cards/131_Rainbow_Energy_Uncommon_xy1-131.png"
+  },
+  {
+    "id": "xy1-132-grass_energy",
+    "name": "Grass Energy",
+    "rarity": "Common",
+    "number": "132",
+    "image": "/assets/sets/xy1/cards/132_Grass_Energy_Common_xy1-132.png"
+  },
+  {
+    "id": "xy1-133-fire_energy",
+    "name": "Fire Energy",
+    "rarity": "Common",
+    "number": "133",
+    "image": "/assets/sets/xy1/cards/133_Fire_Energy_Common_xy1-133.png"
+  },
+  {
+    "id": "xy1-134-water_energy",
+    "name": "Water Energy",
+    "rarity": "Common",
+    "number": "134",
+    "image": "/assets/sets/xy1/cards/134_Water_Energy_Common_xy1-134.png"
+  },
+  {
+    "id": "xy1-135-lightning_energy",
+    "name": "Lightning Energy",
+    "rarity": "Common",
+    "number": "135",
+    "image": "/assets/sets/xy1/cards/135_Lightning_Energy_Common_xy1-135.png"
+  },
+  {
+    "id": "xy1-136-psychic_energy",
+    "name": "Psychic Energy",
+    "rarity": "Common",
+    "number": "136",
+    "image": "/assets/sets/xy1/cards/136_Psychic_Energy_Common_xy1-136.png"
+  },
+  {
+    "id": "xy1-137-fighting_energy",
+    "name": "Fighting Energy",
+    "rarity": "Common",
+    "number": "137",
+    "image": "/assets/sets/xy1/cards/137_Fighting_Energy_Common_xy1-137.png"
+  },
+  {
+    "id": "xy1-138-darkness_energy",
+    "name": "Darkness Energy",
+    "rarity": "Common",
+    "number": "138",
+    "image": "/assets/sets/xy1/cards/138_Darkness_Energy_Common_xy1-138.png"
+  },
+  {
+    "id": "xy1-139-metal_energy",
+    "name": "Metal Energy",
+    "rarity": "Common",
+    "number": "139",
+    "image": "/assets/sets/xy1/cards/139_Metal_Energy_Common_xy1-139.png"
+  },
+  {
+    "id": "xy1-140-fairy_energy",
+    "name": "Fairy Energy",
+    "rarity": "Common",
+    "number": "140",
+    "image": "/assets/sets/xy1/cards/140_Fairy_Energy_Common_xy1-140.png"
+  },
+  {
+    "id": "xy1-141-venusaur-ex",
+    "name": "Venusaur-EX",
+    "rarity": "Rare Ultra",
+    "number": "141",
+    "image": "/assets/sets/xy1/cards/141_Venusaur-EX_Rare_Ultra_xy1-141.png"
+  },
+  {
+    "id": "xy1-142-blastoise-ex",
+    "name": "Blastoise-EX",
+    "rarity": "Rare Ultra",
+    "number": "142",
+    "image": "/assets/sets/xy1/cards/142_Blastoise-EX_Rare_Ultra_xy1-142.png"
+  },
+  {
+    "id": "xy1-143-emolga-ex",
+    "name": "Emolga-EX",
+    "rarity": "Rare Ultra",
+    "number": "143",
+    "image": "/assets/sets/xy1/cards/143_Emolga-EX_Rare_Ultra_xy1-143.png"
+  },
+  {
+    "id": "xy1-144-yveltal-ex",
+    "name": "Yveltal-EX",
+    "rarity": "Rare Ultra",
+    "number": "144",
+    "image": "/assets/sets/xy1/cards/144_Yveltal-EX_Rare_Ultra_xy1-144.png"
+  },
+  {
+    "id": "xy1-145-skarmory-ex",
+    "name": "Skarmory-EX",
+    "rarity": "Rare Ultra",
+    "number": "145",
+    "image": "/assets/sets/xy1/cards/145_Skarmory-EX_Rare_Ultra_xy1-145.png"
+  },
+  {
+    "id": "xy1-146-xerneas-ex",
+    "name": "Xerneas-EX",
+    "rarity": "Rare Ultra",
+    "number": "146",
+    "image": "/assets/sets/xy1/cards/146_Xerneas-EX_Rare_Ultra_xy1-146.png"
+  }
+]

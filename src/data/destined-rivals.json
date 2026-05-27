@@ -1,0 +1,1710 @@
+[
+  {
+    "id": "destined-rivals-1-ethan-s-pinsir",
+    "name": "Ethan's Pinsir",
+    "rarity": "Uncommon",
+    "number": "1",
+    "image": "/assets/sets/destined-rivals/cards/1_Ethan's_Pinsir_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-2-yanma",
+    "name": "Yanma",
+    "rarity": "Common",
+    "number": "2",
+    "image": "/assets/sets/destined-rivals/cards/2_Yanma_Common.png"
+  },
+  {
+    "id": "destined-rivals-3-yanmega-ex",
+    "name": "Yanmega ex",
+    "rarity": "Double Rare",
+    "number": "3",
+    "image": "/assets/sets/destined-rivals/cards/3_Yanmega_ex_Double_Rare.png"
+  },
+  {
+    "id": "destined-rivals-4-pineco",
+    "name": "Pineco",
+    "rarity": "Common",
+    "number": "4",
+    "image": "/assets/sets/destined-rivals/cards/4_Pineco_Common.png"
+  },
+  {
+    "id": "destined-rivals-5-shroomish",
+    "name": "Shroomish",
+    "rarity": "Common",
+    "number": "5",
+    "image": "/assets/sets/destined-rivals/cards/5_Shroomish_Common.png"
+  },
+  {
+    "id": "destined-rivals-6-breloom",
+    "name": "Breloom",
+    "rarity": "Common",
+    "number": "6",
+    "image": "/assets/sets/destined-rivals/cards/6_Breloom_Common.png"
+  },
+  {
+    "id": "destined-rivals-7-cynthia-s-roselia",
+    "name": "Cynthia's Roselia",
+    "rarity": "Common",
+    "number": "7",
+    "image": "/assets/sets/destined-rivals/cards/7_Cynthia's_Roselia_Common.png"
+  },
+  {
+    "id": "destined-rivals-8-cynthia-s-roserade",
+    "name": "Cynthia's Roserade",
+    "rarity": "Rare",
+    "number": "8",
+    "image": "/assets/sets/destined-rivals/cards/8_Cynthia's_Roserade_Rare.png"
+  },
+  {
+    "id": "destined-rivals-9-mow-rotom",
+    "name": "Mow Rotom",
+    "rarity": "Common",
+    "number": "9",
+    "image": "/assets/sets/destined-rivals/cards/9_Mow_Rotom_Common.png"
+  },
+  {
+    "id": "destined-rivals-10-shaymin",
+    "name": "Shaymin",
+    "rarity": "Uncommon",
+    "number": "10",
+    "image": "/assets/sets/destined-rivals/cards/10_Shaymin_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-11-dwebble",
+    "name": "Dwebble",
+    "rarity": "Common",
+    "number": "11",
+    "image": "/assets/sets/destined-rivals/cards/11_Dwebble_Common.png"
+  },
+  {
+    "id": "destined-rivals-12-crustle",
+    "name": "Crustle",
+    "rarity": "Rare",
+    "number": "12",
+    "image": "/assets/sets/destined-rivals/cards/12_Crustle_Rare.png"
+  },
+  {
+    "id": "destined-rivals-13-fomantis",
+    "name": "Fomantis",
+    "rarity": "Common",
+    "number": "13",
+    "image": "/assets/sets/destined-rivals/cards/13_Fomantis_Common.png"
+  },
+  {
+    "id": "destined-rivals-14-lurantis",
+    "name": "Lurantis",
+    "rarity": "Uncommon",
+    "number": "14",
+    "image": "/assets/sets/destined-rivals/cards/14_Lurantis_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-15-team-rocket-s-blipbug",
+    "name": "Team Rocket's Blipbug",
+    "rarity": "Common",
+    "number": "15",
+    "image": "/assets/sets/destined-rivals/cards/15_Team_Rocket's_Blipbug_Common.png"
+  },
+  {
+    "id": "destined-rivals-16-applin",
+    "name": "Applin",
+    "rarity": "Common",
+    "number": "16",
+    "image": "/assets/sets/destined-rivals/cards/16_Applin_Common.png"
+  },
+  {
+    "id": "destined-rivals-17-dipplin",
+    "name": "Dipplin",
+    "rarity": "Common",
+    "number": "17",
+    "image": "/assets/sets/destined-rivals/cards/17_Dipplin_Common.png"
+  },
+  {
+    "id": "destined-rivals-18-hydrapple",
+    "name": "Hydrapple",
+    "rarity": "Rare",
+    "number": "18",
+    "image": "/assets/sets/destined-rivals/cards/18_Hydrapple_Rare.png"
+  },
+  {
+    "id": "destined-rivals-19-team-rocket-s-tarountula",
+    "name": "Team Rocket's Tarountula",
+    "rarity": "Common",
+    "number": "19",
+    "image": "/assets/sets/destined-rivals/cards/19_Team_Rocket's_Tarountula_Common.png"
+  },
+  {
+    "id": "destined-rivals-20-team-rocket-s-spidops",
+    "name": "Team Rocket's Spidops",
+    "rarity": "Rare",
+    "number": "20",
+    "image": "/assets/sets/destined-rivals/cards/20_Team_Rocket's_Spidops_Rare.png"
+  },
+  {
+    "id": "destined-rivals-21-smoliv",
+    "name": "Smoliv",
+    "rarity": "Common",
+    "number": "21",
+    "image": "/assets/sets/destined-rivals/cards/21_Smoliv_Common.png"
+  },
+  {
+    "id": "destined-rivals-22-dolliv",
+    "name": "Dolliv",
+    "rarity": "Common",
+    "number": "22",
+    "image": "/assets/sets/destined-rivals/cards/22_Dolliv_Common.png"
+  },
+  {
+    "id": "destined-rivals-23-arboliva-ex",
+    "name": "Arboliva ex",
+    "rarity": "Double Rare",
+    "number": "23",
+    "image": "/assets/sets/destined-rivals/cards/23_Arboliva_ex_Double_Rare.png"
+  },
+  {
+    "id": "destined-rivals-24-rellor",
+    "name": "Rellor",
+    "rarity": "Common",
+    "number": "24",
+    "image": "/assets/sets/destined-rivals/cards/24_Rellor_Common.png"
+  },
+  {
+    "id": "destined-rivals-25-rabsca-ex",
+    "name": "Rabsca ex",
+    "rarity": "Double Rare",
+    "number": "25",
+    "image": "/assets/sets/destined-rivals/cards/25_Rabsca_ex_Double_Rare.png"
+  },
+  {
+    "id": "destined-rivals-26-teal-mask-ogerpon",
+    "name": "Teal Mask Ogerpon",
+    "rarity": "Uncommon",
+    "number": "26",
+    "image": "/assets/sets/destined-rivals/cards/26_Teal_Mask_Ogerpon_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-27-growlithe",
+    "name": "Growlithe",
+    "rarity": "Common",
+    "number": "27",
+    "image": "/assets/sets/destined-rivals/cards/27_Growlithe_Common.png"
+  },
+  {
+    "id": "destined-rivals-28-arcanine",
+    "name": "Arcanine",
+    "rarity": "Uncommon",
+    "number": "28",
+    "image": "/assets/sets/destined-rivals/cards/28_Arcanine_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-29-ponyta",
+    "name": "Ponyta",
+    "rarity": "Common",
+    "number": "29",
+    "image": "/assets/sets/destined-rivals/cards/29_Ponyta_Common.png"
+  },
+  {
+    "id": "destined-rivals-30-rapidash",
+    "name": "Rapidash",
+    "rarity": "Uncommon",
+    "number": "30",
+    "image": "/assets/sets/destined-rivals/cards/30_Rapidash_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-31-team-rocket-s-moltres-ex",
+    "name": "Team Rocket's Moltres ex",
+    "rarity": "Double Rare",
+    "number": "31",
+    "image": "/assets/sets/destined-rivals/cards/31_Team_Rocket's_Moltres_ex_Double_Rare.png"
+  },
+  {
+    "id": "destined-rivals-32-ethan-s-cyndaquil",
+    "name": "Ethan's Cyndaquil",
+    "rarity": "Common",
+    "number": "32",
+    "image": "/assets/sets/destined-rivals/cards/32_Ethan's_Cyndaquil_Common.png"
+  },
+  {
+    "id": "destined-rivals-33-ethan-s-quilava",
+    "name": "Ethan's Quilava",
+    "rarity": "Common",
+    "number": "33",
+    "image": "/assets/sets/destined-rivals/cards/33_Ethan's_Quilava_Common.png"
+  },
+  {
+    "id": "destined-rivals-34-ethan-s-typhlosion",
+    "name": "Ethan's Typhlosion",
+    "rarity": "Rare",
+    "number": "34",
+    "image": "/assets/sets/destined-rivals/cards/34_Ethan's_Typhlosion_Rare.png"
+  },
+  {
+    "id": "destined-rivals-35-ethan-s-slugma",
+    "name": "Ethan's Slugma",
+    "rarity": "Common",
+    "number": "35",
+    "image": "/assets/sets/destined-rivals/cards/35_Ethan's_Slugma_Common.png"
+  },
+  {
+    "id": "destined-rivals-36-ethan-s-magcargo",
+    "name": "Ethan's Magcargo",
+    "rarity": "Rare",
+    "number": "36",
+    "image": "/assets/sets/destined-rivals/cards/36_Ethan's_Magcargo_Rare.png"
+  },
+  {
+    "id": "destined-rivals-37-team-rocket-s-houndour",
+    "name": "Team Rocket's Houndour",
+    "rarity": "Common",
+    "number": "37",
+    "image": "/assets/sets/destined-rivals/cards/37_Team_Rocket's_Houndour_Common.png"
+  },
+  {
+    "id": "destined-rivals-38-team-rocket-s-houndoom",
+    "name": "Team Rocket's Houndoom",
+    "rarity": "Uncommon",
+    "number": "38",
+    "image": "/assets/sets/destined-rivals/cards/38_Team_Rocket's_Houndoom_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-39-ethan-s-ho-oh-ex",
+    "name": "Ethan's Ho-Oh ex",
+    "rarity": "Double Rare",
+    "number": "39",
+    "image": "/assets/sets/destined-rivals/cards/39_Ethan's_Ho-Oh_ex_Double_Rare.png"
+  },
+  {
+    "id": "destined-rivals-40-torchic",
+    "name": "Torchic",
+    "rarity": "Common",
+    "number": "40",
+    "image": "/assets/sets/destined-rivals/cards/40_Torchic_Common.png"
+  },
+  {
+    "id": "destined-rivals-41-combusken",
+    "name": "Combusken",
+    "rarity": "Common",
+    "number": "41",
+    "image": "/assets/sets/destined-rivals/cards/41_Combusken_Common.png"
+  },
+  {
+    "id": "destined-rivals-42-blaziken",
+    "name": "Blaziken",
+    "rarity": "Rare",
+    "number": "42",
+    "image": "/assets/sets/destined-rivals/cards/42_Blaziken_Rare.png"
+  },
+  {
+    "id": "destined-rivals-43-heat-rotom",
+    "name": "Heat Rotom",
+    "rarity": "Common",
+    "number": "43",
+    "image": "/assets/sets/destined-rivals/cards/43_Heat_Rotom_Common.png"
+  },
+  {
+    "id": "destined-rivals-44-hearthflame-mask-ogerpon",
+    "name": "Hearthflame Mask Ogerpon",
+    "rarity": "Uncommon",
+    "number": "44",
+    "image": "/assets/sets/destined-rivals/cards/44_Hearthflame_Mask_Ogerpon_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-45-misty-s-psyduck",
+    "name": "Misty's Psyduck",
+    "rarity": "Uncommon",
+    "number": "45",
+    "image": "/assets/sets/destined-rivals/cards/45_Misty's_Psyduck_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-46-misty-s-staryu",
+    "name": "Misty's Staryu",
+    "rarity": "Common",
+    "number": "46",
+    "image": "/assets/sets/destined-rivals/cards/46_Misty's_Staryu_Common.png"
+  },
+  {
+    "id": "destined-rivals-47-misty-s-starmie",
+    "name": "Misty's Starmie",
+    "rarity": "Uncommon",
+    "number": "47",
+    "image": "/assets/sets/destined-rivals/cards/47_Misty's_Starmie_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-48-misty-s-magikarp",
+    "name": "Misty's Magikarp",
+    "rarity": "Common",
+    "number": "48",
+    "image": "/assets/sets/destined-rivals/cards/48_Misty's_Magikarp_Common.png"
+  },
+  {
+    "id": "destined-rivals-49-misty-s-gyarados",
+    "name": "Misty's Gyarados",
+    "rarity": "Rare",
+    "number": "49",
+    "image": "/assets/sets/destined-rivals/cards/49_Misty's_Gyarados_Rare.png"
+  },
+  {
+    "id": "destined-rivals-50-misty-s-lapras",
+    "name": "Misty's Lapras",
+    "rarity": "Common",
+    "number": "50",
+    "image": "/assets/sets/destined-rivals/cards/50_Misty's_Lapras_Common.png"
+  },
+  {
+    "id": "destined-rivals-51-team-rocket-s-articuno",
+    "name": "Team Rocket's Articuno",
+    "rarity": "Rare",
+    "number": "51",
+    "image": "/assets/sets/destined-rivals/cards/51_Team_Rocket's_Articuno_Rare.png"
+  },
+  {
+    "id": "destined-rivals-52-cynthia-s-feebas",
+    "name": "Cynthia's Feebas",
+    "rarity": "Common",
+    "number": "52",
+    "image": "/assets/sets/destined-rivals/cards/52_Cynthia's_Feebas_Common.png"
+  },
+  {
+    "id": "destined-rivals-53-cynthia-s-milotic",
+    "name": "Cynthia's Milotic",
+    "rarity": "Uncommon",
+    "number": "53",
+    "image": "/assets/sets/destined-rivals/cards/53_Cynthia's_Milotic_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-54-clamperl",
+    "name": "Clamperl",
+    "rarity": "Common",
+    "number": "54",
+    "image": "/assets/sets/destined-rivals/cards/54_Clamperl_Common.png"
+  },
+  {
+    "id": "destined-rivals-55-huntail",
+    "name": "Huntail",
+    "rarity": "Uncommon",
+    "number": "55",
+    "image": "/assets/sets/destined-rivals/cards/55_Huntail_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-56-gorebyss",
+    "name": "Gorebyss",
+    "rarity": "Rare",
+    "number": "56",
+    "image": "/assets/sets/destined-rivals/cards/56_Gorebyss_Rare.png"
+  },
+  {
+    "id": "destined-rivals-57-buizel",
+    "name": "Buizel",
+    "rarity": "Common",
+    "number": "57",
+    "image": "/assets/sets/destined-rivals/cards/57_Buizel_Common.png"
+  },
+  {
+    "id": "destined-rivals-58-floatzel",
+    "name": "Floatzel",
+    "rarity": "Uncommon",
+    "number": "58",
+    "image": "/assets/sets/destined-rivals/cards/58_Floatzel_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-59-snover",
+    "name": "Snover",
+    "rarity": "Common",
+    "number": "59",
+    "image": "/assets/sets/destined-rivals/cards/59_Snover_Common.png"
+  },
+  {
+    "id": "destined-rivals-60-abomasnow",
+    "name": "Abomasnow",
+    "rarity": "Uncommon",
+    "number": "60",
+    "image": "/assets/sets/destined-rivals/cards/60_Abomasnow_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-61-wash-rotom",
+    "name": "Wash Rotom",
+    "rarity": "Common",
+    "number": "61",
+    "image": "/assets/sets/destined-rivals/cards/61_Wash_Rotom_Common.png"
+  },
+  {
+    "id": "destined-rivals-62-arrokuda",
+    "name": "Arrokuda",
+    "rarity": "Common",
+    "number": "62",
+    "image": "/assets/sets/destined-rivals/cards/62_Arrokuda_Common.png"
+  },
+  {
+    "id": "destined-rivals-63-barraskewda",
+    "name": "Barraskewda",
+    "rarity": "Uncommon",
+    "number": "63",
+    "image": "/assets/sets/destined-rivals/cards/63_Barraskewda_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-64-cetoddle",
+    "name": "Cetoddle",
+    "rarity": "Common",
+    "number": "64",
+    "image": "/assets/sets/destined-rivals/cards/64_Cetoddle_Common.png"
+  },
+  {
+    "id": "destined-rivals-65-cetitan-ex",
+    "name": "Cetitan ex",
+    "rarity": "Double Rare",
+    "number": "65",
+    "image": "/assets/sets/destined-rivals/cards/65_Cetitan_ex_Double_Rare.png"
+  },
+  {
+    "id": "destined-rivals-66-dondozo-ex",
+    "name": "Dondozo ex",
+    "rarity": "Double Rare",
+    "number": "66",
+    "image": "/assets/sets/destined-rivals/cards/66_Dondozo_ex_Double_Rare.png"
+  },
+  {
+    "id": "destined-rivals-67-wellspring-mask-ogerpon",
+    "name": "Wellspring Mask Ogerpon",
+    "rarity": "Uncommon",
+    "number": "67",
+    "image": "/assets/sets/destined-rivals/cards/67_Wellspring_Mask_Ogerpon_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-68-electabuzz",
+    "name": "Electabuzz",
+    "rarity": "Common",
+    "number": "68",
+    "image": "/assets/sets/destined-rivals/cards/68_Electabuzz_Common.png"
+  },
+  {
+    "id": "destined-rivals-69-electivire-ex",
+    "name": "Electivire ex",
+    "rarity": "Double Rare",
+    "number": "69",
+    "image": "/assets/sets/destined-rivals/cards/69_Electivire_ex_Double_Rare.png"
+  },
+  {
+    "id": "destined-rivals-70-team-rocket-s-zapdos",
+    "name": "Team Rocket's Zapdos",
+    "rarity": "Rare",
+    "number": "70",
+    "image": "/assets/sets/destined-rivals/cards/70_Team_Rocket's_Zapdos_Rare.png"
+  },
+  {
+    "id": "destined-rivals-71-ethan-s-pichu",
+    "name": "Ethan's Pichu",
+    "rarity": "Common",
+    "number": "71",
+    "image": "/assets/sets/destined-rivals/cards/71_Ethan's_Pichu_Common.png"
+  },
+  {
+    "id": "destined-rivals-72-team-rocket-s-mareep",
+    "name": "Team Rocket's Mareep",
+    "rarity": "Common",
+    "number": "72",
+    "image": "/assets/sets/destined-rivals/cards/72_Team_Rocket's_Mareep_Common.png"
+  },
+  {
+    "id": "destined-rivals-73-team-rocket-s-flaaffy",
+    "name": "Team Rocket's Flaaffy",
+    "rarity": "Common",
+    "number": "73",
+    "image": "/assets/sets/destined-rivals/cards/73_Team_Rocket's_Flaaffy_Common.png"
+  },
+  {
+    "id": "destined-rivals-74-team-rocket-s-ampharos",
+    "name": "Team Rocket's Ampharos",
+    "rarity": "Uncommon",
+    "number": "74",
+    "image": "/assets/sets/destined-rivals/cards/74_Team_Rocket's_Ampharos_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-75-electrike",
+    "name": "Electrike",
+    "rarity": "Common",
+    "number": "75",
+    "image": "/assets/sets/destined-rivals/cards/75_Electrike_Common.png"
+  },
+  {
+    "id": "destined-rivals-76-manectric",
+    "name": "Manectric",
+    "rarity": "Uncommon",
+    "number": "76",
+    "image": "/assets/sets/destined-rivals/cards/76_Manectric_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-77-rotom",
+    "name": "Rotom",
+    "rarity": "Common",
+    "number": "77",
+    "image": "/assets/sets/destined-rivals/cards/77_Rotom_Common.png"
+  },
+  {
+    "id": "destined-rivals-78-zeraora",
+    "name": "Zeraora",
+    "rarity": "Rare",
+    "number": "78",
+    "image": "/assets/sets/destined-rivals/cards/78_Zeraora_Rare.png"
+  },
+  {
+    "id": "destined-rivals-79-team-rocket-s-drowzee",
+    "name": "Team Rocket's Drowzee",
+    "rarity": "Common",
+    "number": "79",
+    "image": "/assets/sets/destined-rivals/cards/79_Team_Rocket's_Drowzee_Common.png"
+  },
+  {
+    "id": "destined-rivals-80-team-rocket-s-hypno",
+    "name": "Team Rocket's Hypno",
+    "rarity": "Uncommon",
+    "number": "80",
+    "image": "/assets/sets/destined-rivals/cards/80_Team_Rocket's_Hypno_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-81-team-rocket-s-mewtwo-ex",
+    "name": "Team Rocket's Mewtwo ex",
+    "rarity": "Double Rare",
+    "number": "81",
+    "image": "/assets/sets/destined-rivals/cards/81_Team_Rocket's_Mewtwo_ex_Double_Rare.png"
+  },
+  {
+    "id": "destined-rivals-82-team-rocket-s-wobbuffet",
+    "name": "Team Rocket's Wobbuffet",
+    "rarity": "Rare",
+    "number": "82",
+    "image": "/assets/sets/destined-rivals/cards/82_Team_Rocket's_Wobbuffet_Rare.png"
+  },
+  {
+    "id": "destined-rivals-83-steven-s-baltoy",
+    "name": "Steven's Baltoy",
+    "rarity": "Common",
+    "number": "83",
+    "image": "/assets/sets/destined-rivals/cards/83_Steven's_Baltoy_Common.png"
+  },
+  {
+    "id": "destined-rivals-84-steven-s-claydol",
+    "name": "Steven's Claydol",
+    "rarity": "Uncommon",
+    "number": "84",
+    "image": "/assets/sets/destined-rivals/cards/84_Steven's_Claydol_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-85-team-rocket-s-chingling",
+    "name": "Team Rocket's Chingling",
+    "rarity": "Common",
+    "number": "85",
+    "image": "/assets/sets/destined-rivals/cards/85_Team_Rocket's_Chingling_Common.png"
+  },
+  {
+    "id": "destined-rivals-86-steven-s-carbink",
+    "name": "Steven's Carbink",
+    "rarity": "Common",
+    "number": "86",
+    "image": "/assets/sets/destined-rivals/cards/86_Steven's_Carbink_Common.png"
+  },
+  {
+    "id": "destined-rivals-87-team-rocket-s-mimikyu",
+    "name": "Team Rocket's Mimikyu",
+    "rarity": "Uncommon",
+    "number": "87",
+    "image": "/assets/sets/destined-rivals/cards/87_Team_Rocket's_Mimikyu_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-88-team-rocket-s-dottler",
+    "name": "Team Rocket's Dottler",
+    "rarity": "Common",
+    "number": "88",
+    "image": "/assets/sets/destined-rivals/cards/88_Team_Rocket's_Dottler_Common.png"
+  },
+  {
+    "id": "destined-rivals-89-team-rocket-s-orbeetle",
+    "name": "Team Rocket's Orbeetle",
+    "rarity": "Uncommon",
+    "number": "89",
+    "image": "/assets/sets/destined-rivals/cards/89_Team_Rocket's_Orbeetle_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-90-mankey",
+    "name": "Mankey",
+    "rarity": "Common",
+    "number": "90",
+    "image": "/assets/sets/destined-rivals/cards/90_Mankey_Common.png"
+  },
+  {
+    "id": "destined-rivals-91-primeape",
+    "name": "Primeape",
+    "rarity": "Common",
+    "number": "91",
+    "image": "/assets/sets/destined-rivals/cards/91_Primeape_Common.png"
+  },
+  {
+    "id": "destined-rivals-92-annihilape",
+    "name": "Annihilape",
+    "rarity": "Rare",
+    "number": "92",
+    "image": "/assets/sets/destined-rivals/cards/92_Annihilape_Rare.png"
+  },
+  {
+    "id": "destined-rivals-93-ethan-s-sudowoodo",
+    "name": "Ethan's Sudowoodo",
+    "rarity": "Common",
+    "number": "93",
+    "image": "/assets/sets/destined-rivals/cards/93_Ethan's_Sudowoodo_Common.png"
+  },
+  {
+    "id": "destined-rivals-94-team-rocket-s-larvitar",
+    "name": "Team Rocket's Larvitar",
+    "rarity": "Common",
+    "number": "94",
+    "image": "/assets/sets/destined-rivals/cards/94_Team_Rocket's_Larvitar_Common.png"
+  },
+  {
+    "id": "destined-rivals-95-team-rocket-s-pupitar",
+    "name": "Team Rocket's Pupitar",
+    "rarity": "Common",
+    "number": "95",
+    "image": "/assets/sets/destined-rivals/cards/95_Team_Rocket's_Pupitar_Common.png"
+  },
+  {
+    "id": "destined-rivals-96-team-rocket-s-tyranitar",
+    "name": "Team Rocket's Tyranitar",
+    "rarity": "Rare",
+    "number": "96",
+    "image": "/assets/sets/destined-rivals/cards/96_Team_Rocket's_Tyranitar_Rare.png"
+  },
+  {
+    "id": "destined-rivals-97-nosepass",
+    "name": "Nosepass",
+    "rarity": "Common",
+    "number": "97",
+    "image": "/assets/sets/destined-rivals/cards/97_Nosepass_Common.png"
+  },
+  {
+    "id": "destined-rivals-98-probopass",
+    "name": "Probopass",
+    "rarity": "Uncommon",
+    "number": "98",
+    "image": "/assets/sets/destined-rivals/cards/98_Probopass_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-99-meditite",
+    "name": "Meditite",
+    "rarity": "Common",
+    "number": "99",
+    "image": "/assets/sets/destined-rivals/cards/99_Meditite_Common.png"
+  },
+  {
+    "id": "destined-rivals-100-medicham",
+    "name": "Medicham",
+    "rarity": "Uncommon",
+    "number": "100",
+    "image": "/assets/sets/destined-rivals/cards/100_Medicham_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-101-regirock-ex",
+    "name": "Regirock ex",
+    "rarity": "Double Rare",
+    "number": "101",
+    "image": "/assets/sets/destined-rivals/cards/101_Regirock_ex_Double_Rare.png"
+  },
+  {
+    "id": "destined-rivals-102-cynthia-s-gible",
+    "name": "Cynthia's Gible",
+    "rarity": "Common",
+    "number": "102",
+    "image": "/assets/sets/destined-rivals/cards/102_Cynthia's_Gible_Common.png"
+  },
+  {
+    "id": "destined-rivals-103-cynthia-s-gabite",
+    "name": "Cynthia's Gabite",
+    "rarity": "Common",
+    "number": "103",
+    "image": "/assets/sets/destined-rivals/cards/103_Cynthia's_Gabite_Common.png"
+  },
+  {
+    "id": "destined-rivals-104-cynthia-s-garchomp-ex",
+    "name": "Cynthia's Garchomp ex",
+    "rarity": "Double Rare",
+    "number": "104",
+    "image": "/assets/sets/destined-rivals/cards/104_Cynthia's_Garchomp_ex_Double_Rare.png"
+  },
+  {
+    "id": "destined-rivals-105-hippopotas",
+    "name": "Hippopotas",
+    "rarity": "Common",
+    "number": "105",
+    "image": "/assets/sets/destined-rivals/cards/105_Hippopotas_Common.png"
+  },
+  {
+    "id": "destined-rivals-106-hippowdon",
+    "name": "Hippowdon",
+    "rarity": "Uncommon",
+    "number": "106",
+    "image": "/assets/sets/destined-rivals/cards/106_Hippowdon_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-107-mudbray",
+    "name": "Mudbray",
+    "rarity": "Common",
+    "number": "107",
+    "image": "/assets/sets/destined-rivals/cards/107_Mudbray_Common.png"
+  },
+  {
+    "id": "destined-rivals-108-mudsdale",
+    "name": "Mudsdale",
+    "rarity": "Uncommon",
+    "number": "108",
+    "image": "/assets/sets/destined-rivals/cards/108_Mudsdale_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-109-arven-s-toedscool",
+    "name": "Arven's Toedscool",
+    "rarity": "Common",
+    "number": "109",
+    "image": "/assets/sets/destined-rivals/cards/109_Arven's_Toedscool_Common.png"
+  },
+  {
+    "id": "destined-rivals-110-arven-s-toedscruel",
+    "name": "Arven's Toedscruel",
+    "rarity": "Uncommon",
+    "number": "110",
+    "image": "/assets/sets/destined-rivals/cards/110_Arven's_Toedscruel_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-111-cornerstone-mask-ogerpon",
+    "name": "Cornerstone Mask Ogerpon",
+    "rarity": "Uncommon",
+    "number": "111",
+    "image": "/assets/sets/destined-rivals/cards/111_Cornerstone_Mask_Ogerpon_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-112-team-rocket-s-ekans",
+    "name": "Team Rocket's Ekans",
+    "rarity": "Common",
+    "number": "112",
+    "image": "/assets/sets/destined-rivals/cards/112_Team_Rocket's_Ekans_Common.png"
+  },
+  {
+    "id": "destined-rivals-113-team-rocket-s-arbok",
+    "name": "Team Rocket's Arbok",
+    "rarity": "Uncommon",
+    "number": "113",
+    "image": "/assets/sets/destined-rivals/cards/113_Team_Rocket's_Arbok_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-114-team-rocket-s-nidoran",
+    "name": "Team Rocket's Nidoran♀",
+    "rarity": "Common",
+    "number": "114",
+    "image": "/assets/sets/destined-rivals/cards/114_Team_Rocket's_Nidoran♀_Common.png"
+  },
+  {
+    "id": "destined-rivals-115-team-rocket-s-nidorina",
+    "name": "Team Rocket's Nidorina",
+    "rarity": "Common",
+    "number": "115",
+    "image": "/assets/sets/destined-rivals/cards/115_Team_Rocket's_Nidorina_Common.png"
+  },
+  {
+    "id": "destined-rivals-116-team-rocket-s-nidoqueen",
+    "name": "Team Rocket's Nidoqueen",
+    "rarity": "Uncommon",
+    "number": "116",
+    "image": "/assets/sets/destined-rivals/cards/116_Team_Rocket's_Nidoqueen_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-117-team-rocket-s-nidoran",
+    "name": "Team Rocket's Nidoran♂",
+    "rarity": "Common",
+    "number": "117",
+    "image": "/assets/sets/destined-rivals/cards/117_Team_Rocket's_Nidoran♂_Common.png"
+  },
+  {
+    "id": "destined-rivals-118-team-rocket-s-nidorino",
+    "name": "Team Rocket's Nidorino",
+    "rarity": "Common",
+    "number": "118",
+    "image": "/assets/sets/destined-rivals/cards/118_Team_Rocket's_Nidorino_Common.png"
+  },
+  {
+    "id": "destined-rivals-119-team-rocket-s-nidoking-ex",
+    "name": "Team Rocket's Nidoking ex",
+    "rarity": "Double Rare",
+    "number": "119",
+    "image": "/assets/sets/destined-rivals/cards/119_Team_Rocket's_Nidoking_ex_Double_Rare.png"
+  },
+  {
+    "id": "destined-rivals-120-team-rocket-s-zubat",
+    "name": "Team Rocket's Zubat",
+    "rarity": "Common",
+    "number": "120",
+    "image": "/assets/sets/destined-rivals/cards/120_Team_Rocket's_Zubat_Common.png"
+  },
+  {
+    "id": "destined-rivals-121-team-rocket-s-golbat",
+    "name": "Team Rocket's Golbat",
+    "rarity": "Uncommon",
+    "number": "121",
+    "image": "/assets/sets/destined-rivals/cards/121_Team_Rocket's_Golbat_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-122-team-rocket-s-crobat-ex",
+    "name": "Team Rocket's Crobat ex",
+    "rarity": "Double Rare",
+    "number": "122",
+    "image": "/assets/sets/destined-rivals/cards/122_Team_Rocket's_Crobat_ex_Double_Rare.png"
+  },
+  {
+    "id": "destined-rivals-123-team-rocket-s-grimer",
+    "name": "Team Rocket's Grimer",
+    "rarity": "Common",
+    "number": "123",
+    "image": "/assets/sets/destined-rivals/cards/123_Team_Rocket's_Grimer_Common.png"
+  },
+  {
+    "id": "destined-rivals-124-team-rocket-s-muk",
+    "name": "Team Rocket's Muk",
+    "rarity": "Uncommon",
+    "number": "124",
+    "image": "/assets/sets/destined-rivals/cards/124_Team_Rocket's_Muk_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-125-team-rocket-s-koffing",
+    "name": "Team Rocket's Koffing",
+    "rarity": "Common",
+    "number": "125",
+    "image": "/assets/sets/destined-rivals/cards/125_Team_Rocket's_Koffing_Common.png"
+  },
+  {
+    "id": "destined-rivals-126-team-rocket-s-weezing",
+    "name": "Team Rocket's Weezing",
+    "rarity": "Uncommon",
+    "number": "126",
+    "image": "/assets/sets/destined-rivals/cards/126_Team_Rocket's_Weezing_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-127-team-rocket-s-murkrow",
+    "name": "Team Rocket's Murkrow",
+    "rarity": "Uncommon",
+    "number": "127",
+    "image": "/assets/sets/destined-rivals/cards/127_Team_Rocket's_Murkrow_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-128-team-rocket-s-sneasel",
+    "name": "Team Rocket's Sneasel",
+    "rarity": "Rare",
+    "number": "128",
+    "image": "/assets/sets/destined-rivals/cards/128_Team_Rocket's_Sneasel_Rare.png"
+  },
+  {
+    "id": "destined-rivals-129-cynthia-s-spiritomb",
+    "name": "Cynthia's Spiritomb",
+    "rarity": "Uncommon",
+    "number": "129",
+    "image": "/assets/sets/destined-rivals/cards/129_Cynthia's_Spiritomb_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-130-marnie-s-purrloin",
+    "name": "Marnie's Purrloin",
+    "rarity": "Common",
+    "number": "130",
+    "image": "/assets/sets/destined-rivals/cards/130_Marnie's_Purrloin_Common.png"
+  },
+  {
+    "id": "destined-rivals-131-marnie-s-liepard",
+    "name": "Marnie's Liepard",
+    "rarity": "Uncommon",
+    "number": "131",
+    "image": "/assets/sets/destined-rivals/cards/131_Marnie's_Liepard_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-132-marnie-s-scraggy",
+    "name": "Marnie's Scraggy",
+    "rarity": "Common",
+    "number": "132",
+    "image": "/assets/sets/destined-rivals/cards/132_Marnie's_Scraggy_Common.png"
+  },
+  {
+    "id": "destined-rivals-133-marnie-s-scrafty",
+    "name": "Marnie's Scrafty",
+    "rarity": "Uncommon",
+    "number": "133",
+    "image": "/assets/sets/destined-rivals/cards/133_Marnie's_Scrafty_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-134-marnie-s-impidimp",
+    "name": "Marnie's Impidimp",
+    "rarity": "Common",
+    "number": "134",
+    "image": "/assets/sets/destined-rivals/cards/134_Marnie's_Impidimp_Common.png"
+  },
+  {
+    "id": "destined-rivals-135-marnie-s-morgrem",
+    "name": "Marnie's Morgrem",
+    "rarity": "Uncommon",
+    "number": "135",
+    "image": "/assets/sets/destined-rivals/cards/135_Marnie's_Morgrem_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-136-marnie-s-grimmsnarl-ex",
+    "name": "Marnie's Grimmsnarl ex",
+    "rarity": "Double Rare",
+    "number": "136",
+    "image": "/assets/sets/destined-rivals/cards/136_Marnie's_Grimmsnarl_ex_Double_Rare.png"
+  },
+  {
+    "id": "destined-rivals-137-marnie-s-morpeko",
+    "name": "Marnie's Morpeko",
+    "rarity": "Common",
+    "number": "137",
+    "image": "/assets/sets/destined-rivals/cards/137_Marnie's_Morpeko_Common.png"
+  },
+  {
+    "id": "destined-rivals-138-arven-s-maschiff",
+    "name": "Arven's Maschiff",
+    "rarity": "Common",
+    "number": "138",
+    "image": "/assets/sets/destined-rivals/cards/138_Arven's_Maschiff_Common.png"
+  },
+  {
+    "id": "destined-rivals-139-arven-s-mabosstiff-ex",
+    "name": "Arven's Mabosstiff ex",
+    "rarity": "Double Rare",
+    "number": "139",
+    "image": "/assets/sets/destined-rivals/cards/139_Arven's_Mabosstiff_ex_Double_Rare.png"
+  },
+  {
+    "id": "destined-rivals-140-forretress",
+    "name": "Forretress",
+    "rarity": "Uncommon",
+    "number": "140",
+    "image": "/assets/sets/destined-rivals/cards/140_Forretress_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-141-skarmory",
+    "name": "Skarmory",
+    "rarity": "Common",
+    "number": "141",
+    "image": "/assets/sets/destined-rivals/cards/141_Skarmory_Common.png"
+  },
+  {
+    "id": "destined-rivals-142-steven-s-skarmory",
+    "name": "Steven's Skarmory",
+    "rarity": "Common",
+    "number": "142",
+    "image": "/assets/sets/destined-rivals/cards/142_Steven's_Skarmory_Common.png"
+  },
+  {
+    "id": "destined-rivals-143-steven-s-beldum",
+    "name": "Steven's Beldum",
+    "rarity": "Common",
+    "number": "143",
+    "image": "/assets/sets/destined-rivals/cards/143_Steven's_Beldum_Common.png"
+  },
+  {
+    "id": "destined-rivals-144-steven-s-metang",
+    "name": "Steven's Metang",
+    "rarity": "Uncommon",
+    "number": "144",
+    "image": "/assets/sets/destined-rivals/cards/144_Steven's_Metang_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-145-steven-s-metagross-ex",
+    "name": "Steven's Metagross ex",
+    "rarity": "Double Rare",
+    "number": "145",
+    "image": "/assets/sets/destined-rivals/cards/145_Steven's_Metagross_ex_Double_Rare.png"
+  },
+  {
+    "id": "destined-rivals-146-zamazenta",
+    "name": "Zamazenta",
+    "rarity": "Rare",
+    "number": "146",
+    "image": "/assets/sets/destined-rivals/cards/146_Zamazenta_Rare.png"
+  },
+  {
+    "id": "destined-rivals-147-team-rocket-s-rattata",
+    "name": "Team Rocket's Rattata",
+    "rarity": "Common",
+    "number": "147",
+    "image": "/assets/sets/destined-rivals/cards/147_Team_Rocket's_Rattata_Common.png"
+  },
+  {
+    "id": "destined-rivals-148-team-rocket-s-raticate",
+    "name": "Team Rocket's Raticate",
+    "rarity": "Common",
+    "number": "148",
+    "image": "/assets/sets/destined-rivals/cards/148_Team_Rocket's_Raticate_Common.png"
+  },
+  {
+    "id": "destined-rivals-149-team-rocket-s-meowth",
+    "name": "Team Rocket's Meowth",
+    "rarity": "Common",
+    "number": "149",
+    "image": "/assets/sets/destined-rivals/cards/149_Team_Rocket's_Meowth_Common.png"
+  },
+  {
+    "id": "destined-rivals-150-team-rocket-s-persian-ex",
+    "name": "Team Rocket's Persian ex",
+    "rarity": "Double Rare",
+    "number": "150",
+    "image": "/assets/sets/destined-rivals/cards/150_Team_Rocket's_Persian_ex_Double_Rare.png"
+  },
+  {
+    "id": "destined-rivals-151-kangaskhan",
+    "name": "Kangaskhan",
+    "rarity": "Common",
+    "number": "151",
+    "image": "/assets/sets/destined-rivals/cards/151_Kangaskhan_Common.png"
+  },
+  {
+    "id": "destined-rivals-152-tauros",
+    "name": "Tauros",
+    "rarity": "Common",
+    "number": "152",
+    "image": "/assets/sets/destined-rivals/cards/152_Tauros_Common.png"
+  },
+  {
+    "id": "destined-rivals-153-team-rocket-s-porygon",
+    "name": "Team Rocket's Porygon",
+    "rarity": "Common",
+    "number": "153",
+    "image": "/assets/sets/destined-rivals/cards/153_Team_Rocket's_Porygon_Common.png"
+  },
+  {
+    "id": "destined-rivals-154-team-rocket-s-porygon2",
+    "name": "Team Rocket's Porygon2",
+    "rarity": "Common",
+    "number": "154",
+    "image": "/assets/sets/destined-rivals/cards/154_Team_Rocket's_Porygon2_Common.png"
+  },
+  {
+    "id": "destined-rivals-155-team-rocket-s-porygon-z",
+    "name": "Team Rocket's Porygon-Z",
+    "rarity": "Uncommon",
+    "number": "155",
+    "image": "/assets/sets/destined-rivals/cards/155_Team_Rocket's_Porygon-Z_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-156-taillow",
+    "name": "Taillow",
+    "rarity": "Common",
+    "number": "156",
+    "image": "/assets/sets/destined-rivals/cards/156_Taillow_Common.png"
+  },
+  {
+    "id": "destined-rivals-157-swellow",
+    "name": "Swellow",
+    "rarity": "Common",
+    "number": "157",
+    "image": "/assets/sets/destined-rivals/cards/157_Swellow_Common.png"
+  },
+  {
+    "id": "destined-rivals-158-arven-s-skwovet",
+    "name": "Arven's Skwovet",
+    "rarity": "Common",
+    "number": "158",
+    "image": "/assets/sets/destined-rivals/cards/158_Arven's_Skwovet_Common.png"
+  },
+  {
+    "id": "destined-rivals-159-arven-s-greedent",
+    "name": "Arven's Greedent",
+    "rarity": "Rare",
+    "number": "159",
+    "image": "/assets/sets/destined-rivals/cards/159_Arven's_Greedent_Rare.png"
+  },
+  {
+    "id": "destined-rivals-160-squawkabilly",
+    "name": "Squawkabilly",
+    "rarity": "Common",
+    "number": "160",
+    "image": "/assets/sets/destined-rivals/cards/160_Squawkabilly_Common.png"
+  },
+  {
+    "id": "destined-rivals-161-arven-s-sandwich",
+    "name": "Arven's Sandwich",
+    "rarity": "Uncommon",
+    "number": "161",
+    "image": "/assets/sets/destined-rivals/cards/161_Arven's_Sandwich_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-162-cynthia-s-power-weight",
+    "name": "Cynthia's Power Weight",
+    "rarity": "Uncommon",
+    "number": "162",
+    "image": "/assets/sets/destined-rivals/cards/162_Cynthia's_Power_Weight_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-163-emcee-s-hype",
+    "name": "Emcee's Hype",
+    "rarity": "Common",
+    "number": "163",
+    "image": "/assets/sets/destined-rivals/cards/163_Emcee's_Hype_Common.png"
+  },
+  {
+    "id": "destined-rivals-164-energy-recycler",
+    "name": "Energy Recycler",
+    "rarity": "Uncommon",
+    "number": "164",
+    "image": "/assets/sets/destined-rivals/cards/164_Energy_Recycler_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-165-ethan-s-adventure",
+    "name": "Ethan's Adventure",
+    "rarity": "Uncommon",
+    "number": "165",
+    "image": "/assets/sets/destined-rivals/cards/165_Ethan's_Adventure_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-166-granite-cave",
+    "name": "Granite Cave",
+    "rarity": "Uncommon",
+    "number": "166",
+    "image": "/assets/sets/destined-rivals/cards/166_Granite_Cave_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-167-judge",
+    "name": "Judge",
+    "rarity": "Uncommon",
+    "number": "167",
+    "image": "/assets/sets/destined-rivals/cards/167_Judge_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-168-sacred-ash",
+    "name": "Sacred Ash",
+    "rarity": "Uncommon",
+    "number": "168",
+    "image": "/assets/sets/destined-rivals/cards/168_Sacred_Ash_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-169-spikemuth-gym",
+    "name": "Spikemuth Gym",
+    "rarity": "Uncommon",
+    "number": "169",
+    "image": "/assets/sets/destined-rivals/cards/169_Spikemuth_Gym_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-170-team-rocket-s-archer",
+    "name": "Team Rocket's Archer",
+    "rarity": "Uncommon",
+    "number": "170",
+    "image": "/assets/sets/destined-rivals/cards/170_Team_Rocket's_Archer_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-171-team-rocket-s-ariana",
+    "name": "Team Rocket's Ariana",
+    "rarity": "Uncommon",
+    "number": "171",
+    "image": "/assets/sets/destined-rivals/cards/171_Team_Rocket's_Ariana_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-172-team-rocket-s-bother-bot",
+    "name": "Team Rocket's Bother-Bot",
+    "rarity": "Uncommon",
+    "number": "172",
+    "image": "/assets/sets/destined-rivals/cards/172_Team_Rocket's_Bother-Bot_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-173-team-rocket-s-factory",
+    "name": "Team Rocket's Factory",
+    "rarity": "Uncommon",
+    "number": "173",
+    "image": "/assets/sets/destined-rivals/cards/173_Team_Rocket's_Factory_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-174-team-rocket-s-giovanni",
+    "name": "Team Rocket's Giovanni",
+    "rarity": "Uncommon",
+    "number": "174",
+    "image": "/assets/sets/destined-rivals/cards/174_Team_Rocket's_Giovanni_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-175-team-rocket-s-great-ball",
+    "name": "Team Rocket's Great Ball",
+    "rarity": "Uncommon",
+    "number": "175",
+    "image": "/assets/sets/destined-rivals/cards/175_Team_Rocket's_Great_Ball_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-176-team-rocket-s-petrel",
+    "name": "Team Rocket's Petrel",
+    "rarity": "Uncommon",
+    "number": "176",
+    "image": "/assets/sets/destined-rivals/cards/176_Team_Rocket's_Petrel_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-177-team-rocket-s-proton",
+    "name": "Team Rocket's Proton",
+    "rarity": "Uncommon",
+    "number": "177",
+    "image": "/assets/sets/destined-rivals/cards/177_Team_Rocket's_Proton_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-178-team-rocket-s-transceiver",
+    "name": "Team Rocket's Transceiver",
+    "rarity": "Uncommon",
+    "number": "178",
+    "image": "/assets/sets/destined-rivals/cards/178_Team_Rocket's_Transceiver_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-179-team-rocket-s-venture-bomb",
+    "name": "Team Rocket's Venture Bomb",
+    "rarity": "Uncommon",
+    "number": "179",
+    "image": "/assets/sets/destined-rivals/cards/179_Team_Rocket's_Venture_Bomb_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-180-team-rocket-s-watchtower",
+    "name": "Team Rocket's Watchtower",
+    "rarity": "Uncommon",
+    "number": "180",
+    "image": "/assets/sets/destined-rivals/cards/180_Team_Rocket's_Watchtower_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-181-tm-machine",
+    "name": "TM Machine",
+    "rarity": "Uncommon",
+    "number": "181",
+    "image": "/assets/sets/destined-rivals/cards/181_TM_Machine_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-182-team-rocket-s-energy",
+    "name": "Team Rocket's Energy",
+    "rarity": "Uncommon",
+    "number": "182",
+    "image": "/assets/sets/destined-rivals/cards/182_Team_Rocket's_Energy_Uncommon.png"
+  },
+  {
+    "id": "destined-rivals-183-yanma",
+    "name": "Yanma",
+    "rarity": "Illustration Rare",
+    "number": "183",
+    "image": "/assets/sets/destined-rivals/cards/183_Yanma_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-184-cynthia-s-roserade",
+    "name": "Cynthia's Roserade",
+    "rarity": "Illustration Rare",
+    "number": "184",
+    "image": "/assets/sets/destined-rivals/cards/184_Cynthia's_Roserade_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-185-shaymin",
+    "name": "Shaymin",
+    "rarity": "Illustration Rare",
+    "number": "185",
+    "image": "/assets/sets/destined-rivals/cards/185_Shaymin_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-186-crustle",
+    "name": "Crustle",
+    "rarity": "Illustration Rare",
+    "number": "186",
+    "image": "/assets/sets/destined-rivals/cards/186_Crustle_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-187-team-rocket-s-spidops",
+    "name": "Team Rocket's Spidops",
+    "rarity": "Illustration Rare",
+    "number": "187",
+    "image": "/assets/sets/destined-rivals/cards/187_Team_Rocket's_Spidops_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-188-hydrapple",
+    "name": "Hydrapple",
+    "rarity": "Illustration Rare",
+    "number": "188",
+    "image": "/assets/sets/destined-rivals/cards/188_Hydrapple_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-189-rapidash",
+    "name": "Rapidash",
+    "rarity": "Illustration Rare",
+    "number": "189",
+    "image": "/assets/sets/destined-rivals/cards/189_Rapidash_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-190-ethan-s-typhlosion",
+    "name": "Ethan's Typhlosion",
+    "rarity": "Illustration Rare",
+    "number": "190",
+    "image": "/assets/sets/destined-rivals/cards/190_Ethan's_Typhlosion_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-191-team-rocket-s-houndoom",
+    "name": "Team Rocket's Houndoom",
+    "rarity": "Illustration Rare",
+    "number": "191",
+    "image": "/assets/sets/destined-rivals/cards/191_Team_Rocket's_Houndoom_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-192-blaziken",
+    "name": "Blaziken",
+    "rarity": "Illustration Rare",
+    "number": "192",
+    "image": "/assets/sets/destined-rivals/cards/192_Blaziken_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-193-misty-s-psyduck",
+    "name": "Misty's Psyduck",
+    "rarity": "Illustration Rare",
+    "number": "193",
+    "image": "/assets/sets/destined-rivals/cards/193_Misty's_Psyduck_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-194-misty-s-lapras",
+    "name": "Misty's Lapras",
+    "rarity": "Illustration Rare",
+    "number": "194",
+    "image": "/assets/sets/destined-rivals/cards/194_Misty's_Lapras_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-195-clamperl",
+    "name": "Clamperl",
+    "rarity": "Illustration Rare",
+    "number": "195",
+    "image": "/assets/sets/destined-rivals/cards/195_Clamperl_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-196-electrike",
+    "name": "Electrike",
+    "rarity": "Illustration Rare",
+    "number": "196",
+    "image": "/assets/sets/destined-rivals/cards/196_Electrike_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-197-rotom",
+    "name": "Rotom",
+    "rarity": "Illustration Rare",
+    "number": "197",
+    "image": "/assets/sets/destined-rivals/cards/197_Rotom_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-198-team-rocket-s-orbeetle",
+    "name": "Team Rocket's Orbeetle",
+    "rarity": "Illustration Rare",
+    "number": "198",
+    "image": "/assets/sets/destined-rivals/cards/198_Team_Rocket's_Orbeetle_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-199-team-rocket-s-weezing",
+    "name": "Team Rocket's Weezing",
+    "rarity": "Illustration Rare",
+    "number": "199",
+    "image": "/assets/sets/destined-rivals/cards/199_Team_Rocket's_Weezing_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-200-team-rocket-s-murkrow",
+    "name": "Team Rocket's Murkrow",
+    "rarity": "Illustration Rare",
+    "number": "200",
+    "image": "/assets/sets/destined-rivals/cards/200_Team_Rocket's_Murkrow_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-201-zamazenta",
+    "name": "Zamazenta",
+    "rarity": "Illustration Rare",
+    "number": "201",
+    "image": "/assets/sets/destined-rivals/cards/201_Zamazenta_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-202-team-rocket-s-raticate",
+    "name": "Team Rocket's Raticate",
+    "rarity": "Illustration Rare",
+    "number": "202",
+    "image": "/assets/sets/destined-rivals/cards/202_Team_Rocket's_Raticate_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-203-team-rocket-s-meowth",
+    "name": "Team Rocket's Meowth",
+    "rarity": "Illustration Rare",
+    "number": "203",
+    "image": "/assets/sets/destined-rivals/cards/203_Team_Rocket's_Meowth_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-204-kangaskhan",
+    "name": "Kangaskhan",
+    "rarity": "Illustration Rare",
+    "number": "204",
+    "image": "/assets/sets/destined-rivals/cards/204_Kangaskhan_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-205-arven-s-greedent",
+    "name": "Arven's Greedent",
+    "rarity": "Illustration Rare",
+    "number": "205",
+    "image": "/assets/sets/destined-rivals/cards/205_Arven's_Greedent_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-206-yanmega-ex",
+    "name": "Yanmega ex",
+    "rarity": "Ultra Rare",
+    "number": "206",
+    "image": "/assets/sets/destined-rivals/cards/206_Yanmega_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "destined-rivals-207-arboliva-ex",
+    "name": "Arboliva ex",
+    "rarity": "Ultra Rare",
+    "number": "207",
+    "image": "/assets/sets/destined-rivals/cards/207_Arboliva_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "destined-rivals-208-team-rocket-s-moltres-ex",
+    "name": "Team Rocket's Moltres ex",
+    "rarity": "Ultra Rare",
+    "number": "208",
+    "image": "/assets/sets/destined-rivals/cards/208_Team_Rocket's_Moltres_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "destined-rivals-209-ethan-s-ho-oh-ex",
+    "name": "Ethan's Ho-Oh ex",
+    "rarity": "Ultra Rare",
+    "number": "209",
+    "image": "/assets/sets/destined-rivals/cards/209_Ethan's_Ho-Oh_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "destined-rivals-210-cetitan-ex",
+    "name": "Cetitan ex",
+    "rarity": "Ultra Rare",
+    "number": "210",
+    "image": "/assets/sets/destined-rivals/cards/210_Cetitan_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "destined-rivals-211-dondozo-ex",
+    "name": "Dondozo ex",
+    "rarity": "Ultra Rare",
+    "number": "211",
+    "image": "/assets/sets/destined-rivals/cards/211_Dondozo_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "destined-rivals-212-electivire-ex",
+    "name": "Electivire ex",
+    "rarity": "Ultra Rare",
+    "number": "212",
+    "image": "/assets/sets/destined-rivals/cards/212_Electivire_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "destined-rivals-213-team-rocket-s-mewtwo-ex",
+    "name": "Team Rocket's Mewtwo ex",
+    "rarity": "Ultra Rare",
+    "number": "213",
+    "image": "/assets/sets/destined-rivals/cards/213_Team_Rocket's_Mewtwo_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "destined-rivals-214-regirock-ex",
+    "name": "Regirock ex",
+    "rarity": "Ultra Rare",
+    "number": "214",
+    "image": "/assets/sets/destined-rivals/cards/214_Regirock_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "destined-rivals-215-cynthia-s-garchomp-ex",
+    "name": "Cynthia's Garchomp ex",
+    "rarity": "Ultra Rare",
+    "number": "215",
+    "image": "/assets/sets/destined-rivals/cards/215_Cynthia's_Garchomp_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "destined-rivals-216-team-rocket-s-nidoking-ex",
+    "name": "Team Rocket's Nidoking ex",
+    "rarity": "Ultra Rare",
+    "number": "216",
+    "image": "/assets/sets/destined-rivals/cards/216_Team_Rocket's_Nidoking_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "destined-rivals-217-team-rocket-s-crobat-ex",
+    "name": "Team Rocket's Crobat ex",
+    "rarity": "Ultra Rare",
+    "number": "217",
+    "image": "/assets/sets/destined-rivals/cards/217_Team_Rocket's_Crobat_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "destined-rivals-218-arven-s-mabosstiff-ex",
+    "name": "Arven's Mabosstiff ex",
+    "rarity": "Ultra Rare",
+    "number": "218",
+    "image": "/assets/sets/destined-rivals/cards/218_Arven's_Mabosstiff_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "destined-rivals-219-team-rocket-s-persian-ex",
+    "name": "Team Rocket's Persian ex",
+    "rarity": "Ultra Rare",
+    "number": "219",
+    "image": "/assets/sets/destined-rivals/cards/219_Team_Rocket's_Persian_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "destined-rivals-220-emcee-s-hype",
+    "name": "Emcee's Hype",
+    "rarity": "Ultra Rare",
+    "number": "220",
+    "image": "/assets/sets/destined-rivals/cards/220_Emcee's_Hype_Ultra_Rare.png"
+  },
+  {
+    "id": "destined-rivals-221-ethan-s-adventure",
+    "name": "Ethan's Adventure",
+    "rarity": "Ultra Rare",
+    "number": "221",
+    "image": "/assets/sets/destined-rivals/cards/221_Ethan's_Adventure_Ultra_Rare.png"
+  },
+  {
+    "id": "destined-rivals-222-judge",
+    "name": "Judge",
+    "rarity": "Ultra Rare",
+    "number": "222",
+    "image": "/assets/sets/destined-rivals/cards/222_Judge_Ultra_Rare.png"
+  },
+  {
+    "id": "destined-rivals-223-team-rocket-s-archer",
+    "name": "Team Rocket's Archer",
+    "rarity": "Ultra Rare",
+    "number": "223",
+    "image": "/assets/sets/destined-rivals/cards/223_Team_Rocket's_Archer_Ultra_Rare.png"
+  },
+  {
+    "id": "destined-rivals-224-team-rocket-s-ariana",
+    "name": "Team Rocket's Ariana",
+    "rarity": "Ultra Rare",
+    "number": "224",
+    "image": "/assets/sets/destined-rivals/cards/224_Team_Rocket's_Ariana_Ultra_Rare.png"
+  },
+  {
+    "id": "destined-rivals-225-team-rocket-s-giovanni",
+    "name": "Team Rocket's Giovanni",
+    "rarity": "Ultra Rare",
+    "number": "225",
+    "image": "/assets/sets/destined-rivals/cards/225_Team_Rocket's_Giovanni_Ultra_Rare.png"
+  },
+  {
+    "id": "destined-rivals-226-team-rocket-s-petrel",
+    "name": "Team Rocket's Petrel",
+    "rarity": "Ultra Rare",
+    "number": "226",
+    "image": "/assets/sets/destined-rivals/cards/226_Team_Rocket's_Petrel_Ultra_Rare.png"
+  },
+  {
+    "id": "destined-rivals-227-team-rocket-s-proton",
+    "name": "Team Rocket's Proton",
+    "rarity": "Ultra Rare",
+    "number": "227",
+    "image": "/assets/sets/destined-rivals/cards/227_Team_Rocket's_Proton_Ultra_Rare.png"
+  },
+  {
+    "id": "destined-rivals-228-yanmega-ex",
+    "name": "Yanmega ex",
+    "rarity": "Special Illustration Rare",
+    "number": "228",
+    "image": "/assets/sets/destined-rivals/cards/228_Yanmega_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-229-team-rocket-s-moltres-ex",
+    "name": "Team Rocket's Moltres ex",
+    "rarity": "Special Illustration Rare",
+    "number": "229",
+    "image": "/assets/sets/destined-rivals/cards/229_Team_Rocket's_Moltres_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-230-ethan-s-ho-oh-ex",
+    "name": "Ethan's Ho-Oh ex",
+    "rarity": "Special Illustration Rare",
+    "number": "230",
+    "image": "/assets/sets/destined-rivals/cards/230_Ethan's_Ho-Oh_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-231-team-rocket-s-mewtwo-ex",
+    "name": "Team Rocket's Mewtwo ex",
+    "rarity": "Special Illustration Rare",
+    "number": "231",
+    "image": "/assets/sets/destined-rivals/cards/231_Team_Rocket's_Mewtwo_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-232-cynthia-s-garchomp-ex",
+    "name": "Cynthia's Garchomp ex",
+    "rarity": "Special Illustration Rare",
+    "number": "232",
+    "image": "/assets/sets/destined-rivals/cards/232_Cynthia's_Garchomp_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-233-team-rocket-s-nidoking-ex",
+    "name": "Team Rocket's Nidoking ex",
+    "rarity": "Special Illustration Rare",
+    "number": "233",
+    "image": "/assets/sets/destined-rivals/cards/233_Team_Rocket's_Nidoking_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-234-team-rocket-s-crobat-ex",
+    "name": "Team Rocket's Crobat ex",
+    "rarity": "Special Illustration Rare",
+    "number": "234",
+    "image": "/assets/sets/destined-rivals/cards/234_Team_Rocket's_Crobat_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-235-arven-s-mabosstiff-ex",
+    "name": "Arven's Mabosstiff ex",
+    "rarity": "Special Illustration Rare",
+    "number": "235",
+    "image": "/assets/sets/destined-rivals/cards/235_Arven's_Mabosstiff_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-236-ethan-s-adventure",
+    "name": "Ethan's Adventure",
+    "rarity": "Special Illustration Rare",
+    "number": "236",
+    "image": "/assets/sets/destined-rivals/cards/236_Ethan's_Adventure_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-237-team-rocket-s-ariana",
+    "name": "Team Rocket's Ariana",
+    "rarity": "Special Illustration Rare",
+    "number": "237",
+    "image": "/assets/sets/destined-rivals/cards/237_Team_Rocket's_Ariana_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-238-team-rocket-s-giovanni",
+    "name": "Team Rocket's Giovanni",
+    "rarity": "Special Illustration Rare",
+    "number": "238",
+    "image": "/assets/sets/destined-rivals/cards/238_Team_Rocket's_Giovanni_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "destined-rivals-239-ethan-s-ho-oh-ex-hyper",
+    "name": "Ethan's Ho-Oh ex Hyper",
+    "rarity": "Rare",
+    "number": "239",
+    "image": "/assets/sets/destined-rivals/cards/239_Ethan's_Ho-Oh_ex_Hyper_Rare.png"
+  },
+  {
+    "id": "destined-rivals-240-team-rocket-s-mewtwo-ex-hyper",
+    "name": "Team Rocket's Mewtwo ex Hyper",
+    "rarity": "Rare",
+    "number": "240",
+    "image": "/assets/sets/destined-rivals/cards/240_Team_Rocket's_Mewtwo_ex_Hyper_Rare.png"
+  },
+  {
+    "id": "destined-rivals-241-cynthia-s-garchomp-ex-hyper",
+    "name": "Cynthia's Garchomp ex Hyper",
+    "rarity": "Rare",
+    "number": "241",
+    "image": "/assets/sets/destined-rivals/cards/241_Cynthia's_Garchomp_ex_Hyper_Rare.png"
+  },
+  {
+    "id": "destined-rivals-242-team-rocket-s-crobat-ex-hyper",
+    "name": "Team Rocket's Crobat ex Hyper",
+    "rarity": "Rare",
+    "number": "242",
+    "image": "/assets/sets/destined-rivals/cards/242_Team_Rocket's_Crobat_ex_Hyper_Rare.png"
+  },
+  {
+    "id": "destined-rivals-243-jamming-tower-hyper",
+    "name": "Jamming Tower Hyper",
+    "rarity": "Rare",
+    "number": "243",
+    "image": "/assets/sets/destined-rivals/cards/243_Jamming_Tower_Hyper_Rare.png"
+  },
+  {
+    "id": "destined-rivals-244-levincia-hyper",
+    "name": "Levincia Hyper",
+    "rarity": "Rare",
+    "number": "244",
+    "image": "/assets/sets/destined-rivals/cards/244_Levincia_Hyper_Rare.png"
+  }
+]

@@ -1,0 +1,1990 @@
+[
+  {
+    "id": "fusion-strike-1-caterpie",
+    "name": "Caterpie",
+    "rarity": "Common",
+    "number": "1",
+    "image": "/assets/sets/fusion-strike/cards/1_Caterpie_Common.png"
+  },
+  {
+    "id": "fusion-strike-2-metapod",
+    "name": "Metapod",
+    "rarity": "Uncommon",
+    "number": "2",
+    "image": "/assets/sets/fusion-strike/cards/2_Metapod_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-3-butterfree",
+    "name": "Butterfree",
+    "rarity": "Rare",
+    "number": "3",
+    "image": "/assets/sets/fusion-strike/cards/3_Butterfree_Rare_Holo.png"
+  },
+  {
+    "id": "fusion-strike-4-shroomish",
+    "name": "Shroomish",
+    "rarity": "Common",
+    "number": "4",
+    "image": "/assets/sets/fusion-strike/cards/4_Shroomish_Common.png"
+  },
+  {
+    "id": "fusion-strike-5-breloom",
+    "name": "Breloom",
+    "rarity": "Uncommon",
+    "number": "5",
+    "image": "/assets/sets/fusion-strike/cards/5_Breloom_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-6-breloom-v",
+    "name": "Breloom V",
+    "rarity": "Double Rare",
+    "number": "6",
+    "image": "/assets/sets/fusion-strike/cards/6_Breloom_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "fusion-strike-7-pansage",
+    "name": "Pansage",
+    "rarity": "Common",
+    "number": "7",
+    "image": "/assets/sets/fusion-strike/cards/7_Pansage_Common.png"
+  },
+  {
+    "id": "fusion-strike-8-simisage",
+    "name": "Simisage",
+    "rarity": "Uncommon",
+    "number": "8",
+    "image": "/assets/sets/fusion-strike/cards/8_Simisage_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-9-sewaddle",
+    "name": "Sewaddle",
+    "rarity": "Common",
+    "number": "9",
+    "image": "/assets/sets/fusion-strike/cards/9_Sewaddle_Common.png"
+  },
+  {
+    "id": "fusion-strike-10-swadloon",
+    "name": "Swadloon",
+    "rarity": "Uncommon",
+    "number": "10",
+    "image": "/assets/sets/fusion-strike/cards/10_Swadloon_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-11-leavanny",
+    "name": "Leavanny",
+    "rarity": "Rare",
+    "number": "11",
+    "image": "/assets/sets/fusion-strike/cards/11_Leavanny_Rare.png"
+  },
+  {
+    "id": "fusion-strike-12-maractus",
+    "name": "Maractus",
+    "rarity": "Rare",
+    "number": "12",
+    "image": "/assets/sets/fusion-strike/cards/12_Maractus_Rare.png"
+  },
+  {
+    "id": "fusion-strike-13-shelmet",
+    "name": "Shelmet",
+    "rarity": "Common",
+    "number": "13",
+    "image": "/assets/sets/fusion-strike/cards/13_Shelmet_Common.png"
+  },
+  {
+    "id": "fusion-strike-14-accelgor",
+    "name": "Accelgor",
+    "rarity": "Rare",
+    "number": "14",
+    "image": "/assets/sets/fusion-strike/cards/14_Accelgor_Rare.png"
+  },
+  {
+    "id": "fusion-strike-15-virizion",
+    "name": "Virizion",
+    "rarity": "Rare",
+    "number": "15",
+    "image": "/assets/sets/fusion-strike/cards/15_Virizion_Rare.png"
+  },
+  {
+    "id": "fusion-strike-16-phantump",
+    "name": "Phantump",
+    "rarity": "Common",
+    "number": "16",
+    "image": "/assets/sets/fusion-strike/cards/16_Phantump_Common.png"
+  },
+  {
+    "id": "fusion-strike-17-trevenant",
+    "name": "Trevenant",
+    "rarity": "Uncommon",
+    "number": "17",
+    "image": "/assets/sets/fusion-strike/cards/17_Trevenant_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-18-grubbin",
+    "name": "Grubbin",
+    "rarity": "Common",
+    "number": "18",
+    "image": "/assets/sets/fusion-strike/cards/18_Grubbin_Common.png"
+  },
+  {
+    "id": "fusion-strike-19-dewpider",
+    "name": "Dewpider",
+    "rarity": "Common",
+    "number": "19",
+    "image": "/assets/sets/fusion-strike/cards/19_Dewpider_Common.png"
+  },
+  {
+    "id": "fusion-strike-20-araquanid",
+    "name": "Araquanid",
+    "rarity": "Rare",
+    "number": "20",
+    "image": "/assets/sets/fusion-strike/cards/20_Araquanid_Rare.png"
+  },
+  {
+    "id": "fusion-strike-21-tsareena-v",
+    "name": "Tsareena V",
+    "rarity": "Double Rare",
+    "number": "21",
+    "image": "/assets/sets/fusion-strike/cards/21_Tsareena_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "fusion-strike-22-rillaboom-v",
+    "name": "Rillaboom V",
+    "rarity": "Double Rare",
+    "number": "22",
+    "image": "/assets/sets/fusion-strike/cards/22_Rillaboom_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "fusion-strike-23-rillaboom-vmax",
+    "name": "Rillaboom VMAX",
+    "rarity": "Ultra Rare",
+    "number": "23",
+    "image": "/assets/sets/fusion-strike/cards/23_Rillaboom_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "fusion-strike-24-gossifleur",
+    "name": "Gossifleur",
+    "rarity": "Common",
+    "number": "24",
+    "image": "/assets/sets/fusion-strike/cards/24_Gossifleur_Common.png"
+  },
+  {
+    "id": "fusion-strike-25-eldegoss",
+    "name": "Eldegoss",
+    "rarity": "Uncommon",
+    "number": "25",
+    "image": "/assets/sets/fusion-strike/cards/25_Eldegoss_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-26-appletun-v",
+    "name": "Appletun V",
+    "rarity": "Double Rare",
+    "number": "26",
+    "image": "/assets/sets/fusion-strike/cards/26_Appletun_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "fusion-strike-27-zarude",
+    "name": "Zarude",
+    "rarity": "Uncommon",
+    "number": "27",
+    "image": "/assets/sets/fusion-strike/cards/27_Zarude_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-28-vulpix",
+    "name": "Vulpix",
+    "rarity": "Common",
+    "number": "28",
+    "image": "/assets/sets/fusion-strike/cards/28_Vulpix_Common.png"
+  },
+  {
+    "id": "fusion-strike-29-vulpix",
+    "name": "Vulpix",
+    "rarity": "Common",
+    "number": "29",
+    "image": "/assets/sets/fusion-strike/cards/29_Vulpix_Common.png"
+  },
+  {
+    "id": "fusion-strike-30-ninetales",
+    "name": "Ninetales",
+    "rarity": "Uncommon",
+    "number": "30",
+    "image": "/assets/sets/fusion-strike/cards/30_Ninetales_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-31-ninetales",
+    "name": "Ninetales",
+    "rarity": "Uncommon",
+    "number": "31",
+    "image": "/assets/sets/fusion-strike/cards/31_Ninetales_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-32-growlithe",
+    "name": "Growlithe",
+    "rarity": "Common",
+    "number": "32",
+    "image": "/assets/sets/fusion-strike/cards/32_Growlithe_Common.png"
+  },
+  {
+    "id": "fusion-strike-33-arcanine",
+    "name": "Arcanine",
+    "rarity": "Rare",
+    "number": "33",
+    "image": "/assets/sets/fusion-strike/cards/33_Arcanine_Rare.png"
+  },
+  {
+    "id": "fusion-strike-34-slugma",
+    "name": "Slugma",
+    "rarity": "Common",
+    "number": "34",
+    "image": "/assets/sets/fusion-strike/cards/34_Slugma_Common.png"
+  },
+  {
+    "id": "fusion-strike-35-magcargo",
+    "name": "Magcargo",
+    "rarity": "Uncommon",
+    "number": "35",
+    "image": "/assets/sets/fusion-strike/cards/35_Magcargo_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-36-victini",
+    "name": "Victini",
+    "rarity": "Uncommon",
+    "number": "36",
+    "image": "/assets/sets/fusion-strike/cards/36_Victini_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-37-pansear",
+    "name": "Pansear",
+    "rarity": "Common",
+    "number": "37",
+    "image": "/assets/sets/fusion-strike/cards/37_Pansear_Common.png"
+  },
+  {
+    "id": "fusion-strike-38-simisear",
+    "name": "Simisear",
+    "rarity": "Uncommon",
+    "number": "38",
+    "image": "/assets/sets/fusion-strike/cards/38_Simisear_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-39-chandelure-v",
+    "name": "Chandelure V",
+    "rarity": "Double Rare",
+    "number": "39",
+    "image": "/assets/sets/fusion-strike/cards/39_Chandelure_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "fusion-strike-40-chandelure-vmax",
+    "name": "Chandelure VMAX",
+    "rarity": "Ultra Rare",
+    "number": "40",
+    "image": "/assets/sets/fusion-strike/cards/40_Chandelure_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "fusion-strike-41-heatmor",
+    "name": "Heatmor",
+    "rarity": "Uncommon",
+    "number": "41",
+    "image": "/assets/sets/fusion-strike/cards/41_Heatmor_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-42-oricorio",
+    "name": "Oricorio",
+    "rarity": "Rare",
+    "number": "42",
+    "image": "/assets/sets/fusion-strike/cards/42_Oricorio_Rare.png"
+  },
+  {
+    "id": "fusion-strike-43-cinderace-v",
+    "name": "Cinderace V",
+    "rarity": "Double Rare",
+    "number": "43",
+    "image": "/assets/sets/fusion-strike/cards/43_Cinderace_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "fusion-strike-44-cinderace-v",
+    "name": "Cinderace V",
+    "rarity": "Double Rare",
+    "number": "44",
+    "image": "/assets/sets/fusion-strike/cards/44_Cinderace_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "fusion-strike-45-cinderace-vmax",
+    "name": "Cinderace VMAX",
+    "rarity": "Ultra Rare",
+    "number": "45",
+    "image": "/assets/sets/fusion-strike/cards/45_Cinderace_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "fusion-strike-46-sizzlipede",
+    "name": "Sizzlipede",
+    "rarity": "Common",
+    "number": "46",
+    "image": "/assets/sets/fusion-strike/cards/46_Sizzlipede_Common.png"
+  },
+  {
+    "id": "fusion-strike-47-sizzlipede",
+    "name": "Sizzlipede",
+    "rarity": "Common",
+    "number": "47",
+    "image": "/assets/sets/fusion-strike/cards/47_Sizzlipede_Common.png"
+  },
+  {
+    "id": "fusion-strike-48-centiskorch",
+    "name": "Centiskorch",
+    "rarity": "Rare",
+    "number": "48",
+    "image": "/assets/sets/fusion-strike/cards/48_Centiskorch_Rare.png"
+  },
+  {
+    "id": "fusion-strike-49-centiskorch",
+    "name": "Centiskorch",
+    "rarity": "Uncommon",
+    "number": "49",
+    "image": "/assets/sets/fusion-strike/cards/49_Centiskorch_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-50-shellder",
+    "name": "Shellder",
+    "rarity": "Common",
+    "number": "50",
+    "image": "/assets/sets/fusion-strike/cards/50_Shellder_Common.png"
+  },
+  {
+    "id": "fusion-strike-51-cloyster",
+    "name": "Cloyster",
+    "rarity": "Rare",
+    "number": "51",
+    "image": "/assets/sets/fusion-strike/cards/51_Cloyster_Rare.png"
+  },
+  {
+    "id": "fusion-strike-52-staryu",
+    "name": "Staryu",
+    "rarity": "Common",
+    "number": "52",
+    "image": "/assets/sets/fusion-strike/cards/52_Staryu_Common.png"
+  },
+  {
+    "id": "fusion-strike-53-starmie",
+    "name": "Starmie",
+    "rarity": "Rare",
+    "number": "53",
+    "image": "/assets/sets/fusion-strike/cards/53_Starmie_Rare_Holo.png"
+  },
+  {
+    "id": "fusion-strike-54-lapras",
+    "name": "Lapras",
+    "rarity": "Uncommon",
+    "number": "54",
+    "image": "/assets/sets/fusion-strike/cards/54_Lapras_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-55-totodile",
+    "name": "Totodile",
+    "rarity": "Common",
+    "number": "55",
+    "image": "/assets/sets/fusion-strike/cards/55_Totodile_Common.png"
+  },
+  {
+    "id": "fusion-strike-56-croconaw",
+    "name": "Croconaw",
+    "rarity": "Uncommon",
+    "number": "56",
+    "image": "/assets/sets/fusion-strike/cards/56_Croconaw_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-57-feraligatr",
+    "name": "Feraligatr",
+    "rarity": "Rare",
+    "number": "57",
+    "image": "/assets/sets/fusion-strike/cards/57_Feraligatr_Rare_Holo.png"
+  },
+  {
+    "id": "fusion-strike-58-marill",
+    "name": "Marill",
+    "rarity": "Common",
+    "number": "58",
+    "image": "/assets/sets/fusion-strike/cards/58_Marill_Common.png"
+  },
+  {
+    "id": "fusion-strike-59-azumarill",
+    "name": "Azumarill",
+    "rarity": "Rare",
+    "number": "59",
+    "image": "/assets/sets/fusion-strike/cards/59_Azumarill_Rare.png"
+  },
+  {
+    "id": "fusion-strike-60-qwilfish",
+    "name": "Qwilfish",
+    "rarity": "Common",
+    "number": "60",
+    "image": "/assets/sets/fusion-strike/cards/60_Qwilfish_Common.png"
+  },
+  {
+    "id": "fusion-strike-61-mantine",
+    "name": "Mantine",
+    "rarity": "Common",
+    "number": "61",
+    "image": "/assets/sets/fusion-strike/cards/61_Mantine_Common.png"
+  },
+  {
+    "id": "fusion-strike-62-mudkip",
+    "name": "Mudkip",
+    "rarity": "Common",
+    "number": "62",
+    "image": "/assets/sets/fusion-strike/cards/62_Mudkip_Common.png"
+  },
+  {
+    "id": "fusion-strike-63-marshtomp",
+    "name": "Marshtomp",
+    "rarity": "Uncommon",
+    "number": "63",
+    "image": "/assets/sets/fusion-strike/cards/63_Marshtomp_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-64-swampert",
+    "name": "Swampert",
+    "rarity": "Rare",
+    "number": "64",
+    "image": "/assets/sets/fusion-strike/cards/64_Swampert_Rare_Holo.png"
+  },
+  {
+    "id": "fusion-strike-65-clamperl",
+    "name": "Clamperl",
+    "rarity": "Common",
+    "number": "65",
+    "image": "/assets/sets/fusion-strike/cards/65_Clamperl_Common.png"
+  },
+  {
+    "id": "fusion-strike-66-huntail",
+    "name": "Huntail",
+    "rarity": "Rare",
+    "number": "66",
+    "image": "/assets/sets/fusion-strike/cards/66_Huntail_Rare.png"
+  },
+  {
+    "id": "fusion-strike-67-gorebyss",
+    "name": "Gorebyss",
+    "rarity": "Rare",
+    "number": "67",
+    "image": "/assets/sets/fusion-strike/cards/67_Gorebyss_Rare.png"
+  },
+  {
+    "id": "fusion-strike-68-panpour",
+    "name": "Panpour",
+    "rarity": "Common",
+    "number": "68",
+    "image": "/assets/sets/fusion-strike/cards/68_Panpour_Common.png"
+  },
+  {
+    "id": "fusion-strike-69-simipour",
+    "name": "Simipour",
+    "rarity": "Uncommon",
+    "number": "69",
+    "image": "/assets/sets/fusion-strike/cards/69_Simipour_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-70-basculin",
+    "name": "Basculin",
+    "rarity": "Common",
+    "number": "70",
+    "image": "/assets/sets/fusion-strike/cards/70_Basculin_Common.png"
+  },
+  {
+    "id": "fusion-strike-71-galarian-darumaka",
+    "name": "Galarian Darumaka",
+    "rarity": "Common",
+    "number": "71",
+    "image": "/assets/sets/fusion-strike/cards/71_Galarian_Darumaka_Common.png"
+  },
+  {
+    "id": "fusion-strike-72-galarian-darmanitan",
+    "name": "Galarian Darmanitan",
+    "rarity": "Uncommon",
+    "number": "72",
+    "image": "/assets/sets/fusion-strike/cards/72_Galarian_Darmanitan_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-73-greninja-v",
+    "name": "Greninja V",
+    "rarity": "Double Rare",
+    "number": "73",
+    "image": "/assets/sets/fusion-strike/cards/73_Greninja_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "fusion-strike-74-clauncher",
+    "name": "Clauncher",
+    "rarity": "Common",
+    "number": "74",
+    "image": "/assets/sets/fusion-strike/cards/74_Clauncher_Common.png"
+  },
+  {
+    "id": "fusion-strike-75-clawitzer",
+    "name": "Clawitzer",
+    "rarity": "Uncommon",
+    "number": "75",
+    "image": "/assets/sets/fusion-strike/cards/75_Clawitzer_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-76-crabominable-v",
+    "name": "Crabominable V",
+    "rarity": "Double Rare",
+    "number": "76",
+    "image": "/assets/sets/fusion-strike/cards/76_Crabominable_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "fusion-strike-77-pyukumuku",
+    "name": "Pyukumuku",
+    "rarity": "Uncommon",
+    "number": "77",
+    "image": "/assets/sets/fusion-strike/cards/77_Pyukumuku_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-78-inteleon-v",
+    "name": "Inteleon V",
+    "rarity": "Double Rare",
+    "number": "78",
+    "image": "/assets/sets/fusion-strike/cards/78_Inteleon_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "fusion-strike-79-inteleon-vmax",
+    "name": "Inteleon VMAX",
+    "rarity": "Ultra Rare",
+    "number": "79",
+    "image": "/assets/sets/fusion-strike/cards/79_Inteleon_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "fusion-strike-80-chewtle",
+    "name": "Chewtle",
+    "rarity": "Common",
+    "number": "80",
+    "image": "/assets/sets/fusion-strike/cards/80_Chewtle_Common.png"
+  },
+  {
+    "id": "fusion-strike-81-drednaw",
+    "name": "Drednaw",
+    "rarity": "Uncommon",
+    "number": "81",
+    "image": "/assets/sets/fusion-strike/cards/81_Drednaw_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-82-arrokuda",
+    "name": "Arrokuda",
+    "rarity": "Common",
+    "number": "82",
+    "image": "/assets/sets/fusion-strike/cards/82_Arrokuda_Common.png"
+  },
+  {
+    "id": "fusion-strike-83-barraskewda",
+    "name": "Barraskewda",
+    "rarity": "Uncommon",
+    "number": "83",
+    "image": "/assets/sets/fusion-strike/cards/83_Barraskewda_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-84-snom",
+    "name": "Snom",
+    "rarity": "Common",
+    "number": "84",
+    "image": "/assets/sets/fusion-strike/cards/84_Snom_Common.png"
+  },
+  {
+    "id": "fusion-strike-85-frosmoth",
+    "name": "Frosmoth",
+    "rarity": "Uncommon",
+    "number": "85",
+    "image": "/assets/sets/fusion-strike/cards/85_Frosmoth_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-86-pikachu-v",
+    "name": "Pikachu V",
+    "rarity": "Double Rare",
+    "number": "86",
+    "image": "/assets/sets/fusion-strike/cards/86_Pikachu_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "fusion-strike-87-voltorb",
+    "name": "Voltorb",
+    "rarity": "Common",
+    "number": "87",
+    "image": "/assets/sets/fusion-strike/cards/87_Voltorb_Common.png"
+  },
+  {
+    "id": "fusion-strike-88-electrode",
+    "name": "Electrode",
+    "rarity": "Rare",
+    "number": "88",
+    "image": "/assets/sets/fusion-strike/cards/88_Electrode_Rare.png"
+  },
+  {
+    "id": "fusion-strike-89-plusle",
+    "name": "Plusle",
+    "rarity": "Common",
+    "number": "89",
+    "image": "/assets/sets/fusion-strike/cards/89_Plusle_Common.png"
+  },
+  {
+    "id": "fusion-strike-90-minun",
+    "name": "Minun",
+    "rarity": "Common",
+    "number": "90",
+    "image": "/assets/sets/fusion-strike/cards/90_Minun_Common.png"
+  },
+  {
+    "id": "fusion-strike-91-shinx",
+    "name": "Shinx",
+    "rarity": "Common",
+    "number": "91",
+    "image": "/assets/sets/fusion-strike/cards/91_Shinx_Common.png"
+  },
+  {
+    "id": "fusion-strike-92-luxio",
+    "name": "Luxio",
+    "rarity": "Uncommon",
+    "number": "92",
+    "image": "/assets/sets/fusion-strike/cards/92_Luxio_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-93-luxray",
+    "name": "Luxray",
+    "rarity": "Rare",
+    "number": "93",
+    "image": "/assets/sets/fusion-strike/cards/93_Luxray_Rare.png"
+  },
+  {
+    "id": "fusion-strike-94-rotom",
+    "name": "Rotom",
+    "rarity": "Common",
+    "number": "94",
+    "image": "/assets/sets/fusion-strike/cards/94_Rotom_Common.png"
+  },
+  {
+    "id": "fusion-strike-95-tynamo",
+    "name": "Tynamo",
+    "rarity": "Common",
+    "number": "95",
+    "image": "/assets/sets/fusion-strike/cards/95_Tynamo_Common.png"
+  },
+  {
+    "id": "fusion-strike-96-eelektrik",
+    "name": "Eelektrik",
+    "rarity": "Uncommon",
+    "number": "96",
+    "image": "/assets/sets/fusion-strike/cards/96_Eelektrik_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-97-eelektross",
+    "name": "Eelektross",
+    "rarity": "Rare",
+    "number": "97",
+    "image": "/assets/sets/fusion-strike/cards/97_Eelektross_Rare.png"
+  },
+  {
+    "id": "fusion-strike-98-helioptile",
+    "name": "Helioptile",
+    "rarity": "Common",
+    "number": "98",
+    "image": "/assets/sets/fusion-strike/cards/98_Helioptile_Common.png"
+  },
+  {
+    "id": "fusion-strike-99-heliolisk",
+    "name": "Heliolisk",
+    "rarity": "Uncommon",
+    "number": "99",
+    "image": "/assets/sets/fusion-strike/cards/99_Heliolisk_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-100-charjabug",
+    "name": "Charjabug",
+    "rarity": "Uncommon",
+    "number": "100",
+    "image": "/assets/sets/fusion-strike/cards/100_Charjabug_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-101-vikavolt",
+    "name": "Vikavolt",
+    "rarity": "Rare",
+    "number": "101",
+    "image": "/assets/sets/fusion-strike/cards/101_Vikavolt_Rare.png"
+  },
+  {
+    "id": "fusion-strike-102-zeraora",
+    "name": "Zeraora",
+    "rarity": "Rare",
+    "number": "102",
+    "image": "/assets/sets/fusion-strike/cards/102_Zeraora_Rare.png"
+  },
+  {
+    "id": "fusion-strike-103-boltund-v",
+    "name": "Boltund V",
+    "rarity": "Double Rare",
+    "number": "103",
+    "image": "/assets/sets/fusion-strike/cards/103_Boltund_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "fusion-strike-104-boltund-vmax",
+    "name": "Boltund VMAX",
+    "rarity": "Ultra Rare",
+    "number": "104",
+    "image": "/assets/sets/fusion-strike/cards/104_Boltund_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "fusion-strike-105-toxel",
+    "name": "Toxel",
+    "rarity": "Common",
+    "number": "105",
+    "image": "/assets/sets/fusion-strike/cards/105_Toxel_Common.png"
+  },
+  {
+    "id": "fusion-strike-106-toxel",
+    "name": "Toxel",
+    "rarity": "Common",
+    "number": "106",
+    "image": "/assets/sets/fusion-strike/cards/106_Toxel_Common.png"
+  },
+  {
+    "id": "fusion-strike-107-toxtricity",
+    "name": "Toxtricity",
+    "rarity": "Rare",
+    "number": "107",
+    "image": "/assets/sets/fusion-strike/cards/107_Toxtricity_Rare_Holo.png"
+  },
+  {
+    "id": "fusion-strike-108-toxtricity",
+    "name": "Toxtricity",
+    "rarity": "Rare",
+    "number": "108",
+    "image": "/assets/sets/fusion-strike/cards/108_Toxtricity_Rare_Holo.png"
+  },
+  {
+    "id": "fusion-strike-109-morpeko",
+    "name": "Morpeko",
+    "rarity": "Common",
+    "number": "109",
+    "image": "/assets/sets/fusion-strike/cards/109_Morpeko_Common.png"
+  },
+  {
+    "id": "fusion-strike-110-jigglypuff",
+    "name": "Jigglypuff",
+    "rarity": "Common",
+    "number": "110",
+    "image": "/assets/sets/fusion-strike/cards/110_Jigglypuff_Common.png"
+  },
+  {
+    "id": "fusion-strike-111-wigglytuff",
+    "name": "Wigglytuff",
+    "rarity": "Uncommon",
+    "number": "111",
+    "image": "/assets/sets/fusion-strike/cards/111_Wigglytuff_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-112-jynx",
+    "name": "Jynx",
+    "rarity": "Common",
+    "number": "112",
+    "image": "/assets/sets/fusion-strike/cards/112_Jynx_Common.png"
+  },
+  {
+    "id": "fusion-strike-113-mew-v",
+    "name": "Mew V",
+    "rarity": "Double Rare",
+    "number": "113",
+    "image": "/assets/sets/fusion-strike/cards/113_Mew_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "fusion-strike-114-mew-vmax",
+    "name": "Mew VMAX",
+    "rarity": "Ultra Rare",
+    "number": "114",
+    "image": "/assets/sets/fusion-strike/cards/114_Mew_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "fusion-strike-115-snubbull",
+    "name": "Snubbull",
+    "rarity": "Common",
+    "number": "115",
+    "image": "/assets/sets/fusion-strike/cards/115_Snubbull_Common.png"
+  },
+  {
+    "id": "fusion-strike-116-granbull",
+    "name": "Granbull",
+    "rarity": "Rare",
+    "number": "116",
+    "image": "/assets/sets/fusion-strike/cards/116_Granbull_Rare.png"
+  },
+  {
+    "id": "fusion-strike-117-galarian-corsola",
+    "name": "Galarian Corsola",
+    "rarity": "Common",
+    "number": "117",
+    "image": "/assets/sets/fusion-strike/cards/117_Galarian_Corsola_Common.png"
+  },
+  {
+    "id": "fusion-strike-118-galarian-cursola",
+    "name": "Galarian Cursola",
+    "rarity": "Rare",
+    "number": "118",
+    "image": "/assets/sets/fusion-strike/cards/118_Galarian_Cursola_Rare.png"
+  },
+  {
+    "id": "fusion-strike-119-mawile",
+    "name": "Mawile",
+    "rarity": "Common",
+    "number": "119",
+    "image": "/assets/sets/fusion-strike/cards/119_Mawile_Common.png"
+  },
+  {
+    "id": "fusion-strike-120-deoxys",
+    "name": "Deoxys",
+    "rarity": "Rare",
+    "number": "120",
+    "image": "/assets/sets/fusion-strike/cards/120_Deoxys_Rare_Holo.png"
+  },
+  {
+    "id": "fusion-strike-121-munna",
+    "name": "Munna",
+    "rarity": "Common",
+    "number": "121",
+    "image": "/assets/sets/fusion-strike/cards/121_Munna_Common.png"
+  },
+  {
+    "id": "fusion-strike-122-musharna",
+    "name": "Musharna",
+    "rarity": "Uncommon",
+    "number": "122",
+    "image": "/assets/sets/fusion-strike/cards/122_Musharna_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-123-sigilyph",
+    "name": "Sigilyph",
+    "rarity": "Common",
+    "number": "123",
+    "image": "/assets/sets/fusion-strike/cards/123_Sigilyph_Common.png"
+  },
+  {
+    "id": "fusion-strike-124-meloetta",
+    "name": "Meloetta",
+    "rarity": "Rare",
+    "number": "124",
+    "image": "/assets/sets/fusion-strike/cards/124_Meloetta_Rare.png"
+  },
+  {
+    "id": "fusion-strike-125-sandygast",
+    "name": "Sandygast",
+    "rarity": "Common",
+    "number": "125",
+    "image": "/assets/sets/fusion-strike/cards/125_Sandygast_Common.png"
+  },
+  {
+    "id": "fusion-strike-126-palossand",
+    "name": "Palossand",
+    "rarity": "Rare",
+    "number": "126",
+    "image": "/assets/sets/fusion-strike/cards/126_Palossand_Rare.png"
+  },
+  {
+    "id": "fusion-strike-127-indeedee",
+    "name": "Indeedee",
+    "rarity": "Common",
+    "number": "127",
+    "image": "/assets/sets/fusion-strike/cards/127_Indeedee_Common.png"
+  },
+  {
+    "id": "fusion-strike-128-dreepy",
+    "name": "Dreepy",
+    "rarity": "Common",
+    "number": "128",
+    "image": "/assets/sets/fusion-strike/cards/128_Dreepy_Common.png"
+  },
+  {
+    "id": "fusion-strike-129-drakloak",
+    "name": "Drakloak",
+    "rarity": "Uncommon",
+    "number": "129",
+    "image": "/assets/sets/fusion-strike/cards/129_Drakloak_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-130-dragapult",
+    "name": "Dragapult",
+    "rarity": "Rare",
+    "number": "130",
+    "image": "/assets/sets/fusion-strike/cards/130_Dragapult_Rare_Holo.png"
+  },
+  {
+    "id": "fusion-strike-131-sandshrew",
+    "name": "Sandshrew",
+    "rarity": "Common",
+    "number": "131",
+    "image": "/assets/sets/fusion-strike/cards/131_Sandshrew_Common.png"
+  },
+  {
+    "id": "fusion-strike-132-sandslash",
+    "name": "Sandslash",
+    "rarity": "Uncommon",
+    "number": "132",
+    "image": "/assets/sets/fusion-strike/cards/132_Sandslash_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-133-mankey",
+    "name": "Mankey",
+    "rarity": "Common",
+    "number": "133",
+    "image": "/assets/sets/fusion-strike/cards/133_Mankey_Common.png"
+  },
+  {
+    "id": "fusion-strike-134-primeape",
+    "name": "Primeape",
+    "rarity": "Uncommon",
+    "number": "134",
+    "image": "/assets/sets/fusion-strike/cards/134_Primeape_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-135-geodude",
+    "name": "Geodude",
+    "rarity": "Common",
+    "number": "135",
+    "image": "/assets/sets/fusion-strike/cards/135_Geodude_Common.png"
+  },
+  {
+    "id": "fusion-strike-136-graveler",
+    "name": "Graveler",
+    "rarity": "Uncommon",
+    "number": "136",
+    "image": "/assets/sets/fusion-strike/cards/136_Graveler_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-137-golem",
+    "name": "Golem",
+    "rarity": "Rare",
+    "number": "137",
+    "image": "/assets/sets/fusion-strike/cards/137_Golem_Rare.png"
+  },
+  {
+    "id": "fusion-strike-138-onix",
+    "name": "Onix",
+    "rarity": "Common",
+    "number": "138",
+    "image": "/assets/sets/fusion-strike/cards/138_Onix_Common.png"
+  },
+  {
+    "id": "fusion-strike-139-steelix",
+    "name": "Steelix",
+    "rarity": "Rare",
+    "number": "139",
+    "image": "/assets/sets/fusion-strike/cards/139_Steelix_Rare_Holo.png"
+  },
+  {
+    "id": "fusion-strike-140-gligar",
+    "name": "Gligar",
+    "rarity": "Common",
+    "number": "140",
+    "image": "/assets/sets/fusion-strike/cards/140_Gligar_Common.png"
+  },
+  {
+    "id": "fusion-strike-141-gliscor",
+    "name": "Gliscor",
+    "rarity": "Uncommon",
+    "number": "141",
+    "image": "/assets/sets/fusion-strike/cards/141_Gliscor_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-142-makuhita",
+    "name": "Makuhita",
+    "rarity": "Common",
+    "number": "142",
+    "image": "/assets/sets/fusion-strike/cards/142_Makuhita_Common.png"
+  },
+  {
+    "id": "fusion-strike-143-hariyama",
+    "name": "Hariyama",
+    "rarity": "Uncommon",
+    "number": "143",
+    "image": "/assets/sets/fusion-strike/cards/143_Hariyama_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-144-baltoy",
+    "name": "Baltoy",
+    "rarity": "Common",
+    "number": "144",
+    "image": "/assets/sets/fusion-strike/cards/144_Baltoy_Common.png"
+  },
+  {
+    "id": "fusion-strike-145-claydol",
+    "name": "Claydol",
+    "rarity": "Rare",
+    "number": "145",
+    "image": "/assets/sets/fusion-strike/cards/145_Claydol_Rare.png"
+  },
+  {
+    "id": "fusion-strike-146-lucario-v",
+    "name": "Lucario V",
+    "rarity": "Double Rare",
+    "number": "146",
+    "image": "/assets/sets/fusion-strike/cards/146_Lucario_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "fusion-strike-147-drilbur",
+    "name": "Drilbur",
+    "rarity": "Common",
+    "number": "147",
+    "image": "/assets/sets/fusion-strike/cards/147_Drilbur_Common.png"
+  },
+  {
+    "id": "fusion-strike-148-landorus",
+    "name": "Landorus",
+    "rarity": "Rare",
+    "number": "148",
+    "image": "/assets/sets/fusion-strike/cards/148_Landorus_Rare_Holo.png"
+  },
+  {
+    "id": "fusion-strike-149-pancham",
+    "name": "Pancham",
+    "rarity": "Common",
+    "number": "149",
+    "image": "/assets/sets/fusion-strike/cards/149_Pancham_Common.png"
+  },
+  {
+    "id": "fusion-strike-150-stufful",
+    "name": "Stufful",
+    "rarity": "Common",
+    "number": "150",
+    "image": "/assets/sets/fusion-strike/cards/150_Stufful_Common.png"
+  },
+  {
+    "id": "fusion-strike-151-bewear",
+    "name": "Bewear",
+    "rarity": "Uncommon",
+    "number": "151",
+    "image": "/assets/sets/fusion-strike/cards/151_Bewear_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-152-clobbopus",
+    "name": "Clobbopus",
+    "rarity": "Common",
+    "number": "152",
+    "image": "/assets/sets/fusion-strike/cards/152_Clobbopus_Common.png"
+  },
+  {
+    "id": "fusion-strike-153-grapploct",
+    "name": "Grapploct",
+    "rarity": "Uncommon",
+    "number": "153",
+    "image": "/assets/sets/fusion-strike/cards/153_Grapploct_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-154-falinks",
+    "name": "Falinks",
+    "rarity": "Uncommon",
+    "number": "154",
+    "image": "/assets/sets/fusion-strike/cards/154_Falinks_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-155-falinks",
+    "name": "Falinks",
+    "rarity": "Common",
+    "number": "155",
+    "image": "/assets/sets/fusion-strike/cards/155_Falinks_Common.png"
+  },
+  {
+    "id": "fusion-strike-156-gengar-v",
+    "name": "Gengar V",
+    "rarity": "Double Rare",
+    "number": "156",
+    "image": "/assets/sets/fusion-strike/cards/156_Gengar_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "fusion-strike-157-gengar-vmax",
+    "name": "Gengar VMAX",
+    "rarity": "Ultra Rare",
+    "number": "157",
+    "image": "/assets/sets/fusion-strike/cards/157_Gengar_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "fusion-strike-158-tyranitar-v",
+    "name": "Tyranitar V",
+    "rarity": "Double Rare",
+    "number": "158",
+    "image": "/assets/sets/fusion-strike/cards/158_Tyranitar_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "fusion-strike-159-galarian-zigzagoon",
+    "name": "Galarian Zigzagoon",
+    "rarity": "Common",
+    "number": "159",
+    "image": "/assets/sets/fusion-strike/cards/159_Galarian_Zigzagoon_Common.png"
+  },
+  {
+    "id": "fusion-strike-160-galarian-linoone",
+    "name": "Galarian Linoone",
+    "rarity": "Uncommon",
+    "number": "160",
+    "image": "/assets/sets/fusion-strike/cards/160_Galarian_Linoone_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-161-galarian-obstagoon",
+    "name": "Galarian Obstagoon",
+    "rarity": "Rare",
+    "number": "161",
+    "image": "/assets/sets/fusion-strike/cards/161_Galarian_Obstagoon_Rare_Holo.png"
+  },
+  {
+    "id": "fusion-strike-162-carvanha",
+    "name": "Carvanha",
+    "rarity": "Common",
+    "number": "162",
+    "image": "/assets/sets/fusion-strike/cards/162_Carvanha_Common.png"
+  },
+  {
+    "id": "fusion-strike-163-sharpedo",
+    "name": "Sharpedo",
+    "rarity": "Uncommon",
+    "number": "163",
+    "image": "/assets/sets/fusion-strike/cards/163_Sharpedo_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-164-absol",
+    "name": "Absol",
+    "rarity": "Rare",
+    "number": "164",
+    "image": "/assets/sets/fusion-strike/cards/164_Absol_Rare.png"
+  },
+  {
+    "id": "fusion-strike-165-croagunk",
+    "name": "Croagunk",
+    "rarity": "Common",
+    "number": "165",
+    "image": "/assets/sets/fusion-strike/cards/165_Croagunk_Common.png"
+  },
+  {
+    "id": "fusion-strike-166-toxicroak",
+    "name": "Toxicroak",
+    "rarity": "Rare",
+    "number": "166",
+    "image": "/assets/sets/fusion-strike/cards/166_Toxicroak_Rare.png"
+  },
+  {
+    "id": "fusion-strike-167-darkrai",
+    "name": "Darkrai",
+    "rarity": "Uncommon",
+    "number": "167",
+    "image": "/assets/sets/fusion-strike/cards/167_Darkrai_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-168-trubbish",
+    "name": "Trubbish",
+    "rarity": "Common",
+    "number": "168",
+    "image": "/assets/sets/fusion-strike/cards/168_Trubbish_Common.png"
+  },
+  {
+    "id": "fusion-strike-169-garbodor",
+    "name": "Garbodor",
+    "rarity": "Uncommon",
+    "number": "169",
+    "image": "/assets/sets/fusion-strike/cards/169_Garbodor_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-170-zorua",
+    "name": "Zorua",
+    "rarity": "Common",
+    "number": "170",
+    "image": "/assets/sets/fusion-strike/cards/170_Zorua_Common.png"
+  },
+  {
+    "id": "fusion-strike-171-zoroark",
+    "name": "Zoroark",
+    "rarity": "Uncommon",
+    "number": "171",
+    "image": "/assets/sets/fusion-strike/cards/171_Zoroark_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-172-vullaby",
+    "name": "Vullaby",
+    "rarity": "Common",
+    "number": "172",
+    "image": "/assets/sets/fusion-strike/cards/172_Vullaby_Common.png"
+  },
+  {
+    "id": "fusion-strike-173-mandibuzz",
+    "name": "Mandibuzz",
+    "rarity": "Uncommon",
+    "number": "173",
+    "image": "/assets/sets/fusion-strike/cards/173_Mandibuzz_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-174-pangoro",
+    "name": "Pangoro",
+    "rarity": "Uncommon",
+    "number": "174",
+    "image": "/assets/sets/fusion-strike/cards/174_Pangoro_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-175-yveltal",
+    "name": "Yveltal",
+    "rarity": "Rare",
+    "number": "175",
+    "image": "/assets/sets/fusion-strike/cards/175_Yveltal_Rare.png"
+  },
+  {
+    "id": "fusion-strike-176-impidimp",
+    "name": "Impidimp",
+    "rarity": "Common",
+    "number": "176",
+    "image": "/assets/sets/fusion-strike/cards/176_Impidimp_Common.png"
+  },
+  {
+    "id": "fusion-strike-177-morgrem",
+    "name": "Morgrem",
+    "rarity": "Uncommon",
+    "number": "177",
+    "image": "/assets/sets/fusion-strike/cards/177_Morgrem_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-178-grimmsnarl",
+    "name": "Grimmsnarl",
+    "rarity": "Rare",
+    "number": "178",
+    "image": "/assets/sets/fusion-strike/cards/178_Grimmsnarl_Rare_Holo.png"
+  },
+  {
+    "id": "fusion-strike-179-morpeko",
+    "name": "Morpeko",
+    "rarity": "Common",
+    "number": "179",
+    "image": "/assets/sets/fusion-strike/cards/179_Morpeko_Common.png"
+  },
+  {
+    "id": "fusion-strike-180-galarian-meowth",
+    "name": "Galarian Meowth",
+    "rarity": "Common",
+    "number": "180",
+    "image": "/assets/sets/fusion-strike/cards/180_Galarian_Meowth_Common.png"
+  },
+  {
+    "id": "fusion-strike-181-galarian-perrserker",
+    "name": "Galarian Perrserker",
+    "rarity": "Uncommon",
+    "number": "181",
+    "image": "/assets/sets/fusion-strike/cards/181_Galarian_Perrserker_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-182-skarmory",
+    "name": "Skarmory",
+    "rarity": "Common",
+    "number": "182",
+    "image": "/assets/sets/fusion-strike/cards/182_Skarmory_Common.png"
+  },
+  {
+    "id": "fusion-strike-183-excadrill",
+    "name": "Excadrill",
+    "rarity": "Uncommon",
+    "number": "183",
+    "image": "/assets/sets/fusion-strike/cards/183_Excadrill_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-184-durant",
+    "name": "Durant",
+    "rarity": "Common",
+    "number": "184",
+    "image": "/assets/sets/fusion-strike/cards/184_Durant_Common.png"
+  },
+  {
+    "id": "fusion-strike-185-genesect-v",
+    "name": "Genesect V",
+    "rarity": "Double Rare",
+    "number": "185",
+    "image": "/assets/sets/fusion-strike/cards/185_Genesect_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "fusion-strike-186-klefki",
+    "name": "Klefki",
+    "rarity": "Common",
+    "number": "186",
+    "image": "/assets/sets/fusion-strike/cards/186_Klefki_Common.png"
+  },
+  {
+    "id": "fusion-strike-187-togedemaru",
+    "name": "Togedemaru",
+    "rarity": "Uncommon",
+    "number": "187",
+    "image": "/assets/sets/fusion-strike/cards/187_Togedemaru_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-188-meltan",
+    "name": "Meltan",
+    "rarity": "Common",
+    "number": "188",
+    "image": "/assets/sets/fusion-strike/cards/188_Meltan_Common.png"
+  },
+  {
+    "id": "fusion-strike-189-melmetal",
+    "name": "Melmetal",
+    "rarity": "Rare",
+    "number": "189",
+    "image": "/assets/sets/fusion-strike/cards/189_Melmetal_Rare_Holo.png"
+  },
+  {
+    "id": "fusion-strike-190-corviknight",
+    "name": "Corviknight",
+    "rarity": "Rare",
+    "number": "190",
+    "image": "/assets/sets/fusion-strike/cards/190_Corviknight_Rare.png"
+  },
+  {
+    "id": "fusion-strike-191-cufant",
+    "name": "Cufant",
+    "rarity": "Common",
+    "number": "191",
+    "image": "/assets/sets/fusion-strike/cards/191_Cufant_Common.png"
+  },
+  {
+    "id": "fusion-strike-192-copperajah",
+    "name": "Copperajah",
+    "rarity": "Uncommon",
+    "number": "192",
+    "image": "/assets/sets/fusion-strike/cards/192_Copperajah_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-193-latias",
+    "name": "Latias",
+    "rarity": "Rare",
+    "number": "193",
+    "image": "/assets/sets/fusion-strike/cards/193_Latias_Rare.png"
+  },
+  {
+    "id": "fusion-strike-194-latios",
+    "name": "Latios",
+    "rarity": "Rare",
+    "number": "194",
+    "image": "/assets/sets/fusion-strike/cards/194_Latios_Rare.png"
+  },
+  {
+    "id": "fusion-strike-195-goomy",
+    "name": "Goomy",
+    "rarity": "Common",
+    "number": "195",
+    "image": "/assets/sets/fusion-strike/cards/195_Goomy_Common.png"
+  },
+  {
+    "id": "fusion-strike-196-sliggoo",
+    "name": "Sliggoo",
+    "rarity": "Uncommon",
+    "number": "196",
+    "image": "/assets/sets/fusion-strike/cards/196_Sliggoo_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-197-goodra",
+    "name": "Goodra",
+    "rarity": "Rare",
+    "number": "197",
+    "image": "/assets/sets/fusion-strike/cards/197_Goodra_Rare.png"
+  },
+  {
+    "id": "fusion-strike-198-turtonator",
+    "name": "Turtonator",
+    "rarity": "Uncommon",
+    "number": "198",
+    "image": "/assets/sets/fusion-strike/cards/198_Turtonator_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-199-meowth",
+    "name": "Meowth",
+    "rarity": "Common",
+    "number": "199",
+    "image": "/assets/sets/fusion-strike/cards/199_Meowth_Common.png"
+  },
+  {
+    "id": "fusion-strike-200-persian",
+    "name": "Persian",
+    "rarity": "Uncommon",
+    "number": "200",
+    "image": "/assets/sets/fusion-strike/cards/200_Persian_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-201-dodrio-v",
+    "name": "Dodrio V",
+    "rarity": "Double Rare",
+    "number": "201",
+    "image": "/assets/sets/fusion-strike/cards/201_Dodrio_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "fusion-strike-202-chansey",
+    "name": "Chansey",
+    "rarity": "Common",
+    "number": "202",
+    "image": "/assets/sets/fusion-strike/cards/202_Chansey_Common.png"
+  },
+  {
+    "id": "fusion-strike-203-blissey",
+    "name": "Blissey",
+    "rarity": "Rare",
+    "number": "203",
+    "image": "/assets/sets/fusion-strike/cards/203_Blissey_Rare.png"
+  },
+  {
+    "id": "fusion-strike-204-kangaskhan",
+    "name": "Kangaskhan",
+    "rarity": "Rare",
+    "number": "204",
+    "image": "/assets/sets/fusion-strike/cards/204_Kangaskhan_Rare.png"
+  },
+  {
+    "id": "fusion-strike-205-eevee",
+    "name": "Eevee",
+    "rarity": "Common",
+    "number": "205",
+    "image": "/assets/sets/fusion-strike/cards/205_Eevee_Common.png"
+  },
+  {
+    "id": "fusion-strike-206-snorlax",
+    "name": "Snorlax",
+    "rarity": "Common",
+    "number": "206",
+    "image": "/assets/sets/fusion-strike/cards/206_Snorlax_Common.png"
+  },
+  {
+    "id": "fusion-strike-207-dunsparce",
+    "name": "Dunsparce",
+    "rarity": "Uncommon",
+    "number": "207",
+    "image": "/assets/sets/fusion-strike/cards/207_Dunsparce_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-208-stantler",
+    "name": "Stantler",
+    "rarity": "Uncommon",
+    "number": "208",
+    "image": "/assets/sets/fusion-strike/cards/208_Stantler_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-209-smeargle",
+    "name": "Smeargle",
+    "rarity": "Common",
+    "number": "209",
+    "image": "/assets/sets/fusion-strike/cards/209_Smeargle_Common.png"
+  },
+  {
+    "id": "fusion-strike-210-skitty",
+    "name": "Skitty",
+    "rarity": "Common",
+    "number": "210",
+    "image": "/assets/sets/fusion-strike/cards/210_Skitty_Common.png"
+  },
+  {
+    "id": "fusion-strike-211-delcatty",
+    "name": "Delcatty",
+    "rarity": "Uncommon",
+    "number": "211",
+    "image": "/assets/sets/fusion-strike/cards/211_Delcatty_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-212-buneary",
+    "name": "Buneary",
+    "rarity": "Common",
+    "number": "212",
+    "image": "/assets/sets/fusion-strike/cards/212_Buneary_Common.png"
+  },
+  {
+    "id": "fusion-strike-213-lopunny",
+    "name": "Lopunny",
+    "rarity": "Uncommon",
+    "number": "213",
+    "image": "/assets/sets/fusion-strike/cards/213_Lopunny_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-214-bunnelby",
+    "name": "Bunnelby",
+    "rarity": "Common",
+    "number": "214",
+    "image": "/assets/sets/fusion-strike/cards/214_Bunnelby_Common.png"
+  },
+  {
+    "id": "fusion-strike-215-diggersby",
+    "name": "Diggersby",
+    "rarity": "Uncommon",
+    "number": "215",
+    "image": "/assets/sets/fusion-strike/cards/215_Diggersby_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-216-hawlucha",
+    "name": "Hawlucha",
+    "rarity": "Uncommon",
+    "number": "216",
+    "image": "/assets/sets/fusion-strike/cards/216_Hawlucha_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-217-greedent-v",
+    "name": "Greedent V",
+    "rarity": "Double Rare",
+    "number": "217",
+    "image": "/assets/sets/fusion-strike/cards/217_Greedent_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "fusion-strike-218-greedent-vmax",
+    "name": "Greedent VMAX",
+    "rarity": "Ultra Rare",
+    "number": "218",
+    "image": "/assets/sets/fusion-strike/cards/218_Greedent_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "fusion-strike-219-rookidee",
+    "name": "Rookidee",
+    "rarity": "Common",
+    "number": "219",
+    "image": "/assets/sets/fusion-strike/cards/219_Rookidee_Common.png"
+  },
+  {
+    "id": "fusion-strike-220-corvisquire",
+    "name": "Corvisquire",
+    "rarity": "Uncommon",
+    "number": "220",
+    "image": "/assets/sets/fusion-strike/cards/220_Corvisquire_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-221-wooloo",
+    "name": "Wooloo",
+    "rarity": "Common",
+    "number": "221",
+    "image": "/assets/sets/fusion-strike/cards/221_Wooloo_Common.png"
+  },
+  {
+    "id": "fusion-strike-222-wooloo",
+    "name": "Wooloo",
+    "rarity": "Common",
+    "number": "222",
+    "image": "/assets/sets/fusion-strike/cards/222_Wooloo_Common.png"
+  },
+  {
+    "id": "fusion-strike-223-dubwool",
+    "name": "Dubwool",
+    "rarity": "Uncommon",
+    "number": "223",
+    "image": "/assets/sets/fusion-strike/cards/223_Dubwool_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-224-adventurer-s-discovery",
+    "name": "Adventurer's Discovery",
+    "rarity": "Uncommon",
+    "number": "224",
+    "image": "/assets/sets/fusion-strike/cards/224_Adventurer's_Discovery_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-225-battle-vip-pass",
+    "name": "Battle VIP Pass",
+    "rarity": "Uncommon",
+    "number": "225",
+    "image": "/assets/sets/fusion-strike/cards/225_Battle_VIP_Pass_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-226-bug-catcher",
+    "name": "Bug Catcher",
+    "rarity": "Uncommon",
+    "number": "226",
+    "image": "/assets/sets/fusion-strike/cards/226_Bug_Catcher_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-227-chili-cilan-cress",
+    "name": "Chili & Cilan & Cress",
+    "rarity": "Uncommon",
+    "number": "227",
+    "image": "/assets/sets/fusion-strike/cards/227_Chili_&_Cilan_&_Cress_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-228-cook",
+    "name": "Cook",
+    "rarity": "Uncommon",
+    "number": "228",
+    "image": "/assets/sets/fusion-strike/cards/228_Cook_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-229-cram-o-matic",
+    "name": "Cram-o-matic",
+    "rarity": "Uncommon",
+    "number": "229",
+    "image": "/assets/sets/fusion-strike/cards/229_Cram-o-matic_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-230-cross-switcher",
+    "name": "Cross Switcher",
+    "rarity": "Uncommon",
+    "number": "230",
+    "image": "/assets/sets/fusion-strike/cards/230_Cross_Switcher_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-231-crossceiver",
+    "name": "Crossceiver",
+    "rarity": "Uncommon",
+    "number": "231",
+    "image": "/assets/sets/fusion-strike/cards/231_Crossceiver_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-232-dancer",
+    "name": "Dancer",
+    "rarity": "Uncommon",
+    "number": "232",
+    "image": "/assets/sets/fusion-strike/cards/232_Dancer_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-233-elesa-s-sparkle",
+    "name": "Elesa's Sparkle",
+    "rarity": "Uncommon",
+    "number": "233",
+    "image": "/assets/sets/fusion-strike/cards/233_Elesa's_Sparkle_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-234-farewell-bell",
+    "name": "Farewell Bell",
+    "rarity": "Uncommon",
+    "number": "234",
+    "image": "/assets/sets/fusion-strike/cards/234_Farewell_Bell_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-235-judge",
+    "name": "Judge",
+    "rarity": "Uncommon",
+    "number": "235",
+    "image": "/assets/sets/fusion-strike/cards/235_Judge_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-236-power-tablet",
+    "name": "Power Tablet",
+    "rarity": "Uncommon",
+    "number": "236",
+    "image": "/assets/sets/fusion-strike/cards/236_Power_Tablet_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-237-quick-ball",
+    "name": "Quick Ball",
+    "rarity": "Uncommon",
+    "number": "237",
+    "image": "/assets/sets/fusion-strike/cards/237_Quick_Ball_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-238-schoolboy",
+    "name": "Schoolboy",
+    "rarity": "Uncommon",
+    "number": "238",
+    "image": "/assets/sets/fusion-strike/cards/238_Schoolboy_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-239-schoolgirl",
+    "name": "Schoolgirl",
+    "rarity": "Uncommon",
+    "number": "239",
+    "image": "/assets/sets/fusion-strike/cards/239_Schoolgirl_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-240-shauna",
+    "name": "Shauna",
+    "rarity": "Uncommon",
+    "number": "240",
+    "image": "/assets/sets/fusion-strike/cards/240_Shauna_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-241-sidney",
+    "name": "Sidney",
+    "rarity": "Uncommon",
+    "number": "241",
+    "image": "/assets/sets/fusion-strike/cards/241_Sidney_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-242-skaters-park",
+    "name": "Skaters' Park",
+    "rarity": "Uncommon",
+    "number": "242",
+    "image": "/assets/sets/fusion-strike/cards/242_Skaters'_Park_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-243-spongy-gloves",
+    "name": "Spongy Gloves",
+    "rarity": "Uncommon",
+    "number": "243",
+    "image": "/assets/sets/fusion-strike/cards/243_Spongy_Gloves_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-244-fusion-strike-energy",
+    "name": "Fusion Strike Energy",
+    "rarity": "Uncommon",
+    "number": "244",
+    "image": "/assets/sets/fusion-strike/cards/244_Fusion_Strike_Energy_Uncommon.png"
+  },
+  {
+    "id": "fusion-strike-245-celebi-v",
+    "name": "Celebi V",
+    "rarity": "Ultra Rare",
+    "number": "245",
+    "image": "/assets/sets/fusion-strike/cards/245_Celebi_V_Rare_Ultra.png"
+  },
+  {
+    "id": "fusion-strike-246-tsareena-v",
+    "name": "Tsareena V",
+    "rarity": "Ultra Rare",
+    "number": "246",
+    "image": "/assets/sets/fusion-strike/cards/246_Tsareena_V_Rare_Ultra.png"
+  },
+  {
+    "id": "fusion-strike-247-chandelure-v",
+    "name": "Chandelure V",
+    "rarity": "Ultra Rare",
+    "number": "247",
+    "image": "/assets/sets/fusion-strike/cards/247_Chandelure_V_Rare_Ultra.png"
+  },
+  {
+    "id": "fusion-strike-248-crabominable-v",
+    "name": "Crabominable V",
+    "rarity": "Ultra Rare",
+    "number": "248",
+    "image": "/assets/sets/fusion-strike/cards/248_Crabominable_V_Rare_Ultra.png"
+  },
+  {
+    "id": "fusion-strike-249-boltund-v",
+    "name": "Boltund V",
+    "rarity": "Ultra Rare",
+    "number": "249",
+    "image": "/assets/sets/fusion-strike/cards/249_Boltund_V_Rare_Ultra.png"
+  },
+  {
+    "id": "fusion-strike-250-mew-v",
+    "name": "Mew V",
+    "rarity": "Ultra Rare",
+    "number": "250",
+    "image": "/assets/sets/fusion-strike/cards/250_Mew_V_Rare_Ultra.png"
+  },
+  {
+    "id": "fusion-strike-251-mew-v",
+    "name": "Mew V",
+    "rarity": "Ultra Rare",
+    "number": "251",
+    "image": "/assets/sets/fusion-strike/cards/251_Mew_V_Rare_Ultra.png"
+  },
+  {
+    "id": "fusion-strike-252-sandaconda-v",
+    "name": "Sandaconda V",
+    "rarity": "Ultra Rare",
+    "number": "252",
+    "image": "/assets/sets/fusion-strike/cards/252_Sandaconda_V_Rare_Ultra.png"
+  },
+  {
+    "id": "fusion-strike-253-hoopa-v",
+    "name": "Hoopa V",
+    "rarity": "Ultra Rare",
+    "number": "253",
+    "image": "/assets/sets/fusion-strike/cards/253_Hoopa_V_Rare_Ultra.png"
+  },
+  {
+    "id": "fusion-strike-254-genesect-v",
+    "name": "Genesect V",
+    "rarity": "Ultra Rare",
+    "number": "254",
+    "image": "/assets/sets/fusion-strike/cards/254_Genesect_V_Rare_Ultra.png"
+  },
+  {
+    "id": "fusion-strike-255-genesect-v",
+    "name": "Genesect V",
+    "rarity": "Ultra Rare",
+    "number": "255",
+    "image": "/assets/sets/fusion-strike/cards/255_Genesect_V_Rare_Ultra.png"
+  },
+  {
+    "id": "fusion-strike-256-greedent-v",
+    "name": "Greedent V",
+    "rarity": "Ultra Rare",
+    "number": "256",
+    "image": "/assets/sets/fusion-strike/cards/256_Greedent_V_Rare_Ultra.png"
+  },
+  {
+    "id": "fusion-strike-257-greedent-v",
+    "name": "Greedent V",
+    "rarity": "Ultra Rare",
+    "number": "257",
+    "image": "/assets/sets/fusion-strike/cards/257_Greedent_V_Rare_Ultra.png"
+  },
+  {
+    "id": "fusion-strike-258-chili-cilan-cress",
+    "name": "Chili & Cilan & Cress",
+    "rarity": "Ultra Rare",
+    "number": "258",
+    "image": "/assets/sets/fusion-strike/cards/258_Chili_&_Cilan_&_Cress_Rare_Ultra.png"
+  },
+  {
+    "id": "fusion-strike-259-dancer",
+    "name": "Dancer",
+    "rarity": "Ultra Rare",
+    "number": "259",
+    "image": "/assets/sets/fusion-strike/cards/259_Dancer_Rare_Ultra.png"
+  },
+  {
+    "id": "fusion-strike-260-elesa-s-sparkle",
+    "name": "Elesa's Sparkle",
+    "rarity": "Ultra Rare",
+    "number": "260",
+    "image": "/assets/sets/fusion-strike/cards/260_Elesa's_Sparkle_Rare_Ultra.png"
+  },
+  {
+    "id": "fusion-strike-261-schoolboy",
+    "name": "Schoolboy",
+    "rarity": "Ultra Rare",
+    "number": "261",
+    "image": "/assets/sets/fusion-strike/cards/261_Schoolboy_Rare_Ultra.png"
+  },
+  {
+    "id": "fusion-strike-262-schoolgirl",
+    "name": "Schoolgirl",
+    "rarity": "Ultra Rare",
+    "number": "262",
+    "image": "/assets/sets/fusion-strike/cards/262_Schoolgirl_Rare_Ultra.png"
+  },
+  {
+    "id": "fusion-strike-263-shauna",
+    "name": "Shauna",
+    "rarity": "Ultra Rare",
+    "number": "263",
+    "image": "/assets/sets/fusion-strike/cards/263_Shauna_Rare_Ultra.png"
+  },
+  {
+    "id": "fusion-strike-264-sidney",
+    "name": "Sidney",
+    "rarity": "Ultra Rare",
+    "number": "264",
+    "image": "/assets/sets/fusion-strike/cards/264_Sidney_Rare_Ultra.png"
+  },
+  {
+    "id": "fusion-strike-265-chandelure-vmax",
+    "name": "Chandelure VMAX",
+    "rarity": "Secret Rare",
+    "number": "265",
+    "image": "/assets/sets/fusion-strike/cards/265_Chandelure_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "fusion-strike-266-inteleon-vmax",
+    "name": "Inteleon VMAX",
+    "rarity": "Secret Rare",
+    "number": "266",
+    "image": "/assets/sets/fusion-strike/cards/266_Inteleon_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "fusion-strike-267-boltund-vmax",
+    "name": "Boltund VMAX",
+    "rarity": "Secret Rare",
+    "number": "267",
+    "image": "/assets/sets/fusion-strike/cards/267_Boltund_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "fusion-strike-268-mew-vmax",
+    "name": "Mew VMAX",
+    "rarity": "Secret Rare",
+    "number": "268",
+    "image": "/assets/sets/fusion-strike/cards/268_Mew_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "fusion-strike-269-mew-vmax",
+    "name": "Mew VMAX",
+    "rarity": "Secret Rare",
+    "number": "269",
+    "image": "/assets/sets/fusion-strike/cards/269_Mew_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "fusion-strike-270-espeon-vmax",
+    "name": "Espeon VMAX",
+    "rarity": "Secret Rare",
+    "number": "270",
+    "image": "/assets/sets/fusion-strike/cards/270_Espeon_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "fusion-strike-271-gengar-vmax",
+    "name": "Gengar VMAX",
+    "rarity": "Secret Rare",
+    "number": "271",
+    "image": "/assets/sets/fusion-strike/cards/271_Gengar_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "fusion-strike-272-greedent-vmax",
+    "name": "Greedent VMAX",
+    "rarity": "Secret Rare",
+    "number": "272",
+    "image": "/assets/sets/fusion-strike/cards/272_Greedent_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "fusion-strike-273-chili-cilan-cress",
+    "name": "Chili & Cilan & Cress",
+    "rarity": "Secret Rare",
+    "number": "273",
+    "image": "/assets/sets/fusion-strike/cards/273_Chili_&_Cilan_&_Cress_Rare_Rainbow.png"
+  },
+  {
+    "id": "fusion-strike-274-dancer",
+    "name": "Dancer",
+    "rarity": "Secret Rare",
+    "number": "274",
+    "image": "/assets/sets/fusion-strike/cards/274_Dancer_Rare_Rainbow.png"
+  },
+  {
+    "id": "fusion-strike-275-elesa-s-sparkle",
+    "name": "Elesa's Sparkle",
+    "rarity": "Secret Rare",
+    "number": "275",
+    "image": "/assets/sets/fusion-strike/cards/275_Elesa's_Sparkle_Rare_Rainbow.png"
+  },
+  {
+    "id": "fusion-strike-276-schoolboy",
+    "name": "Schoolboy",
+    "rarity": "Secret Rare",
+    "number": "276",
+    "image": "/assets/sets/fusion-strike/cards/276_Schoolboy_Rare_Rainbow.png"
+  },
+  {
+    "id": "fusion-strike-277-schoolgirl",
+    "name": "Schoolgirl",
+    "rarity": "Secret Rare",
+    "number": "277",
+    "image": "/assets/sets/fusion-strike/cards/277_Schoolgirl_Rare_Rainbow.png"
+  },
+  {
+    "id": "fusion-strike-278-shauna",
+    "name": "Shauna",
+    "rarity": "Secret Rare",
+    "number": "278",
+    "image": "/assets/sets/fusion-strike/cards/278_Shauna_Rare_Rainbow.png"
+  },
+  {
+    "id": "fusion-strike-279-sidney",
+    "name": "Sidney",
+    "rarity": "Secret Rare",
+    "number": "279",
+    "image": "/assets/sets/fusion-strike/cards/279_Sidney_Rare_Rainbow.png"
+  },
+  {
+    "id": "fusion-strike-280-flaaffy",
+    "name": "Flaaffy",
+    "rarity": "Secret Rare",
+    "number": "280",
+    "image": "/assets/sets/fusion-strike/cards/280_Flaaffy_Rare_Secret.png"
+  },
+  {
+    "id": "fusion-strike-281-power-tablet",
+    "name": "Power Tablet",
+    "rarity": "Secret Rare",
+    "number": "281",
+    "image": "/assets/sets/fusion-strike/cards/281_Power_Tablet_Rare_Secret.png"
+  },
+  {
+    "id": "fusion-strike-282-training-court",
+    "name": "Training Court",
+    "rarity": "Secret Rare",
+    "number": "282",
+    "image": "/assets/sets/fusion-strike/cards/282_Training_Court_Rare_Secret.png"
+  },
+  {
+    "id": "fusion-strike-283-grass-energy",
+    "name": "Grass Energy",
+    "rarity": "Secret Rare",
+    "number": "283",
+    "image": "/assets/sets/fusion-strike/cards/283_Grass_Energy_Rare_Secret.png"
+  },
+  {
+    "id": "fusion-strike-284-fire-energy",
+    "name": "Fire Energy",
+    "rarity": "Secret Rare",
+    "number": "284",
+    "image": "/assets/sets/fusion-strike/cards/284_Fire_Energy_Rare_Secret.png"
+  }
+]

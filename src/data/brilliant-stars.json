@@ -1,0 +1,1544 @@
+[
+  {
+    "id": "brilliant-stars-1-exeggcute",
+    "name": "Exeggcute",
+    "rarity": "Common",
+    "number": "1",
+    "image": "/assets/sets/brilliant-stars/cards/1_Exeggcute_Common.png"
+  },
+  {
+    "id": "brilliant-stars-2-exeggutor",
+    "name": "Exeggutor",
+    "rarity": "Uncommon",
+    "number": "2",
+    "image": "/assets/sets/brilliant-stars/cards/2_Exeggutor_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-3-shroomish",
+    "name": "Shroomish",
+    "rarity": "Common",
+    "number": "3",
+    "image": "/assets/sets/brilliant-stars/cards/3_Shroomish_Common.png"
+  },
+  {
+    "id": "brilliant-stars-4-breloom",
+    "name": "Breloom",
+    "rarity": "Rare",
+    "number": "4",
+    "image": "/assets/sets/brilliant-stars/cards/4_Breloom_Rare.png"
+  },
+  {
+    "id": "brilliant-stars-5-tropius",
+    "name": "Tropius",
+    "rarity": "Uncommon",
+    "number": "5",
+    "image": "/assets/sets/brilliant-stars/cards/5_Tropius_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-6-turtwig",
+    "name": "Turtwig",
+    "rarity": "Common",
+    "number": "6",
+    "image": "/assets/sets/brilliant-stars/cards/6_Turtwig_Common.png"
+  },
+  {
+    "id": "brilliant-stars-7-grotle",
+    "name": "Grotle",
+    "rarity": "Uncommon",
+    "number": "7",
+    "image": "/assets/sets/brilliant-stars/cards/7_Grotle_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-8-torterra",
+    "name": "Torterra",
+    "rarity": "Rare",
+    "number": "8",
+    "image": "/assets/sets/brilliant-stars/cards/8_Torterra_Rare_Holo.png"
+  },
+  {
+    "id": "brilliant-stars-9-burmy",
+    "name": "Burmy",
+    "rarity": "Common",
+    "number": "9",
+    "image": "/assets/sets/brilliant-stars/cards/9_Burmy_Common.png"
+  },
+  {
+    "id": "brilliant-stars-10-wormadam",
+    "name": "Wormadam",
+    "rarity": "Rare",
+    "number": "10",
+    "image": "/assets/sets/brilliant-stars/cards/10_Wormadam_Rare.png"
+  },
+  {
+    "id": "brilliant-stars-11-mothim",
+    "name": "Mothim",
+    "rarity": "Rare",
+    "number": "11",
+    "image": "/assets/sets/brilliant-stars/cards/11_Mothim_Rare.png"
+  },
+  {
+    "id": "brilliant-stars-12-cherubi",
+    "name": "Cherubi",
+    "rarity": "Common",
+    "number": "12",
+    "image": "/assets/sets/brilliant-stars/cards/12_Cherubi_Common.png"
+  },
+  {
+    "id": "brilliant-stars-13-shaymin-v",
+    "name": "Shaymin V",
+    "rarity": "Double Rare",
+    "number": "13",
+    "image": "/assets/sets/brilliant-stars/cards/13_Shaymin_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "brilliant-stars-14-shaymin-vstar",
+    "name": "Shaymin VSTAR",
+    "rarity": "Ultra Rare",
+    "number": "14",
+    "image": "/assets/sets/brilliant-stars/cards/14_Shaymin_VSTAR_Rare_Holo_VSTAR.png"
+  },
+  {
+    "id": "brilliant-stars-15-karrablast",
+    "name": "Karrablast",
+    "rarity": "Common",
+    "number": "15",
+    "image": "/assets/sets/brilliant-stars/cards/15_Karrablast_Common.png"
+  },
+  {
+    "id": "brilliant-stars-16-zarude-v",
+    "name": "Zarude V",
+    "rarity": "Double Rare",
+    "number": "16",
+    "image": "/assets/sets/brilliant-stars/cards/16_Zarude_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "brilliant-stars-17-charizard-v",
+    "name": "Charizard V",
+    "rarity": "Double Rare",
+    "number": "17",
+    "image": "/assets/sets/brilliant-stars/cards/17_Charizard_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "brilliant-stars-18-charizard-vstar",
+    "name": "Charizard VSTAR",
+    "rarity": "Ultra Rare",
+    "number": "18",
+    "image": "/assets/sets/brilliant-stars/cards/18_Charizard_VSTAR_Rare_Holo_VSTAR.png"
+  },
+  {
+    "id": "brilliant-stars-19-magmar",
+    "name": "Magmar",
+    "rarity": "Common",
+    "number": "19",
+    "image": "/assets/sets/brilliant-stars/cards/19_Magmar_Common.png"
+  },
+  {
+    "id": "brilliant-stars-20-magmortar",
+    "name": "Magmortar",
+    "rarity": "Rare",
+    "number": "20",
+    "image": "/assets/sets/brilliant-stars/cards/20_Magmortar_Rare.png"
+  },
+  {
+    "id": "brilliant-stars-21-moltres",
+    "name": "Moltres",
+    "rarity": "Rare",
+    "number": "21",
+    "image": "/assets/sets/brilliant-stars/cards/21_Moltres_Rare_Holo.png"
+  },
+  {
+    "id": "brilliant-stars-22-entei-v",
+    "name": "Entei V",
+    "rarity": "Double Rare",
+    "number": "22",
+    "image": "/assets/sets/brilliant-stars/cards/22_Entei_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "brilliant-stars-23-torkoal",
+    "name": "Torkoal",
+    "rarity": "Uncommon",
+    "number": "23",
+    "image": "/assets/sets/brilliant-stars/cards/23_Torkoal_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-24-chimchar",
+    "name": "Chimchar",
+    "rarity": "Common",
+    "number": "24",
+    "image": "/assets/sets/brilliant-stars/cards/24_Chimchar_Common.png"
+  },
+  {
+    "id": "brilliant-stars-25-monferno",
+    "name": "Monferno",
+    "rarity": "Uncommon",
+    "number": "25",
+    "image": "/assets/sets/brilliant-stars/cards/25_Monferno_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-26-infernape",
+    "name": "Infernape",
+    "rarity": "Rare",
+    "number": "26",
+    "image": "/assets/sets/brilliant-stars/cards/26_Infernape_Rare_Holo.png"
+  },
+  {
+    "id": "brilliant-stars-27-simisear-v",
+    "name": "Simisear V",
+    "rarity": "Double Rare",
+    "number": "27",
+    "image": "/assets/sets/brilliant-stars/cards/27_Simisear_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "brilliant-stars-28-kingler-v",
+    "name": "Kingler V",
+    "rarity": "Double Rare",
+    "number": "28",
+    "image": "/assets/sets/brilliant-stars/cards/28_Kingler_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "brilliant-stars-29-kingler-vmax",
+    "name": "Kingler VMAX",
+    "rarity": "Ultra Rare",
+    "number": "29",
+    "image": "/assets/sets/brilliant-stars/cards/29_Kingler_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "brilliant-stars-30-staryu",
+    "name": "Staryu",
+    "rarity": "Common",
+    "number": "30",
+    "image": "/assets/sets/brilliant-stars/cards/30_Staryu_Common.png"
+  },
+  {
+    "id": "brilliant-stars-31-lapras",
+    "name": "Lapras",
+    "rarity": "Rare",
+    "number": "31",
+    "image": "/assets/sets/brilliant-stars/cards/31_Lapras_Rare.png"
+  },
+  {
+    "id": "brilliant-stars-32-corphish",
+    "name": "Corphish",
+    "rarity": "Common",
+    "number": "32",
+    "image": "/assets/sets/brilliant-stars/cards/32_Corphish_Common.png"
+  },
+  {
+    "id": "brilliant-stars-33-crawdaunt",
+    "name": "Crawdaunt",
+    "rarity": "Uncommon",
+    "number": "33",
+    "image": "/assets/sets/brilliant-stars/cards/33_Crawdaunt_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-34-snorunt",
+    "name": "Snorunt",
+    "rarity": "Common",
+    "number": "34",
+    "image": "/assets/sets/brilliant-stars/cards/34_Snorunt_Common.png"
+  },
+  {
+    "id": "brilliant-stars-35-piplup",
+    "name": "Piplup",
+    "rarity": "Common",
+    "number": "35",
+    "image": "/assets/sets/brilliant-stars/cards/35_Piplup_Common.png"
+  },
+  {
+    "id": "brilliant-stars-36-prinplup",
+    "name": "Prinplup",
+    "rarity": "Uncommon",
+    "number": "36",
+    "image": "/assets/sets/brilliant-stars/cards/36_Prinplup_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-37-empoleon",
+    "name": "Empoleon",
+    "rarity": "Rare",
+    "number": "37",
+    "image": "/assets/sets/brilliant-stars/cards/37_Empoleon_Rare_Holo.png"
+  },
+  {
+    "id": "brilliant-stars-38-buizel",
+    "name": "Buizel",
+    "rarity": "Common",
+    "number": "38",
+    "image": "/assets/sets/brilliant-stars/cards/38_Buizel_Common.png"
+  },
+  {
+    "id": "brilliant-stars-39-floatzel",
+    "name": "Floatzel",
+    "rarity": "Uncommon",
+    "number": "39",
+    "image": "/assets/sets/brilliant-stars/cards/39_Floatzel_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-40-lumineon-v",
+    "name": "Lumineon V",
+    "rarity": "Double Rare",
+    "number": "40",
+    "image": "/assets/sets/brilliant-stars/cards/40_Lumineon_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "brilliant-stars-41-manaphy",
+    "name": "Manaphy",
+    "rarity": "Rare",
+    "number": "41",
+    "image": "/assets/sets/brilliant-stars/cards/41_Manaphy_Rare.png"
+  },
+  {
+    "id": "brilliant-stars-42-cubchoo",
+    "name": "Cubchoo",
+    "rarity": "Common",
+    "number": "42",
+    "image": "/assets/sets/brilliant-stars/cards/42_Cubchoo_Common.png"
+  },
+  {
+    "id": "brilliant-stars-43-beartic",
+    "name": "Beartic",
+    "rarity": "Uncommon",
+    "number": "43",
+    "image": "/assets/sets/brilliant-stars/cards/43_Beartic_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-44-eiscue",
+    "name": "Eiscue",
+    "rarity": "Rare",
+    "number": "44",
+    "image": "/assets/sets/brilliant-stars/cards/44_Eiscue_Rare.png"
+  },
+  {
+    "id": "brilliant-stars-45-raichu-v",
+    "name": "Raichu V",
+    "rarity": "Double Rare",
+    "number": "45",
+    "image": "/assets/sets/brilliant-stars/cards/45_Raichu_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "brilliant-stars-46-electabuzz",
+    "name": "Electabuzz",
+    "rarity": "Common",
+    "number": "46",
+    "image": "/assets/sets/brilliant-stars/cards/46_Electabuzz_Common.png"
+  },
+  {
+    "id": "brilliant-stars-47-electivire",
+    "name": "Electivire",
+    "rarity": "Rare",
+    "number": "47",
+    "image": "/assets/sets/brilliant-stars/cards/47_Electivire_Rare.png"
+  },
+  {
+    "id": "brilliant-stars-48-raikou-v",
+    "name": "Raikou V",
+    "rarity": "Double Rare",
+    "number": "48",
+    "image": "/assets/sets/brilliant-stars/cards/48_Raikou_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "brilliant-stars-49-shinx",
+    "name": "Shinx",
+    "rarity": "Common",
+    "number": "49",
+    "image": "/assets/sets/brilliant-stars/cards/49_Shinx_Common.png"
+  },
+  {
+    "id": "brilliant-stars-50-luxio",
+    "name": "Luxio",
+    "rarity": "Uncommon",
+    "number": "50",
+    "image": "/assets/sets/brilliant-stars/cards/50_Luxio_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-51-luxray",
+    "name": "Luxray",
+    "rarity": "Rare",
+    "number": "51",
+    "image": "/assets/sets/brilliant-stars/cards/51_Luxray_Rare.png"
+  },
+  {
+    "id": "brilliant-stars-52-pachirisu",
+    "name": "Pachirisu",
+    "rarity": "Uncommon",
+    "number": "52",
+    "image": "/assets/sets/brilliant-stars/cards/52_Pachirisu_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-53-clefairy",
+    "name": "Clefairy",
+    "rarity": "Common",
+    "number": "53",
+    "image": "/assets/sets/brilliant-stars/cards/53_Clefairy_Common.png"
+  },
+  {
+    "id": "brilliant-stars-54-clefable",
+    "name": "Clefable",
+    "rarity": "Rare",
+    "number": "54",
+    "image": "/assets/sets/brilliant-stars/cards/54_Clefable_Rare.png"
+  },
+  {
+    "id": "brilliant-stars-55-starmie",
+    "name": "Starmie",
+    "rarity": "Uncommon",
+    "number": "55",
+    "image": "/assets/sets/brilliant-stars/cards/55_Starmie_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-56-mewtwo",
+    "name": "Mewtwo",
+    "rarity": "Rare",
+    "number": "56",
+    "image": "/assets/sets/brilliant-stars/cards/56_Mewtwo_Rare.png"
+  },
+  {
+    "id": "brilliant-stars-57-granbull-v",
+    "name": "Granbull V",
+    "rarity": "Double Rare",
+    "number": "57",
+    "image": "/assets/sets/brilliant-stars/cards/57_Granbull_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "brilliant-stars-58-baltoy",
+    "name": "Baltoy",
+    "rarity": "Common",
+    "number": "58",
+    "image": "/assets/sets/brilliant-stars/cards/58_Baltoy_Common.png"
+  },
+  {
+    "id": "brilliant-stars-59-claydol",
+    "name": "Claydol",
+    "rarity": "Uncommon",
+    "number": "59",
+    "image": "/assets/sets/brilliant-stars/cards/59_Claydol_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-60-duskull",
+    "name": "Duskull",
+    "rarity": "Common",
+    "number": "60",
+    "image": "/assets/sets/brilliant-stars/cards/60_Duskull_Common.png"
+  },
+  {
+    "id": "brilliant-stars-61-dusclops",
+    "name": "Dusclops",
+    "rarity": "Uncommon",
+    "number": "61",
+    "image": "/assets/sets/brilliant-stars/cards/61_Dusclops_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-62-dusknoir",
+    "name": "Dusknoir",
+    "rarity": "Rare",
+    "number": "62",
+    "image": "/assets/sets/brilliant-stars/cards/62_Dusknoir_Rare_Holo.png"
+  },
+  {
+    "id": "brilliant-stars-63-chimecho",
+    "name": "Chimecho",
+    "rarity": "Common",
+    "number": "63",
+    "image": "/assets/sets/brilliant-stars/cards/63_Chimecho_Common.png"
+  },
+  {
+    "id": "brilliant-stars-64-whimsicott-v",
+    "name": "Whimsicott V",
+    "rarity": "Double Rare",
+    "number": "64",
+    "image": "/assets/sets/brilliant-stars/cards/64_Whimsicott_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "brilliant-stars-65-whimsicott-vstar",
+    "name": "Whimsicott VSTAR",
+    "rarity": "Ultra Rare",
+    "number": "65",
+    "image": "/assets/sets/brilliant-stars/cards/65_Whimsicott_VSTAR_Rare_Holo_VSTAR.png"
+  },
+  {
+    "id": "brilliant-stars-66-sigilyph",
+    "name": "Sigilyph",
+    "rarity": "Uncommon",
+    "number": "66",
+    "image": "/assets/sets/brilliant-stars/cards/66_Sigilyph_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-67-dedenne",
+    "name": "Dedenne",
+    "rarity": "Common",
+    "number": "67",
+    "image": "/assets/sets/brilliant-stars/cards/67_Dedenne_Common.png"
+  },
+  {
+    "id": "brilliant-stars-68-mimikyu-v",
+    "name": "Mimikyu V",
+    "rarity": "Double Rare",
+    "number": "68",
+    "image": "/assets/sets/brilliant-stars/cards/68_Mimikyu_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "brilliant-stars-69-mimikyu-vmax",
+    "name": "Mimikyu VMAX",
+    "rarity": "Ultra Rare",
+    "number": "69",
+    "image": "/assets/sets/brilliant-stars/cards/69_Mimikyu_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "brilliant-stars-70-milcery",
+    "name": "Milcery",
+    "rarity": "Common",
+    "number": "70",
+    "image": "/assets/sets/brilliant-stars/cards/70_Milcery_Common.png"
+  },
+  {
+    "id": "brilliant-stars-71-alcremie",
+    "name": "Alcremie",
+    "rarity": "Rare",
+    "number": "71",
+    "image": "/assets/sets/brilliant-stars/cards/71_Alcremie_Rare.png"
+  },
+  {
+    "id": "brilliant-stars-72-hitmontop",
+    "name": "Hitmontop",
+    "rarity": "Uncommon",
+    "number": "72",
+    "image": "/assets/sets/brilliant-stars/cards/72_Hitmontop_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-73-nosepass",
+    "name": "Nosepass",
+    "rarity": "Common",
+    "number": "73",
+    "image": "/assets/sets/brilliant-stars/cards/73_Nosepass_Common.png"
+  },
+  {
+    "id": "brilliant-stars-74-trapinch",
+    "name": "Trapinch",
+    "rarity": "Common",
+    "number": "74",
+    "image": "/assets/sets/brilliant-stars/cards/74_Trapinch_Common.png"
+  },
+  {
+    "id": "brilliant-stars-75-vibrava",
+    "name": "Vibrava",
+    "rarity": "Uncommon",
+    "number": "75",
+    "image": "/assets/sets/brilliant-stars/cards/75_Vibrava_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-76-flygon",
+    "name": "Flygon",
+    "rarity": "Rare",
+    "number": "76",
+    "image": "/assets/sets/brilliant-stars/cards/76_Flygon_Rare.png"
+  },
+  {
+    "id": "brilliant-stars-77-wormadam",
+    "name": "Wormadam",
+    "rarity": "Rare",
+    "number": "77",
+    "image": "/assets/sets/brilliant-stars/cards/77_Wormadam_Rare.png"
+  },
+  {
+    "id": "brilliant-stars-78-riolu",
+    "name": "Riolu",
+    "rarity": "Common",
+    "number": "78",
+    "image": "/assets/sets/brilliant-stars/cards/78_Riolu_Common.png"
+  },
+  {
+    "id": "brilliant-stars-79-lucario",
+    "name": "Lucario",
+    "rarity": "Rare",
+    "number": "79",
+    "image": "/assets/sets/brilliant-stars/cards/79_Lucario_Rare_Holo.png"
+  },
+  {
+    "id": "brilliant-stars-80-throh",
+    "name": "Throh",
+    "rarity": "Common",
+    "number": "80",
+    "image": "/assets/sets/brilliant-stars/cards/80_Throh_Common.png"
+  },
+  {
+    "id": "brilliant-stars-81-sawk",
+    "name": "Sawk",
+    "rarity": "Common",
+    "number": "81",
+    "image": "/assets/sets/brilliant-stars/cards/81_Sawk_Common.png"
+  },
+  {
+    "id": "brilliant-stars-82-golett",
+    "name": "Golett",
+    "rarity": "Common",
+    "number": "82",
+    "image": "/assets/sets/brilliant-stars/cards/82_Golett_Common.png"
+  },
+  {
+    "id": "brilliant-stars-83-golurk",
+    "name": "Golurk",
+    "rarity": "Rare",
+    "number": "83",
+    "image": "/assets/sets/brilliant-stars/cards/83_Golurk_Rare.png"
+  },
+  {
+    "id": "brilliant-stars-84-grimer",
+    "name": "Grimer",
+    "rarity": "Common",
+    "number": "84",
+    "image": "/assets/sets/brilliant-stars/cards/84_Grimer_Common.png"
+  },
+  {
+    "id": "brilliant-stars-85-muk",
+    "name": "Muk",
+    "rarity": "Rare",
+    "number": "85",
+    "image": "/assets/sets/brilliant-stars/cards/85_Muk_Rare.png"
+  },
+  {
+    "id": "brilliant-stars-86-sneasel",
+    "name": "Sneasel",
+    "rarity": "Common",
+    "number": "86",
+    "image": "/assets/sets/brilliant-stars/cards/86_Sneasel_Common.png"
+  },
+  {
+    "id": "brilliant-stars-87-weavile",
+    "name": "Weavile",
+    "rarity": "Uncommon",
+    "number": "87",
+    "image": "/assets/sets/brilliant-stars/cards/87_Weavile_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-88-honchkrow-v",
+    "name": "Honchkrow V",
+    "rarity": "Double Rare",
+    "number": "88",
+    "image": "/assets/sets/brilliant-stars/cards/88_Honchkrow_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "brilliant-stars-89-spiritomb",
+    "name": "Spiritomb",
+    "rarity": "Common",
+    "number": "89",
+    "image": "/assets/sets/brilliant-stars/cards/89_Spiritomb_Common.png"
+  },
+  {
+    "id": "brilliant-stars-90-purrloin",
+    "name": "Purrloin",
+    "rarity": "Common",
+    "number": "90",
+    "image": "/assets/sets/brilliant-stars/cards/90_Purrloin_Common.png"
+  },
+  {
+    "id": "brilliant-stars-91-liepard",
+    "name": "Liepard",
+    "rarity": "Rare",
+    "number": "91",
+    "image": "/assets/sets/brilliant-stars/cards/91_Liepard_Rare.png"
+  },
+  {
+    "id": "brilliant-stars-92-impidimp",
+    "name": "Impidimp",
+    "rarity": "Common",
+    "number": "92",
+    "image": "/assets/sets/brilliant-stars/cards/92_Impidimp_Common.png"
+  },
+  {
+    "id": "brilliant-stars-93-morgrem",
+    "name": "Morgrem",
+    "rarity": "Uncommon",
+    "number": "93",
+    "image": "/assets/sets/brilliant-stars/cards/93_Morgrem_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-94-grimmsnarl",
+    "name": "Grimmsnarl",
+    "rarity": "Rare",
+    "number": "94",
+    "image": "/assets/sets/brilliant-stars/cards/94_Grimmsnarl_Rare.png"
+  },
+  {
+    "id": "brilliant-stars-95-morpeko-v",
+    "name": "Morpeko V",
+    "rarity": "Double Rare",
+    "number": "95",
+    "image": "/assets/sets/brilliant-stars/cards/95_Morpeko_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "brilliant-stars-96-aggron-v",
+    "name": "Aggron V",
+    "rarity": "Double Rare",
+    "number": "96",
+    "image": "/assets/sets/brilliant-stars/cards/96_Aggron_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "brilliant-stars-97-aggron-vmax",
+    "name": "Aggron VMAX",
+    "rarity": "Ultra Rare",
+    "number": "97",
+    "image": "/assets/sets/brilliant-stars/cards/97_Aggron_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "brilliant-stars-98-wormadam",
+    "name": "Wormadam",
+    "rarity": "Rare",
+    "number": "98",
+    "image": "/assets/sets/brilliant-stars/cards/98_Wormadam_Rare.png"
+  },
+  {
+    "id": "brilliant-stars-99-probopass",
+    "name": "Probopass",
+    "rarity": "Uncommon",
+    "number": "99",
+    "image": "/assets/sets/brilliant-stars/cards/99_Probopass_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-100-heatran",
+    "name": "Heatran",
+    "rarity": "Rare",
+    "number": "100",
+    "image": "/assets/sets/brilliant-stars/cards/100_Heatran_Rare.png"
+  },
+  {
+    "id": "brilliant-stars-101-escavalier",
+    "name": "Escavalier",
+    "rarity": "Rare",
+    "number": "101",
+    "image": "/assets/sets/brilliant-stars/cards/101_Escavalier_Rare.png"
+  },
+  {
+    "id": "brilliant-stars-102-klink",
+    "name": "Klink",
+    "rarity": "Common",
+    "number": "102",
+    "image": "/assets/sets/brilliant-stars/cards/102_Klink_Common.png"
+  },
+  {
+    "id": "brilliant-stars-103-klang",
+    "name": "Klang",
+    "rarity": "Uncommon",
+    "number": "103",
+    "image": "/assets/sets/brilliant-stars/cards/103_Klang_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-104-klinklang",
+    "name": "Klinklang",
+    "rarity": "Rare",
+    "number": "104",
+    "image": "/assets/sets/brilliant-stars/cards/104_Klinklang_Rare.png"
+  },
+  {
+    "id": "brilliant-stars-105-zamazenta-v",
+    "name": "Zamazenta V",
+    "rarity": "Double Rare",
+    "number": "105",
+    "image": "/assets/sets/brilliant-stars/cards/105_Zamazenta_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "brilliant-stars-106-flygon-v",
+    "name": "Flygon V",
+    "rarity": "Double Rare",
+    "number": "106",
+    "image": "/assets/sets/brilliant-stars/cards/106_Flygon_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "brilliant-stars-107-gible",
+    "name": "Gible",
+    "rarity": "Common",
+    "number": "107",
+    "image": "/assets/sets/brilliant-stars/cards/107_Gible_Common.png"
+  },
+  {
+    "id": "brilliant-stars-108-gabite",
+    "name": "Gabite",
+    "rarity": "Uncommon",
+    "number": "108",
+    "image": "/assets/sets/brilliant-stars/cards/108_Gabite_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-109-garchomp",
+    "name": "Garchomp",
+    "rarity": "Rare",
+    "number": "109",
+    "image": "/assets/sets/brilliant-stars/cards/109_Garchomp_Rare_Holo.png"
+  },
+  {
+    "id": "brilliant-stars-110-axew",
+    "name": "Axew",
+    "rarity": "Common",
+    "number": "110",
+    "image": "/assets/sets/brilliant-stars/cards/110_Axew_Common.png"
+  },
+  {
+    "id": "brilliant-stars-111-fraxure",
+    "name": "Fraxure",
+    "rarity": "Uncommon",
+    "number": "111",
+    "image": "/assets/sets/brilliant-stars/cards/111_Fraxure_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-112-haxorus",
+    "name": "Haxorus",
+    "rarity": "Rare",
+    "number": "112",
+    "image": "/assets/sets/brilliant-stars/cards/112_Haxorus_Rare.png"
+  },
+  {
+    "id": "brilliant-stars-113-druddigon",
+    "name": "Druddigon",
+    "rarity": "Rare",
+    "number": "113",
+    "image": "/assets/sets/brilliant-stars/cards/113_Druddigon_Rare.png"
+  },
+  {
+    "id": "brilliant-stars-114-dracovish-v",
+    "name": "Dracovish V",
+    "rarity": "Double Rare",
+    "number": "114",
+    "image": "/assets/sets/brilliant-stars/cards/114_Dracovish_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "brilliant-stars-115-farfetch-d",
+    "name": "Farfetch'd",
+    "rarity": "Common",
+    "number": "115",
+    "image": "/assets/sets/brilliant-stars/cards/115_Farfetch'd_Common.png"
+  },
+  {
+    "id": "brilliant-stars-116-castform",
+    "name": "Castform",
+    "rarity": "Common",
+    "number": "116",
+    "image": "/assets/sets/brilliant-stars/cards/116_Castform_Common.png"
+  },
+  {
+    "id": "brilliant-stars-117-starly",
+    "name": "Starly",
+    "rarity": "Common",
+    "number": "117",
+    "image": "/assets/sets/brilliant-stars/cards/117_Starly_Common.png"
+  },
+  {
+    "id": "brilliant-stars-118-staravia",
+    "name": "Staravia",
+    "rarity": "Uncommon",
+    "number": "118",
+    "image": "/assets/sets/brilliant-stars/cards/118_Staravia_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-119-staraptor",
+    "name": "Staraptor",
+    "rarity": "Rare",
+    "number": "119",
+    "image": "/assets/sets/brilliant-stars/cards/119_Staraptor_Rare.png"
+  },
+  {
+    "id": "brilliant-stars-120-bidoof",
+    "name": "Bidoof",
+    "rarity": "Common",
+    "number": "120",
+    "image": "/assets/sets/brilliant-stars/cards/120_Bidoof_Common.png"
+  },
+  {
+    "id": "brilliant-stars-121-bibarel",
+    "name": "Bibarel",
+    "rarity": "Rare",
+    "number": "121",
+    "image": "/assets/sets/brilliant-stars/cards/121_Bibarel_Rare_Holo.png"
+  },
+  {
+    "id": "brilliant-stars-122-arceus-v",
+    "name": "Arceus V",
+    "rarity": "Double Rare",
+    "number": "122",
+    "image": "/assets/sets/brilliant-stars/cards/122_Arceus_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "brilliant-stars-123-arceus-vstar",
+    "name": "Arceus VSTAR",
+    "rarity": "Ultra Rare",
+    "number": "123",
+    "image": "/assets/sets/brilliant-stars/cards/123_Arceus_VSTAR_Rare_Holo_VSTAR.png"
+  },
+  {
+    "id": "brilliant-stars-124-minccino",
+    "name": "Minccino",
+    "rarity": "Common",
+    "number": "124",
+    "image": "/assets/sets/brilliant-stars/cards/124_Minccino_Common.png"
+  },
+  {
+    "id": "brilliant-stars-125-cinccino",
+    "name": "Cinccino",
+    "rarity": "Uncommon",
+    "number": "125",
+    "image": "/assets/sets/brilliant-stars/cards/125_Cinccino_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-126-tornadus",
+    "name": "Tornadus",
+    "rarity": "Rare",
+    "number": "126",
+    "image": "/assets/sets/brilliant-stars/cards/126_Tornadus_Rare.png"
+  },
+  {
+    "id": "brilliant-stars-127-hawlucha",
+    "name": "Hawlucha",
+    "rarity": "Common",
+    "number": "127",
+    "image": "/assets/sets/brilliant-stars/cards/127_Hawlucha_Common.png"
+  },
+  {
+    "id": "brilliant-stars-128-drampa-v",
+    "name": "Drampa V",
+    "rarity": "Double Rare",
+    "number": "128",
+    "image": "/assets/sets/brilliant-stars/cards/128_Drampa_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "brilliant-stars-129-acerola-s-premonition",
+    "name": "Acerola's Premonition",
+    "rarity": "Uncommon",
+    "number": "129",
+    "image": "/assets/sets/brilliant-stars/cards/129_Acerola's_Premonition_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-130-barry",
+    "name": "Barry",
+    "rarity": "Uncommon",
+    "number": "130",
+    "image": "/assets/sets/brilliant-stars/cards/130_Barry_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-131-blunder-policy",
+    "name": "Blunder Policy",
+    "rarity": "Uncommon",
+    "number": "131",
+    "image": "/assets/sets/brilliant-stars/cards/131_Blunder_Policy_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-132-boss-s-orders",
+    "name": "Boss's Orders",
+    "rarity": "Rare",
+    "number": "132",
+    "image": "/assets/sets/brilliant-stars/cards/132_Boss's_Orders_Rare_Holo.png"
+  },
+  {
+    "id": "brilliant-stars-133-caf-master",
+    "name": "Café Master",
+    "rarity": "Uncommon",
+    "number": "133",
+    "image": "/assets/sets/brilliant-stars/cards/133_Café_Master_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-134-cheren-s-care",
+    "name": "Cheren's Care",
+    "rarity": "Uncommon",
+    "number": "134",
+    "image": "/assets/sets/brilliant-stars/cards/134_Cheren's_Care_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-135-choice-belt",
+    "name": "Choice Belt",
+    "rarity": "Uncommon",
+    "number": "135",
+    "image": "/assets/sets/brilliant-stars/cards/135_Choice_Belt_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-136-cleansing-gloves",
+    "name": "Cleansing Gloves",
+    "rarity": "Uncommon",
+    "number": "136",
+    "image": "/assets/sets/brilliant-stars/cards/136_Cleansing_Gloves_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-137-collapsed-stadium",
+    "name": "Collapsed Stadium",
+    "rarity": "Uncommon",
+    "number": "137",
+    "image": "/assets/sets/brilliant-stars/cards/137_Collapsed_Stadium_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-138-cynthia-s-ambition",
+    "name": "Cynthia's Ambition",
+    "rarity": "Uncommon",
+    "number": "138",
+    "image": "/assets/sets/brilliant-stars/cards/138_Cynthia's_Ambition_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-139-fresh-water-set",
+    "name": "Fresh Water Set",
+    "rarity": "Uncommon",
+    "number": "139",
+    "image": "/assets/sets/brilliant-stars/cards/139_Fresh_Water_Set_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-140-friends-in-galar",
+    "name": "Friends in Galar",
+    "rarity": "Uncommon",
+    "number": "140",
+    "image": "/assets/sets/brilliant-stars/cards/140_Friends_in_Galar_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-141-gloria",
+    "name": "Gloria",
+    "rarity": "Uncommon",
+    "number": "141",
+    "image": "/assets/sets/brilliant-stars/cards/141_Gloria_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-142-hunting-gloves",
+    "name": "Hunting Gloves",
+    "rarity": "Uncommon",
+    "number": "142",
+    "image": "/assets/sets/brilliant-stars/cards/142_Hunting_Gloves_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-143-kindler",
+    "name": "Kindler",
+    "rarity": "Uncommon",
+    "number": "143",
+    "image": "/assets/sets/brilliant-stars/cards/143_Kindler_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-144-magma-basin",
+    "name": "Magma Basin",
+    "rarity": "Uncommon",
+    "number": "144",
+    "image": "/assets/sets/brilliant-stars/cards/144_Magma_Basin_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-145-marnie-s-pride",
+    "name": "Marnie's Pride",
+    "rarity": "Uncommon",
+    "number": "145",
+    "image": "/assets/sets/brilliant-stars/cards/145_Marnie's_Pride_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-146-pot-helmet",
+    "name": "Pot Helmet",
+    "rarity": "Uncommon",
+    "number": "146",
+    "image": "/assets/sets/brilliant-stars/cards/146_Pot_Helmet_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-147-professor-s-research",
+    "name": "Professor's Research",
+    "rarity": "Rare",
+    "number": "147",
+    "image": "/assets/sets/brilliant-stars/cards/147_Professor's_Research_Rare_Holo.png"
+  },
+  {
+    "id": "brilliant-stars-148-roseanne-s-backup",
+    "name": "Roseanne's Backup",
+    "rarity": "Uncommon",
+    "number": "148",
+    "image": "/assets/sets/brilliant-stars/cards/148_Roseanne's_Backup_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-149-team-yell-s-cheer",
+    "name": "Team Yell's Cheer",
+    "rarity": "Uncommon",
+    "number": "149",
+    "image": "/assets/sets/brilliant-stars/cards/149_Team_Yell's_Cheer_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-150-ultra-ball",
+    "name": "Ultra Ball",
+    "rarity": "Uncommon",
+    "number": "150",
+    "image": "/assets/sets/brilliant-stars/cards/150_Ultra_Ball_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-151-double-turbo-energy",
+    "name": "Double Turbo Energy",
+    "rarity": "Uncommon",
+    "number": "151",
+    "image": "/assets/sets/brilliant-stars/cards/151_Double_Turbo_Energy_Uncommon.png"
+  },
+  {
+    "id": "brilliant-stars-152-shaymin-v",
+    "name": "Shaymin V",
+    "rarity": "Ultra Rare",
+    "number": "152",
+    "image": "/assets/sets/brilliant-stars/cards/152_Shaymin_V_Rare_Ultra.png"
+  },
+  {
+    "id": "brilliant-stars-153-charizard-v",
+    "name": "Charizard V",
+    "rarity": "Ultra Rare",
+    "number": "153",
+    "image": "/assets/sets/brilliant-stars/cards/153_Charizard_V_Rare_Ultra.png"
+  },
+  {
+    "id": "brilliant-stars-154-charizard-v",
+    "name": "Charizard V",
+    "rarity": "Ultra Rare",
+    "number": "154",
+    "image": "/assets/sets/brilliant-stars/cards/154_Charizard_V_Rare_Ultra.png"
+  },
+  {
+    "id": "brilliant-stars-155-lumineon-v",
+    "name": "Lumineon V",
+    "rarity": "Ultra Rare",
+    "number": "155",
+    "image": "/assets/sets/brilliant-stars/cards/155_Lumineon_V_Rare_Ultra.png"
+  },
+  {
+    "id": "brilliant-stars-156-lumineon-v",
+    "name": "Lumineon V",
+    "rarity": "Ultra Rare",
+    "number": "156",
+    "image": "/assets/sets/brilliant-stars/cards/156_Lumineon_V_Rare_Ultra.png"
+  },
+  {
+    "id": "brilliant-stars-157-pikachu-v",
+    "name": "Pikachu V",
+    "rarity": "Ultra Rare",
+    "number": "157",
+    "image": "/assets/sets/brilliant-stars/cards/157_Pikachu_V_Rare_Ultra.png"
+  },
+  {
+    "id": "brilliant-stars-158-raichu-v",
+    "name": "Raichu V",
+    "rarity": "Ultra Rare",
+    "number": "158",
+    "image": "/assets/sets/brilliant-stars/cards/158_Raichu_V_Rare_Ultra.png"
+  },
+  {
+    "id": "brilliant-stars-159-granbull-v",
+    "name": "Granbull V",
+    "rarity": "Ultra Rare",
+    "number": "159",
+    "image": "/assets/sets/brilliant-stars/cards/159_Granbull_V_Rare_Ultra.png"
+  },
+  {
+    "id": "brilliant-stars-160-whimsicott-v",
+    "name": "Whimsicott V",
+    "rarity": "Ultra Rare",
+    "number": "160",
+    "image": "/assets/sets/brilliant-stars/cards/160_Whimsicott_V_Rare_Ultra.png"
+  },
+  {
+    "id": "brilliant-stars-161-honchkrow-v",
+    "name": "Honchkrow V",
+    "rarity": "Ultra Rare",
+    "number": "161",
+    "image": "/assets/sets/brilliant-stars/cards/161_Honchkrow_V_Rare_Ultra.png"
+  },
+  {
+    "id": "brilliant-stars-162-honchkrow-v",
+    "name": "Honchkrow V",
+    "rarity": "Ultra Rare",
+    "number": "162",
+    "image": "/assets/sets/brilliant-stars/cards/162_Honchkrow_V_Rare_Ultra.png"
+  },
+  {
+    "id": "brilliant-stars-163-zamazenta-v",
+    "name": "Zamazenta V",
+    "rarity": "Ultra Rare",
+    "number": "163",
+    "image": "/assets/sets/brilliant-stars/cards/163_Zamazenta_V_Rare_Ultra.png"
+  },
+  {
+    "id": "brilliant-stars-164-flygon-v",
+    "name": "Flygon V",
+    "rarity": "Ultra Rare",
+    "number": "164",
+    "image": "/assets/sets/brilliant-stars/cards/164_Flygon_V_Rare_Ultra.png"
+  },
+  {
+    "id": "brilliant-stars-165-arceus-v",
+    "name": "Arceus V",
+    "rarity": "Ultra Rare",
+    "number": "165",
+    "image": "/assets/sets/brilliant-stars/cards/165_Arceus_V_Rare_Ultra.png"
+  },
+  {
+    "id": "brilliant-stars-166-arceus-v",
+    "name": "Arceus V",
+    "rarity": "Ultra Rare",
+    "number": "166",
+    "image": "/assets/sets/brilliant-stars/cards/166_Arceus_V_Rare_Ultra.png"
+  },
+  {
+    "id": "brilliant-stars-167-barry",
+    "name": "Barry",
+    "rarity": "Ultra Rare",
+    "number": "167",
+    "image": "/assets/sets/brilliant-stars/cards/167_Barry_Rare_Ultra.png"
+  },
+  {
+    "id": "brilliant-stars-168-cheren-s-care",
+    "name": "Cheren's Care",
+    "rarity": "Ultra Rare",
+    "number": "168",
+    "image": "/assets/sets/brilliant-stars/cards/168_Cheren's_Care_Rare_Ultra.png"
+  },
+  {
+    "id": "brilliant-stars-169-cynthia-s-ambition",
+    "name": "Cynthia's Ambition",
+    "rarity": "Ultra Rare",
+    "number": "169",
+    "image": "/assets/sets/brilliant-stars/cards/169_Cynthia's_Ambition_Rare_Ultra.png"
+  },
+  {
+    "id": "brilliant-stars-170-kindler",
+    "name": "Kindler",
+    "rarity": "Ultra Rare",
+    "number": "170",
+    "image": "/assets/sets/brilliant-stars/cards/170_Kindler_Rare_Ultra.png"
+  },
+  {
+    "id": "brilliant-stars-171-marnie-s-pride",
+    "name": "Marnie's Pride",
+    "rarity": "Ultra Rare",
+    "number": "171",
+    "image": "/assets/sets/brilliant-stars/cards/171_Marnie's_Pride_Rare_Ultra.png"
+  },
+  {
+    "id": "brilliant-stars-172-roseanne-s-backup",
+    "name": "Roseanne's Backup",
+    "rarity": "Ultra Rare",
+    "number": "172",
+    "image": "/assets/sets/brilliant-stars/cards/172_Roseanne's_Backup_Rare_Ultra.png"
+  },
+  {
+    "id": "brilliant-stars-173-shaymin-vstar",
+    "name": "Shaymin VSTAR",
+    "rarity": "Secret Rare",
+    "number": "173",
+    "image": "/assets/sets/brilliant-stars/cards/173_Shaymin_VSTAR_Rare_Rainbow.png"
+  },
+  {
+    "id": "brilliant-stars-174-charizard-vstar",
+    "name": "Charizard VSTAR",
+    "rarity": "Secret Rare",
+    "number": "174",
+    "image": "/assets/sets/brilliant-stars/cards/174_Charizard_VSTAR_Rare_Rainbow.png"
+  },
+  {
+    "id": "brilliant-stars-175-whimsicott-vstar",
+    "name": "Whimsicott VSTAR",
+    "rarity": "Secret Rare",
+    "number": "175",
+    "image": "/assets/sets/brilliant-stars/cards/175_Whimsicott_VSTAR_Rare_Rainbow.png"
+  },
+  {
+    "id": "brilliant-stars-176-arceus-vstar",
+    "name": "Arceus VSTAR",
+    "rarity": "Secret Rare",
+    "number": "176",
+    "image": "/assets/sets/brilliant-stars/cards/176_Arceus_VSTAR_Rare_Rainbow.png"
+  },
+  {
+    "id": "brilliant-stars-177-cheren-s-care",
+    "name": "Cheren's Care",
+    "rarity": "Secret Rare",
+    "number": "177",
+    "image": "/assets/sets/brilliant-stars/cards/177_Cheren's_Care_Rare_Rainbow.png"
+  },
+  {
+    "id": "brilliant-stars-178-cynthia-s-ambition",
+    "name": "Cynthia's Ambition",
+    "rarity": "Secret Rare",
+    "number": "178",
+    "image": "/assets/sets/brilliant-stars/cards/178_Cynthia's_Ambition_Rare_Rainbow.png"
+  },
+  {
+    "id": "brilliant-stars-179-kindler",
+    "name": "Kindler",
+    "rarity": "Secret Rare",
+    "number": "179",
+    "image": "/assets/sets/brilliant-stars/cards/179_Kindler_Rare_Rainbow.png"
+  },
+  {
+    "id": "brilliant-stars-180-roseanne-s-backup",
+    "name": "Roseanne's Backup",
+    "rarity": "Secret Rare",
+    "number": "180",
+    "image": "/assets/sets/brilliant-stars/cards/180_Roseanne's_Backup_Rare_Rainbow.png"
+  },
+  {
+    "id": "brilliant-stars-181-galarian-articuno-v",
+    "name": "Galarian Articuno V",
+    "rarity": "Secret Rare",
+    "number": "181",
+    "image": "/assets/sets/brilliant-stars/cards/181_Galarian_Articuno_V_Rare_Secret.png"
+  },
+  {
+    "id": "brilliant-stars-182-galarian-zapdos-v",
+    "name": "Galarian Zapdos V",
+    "rarity": "Secret Rare",
+    "number": "182",
+    "image": "/assets/sets/brilliant-stars/cards/182_Galarian_Zapdos_V_Rare_Secret.png"
+  },
+  {
+    "id": "brilliant-stars-183-galarian-moltres-v",
+    "name": "Galarian Moltres V",
+    "rarity": "Secret Rare",
+    "number": "183",
+    "image": "/assets/sets/brilliant-stars/cards/183_Galarian_Moltres_V_Rare_Secret.png"
+  },
+  {
+    "id": "brilliant-stars-184-arceus-vstar",
+    "name": "Arceus VSTAR",
+    "rarity": "Secret Rare",
+    "number": "184",
+    "image": "/assets/sets/brilliant-stars/cards/184_Arceus_VSTAR_Rare_Secret.png"
+  },
+  {
+    "id": "brilliant-stars-185-magma-basin",
+    "name": "Magma Basin",
+    "rarity": "Secret Rare",
+    "number": "185",
+    "image": "/assets/sets/brilliant-stars/cards/185_Magma_Basin_Rare_Secret.png"
+  },
+  {
+    "id": "brilliant-stars-186-ultra-ball",
+    "name": "Ultra Ball",
+    "rarity": "Secret Rare",
+    "number": "186",
+    "image": "/assets/sets/brilliant-stars/cards/186_Ultra_Ball_Rare_Secret.png"
+  },
+  {
+    "id": "brilliant-stars-TG01-flareon",
+    "name": "Flareon",
+    "rarity": "Rare",
+    "number": "TG01",
+    "image": "/assets/sets/brilliant-stars/cards/TG01_Flareon_Trainer_Gallery_Rare_Holo_swsh9tg-tg01.png",
+    "subset": "Trainer Gallery"
+  },
+  {
+    "id": "brilliant-stars-TG02-vaporeon",
+    "name": "Vaporeon",
+    "rarity": "Rare",
+    "number": "TG02",
+    "image": "/assets/sets/brilliant-stars/cards/TG02_Vaporeon_Trainer_Gallery_Rare_Holo_swsh9tg-tg02.png",
+    "subset": "Trainer Gallery"
+  },
+  {
+    "id": "brilliant-stars-TG03-octillery",
+    "name": "Octillery",
+    "rarity": "Rare",
+    "number": "TG03",
+    "image": "/assets/sets/brilliant-stars/cards/TG03_Octillery_Trainer_Gallery_Rare_Holo_swsh9tg-tg03.png",
+    "subset": "Trainer Gallery"
+  },
+  {
+    "id": "brilliant-stars-TG04-jolteon",
+    "name": "Jolteon",
+    "rarity": "Rare",
+    "number": "TG04",
+    "image": "/assets/sets/brilliant-stars/cards/TG04_Jolteon_Trainer_Gallery_Rare_Holo_swsh9tg-tg04.png",
+    "subset": "Trainer Gallery"
+  },
+  {
+    "id": "brilliant-stars-TG05-zekrom",
+    "name": "Zekrom",
+    "rarity": "Rare",
+    "number": "TG05",
+    "image": "/assets/sets/brilliant-stars/cards/TG05_Zekrom_Trainer_Gallery_Rare_Holo_swsh9tg-tg05.png",
+    "subset": "Trainer Gallery"
+  },
+  {
+    "id": "brilliant-stars-TG06-dusknoir",
+    "name": "Dusknoir",
+    "rarity": "Rare",
+    "number": "TG06",
+    "image": "/assets/sets/brilliant-stars/cards/TG06_Dusknoir_Trainer_Gallery_Rare_Holo_swsh9tg-tg06.png",
+    "subset": "Trainer Gallery"
+  },
+  {
+    "id": "brilliant-stars-TG07-dedenne",
+    "name": "Dedenne",
+    "rarity": "Rare",
+    "number": "TG07",
+    "image": "/assets/sets/brilliant-stars/cards/TG07_Dedenne_Trainer_Gallery_Rare_Holo_swsh9tg-tg07.png",
+    "subset": "Trainer Gallery"
+  },
+  {
+    "id": "brilliant-stars-TG08-alcremie",
+    "name": "Alcremie",
+    "rarity": "Rare",
+    "number": "TG08",
+    "image": "/assets/sets/brilliant-stars/cards/TG08_Alcremie_Trainer_Gallery_Rare_Holo_swsh9tg-tg08.png",
+    "subset": "Trainer Gallery"
+  },
+  {
+    "id": "brilliant-stars-TG09-ariados",
+    "name": "Ariados",
+    "rarity": "Rare",
+    "number": "TG09",
+    "image": "/assets/sets/brilliant-stars/cards/TG09_Ariados_Trainer_Gallery_Rare_Holo_swsh9tg-tg09.png",
+    "subset": "Trainer Gallery"
+  },
+  {
+    "id": "brilliant-stars-TG10-houndoom",
+    "name": "Houndoom",
+    "rarity": "Rare",
+    "number": "TG10",
+    "image": "/assets/sets/brilliant-stars/cards/TG10_Houndoom_Trainer_Gallery_Rare_Holo_swsh9tg-tg10.png",
+    "subset": "Trainer Gallery"
+  },
+  {
+    "id": "brilliant-stars-TG11-eevee",
+    "name": "Eevee",
+    "rarity": "Rare",
+    "number": "TG11",
+    "image": "/assets/sets/brilliant-stars/cards/TG11_Eevee_Trainer_Gallery_Rare_Holo_swsh9tg-tg11.png",
+    "subset": "Trainer Gallery"
+  },
+  {
+    "id": "brilliant-stars-TG12-oranguru",
+    "name": "Oranguru",
+    "rarity": "Rare",
+    "number": "TG12",
+    "image": "/assets/sets/brilliant-stars/cards/TG12_Oranguru_Trainer_Gallery_Rare_Holo_swsh9tg-tg12.png",
+    "subset": "Trainer Gallery"
+  },
+  {
+    "id": "brilliant-stars-TG13-boltund-v",
+    "name": "Boltund V",
+    "rarity": "Double Rare",
+    "number": "TG13",
+    "image": "/assets/sets/brilliant-stars/cards/TG13_Boltund_V_Rare_Holo_V_swsh9tg-tg13.png",
+    "subset": "Trainer Gallery"
+  },
+  {
+    "id": "brilliant-stars-TG14-sylveon-v",
+    "name": "Sylveon V",
+    "rarity": "Double Rare",
+    "number": "TG14",
+    "image": "/assets/sets/brilliant-stars/cards/TG14_Sylveon_V_Rare_Holo_V_swsh9tg-tg14.png",
+    "subset": "Trainer Gallery"
+  },
+  {
+    "id": "brilliant-stars-TG15-sylveon-vmax",
+    "name": "Sylveon VMAX",
+    "rarity": "Ultra Rare",
+    "number": "TG15",
+    "image": "/assets/sets/brilliant-stars/cards/TG15_Sylveon_VMAX_Rare_Holo_VMAX_swsh9tg-tg15.png",
+    "subset": "Trainer Gallery"
+  },
+  {
+    "id": "brilliant-stars-TG16-mimikyu-v",
+    "name": "Mimikyu V",
+    "rarity": "Double Rare",
+    "number": "TG16",
+    "image": "/assets/sets/brilliant-stars/cards/TG16_Mimikyu_V_Rare_Holo_V_swsh9tg-tg16.png",
+    "subset": "Trainer Gallery"
+  },
+  {
+    "id": "brilliant-stars-TG17-mimikyu-vmax",
+    "name": "Mimikyu VMAX",
+    "rarity": "Ultra Rare",
+    "number": "TG17",
+    "image": "/assets/sets/brilliant-stars/cards/TG17_Mimikyu_VMAX_Rare_Holo_VMAX_swsh9tg-tg17.png",
+    "subset": "Trainer Gallery"
+  },
+  {
+    "id": "brilliant-stars-TG18-single-strike-urshifu-v",
+    "name": "Single Strike Urshifu V",
+    "rarity": "Double Rare",
+    "number": "TG18",
+    "image": "/assets/sets/brilliant-stars/cards/TG18_Single_Strike_Urshifu_V_Rare_Holo_V_swsh9tg-tg18.png",
+    "subset": "Trainer Gallery"
+  },
+  {
+    "id": "brilliant-stars-TG19-single-strike-urshifu-vmax",
+    "name": "Single Strike Urshifu VMAX",
+    "rarity": "Ultra Rare",
+    "number": "TG19",
+    "image": "/assets/sets/brilliant-stars/cards/TG19_Single_Strike_Urshifu_VMAX_Rare_Holo_VMAX_swsh9tg-tg19.png",
+    "subset": "Trainer Gallery"
+  },
+  {
+    "id": "brilliant-stars-TG20-rapid-strike-urshifu-v",
+    "name": "Rapid Strike Urshifu V",
+    "rarity": "Double Rare",
+    "number": "TG20",
+    "image": "/assets/sets/brilliant-stars/cards/TG20_Rapid_Strike_Urshifu_V_Rare_Holo_V_swsh9tg-tg20.png",
+    "subset": "Trainer Gallery"
+  },
+  {
+    "id": "brilliant-stars-TG21-rapid-strike-urshifu-vmax",
+    "name": "Rapid Strike Urshifu VMAX",
+    "rarity": "Ultra Rare",
+    "number": "TG21",
+    "image": "/assets/sets/brilliant-stars/cards/TG21_Rapid_Strike_Urshifu_VMAX_Rare_Holo_VMAX_swsh9tg-tg21.png",
+    "subset": "Trainer Gallery"
+  },
+  {
+    "id": "brilliant-stars-TG22-umbreon-v",
+    "name": "Umbreon V",
+    "rarity": "Double Rare",
+    "number": "TG22",
+    "image": "/assets/sets/brilliant-stars/cards/TG22_Umbreon_V_Rare_Holo_V_swsh9tg-tg22.png",
+    "subset": "Trainer Gallery"
+  },
+  {
+    "id": "brilliant-stars-TG23-umbreon-vmax",
+    "name": "Umbreon VMAX",
+    "rarity": "Ultra Rare",
+    "number": "TG23",
+    "image": "/assets/sets/brilliant-stars/cards/TG23_Umbreon_VMAX_Rare_Holo_VMAX_swsh9tg-tg23.png",
+    "subset": "Trainer Gallery"
+  },
+  {
+    "id": "brilliant-stars-TG24-acerola-s-premonition",
+    "name": "Acerola's Premonition",
+    "rarity": "Ultra Rare",
+    "number": "TG24",
+    "image": "/assets/sets/brilliant-stars/cards/TG24_Acerola's_Premonition_Rare_Ultra_swsh9tg-tg24.png",
+    "subset": "Trainer Gallery"
+  },
+  {
+    "id": "brilliant-stars-TG25-caf-master",
+    "name": "Café Master",
+    "rarity": "Ultra Rare",
+    "number": "TG25",
+    "image": "/assets/sets/brilliant-stars/cards/TG25_Café_Master_Rare_Ultra_swsh9tg-tg25.png",
+    "subset": "Trainer Gallery"
+  },
+  {
+    "id": "brilliant-stars-TG26-gloria",
+    "name": "Gloria",
+    "rarity": "Ultra Rare",
+    "number": "TG26",
+    "image": "/assets/sets/brilliant-stars/cards/TG26_Gloria_Rare_Ultra_swsh9tg-tg26.png",
+    "subset": "Trainer Gallery"
+  },
+  {
+    "id": "brilliant-stars-TG27-rapid-strike-style-mustard",
+    "name": "Rapid Strike Style Mustard",
+    "rarity": "Ultra Rare",
+    "number": "TG27",
+    "image": "/assets/sets/brilliant-stars/cards/TG27_Rapid_Strike_Style_Mustard_Rare_Ultra_swsh9tg-tg27.png",
+    "subset": "Trainer Gallery"
+  },
+  {
+    "id": "brilliant-stars-TG28-single-strike-style-mustard",
+    "name": "Single Strike Style Mustard",
+    "rarity": "Ultra Rare",
+    "number": "TG28",
+    "image": "/assets/sets/brilliant-stars/cards/TG28_Single_Strike_Style_Mustard_Rare_Ultra_swsh9tg-tg28.png",
+    "subset": "Trainer Gallery"
+  },
+  {
+    "id": "brilliant-stars-TG29-single-strike-urshifu-vmax",
+    "name": "Single Strike Urshifu VMAX",
+    "rarity": "Secret Rare",
+    "number": "TG29",
+    "image": "/assets/sets/brilliant-stars/cards/TG29_Single_Strike_Urshifu_VMAX_Rare_Secret_swsh9tg-tg29.png",
+    "subset": "Trainer Gallery"
+  },
+  {
+    "id": "brilliant-stars-TG30-rapid-strike-urshifu-vmax",
+    "name": "Rapid Strike Urshifu VMAX",
+    "rarity": "Secret Rare",
+    "number": "TG30",
+    "image": "/assets/sets/brilliant-stars/cards/TG30_Rapid_Strike_Urshifu_VMAX_Rare_Secret_swsh9tg-tg30.png",
+    "subset": "Trainer Gallery"
+  }
+]

@@ -1,0 +1,912 @@
+[
+  {
+    "id": "phantasmal-flames-1-oddish",
+    "name": "Oddish",
+    "rarity": "Common",
+    "number": "1",
+    "image": "/assets/sets/phantasmal-flames/cards/1_Oddish_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-2-gloom",
+    "name": "Gloom",
+    "rarity": "Common",
+    "number": "2",
+    "image": "/assets/sets/phantasmal-flames/cards/2_Gloom_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-3-vileplume",
+    "name": "Vileplume",
+    "rarity": "Rare",
+    "number": "3",
+    "image": "/assets/sets/phantasmal-flames/cards/3_Vileplume_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-4-mega-heracross-ex",
+    "name": "Mega Heracross ex",
+    "rarity": "Double Rare",
+    "number": "4",
+    "image": "/assets/sets/phantasmal-flames/cards/4_Mega_Heracross_ex_Double_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-5-lotad",
+    "name": "Lotad",
+    "rarity": "Common",
+    "number": "5",
+    "image": "/assets/sets/phantasmal-flames/cards/5_Lotad_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-6-lombre",
+    "name": "Lombre",
+    "rarity": "Common",
+    "number": "6",
+    "image": "/assets/sets/phantasmal-flames/cards/6_Lombre_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-7-ludicolo",
+    "name": "Ludicolo",
+    "rarity": "Uncommon",
+    "number": "7",
+    "image": "/assets/sets/phantasmal-flames/cards/7_Ludicolo_Uncommon.png"
+  },
+  {
+    "id": "phantasmal-flames-8-genesect",
+    "name": "Genesect",
+    "rarity": "Rare",
+    "number": "8",
+    "image": "/assets/sets/phantasmal-flames/cards/8_Genesect_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-9-nymble",
+    "name": "Nymble",
+    "rarity": "Common",
+    "number": "9",
+    "image": "/assets/sets/phantasmal-flames/cards/9_Nymble_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-10-lokix",
+    "name": "Lokix",
+    "rarity": "Uncommon",
+    "number": "10",
+    "image": "/assets/sets/phantasmal-flames/cards/10_Lokix_Uncommon.png"
+  },
+  {
+    "id": "phantasmal-flames-11-charmander",
+    "name": "Charmander",
+    "rarity": "Common",
+    "number": "11",
+    "image": "/assets/sets/phantasmal-flames/cards/11_Charmander_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-12-charmeleon",
+    "name": "Charmeleon",
+    "rarity": "Common",
+    "number": "12",
+    "image": "/assets/sets/phantasmal-flames/cards/12_Charmeleon_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-13-mega-charizard-x-ex",
+    "name": "Mega Charizard X ex",
+    "rarity": "Double Rare",
+    "number": "13",
+    "image": "/assets/sets/phantasmal-flames/cards/13_Mega_Charizard_X_ex_Double_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-14-moltres",
+    "name": "Moltres",
+    "rarity": "Rare",
+    "number": "14",
+    "image": "/assets/sets/phantasmal-flames/cards/14_Moltres_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-15-darumaka",
+    "name": "Darumaka",
+    "rarity": "Common",
+    "number": "15",
+    "image": "/assets/sets/phantasmal-flames/cards/15_Darumaka_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-16-darmanitan",
+    "name": "Darmanitan",
+    "rarity": "Uncommon",
+    "number": "16",
+    "image": "/assets/sets/phantasmal-flames/cards/16_Darmanitan_Uncommon.png"
+  },
+  {
+    "id": "phantasmal-flames-17-reshiram",
+    "name": "Reshiram",
+    "rarity": "Rare",
+    "number": "17",
+    "image": "/assets/sets/phantasmal-flames/cards/17_Reshiram_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-18-oricorio-ex",
+    "name": "Oricorio ex",
+    "rarity": "Double Rare",
+    "number": "18",
+    "image": "/assets/sets/phantasmal-flames/cards/18_Oricorio_ex_Double_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-19-charcadet",
+    "name": "Charcadet",
+    "rarity": "Common",
+    "number": "19",
+    "image": "/assets/sets/phantasmal-flames/cards/19_Charcadet_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-20-ceruledge",
+    "name": "Ceruledge",
+    "rarity": "Uncommon",
+    "number": "20",
+    "image": "/assets/sets/phantasmal-flames/cards/20_Ceruledge_Uncommon.png"
+  },
+  {
+    "id": "phantasmal-flames-21-seel",
+    "name": "Seel",
+    "rarity": "Common",
+    "number": "21",
+    "image": "/assets/sets/phantasmal-flames/cards/21_Seel_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-22-dewgong",
+    "name": "Dewgong",
+    "rarity": "Common",
+    "number": "22",
+    "image": "/assets/sets/phantasmal-flames/cards/22_Dewgong_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-23-swinub",
+    "name": "Swinub",
+    "rarity": "Common",
+    "number": "23",
+    "image": "/assets/sets/phantasmal-flames/cards/23_Swinub_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-24-piloswine",
+    "name": "Piloswine",
+    "rarity": "Common",
+    "number": "24",
+    "image": "/assets/sets/phantasmal-flames/cards/24_Piloswine_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-25-mamoswine",
+    "name": "Mamoswine",
+    "rarity": "Uncommon",
+    "number": "25",
+    "image": "/assets/sets/phantasmal-flames/cards/25_Mamoswine_Uncommon.png"
+  },
+  {
+    "id": "phantasmal-flames-26-suicune",
+    "name": "Suicune",
+    "rarity": "Rare",
+    "number": "26",
+    "image": "/assets/sets/phantasmal-flames/cards/26_Suicune_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-27-piplup",
+    "name": "Piplup",
+    "rarity": "Common",
+    "number": "27",
+    "image": "/assets/sets/phantasmal-flames/cards/27_Piplup_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-28-prinplup",
+    "name": "Prinplup",
+    "rarity": "Common",
+    "number": "28",
+    "image": "/assets/sets/phantasmal-flames/cards/28_Prinplup_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-29-rotom-ex",
+    "name": "Rotom ex",
+    "rarity": "Double Rare",
+    "number": "29",
+    "image": "/assets/sets/phantasmal-flames/cards/29_Rotom_ex_Double_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-30-yamper",
+    "name": "Yamper",
+    "rarity": "Common",
+    "number": "30",
+    "image": "/assets/sets/phantasmal-flames/cards/30_Yamper_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-31-boltund",
+    "name": "Boltund",
+    "rarity": "Common",
+    "number": "31",
+    "image": "/assets/sets/phantasmal-flames/cards/31_Boltund_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-32-pawmi",
+    "name": "Pawmi",
+    "rarity": "Common",
+    "number": "32",
+    "image": "/assets/sets/phantasmal-flames/cards/32_Pawmi_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-33-pawmo",
+    "name": "Pawmo",
+    "rarity": "Common",
+    "number": "33",
+    "image": "/assets/sets/phantasmal-flames/cards/33_Pawmo_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-34-pawmot",
+    "name": "Pawmot",
+    "rarity": "Rare",
+    "number": "34",
+    "image": "/assets/sets/phantasmal-flames/cards/34_Pawmot_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-35-misdreavus",
+    "name": "Misdreavus",
+    "rarity": "Common",
+    "number": "35",
+    "image": "/assets/sets/phantasmal-flames/cards/35_Misdreavus_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-36-mismagius-ex",
+    "name": "Mismagius ex",
+    "rarity": "Double Rare",
+    "number": "36",
+    "image": "/assets/sets/phantasmal-flames/cards/36_Mismagius_ex_Double_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-37-snubbull",
+    "name": "Snubbull",
+    "rarity": "Common",
+    "number": "37",
+    "image": "/assets/sets/phantasmal-flames/cards/37_Snubbull_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-38-granbull",
+    "name": "Granbull",
+    "rarity": "Uncommon",
+    "number": "38",
+    "image": "/assets/sets/phantasmal-flames/cards/38_Granbull_Uncommon.png"
+  },
+  {
+    "id": "phantasmal-flames-39-cresselia",
+    "name": "Cresselia",
+    "rarity": "Uncommon",
+    "number": "39",
+    "image": "/assets/sets/phantasmal-flames/cards/39_Cresselia_Uncommon.png"
+  },
+  {
+    "id": "phantasmal-flames-40-meloetta",
+    "name": "Meloetta",
+    "rarity": "Uncommon",
+    "number": "40",
+    "image": "/assets/sets/phantasmal-flames/cards/40_Meloetta_Uncommon.png"
+  },
+  {
+    "id": "phantasmal-flames-41-mega-diancie-ex",
+    "name": "Mega Diancie ex",
+    "rarity": "Double Rare",
+    "number": "41",
+    "image": "/assets/sets/phantasmal-flames/cards/41_Mega_Diancie_ex_Double_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-42-mimikyu",
+    "name": "Mimikyu",
+    "rarity": "Common",
+    "number": "42",
+    "image": "/assets/sets/phantasmal-flames/cards/42_Mimikyu_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-43-milcery",
+    "name": "Milcery",
+    "rarity": "Common",
+    "number": "43",
+    "image": "/assets/sets/phantasmal-flames/cards/43_Milcery_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-44-alcremie",
+    "name": "Alcremie",
+    "rarity": "Uncommon",
+    "number": "44",
+    "image": "/assets/sets/phantasmal-flames/cards/44_Alcremie_Uncommon.png"
+  },
+  {
+    "id": "phantasmal-flames-45-zacian",
+    "name": "Zacian",
+    "rarity": "Rare",
+    "number": "45",
+    "image": "/assets/sets/phantasmal-flames/cards/45_Zacian_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-46-bramblin",
+    "name": "Bramblin",
+    "rarity": "Common",
+    "number": "46",
+    "image": "/assets/sets/phantasmal-flames/cards/46_Bramblin_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-47-brambleghast",
+    "name": "Brambleghast",
+    "rarity": "Uncommon",
+    "number": "47",
+    "image": "/assets/sets/phantasmal-flames/cards/47_Brambleghast_Uncommon.png"
+  },
+  {
+    "id": "phantasmal-flames-48-paldean-tauros",
+    "name": "Paldean Tauros",
+    "rarity": "Uncommon",
+    "number": "48",
+    "image": "/assets/sets/phantasmal-flames/cards/48_Paldean_Tauros_Uncommon.png"
+  },
+  {
+    "id": "phantasmal-flames-49-gligar",
+    "name": "Gligar",
+    "rarity": "Common",
+    "number": "49",
+    "image": "/assets/sets/phantasmal-flames/cards/49_Gligar_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-50-gliscor",
+    "name": "Gliscor",
+    "rarity": "Uncommon",
+    "number": "50",
+    "image": "/assets/sets/phantasmal-flames/cards/50_Gliscor_Uncommon.png"
+  },
+  {
+    "id": "phantasmal-flames-51-trapinch",
+    "name": "Trapinch",
+    "rarity": "Common",
+    "number": "51",
+    "image": "/assets/sets/phantasmal-flames/cards/51_Trapinch_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-52-vibrava",
+    "name": "Vibrava",
+    "rarity": "Common",
+    "number": "52",
+    "image": "/assets/sets/phantasmal-flames/cards/52_Vibrava_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-53-flygon",
+    "name": "Flygon",
+    "rarity": "Rare",
+    "number": "53",
+    "image": "/assets/sets/phantasmal-flames/cards/53_Flygon_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-54-gastly",
+    "name": "Gastly",
+    "rarity": "Common",
+    "number": "54",
+    "image": "/assets/sets/phantasmal-flames/cards/54_Gastly_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-55-haunter",
+    "name": "Haunter",
+    "rarity": "Uncommon",
+    "number": "55",
+    "image": "/assets/sets/phantasmal-flames/cards/55_Haunter_Uncommon.png"
+  },
+  {
+    "id": "phantasmal-flames-56-mega-gengar-ex",
+    "name": "Mega Gengar ex",
+    "rarity": "Double Rare",
+    "number": "56",
+    "image": "/assets/sets/phantasmal-flames/cards/56_Mega_Gengar_ex_Double_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-57-murkrow",
+    "name": "Murkrow",
+    "rarity": "Common",
+    "number": "57",
+    "image": "/assets/sets/phantasmal-flames/cards/57_Murkrow_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-58-honchkrow",
+    "name": "Honchkrow",
+    "rarity": "Uncommon",
+    "number": "58",
+    "image": "/assets/sets/phantasmal-flames/cards/58_Honchkrow_Uncommon.png"
+  },
+  {
+    "id": "phantasmal-flames-59-sableye",
+    "name": "Sableye",
+    "rarity": "Common",
+    "number": "59",
+    "image": "/assets/sets/phantasmal-flames/cards/59_Sableye_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-60-carvanha",
+    "name": "Carvanha",
+    "rarity": "Common",
+    "number": "60",
+    "image": "/assets/sets/phantasmal-flames/cards/60_Carvanha_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-61-mega-sharpedo-ex",
+    "name": "Mega Sharpedo ex",
+    "rarity": "Double Rare",
+    "number": "61",
+    "image": "/assets/sets/phantasmal-flames/cards/61_Mega_Sharpedo_ex_Double_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-62-seviper",
+    "name": "Seviper",
+    "rarity": "Uncommon",
+    "number": "62",
+    "image": "/assets/sets/phantasmal-flames/cards/62_Seviper_Uncommon.png"
+  },
+  {
+    "id": "phantasmal-flames-63-absol",
+    "name": "Absol",
+    "rarity": "Common",
+    "number": "63",
+    "image": "/assets/sets/phantasmal-flames/cards/63_Absol_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-64-sandile",
+    "name": "Sandile",
+    "rarity": "Common",
+    "number": "64",
+    "image": "/assets/sets/phantasmal-flames/cards/64_Sandile_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-65-krokorok",
+    "name": "Krokorok",
+    "rarity": "Common",
+    "number": "65",
+    "image": "/assets/sets/phantasmal-flames/cards/65_Krokorok_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-66-krookodile",
+    "name": "Krookodile",
+    "rarity": "Uncommon",
+    "number": "66",
+    "image": "/assets/sets/phantasmal-flames/cards/66_Krookodile_Uncommon.png"
+  },
+  {
+    "id": "phantasmal-flames-67-toxel",
+    "name": "Toxel",
+    "rarity": "Common",
+    "number": "67",
+    "image": "/assets/sets/phantasmal-flames/cards/67_Toxel_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-68-toxtricity",
+    "name": "Toxtricity",
+    "rarity": "Rare",
+    "number": "68",
+    "image": "/assets/sets/phantasmal-flames/cards/68_Toxtricity_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-69-eternatus",
+    "name": "Eternatus",
+    "rarity": "Uncommon",
+    "number": "69",
+    "image": "/assets/sets/phantasmal-flames/cards/69_Eternatus_Uncommon.png"
+  },
+  {
+    "id": "phantasmal-flames-70-empoleon-ex",
+    "name": "Empoleon ex",
+    "rarity": "Double Rare",
+    "number": "70",
+    "image": "/assets/sets/phantasmal-flames/cards/70_Empoleon_ex_Double_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-71-bronzor",
+    "name": "Bronzor",
+    "rarity": "Common",
+    "number": "71",
+    "image": "/assets/sets/phantasmal-flames/cards/71_Bronzor_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-72-bronzong",
+    "name": "Bronzong",
+    "rarity": "Uncommon",
+    "number": "72",
+    "image": "/assets/sets/phantasmal-flames/cards/72_Bronzong_Uncommon.png"
+  },
+  {
+    "id": "phantasmal-flames-73-togedemaru",
+    "name": "Togedemaru",
+    "rarity": "Common",
+    "number": "73",
+    "image": "/assets/sets/phantasmal-flames/cards/73_Togedemaru_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-74-duraludon",
+    "name": "Duraludon",
+    "rarity": "Common",
+    "number": "74",
+    "image": "/assets/sets/phantasmal-flames/cards/74_Duraludon_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-75-archaludon",
+    "name": "Archaludon",
+    "rarity": "Uncommon",
+    "number": "75",
+    "image": "/assets/sets/phantasmal-flames/cards/75_Archaludon_Uncommon.png"
+  },
+  {
+    "id": "phantasmal-flames-76-jigglypuff",
+    "name": "Jigglypuff",
+    "rarity": "Common",
+    "number": "76",
+    "image": "/assets/sets/phantasmal-flames/cards/76_Jigglypuff_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-77-wigglytuff",
+    "name": "Wigglytuff",
+    "rarity": "Uncommon",
+    "number": "77",
+    "image": "/assets/sets/phantasmal-flames/cards/77_Wigglytuff_Uncommon.png"
+  },
+  {
+    "id": "phantasmal-flames-78-aipom",
+    "name": "Aipom",
+    "rarity": "Common",
+    "number": "78",
+    "image": "/assets/sets/phantasmal-flames/cards/78_Aipom_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-79-ambipom",
+    "name": "Ambipom",
+    "rarity": "Rare",
+    "number": "79",
+    "image": "/assets/sets/phantasmal-flames/cards/79_Ambipom_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-80-smeargle",
+    "name": "Smeargle",
+    "rarity": "Common",
+    "number": "80",
+    "image": "/assets/sets/phantasmal-flames/cards/80_Smeargle_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-81-zigzagoon",
+    "name": "Zigzagoon",
+    "rarity": "Common",
+    "number": "81",
+    "image": "/assets/sets/phantasmal-flames/cards/81_Zigzagoon_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-82-linoone",
+    "name": "Linoone",
+    "rarity": "Uncommon",
+    "number": "82",
+    "image": "/assets/sets/phantasmal-flames/cards/82_Linoone_Uncommon.png"
+  },
+  {
+    "id": "phantasmal-flames-83-buneary",
+    "name": "Buneary",
+    "rarity": "Common",
+    "number": "83",
+    "image": "/assets/sets/phantasmal-flames/cards/83_Buneary_Common.png"
+  },
+  {
+    "id": "phantasmal-flames-84-mega-lopunny-ex",
+    "name": "Mega Lopunny ex",
+    "rarity": "Double Rare",
+    "number": "84",
+    "image": "/assets/sets/phantasmal-flames/cards/84_Mega_Lopunny_ex_Double_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-85-battle-cage",
+    "name": "Battle Cage",
+    "rarity": "Uncommon",
+    "number": "85",
+    "image": "/assets/sets/phantasmal-flames/cards/85_Battle_Cage_Uncommon.png"
+  },
+  {
+    "id": "phantasmal-flames-86-blowtorch",
+    "name": "Blowtorch",
+    "rarity": "Uncommon",
+    "number": "86",
+    "image": "/assets/sets/phantasmal-flames/cards/86_Blowtorch_Uncommon.png"
+  },
+  {
+    "id": "phantasmal-flames-87-dawn",
+    "name": "Dawn",
+    "rarity": "Uncommon",
+    "number": "87",
+    "image": "/assets/sets/phantasmal-flames/cards/87_Dawn_Uncommon.png"
+  },
+  {
+    "id": "phantasmal-flames-88-dizzying-valley",
+    "name": "Dizzying Valley",
+    "rarity": "Uncommon",
+    "number": "88",
+    "image": "/assets/sets/phantasmal-flames/cards/88_Dizzying_Valley_Uncommon.png"
+  },
+  {
+    "id": "phantasmal-flames-89-firebreather",
+    "name": "Firebreather",
+    "rarity": "Uncommon",
+    "number": "89",
+    "image": "/assets/sets/phantasmal-flames/cards/89_Firebreather_Uncommon.png"
+  },
+  {
+    "id": "phantasmal-flames-90-grimsley-s-move",
+    "name": "Grimsley's Move",
+    "rarity": "Uncommon",
+    "number": "90",
+    "image": "/assets/sets/phantasmal-flames/cards/90_Grimsley's_Move_Uncommon.png"
+  },
+  {
+    "id": "phantasmal-flames-91-jumbo-ice-cream",
+    "name": "Jumbo Ice Cream",
+    "rarity": "Uncommon",
+    "number": "91",
+    "image": "/assets/sets/phantasmal-flames/cards/91_Jumbo_Ice_Cream_Uncommon.png"
+  },
+  {
+    "id": "phantasmal-flames-92-punk-helmet",
+    "name": "Punk Helmet",
+    "rarity": "Uncommon",
+    "number": "92",
+    "image": "/assets/sets/phantasmal-flames/cards/92_Punk_Helmet_Uncommon.png"
+  },
+  {
+    "id": "phantasmal-flames-93-sacred-charm",
+    "name": "Sacred Charm",
+    "rarity": "Uncommon",
+    "number": "93",
+    "image": "/assets/sets/phantasmal-flames/cards/93_Sacred_Charm_Uncommon.png"
+  },
+  {
+    "id": "phantasmal-flames-94-wondrous-patch",
+    "name": "Wondrous Patch",
+    "rarity": "Uncommon",
+    "number": "94",
+    "image": "/assets/sets/phantasmal-flames/cards/94_Wondrous_Patch_Uncommon.png"
+  },
+  {
+    "id": "phantasmal-flames-95-ludicolo",
+    "name": "Ludicolo",
+    "rarity": "Illustration Rare",
+    "number": "95",
+    "image": "/assets/sets/phantasmal-flames/cards/95_Ludicolo_Illustration_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-96-nymble",
+    "name": "Nymble",
+    "rarity": "Illustration Rare",
+    "number": "96",
+    "image": "/assets/sets/phantasmal-flames/cards/96_Nymble_Illustration_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-97-dewgong",
+    "name": "Dewgong",
+    "rarity": "Illustration Rare",
+    "number": "97",
+    "image": "/assets/sets/phantasmal-flames/cards/97_Dewgong_Illustration_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-98-piplup",
+    "name": "Piplup",
+    "rarity": "Illustration Rare",
+    "number": "98",
+    "image": "/assets/sets/phantasmal-flames/cards/98_Piplup_Illustration_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-99-yamper",
+    "name": "Yamper",
+    "rarity": "Illustration Rare",
+    "number": "99",
+    "image": "/assets/sets/phantasmal-flames/cards/99_Yamper_Illustration_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-100-zacian",
+    "name": "Zacian",
+    "rarity": "Illustration Rare",
+    "number": "100",
+    "image": "/assets/sets/phantasmal-flames/cards/100_Zacian_Illustration_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-101-flygon",
+    "name": "Flygon",
+    "rarity": "Illustration Rare",
+    "number": "101",
+    "image": "/assets/sets/phantasmal-flames/cards/101_Flygon_Illustration_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-102-paldean-wooper",
+    "name": "Paldean Wooper",
+    "rarity": "Illustration Rare",
+    "number": "102",
+    "image": "/assets/sets/phantasmal-flames/cards/102_Paldean_Wooper_Illustration_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-103-toxtricity",
+    "name": "Toxtricity",
+    "rarity": "Illustration Rare",
+    "number": "103",
+    "image": "/assets/sets/phantasmal-flames/cards/103_Toxtricity_Illustration_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-104-togedemaru",
+    "name": "Togedemaru",
+    "rarity": "Illustration Rare",
+    "number": "104",
+    "image": "/assets/sets/phantasmal-flames/cards/104_Togedemaru_Illustration_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-105-wigglytuff",
+    "name": "Wigglytuff",
+    "rarity": "Illustration Rare",
+    "number": "105",
+    "image": "/assets/sets/phantasmal-flames/cards/105_Wigglytuff_Illustration_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-106-meowth",
+    "name": "Meowth",
+    "rarity": "Illustration Rare",
+    "number": "106",
+    "image": "/assets/sets/phantasmal-flames/cards/106_Meowth_Illustration_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-107-ambipom",
+    "name": "Ambipom",
+    "rarity": "Illustration Rare",
+    "number": "107",
+    "image": "/assets/sets/phantasmal-flames/cards/107_Ambipom_Illustration_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-108-mega-heracross-ex",
+    "name": "Mega Heracross ex",
+    "rarity": "Ultra Rare",
+    "number": "108",
+    "image": "/assets/sets/phantasmal-flames/cards/108_Mega_Heracross_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-109-mega-charizard-x-ex",
+    "name": "Mega Charizard X ex",
+    "rarity": "Ultra Rare",
+    "number": "109",
+    "image": "/assets/sets/phantasmal-flames/cards/109_Mega_Charizard_X_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-110-oricorio-ex",
+    "name": "Oricorio ex",
+    "rarity": "Ultra Rare",
+    "number": "110",
+    "image": "/assets/sets/phantasmal-flames/cards/110_Oricorio_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-111-rotom-ex",
+    "name": "Rotom ex",
+    "rarity": "Ultra Rare",
+    "number": "111",
+    "image": "/assets/sets/phantasmal-flames/cards/111_Rotom_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-112-mismagius-ex",
+    "name": "Mismagius ex",
+    "rarity": "Ultra Rare",
+    "number": "112",
+    "image": "/assets/sets/phantasmal-flames/cards/112_Mismagius_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-113-mega-sharpedo-ex",
+    "name": "Mega Sharpedo ex",
+    "rarity": "Ultra Rare",
+    "number": "113",
+    "image": "/assets/sets/phantasmal-flames/cards/113_Mega_Sharpedo_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-114-empoleon-ex",
+    "name": "Empoleon ex",
+    "rarity": "Ultra Rare",
+    "number": "114",
+    "image": "/assets/sets/phantasmal-flames/cards/114_Empoleon_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-115-mega-lopunny-ex",
+    "name": "Mega Lopunny ex",
+    "rarity": "Ultra Rare",
+    "number": "115",
+    "image": "/assets/sets/phantasmal-flames/cards/115_Mega_Lopunny_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-116-battle-cage",
+    "name": "Battle Cage",
+    "rarity": "Ultra Rare",
+    "number": "116",
+    "image": "/assets/sets/phantasmal-flames/cards/116_Battle_Cage_Ultra_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-117-blowtorch",
+    "name": "Blowtorch",
+    "rarity": "Ultra Rare",
+    "number": "117",
+    "image": "/assets/sets/phantasmal-flames/cards/117_Blowtorch_Ultra_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-118-dawn",
+    "name": "Dawn",
+    "rarity": "Ultra Rare",
+    "number": "118",
+    "image": "/assets/sets/phantasmal-flames/cards/118_Dawn_Ultra_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-119-firebreather",
+    "name": "Firebreather",
+    "rarity": "Ultra Rare",
+    "number": "119",
+    "image": "/assets/sets/phantasmal-flames/cards/119_Firebreather_Ultra_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-120-grimsley-s-move",
+    "name": "Grimsley's Move",
+    "rarity": "Ultra Rare",
+    "number": "120",
+    "image": "/assets/sets/phantasmal-flames/cards/120_Grimsley's_Move_Ultra_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-121-punk-helmet",
+    "name": "Punk Helmet",
+    "rarity": "Ultra Rare",
+    "number": "121",
+    "image": "/assets/sets/phantasmal-flames/cards/121_Punk_Helmet_Ultra_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-122-sacred-charm",
+    "name": "Sacred Charm",
+    "rarity": "Ultra Rare",
+    "number": "122",
+    "image": "/assets/sets/phantasmal-flames/cards/122_Sacred_Charm_Ultra_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-123-switch",
+    "name": "Switch",
+    "rarity": "Ultra Rare",
+    "number": "123",
+    "image": "/assets/sets/phantasmal-flames/cards/123_Switch_Ultra_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-124-ignition-energy",
+    "name": "Ignition Energy",
+    "rarity": "Ultra Rare",
+    "number": "124",
+    "image": "/assets/sets/phantasmal-flames/cards/124_Ignition_Energy_Ultra_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-125-mega-charizard-x-ex",
+    "name": "Mega Charizard X ex",
+    "rarity": "Special Illustration Rare",
+    "number": "125",
+    "image": "/assets/sets/phantasmal-flames/cards/125_Mega_Charizard_X_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-126-rotom-ex",
+    "name": "Rotom ex",
+    "rarity": "Special Illustration Rare",
+    "number": "126",
+    "image": "/assets/sets/phantasmal-flames/cards/126_Rotom_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-127-mega-sharpedo-ex",
+    "name": "Mega Sharpedo ex",
+    "rarity": "Special Illustration Rare",
+    "number": "127",
+    "image": "/assets/sets/phantasmal-flames/cards/127_Mega_Sharpedo_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-128-mega-lopunny-ex",
+    "name": "Mega Lopunny ex",
+    "rarity": "Special Illustration Rare",
+    "number": "128",
+    "image": "/assets/sets/phantasmal-flames/cards/128_Mega_Lopunny_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-129-dawn",
+    "name": "Dawn",
+    "rarity": "Special Illustration Rare",
+    "number": "129",
+    "image": "/assets/sets/phantasmal-flames/cards/129_Dawn_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "phantasmal-flames-130-mega-charizard-x-ex-mega-hyper",
+    "name": "Mega Charizard X ex Mega Hyper",
+    "rarity": "Rare",
+    "number": "130",
+    "image": "/assets/sets/phantasmal-flames/cards/130_Mega_Charizard_X_ex_Mega_Hyper_Rare.png"
+  }
+]

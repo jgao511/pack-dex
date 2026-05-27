@@ -1,0 +1,240 @@
+[
+  {
+    "id": "dc1-1-team_magmas_numel",
+    "name": "Team Magmas Numel",
+    "rarity": "Common",
+    "number": "1",
+    "image": "/assets/sets/dc1/cards/1_Team_Magmas_Numel_Common_dc1-1.png"
+  },
+  {
+    "id": "dc1-2-team_magmas_camerupt",
+    "name": "Team Magmas Camerupt",
+    "rarity": "Rare Holo",
+    "number": "2",
+    "image": "/assets/sets/dc1/cards/2_Team_Magmas_Camerupt_Rare_Holo_dc1-2.png"
+  },
+  {
+    "id": "dc1-3-team_aquas_spheal",
+    "name": "Team Aquas Spheal",
+    "rarity": "Common",
+    "number": "3",
+    "image": "/assets/sets/dc1/cards/3_Team_Aquas_Spheal_Common_dc1-3.png"
+  },
+  {
+    "id": "dc1-4-team_aquas_sealeo",
+    "name": "Team Aquas Sealeo",
+    "rarity": "Common",
+    "number": "4",
+    "image": "/assets/sets/dc1/cards/4_Team_Aquas_Sealeo_Common_dc1-4.png"
+  },
+  {
+    "id": "dc1-5-team_aquas_walrein",
+    "name": "Team Aquas Walrein",
+    "rarity": "Rare Holo",
+    "number": "5",
+    "image": "/assets/sets/dc1/cards/5_Team_Aquas_Walrein_Rare_Holo_dc1-5.png"
+  },
+  {
+    "id": "dc1-6-team_aquas_kyogre-ex",
+    "name": "Team Aquas Kyogre-EX",
+    "rarity": "Rare Ultra",
+    "number": "6",
+    "image": "/assets/sets/dc1/cards/6_Team_Aquas_Kyogre-EX_Rare_Ultra_dc1-6.png"
+  },
+  {
+    "id": "dc1-7-team_aquas_grimer",
+    "name": "Team Aquas Grimer",
+    "rarity": "Common",
+    "number": "7",
+    "image": "/assets/sets/dc1/cards/7_Team_Aquas_Grimer_Common_dc1-7.png"
+  },
+  {
+    "id": "dc1-8-team_aquas_muk",
+    "name": "Team Aquas Muk",
+    "rarity": "Rare Holo",
+    "number": "8",
+    "image": "/assets/sets/dc1/cards/8_Team_Aquas_Muk_Rare_Holo_dc1-8.png"
+  },
+  {
+    "id": "dc1-9-team_aquas_seviper",
+    "name": "Team Aquas Seviper",
+    "rarity": "Common",
+    "number": "9",
+    "image": "/assets/sets/dc1/cards/9_Team_Aquas_Seviper_Common_dc1-9.png"
+  },
+  {
+    "id": "dc1-10-team_magmas_baltoy",
+    "name": "Team Magmas Baltoy",
+    "rarity": "Common",
+    "number": "10",
+    "image": "/assets/sets/dc1/cards/10_Team_Magmas_Baltoy_Common_dc1-10.png"
+  },
+  {
+    "id": "dc1-11-team_magmas_claydol",
+    "name": "Team Magmas Claydol",
+    "rarity": "Rare Holo",
+    "number": "11",
+    "image": "/assets/sets/dc1/cards/11_Team_Magmas_Claydol_Rare_Holo_dc1-11.png"
+  },
+  {
+    "id": "dc1-12-team_magmas_aron",
+    "name": "Team Magmas Aron",
+    "rarity": "Common",
+    "number": "12",
+    "image": "/assets/sets/dc1/cards/12_Team_Magmas_Aron_Common_dc1-12.png"
+  },
+  {
+    "id": "dc1-13-team_magmas_lairon",
+    "name": "Team Magmas Lairon",
+    "rarity": "Common",
+    "number": "13",
+    "image": "/assets/sets/dc1/cards/13_Team_Magmas_Lairon_Common_dc1-13.png"
+  },
+  {
+    "id": "dc1-14-team_magmas_aggron",
+    "name": "Team Magmas Aggron",
+    "rarity": "Rare Holo",
+    "number": "14",
+    "image": "/assets/sets/dc1/cards/14_Team_Magmas_Aggron_Rare_Holo_dc1-14.png"
+  },
+  {
+    "id": "dc1-15-team_magmas_groudon-ex",
+    "name": "Team Magmas Groudon-EX",
+    "rarity": "Rare Ultra",
+    "number": "15",
+    "image": "/assets/sets/dc1/cards/15_Team_Magmas_Groudon-EX_Rare_Ultra_dc1-15.png"
+  },
+  {
+    "id": "dc1-16-team_aquas_poochyena",
+    "name": "Team Aquas Poochyena",
+    "rarity": "Common",
+    "number": "16",
+    "image": "/assets/sets/dc1/cards/16_Team_Aquas_Poochyena_Common_dc1-16.png"
+  },
+  {
+    "id": "dc1-17-team_magmas_poochyena",
+    "name": "Team Magmas Poochyena",
+    "rarity": "Common",
+    "number": "17",
+    "image": "/assets/sets/dc1/cards/17_Team_Magmas_Poochyena_Common_dc1-17.png"
+  },
+  {
+    "id": "dc1-18-team_aquas_mightyena",
+    "name": "Team Aquas Mightyena",
+    "rarity": "Common",
+    "number": "18",
+    "image": "/assets/sets/dc1/cards/18_Team_Aquas_Mightyena_Common_dc1-18.png"
+  },
+  {
+    "id": "dc1-19-team_magmas_mightyena",
+    "name": "Team Magmas Mightyena",
+    "rarity": "Common",
+    "number": "19",
+    "image": "/assets/sets/dc1/cards/19_Team_Magmas_Mightyena_Common_dc1-19.png"
+  },
+  {
+    "id": "dc1-20-team_aquas_carvanha",
+    "name": "Team Aquas Carvanha",
+    "rarity": "Common",
+    "number": "20",
+    "image": "/assets/sets/dc1/cards/20_Team_Aquas_Carvanha_Common_dc1-20.png"
+  },
+  {
+    "id": "dc1-21-team_aquas_sharpedo",
+    "name": "Team Aquas Sharpedo",
+    "rarity": "Rare Holo",
+    "number": "21",
+    "image": "/assets/sets/dc1/cards/21_Team_Aquas_Sharpedo_Rare_Holo_dc1-21.png"
+  },
+  {
+    "id": "dc1-22-team_magmas_zangoose",
+    "name": "Team Magmas Zangoose",
+    "rarity": "Common",
+    "number": "22",
+    "image": "/assets/sets/dc1/cards/22_Team_Magmas_Zangoose_Common_dc1-22.png"
+  },
+  {
+    "id": "dc1-23-aqua_diffuser",
+    "name": "Aqua Diffuser",
+    "rarity": "Uncommon",
+    "number": "23",
+    "image": "/assets/sets/dc1/cards/23_Aqua_Diffuser_Uncommon_dc1-23.png"
+  },
+  {
+    "id": "dc1-24-magma_pointer",
+    "name": "Magma Pointer",
+    "rarity": "Uncommon",
+    "number": "24",
+    "image": "/assets/sets/dc1/cards/24_Magma_Pointer_Uncommon_dc1-24.png"
+  },
+  {
+    "id": "dc1-25-team_aqua_admin",
+    "name": "Team Aqua Admin",
+    "rarity": "Uncommon",
+    "number": "25",
+    "image": "/assets/sets/dc1/cards/25_Team_Aqua_Admin_Uncommon_dc1-25.png"
+  },
+  {
+    "id": "dc1-26-team_aqua_grunt",
+    "name": "Team Aqua Grunt",
+    "rarity": "Uncommon",
+    "number": "26",
+    "image": "/assets/sets/dc1/cards/26_Team_Aqua_Grunt_Uncommon_dc1-26.png"
+  },
+  {
+    "id": "dc1-27-team_aquas_great_ball",
+    "name": "Team Aquas Great Ball",
+    "rarity": "Uncommon",
+    "number": "27",
+    "image": "/assets/sets/dc1/cards/27_Team_Aquas_Great_Ball_Uncommon_dc1-27.png"
+  },
+  {
+    "id": "dc1-28-team_aquas_secret_base",
+    "name": "Team Aquas Secret Base",
+    "rarity": "Uncommon",
+    "number": "28",
+    "image": "/assets/sets/dc1/cards/28_Team_Aquas_Secret_Base_Uncommon_dc1-28.png"
+  },
+  {
+    "id": "dc1-29-team_magma_admin",
+    "name": "Team Magma Admin",
+    "rarity": "Uncommon",
+    "number": "29",
+    "image": "/assets/sets/dc1/cards/29_Team_Magma_Admin_Uncommon_dc1-29.png"
+  },
+  {
+    "id": "dc1-30-team_magma_grunt",
+    "name": "Team Magma Grunt",
+    "rarity": "Uncommon",
+    "number": "30",
+    "image": "/assets/sets/dc1/cards/30_Team_Magma_Grunt_Uncommon_dc1-30.png"
+  },
+  {
+    "id": "dc1-31-team_magmas_great_ball",
+    "name": "Team Magmas Great Ball",
+    "rarity": "Uncommon",
+    "number": "31",
+    "image": "/assets/sets/dc1/cards/31_Team_Magmas_Great_Ball_Uncommon_dc1-31.png"
+  },
+  {
+    "id": "dc1-32-team_magmas_secret_base",
+    "name": "Team Magmas Secret Base",
+    "rarity": "Uncommon",
+    "number": "32",
+    "image": "/assets/sets/dc1/cards/32_Team_Magmas_Secret_Base_Uncommon_dc1-32.png"
+  },
+  {
+    "id": "dc1-33-double_aqua_energy",
+    "name": "Double Aqua Energy",
+    "rarity": "Uncommon",
+    "number": "33",
+    "image": "/assets/sets/dc1/cards/33_Double_Aqua_Energy_Uncommon_dc1-33.png"
+  },
+  {
+    "id": "dc1-34-double_magma_energy",
+    "name": "Double Magma Energy",
+    "rarity": "Uncommon",
+    "number": "34",
+    "image": "/assets/sets/dc1/cards/34_Double_Magma_Energy_Uncommon_dc1-34.png"
+  }
+]

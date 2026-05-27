@@ -1,0 +1,1849 @@
+[
+  {
+    "id": "paldean-fates-1-pineco",
+    "name": "Pineco",
+    "rarity": "Common",
+    "number": "1",
+    "image": "/assets/sets/paldean-fates/cards/1_Pineco_Common.png"
+  },
+  {
+    "id": "paldean-fates-2-forretress-ex",
+    "name": "Forretress ex",
+    "rarity": "Double Rare",
+    "number": "2",
+    "image": "/assets/sets/paldean-fates/cards/2_Forretress_ex_Double_Rare.png"
+  },
+  {
+    "id": "paldean-fates-3-maractus",
+    "name": "Maractus",
+    "rarity": "Common",
+    "number": "3",
+    "image": "/assets/sets/paldean-fates/cards/3_Maractus_Common.png"
+  },
+  {
+    "id": "paldean-fates-4-toedscool",
+    "name": "Toedscool",
+    "rarity": "Common",
+    "number": "4",
+    "image": "/assets/sets/paldean-fates/cards/4_Toedscool_Common.png"
+  },
+  {
+    "id": "paldean-fates-5-toedscruel-ex",
+    "name": "Toedscruel ex",
+    "rarity": "Double Rare",
+    "number": "5",
+    "image": "/assets/sets/paldean-fates/cards/5_Toedscruel_ex_Double_Rare.png"
+  },
+  {
+    "id": "paldean-fates-6-espathra-ex",
+    "name": "Espathra ex",
+    "rarity": "Double Rare",
+    "number": "6",
+    "image": "/assets/sets/paldean-fates/cards/6_Espathra_ex_Double_Rare.png"
+  },
+  {
+    "id": "paldean-fates-7-charmander",
+    "name": "Charmander",
+    "rarity": "Common",
+    "number": "7",
+    "image": "/assets/sets/paldean-fates/cards/7_Charmander_Common.png"
+  },
+  {
+    "id": "paldean-fates-8-charmeleon",
+    "name": "Charmeleon",
+    "rarity": "Uncommon",
+    "number": "8",
+    "image": "/assets/sets/paldean-fates/cards/8_Charmeleon_Uncommon.png"
+  },
+  {
+    "id": "paldean-fates-9-magmar",
+    "name": "Magmar",
+    "rarity": "Common",
+    "number": "9",
+    "image": "/assets/sets/paldean-fates/cards/9_Magmar_Common.png"
+  },
+  {
+    "id": "paldean-fates-10-magmortar",
+    "name": "Magmortar",
+    "rarity": "Rare",
+    "number": "10",
+    "image": "/assets/sets/paldean-fates/cards/10_Magmortar_Rare.png"
+  },
+  {
+    "id": "paldean-fates-11-numel",
+    "name": "Numel",
+    "rarity": "Common",
+    "number": "11",
+    "image": "/assets/sets/paldean-fates/cards/11_Numel_Common.png"
+  },
+  {
+    "id": "paldean-fates-12-camerupt",
+    "name": "Camerupt",
+    "rarity": "Uncommon",
+    "number": "12",
+    "image": "/assets/sets/paldean-fates/cards/12_Camerupt_Uncommon.png"
+  },
+  {
+    "id": "paldean-fates-13-heat-rotom",
+    "name": "Heat Rotom",
+    "rarity": "Rare",
+    "number": "13",
+    "image": "/assets/sets/paldean-fates/cards/13_Heat_Rotom_Rare.png"
+  },
+  {
+    "id": "paldean-fates-14-charcadet",
+    "name": "Charcadet",
+    "rarity": "Common",
+    "number": "14",
+    "image": "/assets/sets/paldean-fates/cards/14_Charcadet_Common.png"
+  },
+  {
+    "id": "paldean-fates-15-armarouge",
+    "name": "Armarouge",
+    "rarity": "Rare",
+    "number": "15",
+    "image": "/assets/sets/paldean-fates/cards/15_Armarouge_Rare.png"
+  },
+  {
+    "id": "paldean-fates-16-lapras",
+    "name": "Lapras",
+    "rarity": "Common",
+    "number": "16",
+    "image": "/assets/sets/paldean-fates/cards/16_Lapras_Common.png"
+  },
+  {
+    "id": "paldean-fates-17-frigibax",
+    "name": "Frigibax",
+    "rarity": "Common",
+    "number": "17",
+    "image": "/assets/sets/paldean-fates/cards/17_Frigibax_Common.png"
+  },
+  {
+    "id": "paldean-fates-18-pikachu",
+    "name": "Pikachu",
+    "rarity": "Common",
+    "number": "18",
+    "image": "/assets/sets/paldean-fates/cards/18_Pikachu_Common.png"
+  },
+  {
+    "id": "paldean-fates-19-raichu",
+    "name": "Raichu",
+    "rarity": "Rare",
+    "number": "19",
+    "image": "/assets/sets/paldean-fates/cards/19_Raichu_Rare.png"
+  },
+  {
+    "id": "paldean-fates-20-chinchou",
+    "name": "Chinchou",
+    "rarity": "Common",
+    "number": "20",
+    "image": "/assets/sets/paldean-fates/cards/20_Chinchou_Common.png"
+  },
+  {
+    "id": "paldean-fates-21-lanturn",
+    "name": "Lanturn",
+    "rarity": "Uncommon",
+    "number": "21",
+    "image": "/assets/sets/paldean-fates/cards/21_Lanturn_Uncommon.png"
+  },
+  {
+    "id": "paldean-fates-22-kilowattrel",
+    "name": "Kilowattrel",
+    "rarity": "Uncommon",
+    "number": "22",
+    "image": "/assets/sets/paldean-fates/cards/22_Kilowattrel_Uncommon.png"
+  },
+  {
+    "id": "paldean-fates-23-exeggcute",
+    "name": "Exeggcute",
+    "rarity": "Common",
+    "number": "23",
+    "image": "/assets/sets/paldean-fates/cards/23_Exeggcute_Common.png"
+  },
+  {
+    "id": "paldean-fates-24-exeggutor",
+    "name": "Exeggutor",
+    "rarity": "Rare",
+    "number": "24",
+    "image": "/assets/sets/paldean-fates/cards/24_Exeggutor_Rare.png"
+  },
+  {
+    "id": "paldean-fates-25-natu",
+    "name": "Natu",
+    "rarity": "Common",
+    "number": "25",
+    "image": "/assets/sets/paldean-fates/cards/25_Natu_Common.png"
+  },
+  {
+    "id": "paldean-fates-26-xatu",
+    "name": "Xatu",
+    "rarity": "Rare",
+    "number": "26",
+    "image": "/assets/sets/paldean-fates/cards/26_Xatu_Rare.png"
+  },
+  {
+    "id": "paldean-fates-27-ralts",
+    "name": "Ralts",
+    "rarity": "Common",
+    "number": "27",
+    "image": "/assets/sets/paldean-fates/cards/27_Ralts_Common.png"
+  },
+  {
+    "id": "paldean-fates-28-kirlia",
+    "name": "Kirlia",
+    "rarity": "Uncommon",
+    "number": "28",
+    "image": "/assets/sets/paldean-fates/cards/28_Kirlia_Uncommon.png"
+  },
+  {
+    "id": "paldean-fates-29-gardevoir-ex",
+    "name": "Gardevoir ex",
+    "rarity": "Double Rare",
+    "number": "29",
+    "image": "/assets/sets/paldean-fates/cards/29_Gardevoir_ex_Double_Rare.png"
+  },
+  {
+    "id": "paldean-fates-30-chimecho",
+    "name": "Chimecho",
+    "rarity": "Common",
+    "number": "30",
+    "image": "/assets/sets/paldean-fates/cards/30_Chimecho_Common.png"
+  },
+  {
+    "id": "paldean-fates-31-mime-jr",
+    "name": "Mime Jr.",
+    "rarity": "Common",
+    "number": "31",
+    "image": "/assets/sets/paldean-fates/cards/31_Mime_Jr._Common.png"
+  },
+  {
+    "id": "paldean-fates-32-woobat",
+    "name": "Woobat",
+    "rarity": "Common",
+    "number": "32",
+    "image": "/assets/sets/paldean-fates/cards/32_Woobat_Common.png"
+  },
+  {
+    "id": "paldean-fates-33-swoobat",
+    "name": "Swoobat",
+    "rarity": "Uncommon",
+    "number": "33",
+    "image": "/assets/sets/paldean-fates/cards/33_Swoobat_Uncommon.png"
+  },
+  {
+    "id": "paldean-fates-34-cottonee",
+    "name": "Cottonee",
+    "rarity": "Common",
+    "number": "34",
+    "image": "/assets/sets/paldean-fates/cards/34_Cottonee_Common.png"
+  },
+  {
+    "id": "paldean-fates-35-whimsicott",
+    "name": "Whimsicott",
+    "rarity": "Uncommon",
+    "number": "35",
+    "image": "/assets/sets/paldean-fates/cards/35_Whimsicott_Uncommon.png"
+  },
+  {
+    "id": "paldean-fates-36-dedenne",
+    "name": "Dedenne",
+    "rarity": "Common",
+    "number": "36",
+    "image": "/assets/sets/paldean-fates/cards/36_Dedenne_Common.png"
+  },
+  {
+    "id": "paldean-fates-37-mimikyu",
+    "name": "Mimikyu",
+    "rarity": "Rare",
+    "number": "37",
+    "image": "/assets/sets/paldean-fates/cards/37_Mimikyu_Rare.png"
+  },
+  {
+    "id": "paldean-fates-38-fidough",
+    "name": "Fidough",
+    "rarity": "Common",
+    "number": "38",
+    "image": "/assets/sets/paldean-fates/cards/38_Fidough_Common.png"
+  },
+  {
+    "id": "paldean-fates-39-dachsbun",
+    "name": "Dachsbun",
+    "rarity": "Uncommon",
+    "number": "39",
+    "image": "/assets/sets/paldean-fates/cards/39_Dachsbun_Uncommon.png"
+  },
+  {
+    "id": "paldean-fates-40-ceruledge",
+    "name": "Ceruledge",
+    "rarity": "Rare",
+    "number": "40",
+    "image": "/assets/sets/paldean-fates/cards/40_Ceruledge_Rare.png"
+  },
+  {
+    "id": "paldean-fates-41-flittle",
+    "name": "Flittle",
+    "rarity": "Common",
+    "number": "41",
+    "image": "/assets/sets/paldean-fates/cards/41_Flittle_Common.png"
+  },
+  {
+    "id": "paldean-fates-42-greavard",
+    "name": "Greavard",
+    "rarity": "Common",
+    "number": "42",
+    "image": "/assets/sets/paldean-fates/cards/42_Greavard_Common.png"
+  },
+  {
+    "id": "paldean-fates-43-houndstone",
+    "name": "Houndstone",
+    "rarity": "Rare",
+    "number": "43",
+    "image": "/assets/sets/paldean-fates/cards/43_Houndstone_Rare.png"
+  },
+  {
+    "id": "paldean-fates-44-gimmighoul",
+    "name": "Gimmighoul",
+    "rarity": "Common",
+    "number": "44",
+    "image": "/assets/sets/paldean-fates/cards/44_Gimmighoul_Common.png"
+  },
+  {
+    "id": "paldean-fates-45-mankey",
+    "name": "Mankey",
+    "rarity": "Common",
+    "number": "45",
+    "image": "/assets/sets/paldean-fates/cards/45_Mankey_Common.png"
+  },
+  {
+    "id": "paldean-fates-46-primeape",
+    "name": "Primeape",
+    "rarity": "Uncommon",
+    "number": "46",
+    "image": "/assets/sets/paldean-fates/cards/46_Primeape_Uncommon.png"
+  },
+  {
+    "id": "paldean-fates-47-annihilape",
+    "name": "Annihilape",
+    "rarity": "Rare",
+    "number": "47",
+    "image": "/assets/sets/paldean-fates/cards/47_Annihilape_Rare.png"
+  },
+  {
+    "id": "paldean-fates-48-phanpy",
+    "name": "Phanpy",
+    "rarity": "Common",
+    "number": "48",
+    "image": "/assets/sets/paldean-fates/cards/48_Phanpy_Common.png"
+  },
+  {
+    "id": "paldean-fates-49-donphan",
+    "name": "Donphan",
+    "rarity": "Uncommon",
+    "number": "49",
+    "image": "/assets/sets/paldean-fates/cards/49_Donphan_Uncommon.png"
+  },
+  {
+    "id": "paldean-fates-50-barboach",
+    "name": "Barboach",
+    "rarity": "Common",
+    "number": "50",
+    "image": "/assets/sets/paldean-fates/cards/50_Barboach_Common.png"
+  },
+  {
+    "id": "paldean-fates-51-clobbopus",
+    "name": "Clobbopus",
+    "rarity": "Common",
+    "number": "51",
+    "image": "/assets/sets/paldean-fates/cards/51_Clobbopus_Common.png"
+  },
+  {
+    "id": "paldean-fates-52-grapploct",
+    "name": "Grapploct",
+    "rarity": "Uncommon",
+    "number": "52",
+    "image": "/assets/sets/paldean-fates/cards/52_Grapploct_Uncommon.png"
+  },
+  {
+    "id": "paldean-fates-53-great-tusk-ex",
+    "name": "Great Tusk ex",
+    "rarity": "Double Rare",
+    "number": "53",
+    "image": "/assets/sets/paldean-fates/cards/53_Great_Tusk_ex_Double_Rare.png"
+  },
+  {
+    "id": "paldean-fates-54-charizard-ex",
+    "name": "Charizard ex",
+    "rarity": "Double Rare",
+    "number": "54",
+    "image": "/assets/sets/paldean-fates/cards/54_Charizard_ex_Double_Rare.png"
+  },
+  {
+    "id": "paldean-fates-55-gastly",
+    "name": "Gastly",
+    "rarity": "Common",
+    "number": "55",
+    "image": "/assets/sets/paldean-fates/cards/55_Gastly_Common.png"
+  },
+  {
+    "id": "paldean-fates-56-haunter",
+    "name": "Haunter",
+    "rarity": "Common",
+    "number": "56",
+    "image": "/assets/sets/paldean-fates/cards/56_Haunter_Common.png"
+  },
+  {
+    "id": "paldean-fates-57-gengar",
+    "name": "Gengar",
+    "rarity": "Uncommon",
+    "number": "57",
+    "image": "/assets/sets/paldean-fates/cards/57_Gengar_Uncommon.png"
+  },
+  {
+    "id": "paldean-fates-58-paldean-wooper",
+    "name": "Paldean Wooper",
+    "rarity": "Common",
+    "number": "58",
+    "image": "/assets/sets/paldean-fates/cards/58_Paldean_Wooper_Common.png"
+  },
+  {
+    "id": "paldean-fates-59-paldean-clodsire-ex",
+    "name": "Paldean Clodsire ex",
+    "rarity": "Double Rare",
+    "number": "59",
+    "image": "/assets/sets/paldean-fates/cards/59_Paldean_Clodsire_ex_Double_Rare.png"
+  },
+  {
+    "id": "paldean-fates-60-scraggy",
+    "name": "Scraggy",
+    "rarity": "Common",
+    "number": "60",
+    "image": "/assets/sets/paldean-fates/cards/60_Scraggy_Common.png"
+  },
+  {
+    "id": "paldean-fates-61-scrafty",
+    "name": "Scrafty",
+    "rarity": "Uncommon",
+    "number": "61",
+    "image": "/assets/sets/paldean-fates/cards/61_Scrafty_Uncommon.png"
+  },
+  {
+    "id": "paldean-fates-62-maschiff",
+    "name": "Maschiff",
+    "rarity": "Common",
+    "number": "62",
+    "image": "/assets/sets/paldean-fates/cards/62_Maschiff_Common.png"
+  },
+  {
+    "id": "paldean-fates-63-mabosstiff",
+    "name": "Mabosstiff",
+    "rarity": "Rare",
+    "number": "63",
+    "image": "/assets/sets/paldean-fates/cards/63_Mabosstiff_Rare.png"
+  },
+  {
+    "id": "paldean-fates-64-varoom",
+    "name": "Varoom",
+    "rarity": "Common",
+    "number": "64",
+    "image": "/assets/sets/paldean-fates/cards/64_Varoom_Common.png"
+  },
+  {
+    "id": "paldean-fates-65-revavroom",
+    "name": "Revavroom",
+    "rarity": "Rare",
+    "number": "65",
+    "image": "/assets/sets/paldean-fates/cards/65_Revavroom_Rare.png"
+  },
+  {
+    "id": "paldean-fates-66-iron-treads-ex",
+    "name": "Iron Treads ex",
+    "rarity": "Double Rare",
+    "number": "66",
+    "image": "/assets/sets/paldean-fates/cards/66_Iron_Treads_ex_Double_Rare.png"
+  },
+  {
+    "id": "paldean-fates-67-gholdengo",
+    "name": "Gholdengo",
+    "rarity": "Rare",
+    "number": "67",
+    "image": "/assets/sets/paldean-fates/cards/67_Gholdengo_Rare.png"
+  },
+  {
+    "id": "paldean-fates-68-noibat",
+    "name": "Noibat",
+    "rarity": "Common",
+    "number": "68",
+    "image": "/assets/sets/paldean-fates/cards/68_Noibat_Common.png"
+  },
+  {
+    "id": "paldean-fates-69-noivern-ex",
+    "name": "Noivern ex",
+    "rarity": "Double Rare",
+    "number": "69",
+    "image": "/assets/sets/paldean-fates/cards/69_Noivern_ex_Double_Rare.png"
+  },
+  {
+    "id": "paldean-fates-70-cyclizar",
+    "name": "Cyclizar",
+    "rarity": "Rare",
+    "number": "70",
+    "image": "/assets/sets/paldean-fates/cards/70_Cyclizar_Rare.png"
+  },
+  {
+    "id": "paldean-fates-71-lechonk",
+    "name": "Lechonk",
+    "rarity": "Common",
+    "number": "71",
+    "image": "/assets/sets/paldean-fates/cards/71_Lechonk_Common.png"
+  },
+  {
+    "id": "paldean-fates-72-oinkologne",
+    "name": "Oinkologne",
+    "rarity": "Uncommon",
+    "number": "72",
+    "image": "/assets/sets/paldean-fates/cards/72_Oinkologne_Uncommon.png"
+  },
+  {
+    "id": "paldean-fates-73-tandemaus",
+    "name": "Tandemaus",
+    "rarity": "Common",
+    "number": "73",
+    "image": "/assets/sets/paldean-fates/cards/73_Tandemaus_Common.png"
+  },
+  {
+    "id": "paldean-fates-74-maushold",
+    "name": "Maushold",
+    "rarity": "Uncommon",
+    "number": "74",
+    "image": "/assets/sets/paldean-fates/cards/74_Maushold_Uncommon.png"
+  },
+  {
+    "id": "paldean-fates-75-squawkabilly-ex",
+    "name": "Squawkabilly ex",
+    "rarity": "Double Rare",
+    "number": "75",
+    "image": "/assets/sets/paldean-fates/cards/75_Squawkabilly_ex_Double_Rare.png"
+  },
+  {
+    "id": "paldean-fates-76-artazon",
+    "name": "Artazon",
+    "rarity": "Uncommon",
+    "number": "76",
+    "image": "/assets/sets/paldean-fates/cards/76_Artazon_Uncommon.png"
+  },
+  {
+    "id": "paldean-fates-77-atticus",
+    "name": "Atticus",
+    "rarity": "Uncommon",
+    "number": "77",
+    "image": "/assets/sets/paldean-fates/cards/77_Atticus_Uncommon.png"
+  },
+  {
+    "id": "paldean-fates-78-clive",
+    "name": "Clive",
+    "rarity": "Uncommon",
+    "number": "78",
+    "image": "/assets/sets/paldean-fates/cards/78_Clive_Uncommon.png"
+  },
+  {
+    "id": "paldean-fates-79-electric-generator",
+    "name": "Electric Generator",
+    "rarity": "Uncommon",
+    "number": "79",
+    "image": "/assets/sets/paldean-fates/cards/79_Electric_Generator_Uncommon.png"
+  },
+  {
+    "id": "paldean-fates-80-iono",
+    "name": "Iono",
+    "rarity": "Uncommon",
+    "number": "80",
+    "image": "/assets/sets/paldean-fates/cards/80_Iono_Uncommon.png"
+  },
+  {
+    "id": "paldean-fates-81-moonlit-hill",
+    "name": "Moonlit Hill",
+    "rarity": "Uncommon",
+    "number": "81",
+    "image": "/assets/sets/paldean-fates/cards/81_Moonlit_Hill_Uncommon.png"
+  },
+  {
+    "id": "paldean-fates-82-nemona",
+    "name": "Nemona",
+    "rarity": "Common",
+    "number": "82",
+    "image": "/assets/sets/paldean-fates/cards/82_Nemona_Common.png"
+  },
+  {
+    "id": "paldean-fates-83-nemona-s-backpack",
+    "name": "Nemona's Backpack",
+    "rarity": "Uncommon",
+    "number": "83",
+    "image": "/assets/sets/paldean-fates/cards/83_Nemona's_Backpack_Uncommon.png"
+  },
+  {
+    "id": "paldean-fates-84-nest-ball",
+    "name": "Nest Ball",
+    "rarity": "Uncommon",
+    "number": "84",
+    "image": "/assets/sets/paldean-fates/cards/84_Nest_Ball_Uncommon.png"
+  },
+  {
+    "id": "paldean-fates-85-paldean-student",
+    "name": "Paldean Student",
+    "rarity": "Common",
+    "number": "85",
+    "image": "/assets/sets/paldean-fates/cards/85_Paldean_Student_Common.png"
+  },
+  {
+    "id": "paldean-fates-86-paldean-student",
+    "name": "Paldean Student",
+    "rarity": "Common",
+    "number": "86",
+    "image": "/assets/sets/paldean-fates/cards/86_Paldean_Student_Common.png"
+  },
+  {
+    "id": "paldean-fates-87-professor-s-research",
+    "name": "Professor's Research",
+    "rarity": "Rare",
+    "number": "87",
+    "image": "/assets/sets/paldean-fates/cards/87_Professor's_Research_Rare.png"
+  },
+  {
+    "id": "paldean-fates-88-professor-s-research",
+    "name": "Professor's Research",
+    "rarity": "Rare",
+    "number": "88",
+    "image": "/assets/sets/paldean-fates/cards/88_Professor's_Research_Rare.png"
+  },
+  {
+    "id": "paldean-fates-89-rare-candy",
+    "name": "Rare Candy",
+    "rarity": "Common",
+    "number": "89",
+    "image": "/assets/sets/paldean-fates/cards/89_Rare_Candy_Common.png"
+  },
+  {
+    "id": "paldean-fates-90-technical-machine-crisis-punch",
+    "name": "Technical Machine Crisis Punch",
+    "rarity": "Uncommon",
+    "number": "90",
+    "image": "/assets/sets/paldean-fates/cards/90_Technical_Machine_Crisis_Punch_Uncommon.png"
+  },
+  {
+    "id": "paldean-fates-91-ultra-ball",
+    "name": "Ultra Ball",
+    "rarity": "Uncommon",
+    "number": "91",
+    "image": "/assets/sets/paldean-fates/cards/91_Ultra_Ball_Uncommon.png"
+  },
+  {
+    "id": "paldean-fates-92-oddish",
+    "name": "Oddish",
+    "rarity": "Shiny Rare",
+    "number": "92",
+    "image": "/assets/sets/paldean-fates/cards/92_Oddish_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-93-gloom",
+    "name": "Gloom",
+    "rarity": "Shiny Rare",
+    "number": "93",
+    "image": "/assets/sets/paldean-fates/cards/93_Gloom_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-94-vileplume",
+    "name": "Vileplume",
+    "rarity": "Shiny Rare",
+    "number": "94",
+    "image": "/assets/sets/paldean-fates/cards/94_Vileplume_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-95-scyther",
+    "name": "Scyther",
+    "rarity": "Shiny Rare",
+    "number": "95",
+    "image": "/assets/sets/paldean-fates/cards/95_Scyther_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-96-hoppip",
+    "name": "Hoppip",
+    "rarity": "Shiny Rare",
+    "number": "96",
+    "image": "/assets/sets/paldean-fates/cards/96_Hoppip_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-97-skiploom",
+    "name": "Skiploom",
+    "rarity": "Shiny Rare",
+    "number": "97",
+    "image": "/assets/sets/paldean-fates/cards/97_Skiploom_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-98-jumpluff",
+    "name": "Jumpluff",
+    "rarity": "Shiny Rare",
+    "number": "98",
+    "image": "/assets/sets/paldean-fates/cards/98_Jumpluff_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-99-pineco",
+    "name": "Pineco",
+    "rarity": "Shiny Rare",
+    "number": "99",
+    "image": "/assets/sets/paldean-fates/cards/99_Pineco_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-100-snover",
+    "name": "Snover",
+    "rarity": "Shiny Rare",
+    "number": "100",
+    "image": "/assets/sets/paldean-fates/cards/100_Snover_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-101-abomasnow",
+    "name": "Abomasnow",
+    "rarity": "Shiny Rare",
+    "number": "101",
+    "image": "/assets/sets/paldean-fates/cards/101_Abomasnow_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-102-smoliv",
+    "name": "Smoliv",
+    "rarity": "Shiny Rare",
+    "number": "102",
+    "image": "/assets/sets/paldean-fates/cards/102_Smoliv_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-103-dolliv",
+    "name": "Dolliv",
+    "rarity": "Shiny Rare",
+    "number": "103",
+    "image": "/assets/sets/paldean-fates/cards/103_Dolliv_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-104-arboliva",
+    "name": "Arboliva",
+    "rarity": "Shiny Rare",
+    "number": "104",
+    "image": "/assets/sets/paldean-fates/cards/104_Arboliva_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-105-toedscool",
+    "name": "Toedscool",
+    "rarity": "Shiny Rare",
+    "number": "105",
+    "image": "/assets/sets/paldean-fates/cards/105_Toedscool_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-106-capsakid",
+    "name": "Capsakid",
+    "rarity": "Shiny Rare",
+    "number": "106",
+    "image": "/assets/sets/paldean-fates/cards/106_Capsakid_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-107-scovillain",
+    "name": "Scovillain",
+    "rarity": "Shiny Rare",
+    "number": "107",
+    "image": "/assets/sets/paldean-fates/cards/107_Scovillain_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-108-rellor",
+    "name": "Rellor",
+    "rarity": "Shiny Rare",
+    "number": "108",
+    "image": "/assets/sets/paldean-fates/cards/108_Rellor_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-109-charmander",
+    "name": "Charmander",
+    "rarity": "Shiny Rare",
+    "number": "109",
+    "image": "/assets/sets/paldean-fates/cards/109_Charmander_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-110-charmeleon",
+    "name": "Charmeleon",
+    "rarity": "Shiny Rare",
+    "number": "110",
+    "image": "/assets/sets/paldean-fates/cards/110_Charmeleon_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-111-paldean-tauros",
+    "name": "Paldean Tauros",
+    "rarity": "Shiny Rare",
+    "number": "111",
+    "image": "/assets/sets/paldean-fates/cards/111_Paldean_Tauros_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-112-entei",
+    "name": "Entei",
+    "rarity": "Shiny Rare",
+    "number": "112",
+    "image": "/assets/sets/paldean-fates/cards/112_Entei_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-113-oricorio",
+    "name": "Oricorio",
+    "rarity": "Shiny Rare",
+    "number": "113",
+    "image": "/assets/sets/paldean-fates/cards/113_Oricorio_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-114-charcadet",
+    "name": "Charcadet",
+    "rarity": "Shiny Rare",
+    "number": "114",
+    "image": "/assets/sets/paldean-fates/cards/114_Charcadet_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-115-armarouge",
+    "name": "Armarouge",
+    "rarity": "Shiny Rare",
+    "number": "115",
+    "image": "/assets/sets/paldean-fates/cards/115_Armarouge_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-116-slowpoke",
+    "name": "Slowpoke",
+    "rarity": "Shiny Rare",
+    "number": "116",
+    "image": "/assets/sets/paldean-fates/cards/116_Slowpoke_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-117-slowbro",
+    "name": "Slowbro",
+    "rarity": "Shiny Rare",
+    "number": "117",
+    "image": "/assets/sets/paldean-fates/cards/117_Slowbro_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-118-staryu",
+    "name": "Staryu",
+    "rarity": "Shiny Rare",
+    "number": "118",
+    "image": "/assets/sets/paldean-fates/cards/118_Staryu_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-119-starmie",
+    "name": "Starmie",
+    "rarity": "Shiny Rare",
+    "number": "119",
+    "image": "/assets/sets/paldean-fates/cards/119_Starmie_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-120-paldean-tauros",
+    "name": "Paldean Tauros",
+    "rarity": "Shiny Rare",
+    "number": "120",
+    "image": "/assets/sets/paldean-fates/cards/120_Paldean_Tauros_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-121-wiglett",
+    "name": "Wiglett",
+    "rarity": "Shiny Rare",
+    "number": "121",
+    "image": "/assets/sets/paldean-fates/cards/121_Wiglett_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-122-wugtrio",
+    "name": "Wugtrio",
+    "rarity": "Shiny Rare",
+    "number": "122",
+    "image": "/assets/sets/paldean-fates/cards/122_Wugtrio_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-123-finizen",
+    "name": "Finizen",
+    "rarity": "Shiny Rare",
+    "number": "123",
+    "image": "/assets/sets/paldean-fates/cards/123_Finizen_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-124-palafin",
+    "name": "Palafin",
+    "rarity": "Shiny Rare",
+    "number": "124",
+    "image": "/assets/sets/paldean-fates/cards/124_Palafin_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-125-veluza",
+    "name": "Veluza",
+    "rarity": "Shiny Rare",
+    "number": "125",
+    "image": "/assets/sets/paldean-fates/cards/125_Veluza_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-126-dondozo",
+    "name": "Dondozo",
+    "rarity": "Shiny Rare",
+    "number": "126",
+    "image": "/assets/sets/paldean-fates/cards/126_Dondozo_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-127-tatsugiri",
+    "name": "Tatsugiri",
+    "rarity": "Shiny Rare",
+    "number": "127",
+    "image": "/assets/sets/paldean-fates/cards/127_Tatsugiri_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-128-frigibax",
+    "name": "Frigibax",
+    "rarity": "Shiny Rare",
+    "number": "128",
+    "image": "/assets/sets/paldean-fates/cards/128_Frigibax_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-129-arctibax",
+    "name": "Arctibax",
+    "rarity": "Shiny Rare",
+    "number": "129",
+    "image": "/assets/sets/paldean-fates/cards/129_Arctibax_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-130-baxcalibur",
+    "name": "Baxcalibur",
+    "rarity": "Shiny Rare",
+    "number": "130",
+    "image": "/assets/sets/paldean-fates/cards/130_Baxcalibur_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-131-pikachu",
+    "name": "Pikachu",
+    "rarity": "Shiny Rare",
+    "number": "131",
+    "image": "/assets/sets/paldean-fates/cards/131_Pikachu_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-132-raichu",
+    "name": "Raichu",
+    "rarity": "Shiny Rare",
+    "number": "132",
+    "image": "/assets/sets/paldean-fates/cards/132_Raichu_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-133-voltorb",
+    "name": "Voltorb",
+    "rarity": "Shiny Rare",
+    "number": "133",
+    "image": "/assets/sets/paldean-fates/cards/133_Voltorb_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-134-electrode",
+    "name": "Electrode",
+    "rarity": "Shiny Rare",
+    "number": "134",
+    "image": "/assets/sets/paldean-fates/cards/134_Electrode_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-135-shinx",
+    "name": "Shinx",
+    "rarity": "Shiny Rare",
+    "number": "135",
+    "image": "/assets/sets/paldean-fates/cards/135_Shinx_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-136-luxio",
+    "name": "Luxio",
+    "rarity": "Shiny Rare",
+    "number": "136",
+    "image": "/assets/sets/paldean-fates/cards/136_Luxio_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-137-luxray",
+    "name": "Luxray",
+    "rarity": "Shiny Rare",
+    "number": "137",
+    "image": "/assets/sets/paldean-fates/cards/137_Luxray_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-138-pachirisu",
+    "name": "Pachirisu",
+    "rarity": "Shiny Rare",
+    "number": "138",
+    "image": "/assets/sets/paldean-fates/cards/138_Pachirisu_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-139-thundurus",
+    "name": "Thundurus",
+    "rarity": "Shiny Rare",
+    "number": "139",
+    "image": "/assets/sets/paldean-fates/cards/139_Thundurus_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-140-toxel",
+    "name": "Toxel",
+    "rarity": "Shiny Rare",
+    "number": "140",
+    "image": "/assets/sets/paldean-fates/cards/140_Toxel_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-141-toxtricity",
+    "name": "Toxtricity",
+    "rarity": "Shiny Rare",
+    "number": "141",
+    "image": "/assets/sets/paldean-fates/cards/141_Toxtricity_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-142-pawmi",
+    "name": "Pawmi",
+    "rarity": "Shiny Rare",
+    "number": "142",
+    "image": "/assets/sets/paldean-fates/cards/142_Pawmi_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-143-pawmo",
+    "name": "Pawmo",
+    "rarity": "Shiny Rare",
+    "number": "143",
+    "image": "/assets/sets/paldean-fates/cards/143_Pawmo_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-144-pawmot",
+    "name": "Pawmot",
+    "rarity": "Shiny Rare",
+    "number": "144",
+    "image": "/assets/sets/paldean-fates/cards/144_Pawmot_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-145-wattrel",
+    "name": "Wattrel",
+    "rarity": "Shiny Rare",
+    "number": "145",
+    "image": "/assets/sets/paldean-fates/cards/145_Wattrel_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-146-kilowattrel",
+    "name": "Kilowattrel",
+    "rarity": "Shiny Rare",
+    "number": "146",
+    "image": "/assets/sets/paldean-fates/cards/146_Kilowattrel_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-147-wigglytuff",
+    "name": "Wigglytuff",
+    "rarity": "Shiny Rare",
+    "number": "147",
+    "image": "/assets/sets/paldean-fates/cards/147_Wigglytuff_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-148-abra",
+    "name": "Abra",
+    "rarity": "Shiny Rare",
+    "number": "148",
+    "image": "/assets/sets/paldean-fates/cards/148_Abra_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-149-kadabra",
+    "name": "Kadabra",
+    "rarity": "Shiny Rare",
+    "number": "149",
+    "image": "/assets/sets/paldean-fates/cards/149_Kadabra_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-150-cleffa",
+    "name": "Cleffa",
+    "rarity": "Shiny Rare",
+    "number": "150",
+    "image": "/assets/sets/paldean-fates/cards/150_Cleffa_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-151-natu",
+    "name": "Natu",
+    "rarity": "Shiny Rare",
+    "number": "151",
+    "image": "/assets/sets/paldean-fates/cards/151_Natu_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-152-xatu",
+    "name": "Xatu",
+    "rarity": "Shiny Rare",
+    "number": "152",
+    "image": "/assets/sets/paldean-fates/cards/152_Xatu_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-153-ralts",
+    "name": "Ralts",
+    "rarity": "Shiny Rare",
+    "number": "153",
+    "image": "/assets/sets/paldean-fates/cards/153_Ralts_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-154-kirlia",
+    "name": "Kirlia",
+    "rarity": "Shiny Rare",
+    "number": "154",
+    "image": "/assets/sets/paldean-fates/cards/154_Kirlia_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-155-drifloon",
+    "name": "Drifloon",
+    "rarity": "Shiny Rare",
+    "number": "155",
+    "image": "/assets/sets/paldean-fates/cards/155_Drifloon_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-156-drifblim",
+    "name": "Drifblim",
+    "rarity": "Shiny Rare",
+    "number": "156",
+    "image": "/assets/sets/paldean-fates/cards/156_Drifblim_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-157-mime-jr",
+    "name": "Mime Jr.",
+    "rarity": "Shiny Rare",
+    "number": "157",
+    "image": "/assets/sets/paldean-fates/cards/157_Mime_Jr._Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-158-spiritomb",
+    "name": "Spiritomb",
+    "rarity": "Shiny Rare",
+    "number": "158",
+    "image": "/assets/sets/paldean-fates/cards/158_Spiritomb_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-159-klefki",
+    "name": "Klefki",
+    "rarity": "Shiny Rare",
+    "number": "159",
+    "image": "/assets/sets/paldean-fates/cards/159_Klefki_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-160-mimikyu",
+    "name": "Mimikyu",
+    "rarity": "Shiny Rare",
+    "number": "160",
+    "image": "/assets/sets/paldean-fates/cards/160_Mimikyu_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-161-dachsbun",
+    "name": "Dachsbun",
+    "rarity": "Shiny Rare",
+    "number": "161",
+    "image": "/assets/sets/paldean-fates/cards/161_Dachsbun_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-162-ceruledge",
+    "name": "Ceruledge",
+    "rarity": "Shiny Rare",
+    "number": "162",
+    "image": "/assets/sets/paldean-fates/cards/162_Ceruledge_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-163-rabsca",
+    "name": "Rabsca",
+    "rarity": "Shiny Rare",
+    "number": "163",
+    "image": "/assets/sets/paldean-fates/cards/163_Rabsca_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-164-flittle",
+    "name": "Flittle",
+    "rarity": "Shiny Rare",
+    "number": "164",
+    "image": "/assets/sets/paldean-fates/cards/164_Flittle_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-165-tinkatink",
+    "name": "Tinkatink",
+    "rarity": "Shiny Rare",
+    "number": "165",
+    "image": "/assets/sets/paldean-fates/cards/165_Tinkatink_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-166-tinkatuff",
+    "name": "Tinkatuff",
+    "rarity": "Shiny Rare",
+    "number": "166",
+    "image": "/assets/sets/paldean-fates/cards/166_Tinkatuff_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-167-tinkaton",
+    "name": "Tinkaton",
+    "rarity": "Shiny Rare",
+    "number": "167",
+    "image": "/assets/sets/paldean-fates/cards/167_Tinkaton_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-168-houndstone",
+    "name": "Houndstone",
+    "rarity": "Shiny Rare",
+    "number": "168",
+    "image": "/assets/sets/paldean-fates/cards/168_Houndstone_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-169-mankey",
+    "name": "Mankey",
+    "rarity": "Shiny Rare",
+    "number": "169",
+    "image": "/assets/sets/paldean-fates/cards/169_Mankey_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-170-primeape",
+    "name": "Primeape",
+    "rarity": "Shiny Rare",
+    "number": "170",
+    "image": "/assets/sets/paldean-fates/cards/170_Primeape_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-171-annihilape",
+    "name": "Annihilape",
+    "rarity": "Shiny Rare",
+    "number": "171",
+    "image": "/assets/sets/paldean-fates/cards/171_Annihilape_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-172-paldean-tauros",
+    "name": "Paldean Tauros",
+    "rarity": "Shiny Rare",
+    "number": "172",
+    "image": "/assets/sets/paldean-fates/cards/172_Paldean_Tauros_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-173-riolu",
+    "name": "Riolu",
+    "rarity": "Shiny Rare",
+    "number": "173",
+    "image": "/assets/sets/paldean-fates/cards/173_Riolu_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-174-lucario",
+    "name": "Lucario",
+    "rarity": "Shiny Rare",
+    "number": "174",
+    "image": "/assets/sets/paldean-fates/cards/174_Lucario_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-175-hawlucha",
+    "name": "Hawlucha",
+    "rarity": "Shiny Rare",
+    "number": "175",
+    "image": "/assets/sets/paldean-fates/cards/175_Hawlucha_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-176-nacli",
+    "name": "Nacli",
+    "rarity": "Shiny Rare",
+    "number": "176",
+    "image": "/assets/sets/paldean-fates/cards/176_Nacli_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-177-naclstack",
+    "name": "Naclstack",
+    "rarity": "Shiny Rare",
+    "number": "177",
+    "image": "/assets/sets/paldean-fates/cards/177_Naclstack_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-178-garganacl",
+    "name": "Garganacl",
+    "rarity": "Shiny Rare",
+    "number": "178",
+    "image": "/assets/sets/paldean-fates/cards/178_Garganacl_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-179-glimmet",
+    "name": "Glimmet",
+    "rarity": "Shiny Rare",
+    "number": "179",
+    "image": "/assets/sets/paldean-fates/cards/179_Glimmet_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-180-paldean-wooper",
+    "name": "Paldean Wooper",
+    "rarity": "Shiny Rare",
+    "number": "180",
+    "image": "/assets/sets/paldean-fates/cards/180_Paldean_Wooper_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-181-murkrow",
+    "name": "Murkrow",
+    "rarity": "Shiny Rare",
+    "number": "181",
+    "image": "/assets/sets/paldean-fates/cards/181_Murkrow_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-182-sneasel",
+    "name": "Sneasel",
+    "rarity": "Shiny Rare",
+    "number": "182",
+    "image": "/assets/sets/paldean-fates/cards/182_Sneasel_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-183-weavile",
+    "name": "Weavile",
+    "rarity": "Shiny Rare",
+    "number": "183",
+    "image": "/assets/sets/paldean-fates/cards/183_Weavile_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-184-sableye",
+    "name": "Sableye",
+    "rarity": "Shiny Rare",
+    "number": "184",
+    "image": "/assets/sets/paldean-fates/cards/184_Sableye_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-185-pawniard",
+    "name": "Pawniard",
+    "rarity": "Shiny Rare",
+    "number": "185",
+    "image": "/assets/sets/paldean-fates/cards/185_Pawniard_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-186-bisharp",
+    "name": "Bisharp",
+    "rarity": "Shiny Rare",
+    "number": "186",
+    "image": "/assets/sets/paldean-fates/cards/186_Bisharp_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-187-kingambit",
+    "name": "Kingambit",
+    "rarity": "Shiny Rare",
+    "number": "187",
+    "image": "/assets/sets/paldean-fates/cards/187_Kingambit_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-188-mabosstiff",
+    "name": "Mabosstiff",
+    "rarity": "Shiny Rare",
+    "number": "188",
+    "image": "/assets/sets/paldean-fates/cards/188_Mabosstiff_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-189-shroodle",
+    "name": "Shroodle",
+    "rarity": "Shiny Rare",
+    "number": "189",
+    "image": "/assets/sets/paldean-fates/cards/189_Shroodle_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-190-grafaiai",
+    "name": "Grafaiai",
+    "rarity": "Shiny Rare",
+    "number": "190",
+    "image": "/assets/sets/paldean-fates/cards/190_Grafaiai_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-191-scizor",
+    "name": "Scizor",
+    "rarity": "Shiny Rare",
+    "number": "191",
+    "image": "/assets/sets/paldean-fates/cards/191_Scizor_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-192-varoom",
+    "name": "Varoom",
+    "rarity": "Shiny Rare",
+    "number": "192",
+    "image": "/assets/sets/paldean-fates/cards/192_Varoom_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-193-revavroom",
+    "name": "Revavroom",
+    "rarity": "Shiny Rare",
+    "number": "193",
+    "image": "/assets/sets/paldean-fates/cards/193_Revavroom_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-194-noibat",
+    "name": "Noibat",
+    "rarity": "Shiny Rare",
+    "number": "194",
+    "image": "/assets/sets/paldean-fates/cards/194_Noibat_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-195-cyclizar",
+    "name": "Cyclizar",
+    "rarity": "Shiny Rare",
+    "number": "195",
+    "image": "/assets/sets/paldean-fates/cards/195_Cyclizar_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-196-pidgey",
+    "name": "Pidgey",
+    "rarity": "Shiny Rare",
+    "number": "196",
+    "image": "/assets/sets/paldean-fates/cards/196_Pidgey_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-197-pidgeotto",
+    "name": "Pidgeotto",
+    "rarity": "Shiny Rare",
+    "number": "197",
+    "image": "/assets/sets/paldean-fates/cards/197_Pidgeotto_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-198-jigglypuff",
+    "name": "Jigglypuff",
+    "rarity": "Shiny Rare",
+    "number": "198",
+    "image": "/assets/sets/paldean-fates/cards/198_Jigglypuff_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-199-doduo",
+    "name": "Doduo",
+    "rarity": "Shiny Rare",
+    "number": "199",
+    "image": "/assets/sets/paldean-fates/cards/199_Doduo_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-200-dodrio",
+    "name": "Dodrio",
+    "rarity": "Shiny Rare",
+    "number": "200",
+    "image": "/assets/sets/paldean-fates/cards/200_Dodrio_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-201-ditto",
+    "name": "Ditto",
+    "rarity": "Shiny Rare",
+    "number": "201",
+    "image": "/assets/sets/paldean-fates/cards/201_Ditto_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-202-snorlax",
+    "name": "Snorlax",
+    "rarity": "Shiny Rare",
+    "number": "202",
+    "image": "/assets/sets/paldean-fates/cards/202_Snorlax_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-203-wingull",
+    "name": "Wingull",
+    "rarity": "Shiny Rare",
+    "number": "203",
+    "image": "/assets/sets/paldean-fates/cards/203_Wingull_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-204-pelipper",
+    "name": "Pelipper",
+    "rarity": "Shiny Rare",
+    "number": "204",
+    "image": "/assets/sets/paldean-fates/cards/204_Pelipper_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-205-skwovet",
+    "name": "Skwovet",
+    "rarity": "Shiny Rare",
+    "number": "205",
+    "image": "/assets/sets/paldean-fates/cards/205_Skwovet_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-206-greedent",
+    "name": "Greedent",
+    "rarity": "Shiny Rare",
+    "number": "206",
+    "image": "/assets/sets/paldean-fates/cards/206_Greedent_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-207-lechonk",
+    "name": "Lechonk",
+    "rarity": "Shiny Rare",
+    "number": "207",
+    "image": "/assets/sets/paldean-fates/cards/207_Lechonk_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-208-oinkologne",
+    "name": "Oinkologne",
+    "rarity": "Shiny Rare",
+    "number": "208",
+    "image": "/assets/sets/paldean-fates/cards/208_Oinkologne_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-209-tandemaus",
+    "name": "Tandemaus",
+    "rarity": "Shiny Rare",
+    "number": "209",
+    "image": "/assets/sets/paldean-fates/cards/209_Tandemaus_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-210-maushold",
+    "name": "Maushold",
+    "rarity": "Shiny Rare",
+    "number": "210",
+    "image": "/assets/sets/paldean-fates/cards/210_Maushold_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-211-flamigo",
+    "name": "Flamigo",
+    "rarity": "Shiny Rare",
+    "number": "211",
+    "image": "/assets/sets/paldean-fates/cards/211_Flamigo_Shiny_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-212-forretress-ex",
+    "name": "Forretress ex",
+    "rarity": "Shiny Ultra Rare",
+    "number": "212",
+    "image": "/assets/sets/paldean-fates/cards/212_Forretress_ex_Shiny_Ultra_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-213-toedscruel-ex",
+    "name": "Toedscruel ex",
+    "rarity": "Shiny Ultra Rare",
+    "number": "213",
+    "image": "/assets/sets/paldean-fates/cards/213_Toedscruel_ex_Shiny_Ultra_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-214-espathra-ex",
+    "name": "Espathra ex",
+    "rarity": "Shiny Ultra Rare",
+    "number": "214",
+    "image": "/assets/sets/paldean-fates/cards/214_Espathra_ex_Shiny_Ultra_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-215-alakazam-ex",
+    "name": "Alakazam ex",
+    "rarity": "Shiny Ultra Rare",
+    "number": "215",
+    "image": "/assets/sets/paldean-fates/cards/215_Alakazam_ex_Shiny_Ultra_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-216-mew-ex",
+    "name": "Mew ex",
+    "rarity": "Shiny Ultra Rare",
+    "number": "216",
+    "image": "/assets/sets/paldean-fates/cards/216_Mew_ex_Shiny_Ultra_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-217-gardevoir-ex",
+    "name": "Gardevoir ex",
+    "rarity": "Shiny Ultra Rare",
+    "number": "217",
+    "image": "/assets/sets/paldean-fates/cards/217_Gardevoir_ex_Shiny_Ultra_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-218-glimmora-ex",
+    "name": "Glimmora ex",
+    "rarity": "Shiny Ultra Rare",
+    "number": "218",
+    "image": "/assets/sets/paldean-fates/cards/218_Glimmora_ex_Shiny_Ultra_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-219-paldean-clodsire-ex",
+    "name": "Paldean Clodsire ex",
+    "rarity": "Shiny Ultra Rare",
+    "number": "219",
+    "image": "/assets/sets/paldean-fates/cards/219_Paldean_Clodsire_ex_Shiny_Ultra_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-220-noivern-ex",
+    "name": "Noivern ex",
+    "rarity": "Shiny Ultra Rare",
+    "number": "220",
+    "image": "/assets/sets/paldean-fates/cards/220_Noivern_ex_Shiny_Ultra_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-221-pidgeot-ex",
+    "name": "Pidgeot ex",
+    "rarity": "Shiny Ultra Rare",
+    "number": "221",
+    "image": "/assets/sets/paldean-fates/cards/221_Pidgeot_ex_Shiny_Ultra_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-222-wigglytuff-ex",
+    "name": "Wigglytuff ex",
+    "rarity": "Shiny Ultra Rare",
+    "number": "222",
+    "image": "/assets/sets/paldean-fates/cards/222_Wigglytuff_ex_Shiny_Ultra_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-223-squawkabilly-ex",
+    "name": "Squawkabilly ex",
+    "rarity": "Shiny Ultra Rare",
+    "number": "223",
+    "image": "/assets/sets/paldean-fates/cards/223_Squawkabilly_ex_Shiny_Ultra_Rare.png",
+    "subset": "Shiny Vault"
+  },
+  {
+    "id": "paldean-fates-224-wugtrio",
+    "name": "Wugtrio",
+    "rarity": "Illustration Rare",
+    "number": "224",
+    "image": "/assets/sets/paldean-fates/cards/224_Wugtrio_Illustration_Rare.png"
+  },
+  {
+    "id": "paldean-fates-225-palafin",
+    "name": "Palafin",
+    "rarity": "Illustration Rare",
+    "number": "225",
+    "image": "/assets/sets/paldean-fates/cards/225_Palafin_Illustration_Rare.png"
+  },
+  {
+    "id": "paldean-fates-226-pawmi",
+    "name": "Pawmi",
+    "rarity": "Illustration Rare",
+    "number": "226",
+    "image": "/assets/sets/paldean-fates/cards/226_Pawmi_Illustration_Rare.png"
+  },
+  {
+    "id": "paldean-fates-227-clive",
+    "name": "Clive",
+    "rarity": "Ultra Rare",
+    "number": "227",
+    "image": "/assets/sets/paldean-fates/cards/227_Clive_Ultra_Rare.png"
+  },
+  {
+    "id": "paldean-fates-228-judge",
+    "name": "Judge",
+    "rarity": "Ultra Rare",
+    "number": "228",
+    "image": "/assets/sets/paldean-fates/cards/228_Judge_Ultra_Rare.png"
+  },
+  {
+    "id": "paldean-fates-229-nemona",
+    "name": "Nemona",
+    "rarity": "Ultra Rare",
+    "number": "229",
+    "image": "/assets/sets/paldean-fates/cards/229_Nemona_Ultra_Rare.png"
+  },
+  {
+    "id": "paldean-fates-230-paldean-student",
+    "name": "Paldean Student",
+    "rarity": "Ultra Rare",
+    "number": "230",
+    "image": "/assets/sets/paldean-fates/cards/230_Paldean_Student_Ultra_Rare.png"
+  },
+  {
+    "id": "paldean-fates-231-paldean-student",
+    "name": "Paldean Student",
+    "rarity": "Ultra Rare",
+    "number": "231",
+    "image": "/assets/sets/paldean-fates/cards/231_Paldean_Student_Ultra_Rare.png"
+  },
+  {
+    "id": "paldean-fates-232-mew-ex",
+    "name": "Mew ex",
+    "rarity": "Special Illustration Rare",
+    "number": "232",
+    "image": "/assets/sets/paldean-fates/cards/232_Mew_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "paldean-fates-233-gardevoir-ex",
+    "name": "Gardevoir ex",
+    "rarity": "Special Illustration Rare",
+    "number": "233",
+    "image": "/assets/sets/paldean-fates/cards/233_Gardevoir_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "paldean-fates-234-charizard-ex",
+    "name": "Charizard ex",
+    "rarity": "Special Illustration Rare",
+    "number": "234",
+    "image": "/assets/sets/paldean-fates/cards/234_Charizard_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "paldean-fates-235-arven",
+    "name": "Arven",
+    "rarity": "Special Illustration Rare",
+    "number": "235",
+    "image": "/assets/sets/paldean-fates/cards/235_Arven_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "paldean-fates-236-clive",
+    "name": "Clive",
+    "rarity": "Special Illustration Rare",
+    "number": "236",
+    "image": "/assets/sets/paldean-fates/cards/236_Clive_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "paldean-fates-237-iono",
+    "name": "Iono",
+    "rarity": "Special Illustration Rare",
+    "number": "237",
+    "image": "/assets/sets/paldean-fates/cards/237_Iono_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "paldean-fates-238-nemona",
+    "name": "Nemona",
+    "rarity": "Special Illustration Rare",
+    "number": "238",
+    "image": "/assets/sets/paldean-fates/cards/238_Nemona_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "paldean-fates-239-penny",
+    "name": "Penny",
+    "rarity": "Special Illustration Rare",
+    "number": "239",
+    "image": "/assets/sets/paldean-fates/cards/239_Penny_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "paldean-fates-240-wo-chien-ex-hyper",
+    "name": "Wo-Chien ex Hyper",
+    "rarity": "Rare",
+    "number": "240",
+    "image": "/assets/sets/paldean-fates/cards/240_Wo-Chien_ex_Hyper_Rare.png"
+  },
+  {
+    "id": "paldean-fates-241-chi-yu-ex-hyper",
+    "name": "Chi-Yu ex Hyper",
+    "rarity": "Rare",
+    "number": "241",
+    "image": "/assets/sets/paldean-fates/cards/241_Chi-Yu_ex_Hyper_Rare.png"
+  },
+  {
+    "id": "paldean-fates-242-chien-pao-ex-hyper",
+    "name": "Chien-Pao ex Hyper",
+    "rarity": "Rare",
+    "number": "242",
+    "image": "/assets/sets/paldean-fates/cards/242_Chien-Pao_ex_Hyper_Rare.png"
+  },
+  {
+    "id": "paldean-fates-243-miraidon-ex-hyper",
+    "name": "Miraidon ex Hyper",
+    "rarity": "Rare",
+    "number": "243",
+    "image": "/assets/sets/paldean-fates/cards/243_Miraidon_ex_Hyper_Rare.png"
+  },
+  {
+    "id": "paldean-fates-244-ting-lu-ex-hyper",
+    "name": "Ting-Lu ex Hyper",
+    "rarity": "Rare",
+    "number": "244",
+    "image": "/assets/sets/paldean-fates/cards/244_Ting-Lu_ex_Hyper_Rare.png"
+  },
+  {
+    "id": "paldean-fates-245-koraidon-ex-hyper",
+    "name": "Koraidon ex Hyper",
+    "rarity": "Rare",
+    "number": "245",
+    "image": "/assets/sets/paldean-fates/cards/245_Koraidon_ex_Hyper_Rare.png"
+  }
+]

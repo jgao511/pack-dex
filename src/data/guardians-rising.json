@@ -1,0 +1,1262 @@
+[
+  {
+    "id": "guardians-rising-1-bellsprout",
+    "name": "Bellsprout",
+    "rarity": "Common",
+    "number": "1",
+    "image": "/assets/sets/guardians-rising/cards/1_Bellsprout_Common.png"
+  },
+  {
+    "id": "guardians-rising-2-weepinbell",
+    "name": "Weepinbell",
+    "rarity": "Uncommon",
+    "number": "2",
+    "image": "/assets/sets/guardians-rising/cards/2_Weepinbell_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-3-victreebel",
+    "name": "Victreebel",
+    "rarity": "Rare",
+    "number": "3",
+    "image": "/assets/sets/guardians-rising/cards/3_Victreebel_Rare.png"
+  },
+  {
+    "id": "guardians-rising-4-petilil",
+    "name": "Petilil",
+    "rarity": "Common",
+    "number": "4",
+    "image": "/assets/sets/guardians-rising/cards/4_Petilil_Common.png"
+  },
+  {
+    "id": "guardians-rising-5-lilligant",
+    "name": "Lilligant",
+    "rarity": "Rare",
+    "number": "5",
+    "image": "/assets/sets/guardians-rising/cards/5_Lilligant_Rare.png"
+  },
+  {
+    "id": "guardians-rising-6-phantump",
+    "name": "Phantump",
+    "rarity": "Common",
+    "number": "6",
+    "image": "/assets/sets/guardians-rising/cards/6_Phantump_Common.png"
+  },
+  {
+    "id": "guardians-rising-7-trevenant",
+    "name": "Trevenant",
+    "rarity": "Rare",
+    "number": "7",
+    "image": "/assets/sets/guardians-rising/cards/7_Trevenant_Rare.png"
+  },
+  {
+    "id": "guardians-rising-8-wimpod",
+    "name": "Wimpod",
+    "rarity": "Common",
+    "number": "8",
+    "image": "/assets/sets/guardians-rising/cards/8_Wimpod_Common.png"
+  },
+  {
+    "id": "guardians-rising-9-golisopod",
+    "name": "Golisopod",
+    "rarity": "Rare",
+    "number": "9",
+    "image": "/assets/sets/guardians-rising/cards/9_Golisopod_Rare_Holo.png"
+  },
+  {
+    "id": "guardians-rising-10-victini",
+    "name": "Victini",
+    "rarity": "Rare",
+    "number": "10",
+    "image": "/assets/sets/guardians-rising/cards/10_Victini_Rare_Holo.png"
+  },
+  {
+    "id": "guardians-rising-11-litwick",
+    "name": "Litwick",
+    "rarity": "Common",
+    "number": "11",
+    "image": "/assets/sets/guardians-rising/cards/11_Litwick_Common.png"
+  },
+  {
+    "id": "guardians-rising-12-lampent",
+    "name": "Lampent",
+    "rarity": "Uncommon",
+    "number": "12",
+    "image": "/assets/sets/guardians-rising/cards/12_Lampent_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-13-chandelure",
+    "name": "Chandelure",
+    "rarity": "Rare",
+    "number": "13",
+    "image": "/assets/sets/guardians-rising/cards/13_Chandelure_Rare_Holo.png"
+  },
+  {
+    "id": "guardians-rising-14-oricorio",
+    "name": "Oricorio",
+    "rarity": "Rare",
+    "number": "14",
+    "image": "/assets/sets/guardians-rising/cards/14_Oricorio_Rare.png"
+  },
+  {
+    "id": "guardians-rising-15-salandit",
+    "name": "Salandit",
+    "rarity": "Common",
+    "number": "15",
+    "image": "/assets/sets/guardians-rising/cards/15_Salandit_Common.png"
+  },
+  {
+    "id": "guardians-rising-16-salazzle",
+    "name": "Salazzle",
+    "rarity": "Rare",
+    "number": "16",
+    "image": "/assets/sets/guardians-rising/cards/16_Salazzle_Rare.png"
+  },
+  {
+    "id": "guardians-rising-17-turtonator",
+    "name": "Turtonator",
+    "rarity": "Rare",
+    "number": "17",
+    "image": "/assets/sets/guardians-rising/cards/17_Turtonator_Rare.png"
+  },
+  {
+    "id": "guardians-rising-18-turtonator-gx",
+    "name": "Turtonator-GX",
+    "rarity": "Double Rare",
+    "number": "18",
+    "image": "/assets/sets/guardians-rising/cards/18_Turtonator-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "guardians-rising-19-alolan-sandshrew",
+    "name": "Alolan Sandshrew",
+    "rarity": "Common",
+    "number": "19",
+    "image": "/assets/sets/guardians-rising/cards/19_Alolan_Sandshrew_Common.png"
+  },
+  {
+    "id": "guardians-rising-19a-alolan-sandshrew",
+    "name": "Alolan Sandshrew",
+    "rarity": "Common",
+    "number": "19a",
+    "image": "/assets/sets/guardians-rising/cards/19a_Alolan_Sandshrew_Common.png"
+  },
+  {
+    "id": "guardians-rising-20-alolan-sandslash",
+    "name": "Alolan Sandslash",
+    "rarity": "Rare",
+    "number": "20",
+    "image": "/assets/sets/guardians-rising/cards/20_Alolan_Sandslash_Rare.png"
+  },
+  {
+    "id": "guardians-rising-21-alolan-vulpix",
+    "name": "Alolan Vulpix",
+    "rarity": "Common",
+    "number": "21",
+    "image": "/assets/sets/guardians-rising/cards/21_Alolan_Vulpix_Common.png"
+  },
+  {
+    "id": "guardians-rising-21a-alolan-vulpix",
+    "name": "Alolan Vulpix",
+    "rarity": "Common",
+    "number": "21a",
+    "image": "/assets/sets/guardians-rising/cards/21a_Alolan_Vulpix_Common.png"
+  },
+  {
+    "id": "guardians-rising-22-alolan-ninetales-gx",
+    "name": "Alolan Ninetales-GX",
+    "rarity": "Double Rare",
+    "number": "22",
+    "image": "/assets/sets/guardians-rising/cards/22_Alolan_Ninetales-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "guardians-rising-23-tentacool",
+    "name": "Tentacool",
+    "rarity": "Common",
+    "number": "23",
+    "image": "/assets/sets/guardians-rising/cards/23_Tentacool_Common.png"
+  },
+  {
+    "id": "guardians-rising-24-tentacruel",
+    "name": "Tentacruel",
+    "rarity": "Uncommon",
+    "number": "24",
+    "image": "/assets/sets/guardians-rising/cards/24_Tentacruel_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-25-politoed",
+    "name": "Politoed",
+    "rarity": "Rare",
+    "number": "25",
+    "image": "/assets/sets/guardians-rising/cards/25_Politoed_Rare_Holo.png"
+  },
+  {
+    "id": "guardians-rising-26-delibird",
+    "name": "Delibird",
+    "rarity": "Common",
+    "number": "26",
+    "image": "/assets/sets/guardians-rising/cards/26_Delibird_Common.png"
+  },
+  {
+    "id": "guardians-rising-27-carvanha",
+    "name": "Carvanha",
+    "rarity": "Common",
+    "number": "27",
+    "image": "/assets/sets/guardians-rising/cards/27_Carvanha_Common.png"
+  },
+  {
+    "id": "guardians-rising-28-sharpedo",
+    "name": "Sharpedo",
+    "rarity": "Rare",
+    "number": "28",
+    "image": "/assets/sets/guardians-rising/cards/28_Sharpedo_Rare.png"
+  },
+  {
+    "id": "guardians-rising-29-wailmer",
+    "name": "Wailmer",
+    "rarity": "Common",
+    "number": "29",
+    "image": "/assets/sets/guardians-rising/cards/29_Wailmer_Common.png"
+  },
+  {
+    "id": "guardians-rising-30-wailord",
+    "name": "Wailord",
+    "rarity": "Rare",
+    "number": "30",
+    "image": "/assets/sets/guardians-rising/cards/30_Wailord_Rare.png"
+  },
+  {
+    "id": "guardians-rising-31-snorunt",
+    "name": "Snorunt",
+    "rarity": "Common",
+    "number": "31",
+    "image": "/assets/sets/guardians-rising/cards/31_Snorunt_Common.png"
+  },
+  {
+    "id": "guardians-rising-32-glalie",
+    "name": "Glalie",
+    "rarity": "Uncommon",
+    "number": "32",
+    "image": "/assets/sets/guardians-rising/cards/32_Glalie_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-33-vanillite",
+    "name": "Vanillite",
+    "rarity": "Common",
+    "number": "33",
+    "image": "/assets/sets/guardians-rising/cards/33_Vanillite_Common.png"
+  },
+  {
+    "id": "guardians-rising-34-vanillish",
+    "name": "Vanillish",
+    "rarity": "Uncommon",
+    "number": "34",
+    "image": "/assets/sets/guardians-rising/cards/34_Vanillish_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-35-vanilluxe",
+    "name": "Vanilluxe",
+    "rarity": "Rare",
+    "number": "35",
+    "image": "/assets/sets/guardians-rising/cards/35_Vanilluxe_Rare.png"
+  },
+  {
+    "id": "guardians-rising-36-alomomola",
+    "name": "Alomomola",
+    "rarity": "Uncommon",
+    "number": "36",
+    "image": "/assets/sets/guardians-rising/cards/36_Alomomola_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-37-wishiwashi",
+    "name": "Wishiwashi",
+    "rarity": "Common",
+    "number": "37",
+    "image": "/assets/sets/guardians-rising/cards/37_Wishiwashi_Common.png"
+  },
+  {
+    "id": "guardians-rising-38-wishiwashi-gx",
+    "name": "Wishiwashi-GX",
+    "rarity": "Double Rare",
+    "number": "38",
+    "image": "/assets/sets/guardians-rising/cards/38_Wishiwashi-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "guardians-rising-39-mareanie",
+    "name": "Mareanie",
+    "rarity": "Uncommon",
+    "number": "39",
+    "image": "/assets/sets/guardians-rising/cards/39_Mareanie_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-40-alolan-geodude",
+    "name": "Alolan Geodude",
+    "rarity": "Common",
+    "number": "40",
+    "image": "/assets/sets/guardians-rising/cards/40_Alolan_Geodude_Common.png"
+  },
+  {
+    "id": "guardians-rising-41-alolan-graveler",
+    "name": "Alolan Graveler",
+    "rarity": "Uncommon",
+    "number": "41",
+    "image": "/assets/sets/guardians-rising/cards/41_Alolan_Graveler_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-42-alolan-golem",
+    "name": "Alolan Golem",
+    "rarity": "Rare",
+    "number": "42",
+    "image": "/assets/sets/guardians-rising/cards/42_Alolan_Golem_Rare_Holo.png"
+  },
+  {
+    "id": "guardians-rising-43-helioptile",
+    "name": "Helioptile",
+    "rarity": "Common",
+    "number": "43",
+    "image": "/assets/sets/guardians-rising/cards/43_Helioptile_Common.png"
+  },
+  {
+    "id": "guardians-rising-44-heliolisk",
+    "name": "Heliolisk",
+    "rarity": "Rare",
+    "number": "44",
+    "image": "/assets/sets/guardians-rising/cards/44_Heliolisk_Rare.png"
+  },
+  {
+    "id": "guardians-rising-45-vikavolt-gx",
+    "name": "Vikavolt-GX",
+    "rarity": "Double Rare",
+    "number": "45",
+    "image": "/assets/sets/guardians-rising/cards/45_Vikavolt-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "guardians-rising-46-oricorio",
+    "name": "Oricorio",
+    "rarity": "Rare",
+    "number": "46",
+    "image": "/assets/sets/guardians-rising/cards/46_Oricorio_Rare.png"
+  },
+  {
+    "id": "guardians-rising-47-tapu-koko-gx",
+    "name": "Tapu Koko-GX",
+    "rarity": "Double Rare",
+    "number": "47",
+    "image": "/assets/sets/guardians-rising/cards/47_Tapu_Koko-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "guardians-rising-48-slowpoke",
+    "name": "Slowpoke",
+    "rarity": "Common",
+    "number": "48",
+    "image": "/assets/sets/guardians-rising/cards/48_Slowpoke_Common.png"
+  },
+  {
+    "id": "guardians-rising-49-slowbro",
+    "name": "Slowbro",
+    "rarity": "Uncommon",
+    "number": "49",
+    "image": "/assets/sets/guardians-rising/cards/49_Slowbro_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-50-trubbish",
+    "name": "Trubbish",
+    "rarity": "Common",
+    "number": "50",
+    "image": "/assets/sets/guardians-rising/cards/50_Trubbish_Common.png"
+  },
+  {
+    "id": "guardians-rising-51-garbodor",
+    "name": "Garbodor",
+    "rarity": "Rare",
+    "number": "51",
+    "image": "/assets/sets/guardians-rising/cards/51_Garbodor_Rare.png"
+  },
+  {
+    "id": "guardians-rising-51a-garbodor",
+    "name": "Garbodor",
+    "rarity": "Rare",
+    "number": "51a",
+    "image": "/assets/sets/guardians-rising/cards/51a_Garbodor_Rare.png"
+  },
+  {
+    "id": "guardians-rising-52-gothita",
+    "name": "Gothita",
+    "rarity": "Common",
+    "number": "52",
+    "image": "/assets/sets/guardians-rising/cards/52_Gothita_Common.png"
+  },
+  {
+    "id": "guardians-rising-53-gothorita",
+    "name": "Gothorita",
+    "rarity": "Uncommon",
+    "number": "53",
+    "image": "/assets/sets/guardians-rising/cards/53_Gothorita_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-54-gothitelle",
+    "name": "Gothitelle",
+    "rarity": "Rare",
+    "number": "54",
+    "image": "/assets/sets/guardians-rising/cards/54_Gothitelle_Rare.png"
+  },
+  {
+    "id": "guardians-rising-55-oricorio",
+    "name": "Oricorio",
+    "rarity": "Rare",
+    "number": "55",
+    "image": "/assets/sets/guardians-rising/cards/55_Oricorio_Rare.png"
+  },
+  {
+    "id": "guardians-rising-56-oricorio",
+    "name": "Oricorio",
+    "rarity": "Rare",
+    "number": "56",
+    "image": "/assets/sets/guardians-rising/cards/56_Oricorio_Rare.png"
+  },
+  {
+    "id": "guardians-rising-57-toxapex-gx",
+    "name": "Toxapex-GX",
+    "rarity": "Double Rare",
+    "number": "57",
+    "image": "/assets/sets/guardians-rising/cards/57_Toxapex-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "guardians-rising-58-mimikyu",
+    "name": "Mimikyu",
+    "rarity": "Rare",
+    "number": "58",
+    "image": "/assets/sets/guardians-rising/cards/58_Mimikyu_Rare_Holo.png"
+  },
+  {
+    "id": "guardians-rising-59-dhelmise",
+    "name": "Dhelmise",
+    "rarity": "Rare",
+    "number": "59",
+    "image": "/assets/sets/guardians-rising/cards/59_Dhelmise_Rare_Holo.png"
+  },
+  {
+    "id": "guardians-rising-60-tapu-lele-gx",
+    "name": "Tapu Lele-GX",
+    "rarity": "Double Rare",
+    "number": "60",
+    "image": "/assets/sets/guardians-rising/cards/60_Tapu_Lele-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "guardians-rising-60a-tapu-lele-gx",
+    "name": "Tapu Lele-GX",
+    "rarity": "Double Rare",
+    "number": "60a",
+    "image": "/assets/sets/guardians-rising/cards/60a_Tapu_Lele-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "guardians-rising-61-lunala",
+    "name": "Lunala",
+    "rarity": "Rare",
+    "number": "61",
+    "image": "/assets/sets/guardians-rising/cards/61_Lunala_Rare.png"
+  },
+  {
+    "id": "guardians-rising-62-machop",
+    "name": "Machop",
+    "rarity": "Common",
+    "number": "62",
+    "image": "/assets/sets/guardians-rising/cards/62_Machop_Common.png"
+  },
+  {
+    "id": "guardians-rising-63-machop",
+    "name": "Machop",
+    "rarity": "Common",
+    "number": "63",
+    "image": "/assets/sets/guardians-rising/cards/63_Machop_Common.png"
+  },
+  {
+    "id": "guardians-rising-64-machoke",
+    "name": "Machoke",
+    "rarity": "Uncommon",
+    "number": "64",
+    "image": "/assets/sets/guardians-rising/cards/64_Machoke_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-65-machamp",
+    "name": "Machamp",
+    "rarity": "Rare",
+    "number": "65",
+    "image": "/assets/sets/guardians-rising/cards/65_Machamp_Rare_Holo.png"
+  },
+  {
+    "id": "guardians-rising-66-sudowoodo",
+    "name": "Sudowoodo",
+    "rarity": "Uncommon",
+    "number": "66",
+    "image": "/assets/sets/guardians-rising/cards/66_Sudowoodo_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-67-gligar",
+    "name": "Gligar",
+    "rarity": "Common",
+    "number": "67",
+    "image": "/assets/sets/guardians-rising/cards/67_Gligar_Common.png"
+  },
+  {
+    "id": "guardians-rising-68-gliscor",
+    "name": "Gliscor",
+    "rarity": "Uncommon",
+    "number": "68",
+    "image": "/assets/sets/guardians-rising/cards/68_Gliscor_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-69-nosepass",
+    "name": "Nosepass",
+    "rarity": "Common",
+    "number": "69",
+    "image": "/assets/sets/guardians-rising/cards/69_Nosepass_Common.png"
+  },
+  {
+    "id": "guardians-rising-70-barboach",
+    "name": "Barboach",
+    "rarity": "Common",
+    "number": "70",
+    "image": "/assets/sets/guardians-rising/cards/70_Barboach_Common.png"
+  },
+  {
+    "id": "guardians-rising-71-whiscash",
+    "name": "Whiscash",
+    "rarity": "Rare",
+    "number": "71",
+    "image": "/assets/sets/guardians-rising/cards/71_Whiscash_Rare.png"
+  },
+  {
+    "id": "guardians-rising-72-pancham",
+    "name": "Pancham",
+    "rarity": "Common",
+    "number": "72",
+    "image": "/assets/sets/guardians-rising/cards/72_Pancham_Common.png"
+  },
+  {
+    "id": "guardians-rising-73-rockruff",
+    "name": "Rockruff",
+    "rarity": "Common",
+    "number": "73",
+    "image": "/assets/sets/guardians-rising/cards/73_Rockruff_Common.png"
+  },
+  {
+    "id": "guardians-rising-74-lycanroc-gx",
+    "name": "Lycanroc-GX",
+    "rarity": "Double Rare",
+    "number": "74",
+    "image": "/assets/sets/guardians-rising/cards/74_Lycanroc-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "guardians-rising-75-mudbray",
+    "name": "Mudbray",
+    "rarity": "Common",
+    "number": "75",
+    "image": "/assets/sets/guardians-rising/cards/75_Mudbray_Common.png"
+  },
+  {
+    "id": "guardians-rising-76-mudsdale",
+    "name": "Mudsdale",
+    "rarity": "Rare",
+    "number": "76",
+    "image": "/assets/sets/guardians-rising/cards/76_Mudsdale_Rare_Holo.png"
+  },
+  {
+    "id": "guardians-rising-77-minior",
+    "name": "Minior",
+    "rarity": "Rare",
+    "number": "77",
+    "image": "/assets/sets/guardians-rising/cards/77_Minior_Rare_Holo.png"
+  },
+  {
+    "id": "guardians-rising-78-murkrow",
+    "name": "Murkrow",
+    "rarity": "Common",
+    "number": "78",
+    "image": "/assets/sets/guardians-rising/cards/78_Murkrow_Common.png"
+  },
+  {
+    "id": "guardians-rising-79-honchkrow",
+    "name": "Honchkrow",
+    "rarity": "Rare",
+    "number": "79",
+    "image": "/assets/sets/guardians-rising/cards/79_Honchkrow_Rare.png"
+  },
+  {
+    "id": "guardians-rising-80-sableye",
+    "name": "Sableye",
+    "rarity": "Uncommon",
+    "number": "80",
+    "image": "/assets/sets/guardians-rising/cards/80_Sableye_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-81-absol",
+    "name": "Absol",
+    "rarity": "Rare",
+    "number": "81",
+    "image": "/assets/sets/guardians-rising/cards/81_Absol_Rare_Holo.png"
+  },
+  {
+    "id": "guardians-rising-82-pangoro",
+    "name": "Pangoro",
+    "rarity": "Rare",
+    "number": "82",
+    "image": "/assets/sets/guardians-rising/cards/82_Pangoro_Rare.png"
+  },
+  {
+    "id": "guardians-rising-83-beldum",
+    "name": "Beldum",
+    "rarity": "Common",
+    "number": "83",
+    "image": "/assets/sets/guardians-rising/cards/83_Beldum_Common.png"
+  },
+  {
+    "id": "guardians-rising-84-metang",
+    "name": "Metang",
+    "rarity": "Uncommon",
+    "number": "84",
+    "image": "/assets/sets/guardians-rising/cards/84_Metang_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-85-metagross-gx",
+    "name": "Metagross-GX",
+    "rarity": "Double Rare",
+    "number": "85",
+    "image": "/assets/sets/guardians-rising/cards/85_Metagross-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "guardians-rising-86-probopass",
+    "name": "Probopass",
+    "rarity": "Rare",
+    "number": "86",
+    "image": "/assets/sets/guardians-rising/cards/86_Probopass_Rare.png"
+  },
+  {
+    "id": "guardians-rising-87-solgaleo",
+    "name": "Solgaleo",
+    "rarity": "Rare",
+    "number": "87",
+    "image": "/assets/sets/guardians-rising/cards/87_Solgaleo_Rare.png"
+  },
+  {
+    "id": "guardians-rising-88-clefairy",
+    "name": "Clefairy",
+    "rarity": "Common",
+    "number": "88",
+    "image": "/assets/sets/guardians-rising/cards/88_Clefairy_Common.png"
+  },
+  {
+    "id": "guardians-rising-89-clefable",
+    "name": "Clefable",
+    "rarity": "Uncommon",
+    "number": "89",
+    "image": "/assets/sets/guardians-rising/cards/89_Clefable_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-90-cottonee",
+    "name": "Cottonee",
+    "rarity": "Common",
+    "number": "90",
+    "image": "/assets/sets/guardians-rising/cards/90_Cottonee_Common.png"
+  },
+  {
+    "id": "guardians-rising-91-whimsicott",
+    "name": "Whimsicott",
+    "rarity": "Uncommon",
+    "number": "91",
+    "image": "/assets/sets/guardians-rising/cards/91_Whimsicott_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-92-sylveon-gx",
+    "name": "Sylveon-GX",
+    "rarity": "Double Rare",
+    "number": "92",
+    "image": "/assets/sets/guardians-rising/cards/92_Sylveon-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "guardians-rising-92a-sylveon-gx",
+    "name": "Sylveon-GX",
+    "rarity": "Double Rare",
+    "number": "92a",
+    "image": "/assets/sets/guardians-rising/cards/92a_Sylveon-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "guardians-rising-93-comfey",
+    "name": "Comfey",
+    "rarity": "Rare",
+    "number": "93",
+    "image": "/assets/sets/guardians-rising/cards/93_Comfey_Rare_Holo.png"
+  },
+  {
+    "id": "guardians-rising-94-goomy",
+    "name": "Goomy",
+    "rarity": "Common",
+    "number": "94",
+    "image": "/assets/sets/guardians-rising/cards/94_Goomy_Common.png"
+  },
+  {
+    "id": "guardians-rising-95-sliggoo",
+    "name": "Sliggoo",
+    "rarity": "Uncommon",
+    "number": "95",
+    "image": "/assets/sets/guardians-rising/cards/95_Sliggoo_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-96-goodra",
+    "name": "Goodra",
+    "rarity": "Rare",
+    "number": "96",
+    "image": "/assets/sets/guardians-rising/cards/96_Goodra_Rare_Holo.png"
+  },
+  {
+    "id": "guardians-rising-97-drampa",
+    "name": "Drampa",
+    "rarity": "Rare",
+    "number": "97",
+    "image": "/assets/sets/guardians-rising/cards/97_Drampa_Rare_Holo.png"
+  },
+  {
+    "id": "guardians-rising-98-jangmo-o",
+    "name": "Jangmo-o",
+    "rarity": "Common",
+    "number": "98",
+    "image": "/assets/sets/guardians-rising/cards/98_Jangmo-o_Common.png"
+  },
+  {
+    "id": "guardians-rising-99-hakamo-o",
+    "name": "Hakamo-o",
+    "rarity": "Uncommon",
+    "number": "99",
+    "image": "/assets/sets/guardians-rising/cards/99_Hakamo-o_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-100-kommo-o-gx",
+    "name": "Kommo-o-GX",
+    "rarity": "Double Rare",
+    "number": "100",
+    "image": "/assets/sets/guardians-rising/cards/100_Kommo-o-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "guardians-rising-101-chansey",
+    "name": "Chansey",
+    "rarity": "Common",
+    "number": "101",
+    "image": "/assets/sets/guardians-rising/cards/101_Chansey_Common.png"
+  },
+  {
+    "id": "guardians-rising-102-blissey",
+    "name": "Blissey",
+    "rarity": "Rare",
+    "number": "102",
+    "image": "/assets/sets/guardians-rising/cards/102_Blissey_Rare_Holo.png"
+  },
+  {
+    "id": "guardians-rising-103-taillow",
+    "name": "Taillow",
+    "rarity": "Common",
+    "number": "103",
+    "image": "/assets/sets/guardians-rising/cards/103_Taillow_Common.png"
+  },
+  {
+    "id": "guardians-rising-104-swellow",
+    "name": "Swellow",
+    "rarity": "Rare",
+    "number": "104",
+    "image": "/assets/sets/guardians-rising/cards/104_Swellow_Rare.png"
+  },
+  {
+    "id": "guardians-rising-105-castform",
+    "name": "Castform",
+    "rarity": "Common",
+    "number": "105",
+    "image": "/assets/sets/guardians-rising/cards/105_Castform_Common.png"
+  },
+  {
+    "id": "guardians-rising-106-rayquaza",
+    "name": "Rayquaza",
+    "rarity": "Rare",
+    "number": "106",
+    "image": "/assets/sets/guardians-rising/cards/106_Rayquaza_Rare.png"
+  },
+  {
+    "id": "guardians-rising-107-patrat",
+    "name": "Patrat",
+    "rarity": "Common",
+    "number": "107",
+    "image": "/assets/sets/guardians-rising/cards/107_Patrat_Common.png"
+  },
+  {
+    "id": "guardians-rising-108-watchog",
+    "name": "Watchog",
+    "rarity": "Uncommon",
+    "number": "108",
+    "image": "/assets/sets/guardians-rising/cards/108_Watchog_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-109-fletchling",
+    "name": "Fletchling",
+    "rarity": "Common",
+    "number": "109",
+    "image": "/assets/sets/guardians-rising/cards/109_Fletchling_Common.png"
+  },
+  {
+    "id": "guardians-rising-110-fletchinder",
+    "name": "Fletchinder",
+    "rarity": "Uncommon",
+    "number": "110",
+    "image": "/assets/sets/guardians-rising/cards/110_Fletchinder_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-111-talonflame",
+    "name": "Talonflame",
+    "rarity": "Rare",
+    "number": "111",
+    "image": "/assets/sets/guardians-rising/cards/111_Talonflame_Rare.png"
+  },
+  {
+    "id": "guardians-rising-112-stufful",
+    "name": "Stufful",
+    "rarity": "Common",
+    "number": "112",
+    "image": "/assets/sets/guardians-rising/cards/112_Stufful_Common.png"
+  },
+  {
+    "id": "guardians-rising-113-bewear",
+    "name": "Bewear",
+    "rarity": "Uncommon",
+    "number": "113",
+    "image": "/assets/sets/guardians-rising/cards/113_Bewear_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-114-komala",
+    "name": "Komala",
+    "rarity": "Uncommon",
+    "number": "114",
+    "image": "/assets/sets/guardians-rising/cards/114_Komala_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-115-drampa-gx",
+    "name": "Drampa-GX",
+    "rarity": "Double Rare",
+    "number": "115",
+    "image": "/assets/sets/guardians-rising/cards/115_Drampa-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "guardians-rising-116-aether-paradise-conservation-area",
+    "name": "Aether Paradise Conservation Area",
+    "rarity": "Uncommon",
+    "number": "116",
+    "image": "/assets/sets/guardians-rising/cards/116_Aether_Paradise_Conservation_Area_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-117-altar-of-the-moone",
+    "name": "Altar of the Moone",
+    "rarity": "Uncommon",
+    "number": "117",
+    "image": "/assets/sets/guardians-rising/cards/117_Altar_of_the_Moone_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-118-altar-of-the-sunne",
+    "name": "Altar of the Sunne",
+    "rarity": "Uncommon",
+    "number": "118",
+    "image": "/assets/sets/guardians-rising/cards/118_Altar_of_the_Sunne_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-119-aqua-patch",
+    "name": "Aqua Patch",
+    "rarity": "Uncommon",
+    "number": "119",
+    "image": "/assets/sets/guardians-rising/cards/119_Aqua_Patch_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-120-brooklet-hill",
+    "name": "Brooklet Hill",
+    "rarity": "Uncommon",
+    "number": "120",
+    "image": "/assets/sets/guardians-rising/cards/120_Brooklet_Hill_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-121-choice-band",
+    "name": "Choice Band",
+    "rarity": "Uncommon",
+    "number": "121",
+    "image": "/assets/sets/guardians-rising/cards/121_Choice_Band_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-121a-choice-band",
+    "name": "Choice Band",
+    "rarity": "Uncommon",
+    "number": "121a",
+    "image": "/assets/sets/guardians-rising/cards/121a_Choice_Band_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-122-energy-loto",
+    "name": "Energy Loto",
+    "rarity": "Uncommon",
+    "number": "122",
+    "image": "/assets/sets/guardians-rising/cards/122_Energy_Loto_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-123-energy-recycler",
+    "name": "Energy Recycler",
+    "rarity": "Uncommon",
+    "number": "123",
+    "image": "/assets/sets/guardians-rising/cards/123_Energy_Recycler_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-124-enhanced-hammer",
+    "name": "Enhanced Hammer",
+    "rarity": "Uncommon",
+    "number": "124",
+    "image": "/assets/sets/guardians-rising/cards/124_Enhanced_Hammer_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-124a-enhanced-hammer",
+    "name": "Enhanced Hammer",
+    "rarity": "Uncommon",
+    "number": "124a",
+    "image": "/assets/sets/guardians-rising/cards/124a_Enhanced_Hammer_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-125-field-blower",
+    "name": "Field Blower",
+    "rarity": "Uncommon",
+    "number": "125",
+    "image": "/assets/sets/guardians-rising/cards/125_Field_Blower_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-125a-field-blower",
+    "name": "Field Blower",
+    "rarity": "Uncommon",
+    "number": "125a",
+    "image": "/assets/sets/guardians-rising/cards/125a_Field_Blower_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-126-hala",
+    "name": "Hala",
+    "rarity": "Uncommon",
+    "number": "126",
+    "image": "/assets/sets/guardians-rising/cards/126_Hala_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-127-mallow",
+    "name": "Mallow",
+    "rarity": "Uncommon",
+    "number": "127",
+    "image": "/assets/sets/guardians-rising/cards/127_Mallow_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-128-max-potion",
+    "name": "Max Potion",
+    "rarity": "Uncommon",
+    "number": "128",
+    "image": "/assets/sets/guardians-rising/cards/128_Max_Potion_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-128a-max-potion",
+    "name": "Max Potion",
+    "rarity": "Uncommon",
+    "number": "128a",
+    "image": "/assets/sets/guardians-rising/cards/128a_Max_Potion_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-129-multi-switch",
+    "name": "Multi Switch",
+    "rarity": "Uncommon",
+    "number": "129",
+    "image": "/assets/sets/guardians-rising/cards/129_Multi_Switch_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-130-rescue-stretcher",
+    "name": "Rescue Stretcher",
+    "rarity": "Uncommon",
+    "number": "130",
+    "image": "/assets/sets/guardians-rising/cards/130_Rescue_Stretcher_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-130a-rescue-stretcher",
+    "name": "Rescue Stretcher",
+    "rarity": "Uncommon",
+    "number": "130a",
+    "image": "/assets/sets/guardians-rising/cards/130a_Rescue_Stretcher_Uncommon.png"
+  },
+  {
+    "id": "guardians-rising-131-turtonator-gx",
+    "name": "Turtonator-GX",
+    "rarity": "Ultra Rare",
+    "number": "131",
+    "image": "/assets/sets/guardians-rising/cards/131_Turtonator-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "guardians-rising-132-alolan-ninetales-gx",
+    "name": "Alolan Ninetales-GX",
+    "rarity": "Ultra Rare",
+    "number": "132",
+    "image": "/assets/sets/guardians-rising/cards/132_Alolan_Ninetales-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "guardians-rising-133-wishiwashi-gx",
+    "name": "Wishiwashi-GX",
+    "rarity": "Ultra Rare",
+    "number": "133",
+    "image": "/assets/sets/guardians-rising/cards/133_Wishiwashi-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "guardians-rising-134-vikavolt-gx",
+    "name": "Vikavolt-GX",
+    "rarity": "Ultra Rare",
+    "number": "134",
+    "image": "/assets/sets/guardians-rising/cards/134_Vikavolt-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "guardians-rising-135-tapu-koko-gx",
+    "name": "Tapu Koko-GX",
+    "rarity": "Ultra Rare",
+    "number": "135",
+    "image": "/assets/sets/guardians-rising/cards/135_Tapu_Koko-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "guardians-rising-136-toxapex-gx",
+    "name": "Toxapex-GX",
+    "rarity": "Ultra Rare",
+    "number": "136",
+    "image": "/assets/sets/guardians-rising/cards/136_Toxapex-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "guardians-rising-137-tapu-lele-gx",
+    "name": "Tapu Lele-GX",
+    "rarity": "Ultra Rare",
+    "number": "137",
+    "image": "/assets/sets/guardians-rising/cards/137_Tapu_Lele-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "guardians-rising-138-lycanroc-gx",
+    "name": "Lycanroc-GX",
+    "rarity": "Ultra Rare",
+    "number": "138",
+    "image": "/assets/sets/guardians-rising/cards/138_Lycanroc-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "guardians-rising-139-metagross-gx",
+    "name": "Metagross-GX",
+    "rarity": "Ultra Rare",
+    "number": "139",
+    "image": "/assets/sets/guardians-rising/cards/139_Metagross-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "guardians-rising-140-sylveon-gx",
+    "name": "Sylveon-GX",
+    "rarity": "Ultra Rare",
+    "number": "140",
+    "image": "/assets/sets/guardians-rising/cards/140_Sylveon-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "guardians-rising-141-kommo-o-gx",
+    "name": "Kommo-o-GX",
+    "rarity": "Ultra Rare",
+    "number": "141",
+    "image": "/assets/sets/guardians-rising/cards/141_Kommo-o-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "guardians-rising-142-drampa-gx",
+    "name": "Drampa-GX",
+    "rarity": "Ultra Rare",
+    "number": "142",
+    "image": "/assets/sets/guardians-rising/cards/142_Drampa-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "guardians-rising-143-hala",
+    "name": "Hala",
+    "rarity": "Ultra Rare",
+    "number": "143",
+    "image": "/assets/sets/guardians-rising/cards/143_Hala_Rare_Ultra.png"
+  },
+  {
+    "id": "guardians-rising-144-hau",
+    "name": "Hau",
+    "rarity": "Ultra Rare",
+    "number": "144",
+    "image": "/assets/sets/guardians-rising/cards/144_Hau_Rare_Ultra.png"
+  },
+  {
+    "id": "guardians-rising-145-mallow",
+    "name": "Mallow",
+    "rarity": "Ultra Rare",
+    "number": "145",
+    "image": "/assets/sets/guardians-rising/cards/145_Mallow_Rare_Ultra.png"
+  },
+  {
+    "id": "guardians-rising-146-decidueye-gx",
+    "name": "Decidueye-GX",
+    "rarity": "Secret Rare",
+    "number": "146",
+    "image": "/assets/sets/guardians-rising/cards/146_Decidueye-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "guardians-rising-147-incineroar-gx",
+    "name": "Incineroar-GX",
+    "rarity": "Secret Rare",
+    "number": "147",
+    "image": "/assets/sets/guardians-rising/cards/147_Incineroar-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "guardians-rising-148-turtonator-gx",
+    "name": "Turtonator-GX",
+    "rarity": "Secret Rare",
+    "number": "148",
+    "image": "/assets/sets/guardians-rising/cards/148_Turtonator-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "guardians-rising-149-primarina-gx",
+    "name": "Primarina-GX",
+    "rarity": "Secret Rare",
+    "number": "149",
+    "image": "/assets/sets/guardians-rising/cards/149_Primarina-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "guardians-rising-150-alolan-ninetales-gx",
+    "name": "Alolan Ninetales-GX",
+    "rarity": "Secret Rare",
+    "number": "150",
+    "image": "/assets/sets/guardians-rising/cards/150_Alolan_Ninetales-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "guardians-rising-151-wishiwashi-gx",
+    "name": "Wishiwashi-GX",
+    "rarity": "Secret Rare",
+    "number": "151",
+    "image": "/assets/sets/guardians-rising/cards/151_Wishiwashi-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "guardians-rising-152-vikavolt-gx",
+    "name": "Vikavolt-GX",
+    "rarity": "Secret Rare",
+    "number": "152",
+    "image": "/assets/sets/guardians-rising/cards/152_Vikavolt-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "guardians-rising-153-tapu-koko-gx",
+    "name": "Tapu Koko-GX",
+    "rarity": "Secret Rare",
+    "number": "153",
+    "image": "/assets/sets/guardians-rising/cards/153_Tapu_Koko-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "guardians-rising-154-toxapex-gx",
+    "name": "Toxapex-GX",
+    "rarity": "Secret Rare",
+    "number": "154",
+    "image": "/assets/sets/guardians-rising/cards/154_Toxapex-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "guardians-rising-155-tapu-lele-gx",
+    "name": "Tapu Lele-GX",
+    "rarity": "Secret Rare",
+    "number": "155",
+    "image": "/assets/sets/guardians-rising/cards/155_Tapu_Lele-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "guardians-rising-156-lycanroc-gx",
+    "name": "Lycanroc-GX",
+    "rarity": "Secret Rare",
+    "number": "156",
+    "image": "/assets/sets/guardians-rising/cards/156_Lycanroc-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "guardians-rising-157-metagross-gx",
+    "name": "Metagross-GX",
+    "rarity": "Secret Rare",
+    "number": "157",
+    "image": "/assets/sets/guardians-rising/cards/157_Metagross-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "guardians-rising-157a-metagross-gx",
+    "name": "Metagross-GX",
+    "rarity": "Ultra Rare",
+    "number": "157a",
+    "image": "/assets/sets/guardians-rising/cards/157a_Metagross-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "guardians-rising-158-sylveon-gx",
+    "name": "Sylveon-GX",
+    "rarity": "Secret Rare",
+    "number": "158",
+    "image": "/assets/sets/guardians-rising/cards/158_Sylveon-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "guardians-rising-159-kommo-o-gx",
+    "name": "Kommo-o-GX",
+    "rarity": "Secret Rare",
+    "number": "159",
+    "image": "/assets/sets/guardians-rising/cards/159_Kommo-o-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "guardians-rising-160-drampa-gx",
+    "name": "Drampa-GX",
+    "rarity": "Secret Rare",
+    "number": "160",
+    "image": "/assets/sets/guardians-rising/cards/160_Drampa-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "guardians-rising-161-aqua-patch",
+    "name": "Aqua Patch",
+    "rarity": "Secret Rare",
+    "number": "161",
+    "image": "/assets/sets/guardians-rising/cards/161_Aqua_Patch_Rare_Secret.png"
+  },
+  {
+    "id": "guardians-rising-162-enhanced-hammer",
+    "name": "Enhanced Hammer",
+    "rarity": "Secret Rare",
+    "number": "162",
+    "image": "/assets/sets/guardians-rising/cards/162_Enhanced_Hammer_Rare_Secret.png"
+  },
+  {
+    "id": "guardians-rising-163-field-blower",
+    "name": "Field Blower",
+    "rarity": "Secret Rare",
+    "number": "163",
+    "image": "/assets/sets/guardians-rising/cards/163_Field_Blower_Rare_Secret.png"
+  },
+  {
+    "id": "guardians-rising-164-max-potion",
+    "name": "Max Potion",
+    "rarity": "Secret Rare",
+    "number": "164",
+    "image": "/assets/sets/guardians-rising/cards/164_Max_Potion_Rare_Secret.png"
+  },
+  {
+    "id": "guardians-rising-165-rare-candy",
+    "name": "Rare Candy",
+    "rarity": "Secret Rare",
+    "number": "165",
+    "image": "/assets/sets/guardians-rising/cards/165_Rare_Candy_Rare_Secret.png"
+  },
+  {
+    "id": "guardians-rising-166-double-colorless-energy",
+    "name": "Double Colorless Energy",
+    "rarity": "Secret Rare",
+    "number": "166",
+    "image": "/assets/sets/guardians-rising/cards/166_Double_Colorless_Energy_Rare_Secret.png"
+  },
+  {
+    "id": "guardians-rising-167-grass-energy",
+    "name": "Grass Energy",
+    "rarity": "Secret Rare",
+    "number": "167",
+    "image": "/assets/sets/guardians-rising/cards/167_Grass_Energy_Rare_Secret.png"
+  },
+  {
+    "id": "guardians-rising-168-lightning-energy",
+    "name": "Lightning Energy",
+    "rarity": "Secret Rare",
+    "number": "168",
+    "image": "/assets/sets/guardians-rising/cards/168_Lightning_Energy_Rare_Secret.png"
+  },
+  {
+    "id": "guardians-rising-169-fighting-energy",
+    "name": "Fighting Energy",
+    "rarity": "Secret Rare",
+    "number": "169",
+    "image": "/assets/sets/guardians-rising/cards/169_Fighting_Energy_Rare_Secret.png"
+  }
+]

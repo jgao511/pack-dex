@@ -1,0 +1,1241 @@
+[
+  {
+    "id": "burning-shadows-1-caterpie",
+    "name": "Caterpie",
+    "rarity": "Common",
+    "number": "1",
+    "image": "/assets/sets/burning-shadows/cards/1_Caterpie_Common.png"
+  },
+  {
+    "id": "burning-shadows-2-metapod",
+    "name": "Metapod",
+    "rarity": "Uncommon",
+    "number": "2",
+    "image": "/assets/sets/burning-shadows/cards/2_Metapod_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-3-butterfree",
+    "name": "Butterfree",
+    "rarity": "Rare",
+    "number": "3",
+    "image": "/assets/sets/burning-shadows/cards/3_Butterfree_Rare.png"
+  },
+  {
+    "id": "burning-shadows-4-oddish",
+    "name": "Oddish",
+    "rarity": "Common",
+    "number": "4",
+    "image": "/assets/sets/burning-shadows/cards/4_Oddish_Common.png"
+  },
+  {
+    "id": "burning-shadows-5-gloom",
+    "name": "Gloom",
+    "rarity": "Uncommon",
+    "number": "5",
+    "image": "/assets/sets/burning-shadows/cards/5_Gloom_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-6-vileplume",
+    "name": "Vileplume",
+    "rarity": "Rare",
+    "number": "6",
+    "image": "/assets/sets/burning-shadows/cards/6_Vileplume_Rare_Holo.png"
+  },
+  {
+    "id": "burning-shadows-7-tangela",
+    "name": "Tangela",
+    "rarity": "Common",
+    "number": "7",
+    "image": "/assets/sets/burning-shadows/cards/7_Tangela_Common.png"
+  },
+  {
+    "id": "burning-shadows-8-tangrowth",
+    "name": "Tangrowth",
+    "rarity": "Rare",
+    "number": "8",
+    "image": "/assets/sets/burning-shadows/cards/8_Tangrowth_Rare.png"
+  },
+  {
+    "id": "burning-shadows-9-ledyba",
+    "name": "Ledyba",
+    "rarity": "Common",
+    "number": "9",
+    "image": "/assets/sets/burning-shadows/cards/9_Ledyba_Common.png"
+  },
+  {
+    "id": "burning-shadows-10-ledian",
+    "name": "Ledian",
+    "rarity": "Rare",
+    "number": "10",
+    "image": "/assets/sets/burning-shadows/cards/10_Ledian_Rare.png"
+  },
+  {
+    "id": "burning-shadows-11-heracross",
+    "name": "Heracross",
+    "rarity": "Rare",
+    "number": "11",
+    "image": "/assets/sets/burning-shadows/cards/11_Heracross_Rare.png"
+  },
+  {
+    "id": "burning-shadows-12-pansage",
+    "name": "Pansage",
+    "rarity": "Common",
+    "number": "12",
+    "image": "/assets/sets/burning-shadows/cards/12_Pansage_Common.png"
+  },
+  {
+    "id": "burning-shadows-13-simisage",
+    "name": "Simisage",
+    "rarity": "Uncommon",
+    "number": "13",
+    "image": "/assets/sets/burning-shadows/cards/13_Simisage_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-14-dewpider",
+    "name": "Dewpider",
+    "rarity": "Common",
+    "number": "14",
+    "image": "/assets/sets/burning-shadows/cards/14_Dewpider_Common.png"
+  },
+  {
+    "id": "burning-shadows-15-araquanid",
+    "name": "Araquanid",
+    "rarity": "Rare",
+    "number": "15",
+    "image": "/assets/sets/burning-shadows/cards/15_Araquanid_Rare.png"
+  },
+  {
+    "id": "burning-shadows-16-wimpod",
+    "name": "Wimpod",
+    "rarity": "Common",
+    "number": "16",
+    "image": "/assets/sets/burning-shadows/cards/16_Wimpod_Common.png"
+  },
+  {
+    "id": "burning-shadows-17-golisopod-gx",
+    "name": "Golisopod-GX",
+    "rarity": "Double Rare",
+    "number": "17",
+    "image": "/assets/sets/burning-shadows/cards/17_Golisopod-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "burning-shadows-18-charmander",
+    "name": "Charmander",
+    "rarity": "Common",
+    "number": "18",
+    "image": "/assets/sets/burning-shadows/cards/18_Charmander_Common.png"
+  },
+  {
+    "id": "burning-shadows-18a-charmander",
+    "name": "Charmander",
+    "rarity": "Common",
+    "number": "18a",
+    "image": "/assets/sets/burning-shadows/cards/18a_Charmander_Common.png"
+  },
+  {
+    "id": "burning-shadows-19-charmeleon",
+    "name": "Charmeleon",
+    "rarity": "Uncommon",
+    "number": "19",
+    "image": "/assets/sets/burning-shadows/cards/19_Charmeleon_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-20-charizard-gx",
+    "name": "Charizard-GX",
+    "rarity": "Double Rare",
+    "number": "20",
+    "image": "/assets/sets/burning-shadows/cards/20_Charizard-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "burning-shadows-21-ho-oh-gx",
+    "name": "Ho-Oh-GX",
+    "rarity": "Double Rare",
+    "number": "21",
+    "image": "/assets/sets/burning-shadows/cards/21_Ho-Oh-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "burning-shadows-22-pansear",
+    "name": "Pansear",
+    "rarity": "Common",
+    "number": "22",
+    "image": "/assets/sets/burning-shadows/cards/22_Pansear_Common.png"
+  },
+  {
+    "id": "burning-shadows-23-simisear",
+    "name": "Simisear",
+    "rarity": "Uncommon",
+    "number": "23",
+    "image": "/assets/sets/burning-shadows/cards/23_Simisear_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-24-heatmor",
+    "name": "Heatmor",
+    "rarity": "Uncommon",
+    "number": "24",
+    "image": "/assets/sets/burning-shadows/cards/24_Heatmor_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-25-salazzle-gx",
+    "name": "Salazzle-GX",
+    "rarity": "Double Rare",
+    "number": "25",
+    "image": "/assets/sets/burning-shadows/cards/25_Salazzle-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "burning-shadows-26-turtonator",
+    "name": "Turtonator",
+    "rarity": "Rare",
+    "number": "26",
+    "image": "/assets/sets/burning-shadows/cards/26_Turtonator_Rare.png"
+  },
+  {
+    "id": "burning-shadows-27-alolan-vulpix",
+    "name": "Alolan Vulpix",
+    "rarity": "Common",
+    "number": "27",
+    "image": "/assets/sets/burning-shadows/cards/27_Alolan_Vulpix_Common.png"
+  },
+  {
+    "id": "burning-shadows-28-alolan-ninetales",
+    "name": "Alolan Ninetales",
+    "rarity": "Rare",
+    "number": "28",
+    "image": "/assets/sets/burning-shadows/cards/28_Alolan_Ninetales_Rare.png"
+  },
+  {
+    "id": "burning-shadows-29-horsea",
+    "name": "Horsea",
+    "rarity": "Common",
+    "number": "29",
+    "image": "/assets/sets/burning-shadows/cards/29_Horsea_Common.png"
+  },
+  {
+    "id": "burning-shadows-30-seadra",
+    "name": "Seadra",
+    "rarity": "Uncommon",
+    "number": "30",
+    "image": "/assets/sets/burning-shadows/cards/30_Seadra_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-31-kingdra",
+    "name": "Kingdra",
+    "rarity": "Rare",
+    "number": "31",
+    "image": "/assets/sets/burning-shadows/cards/31_Kingdra_Rare_Holo.png"
+  },
+  {
+    "id": "burning-shadows-32-magikarp",
+    "name": "Magikarp",
+    "rarity": "Common",
+    "number": "32",
+    "image": "/assets/sets/burning-shadows/cards/32_Magikarp_Common.png"
+  },
+  {
+    "id": "burning-shadows-33-gyarados",
+    "name": "Gyarados",
+    "rarity": "Rare",
+    "number": "33",
+    "image": "/assets/sets/burning-shadows/cards/33_Gyarados_Rare_Holo.png"
+  },
+  {
+    "id": "burning-shadows-34-marill",
+    "name": "Marill",
+    "rarity": "Common",
+    "number": "34",
+    "image": "/assets/sets/burning-shadows/cards/34_Marill_Common.png"
+  },
+  {
+    "id": "burning-shadows-35-azumarill",
+    "name": "Azumarill",
+    "rarity": "Rare",
+    "number": "35",
+    "image": "/assets/sets/burning-shadows/cards/35_Azumarill_Rare.png"
+  },
+  {
+    "id": "burning-shadows-36-panpour",
+    "name": "Panpour",
+    "rarity": "Common",
+    "number": "36",
+    "image": "/assets/sets/burning-shadows/cards/36_Panpour_Common.png"
+  },
+  {
+    "id": "burning-shadows-37-simipour",
+    "name": "Simipour",
+    "rarity": "Uncommon",
+    "number": "37",
+    "image": "/assets/sets/burning-shadows/cards/37_Simipour_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-38-bruxish",
+    "name": "Bruxish",
+    "rarity": "Rare",
+    "number": "38",
+    "image": "/assets/sets/burning-shadows/cards/38_Bruxish_Rare.png"
+  },
+  {
+    "id": "burning-shadows-39-tapu-fini-gx",
+    "name": "Tapu Fini-GX",
+    "rarity": "Double Rare",
+    "number": "39",
+    "image": "/assets/sets/burning-shadows/cards/39_Tapu_Fini-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "burning-shadows-39a-tapu-fini-gx",
+    "name": "Tapu Fini-GX",
+    "rarity": "Double Rare",
+    "number": "39a",
+    "image": "/assets/sets/burning-shadows/cards/39a_Tapu_Fini-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "burning-shadows-40-pikachu",
+    "name": "Pikachu",
+    "rarity": "Common",
+    "number": "40",
+    "image": "/assets/sets/burning-shadows/cards/40_Pikachu_Common.png"
+  },
+  {
+    "id": "burning-shadows-41-raichu",
+    "name": "Raichu",
+    "rarity": "Rare",
+    "number": "41",
+    "image": "/assets/sets/burning-shadows/cards/41_Raichu_Rare_Holo.png"
+  },
+  {
+    "id": "burning-shadows-42-electabuzz",
+    "name": "Electabuzz",
+    "rarity": "Uncommon",
+    "number": "42",
+    "image": "/assets/sets/burning-shadows/cards/42_Electabuzz_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-43-electivire",
+    "name": "Electivire",
+    "rarity": "Rare",
+    "number": "43",
+    "image": "/assets/sets/burning-shadows/cards/43_Electivire_Rare.png"
+  },
+  {
+    "id": "burning-shadows-44-tynamo",
+    "name": "Tynamo",
+    "rarity": "Common",
+    "number": "44",
+    "image": "/assets/sets/burning-shadows/cards/44_Tynamo_Common.png"
+  },
+  {
+    "id": "burning-shadows-45-eelektrik",
+    "name": "Eelektrik",
+    "rarity": "Uncommon",
+    "number": "45",
+    "image": "/assets/sets/burning-shadows/cards/45_Eelektrik_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-46-eelektross",
+    "name": "Eelektross",
+    "rarity": "Rare",
+    "number": "46",
+    "image": "/assets/sets/burning-shadows/cards/46_Eelektross_Rare.png"
+  },
+  {
+    "id": "burning-shadows-47-togedemaru",
+    "name": "Togedemaru",
+    "rarity": "Common",
+    "number": "47",
+    "image": "/assets/sets/burning-shadows/cards/47_Togedemaru_Common.png"
+  },
+  {
+    "id": "burning-shadows-48-slowking",
+    "name": "Slowking",
+    "rarity": "Rare",
+    "number": "48",
+    "image": "/assets/sets/burning-shadows/cards/48_Slowking_Rare.png"
+  },
+  {
+    "id": "burning-shadows-49-wobbuffet",
+    "name": "Wobbuffet",
+    "rarity": "Uncommon",
+    "number": "49",
+    "image": "/assets/sets/burning-shadows/cards/49_Wobbuffet_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-50-seviper",
+    "name": "Seviper",
+    "rarity": "Uncommon",
+    "number": "50",
+    "image": "/assets/sets/burning-shadows/cards/50_Seviper_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-51-duskull",
+    "name": "Duskull",
+    "rarity": "Common",
+    "number": "51",
+    "image": "/assets/sets/burning-shadows/cards/51_Duskull_Common.png"
+  },
+  {
+    "id": "burning-shadows-52-dusclops",
+    "name": "Dusclops",
+    "rarity": "Uncommon",
+    "number": "52",
+    "image": "/assets/sets/burning-shadows/cards/52_Dusclops_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-53-dusknoir",
+    "name": "Dusknoir",
+    "rarity": "Rare",
+    "number": "53",
+    "image": "/assets/sets/burning-shadows/cards/53_Dusknoir_Rare_Holo.png"
+  },
+  {
+    "id": "burning-shadows-54-croagunk",
+    "name": "Croagunk",
+    "rarity": "Common",
+    "number": "54",
+    "image": "/assets/sets/burning-shadows/cards/54_Croagunk_Common.png"
+  },
+  {
+    "id": "burning-shadows-55-toxicroak",
+    "name": "Toxicroak",
+    "rarity": "Rare",
+    "number": "55",
+    "image": "/assets/sets/burning-shadows/cards/55_Toxicroak_Rare.png"
+  },
+  {
+    "id": "burning-shadows-56-venipede",
+    "name": "Venipede",
+    "rarity": "Common",
+    "number": "56",
+    "image": "/assets/sets/burning-shadows/cards/56_Venipede_Common.png"
+  },
+  {
+    "id": "burning-shadows-57-whirlipede",
+    "name": "Whirlipede",
+    "rarity": "Uncommon",
+    "number": "57",
+    "image": "/assets/sets/burning-shadows/cards/57_Whirlipede_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-58-scolipede",
+    "name": "Scolipede",
+    "rarity": "Rare",
+    "number": "58",
+    "image": "/assets/sets/burning-shadows/cards/58_Scolipede_Rare.png"
+  },
+  {
+    "id": "burning-shadows-59-espurr",
+    "name": "Espurr",
+    "rarity": "Common",
+    "number": "59",
+    "image": "/assets/sets/burning-shadows/cards/59_Espurr_Common.png"
+  },
+  {
+    "id": "burning-shadows-60-meowstic",
+    "name": "Meowstic",
+    "rarity": "Rare",
+    "number": "60",
+    "image": "/assets/sets/burning-shadows/cards/60_Meowstic_Rare.png"
+  },
+  {
+    "id": "burning-shadows-61-sandygast",
+    "name": "Sandygast",
+    "rarity": "Common",
+    "number": "61",
+    "image": "/assets/sets/burning-shadows/cards/61_Sandygast_Common.png"
+  },
+  {
+    "id": "burning-shadows-62-palossand",
+    "name": "Palossand",
+    "rarity": "Rare",
+    "number": "62",
+    "image": "/assets/sets/burning-shadows/cards/62_Palossand_Rare_Holo.png"
+  },
+  {
+    "id": "burning-shadows-63-necrozma-gx",
+    "name": "Necrozma-GX",
+    "rarity": "Double Rare",
+    "number": "63",
+    "image": "/assets/sets/burning-shadows/cards/63_Necrozma-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "burning-shadows-64-machamp-gx",
+    "name": "Machamp-GX",
+    "rarity": "Double Rare",
+    "number": "64",
+    "image": "/assets/sets/burning-shadows/cards/64_Machamp-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "burning-shadows-65-rhyhorn",
+    "name": "Rhyhorn",
+    "rarity": "Common",
+    "number": "65",
+    "image": "/assets/sets/burning-shadows/cards/65_Rhyhorn_Common.png"
+  },
+  {
+    "id": "burning-shadows-66-rhydon",
+    "name": "Rhydon",
+    "rarity": "Uncommon",
+    "number": "66",
+    "image": "/assets/sets/burning-shadows/cards/66_Rhydon_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-67-rhyperior",
+    "name": "Rhyperior",
+    "rarity": "Rare",
+    "number": "67",
+    "image": "/assets/sets/burning-shadows/cards/67_Rhyperior_Rare_Holo.png"
+  },
+  {
+    "id": "burning-shadows-68-lunatone",
+    "name": "Lunatone",
+    "rarity": "Uncommon",
+    "number": "68",
+    "image": "/assets/sets/burning-shadows/cards/68_Lunatone_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-69-solrock",
+    "name": "Solrock",
+    "rarity": "Uncommon",
+    "number": "69",
+    "image": "/assets/sets/burning-shadows/cards/69_Solrock_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-70-riolu",
+    "name": "Riolu",
+    "rarity": "Common",
+    "number": "70",
+    "image": "/assets/sets/burning-shadows/cards/70_Riolu_Common.png"
+  },
+  {
+    "id": "burning-shadows-71-lucario",
+    "name": "Lucario",
+    "rarity": "Rare",
+    "number": "71",
+    "image": "/assets/sets/burning-shadows/cards/71_Lucario_Rare_Holo.png"
+  },
+  {
+    "id": "burning-shadows-72-sawk",
+    "name": "Sawk",
+    "rarity": "Common",
+    "number": "72",
+    "image": "/assets/sets/burning-shadows/cards/72_Sawk_Common.png"
+  },
+  {
+    "id": "burning-shadows-73-crabrawler",
+    "name": "Crabrawler",
+    "rarity": "Common",
+    "number": "73",
+    "image": "/assets/sets/burning-shadows/cards/73_Crabrawler_Common.png"
+  },
+  {
+    "id": "burning-shadows-74-crabominable",
+    "name": "Crabominable",
+    "rarity": "Rare",
+    "number": "74",
+    "image": "/assets/sets/burning-shadows/cards/74_Crabominable_Rare.png"
+  },
+  {
+    "id": "burning-shadows-75-lycanroc",
+    "name": "Lycanroc",
+    "rarity": "Rare",
+    "number": "75",
+    "image": "/assets/sets/burning-shadows/cards/75_Lycanroc_Rare_Holo.png"
+  },
+  {
+    "id": "burning-shadows-76-lycanroc",
+    "name": "Lycanroc",
+    "rarity": "Rare",
+    "number": "76",
+    "image": "/assets/sets/burning-shadows/cards/76_Lycanroc_Rare.png"
+  },
+  {
+    "id": "burning-shadows-77-mudbray",
+    "name": "Mudbray",
+    "rarity": "Common",
+    "number": "77",
+    "image": "/assets/sets/burning-shadows/cards/77_Mudbray_Common.png"
+  },
+  {
+    "id": "burning-shadows-78-mudsdale",
+    "name": "Mudsdale",
+    "rarity": "Rare",
+    "number": "78",
+    "image": "/assets/sets/burning-shadows/cards/78_Mudsdale_Rare.png"
+  },
+  {
+    "id": "burning-shadows-79-passimian",
+    "name": "Passimian",
+    "rarity": "Rare",
+    "number": "79",
+    "image": "/assets/sets/burning-shadows/cards/79_Passimian_Rare.png"
+  },
+  {
+    "id": "burning-shadows-80-marshadow-gx",
+    "name": "Marshadow-GX",
+    "rarity": "Double Rare",
+    "number": "80",
+    "image": "/assets/sets/burning-shadows/cards/80_Marshadow-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "burning-shadows-81-alolan-rattata",
+    "name": "Alolan Rattata",
+    "rarity": "Common",
+    "number": "81",
+    "image": "/assets/sets/burning-shadows/cards/81_Alolan_Rattata_Common.png"
+  },
+  {
+    "id": "burning-shadows-82-alolan-raticate",
+    "name": "Alolan Raticate",
+    "rarity": "Rare",
+    "number": "82",
+    "image": "/assets/sets/burning-shadows/cards/82_Alolan_Raticate_Rare.png"
+  },
+  {
+    "id": "burning-shadows-83-alolan-grimer",
+    "name": "Alolan Grimer",
+    "rarity": "Common",
+    "number": "83",
+    "image": "/assets/sets/burning-shadows/cards/83_Alolan_Grimer_Common.png"
+  },
+  {
+    "id": "burning-shadows-84-alolan-muk-gx",
+    "name": "Alolan Muk-GX",
+    "rarity": "Double Rare",
+    "number": "84",
+    "image": "/assets/sets/burning-shadows/cards/84_Alolan_Muk-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "burning-shadows-85-sneasel",
+    "name": "Sneasel",
+    "rarity": "Common",
+    "number": "85",
+    "image": "/assets/sets/burning-shadows/cards/85_Sneasel_Common.png"
+  },
+  {
+    "id": "burning-shadows-86-weavile",
+    "name": "Weavile",
+    "rarity": "Rare",
+    "number": "86",
+    "image": "/assets/sets/burning-shadows/cards/86_Weavile_Rare.png"
+  },
+  {
+    "id": "burning-shadows-87-darkrai",
+    "name": "Darkrai",
+    "rarity": "Rare",
+    "number": "87",
+    "image": "/assets/sets/burning-shadows/cards/87_Darkrai_Rare_Holo.png"
+  },
+  {
+    "id": "burning-shadows-88-darkrai-gx",
+    "name": "Darkrai-GX",
+    "rarity": "Double Rare",
+    "number": "88",
+    "image": "/assets/sets/burning-shadows/cards/88_Darkrai-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "burning-shadows-88a-darkrai-gx",
+    "name": "Darkrai-GX",
+    "rarity": "Double Rare",
+    "number": "88a",
+    "image": "/assets/sets/burning-shadows/cards/88a_Darkrai-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "burning-shadows-89-inkay",
+    "name": "Inkay",
+    "rarity": "Common",
+    "number": "89",
+    "image": "/assets/sets/burning-shadows/cards/89_Inkay_Common.png"
+  },
+  {
+    "id": "burning-shadows-90-malamar",
+    "name": "Malamar",
+    "rarity": "Rare",
+    "number": "90",
+    "image": "/assets/sets/burning-shadows/cards/90_Malamar_Rare.png"
+  },
+  {
+    "id": "burning-shadows-91-ralts",
+    "name": "Ralts",
+    "rarity": "Common",
+    "number": "91",
+    "image": "/assets/sets/burning-shadows/cards/91_Ralts_Common.png"
+  },
+  {
+    "id": "burning-shadows-92-kirlia",
+    "name": "Kirlia",
+    "rarity": "Uncommon",
+    "number": "92",
+    "image": "/assets/sets/burning-shadows/cards/92_Kirlia_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-92a-kirlia",
+    "name": "Kirlia",
+    "rarity": "Uncommon",
+    "number": "92a",
+    "image": "/assets/sets/burning-shadows/cards/92a_Kirlia_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-93-gardevoir-gx",
+    "name": "Gardevoir-GX",
+    "rarity": "Double Rare",
+    "number": "93",
+    "image": "/assets/sets/burning-shadows/cards/93_Gardevoir-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "burning-shadows-94-diancie",
+    "name": "Diancie",
+    "rarity": "Rare",
+    "number": "94",
+    "image": "/assets/sets/burning-shadows/cards/94_Diancie_Rare_Holo.png"
+  },
+  {
+    "id": "burning-shadows-95-cutiefly",
+    "name": "Cutiefly",
+    "rarity": "Common",
+    "number": "95",
+    "image": "/assets/sets/burning-shadows/cards/95_Cutiefly_Common.png"
+  },
+  {
+    "id": "burning-shadows-96-ribombee",
+    "name": "Ribombee",
+    "rarity": "Uncommon",
+    "number": "96",
+    "image": "/assets/sets/burning-shadows/cards/96_Ribombee_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-97-morelull",
+    "name": "Morelull",
+    "rarity": "Common",
+    "number": "97",
+    "image": "/assets/sets/burning-shadows/cards/97_Morelull_Common.png"
+  },
+  {
+    "id": "burning-shadows-98-shiinotic",
+    "name": "Shiinotic",
+    "rarity": "Rare",
+    "number": "98",
+    "image": "/assets/sets/burning-shadows/cards/98_Shiinotic_Rare.png"
+  },
+  {
+    "id": "burning-shadows-99-noivern-gx",
+    "name": "Noivern-GX",
+    "rarity": "Double Rare",
+    "number": "99",
+    "image": "/assets/sets/burning-shadows/cards/99_Noivern-GX_Rare_Holo_GX.png"
+  },
+  {
+    "id": "burning-shadows-100-zygarde",
+    "name": "Zygarde",
+    "rarity": "Rare",
+    "number": "100",
+    "image": "/assets/sets/burning-shadows/cards/100_Zygarde_Rare_Holo.png"
+  },
+  {
+    "id": "burning-shadows-101-meowth",
+    "name": "Meowth",
+    "rarity": "Common",
+    "number": "101",
+    "image": "/assets/sets/burning-shadows/cards/101_Meowth_Common.png"
+  },
+  {
+    "id": "burning-shadows-102-persian",
+    "name": "Persian",
+    "rarity": "Rare",
+    "number": "102",
+    "image": "/assets/sets/burning-shadows/cards/102_Persian_Rare.png"
+  },
+  {
+    "id": "burning-shadows-103-porygon",
+    "name": "Porygon",
+    "rarity": "Common",
+    "number": "103",
+    "image": "/assets/sets/burning-shadows/cards/103_Porygon_Common.png"
+  },
+  {
+    "id": "burning-shadows-104-porygon2",
+    "name": "Porygon2",
+    "rarity": "Uncommon",
+    "number": "104",
+    "image": "/assets/sets/burning-shadows/cards/104_Porygon2_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-105-porygon-z",
+    "name": "Porygon-Z",
+    "rarity": "Rare",
+    "number": "105",
+    "image": "/assets/sets/burning-shadows/cards/105_Porygon-Z_Rare_Holo.png"
+  },
+  {
+    "id": "burning-shadows-105a-porygon-z",
+    "name": "Porygon-Z",
+    "rarity": "Rare",
+    "number": "105a",
+    "image": "/assets/sets/burning-shadows/cards/105a_Porygon-Z_Rare_Holo.png"
+  },
+  {
+    "id": "burning-shadows-106-hoothoot",
+    "name": "Hoothoot",
+    "rarity": "Common",
+    "number": "106",
+    "image": "/assets/sets/burning-shadows/cards/106_Hoothoot_Common.png"
+  },
+  {
+    "id": "burning-shadows-107-noctowl",
+    "name": "Noctowl",
+    "rarity": "Uncommon",
+    "number": "107",
+    "image": "/assets/sets/burning-shadows/cards/107_Noctowl_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-108-bouffalant",
+    "name": "Bouffalant",
+    "rarity": "Uncommon",
+    "number": "108",
+    "image": "/assets/sets/burning-shadows/cards/108_Bouffalant_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-109-noibat",
+    "name": "Noibat",
+    "rarity": "Common",
+    "number": "109",
+    "image": "/assets/sets/burning-shadows/cards/109_Noibat_Common.png"
+  },
+  {
+    "id": "burning-shadows-110-stufful",
+    "name": "Stufful",
+    "rarity": "Common",
+    "number": "110",
+    "image": "/assets/sets/burning-shadows/cards/110_Stufful_Common.png"
+  },
+  {
+    "id": "burning-shadows-111-bewear",
+    "name": "Bewear",
+    "rarity": "Rare",
+    "number": "111",
+    "image": "/assets/sets/burning-shadows/cards/111_Bewear_Rare.png"
+  },
+  {
+    "id": "burning-shadows-112-acerola",
+    "name": "Acerola",
+    "rarity": "Uncommon",
+    "number": "112",
+    "image": "/assets/sets/burning-shadows/cards/112_Acerola_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-112a-acerola",
+    "name": "Acerola",
+    "rarity": "Uncommon",
+    "number": "112a",
+    "image": "/assets/sets/burning-shadows/cards/112a_Acerola_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-113-bodybuilding-dumbbells",
+    "name": "Bodybuilding Dumbbells",
+    "rarity": "Uncommon",
+    "number": "113",
+    "image": "/assets/sets/burning-shadows/cards/113_Bodybuilding_Dumbbells_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-114-escape-rope",
+    "name": "Escape Rope",
+    "rarity": "Uncommon",
+    "number": "114",
+    "image": "/assets/sets/burning-shadows/cards/114_Escape_Rope_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-115-guzma",
+    "name": "Guzma",
+    "rarity": "Uncommon",
+    "number": "115",
+    "image": "/assets/sets/burning-shadows/cards/115_Guzma_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-115a-guzma",
+    "name": "Guzma",
+    "rarity": "Uncommon",
+    "number": "115a",
+    "image": "/assets/sets/burning-shadows/cards/115a_Guzma_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-116-kiawe",
+    "name": "Kiawe",
+    "rarity": "Uncommon",
+    "number": "116",
+    "image": "/assets/sets/burning-shadows/cards/116_Kiawe_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-116a-kiawe",
+    "name": "Kiawe",
+    "rarity": "Uncommon",
+    "number": "116a",
+    "image": "/assets/sets/burning-shadows/cards/116a_Kiawe_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-117-lana",
+    "name": "Lana",
+    "rarity": "Uncommon",
+    "number": "117",
+    "image": "/assets/sets/burning-shadows/cards/117_Lana_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-118-mount-lanakila",
+    "name": "Mount Lanakila",
+    "rarity": "Uncommon",
+    "number": "118",
+    "image": "/assets/sets/burning-shadows/cards/118_Mount_Lanakila_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-119-olivia",
+    "name": "Olivia",
+    "rarity": "Uncommon",
+    "number": "119",
+    "image": "/assets/sets/burning-shadows/cards/119_Olivia_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-120-plumeria",
+    "name": "Plumeria",
+    "rarity": "Uncommon",
+    "number": "120",
+    "image": "/assets/sets/burning-shadows/cards/120_Plumeria_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-121-po-town",
+    "name": "Po Town",
+    "rarity": "Uncommon",
+    "number": "121",
+    "image": "/assets/sets/burning-shadows/cards/121_Po_Town_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-122-rotom-dex-pok-finder-mode",
+    "name": "Rotom Dex Poké Finder Mode",
+    "rarity": "Uncommon",
+    "number": "122",
+    "image": "/assets/sets/burning-shadows/cards/122_Rotom_Dex_Poké_Finder_Mode_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-123-sophocles",
+    "name": "Sophocles",
+    "rarity": "Uncommon",
+    "number": "123",
+    "image": "/assets/sets/burning-shadows/cards/123_Sophocles_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-124-super-scoop-up",
+    "name": "Super Scoop Up",
+    "rarity": "Uncommon",
+    "number": "124",
+    "image": "/assets/sets/burning-shadows/cards/124_Super_Scoop_Up_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-125-tormenting-spray",
+    "name": "Tormenting Spray",
+    "rarity": "Uncommon",
+    "number": "125",
+    "image": "/assets/sets/burning-shadows/cards/125_Tormenting_Spray_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-126-weakness-policy",
+    "name": "Weakness Policy",
+    "rarity": "Uncommon",
+    "number": "126",
+    "image": "/assets/sets/burning-shadows/cards/126_Weakness_Policy_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-127-wicke",
+    "name": "Wicke",
+    "rarity": "Uncommon",
+    "number": "127",
+    "image": "/assets/sets/burning-shadows/cards/127_Wicke_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-128-wishful-baton",
+    "name": "Wishful Baton",
+    "rarity": "Uncommon",
+    "number": "128",
+    "image": "/assets/sets/burning-shadows/cards/128_Wishful_Baton_Uncommon.png"
+  },
+  {
+    "id": "burning-shadows-129-golisopod-gx",
+    "name": "Golisopod-GX",
+    "rarity": "Ultra Rare",
+    "number": "129",
+    "image": "/assets/sets/burning-shadows/cards/129_Golisopod-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "burning-shadows-130-tapu-bulu-gx",
+    "name": "Tapu Bulu-GX",
+    "rarity": "Ultra Rare",
+    "number": "130",
+    "image": "/assets/sets/burning-shadows/cards/130_Tapu_Bulu-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "burning-shadows-131-ho-oh-gx",
+    "name": "Ho-Oh-GX",
+    "rarity": "Ultra Rare",
+    "number": "131",
+    "image": "/assets/sets/burning-shadows/cards/131_Ho-Oh-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "burning-shadows-132-salazzle-gx",
+    "name": "Salazzle-GX",
+    "rarity": "Ultra Rare",
+    "number": "132",
+    "image": "/assets/sets/burning-shadows/cards/132_Salazzle-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "burning-shadows-133-tapu-fini-gx",
+    "name": "Tapu Fini-GX",
+    "rarity": "Ultra Rare",
+    "number": "133",
+    "image": "/assets/sets/burning-shadows/cards/133_Tapu_Fini-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "burning-shadows-134-necrozma-gx",
+    "name": "Necrozma-GX",
+    "rarity": "Ultra Rare",
+    "number": "134",
+    "image": "/assets/sets/burning-shadows/cards/134_Necrozma-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "burning-shadows-135-machamp-gx",
+    "name": "Machamp-GX",
+    "rarity": "Ultra Rare",
+    "number": "135",
+    "image": "/assets/sets/burning-shadows/cards/135_Machamp-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "burning-shadows-136-lycanroc-gx",
+    "name": "Lycanroc-GX",
+    "rarity": "Ultra Rare",
+    "number": "136",
+    "image": "/assets/sets/burning-shadows/cards/136_Lycanroc-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "burning-shadows-137-marshadow-gx",
+    "name": "Marshadow-GX",
+    "rarity": "Ultra Rare",
+    "number": "137",
+    "image": "/assets/sets/burning-shadows/cards/137_Marshadow-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "burning-shadows-138-alolan-muk-gx",
+    "name": "Alolan Muk-GX",
+    "rarity": "Ultra Rare",
+    "number": "138",
+    "image": "/assets/sets/burning-shadows/cards/138_Alolan_Muk-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "burning-shadows-139-darkrai-gx",
+    "name": "Darkrai-GX",
+    "rarity": "Ultra Rare",
+    "number": "139",
+    "image": "/assets/sets/burning-shadows/cards/139_Darkrai-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "burning-shadows-140-gardevoir-gx",
+    "name": "Gardevoir-GX",
+    "rarity": "Ultra Rare",
+    "number": "140",
+    "image": "/assets/sets/burning-shadows/cards/140_Gardevoir-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "burning-shadows-141-noivern-gx",
+    "name": "Noivern-GX",
+    "rarity": "Ultra Rare",
+    "number": "141",
+    "image": "/assets/sets/burning-shadows/cards/141_Noivern-GX_Rare_Ultra.png"
+  },
+  {
+    "id": "burning-shadows-142-acerola",
+    "name": "Acerola",
+    "rarity": "Ultra Rare",
+    "number": "142",
+    "image": "/assets/sets/burning-shadows/cards/142_Acerola_Rare_Ultra.png"
+  },
+  {
+    "id": "burning-shadows-143-guzma",
+    "name": "Guzma",
+    "rarity": "Ultra Rare",
+    "number": "143",
+    "image": "/assets/sets/burning-shadows/cards/143_Guzma_Rare_Ultra.png"
+  },
+  {
+    "id": "burning-shadows-144-kiawe",
+    "name": "Kiawe",
+    "rarity": "Ultra Rare",
+    "number": "144",
+    "image": "/assets/sets/burning-shadows/cards/144_Kiawe_Rare_Ultra.png"
+  },
+  {
+    "id": "burning-shadows-145-plumeria",
+    "name": "Plumeria",
+    "rarity": "Ultra Rare",
+    "number": "145",
+    "image": "/assets/sets/burning-shadows/cards/145_Plumeria_Rare_Ultra.png"
+  },
+  {
+    "id": "burning-shadows-146-sophocles",
+    "name": "Sophocles",
+    "rarity": "Ultra Rare",
+    "number": "146",
+    "image": "/assets/sets/burning-shadows/cards/146_Sophocles_Rare_Ultra.png"
+  },
+  {
+    "id": "burning-shadows-147-wicke",
+    "name": "Wicke",
+    "rarity": "Ultra Rare",
+    "number": "147",
+    "image": "/assets/sets/burning-shadows/cards/147_Wicke_Rare_Ultra.png"
+  },
+  {
+    "id": "burning-shadows-148-golisopod-gx",
+    "name": "Golisopod-GX",
+    "rarity": "Secret Rare",
+    "number": "148",
+    "image": "/assets/sets/burning-shadows/cards/148_Golisopod-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "burning-shadows-149-tapu-bulu-gx",
+    "name": "Tapu Bulu-GX",
+    "rarity": "Secret Rare",
+    "number": "149",
+    "image": "/assets/sets/burning-shadows/cards/149_Tapu_Bulu-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "burning-shadows-150-charizard-gx",
+    "name": "Charizard-GX",
+    "rarity": "Secret Rare",
+    "number": "150",
+    "image": "/assets/sets/burning-shadows/cards/150_Charizard-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "burning-shadows-151-salazzle-gx",
+    "name": "Salazzle-GX",
+    "rarity": "Secret Rare",
+    "number": "151",
+    "image": "/assets/sets/burning-shadows/cards/151_Salazzle-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "burning-shadows-152-tapu-fini-gx",
+    "name": "Tapu Fini-GX",
+    "rarity": "Secret Rare",
+    "number": "152",
+    "image": "/assets/sets/burning-shadows/cards/152_Tapu_Fini-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "burning-shadows-153-necrozma-gx",
+    "name": "Necrozma-GX",
+    "rarity": "Secret Rare",
+    "number": "153",
+    "image": "/assets/sets/burning-shadows/cards/153_Necrozma-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "burning-shadows-154-machamp-gx",
+    "name": "Machamp-GX",
+    "rarity": "Secret Rare",
+    "number": "154",
+    "image": "/assets/sets/burning-shadows/cards/154_Machamp-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "burning-shadows-155-lycanroc-gx",
+    "name": "Lycanroc-GX",
+    "rarity": "Secret Rare",
+    "number": "155",
+    "image": "/assets/sets/burning-shadows/cards/155_Lycanroc-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "burning-shadows-156-marshadow-gx",
+    "name": "Marshadow-GX",
+    "rarity": "Secret Rare",
+    "number": "156",
+    "image": "/assets/sets/burning-shadows/cards/156_Marshadow-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "burning-shadows-157-alolan-muk-gx",
+    "name": "Alolan Muk-GX",
+    "rarity": "Secret Rare",
+    "number": "157",
+    "image": "/assets/sets/burning-shadows/cards/157_Alolan_Muk-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "burning-shadows-158-darkrai-gx",
+    "name": "Darkrai-GX",
+    "rarity": "Secret Rare",
+    "number": "158",
+    "image": "/assets/sets/burning-shadows/cards/158_Darkrai-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "burning-shadows-159-gardevoir-gx",
+    "name": "Gardevoir-GX",
+    "rarity": "Secret Rare",
+    "number": "159",
+    "image": "/assets/sets/burning-shadows/cards/159_Gardevoir-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "burning-shadows-160-noivern-gx",
+    "name": "Noivern-GX",
+    "rarity": "Secret Rare",
+    "number": "160",
+    "image": "/assets/sets/burning-shadows/cards/160_Noivern-GX_Rare_Rainbow.png"
+  },
+  {
+    "id": "burning-shadows-161-bodybuilding-dumbbells",
+    "name": "Bodybuilding Dumbbells",
+    "rarity": "Secret Rare",
+    "number": "161",
+    "image": "/assets/sets/burning-shadows/cards/161_Bodybuilding_Dumbbells_Rare_Secret.png"
+  },
+  {
+    "id": "burning-shadows-162-choice-band",
+    "name": "Choice Band",
+    "rarity": "Secret Rare",
+    "number": "162",
+    "image": "/assets/sets/burning-shadows/cards/162_Choice_Band_Rare_Secret.png"
+  },
+  {
+    "id": "burning-shadows-163-escape-rope",
+    "name": "Escape Rope",
+    "rarity": "Secret Rare",
+    "number": "163",
+    "image": "/assets/sets/burning-shadows/cards/163_Escape_Rope_Rare_Secret.png"
+  },
+  {
+    "id": "burning-shadows-164-multi-switch",
+    "name": "Multi Switch",
+    "rarity": "Secret Rare",
+    "number": "164",
+    "image": "/assets/sets/burning-shadows/cards/164_Multi_Switch_Rare_Secret.png"
+  },
+  {
+    "id": "burning-shadows-165-rescue-stretcher",
+    "name": "Rescue Stretcher",
+    "rarity": "Secret Rare",
+    "number": "165",
+    "image": "/assets/sets/burning-shadows/cards/165_Rescue_Stretcher_Rare_Secret.png"
+  },
+  {
+    "id": "burning-shadows-166-super-scoop-up",
+    "name": "Super Scoop Up",
+    "rarity": "Secret Rare",
+    "number": "166",
+    "image": "/assets/sets/burning-shadows/cards/166_Super_Scoop_Up_Rare_Secret.png"
+  },
+  {
+    "id": "burning-shadows-167-fire-energy",
+    "name": "Fire Energy",
+    "rarity": "Secret Rare",
+    "number": "167",
+    "image": "/assets/sets/burning-shadows/cards/167_Fire_Energy_Rare_Secret.png"
+  },
+  {
+    "id": "burning-shadows-168-darkness-energy",
+    "name": "Darkness Energy",
+    "rarity": "Secret Rare",
+    "number": "168",
+    "image": "/assets/sets/burning-shadows/cards/168_Darkness_Energy_Rare_Secret.png"
+  },
+  {
+    "id": "burning-shadows-169-fairy-energy",
+    "name": "Fairy Energy",
+    "rarity": "Secret Rare",
+    "number": "169",
+    "image": "/assets/sets/burning-shadows/cards/169_Fairy_Energy_Rare_Secret.png"
+  }
+]

@@ -1,0 +1,1633 @@
+[
+  {
+    "id": "chilling-reign-1-weedle",
+    "name": "Weedle",
+    "rarity": "Common",
+    "number": "1",
+    "image": "/assets/sets/chilling-reign/cards/1_Weedle_Common.png"
+  },
+  {
+    "id": "chilling-reign-2-kakuna",
+    "name": "Kakuna",
+    "rarity": "Uncommon",
+    "number": "2",
+    "image": "/assets/sets/chilling-reign/cards/2_Kakuna_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-3-beedrill",
+    "name": "Beedrill",
+    "rarity": "Rare",
+    "number": "3",
+    "image": "/assets/sets/chilling-reign/cards/3_Beedrill_Rare_Holo.png"
+  },
+  {
+    "id": "chilling-reign-4-ledyba",
+    "name": "Ledyba",
+    "rarity": "Common",
+    "number": "4",
+    "image": "/assets/sets/chilling-reign/cards/4_Ledyba_Common.png"
+  },
+  {
+    "id": "chilling-reign-5-ledian",
+    "name": "Ledian",
+    "rarity": "Uncommon",
+    "number": "5",
+    "image": "/assets/sets/chilling-reign/cards/5_Ledian_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-6-heracross",
+    "name": "Heracross",
+    "rarity": "Common",
+    "number": "6",
+    "image": "/assets/sets/chilling-reign/cards/6_Heracross_Common.png"
+  },
+  {
+    "id": "chilling-reign-7-celebi-v",
+    "name": "Celebi V",
+    "rarity": "Double Rare",
+    "number": "7",
+    "image": "/assets/sets/chilling-reign/cards/7_Celebi_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "chilling-reign-8-celebi-vmax",
+    "name": "Celebi VMAX",
+    "rarity": "Ultra Rare",
+    "number": "8",
+    "image": "/assets/sets/chilling-reign/cards/8_Celebi_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "chilling-reign-9-snover",
+    "name": "Snover",
+    "rarity": "Common",
+    "number": "9",
+    "image": "/assets/sets/chilling-reign/cards/9_Snover_Common.png"
+  },
+  {
+    "id": "chilling-reign-10-abomasnow",
+    "name": "Abomasnow",
+    "rarity": "Rare",
+    "number": "10",
+    "image": "/assets/sets/chilling-reign/cards/10_Abomasnow_Rare.png"
+  },
+  {
+    "id": "chilling-reign-11-deerling",
+    "name": "Deerling",
+    "rarity": "Common",
+    "number": "11",
+    "image": "/assets/sets/chilling-reign/cards/11_Deerling_Common.png"
+  },
+  {
+    "id": "chilling-reign-12-sawsbuck",
+    "name": "Sawsbuck",
+    "rarity": "Rare",
+    "number": "12",
+    "image": "/assets/sets/chilling-reign/cards/12_Sawsbuck_Rare.png"
+  },
+  {
+    "id": "chilling-reign-13-bounsweet",
+    "name": "Bounsweet",
+    "rarity": "Common",
+    "number": "13",
+    "image": "/assets/sets/chilling-reign/cards/13_Bounsweet_Common.png"
+  },
+  {
+    "id": "chilling-reign-14-steenee",
+    "name": "Steenee",
+    "rarity": "Uncommon",
+    "number": "14",
+    "image": "/assets/sets/chilling-reign/cards/14_Steenee_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-15-tsareena",
+    "name": "Tsareena",
+    "rarity": "Rare",
+    "number": "15",
+    "image": "/assets/sets/chilling-reign/cards/15_Tsareena_Rare.png"
+  },
+  {
+    "id": "chilling-reign-16-grookey",
+    "name": "Grookey",
+    "rarity": "Common",
+    "number": "16",
+    "image": "/assets/sets/chilling-reign/cards/16_Grookey_Common.png"
+  },
+  {
+    "id": "chilling-reign-17-thwackey",
+    "name": "Thwackey",
+    "rarity": "Uncommon",
+    "number": "17",
+    "image": "/assets/sets/chilling-reign/cards/17_Thwackey_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-18-rillaboom",
+    "name": "Rillaboom",
+    "rarity": "Rare",
+    "number": "18",
+    "image": "/assets/sets/chilling-reign/cards/18_Rillaboom_Rare_Holo.png"
+  },
+  {
+    "id": "chilling-reign-19-zarude",
+    "name": "Zarude",
+    "rarity": "Rare",
+    "number": "19",
+    "image": "/assets/sets/chilling-reign/cards/19_Zarude_Rare_Holo.png"
+  },
+  {
+    "id": "chilling-reign-20-blaziken-v",
+    "name": "Blaziken V",
+    "rarity": "Double Rare",
+    "number": "20",
+    "image": "/assets/sets/chilling-reign/cards/20_Blaziken_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "chilling-reign-21-blaziken-vmax",
+    "name": "Blaziken VMAX",
+    "rarity": "Ultra Rare",
+    "number": "21",
+    "image": "/assets/sets/chilling-reign/cards/21_Blaziken_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "chilling-reign-22-castform-sunny-form",
+    "name": "Castform Sunny Form",
+    "rarity": "Common",
+    "number": "22",
+    "image": "/assets/sets/chilling-reign/cards/22_Castform_Sunny_Form_Common.png"
+  },
+  {
+    "id": "chilling-reign-23-larvesta",
+    "name": "Larvesta",
+    "rarity": "Common",
+    "number": "23",
+    "image": "/assets/sets/chilling-reign/cards/23_Larvesta_Common.png"
+  },
+  {
+    "id": "chilling-reign-24-volcarona",
+    "name": "Volcarona",
+    "rarity": "Rare",
+    "number": "24",
+    "image": "/assets/sets/chilling-reign/cards/24_Volcarona_Rare.png"
+  },
+  {
+    "id": "chilling-reign-25-volcanion-v",
+    "name": "Volcanion V",
+    "rarity": "Double Rare",
+    "number": "25",
+    "image": "/assets/sets/chilling-reign/cards/25_Volcanion_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "chilling-reign-26-scorbunny",
+    "name": "Scorbunny",
+    "rarity": "Common",
+    "number": "26",
+    "image": "/assets/sets/chilling-reign/cards/26_Scorbunny_Common.png"
+  },
+  {
+    "id": "chilling-reign-27-raboot",
+    "name": "Raboot",
+    "rarity": "Uncommon",
+    "number": "27",
+    "image": "/assets/sets/chilling-reign/cards/27_Raboot_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-28-cinderace",
+    "name": "Cinderace",
+    "rarity": "Rare",
+    "number": "28",
+    "image": "/assets/sets/chilling-reign/cards/28_Cinderace_Rare_Holo.png"
+  },
+  {
+    "id": "chilling-reign-29-lapras",
+    "name": "Lapras",
+    "rarity": "Common",
+    "number": "29",
+    "image": "/assets/sets/chilling-reign/cards/29_Lapras_Common.png"
+  },
+  {
+    "id": "chilling-reign-30-sneasel",
+    "name": "Sneasel",
+    "rarity": "Common",
+    "number": "30",
+    "image": "/assets/sets/chilling-reign/cards/30_Sneasel_Common.png"
+  },
+  {
+    "id": "chilling-reign-31-weavile",
+    "name": "Weavile",
+    "rarity": "Rare",
+    "number": "31",
+    "image": "/assets/sets/chilling-reign/cards/31_Weavile_Rare_Holo.png"
+  },
+  {
+    "id": "chilling-reign-32-delibird",
+    "name": "Delibird",
+    "rarity": "Common",
+    "number": "32",
+    "image": "/assets/sets/chilling-reign/cards/32_Delibird_Common.png"
+  },
+  {
+    "id": "chilling-reign-33-castform-rainy-form",
+    "name": "Castform Rainy Form",
+    "rarity": "Common",
+    "number": "33",
+    "image": "/assets/sets/chilling-reign/cards/33_Castform_Rainy_Form_Common.png"
+  },
+  {
+    "id": "chilling-reign-34-castform-snowy-form",
+    "name": "Castform Snowy Form",
+    "rarity": "Common",
+    "number": "34",
+    "image": "/assets/sets/chilling-reign/cards/34_Castform_Snowy_Form_Common.png"
+  },
+  {
+    "id": "chilling-reign-35-snorunt",
+    "name": "Snorunt",
+    "rarity": "Common",
+    "number": "35",
+    "image": "/assets/sets/chilling-reign/cards/35_Snorunt_Common.png"
+  },
+  {
+    "id": "chilling-reign-36-froslass",
+    "name": "Froslass",
+    "rarity": "Rare",
+    "number": "36",
+    "image": "/assets/sets/chilling-reign/cards/36_Froslass_Rare_Holo.png"
+  },
+  {
+    "id": "chilling-reign-37-spheal",
+    "name": "Spheal",
+    "rarity": "Common",
+    "number": "37",
+    "image": "/assets/sets/chilling-reign/cards/37_Spheal_Common.png"
+  },
+  {
+    "id": "chilling-reign-38-sealeo",
+    "name": "Sealeo",
+    "rarity": "Uncommon",
+    "number": "38",
+    "image": "/assets/sets/chilling-reign/cards/38_Sealeo_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-39-walrein",
+    "name": "Walrein",
+    "rarity": "Rare",
+    "number": "39",
+    "image": "/assets/sets/chilling-reign/cards/39_Walrein_Rare.png"
+  },
+  {
+    "id": "chilling-reign-40-tapu-fini",
+    "name": "Tapu Fini",
+    "rarity": "Rare",
+    "number": "40",
+    "image": "/assets/sets/chilling-reign/cards/40_Tapu_Fini_Rare_Holo.png"
+  },
+  {
+    "id": "chilling-reign-41-sobble",
+    "name": "Sobble",
+    "rarity": "Common",
+    "number": "41",
+    "image": "/assets/sets/chilling-reign/cards/41_Sobble_Common.png"
+  },
+  {
+    "id": "chilling-reign-42-drizzile",
+    "name": "Drizzile",
+    "rarity": "Uncommon",
+    "number": "42",
+    "image": "/assets/sets/chilling-reign/cards/42_Drizzile_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-43-inteleon",
+    "name": "Inteleon",
+    "rarity": "Rare",
+    "number": "43",
+    "image": "/assets/sets/chilling-reign/cards/43_Inteleon_Rare_Holo.png"
+  },
+  {
+    "id": "chilling-reign-44-rapid-strike-urshifu",
+    "name": "Rapid Strike Urshifu",
+    "rarity": "Rare",
+    "number": "44",
+    "image": "/assets/sets/chilling-reign/cards/44_Rapid_Strike_Urshifu_Rare_Holo.png"
+  },
+  {
+    "id": "chilling-reign-45-ice-rider-calyrex-v",
+    "name": "Ice Rider Calyrex V",
+    "rarity": "Double Rare",
+    "number": "45",
+    "image": "/assets/sets/chilling-reign/cards/45_Ice_Rider_Calyrex_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "chilling-reign-46-ice-rider-calyrex-vmax",
+    "name": "Ice Rider Calyrex VMAX",
+    "rarity": "Ultra Rare",
+    "number": "46",
+    "image": "/assets/sets/chilling-reign/cards/46_Ice_Rider_Calyrex_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "chilling-reign-47-mareep",
+    "name": "Mareep",
+    "rarity": "Common",
+    "number": "47",
+    "image": "/assets/sets/chilling-reign/cards/47_Mareep_Common.png"
+  },
+  {
+    "id": "chilling-reign-48-flaaffy",
+    "name": "Flaaffy",
+    "rarity": "Uncommon",
+    "number": "48",
+    "image": "/assets/sets/chilling-reign/cards/48_Flaaffy_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-49-ampharos",
+    "name": "Ampharos",
+    "rarity": "Rare",
+    "number": "49",
+    "image": "/assets/sets/chilling-reign/cards/49_Ampharos_Rare.png"
+  },
+  {
+    "id": "chilling-reign-50-blitzle",
+    "name": "Blitzle",
+    "rarity": "Common",
+    "number": "50",
+    "image": "/assets/sets/chilling-reign/cards/50_Blitzle_Common.png"
+  },
+  {
+    "id": "chilling-reign-51-zebstrika",
+    "name": "Zebstrika",
+    "rarity": "Rare",
+    "number": "51",
+    "image": "/assets/sets/chilling-reign/cards/51_Zebstrika_Rare.png"
+  },
+  {
+    "id": "chilling-reign-52-thundurus",
+    "name": "Thundurus",
+    "rarity": "Rare",
+    "number": "52",
+    "image": "/assets/sets/chilling-reign/cards/52_Thundurus_Rare_Holo.png"
+  },
+  {
+    "id": "chilling-reign-53-zeraora-v",
+    "name": "Zeraora V",
+    "rarity": "Double Rare",
+    "number": "53",
+    "image": "/assets/sets/chilling-reign/cards/53_Zeraora_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "chilling-reign-54-galarian-slowpoke",
+    "name": "Galarian Slowpoke",
+    "rarity": "Common",
+    "number": "54",
+    "image": "/assets/sets/chilling-reign/cards/54_Galarian_Slowpoke_Common.png"
+  },
+  {
+    "id": "chilling-reign-55-gastly",
+    "name": "Gastly",
+    "rarity": "Common",
+    "number": "55",
+    "image": "/assets/sets/chilling-reign/cards/55_Gastly_Common.png"
+  },
+  {
+    "id": "chilling-reign-56-haunter",
+    "name": "Haunter",
+    "rarity": "Uncommon",
+    "number": "56",
+    "image": "/assets/sets/chilling-reign/cards/56_Haunter_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-57-gengar",
+    "name": "Gengar",
+    "rarity": "Rare",
+    "number": "57",
+    "image": "/assets/sets/chilling-reign/cards/57_Gengar_Rare_Holo.png"
+  },
+  {
+    "id": "chilling-reign-58-galarian-articuno-v",
+    "name": "Galarian Articuno V",
+    "rarity": "Double Rare",
+    "number": "58",
+    "image": "/assets/sets/chilling-reign/cards/58_Galarian_Articuno_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "chilling-reign-59-ralts",
+    "name": "Ralts",
+    "rarity": "Common",
+    "number": "59",
+    "image": "/assets/sets/chilling-reign/cards/59_Ralts_Common.png"
+  },
+  {
+    "id": "chilling-reign-60-kirlia",
+    "name": "Kirlia",
+    "rarity": "Uncommon",
+    "number": "60",
+    "image": "/assets/sets/chilling-reign/cards/60_Kirlia_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-61-gardevoir",
+    "name": "Gardevoir",
+    "rarity": "Rare",
+    "number": "61",
+    "image": "/assets/sets/chilling-reign/cards/61_Gardevoir_Rare_Holo.png"
+  },
+  {
+    "id": "chilling-reign-62-shuppet",
+    "name": "Shuppet",
+    "rarity": "Common",
+    "number": "62",
+    "image": "/assets/sets/chilling-reign/cards/62_Shuppet_Common.png"
+  },
+  {
+    "id": "chilling-reign-63-banette",
+    "name": "Banette",
+    "rarity": "Rare",
+    "number": "63",
+    "image": "/assets/sets/chilling-reign/cards/63_Banette_Rare.png"
+  },
+  {
+    "id": "chilling-reign-64-cresselia",
+    "name": "Cresselia",
+    "rarity": "Rare",
+    "number": "64",
+    "image": "/assets/sets/chilling-reign/cards/64_Cresselia_Rare_Holo.png"
+  },
+  {
+    "id": "chilling-reign-65-golett",
+    "name": "Golett",
+    "rarity": "Common",
+    "number": "65",
+    "image": "/assets/sets/chilling-reign/cards/65_Golett_Common.png"
+  },
+  {
+    "id": "chilling-reign-66-golurk",
+    "name": "Golurk",
+    "rarity": "Rare",
+    "number": "66",
+    "image": "/assets/sets/chilling-reign/cards/66_Golurk_Rare.png"
+  },
+  {
+    "id": "chilling-reign-67-swirlix",
+    "name": "Swirlix",
+    "rarity": "Common",
+    "number": "67",
+    "image": "/assets/sets/chilling-reign/cards/67_Swirlix_Common.png"
+  },
+  {
+    "id": "chilling-reign-68-slurpuff",
+    "name": "Slurpuff",
+    "rarity": "Rare",
+    "number": "68",
+    "image": "/assets/sets/chilling-reign/cards/68_Slurpuff_Rare.png"
+  },
+  {
+    "id": "chilling-reign-69-inkay",
+    "name": "Inkay",
+    "rarity": "Common",
+    "number": "69",
+    "image": "/assets/sets/chilling-reign/cards/69_Inkay_Common.png"
+  },
+  {
+    "id": "chilling-reign-70-malamar",
+    "name": "Malamar",
+    "rarity": "Rare",
+    "number": "70",
+    "image": "/assets/sets/chilling-reign/cards/70_Malamar_Rare.png"
+  },
+  {
+    "id": "chilling-reign-71-hatenna",
+    "name": "Hatenna",
+    "rarity": "Common",
+    "number": "71",
+    "image": "/assets/sets/chilling-reign/cards/71_Hatenna_Common.png"
+  },
+  {
+    "id": "chilling-reign-72-hattrem",
+    "name": "Hattrem",
+    "rarity": "Uncommon",
+    "number": "72",
+    "image": "/assets/sets/chilling-reign/cards/72_Hattrem_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-73-hatterene",
+    "name": "Hatterene",
+    "rarity": "Rare",
+    "number": "73",
+    "image": "/assets/sets/chilling-reign/cards/73_Hatterene_Rare_Holo.png"
+  },
+  {
+    "id": "chilling-reign-74-shadow-rider-calyrex-v",
+    "name": "Shadow Rider Calyrex V",
+    "rarity": "Double Rare",
+    "number": "74",
+    "image": "/assets/sets/chilling-reign/cards/74_Shadow_Rider_Calyrex_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "chilling-reign-75-shadow-rider-calyrex-vmax",
+    "name": "Shadow Rider Calyrex VMAX",
+    "rarity": "Ultra Rare",
+    "number": "75",
+    "image": "/assets/sets/chilling-reign/cards/75_Shadow_Rider_Calyrex_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "chilling-reign-76-diglett",
+    "name": "Diglett",
+    "rarity": "Common",
+    "number": "76",
+    "image": "/assets/sets/chilling-reign/cards/76_Diglett_Common.png"
+  },
+  {
+    "id": "chilling-reign-77-dugtrio",
+    "name": "Dugtrio",
+    "rarity": "Rare",
+    "number": "77",
+    "image": "/assets/sets/chilling-reign/cards/77_Dugtrio_Rare.png"
+  },
+  {
+    "id": "chilling-reign-78-galarian-farfetch-d",
+    "name": "Galarian Farfetch'd",
+    "rarity": "Common",
+    "number": "78",
+    "image": "/assets/sets/chilling-reign/cards/78_Galarian_Farfetch'd_Common.png"
+  },
+  {
+    "id": "chilling-reign-79-galarian-sirfetch-d",
+    "name": "Galarian Sirfetch'd",
+    "rarity": "Rare",
+    "number": "79",
+    "image": "/assets/sets/chilling-reign/cards/79_Galarian_Sirfetch'd_Rare.png"
+  },
+  {
+    "id": "chilling-reign-80-galarian-zapdos-v",
+    "name": "Galarian Zapdos V",
+    "rarity": "Double Rare",
+    "number": "80",
+    "image": "/assets/sets/chilling-reign/cards/80_Galarian_Zapdos_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "chilling-reign-81-gallade",
+    "name": "Gallade",
+    "rarity": "Rare",
+    "number": "81",
+    "image": "/assets/sets/chilling-reign/cards/81_Gallade_Rare.png"
+  },
+  {
+    "id": "chilling-reign-82-galarian-yamask",
+    "name": "Galarian Yamask",
+    "rarity": "Common",
+    "number": "82",
+    "image": "/assets/sets/chilling-reign/cards/82_Galarian_Yamask_Common.png"
+  },
+  {
+    "id": "chilling-reign-83-galarian-runerigus",
+    "name": "Galarian Runerigus",
+    "rarity": "Rare",
+    "number": "83",
+    "image": "/assets/sets/chilling-reign/cards/83_Galarian_Runerigus_Rare_Holo.png"
+  },
+  {
+    "id": "chilling-reign-84-crabrawler",
+    "name": "Crabrawler",
+    "rarity": "Common",
+    "number": "84",
+    "image": "/assets/sets/chilling-reign/cards/84_Crabrawler_Common.png"
+  },
+  {
+    "id": "chilling-reign-85-crabominable",
+    "name": "Crabominable",
+    "rarity": "Uncommon",
+    "number": "85",
+    "image": "/assets/sets/chilling-reign/cards/85_Crabominable_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-86-rockruff",
+    "name": "Rockruff",
+    "rarity": "Common",
+    "number": "86",
+    "image": "/assets/sets/chilling-reign/cards/86_Rockruff_Common.png"
+  },
+  {
+    "id": "chilling-reign-87-lycanroc",
+    "name": "Lycanroc",
+    "rarity": "Rare",
+    "number": "87",
+    "image": "/assets/sets/chilling-reign/cards/87_Lycanroc_Rare_Holo.png"
+  },
+  {
+    "id": "chilling-reign-88-passimian",
+    "name": "Passimian",
+    "rarity": "Rare",
+    "number": "88",
+    "image": "/assets/sets/chilling-reign/cards/88_Passimian_Rare.png"
+  },
+  {
+    "id": "chilling-reign-89-sandaconda-v",
+    "name": "Sandaconda V",
+    "rarity": "Double Rare",
+    "number": "89",
+    "image": "/assets/sets/chilling-reign/cards/89_Sandaconda_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "chilling-reign-90-sandaconda-vmax",
+    "name": "Sandaconda VMAX",
+    "rarity": "Ultra Rare",
+    "number": "90",
+    "image": "/assets/sets/chilling-reign/cards/90_Sandaconda_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "chilling-reign-91-clobbopus",
+    "name": "Clobbopus",
+    "rarity": "Common",
+    "number": "91",
+    "image": "/assets/sets/chilling-reign/cards/91_Clobbopus_Common.png"
+  },
+  {
+    "id": "chilling-reign-92-grapploct",
+    "name": "Grapploct",
+    "rarity": "Rare",
+    "number": "92",
+    "image": "/assets/sets/chilling-reign/cards/92_Grapploct_Rare_Holo.png"
+  },
+  {
+    "id": "chilling-reign-93-kubfu",
+    "name": "Kubfu",
+    "rarity": "Common",
+    "number": "93",
+    "image": "/assets/sets/chilling-reign/cards/93_Kubfu_Common.png"
+  },
+  {
+    "id": "chilling-reign-94-koffing",
+    "name": "Koffing",
+    "rarity": "Common",
+    "number": "94",
+    "image": "/assets/sets/chilling-reign/cards/94_Koffing_Common.png"
+  },
+  {
+    "id": "chilling-reign-95-weezing",
+    "name": "Weezing",
+    "rarity": "Rare",
+    "number": "95",
+    "image": "/assets/sets/chilling-reign/cards/95_Weezing_Rare.png"
+  },
+  {
+    "id": "chilling-reign-96-galarian-weezing",
+    "name": "Galarian Weezing",
+    "rarity": "Rare",
+    "number": "96",
+    "image": "/assets/sets/chilling-reign/cards/96_Galarian_Weezing_Rare.png"
+  },
+  {
+    "id": "chilling-reign-97-galarian-moltres-v",
+    "name": "Galarian Moltres V",
+    "rarity": "Double Rare",
+    "number": "97",
+    "image": "/assets/sets/chilling-reign/cards/97_Galarian_Moltres_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "chilling-reign-98-galarian-slowking",
+    "name": "Galarian Slowking",
+    "rarity": "Rare",
+    "number": "98",
+    "image": "/assets/sets/chilling-reign/cards/98_Galarian_Slowking_Rare_Holo.png"
+  },
+  {
+    "id": "chilling-reign-99-galarian-slowking-v",
+    "name": "Galarian Slowking V",
+    "rarity": "Double Rare",
+    "number": "99",
+    "image": "/assets/sets/chilling-reign/cards/99_Galarian_Slowking_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "chilling-reign-100-galarian-slowking-vmax",
+    "name": "Galarian Slowking VMAX",
+    "rarity": "Ultra Rare",
+    "number": "100",
+    "image": "/assets/sets/chilling-reign/cards/100_Galarian_Slowking_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "chilling-reign-101-qwilfish",
+    "name": "Qwilfish",
+    "rarity": "Common",
+    "number": "101",
+    "image": "/assets/sets/chilling-reign/cards/101_Qwilfish_Common.png"
+  },
+  {
+    "id": "chilling-reign-102-seviper",
+    "name": "Seviper",
+    "rarity": "Rare",
+    "number": "102",
+    "image": "/assets/sets/chilling-reign/cards/102_Seviper_Rare.png"
+  },
+  {
+    "id": "chilling-reign-103-spiritomb",
+    "name": "Spiritomb",
+    "rarity": "Rare",
+    "number": "103",
+    "image": "/assets/sets/chilling-reign/cards/103_Spiritomb_Rare.png"
+  },
+  {
+    "id": "chilling-reign-104-liepard-v",
+    "name": "Liepard V",
+    "rarity": "Double Rare",
+    "number": "104",
+    "image": "/assets/sets/chilling-reign/cards/104_Liepard_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "chilling-reign-105-venipede",
+    "name": "Venipede",
+    "rarity": "Common",
+    "number": "105",
+    "image": "/assets/sets/chilling-reign/cards/105_Venipede_Common.png"
+  },
+  {
+    "id": "chilling-reign-106-whirlipede",
+    "name": "Whirlipede",
+    "rarity": "Uncommon",
+    "number": "106",
+    "image": "/assets/sets/chilling-reign/cards/106_Whirlipede_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-107-scolipede",
+    "name": "Scolipede",
+    "rarity": "Rare",
+    "number": "107",
+    "image": "/assets/sets/chilling-reign/cards/107_Scolipede_Rare.png"
+  },
+  {
+    "id": "chilling-reign-108-single-strike-urshifu",
+    "name": "Single Strike Urshifu",
+    "rarity": "Rare",
+    "number": "108",
+    "image": "/assets/sets/chilling-reign/cards/108_Single_Strike_Urshifu_Rare_Holo.png"
+  },
+  {
+    "id": "chilling-reign-109-aron",
+    "name": "Aron",
+    "rarity": "Common",
+    "number": "109",
+    "image": "/assets/sets/chilling-reign/cards/109_Aron_Common.png"
+  },
+  {
+    "id": "chilling-reign-110-lairon",
+    "name": "Lairon",
+    "rarity": "Uncommon",
+    "number": "110",
+    "image": "/assets/sets/chilling-reign/cards/110_Lairon_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-111-aggron",
+    "name": "Aggron",
+    "rarity": "Rare",
+    "number": "111",
+    "image": "/assets/sets/chilling-reign/cards/111_Aggron_Rare.png"
+  },
+  {
+    "id": "chilling-reign-112-metagross-v",
+    "name": "Metagross V",
+    "rarity": "Double Rare",
+    "number": "112",
+    "image": "/assets/sets/chilling-reign/cards/112_Metagross_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "chilling-reign-113-metagross-vmax",
+    "name": "Metagross VMAX",
+    "rarity": "Ultra Rare",
+    "number": "113",
+    "image": "/assets/sets/chilling-reign/cards/113_Metagross_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "chilling-reign-114-cobalion",
+    "name": "Cobalion",
+    "rarity": "Rare",
+    "number": "114",
+    "image": "/assets/sets/chilling-reign/cards/114_Cobalion_Rare_Holo.png"
+  },
+  {
+    "id": "chilling-reign-115-tauros",
+    "name": "Tauros",
+    "rarity": "Rare",
+    "number": "115",
+    "image": "/assets/sets/chilling-reign/cards/115_Tauros_Rare_Holo.png"
+  },
+  {
+    "id": "chilling-reign-116-porygon",
+    "name": "Porygon",
+    "rarity": "Common",
+    "number": "116",
+    "image": "/assets/sets/chilling-reign/cards/116_Porygon_Common.png"
+  },
+  {
+    "id": "chilling-reign-117-porygon2",
+    "name": "Porygon2",
+    "rarity": "Uncommon",
+    "number": "117",
+    "image": "/assets/sets/chilling-reign/cards/117_Porygon2_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-118-porygon-z",
+    "name": "Porygon-Z",
+    "rarity": "Rare",
+    "number": "118",
+    "image": "/assets/sets/chilling-reign/cards/118_Porygon-Z_Rare_Holo.png"
+  },
+  {
+    "id": "chilling-reign-119-blissey-v",
+    "name": "Blissey V",
+    "rarity": "Double Rare",
+    "number": "119",
+    "image": "/assets/sets/chilling-reign/cards/119_Blissey_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "chilling-reign-120-zangoose",
+    "name": "Zangoose",
+    "rarity": "Rare",
+    "number": "120",
+    "image": "/assets/sets/chilling-reign/cards/120_Zangoose_Rare.png"
+  },
+  {
+    "id": "chilling-reign-121-castform",
+    "name": "Castform",
+    "rarity": "Common",
+    "number": "121",
+    "image": "/assets/sets/chilling-reign/cards/121_Castform_Common.png"
+  },
+  {
+    "id": "chilling-reign-122-kecleon",
+    "name": "Kecleon",
+    "rarity": "Rare",
+    "number": "122",
+    "image": "/assets/sets/chilling-reign/cards/122_Kecleon_Rare.png"
+  },
+  {
+    "id": "chilling-reign-123-shaymin",
+    "name": "Shaymin",
+    "rarity": "Rare",
+    "number": "123",
+    "image": "/assets/sets/chilling-reign/cards/123_Shaymin_Rare_Holo.png"
+  },
+  {
+    "id": "chilling-reign-124-tornadus-v",
+    "name": "Tornadus V",
+    "rarity": "Double Rare",
+    "number": "124",
+    "image": "/assets/sets/chilling-reign/cards/124_Tornadus_V_Rare_Holo_V.png"
+  },
+  {
+    "id": "chilling-reign-125-tornadus-vmax",
+    "name": "Tornadus VMAX",
+    "rarity": "Ultra Rare",
+    "number": "125",
+    "image": "/assets/sets/chilling-reign/cards/125_Tornadus_VMAX_Rare_Holo_VMAX.png"
+  },
+  {
+    "id": "chilling-reign-126-furfrou",
+    "name": "Furfrou",
+    "rarity": "Common",
+    "number": "126",
+    "image": "/assets/sets/chilling-reign/cards/126_Furfrou_Common.png"
+  },
+  {
+    "id": "chilling-reign-127-skwovet",
+    "name": "Skwovet",
+    "rarity": "Common",
+    "number": "127",
+    "image": "/assets/sets/chilling-reign/cards/127_Skwovet_Common.png"
+  },
+  {
+    "id": "chilling-reign-128-greedent",
+    "name": "Greedent",
+    "rarity": "Rare",
+    "number": "128",
+    "image": "/assets/sets/chilling-reign/cards/128_Greedent_Rare_Holo.png"
+  },
+  {
+    "id": "chilling-reign-129-agatha",
+    "name": "Agatha",
+    "rarity": "Uncommon",
+    "number": "129",
+    "image": "/assets/sets/chilling-reign/cards/129_Agatha_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-130-avery",
+    "name": "Avery",
+    "rarity": "Uncommon",
+    "number": "130",
+    "image": "/assets/sets/chilling-reign/cards/130_Avery_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-131-brawly",
+    "name": "Brawly",
+    "rarity": "Uncommon",
+    "number": "131",
+    "image": "/assets/sets/chilling-reign/cards/131_Brawly_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-132-caitlin",
+    "name": "Caitlin",
+    "rarity": "Uncommon",
+    "number": "132",
+    "image": "/assets/sets/chilling-reign/cards/132_Caitlin_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-133-crushing-gloves",
+    "name": "Crushing Gloves",
+    "rarity": "Uncommon",
+    "number": "133",
+    "image": "/assets/sets/chilling-reign/cards/133_Crushing_Gloves_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-134-doctor",
+    "name": "Doctor",
+    "rarity": "Uncommon",
+    "number": "134",
+    "image": "/assets/sets/chilling-reign/cards/134_Doctor_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-135-dyna-tree-hill",
+    "name": "Dyna Tree Hill",
+    "rarity": "Uncommon",
+    "number": "135",
+    "image": "/assets/sets/chilling-reign/cards/135_Dyna_Tree_Hill_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-136-echoing-horn",
+    "name": "Echoing Horn",
+    "rarity": "Uncommon",
+    "number": "136",
+    "image": "/assets/sets/chilling-reign/cards/136_Echoing_Horn_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-137-expedition-uniform",
+    "name": "Expedition Uniform",
+    "rarity": "Uncommon",
+    "number": "137",
+    "image": "/assets/sets/chilling-reign/cards/137_Expedition_Uniform_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-138-fire-resistant-gloves",
+    "name": "Fire-Resistant Gloves",
+    "rarity": "Uncommon",
+    "number": "138",
+    "image": "/assets/sets/chilling-reign/cards/138_Fire-Resistant_Gloves_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-139-flannery",
+    "name": "Flannery",
+    "rarity": "Uncommon",
+    "number": "139",
+    "image": "/assets/sets/chilling-reign/cards/139_Flannery_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-140-fog-crystal",
+    "name": "Fog Crystal",
+    "rarity": "Uncommon",
+    "number": "140",
+    "image": "/assets/sets/chilling-reign/cards/140_Fog_Crystal_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-141-galarian-chestplate",
+    "name": "Galarian Chestplate",
+    "rarity": "Uncommon",
+    "number": "141",
+    "image": "/assets/sets/chilling-reign/cards/141_Galarian_Chestplate_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-142-honey",
+    "name": "Honey",
+    "rarity": "Uncommon",
+    "number": "142",
+    "image": "/assets/sets/chilling-reign/cards/142_Honey_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-143-justified-gloves",
+    "name": "Justified Gloves",
+    "rarity": "Uncommon",
+    "number": "143",
+    "image": "/assets/sets/chilling-reign/cards/143_Justified_Gloves_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-144-karen-s-conviction",
+    "name": "Karen's Conviction",
+    "rarity": "Uncommon",
+    "number": "144",
+    "image": "/assets/sets/chilling-reign/cards/144_Karen's_Conviction_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-145-klara",
+    "name": "Klara",
+    "rarity": "Uncommon",
+    "number": "145",
+    "image": "/assets/sets/chilling-reign/cards/145_Klara_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-146-melony",
+    "name": "Melony",
+    "rarity": "Uncommon",
+    "number": "146",
+    "image": "/assets/sets/chilling-reign/cards/146_Melony_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-147-old-cemetery",
+    "name": "Old Cemetery",
+    "rarity": "Uncommon",
+    "number": "147",
+    "image": "/assets/sets/chilling-reign/cards/147_Old_Cemetery_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-148-path-to-the-peak",
+    "name": "Path to the Peak",
+    "rarity": "Uncommon",
+    "number": "148",
+    "image": "/assets/sets/chilling-reign/cards/148_Path_to_the_Peak_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-149-peonia",
+    "name": "Peonia",
+    "rarity": "Uncommon",
+    "number": "149",
+    "image": "/assets/sets/chilling-reign/cards/149_Peonia_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-150-peony",
+    "name": "Peony",
+    "rarity": "Uncommon",
+    "number": "150",
+    "image": "/assets/sets/chilling-reign/cards/150_Peony_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-151-rapid-strike-scroll-of-the-skies",
+    "name": "Rapid Strike Scroll of the Skies",
+    "rarity": "Uncommon",
+    "number": "151",
+    "image": "/assets/sets/chilling-reign/cards/151_Rapid_Strike_Scroll_of_the_Skies_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-152-rugged-helmet",
+    "name": "Rugged Helmet",
+    "rarity": "Uncommon",
+    "number": "152",
+    "image": "/assets/sets/chilling-reign/cards/152_Rugged_Helmet_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-153-siebold",
+    "name": "Siebold",
+    "rarity": "Uncommon",
+    "number": "153",
+    "image": "/assets/sets/chilling-reign/cards/153_Siebold_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-154-single-strike-scroll-of-piercing",
+    "name": "Single Strike Scroll of Piercing",
+    "rarity": "Uncommon",
+    "number": "154",
+    "image": "/assets/sets/chilling-reign/cards/154_Single_Strike_Scroll_of_Piercing_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-155-weeding-gloves",
+    "name": "Weeding Gloves",
+    "rarity": "Uncommon",
+    "number": "155",
+    "image": "/assets/sets/chilling-reign/cards/155_Weeding_Gloves_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-156-welcoming-lantern",
+    "name": "Welcoming Lantern",
+    "rarity": "Uncommon",
+    "number": "156",
+    "image": "/assets/sets/chilling-reign/cards/156_Welcoming_Lantern_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-157-impact-energy",
+    "name": "Impact Energy",
+    "rarity": "Uncommon",
+    "number": "157",
+    "image": "/assets/sets/chilling-reign/cards/157_Impact_Energy_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-158-lucky-energy",
+    "name": "Lucky Energy",
+    "rarity": "Uncommon",
+    "number": "158",
+    "image": "/assets/sets/chilling-reign/cards/158_Lucky_Energy_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-159-spiral-energy",
+    "name": "Spiral Energy",
+    "rarity": "Uncommon",
+    "number": "159",
+    "image": "/assets/sets/chilling-reign/cards/159_Spiral_Energy_Uncommon.png"
+  },
+  {
+    "id": "chilling-reign-160-celebi-v",
+    "name": "Celebi V",
+    "rarity": "Ultra Rare",
+    "number": "160",
+    "image": "/assets/sets/chilling-reign/cards/160_Celebi_V_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-161-blaziken-v",
+    "name": "Blaziken V",
+    "rarity": "Ultra Rare",
+    "number": "161",
+    "image": "/assets/sets/chilling-reign/cards/161_Blaziken_V_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-162-volcanion-v",
+    "name": "Volcanion V",
+    "rarity": "Ultra Rare",
+    "number": "162",
+    "image": "/assets/sets/chilling-reign/cards/162_Volcanion_V_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-163-ice-rider-calyrex-v",
+    "name": "Ice Rider Calyrex V",
+    "rarity": "Ultra Rare",
+    "number": "163",
+    "image": "/assets/sets/chilling-reign/cards/163_Ice_Rider_Calyrex_V_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-164-ice-rider-calyrex-v",
+    "name": "Ice Rider Calyrex V",
+    "rarity": "Ultra Rare",
+    "number": "164",
+    "image": "/assets/sets/chilling-reign/cards/164_Ice_Rider_Calyrex_V_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-165-zeraora-v",
+    "name": "Zeraora V",
+    "rarity": "Ultra Rare",
+    "number": "165",
+    "image": "/assets/sets/chilling-reign/cards/165_Zeraora_V_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-166-zeraora-v",
+    "name": "Zeraora V",
+    "rarity": "Ultra Rare",
+    "number": "166",
+    "image": "/assets/sets/chilling-reign/cards/166_Zeraora_V_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-167-galarian-rapidash-v",
+    "name": "Galarian Rapidash V",
+    "rarity": "Ultra Rare",
+    "number": "167",
+    "image": "/assets/sets/chilling-reign/cards/167_Galarian_Rapidash_V_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-168-galarian-rapidash-v",
+    "name": "Galarian Rapidash V",
+    "rarity": "Ultra Rare",
+    "number": "168",
+    "image": "/assets/sets/chilling-reign/cards/168_Galarian_Rapidash_V_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-169-galarian-articuno-v",
+    "name": "Galarian Articuno V",
+    "rarity": "Ultra Rare",
+    "number": "169",
+    "image": "/assets/sets/chilling-reign/cards/169_Galarian_Articuno_V_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-170-galarian-articuno-v",
+    "name": "Galarian Articuno V",
+    "rarity": "Ultra Rare",
+    "number": "170",
+    "image": "/assets/sets/chilling-reign/cards/170_Galarian_Articuno_V_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-171-shadow-rider-calyrex-v",
+    "name": "Shadow Rider Calyrex V",
+    "rarity": "Ultra Rare",
+    "number": "171",
+    "image": "/assets/sets/chilling-reign/cards/171_Shadow_Rider_Calyrex_V_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-172-shadow-rider-calyrex-v",
+    "name": "Shadow Rider Calyrex V",
+    "rarity": "Ultra Rare",
+    "number": "172",
+    "image": "/assets/sets/chilling-reign/cards/172_Shadow_Rider_Calyrex_V_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-173-galarian-zapdos-v",
+    "name": "Galarian Zapdos V",
+    "rarity": "Ultra Rare",
+    "number": "173",
+    "image": "/assets/sets/chilling-reign/cards/173_Galarian_Zapdos_V_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-174-galarian-zapdos-v",
+    "name": "Galarian Zapdos V",
+    "rarity": "Ultra Rare",
+    "number": "174",
+    "image": "/assets/sets/chilling-reign/cards/174_Galarian_Zapdos_V_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-175-sandaconda-v",
+    "name": "Sandaconda V",
+    "rarity": "Ultra Rare",
+    "number": "175",
+    "image": "/assets/sets/chilling-reign/cards/175_Sandaconda_V_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-176-galarian-moltres-v",
+    "name": "Galarian Moltres V",
+    "rarity": "Ultra Rare",
+    "number": "176",
+    "image": "/assets/sets/chilling-reign/cards/176_Galarian_Moltres_V_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-177-galarian-moltres-v",
+    "name": "Galarian Moltres V",
+    "rarity": "Ultra Rare",
+    "number": "177",
+    "image": "/assets/sets/chilling-reign/cards/177_Galarian_Moltres_V_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-178-galarian-slowking-v",
+    "name": "Galarian Slowking V",
+    "rarity": "Ultra Rare",
+    "number": "178",
+    "image": "/assets/sets/chilling-reign/cards/178_Galarian_Slowking_V_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-179-galarian-slowking-v",
+    "name": "Galarian Slowking V",
+    "rarity": "Ultra Rare",
+    "number": "179",
+    "image": "/assets/sets/chilling-reign/cards/179_Galarian_Slowking_V_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-180-liepard-v",
+    "name": "Liepard V",
+    "rarity": "Ultra Rare",
+    "number": "180",
+    "image": "/assets/sets/chilling-reign/cards/180_Liepard_V_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-181-metagross-v",
+    "name": "Metagross V",
+    "rarity": "Ultra Rare",
+    "number": "181",
+    "image": "/assets/sets/chilling-reign/cards/181_Metagross_V_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-182-blissey-v",
+    "name": "Blissey V",
+    "rarity": "Ultra Rare",
+    "number": "182",
+    "image": "/assets/sets/chilling-reign/cards/182_Blissey_V_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-183-blissey-v",
+    "name": "Blissey V",
+    "rarity": "Ultra Rare",
+    "number": "183",
+    "image": "/assets/sets/chilling-reign/cards/183_Blissey_V_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-184-tornadus-v",
+    "name": "Tornadus V",
+    "rarity": "Ultra Rare",
+    "number": "184",
+    "image": "/assets/sets/chilling-reign/cards/184_Tornadus_V_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-185-tornadus-v",
+    "name": "Tornadus V",
+    "rarity": "Ultra Rare",
+    "number": "185",
+    "image": "/assets/sets/chilling-reign/cards/185_Tornadus_V_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-186-agatha",
+    "name": "Agatha",
+    "rarity": "Ultra Rare",
+    "number": "186",
+    "image": "/assets/sets/chilling-reign/cards/186_Agatha_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-187-avery",
+    "name": "Avery",
+    "rarity": "Ultra Rare",
+    "number": "187",
+    "image": "/assets/sets/chilling-reign/cards/187_Avery_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-188-brawly",
+    "name": "Brawly",
+    "rarity": "Ultra Rare",
+    "number": "188",
+    "image": "/assets/sets/chilling-reign/cards/188_Brawly_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-189-caitlin",
+    "name": "Caitlin",
+    "rarity": "Ultra Rare",
+    "number": "189",
+    "image": "/assets/sets/chilling-reign/cards/189_Caitlin_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-190-doctor",
+    "name": "Doctor",
+    "rarity": "Ultra Rare",
+    "number": "190",
+    "image": "/assets/sets/chilling-reign/cards/190_Doctor_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-191-flannery",
+    "name": "Flannery",
+    "rarity": "Ultra Rare",
+    "number": "191",
+    "image": "/assets/sets/chilling-reign/cards/191_Flannery_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-192-honey",
+    "name": "Honey",
+    "rarity": "Ultra Rare",
+    "number": "192",
+    "image": "/assets/sets/chilling-reign/cards/192_Honey_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-193-karen-s-conviction",
+    "name": "Karen's Conviction",
+    "rarity": "Ultra Rare",
+    "number": "193",
+    "image": "/assets/sets/chilling-reign/cards/193_Karen's_Conviction_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-194-klara",
+    "name": "Klara",
+    "rarity": "Ultra Rare",
+    "number": "194",
+    "image": "/assets/sets/chilling-reign/cards/194_Klara_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-195-melony",
+    "name": "Melony",
+    "rarity": "Ultra Rare",
+    "number": "195",
+    "image": "/assets/sets/chilling-reign/cards/195_Melony_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-196-peonia",
+    "name": "Peonia",
+    "rarity": "Ultra Rare",
+    "number": "196",
+    "image": "/assets/sets/chilling-reign/cards/196_Peonia_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-197-peony",
+    "name": "Peony",
+    "rarity": "Ultra Rare",
+    "number": "197",
+    "image": "/assets/sets/chilling-reign/cards/197_Peony_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-198-siebold",
+    "name": "Siebold",
+    "rarity": "Ultra Rare",
+    "number": "198",
+    "image": "/assets/sets/chilling-reign/cards/198_Siebold_Rare_Ultra.png"
+  },
+  {
+    "id": "chilling-reign-199-celebi-vmax",
+    "name": "Celebi VMAX",
+    "rarity": "Secret Rare",
+    "number": "199",
+    "image": "/assets/sets/chilling-reign/cards/199_Celebi_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "chilling-reign-200-blaziken-vmax",
+    "name": "Blaziken VMAX",
+    "rarity": "Secret Rare",
+    "number": "200",
+    "image": "/assets/sets/chilling-reign/cards/200_Blaziken_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "chilling-reign-201-blaziken-vmax",
+    "name": "Blaziken VMAX",
+    "rarity": "Secret Rare",
+    "number": "201",
+    "image": "/assets/sets/chilling-reign/cards/201_Blaziken_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "chilling-reign-202-ice-rider-calyrex-vmax",
+    "name": "Ice Rider Calyrex VMAX",
+    "rarity": "Secret Rare",
+    "number": "202",
+    "image": "/assets/sets/chilling-reign/cards/202_Ice_Rider_Calyrex_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "chilling-reign-203-ice-rider-calyrex-vmax",
+    "name": "Ice Rider Calyrex VMAX",
+    "rarity": "Secret Rare",
+    "number": "203",
+    "image": "/assets/sets/chilling-reign/cards/203_Ice_Rider_Calyrex_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "chilling-reign-204-shadow-rider-calyrex-vmax",
+    "name": "Shadow Rider Calyrex VMAX",
+    "rarity": "Secret Rare",
+    "number": "204",
+    "image": "/assets/sets/chilling-reign/cards/204_Shadow_Rider_Calyrex_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "chilling-reign-205-shadow-rider-calyrex-vmax",
+    "name": "Shadow Rider Calyrex VMAX",
+    "rarity": "Secret Rare",
+    "number": "205",
+    "image": "/assets/sets/chilling-reign/cards/205_Shadow_Rider_Calyrex_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "chilling-reign-206-sandaconda-vmax",
+    "name": "Sandaconda VMAX",
+    "rarity": "Secret Rare",
+    "number": "206",
+    "image": "/assets/sets/chilling-reign/cards/206_Sandaconda_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "chilling-reign-207-galarian-slowking-vmax",
+    "name": "Galarian Slowking VMAX",
+    "rarity": "Secret Rare",
+    "number": "207",
+    "image": "/assets/sets/chilling-reign/cards/207_Galarian_Slowking_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "chilling-reign-208-metagross-vmax",
+    "name": "Metagross VMAX",
+    "rarity": "Secret Rare",
+    "number": "208",
+    "image": "/assets/sets/chilling-reign/cards/208_Metagross_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "chilling-reign-209-tornadus-vmax",
+    "name": "Tornadus VMAX",
+    "rarity": "Secret Rare",
+    "number": "209",
+    "image": "/assets/sets/chilling-reign/cards/209_Tornadus_VMAX_Rare_Rainbow.png"
+  },
+  {
+    "id": "chilling-reign-210-agatha",
+    "name": "Agatha",
+    "rarity": "Secret Rare",
+    "number": "210",
+    "image": "/assets/sets/chilling-reign/cards/210_Agatha_Rare_Rainbow.png"
+  },
+  {
+    "id": "chilling-reign-211-avery",
+    "name": "Avery",
+    "rarity": "Secret Rare",
+    "number": "211",
+    "image": "/assets/sets/chilling-reign/cards/211_Avery_Rare_Rainbow.png"
+  },
+  {
+    "id": "chilling-reign-212-brawly",
+    "name": "Brawly",
+    "rarity": "Secret Rare",
+    "number": "212",
+    "image": "/assets/sets/chilling-reign/cards/212_Brawly_Rare_Rainbow.png"
+  },
+  {
+    "id": "chilling-reign-213-caitlin",
+    "name": "Caitlin",
+    "rarity": "Secret Rare",
+    "number": "213",
+    "image": "/assets/sets/chilling-reign/cards/213_Caitlin_Rare_Rainbow.png"
+  },
+  {
+    "id": "chilling-reign-214-doctor",
+    "name": "Doctor",
+    "rarity": "Secret Rare",
+    "number": "214",
+    "image": "/assets/sets/chilling-reign/cards/214_Doctor_Rare_Rainbow.png"
+  },
+  {
+    "id": "chilling-reign-215-flannery",
+    "name": "Flannery",
+    "rarity": "Secret Rare",
+    "number": "215",
+    "image": "/assets/sets/chilling-reign/cards/215_Flannery_Rare_Rainbow.png"
+  },
+  {
+    "id": "chilling-reign-216-karen-s-conviction",
+    "name": "Karen's Conviction",
+    "rarity": "Secret Rare",
+    "number": "216",
+    "image": "/assets/sets/chilling-reign/cards/216_Karen's_Conviction_Rare_Rainbow.png"
+  },
+  {
+    "id": "chilling-reign-217-klara",
+    "name": "Klara",
+    "rarity": "Secret Rare",
+    "number": "217",
+    "image": "/assets/sets/chilling-reign/cards/217_Klara_Rare_Rainbow.png"
+  },
+  {
+    "id": "chilling-reign-218-melony",
+    "name": "Melony",
+    "rarity": "Secret Rare",
+    "number": "218",
+    "image": "/assets/sets/chilling-reign/cards/218_Melony_Rare_Rainbow.png"
+  },
+  {
+    "id": "chilling-reign-219-peonia",
+    "name": "Peonia",
+    "rarity": "Secret Rare",
+    "number": "219",
+    "image": "/assets/sets/chilling-reign/cards/219_Peonia_Rare_Rainbow.png"
+  },
+  {
+    "id": "chilling-reign-220-peony",
+    "name": "Peony",
+    "rarity": "Secret Rare",
+    "number": "220",
+    "image": "/assets/sets/chilling-reign/cards/220_Peony_Rare_Rainbow.png"
+  },
+  {
+    "id": "chilling-reign-221-siebold",
+    "name": "Siebold",
+    "rarity": "Secret Rare",
+    "number": "221",
+    "image": "/assets/sets/chilling-reign/cards/221_Siebold_Rare_Rainbow.png"
+  },
+  {
+    "id": "chilling-reign-222-electrode",
+    "name": "Electrode",
+    "rarity": "Secret Rare",
+    "number": "222",
+    "image": "/assets/sets/chilling-reign/cards/222_Electrode_Rare_Secret.png"
+  },
+  {
+    "id": "chilling-reign-223-bronzong",
+    "name": "Bronzong",
+    "rarity": "Secret Rare",
+    "number": "223",
+    "image": "/assets/sets/chilling-reign/cards/223_Bronzong_Rare_Secret.png"
+  },
+  {
+    "id": "chilling-reign-224-snorlax",
+    "name": "Snorlax",
+    "rarity": "Secret Rare",
+    "number": "224",
+    "image": "/assets/sets/chilling-reign/cards/224_Snorlax_Rare_Secret.png"
+  },
+  {
+    "id": "chilling-reign-225-echoing-horn",
+    "name": "Echoing Horn",
+    "rarity": "Secret Rare",
+    "number": "225",
+    "image": "/assets/sets/chilling-reign/cards/225_Echoing_Horn_Rare_Secret.png"
+  },
+  {
+    "id": "chilling-reign-226-fan-of-waves",
+    "name": "Fan of Waves",
+    "rarity": "Secret Rare",
+    "number": "226",
+    "image": "/assets/sets/chilling-reign/cards/226_Fan_of_Waves_Rare_Secret.png"
+  },
+  {
+    "id": "chilling-reign-227-fog-crystal",
+    "name": "Fog Crystal",
+    "rarity": "Secret Rare",
+    "number": "227",
+    "image": "/assets/sets/chilling-reign/cards/227_Fog_Crystal_Rare_Secret.png"
+  },
+  {
+    "id": "chilling-reign-228-rugged-helmet",
+    "name": "Rugged Helmet",
+    "rarity": "Secret Rare",
+    "number": "228",
+    "image": "/assets/sets/chilling-reign/cards/228_Rugged_Helmet_Rare_Secret.png"
+  },
+  {
+    "id": "chilling-reign-229-urn-of-vitality",
+    "name": "Urn of Vitality",
+    "rarity": "Secret Rare",
+    "number": "229",
+    "image": "/assets/sets/chilling-reign/cards/229_Urn_of_Vitality_Rare_Secret.png"
+  },
+  {
+    "id": "chilling-reign-230-welcoming-lantern",
+    "name": "Welcoming Lantern",
+    "rarity": "Secret Rare",
+    "number": "230",
+    "image": "/assets/sets/chilling-reign/cards/230_Welcoming_Lantern_Rare_Secret.png"
+  },
+  {
+    "id": "chilling-reign-231-water-energy",
+    "name": "Water Energy",
+    "rarity": "Secret Rare",
+    "number": "231",
+    "image": "/assets/sets/chilling-reign/cards/231_Water_Energy_Rare_Secret.png"
+  },
+  {
+    "id": "chilling-reign-232-psychic-energy",
+    "name": "Psychic Energy",
+    "rarity": "Secret Rare",
+    "number": "232",
+    "image": "/assets/sets/chilling-reign/cards/232_Psychic_Energy_Rare_Secret.png"
+  },
+  {
+    "id": "chilling-reign-233-fighting-energy",
+    "name": "Fighting Energy",
+    "rarity": "Secret Rare",
+    "number": "233",
+    "image": "/assets/sets/chilling-reign/cards/233_Fighting_Energy_Rare_Secret.png"
+  }
+]
