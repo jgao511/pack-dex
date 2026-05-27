@@ -1,4 +1,3 @@
-```markdown
 # PackDex
 
 PackDex is a fan-made Pokémon card pack opening simulator built for collectors, fans, and anyone who enjoys the excitement of opening packs. The goal of PackDex is to recreate the feeling of opening Pokémon card packs digitally while also giving users a simple way to track their progress across different sets and eras.
@@ -9,13 +8,12 @@ Users can choose a set, open simulated packs, reveal cards one by one, and chase
 
 - Open simulated Pokémon card packs from different sets
 - Browse sets by era
-- View cards with interactive tilt effects
-- Experience foil effects and reveal sounds for special pulls
-- Track collection progress for each set
-- See which cards are missing
-- View duplicate pull counts
-- Open enlarged card previews
-- Chase special hits, God Packs, and Demi-God Packs
+- Track your collection for each set
+- View collected and missing cards
+- See duplicate pull counts
+- Click cards for an enlarged interactive view
+- Experience foil effects, sounds, and special pack animations
+- Chase rare pulls, God Packs, Demi-God Packs, and other special hits
 - Explore pack logic inspired by different Pokémon TCG eras
 
 ## Collection Tracking
@@ -34,11 +32,14 @@ The simulator is designed for entertainment and collection-tracking purposes onl
 
 PackDex is an unofficial fan-made pack opening simulator. This website is not produced, endorsed, supported by, or affiliated with Nintendo, The Pokémon Company, Creatures Inc., or GAME FREAK.
 
-Card data, images, prices, market values, promotional offers, simulation probabilities, and pack results may be based on third-party sources and/or custom simulator logic. PackDex makes no guarantee regarding the accuracy of pricing, card data, pull rates, or simulated results. Actual products, availability, prices, and pull rates may vary.
+All Pokémon names, card images, set names, logos, and related trademarks are the property of their respective owners. PackDex is created for entertainment, educational, and collection-tracking purposes only.
+
+Card data, images, prices, market values, promotional offers, simulation probabilities, and pack results may be based on third-party sources and/or custom simulator logic. PackDex makes no guarantee regarding the accuracy of pricing, card data, pull rates, rarity information, or simulated results. Actual products, availability, prices, and pull rates may vary.
+
+PackDex does not sell Pokémon cards, booster packs, or official Pokémon products. Any references to cards, sets, prices, or products are for informational and simulation purposes only.
 
 ## Credits
 
 PackDex is a fan project created for simulation and collection-tracking purposes.
 
 © 2026 PackDex. All rights reserved.
-```
