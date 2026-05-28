@@ -1,5 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Nunito:wght@700;800;900&family=PT+Serif:ital,wght@1,400;1,700&display=swap");
+
 :root {
   --app-font: "Nunito", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --heading-font: "Barlow Condensed", var(--app-font);
+  --card-text-font: "Nunito", var(--app-font);
+  --ui-condensed-font: "Barlow Condensed", var(--app-font);
+  --flavor-font: "PT Serif", Georgia, serif;
   color: #18202f;
   background: #f6f7fb;
   font-family: var(--app-font);
@@ -24,11 +30,171 @@ button {
 .app-shell {
   min-height: 100vh;
   display: grid;
-  place-items: center;
-  padding: 32px;
+  justify-items: center;
+  align-content: start;
+  gap: 24px;
+  padding: 22px 32px 32px;
   background:
     radial-gradient(circle at top left, rgba(255, 202, 65, 0.24), transparent 34%),
     linear-gradient(135deg, #f6f7fb 0%, #eceff6 100%);
+}
+
+.site-header {
+  width: min(100%, 1040px);
+  position: sticky;
+  top: 14px;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  border: 1px solid rgba(18, 24, 39, 0.08);
+  border-radius: 22px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 16px 36px rgba(18, 24, 39, 0.1);
+  backdrop-filter: blur(14px);
+}
+
+.site-brand {
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.site-brand__icon {
+  width: 42px;
+  height: 42px;
+  display: block;
+  flex: 0 0 auto;
+  border-radius: 12px;
+  object-fit: contain;
+  box-shadow: 0 10px 20px rgba(18, 24, 39, 0.12);
+}
+
+.site-brand span {
+  color: #121827;
+  font-family: var(--ui-condensed-font);
+  font-size: 1.85rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.site-logo {
+  width: min(520px, 86vw);
+  max-height: 150px;
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 28px rgba(18, 24, 39, 0.14));
+}
+
+.home-brand-hero {
+  width: min(100%, 1040px);
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.home-brand-hero h1 {
+  margin: 0;
+  color: #121827;
+  font-family: var(--heading-font);
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.main-tabs {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid rgba(18, 24, 39, 0.08);
+  border-radius: 999px;
+  padding: 5px;
+  background:
+    linear-gradient(135deg, rgba(255, 203, 69, 0.12), rgba(94, 168, 255, 0.12)),
+    rgba(255, 255, 255, 0.86);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.54);
+}
+
+.main-tabs button {
+  min-height: 38px;
+  border: 0;
+  border-radius: 999px;
+  padding: 0 16px;
+  color: #475467;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--ui-condensed-font);
+  font-size: 1.08rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  transition:
+    background 160ms ease,
+    box-shadow 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.main-tabs button:hover {
+  transform: translateY(-1px);
+}
+
+.main-tabs button.is-active {
+  color: white;
+  background: linear-gradient(135deg, #142044, #1f5aa6);
+  box-shadow:
+    0 8px 18px rgba(31, 90, 166, 0.22),
+    inset 0 -2px 0 rgba(255, 203, 69, 0.45);
+}
+
+.tab-loading-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  background: rgba(246, 247, 251, 0.52);
+  backdrop-filter: blur(5px);
+  animation: tabOverlayIn 180ms ease both;
+}
+
+.tab-loading-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid rgba(18, 24, 39, 0.08);
+  border-radius: 999px;
+  padding: 10px 16px 10px 10px;
+  color: #121827;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 18px 42px rgba(18, 24, 39, 0.16);
+}
+
+.tab-loading-card img {
+  width: 34px;
+  height: 34px;
+  display: block;
+  border-radius: 10px;
+  object-fit: contain;
+  animation: pokeballSpin 0.9s linear infinite;
+}
+
+.tab-loading-card span {
+  font-family: var(--ui-condensed-font);
+  font-size: 1.02rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .loading-overlay {
@@ -84,13 +250,13 @@ button {
   margin: 0;
   color: #121827;
   font-size: clamp(3rem, 8vw, 6.5rem);
-  line-height: 0.95;
+  line-height: 1;
 }
 
 .brand-title {
-  font-family: var(--app-font);
-  font-weight: 900;
-  letter-spacing: 0;
+  font-family: var(--heading-font);
+  font-weight: 800;
+  letter-spacing: 0.01em;
   text-transform: uppercase;
   text-shadow:
     0 0 12px rgba(120, 180, 255, 0.45),
@@ -125,9 +291,11 @@ button {
 }
 
 .era-filter span {
+  font-family: var(--ui-condensed-font);
   color: #667085;
-  font-size: 0.78rem;
+  font-size: 0.86rem;
   font-weight: 900;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 
@@ -138,8 +306,10 @@ button {
   padding: 9px 34px 9px 12px;
   color: #161b27;
   background: rgba(255, 255, 255, 0.88);
-  font: inherit;
+  font-family: var(--ui-condensed-font);
+  font-size: 1rem;
   font-weight: 800;
+  letter-spacing: 0.02em;
   outline: none;
 }
 
@@ -190,16 +360,19 @@ button {
 
 .era-section__text h2 {
   margin: 0;
+  font-family: var(--heading-font);
   color: #121827;
   font-size: clamp(1.35rem, 3vw, 1.8rem);
-  font-weight: 900;
-  letter-spacing: 0.01em;
+  font-weight: 800;
+  letter-spacing: 0.02em;
 }
 
 .era-section__text span {
+  font-family: var(--ui-condensed-font);
   color: #667085;
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 700;
+  letter-spacing: 0.03em;
 }
 
 .set-tile {
@@ -259,9 +432,10 @@ button {
   color: white;
   background: linear-gradient(135deg, #ff3b6b, #ffb000);
   box-shadow: 0 6px 16px rgba(255, 80, 80, 0.35);
-  font-size: 0.72rem;
+  font-family: var(--ui-condensed-font);
+  font-size: 0.82rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   pointer-events: none;
 }
@@ -295,8 +469,8 @@ button {
 
 .set-logo-fallback {
   color: #121827;
-  font-family: var(--app-font);
-  font-weight: 700;
+  font-family: var(--ui-condensed-font);
+  font-weight: 800;
   font-size: 2rem;
   line-height: 1;
   text-align: center;
@@ -305,25 +479,31 @@ button {
 
 .set-tile-info h2 {
   margin: 0 0 6px;
+  font-family: var(--ui-condensed-font);
   color: #121827;
-  font-size: 1.25rem;
+  font-size: 1.46rem;
   font-weight: 800;
   line-height: 1.15;
+  letter-spacing: 0.01em;
 }
 
 .set-tile-info span {
   display: block;
+  font-family: var(--ui-condensed-font);
   color: #667085;
-  font-size: 0.9rem;
+  font-size: 1.02rem;
   font-weight: 700;
+  letter-spacing: 0.01em;
 }
 
 .set-tile-info small {
   display: block;
   margin-top: 4px;
+  font-family: var(--ui-condensed-font);
   color: #8b95a7;
-  font-size: 0.78rem;
+  font-size: 0.88rem;
   font-weight: 800;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
@@ -336,9 +516,12 @@ button {
   justify-self: start;
   border-radius: 999px;
   padding: 0 16px;
+  font-family: var(--ui-condensed-font);
+  font-size: 1.08rem;
   color: white;
   background: #161b27;
   font-weight: 800;
+  letter-spacing: 0.02em;
 }
 
 .set-collection-button {
@@ -352,7 +535,10 @@ button {
   color: #161b27;
   background: rgba(255, 255, 255, 0.84);
   cursor: pointer;
+  font-family: var(--ui-condensed-font);
+  font-size: 1.08rem;
   font-weight: 800;
+  letter-spacing: 0.02em;
   box-shadow: 0 10px 24px rgba(18, 24, 39, 0.1);
   transition:
     transform 180ms ease,
@@ -369,10 +555,11 @@ button {
 .set-mark,
 .card-count,
 .reveal-status {
+  font-family: var(--ui-condensed-font);
   color: #6b7280;
-  font-size: 0.78rem;
+  font-size: 0.88rem;
   font-weight: 800;
-  letter-spacing: 0;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 
@@ -387,9 +574,10 @@ button {
   color: white;
   background: linear-gradient(135deg, #ff3b6b, #ffb000);
   box-shadow: 0 12px 28px rgba(255, 80, 80, 0.28);
-  font-size: 0.82rem;
+  font-family: var(--ui-condensed-font);
+  font-size: 0.95rem;
   font-weight: 900;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -412,7 +600,10 @@ button {
   border-radius: 999px;
   padding: 0 22px;
   cursor: pointer;
+  font-family: var(--ui-condensed-font);
+  font-size: 1.08rem;
   font-weight: 800;
+  letter-spacing: 0.02em;
   transition:
     transform 180ms ease,
     box-shadow 180ms ease,
@@ -456,7 +647,7 @@ button {
   margin: 0;
   color: #121827;
   font-size: clamp(2.25rem, 6vw, 4.5rem);
-  line-height: 0.95;
+  line-height: 1;
 }
 
 .opening-title .brand-title {
@@ -539,18 +730,20 @@ button {
 .pack-title {
   z-index: 1;
   max-width: 160px;
+  font-family: var(--heading-font);
   color: #121827;
   font-size: 2.45rem;
-  font-weight: 950;
+  font-weight: 800;
   line-height: 0.94;
 }
 
 .pack-subtitle {
   z-index: 1;
+  font-family: var(--ui-condensed-font);
   color: rgba(18, 24, 39, 0.72);
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   font-weight: 900;
-  letter-spacing: 0;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 
@@ -564,7 +757,7 @@ button {
   margin: 0;
   color: #121827;
   font-size: clamp(2.25rem, 6vw, 4.75rem);
-  line-height: 1;
+  line-height: 1.04;
 }
 
 .reveal-heading p {
@@ -1069,15 +1262,19 @@ button {
 
 .pull-card h2 {
   margin: 0 0 6px;
+  font-family: var(--card-text-font);
   color: #161b27;
   font-size: 1rem;
+  font-weight: 800;
 }
 
 .pull-card p {
   margin: 0;
+  font-family: var(--ui-condensed-font);
   color: #667085;
-  font-size: 0.88rem;
+  font-size: 1rem;
   font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 .collection-screen {
@@ -1099,9 +1296,125 @@ button {
 
 .collection-title h1 {
   margin: 0;
+  font-family: var(--heading-font);
   color: #121827;
   font-size: clamp(2rem, 5vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.dashboard-screen {
+  width: min(100%, 1040px);
+  display: grid;
+  gap: 20px;
+  padding: 10px 0 34px;
+}
+
+.dashboard-heading {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.dashboard-heading h1 {
+  margin: 0;
+  color: #121827;
+  font-family: var(--heading-font);
+  font-size: clamp(2.2rem, 5vw, 4.6rem);
+  font-weight: 800;
   line-height: 0.95;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.dashboard-heading p {
+  margin: 0;
+  color: #667085;
+  font-size: 1.02rem;
+  line-height: 1.6;
+}
+
+.dashboard-controls {
+  justify-content: center;
+}
+
+.empty-state,
+.profile-panel {
+  border: 1px solid rgba(18, 24, 39, 0.08);
+  border-radius: 12px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.76);
+  text-align: center;
+  box-shadow: 0 16px 36px rgba(18, 24, 39, 0.1);
+}
+
+.empty-state h2,
+.profile-panel h2 {
+  margin: 0 0 8px;
+  color: #121827;
+  font-family: var(--heading-font);
+  font-size: 2rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.empty-state p,
+.profile-panel p {
+  margin: 0;
+  color: #667085;
+  line-height: 1.6;
+}
+
+.profile-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.profile-stat-grid article {
+  display: grid;
+  gap: 8px;
+  border: 1px solid rgba(18, 24, 39, 0.08);
+  border-radius: 12px;
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 16px 36px rgba(18, 24, 39, 0.1);
+}
+
+.profile-stat-grid span {
+  color: #667085;
+  font-family: var(--ui-condensed-font);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.profile-stat-grid strong {
+  color: #121827;
+  font-family: var(--heading-font);
+  font-size: 2.4rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.recent-set-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.recent-set-list span {
+  border-radius: 999px;
+  padding: 8px 14px;
+  color: #161b27;
+  background: white;
+  font-family: var(--ui-condensed-font);
+  font-size: 1rem;
+  font-weight: 800;
+  box-shadow: 0 10px 24px rgba(18, 24, 39, 0.08);
 }
 
 .collection-logo {
@@ -1128,15 +1441,19 @@ button {
 }
 
 .collection-progress-copy strong {
+  font-family: var(--ui-condensed-font);
   color: #121827;
   font-size: 1.55rem;
   line-height: 1;
+  letter-spacing: 0.02em;
 }
 
 .collection-progress-copy span {
+  font-family: var(--ui-condensed-font);
   color: #667085;
-  font-size: 0.86rem;
+  font-size: 0.98rem;
   font-weight: 800;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
@@ -1192,7 +1509,7 @@ button {
   outline: 0;
   color: #161b27;
   background: transparent;
-  font: inherit;
+  font-family: var(--card-text-font);
   font-weight: 700;
 }
 
@@ -1208,10 +1525,13 @@ button {
 .collection-segments button {
   border: 0;
   padding: 0 14px;
+  font-family: var(--ui-condensed-font);
+  font-size: 1rem;
   color: #667085;
   background: transparent;
   cursor: pointer;
   font-weight: 800;
+  letter-spacing: 0.02em;
   text-transform: capitalize;
 }
 
@@ -1227,8 +1547,10 @@ button {
   padding: 0 14px;
   color: #161b27;
   background: white;
-  font: inherit;
+  font-family: var(--ui-condensed-font);
+  font-size: 1rem;
   font-weight: 800;
+  letter-spacing: 0.02em;
 }
 
 .collection-grid {
@@ -1236,6 +1558,52 @@ button {
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 16px;
   perspective: 1200px;
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.pagination-controls button {
+  min-height: 40px;
+  border: 0;
+  border-radius: 999px;
+  padding: 0 16px;
+  color: white;
+  background: #161b27;
+  cursor: pointer;
+  font-family: var(--ui-condensed-font);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  box-shadow: 0 12px 26px rgba(18, 24, 39, 0.16);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.pagination-controls button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.pagination-controls span {
+  color: #667085;
+  font-family: var(--ui-condensed-font);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
 }
 
 .collection-card {
@@ -1297,15 +1665,19 @@ button {
 }
 
 .collection-card-meta strong {
+  font-family: var(--card-text-font);
   color: #161b27;
   font-size: 0.9rem;
+  font-weight: 800;
   line-height: 1.15;
 }
 
 .collection-card-meta span {
+  font-family: var(--ui-condensed-font);
   color: #667085;
-  font-size: 0.76rem;
+  font-size: 0.9rem;
   font-weight: 800;
+  letter-spacing: 0.02em;
   line-height: 1.25;
 }
 
@@ -1317,9 +1689,11 @@ button {
   top: 12px;
   border-radius: 999px;
   padding: 5px 8px;
+  font-family: var(--ui-condensed-font);
   color: white;
-  font-size: 0.68rem;
+  font-size: 0.78rem;
   font-weight: 900;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   box-shadow: 0 8px 18px rgba(18, 24, 39, 0.2);
 }
@@ -1377,11 +1751,99 @@ button {
   padding: 10px 16px;
   color: white;
   background: rgba(18, 24, 39, 0.82);
-  font-size: 0.78rem;
+  font-family: var(--ui-condensed-font);
+  font-size: 0.92rem;
   font-weight: 900;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   white-space: nowrap;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+}
+
+.card-name {
+  font-family: var(--card-text-font);
+  font-weight: 800;
+}
+
+.set-name,
+.rarity-label,
+.ui-button {
+  font-family: var(--ui-condensed-font);
+  font-weight: 800;
+}
+
+.flavor-text {
+  font-family: var(--flavor-font);
+  font-style: italic;
+}
+
+.site-footer {
+  width: min(100%, 1040px);
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+  border: 1px solid rgba(18, 24, 39, 0.08);
+  border-radius: 18px;
+  padding: 18px;
+  color: #475467;
+  background:
+    linear-gradient(135deg, rgba(255, 203, 69, 0.12), rgba(94, 168, 255, 0.1), rgba(255, 59, 107, 0.08)),
+    rgba(255, 255, 255, 0.78);
+  box-shadow: 0 14px 32px rgba(18, 24, 39, 0.08);
+}
+
+.site-footer__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.site-footer__brand img {
+  width: 34px;
+  height: 34px;
+  display: block;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
+.site-footer__brand span {
+  color: #121827;
+  font-family: var(--ui-condensed-font);
+  font-size: 1.55rem;
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.site-footer p {
+  max-width: 920px;
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.site-footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  border-top: 1px solid rgba(18, 24, 39, 0.08);
+  padding-top: 12px;
+  font-family: var(--ui-condensed-font);
+  font-size: 0.98rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.site-footer__bottom a {
+  color: #1f5aa6;
+  text-decoration: none;
+}
+
+.site-footer__bottom a:hover {
+  text-decoration: underline;
 }
 
 .inspect-close {
@@ -1565,9 +2027,40 @@ button {
   }
 }
 
+@keyframes tabOverlayIn {
+  from {
+    opacity: 0;
+  }
+}
+
 @media (max-width: 720px) {
   .app-shell {
-    padding: 20px;
+    padding: 14px 20px 20px;
+  }
+
+  .site-header {
+    position: static;
+    display: grid;
+    justify-items: stretch;
+    gap: 10px;
+    border-radius: 18px;
+  }
+
+  .site-brand {
+    justify-content: center;
+  }
+
+  .site-logo {
+    max-height: 110px;
+  }
+
+  .main-tabs {
+    width: 100%;
+    border-radius: 18px;
+  }
+
+  .main-tabs button {
+    flex: 1 1 130px;
   }
 
   .era-section__hero {
@@ -1589,6 +2082,10 @@ button {
   .collection-header {
     grid-template-columns: 1fr;
     align-items: start;
+  }
+
+  .profile-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .collection-controls {
@@ -1637,6 +2134,15 @@ button {
     gap: 12px;
   }
 
+  .site-footer {
+    text-align: center;
+  }
+
+  .site-footer__brand,
+  .site-footer__bottom {
+    justify-content: center;
+  }
+
   .pull-card-info {
     padding: 12px;
   }
@@ -1646,6 +2152,10 @@ button {
   .reveal-grid,
   .pull-grid,
   .collection-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-stat-grid {
     grid-template-columns: 1fr;
   }
 }

@@ -1,5 +1,5 @@
 import { PackageOpen, Search } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import CardDetailModal from "./CardDetailModal.jsx";
 import FoilCard from "./FoilCard.jsx";
 import { getSetLogoUrl } from "../utils/assetUrls.js";
@@ -9,6 +9,8 @@ import {
   getSetCollectionProgress,
   isCardCollected,
 } from "../utils/collectionStorage.js";
+
+const COLLECTION_PAGE_SIZE = 60;
 
 function normalizeText(value) {
   return String(value || "").toLowerCase().trim();
@@ -60,6 +62,7 @@ function CollectionPage({ set, collection, onOpenPacks, onBackToSets }) {
   const [filter, setFilter] = useState("all");
   const [sortMode, setSortMode] = useState("number");
   const [query, setQuery] = useState("");
+  const [page, setPage] = useState(1);
   const [selectedCard, setSelectedCard] = useState(null);
   const progress = getSetCollectionProgress(collection, set);
   const cards = useMemo(() => getPullableCollectionCards(set), [set]);
@@ -82,8 +85,18 @@ function CollectionPage({ set, collection, onOpenPacks, onBackToSets }) {
       sortMode
     );
   }, [cards, collection, filter, query, set.id, sortMode]);
+  const totalPages = Math.max(1, Math.ceil(visibleCards.length / COLLECTION_PAGE_SIZE));
+  const pagedCards = visibleCards.slice((page - 1) * COLLECTION_PAGE_SIZE, page * COLLECTION_PAGE_SIZE);
   const selectedCollected = selectedCard ? isCardCollected(collection, selectedCard, set.id) : false;
   const selectedCount = selectedCard ? getCardCount(collection, selectedCard, set.id) : 0;
+
+  useEffect(() => {
+    setPage(1);
+  }, [filter, query, sortMode, set.id]);
+
+  useEffect(() => {
+    setPage((currentPage) => Math.min(currentPage, totalPages));
+  }, [totalPages]);
 
   return (
     <section className="collection-screen">
@@ -148,7 +161,7 @@ function CollectionPage({ set, collection, onOpenPacks, onBackToSets }) {
       </div>
 
       <div className="collection-grid">
-        {visibleCards.map((card) => {
+        {pagedCards.map((card) => {
           const collected = isCardCollected(collection, card, set.id);
           const count = getCardCount(collection, card, set.id);
 
@@ -164,9 +177,10 @@ function CollectionPage({ set, collection, onOpenPacks, onBackToSets }) {
                   set={set}
                   variant="collection"
                   className={collected ? "" : "is-uncollected-preview"}
-                  enableTransform
+                  enableTransform={false}
                   enableCursorBlob={false}
-                  enableTiltFoil
+                  enableTiltFoil={false}
+                  showFoil={false}
                 />
                 {!collected && <span className="missing-badge">Missing</span>}
                 {count > 1 && <span className="count-badge">x{count}</span>}
@@ -181,6 +195,24 @@ function CollectionPage({ set, collection, onOpenPacks, onBackToSets }) {
           );
         })}
       </div>
+
+      {visibleCards.length > COLLECTION_PAGE_SIZE && (
+        <div className="pagination-controls" aria-label="Collection pages">
+          <button type="button" onClick={() => setPage((currentPage) => Math.max(1, currentPage - 1))} disabled={page === 1}>
+            Previous
+          </button>
+          <span>
+            Page {page} of {totalPages} - {visibleCards.length} cards
+          </span>
+          <button
+            type="button"
+            onClick={() => setPage((currentPage) => Math.min(totalPages, currentPage + 1))}
+            disabled={page === totalPages}
+          >
+            Next
+          </button>
+        </div>
+      )}
 
       {selectedCard && (
         <CardDetailModal

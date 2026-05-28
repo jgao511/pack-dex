@@ -13,6 +13,7 @@ function FoilCard({
   enableTransform = interactive,
   enableCursorBlob = false,
   enableTiltFoil = true,
+  showFoil = true,
 }) {
   const [loaded, setLoaded] = useState(false);
   const imgRef = useRef(null);
@@ -46,7 +47,7 @@ function FoilCard({
           onLoad={() => setLoaded(true)}
         />
 
-        {loaded && foilProfile !== "none" && (
+        {showFoil && loaded && foilProfile !== "none" && (
           <>
             <span className="foil-card__rainbow-glare" aria-hidden="true" />
             <span className="foil-card__sparkles" aria-hidden="true" />
