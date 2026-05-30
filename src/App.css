@@ -2051,6 +2051,10 @@ button {
     padding: 14px 20px 20px;
   }
 
+  .inspect-card {
+    width: min(88vw, 300px);
+  }
+
   .site-header {
     position: static;
     display: grid;
