@@ -9,7 +9,8 @@ import {
   preloadHitSounds,
 } from "../utils/sounds.js";
 
-const AUTO_REVEAL_DELAY_MS = 650;
+const AUTO_REVEAL_DELAY_MS = 750;
+const CARD_FLIP_STAGGER_MS = 140;
 
 const packSoundIds = new WeakMap();
 const playedRevealSoundKeys = new Set();
@@ -85,7 +86,7 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
     // Start preloading immediately while the backs are showing.
     preloadImages(imageUrls);
 
-    // After a short pause, reveal with your existing staggered CSS delay.
+    // After 0.75 seconds, reveal with the staggered flip animation.
     autoRevealTimerRef.current = window.setTimeout(() => {
       revealAll();
     }, AUTO_REVEAL_DELAY_MS);
@@ -136,7 +137,7 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
         window.setTimeout(() => {
           playRevealSoundCueOnce(soundCue);
           clearRevealSoundTimers();
-        }, soundCue.index * 80 + 120),
+        }, soundCue.index * CARD_FLIP_STAGGER_MS + 120),
       ];
     }
   }
@@ -187,7 +188,7 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
                 : ""
             }`}
             key={`${card.id}-${index}`}
-            style={{ "--delay": `${index * 80}ms` }}
+            style={{ "--delay": `${index * CARD_FLIP_STAGGER_MS}ms` }}
           >
             <div className="grid-card-face grid-card-back">
               <img src={cardBack} alt="" />
