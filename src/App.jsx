@@ -35,7 +35,7 @@ const MAIN_TABS = [
   { id: "profile", label: "Profile" },
 ];
 
-function preloadImages(urls) {
+function preloadImages(urls, timeoutMs = 4000) {
   return Promise.all(
     urls.map(
       (url) =>
@@ -46,21 +46,21 @@ function preloadImages(urls) {
           }
 
           const img = new Image();
-          img.decoding = "async";
 
-          img.onload = async () => {
-            try {
-              if (img.decode) {
-                await img.decode();
-              }
-            } catch {
-              // Continue even if decoding fails.
-            }
+          const timeout = window.setTimeout(() => {
+            resolve();
+          }, timeoutMs);
 
+          img.onload = () => {
+            window.clearTimeout(timeout);
             resolve();
           };
 
-          img.onerror = resolve;
+          img.onerror = () => {
+            window.clearTimeout(timeout);
+            resolve();
+          };
+
           img.src = url;
         })
     )
@@ -336,7 +336,7 @@ function SiteFooter() {
   return (
     <footer className="site-footer">
       <div className="footer-brand">
-        <img src="/packdex-logo.png" alt="" />
+        <img src="/packdex-small.png" alt="" />
         <span>PackDex</span>
       </div>
 
@@ -466,6 +466,7 @@ function App() {
     setPulledCards([]);
     setScreen("opening");
     setIsTabLoading(false);
+    setIsPackPreloading(false);
   }
 
   async function revealPack() {
@@ -473,21 +474,24 @@ function App() {
 
     setIsPackPreloading(true);
 
-    const nextPulledCards = generatePack(selectedSet);
-    const imageUrls = nextPulledCards.map((card) => getCardImageUrl(card));
+    try {
+      const nextPulledCards = generatePack(selectedSet);
+      const imageUrls = nextPulledCards.map((card) => getCardImageUrl(card));
 
-    await preloadImages(imageUrls);
+      await preloadImages(imageUrls, 4000);
 
-    setPulledCards(nextPulledCards);
+      setPulledCards(nextPulledCards);
 
-    setProfileStats((currentStats) => {
-      const nextStats = updatePackOpenedStats(currentStats, selectedSet);
-      saveProfileStats(nextStats);
-      return nextStats;
-    });
+      setProfileStats((currentStats) => {
+        const nextStats = updatePackOpenedStats(currentStats, selectedSet);
+        saveProfileStats(nextStats);
+        return nextStats;
+      });
 
-    setIsPackPreloading(false);
-    setScreen("reveal");
+      setScreen("reveal");
+    } finally {
+      setIsPackPreloading(false);
+    }
   }
 
   function viewCollection(set = selectedSet) {
@@ -515,6 +519,7 @@ function App() {
 
     returnTokenRef.current = token;
     setIsReturningToSet(true);
+    setIsPackPreloading(false);
 
     window.setTimeout(() => {
       if (returnTokenRef.current !== token) return;
@@ -539,7 +544,7 @@ function App() {
     <>
       <header className="site-header">
         <button className="site-logo" onClick={() => selectMainTab("open")}>
-          <img src="/packdex-logo.png" alt="" />
+          <img src="/packdex-small.png" alt="" />
           <span>PackDex</span>
         </button>
 
@@ -559,7 +564,7 @@ function App() {
       <main className="app-shell">
         {activeTab === "open" && screen === "home" && (
           <section className="hero-section">
-            <img className="hero-logo" src="/packdex-logo.png" alt="PackDex" />
+            <img className="hero-logo" src="/packdex-large.png" alt="PackDex" />
             <h1 className="brand-title">PackDex: Pokemon TCG Pack Opening Simulator</h1>
           </section>
         )}
