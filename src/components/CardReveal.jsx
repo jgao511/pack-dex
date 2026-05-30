@@ -1,13 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Eye, Rows3 } from "lucide-react";
 import FoilCard from "./FoilCard.jsx";
-import { getCardBackUrl, getCardImageUrl } from "../utils/assetUrls.js";
+import { getCardBackUrl } from "../utils/assetUrls.js";
 import { isHigherThanRare, isSubsetCard } from "../utils/packGenerator.js";
-import {
-  getPackRevealSoundCue,
-  playHitSound,
-  preloadHitSounds,
-} from "../utils/sounds.js";
+import { getPackRevealSoundCue, playHitSound, preloadHitSounds } from "../utils/sounds.js";
 
 const packSoundIds = new WeakMap();
 const playedRevealSoundKeys = new Set();
@@ -23,35 +19,16 @@ function getPackSoundId(cards) {
   return packSoundIds.get(cards);
 }
 
-function preloadImages(urls) {
-  return Promise.all(
-    urls.map(
-      (url) =>
-        new Promise((resolve) => {
-          const img = new Image();
-          img.onload = resolve;
-          img.onerror = resolve;
-          img.src = url;
-        })
-    )
-  );
-}
-
 function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
   const [isRevealed, setIsRevealed] = useState(false);
-  const [isPreloading, setIsPreloading] = useState(false);
-
   const soundTimeoutsRef = useRef([]);
   const playedSoundKeysRef = useRef(new Set());
   const revealStartedRef = useRef(false);
-
   const packSoundId = getPackSoundId(cards);
   const isGodPack = Boolean(cards.isGodPack);
   const finalCard = cards.at(-1);
   const hasBigPull = Boolean(finalCard && isHigherThanRare(finalCard));
-  const hasSubsetPull = cards
-    .slice(0, -1)
-    .some((card) => isSubsetCard(card, set));
+  const hasSubsetPull = cards.slice(0, -1).some((card) => isSubsetCard(card, set));
   const cardBack = getCardBackUrl();
 
   useEffect(() => {
@@ -87,16 +64,10 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
     playHitSound(cue.soundType);
   }
 
-  async function revealAll() {
-    if (isRevealed || isPreloading || revealStartedRef.current) return;
+  function revealAll() {
+    if (isRevealed || revealStartedRef.current) return;
 
     revealStartedRef.current = true;
-    setIsPreloading(true);
-
-    const imageUrls = cards.map((card) => getCardImageUrl(card));
-    await preloadImages(imageUrls);
-
-    setIsPreloading(false);
     setIsRevealed(true);
     onCardsRevealed(cards);
     clearRevealSoundTimers();
@@ -130,77 +101,54 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
         <span className="reveal-status">
           {set.name} - {cards.length} cards ready
         </span>
-
-        {isRevealed && isGodPack && (
-          <span className="god-pack-badge">
-            {cards.godPackDisplayName || "God Pack"}!
-          </span>
-        )}
-
+        {isRevealed && isGodPack && <span className="god-pack-badge">{cards.godPackDisplayName || "God Pack"}!</span>}
         <h1 className="brand-title">Reveal Your Pack</h1>
-
         <p>
           {isRevealed
             ? "All pulls are revealed."
-            : isPreloading
-              ? "Loading card images..."
-              : "Click the grid or Reveal All to flip the full pack."}
+            : "Click the grid or Reveal All to flip the full pack."}
         </p>
       </div>
 
       <button
         className="reveal-grid-button"
         onClick={revealAll}
-        disabled={isRevealed || isPreloading}
+        disabled={isRevealed}
         aria-label="Reveal all cards"
       >
-        {isPreloading ? "Loading Cards..." : "Reveal All"}
+        <div className="reveal-grid">
+          {cards.map((card, index) => (
+            <article
+              className={`grid-card-flip ${isRevealed ? "is-revealed" : ""} ${
+                isRevealed && index === cards.length - 1 && hasBigPull ? "big-pull-card" : ""
+              } ${
+                isRevealed && index !== cards.length - 1 && isSubsetCard(card, set)
+                  ? "subset-pull-card"
+                  : ""
+              }`}
+              key={`${card.id}-${index}`}
+              style={{ "--delay": `${index * 80}ms` }}
+            >
+              <div className="grid-card-face grid-card-back">
+                <img src={cardBack} alt="" />
+              </div>
+              <div className="grid-card-face grid-card-front">
+                <FoilCard card={card} set={set} interactive />
+              </div>
+            </article>
+          ))}
+        </div>
       </button>
-
-      <div className="reveal-grid">
-        {cards.map((card, index) => (
-          <article
-            className={`grid-card-flip ${isRevealed ? "is-revealed" : ""} ${
-              isRevealed && index === cards.length - 1 && hasBigPull
-                ? "big-pull-card"
-                : ""
-            } ${
-              isRevealed && index !== cards.length - 1 && isSubsetCard(card, set)
-                ? "subset-pull-card"
-                : ""
-            }`}
-            key={`${card.id}-${index}`}
-            style={{ "--delay": `${index * 80}ms` }}
-          >
-            <div className="grid-card-face grid-card-back">
-              <img src={cardBack} alt="" />
-            </div>
-
-            <div className="grid-card-face grid-card-front">
-              <FoilCard card={card} set={set} interactive />
-            </div>
-          </article>
-        ))}
-      </div>
 
       <div className="reveal-actions">
         {!isRevealed ? (
           <>
-            <button
-              className="secondary-button"
-              onClick={onBackToSets}
-              disabled={isPreloading}
-            >
+            <button className="secondary-button" onClick={onBackToSets}>
               Back to Sets
             </button>
-
-            <button
-              className="primary-button"
-              onClick={revealAll}
-              disabled={isPreloading}
-            >
+            <button className="primary-button" onClick={revealAll}>
               <Eye size={20} aria-hidden="true" />
-              {isPreloading ? "Loading Cards..." : "Reveal All"}
+              Reveal All
             </button>
           </>
         ) : (
@@ -208,7 +156,6 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
             <button className="secondary-button" onClick={onBackToSets}>
               Back to Sets
             </button>
-
             <button className="primary-button" onClick={completeReveal}>
               <Rows3 size={20} aria-hidden="true" />
               View Summary

@@ -44,9 +44,6 @@ function FoilCard({
           className="foil-card__image"
           src={imageUrl}
           alt={card.name}
-          loading={variant === "collection" ? "lazy" : "eager"}
-          decoding="async"
-          fetchPriority={variant === "collection" ? "low" : "high"}
           onLoad={() => setLoaded(true)}
         />
 
