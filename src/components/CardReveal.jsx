@@ -9,7 +9,10 @@ import {
   preloadHitSounds,
 } from "../utils/sounds.js";
 
-const AUTO_REVEAL_DELAY_MS = 650;
+const CARD_DEAL_STAGGER_MS = 120;
+const CARD_DEAL_ANIMATION_MS = 280;
+const WAIT_AFTER_DEAL_MS = 650;
+
 const CARD_FLIP_STAGGER_MS = 220;
 const LAST_CARD_EXTRA_DELAY_MS = 650;
 const SOUND_AFTER_FLIP_START_MS = 120;
@@ -48,6 +51,14 @@ function preloadImages(urls) {
   );
 }
 
+function getCardDealDelay(index) {
+  return index * CARD_DEAL_STAGGER_MS;
+}
+
+function getDealCompleteDelay(totalCards) {
+  return Math.max(0, (totalCards - 1) * CARD_DEAL_STAGGER_MS) + CARD_DEAL_ANIMATION_MS;
+}
+
 function getCardRevealDelay(index, totalCards) {
   const baseDelay = index * CARD_FLIP_STAGGER_MS;
 
@@ -59,12 +70,14 @@ function getCardRevealDelay(index, totalCards) {
 }
 
 function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
+  const [isDealt, setIsDealt] = useState(false);
   const [isRevealed, setIsRevealed] = useState(false);
 
   const soundTimeoutsRef = useRef([]);
   const playedSoundKeysRef = useRef(new Set());
   const revealStartedRef = useRef(false);
   const autoRevealTimerRef = useRef(null);
+  const dealTimerRef = useRef(null);
 
   const packSoundId = getPackSoundId(cards);
   const isGodPack = Boolean(cards.isGodPack);
@@ -84,28 +97,42 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
       if (autoRevealTimerRef.current) {
         window.clearTimeout(autoRevealTimerRef.current);
       }
+
+      if (dealTimerRef.current) {
+        window.clearTimeout(dealTimerRef.current);
+      }
     };
   }, []);
 
   useEffect(() => {
     if (!cards.length) return undefined;
 
+    setIsDealt(false);
     setIsRevealed(false);
     revealStartedRef.current = false;
 
     const imageUrls = cards.map((card) => getCardImageUrl(card));
 
-    // Preload card fronts while backs are showing.
+    // Preload card fronts while the backs are being dealt and waiting.
     preloadImages(imageUrls);
 
-    // After 0.65 seconds, start the slower staggered reveal.
+    dealTimerRef.current = window.setTimeout(() => {
+      setIsDealt(true);
+    }, 30);
+
+    const revealDelay = getDealCompleteDelay(cards.length) + WAIT_AFTER_DEAL_MS;
+
     autoRevealTimerRef.current = window.setTimeout(() => {
       revealAll();
-    }, AUTO_REVEAL_DELAY_MS);
+    }, revealDelay);
 
     return () => {
       if (autoRevealTimerRef.current) {
         window.clearTimeout(autoRevealTimerRef.current);
+      }
+
+      if (dealTimerRef.current) {
+        window.clearTimeout(dealTimerRef.current);
       }
     };
   }, [cards]);
@@ -166,7 +193,7 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
 
   return (
     <section
-      className={`reveal-screen ${
+      className={`reveal-screen ${isDealt ? "is-dealt" : ""} ${
         isRevealed && hasBigPull ? "has-big-pull" : ""
       } ${isRevealed && hasSubsetPull ? "has-subset-pull" : ""}`}
     >
@@ -183,7 +210,13 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
 
         <h1 className="brand-title">Reveal Your Pack</h1>
 
-        <p>{isRevealed ? "All pulls are revealed." : "Loading card fronts..."}</p>
+        <p>
+          {isRevealed
+            ? "All pulls are revealed."
+            : isDealt
+              ? "Preparing the reveal..."
+              : "Dealing your cards..."}
+        </p>
       </div>
 
       <div className="reveal-grid">
@@ -200,6 +233,7 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
             }`}
             key={`${card.id}-${index}`}
             style={{
+              "--deal-delay": `${getCardDealDelay(index)}ms`,
               "--delay": `${getCardRevealDelay(index, cards.length)}ms`,
             }}
           >
