@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Eye, Rows3 } from "lucide-react";
 import FoilCard from "./FoilCard.jsx";
-import { getCardBackUrl } from "../utils/assetUrls.js";
+import { getCardBackUrl, getCardImageUrl } from "../utils/assetUrls.js";
 import { isHigherThanRare, isSubsetCard } from "../utils/packGenerator.js";
 import { getPackRevealSoundCue, playHitSound, preloadHitSounds } from "../utils/sounds.js";
 
@@ -19,8 +19,23 @@ function getPackSoundId(cards) {
   return packSoundIds.get(cards);
 }
 
+function preloadImages(urls) {
+  return Promise.all(
+    urls.map(
+      (url) =>
+        new Promise((resolve) => {
+          const img = new Image();
+          img.onload = resolve;
+          img.onerror = resolve;
+          img.src = url;
+        })
+    )
+  );
+}
+
 function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
   const [isRevealed, setIsRevealed] = useState(false);
+  const [isPreloading, setIsPreloading] = useState(false);
   const soundTimeoutsRef = useRef([]);
   const playedSoundKeysRef = useRef(new Set());
   const revealStartedRef = useRef(false);
@@ -64,25 +79,30 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
     playHitSound(cue.soundType);
   }
 
-  function revealAll() {
-    if (isRevealed || revealStartedRef.current) return;
+ async function revealAll() {
+  if (isRevealed || isPreloading || revealStartedRef.current) return;
 
-    revealStartedRef.current = true;
-    setIsRevealed(true);
-    onCardsRevealed(cards);
-    clearRevealSoundTimers();
+  revealStartedRef.current = true;
+  setIsPreloading(true);
 
-    const soundCue = getPackRevealSoundCue(cards, set);
+  const imageUrls = cards.map((card) => getCardImageUrl(card));
+  await preloadImages(imageUrls);
 
-    if (soundCue) {
-      soundTimeoutsRef.current = [
-        window.setTimeout(() => {
-          playRevealSoundCueOnce(soundCue);
-          clearRevealSoundTimers();
-        }, soundCue.index * 80 + 120),
-      ];
-    }
+  setIsPreloading(false);
+  setIsRevealed(true);
+  onCardsRevealed(cards);
+  clearRevealSoundTimers();
+
+  const soundCue = getPackRevealSoundCue(cards, set);
+  if (soundCue) {
+    soundTimeoutsRef.current = [
+      window.setTimeout(() => {
+        playRevealSoundCueOnce(soundCue);
+        clearRevealSoundTimers();
+      }, soundCue.index * 80 + 120),
+    ];
   }
+}
 
   function completeReveal() {
     clearRevealSoundTimers();
@@ -110,12 +130,14 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
         </p>
       </div>
 
-      <button
-        className="reveal-grid-button"
-        onClick={revealAll}
-        disabled={isRevealed}
-        aria-label="Reveal all cards"
-      >
+   <button
+  className="reveal-grid-button"
+  onClick={revealAll}
+  disabled={isRevealed || isPreloading}
+  aria-label="Reveal all cards"
+>
+  {isPreloading ? "Loading Cards..." : "Reveal All"}
+</button>
         <div className="reveal-grid">
           {cards.map((card, index) => (
             <article
