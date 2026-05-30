@@ -1,9 +1,15 @@
 import { useEffect, useRef, useState } from "react";
-import { Eye, Rows3 } from "lucide-react";
+import { Rows3 } from "lucide-react";
 import FoilCard from "./FoilCard.jsx";
-import { getCardBackUrl } from "../utils/assetUrls.js";
+import { getCardBackUrl, getCardImageUrl } from "../utils/assetUrls.js";
 import { isHigherThanRare, isSubsetCard } from "../utils/packGenerator.js";
-import { getPackRevealSoundCue, playHitSound, preloadHitSounds } from "../utils/sounds.js";
+import {
+  getPackRevealSoundCue,
+  playHitSound,
+  preloadHitSounds,
+} from "../utils/sounds.js";
+
+const AUTO_REVEAL_DELAY_MS = 650;
 
 const packSoundIds = new WeakMap();
 const playedRevealSoundKeys = new Set();
@@ -19,26 +25,77 @@ function getPackSoundId(cards) {
   return packSoundIds.get(cards);
 }
 
+function preloadImages(urls) {
+  return Promise.allSettled(
+    urls.map(
+      (url) =>
+        new Promise((resolve) => {
+          if (!url) {
+            resolve();
+            return;
+          }
+
+          const img = new Image();
+
+          img.onload = resolve;
+          img.onerror = resolve;
+          img.src = url;
+        })
+    )
+  );
+}
+
 function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
   const [isRevealed, setIsRevealed] = useState(false);
+
   const soundTimeoutsRef = useRef([]);
   const playedSoundKeysRef = useRef(new Set());
   const revealStartedRef = useRef(false);
+  const autoRevealTimerRef = useRef(null);
+
   const packSoundId = getPackSoundId(cards);
   const isGodPack = Boolean(cards.isGodPack);
   const finalCard = cards.at(-1);
   const hasBigPull = Boolean(finalCard && isHigherThanRare(finalCard));
-  const hasSubsetPull = cards.slice(0, -1).some((card) => isSubsetCard(card, set));
+  const hasSubsetPull = cards
+    .slice(0, -1)
+    .some((card) => isSubsetCard(card, set));
   const cardBack = getCardBackUrl();
 
   useEffect(() => {
     preloadHitSounds();
 
     return () => {
-      soundTimeoutsRef.current.forEach((timeoutId) => clearTimeout(timeoutId));
-      soundTimeoutsRef.current = [];
+      clearRevealSoundTimers();
+
+      if (autoRevealTimerRef.current) {
+        window.clearTimeout(autoRevealTimerRef.current);
+      }
     };
   }, []);
+
+  useEffect(() => {
+    if (!cards.length) return undefined;
+
+    setIsRevealed(false);
+    revealStartedRef.current = false;
+
+    const imageUrls = cards.map((card) => getCardImageUrl(card));
+
+    // Start preloading immediately while the backs are showing.
+    preloadImages(imageUrls);
+
+    // After a short pause, reveal with your existing staggered CSS delay.
+    autoRevealTimerRef.current = window.setTimeout(() => {
+      revealAll();
+    }, AUTO_REVEAL_DELAY_MS);
+
+    return () => {
+      if (autoRevealTimerRef.current) {
+        window.clearTimeout(autoRevealTimerRef.current);
+      }
+    };
+  }, [cards]);
 
   function clearRevealSoundTimers() {
     soundTimeoutsRef.current.forEach((timeoutId) => clearTimeout(timeoutId));
@@ -93,52 +150,55 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
 
   return (
     <section
-      className={`reveal-screen ${isRevealed && hasBigPull ? "has-big-pull" : ""} ${
-        isRevealed && hasSubsetPull ? "has-subset-pull" : ""
-      }`}
+      className={`reveal-screen ${
+        isRevealed && hasBigPull ? "has-big-pull" : ""
+      } ${isRevealed && hasSubsetPull ? "has-subset-pull" : ""}`}
     >
       <div className="reveal-heading">
         <span className="reveal-status">
           {set.name} - {cards.length} cards ready
         </span>
-        {isRevealed && isGodPack && <span className="god-pack-badge">{cards.godPackDisplayName || "God Pack"}!</span>}
+
+        {isRevealed && isGodPack && (
+          <span className="god-pack-badge">
+            {cards.godPackDisplayName || "God Pack"}!
+          </span>
+        )}
+
         <h1 className="brand-title">Reveal Your Pack</h1>
+
         <p>
           {isRevealed
             ? "All pulls are revealed."
-            : "Click the grid or Reveal All to flip the full pack."}
+            : "Loading card fronts..."}
         </p>
       </div>
 
-      <button
-        className="reveal-grid-button"
-        onClick={revealAll}
-        disabled={isRevealed}
-        aria-label="Reveal all cards"
-      >
-        <div className="reveal-grid">
-          {cards.map((card, index) => (
-            <article
-              className={`grid-card-flip ${isRevealed ? "is-revealed" : ""} ${
-                isRevealed && index === cards.length - 1 && hasBigPull ? "big-pull-card" : ""
-              } ${
-                isRevealed && index !== cards.length - 1 && isSubsetCard(card, set)
-                  ? "subset-pull-card"
-                  : ""
-              }`}
-              key={`${card.id}-${index}`}
-              style={{ "--delay": `${index * 80}ms` }}
-            >
-              <div className="grid-card-face grid-card-back">
-                <img src={cardBack} alt="" />
-              </div>
-              <div className="grid-card-face grid-card-front">
-                <FoilCard card={card} set={set} interactive />
-              </div>
-            </article>
-          ))}
-        </div>
-      </button>
+      <div className="reveal-grid">
+        {cards.map((card, index) => (
+          <article
+            className={`grid-card-flip ${isRevealed ? "is-revealed" : ""} ${
+              isRevealed && index === cards.length - 1 && hasBigPull
+                ? "big-pull-card"
+                : ""
+            } ${
+              isRevealed && index !== cards.length - 1 && isSubsetCard(card, set)
+                ? "subset-pull-card"
+                : ""
+            }`}
+            key={`${card.id}-${index}`}
+            style={{ "--delay": `${index * 80}ms` }}
+          >
+            <div className="grid-card-face grid-card-back">
+              <img src={cardBack} alt="" />
+            </div>
+
+            <div className="grid-card-face grid-card-front">
+              <FoilCard card={card} set={set} interactive />
+            </div>
+          </article>
+        ))}
+      </div>
 
       <div className="reveal-actions">
         {!isRevealed ? (
@@ -146,9 +206,9 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
             <button className="secondary-button" onClick={onBackToSets}>
               Back to Sets
             </button>
-            <button className="primary-button" onClick={revealAll}>
-              <Eye size={20} aria-hidden="true" />
-              Reveal All
+
+            <button className="primary-button" disabled>
+              Revealing...
             </button>
           </>
         ) : (
@@ -156,6 +216,7 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
             <button className="secondary-button" onClick={onBackToSets}>
               Back to Sets
             </button>
+
             <button className="primary-button" onClick={completeReveal}>
               <Rows3 size={20} aria-hidden="true" />
               View Summary
