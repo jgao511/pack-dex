@@ -1741,7 +1741,7 @@ button {
 
 .inspect-card {
   position: relative;
-  width: min(78vw, 430px);
+  width: min(70vw, 320px);
   border-radius: 18px;
   background: transparent;
   box-shadow: none;
