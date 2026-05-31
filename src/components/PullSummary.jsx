@@ -3,6 +3,7 @@ import { Library, RotateCcw } from "lucide-react";
 import CardDetailModal from "./CardDetailModal.jsx";
 import FoilCard from "./FoilCard.jsx";
 import { getCardCount } from "../utils/collectionStorage.js";
+import { getDisplayCardName, getDisplayRarity } from "../utils/packGenerator.js";
 
 function PullSummary({ cards, set, collection, onOpenAnother, onBackToSets, onViewCollection }) {
   const [inspectedCard, setInspectedCard] = useState(null);
@@ -71,9 +72,9 @@ function PullSummary({ cards, set, collection, onOpenAnother, onBackToSets, onVi
               )}
             </div>
             <div className="pull-card-info">
-              <h2>{card.name}</h2>
+              <h2>{getDisplayCardName(card, set)}</h2>
               <p>
-                {card.rarity} - #{card.number}
+                {getDisplayRarity(card, set)} - #{card.number}
               </p>
             </div>
           </article>

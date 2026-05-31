@@ -487,6 +487,7 @@ function getCardsAndSet(cardsOrSet, maybeSet) {
 
 function cardSearchText(card) {
   return [
+    card.rarityCategory,
     card.rarity,
     card.name,
     card.id,
@@ -495,6 +496,11 @@ function cardSearchText(card) {
     card.set,
     card.setName,
     card.collection,
+    card.image,
+    card.imagePath,
+    card.fileName,
+    card.imageFileName,
+    card.filename,
   ]
     .map((value) => normalizeText(value))
     .join(" ");
@@ -553,16 +559,36 @@ function normalizeCategoryForSet(category, set = {}) {
   return category;
 }
 
+function hasRaritySuffix(name, suffix) {
+  return new RegExp(`\\b${suffix}$`, "u").test(name);
+}
+
 export function isIllustrationRare(card) {
   const rarity = normalizeRarity(card?.rarity);
+  const text = cardSearchText(card || {});
 
-  return rarity === "illustration rare" || rarity === "art rare" || rarity === "ir";
+  if (isSpecialIllustrationRare(card)) return false;
+
+  return (
+    rarity === "illustration rare" ||
+    rarity === "art rare" ||
+    rarity === "ir" ||
+    text.includes("illustration rare") ||
+    text.includes("art rare")
+  );
 }
 
 export function isSpecialIllustrationRare(card) {
   const rarity = normalizeRarity(card?.rarity);
+  const text = cardSearchText(card || {});
 
-  return rarity === "special illustration rare" || rarity === "special art rare" || rarity === "sir";
+  return (
+    rarity === "special illustration rare" ||
+    rarity === "special art rare" ||
+    rarity === "sir" ||
+    text.includes("special illustration rare") ||
+    text.includes("special art rare")
+  );
 }
 
 export function isMegaAttackRare(card) {
@@ -647,12 +673,15 @@ export function getRarityCategory(card, set = {}) {
 
   const rarity = normalizeRarity(card.rarity);
   const name = normalizeText(card.name);
-  const id = normalizeText(card.id);
-  const number = normalizeText(card.number);
   const subset = normalizeRarity(card.subset);
-  const combined = `${rarity} ${name} ${id} ${number} ${subset}`;
+  const combined = cardSearchText(card);
 
-  if (combined.includes("mega hyper rare") || combined.includes(" mhr") || combined.endsWith("mhr")) {
+  if (
+    combined.includes("mega hyper rare") ||
+    combined.includes(" mhr") ||
+    combined.endsWith("mhr") ||
+    (rarity === "rare" && hasRaritySuffix(name, "mega hyper"))
+  ) {
     return normalizeCategoryForSet("megaHyperRare", set);
   }
 
@@ -673,11 +702,36 @@ export function getRarityCategory(card, set = {}) {
   if (rarity === "trainer gallery" || rarity === "tg" || subset === "trainer gallery") return "trainerGallery";
   if (rarity === "galarian gallery" || rarity === "gg" || subset === "galarian gallery") return "galarianGallery";
   if (combined.includes("ace spec")) return "aceSpecRare";
-  if (combined.includes("hyper rare")) return "hyperRare";
+  if (
+    combined.includes("hyper rare") ||
+    combined.includes("rare hyper") ||
+    (rarity === "rare" && hasRaritySuffix(name, "hyper"))
+  ) {
+    return "hyperRare";
+  }
+  if (
+    combined.includes("gold rare") ||
+    combined.includes("rare gold") ||
+    (rarity === "rare" && hasRaritySuffix(name, "gold"))
+  ) {
+    return "hyperRare";
+  }
+  if (
+    combined.includes("rainbow rare") ||
+    combined.includes("rare rainbow") ||
+    (rarity === "rare" && hasRaritySuffix(name, "rainbow"))
+  ) {
+    return "rainbowRare";
+  }
   if (combined.includes("secret rare") || rarity === "rare secret") return "secretRare";
-  if (combined.includes("rainbow rare")) return "rainbowRare";
   if (isIllustrationRare(card)) return "illustrationRare";
   if (isBreakCard(card)) return "breakRare";
+  if (
+    combined.includes("mega ultra rare") ||
+    (rarity === "rare" && hasRaritySuffix(name, "mega ultra"))
+  ) {
+    return "ultraRare";
+  }
   if (isXYFullArtOrUltra(card)) return "ultraRare";
   if (combined.includes("mega") && combined.includes("double rare")) {
     return normalizeCategoryForSet("megaDoubleRare", set);
@@ -695,6 +749,7 @@ export function getRarityCategory(card, set = {}) {
   if (["pokemon ex", "pokémon ex", "ex"].includes(rarity) || isXYEX(card)) return "doubleRare";
   if (combined.includes("alternate art") || combined.includes("alt art")) return "alternateArt";
   if (combined.includes("radiant rare") || rarity === "radiant" || combined.includes("radiant")) return "radiantRare";
+  if (combined.includes("amazing rare") || (rarity === "rare" && hasRaritySuffix(name, "amazing"))) return "ultraRare";
   if (combined.includes("rare holo vmax") || combined.includes("rare holo vstar")) return "vmaxOrVstar";
   if (/\bvmax\b/u.test(combined) || /\bvstar\b/u.test(combined) || rarity === "vmax rare" || rarity === "vstar rare") {
     return "vmaxOrVstar";
@@ -710,6 +765,80 @@ export function getRarityCategory(card, set = {}) {
   if (rarity === "uncommon") return "uncommon";
 
   return "other";
+}
+
+export const RARITY_CATEGORY_LABELS = {
+  common: "Common",
+  uncommon: "Uncommon",
+  rare: "Rare",
+  holoRare: "Rare Holo",
+  gx: "Rare Holo GX",
+  pokemonV: "Rare Holo V",
+  vmaxOrVstar: "Rare Holo VMAX/VSTAR",
+  doubleRare: "Double Rare",
+  breakRare: "Rare BREAK",
+  ultraRare: "Ultra Rare",
+  fullArt: "Full Art",
+  illustrationRare: "Illustration Rare",
+  specialIllustrationRare: "Special Illustration Rare",
+  rainbowRare: "Rainbow Rare",
+  secretRare: "Secret Rare",
+  hyperRare: "Hyper Rare",
+  alternateArt: "Alternate Art",
+  shinyRare: "Shiny Rare",
+  shinyUltraRare: "Shiny Ultra Rare",
+  trainerGallery: "Trainer Gallery",
+  galarianGallery: "Galarian Gallery",
+  classicCollection: "Classic Collection",
+  radiantRare: "Radiant Rare",
+  aceSpecRare: "ACE SPEC Rare",
+  blackWhiteRare: "Black White Rare",
+  victiniRare: "Victini Rare",
+  megaDoubleRare: "Mega Double Rare",
+  megaHyperRare: "Mega Hyper Rare",
+};
+
+const DISPLAY_RARITY_SUFFIXES_BY_CATEGORY = {
+  megaHyperRare: ["Mega Hyper"],
+  hyperRare: ["Hyper", "Gold"],
+  rainbowRare: ["Rainbow"],
+  secretRare: ["Secret"],
+  specialIllustrationRare: ["Special Illustration"],
+  illustrationRare: ["Illustration"],
+  ultraRare: ["Mega Ultra", "Ultra", "Rare Ultra", "Amazing"],
+  doubleRare: ["Mega Double", "Double"],
+  radiantRare: ["Radiant"],
+  shinyRare: ["Shiny"],
+  shinyUltraRare: ["Shiny Ultra"],
+  trainerGallery: ["Trainer Gallery"],
+  galarianGallery: ["Galarian Gallery"],
+  aceSpecRare: ["ACE SPEC"],
+  blackWhiteRare: ["Black White"],
+};
+
+export function getDisplayRarity(card, set = {}) {
+  const category = getRarityCategory(card, set);
+  const evidence = cardSearchText(card || {});
+
+  if (evidence.includes("amazing rare")) return "Amazing Rare";
+
+  return RARITY_CATEGORY_LABELS[category] || card?.rarity || "Unknown";
+}
+
+export function getDisplayCardName(card, set = {}) {
+  const rawName = String(card?.name || "").trim();
+  const category = getRarityCategory(card, set);
+  const suffixes = DISPLAY_RARITY_SUFFIXES_BY_CATEGORY[category] || [];
+
+  for (const suffix of suffixes) {
+    const pattern = new RegExp(`\\s+${suffix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`, "iu");
+
+    if (pattern.test(rawName)) {
+      return rawName.replace(pattern, "").trim();
+    }
+  }
+
+  return rawName;
 }
 
 export function getPullRateProfile(set = {}) {

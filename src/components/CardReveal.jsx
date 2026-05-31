@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { Rows3 } from "lucide-react";
 import FoilCard from "./FoilCard.jsx";
 import { getCardBackUrl, getCardImageUrl } from "../utils/assetUrls.js";
 import { isHigherThanRare, isSubsetCard } from "../utils/packGenerator.js";
@@ -11,10 +10,12 @@ import {
 
 const CARD_DEAL_STAGGER_MS = 120;
 const CARD_DEAL_ANIMATION_MS = 280;
-const WAIT_AFTER_DEAL_MS = 650;
+const WAIT_AFTER_DEAL_MS = 500;
 
 const CARD_FLIP_STAGGER_MS = 220;
 const LAST_CARD_EXTRA_DELAY_MS = 650;
+const CARD_FLIP_ANIMATION_MS = 620;
+const SUMMARY_AFTER_LAST_CARD_MS = 250;
 const SOUND_AFTER_FLIP_START_MS = 120;
 
 const packSoundIds = new WeakMap();
@@ -77,6 +78,7 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
   const playedSoundKeysRef = useRef(new Set());
   const revealStartedRef = useRef(false);
   const autoRevealTimerRef = useRef(null);
+  const autoCompleteTimerRef = useRef(null);
   const dealTimerRef = useRef(null);
 
   const packSoundId = getPackSoundId(cards);
@@ -96,6 +98,10 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
 
       if (autoRevealTimerRef.current) {
         window.clearTimeout(autoRevealTimerRef.current);
+      }
+
+      if (autoCompleteTimerRef.current) {
+        window.clearTimeout(autoCompleteTimerRef.current);
       }
 
       if (dealTimerRef.current) {
@@ -129,6 +135,10 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
     return () => {
       if (autoRevealTimerRef.current) {
         window.clearTimeout(autoRevealTimerRef.current);
+      }
+
+      if (autoCompleteTimerRef.current) {
+        window.clearTimeout(autoCompleteTimerRef.current);
       }
 
       if (dealTimerRef.current) {
@@ -182,11 +192,16 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
         }, soundDelay),
       ];
     }
-  }
 
-  function completeReveal() {
-    clearRevealSoundTimers();
-    onComplete();
+    const summaryDelay =
+      getCardRevealDelay(cards.length - 1, cards.length) +
+      CARD_FLIP_ANIMATION_MS +
+      SUMMARY_AFTER_LAST_CARD_MS;
+
+    autoCompleteTimerRef.current = window.setTimeout(() => {
+      clearRevealSoundTimers();
+      onComplete();
+    }, summaryDelay);
   }
 
   if (!cards.length) return null;
@@ -259,18 +274,7 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
               Revealing...
             </button>
           </>
-        ) : (
-          <>
-            <button className="secondary-button" onClick={onBackToSets}>
-              Back to Sets
-            </button>
-
-            <button className="primary-button" onClick={completeReveal}>
-              <Rows3 size={20} aria-hidden="true" />
-              View Summary
-            </button>
-          </>
-        )}
+        ) : null}
       </div>
     </section>
   );

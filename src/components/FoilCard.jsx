@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { getCardImageUrl } from "../utils/assetUrls.js";
 import { getFoilProfile } from "../utils/foil.js";
+import { getDisplayCardName } from "../utils/packGenerator.js";
 import TiltCardFrame from "./TiltCardFrame.jsx";
 
 function FoilCard({
@@ -18,6 +19,7 @@ function FoilCard({
   const [loaded, setLoaded] = useState(false);
   const imgRef = useRef(null);
   const imageUrl = getCardImageUrl(card);
+  const displayName = getDisplayCardName(card, set);
 
   useEffect(() => {
     setLoaded(false);
@@ -43,7 +45,7 @@ function FoilCard({
           ref={imgRef}
           className="foil-card__image"
           src={imageUrl}
-          alt={card.name}
+          alt={displayName}
           loading={variant === "collection" ? "lazy" : "eager"}
           decoding="async"
           fetchPriority={variant === "collection" ? "low" : "high"}

@@ -73,6 +73,7 @@ function calculateTilt(event, element, motion) {
 export function useCardTilt({ enabled = true, intensity = "normal" } = {}) {
   const ref = useRef(null);
   const frameRef = useRef(0);
+  const activePointerIdRef = useRef(null);
   const currentRef = useRef({ ...NEUTRAL_TILT });
   const targetRef = useRef({ ...NEUTRAL_TILT });
   const motion = INTENSITY[intensity] || INTENSITY.normal;
@@ -112,7 +113,9 @@ export function useCardTilt({ enabled = true, intensity = "normal" } = {}) {
   useEffect(() => {
     if (!enabled) return undefined;
 
-    function handleDocumentMouseMove(event) {
+    function handleDocumentPointerMove(event) {
+      if (event.pointerType !== "mouse") return;
+
       const element = ref.current;
 
       if (!element) return;
@@ -129,29 +132,62 @@ export function useCardTilt({ enabled = true, intensity = "normal" } = {}) {
       }
     }
 
-    window.addEventListener("mousemove", handleDocumentMouseMove, { passive: true });
+    window.addEventListener("pointermove", handleDocumentPointerMove, { passive: true });
 
     return () => {
-      window.removeEventListener("mousemove", handleDocumentMouseMove);
+      window.removeEventListener("pointermove", handleDocumentPointerMove);
     };
   }, [enabled]);
 
-  const onMouseMove = useCallback(
+  const onPointerDown = useCallback(
     (event) => {
       if (!enabled || !ref.current) return;
+
+      activePointerIdRef.current = event.pointerId;
+      ref.current.setPointerCapture?.(event.pointerId);
+      targetRef.current = calculateTilt(event, ref.current, motion);
+    },
+    [enabled, motion]
+  );
+
+  const onPointerMove = useCallback(
+    (event) => {
+      if (!enabled || !ref.current) return;
+
+      const isTouchPointer = event.pointerType === "touch" || event.pointerType === "pen";
+
+      if (isTouchPointer && activePointerIdRef.current !== event.pointerId) return;
+      if (isTouchPointer) event.preventDefault();
 
       targetRef.current = calculateTilt(event, ref.current, motion);
     },
     [enabled, motion]
   );
 
-  const onMouseLeave = useCallback(() => {
+  const onPointerEnd = useCallback((event) => {
+    if (event?.pointerId != null && activePointerIdRef.current === event.pointerId) {
+      ref.current?.releasePointerCapture?.(event.pointerId);
+      activePointerIdRef.current = null;
+    }
+
     setNeutral(targetRef);
   }, []);
 
+  const onPointerLeave = useCallback(
+    (event) => {
+      if (event.pointerType === "mouse" || activePointerIdRef.current === null) {
+        setNeutral(targetRef);
+      }
+    },
+    []
+  );
+
   return {
     ref,
-    onMouseMove,
-    onMouseLeave,
+    onPointerDown,
+    onPointerMove,
+    onPointerUp: onPointerEnd,
+    onPointerCancel: onPointerEnd,
+    onPointerLeave,
   };
 }

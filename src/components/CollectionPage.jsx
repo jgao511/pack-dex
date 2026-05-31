@@ -9,6 +9,8 @@ import {
   getSetCollectionProgress,
   isCardCollected,
 } from "../utils/collectionStorage.js";
+import { getDisplayCardName, getDisplayRarity } from "../utils/packGenerator.js";
+import { compareCardsByRarity } from "../utils/rarityRank.js";
 
 const COLLECTION_PAGE_SIZE = 60;
 
@@ -23,7 +25,7 @@ function numberValue(card) {
   return Number.isFinite(parsed) ? parsed : Number.MAX_SAFE_INTEGER;
 }
 
-function sortCards(cards, sortMode) {
+function sortCards(cards, sortMode, set) {
   const sorted = [...cards];
 
   if (sortMode === "name") {
@@ -34,7 +36,7 @@ function sortCards(cards, sortMode) {
   if (sortMode === "rarity") {
     sorted.sort(
       (a, b) =>
-        String(a.rarity || "").localeCompare(String(b.rarity || "")) ||
+        compareCardsByRarity(a, b, set, set) ||
         numberValue(a) - numberValue(b) ||
         String(a.name || "").localeCompare(String(b.name || ""))
     );
@@ -58,7 +60,15 @@ function SetLogo({ set }) {
   return <img className="collection-logo" src={logoUrl} alt={`${set.name} logo`} />;
 }
 
-function CollectionPage({ set, collection, onOpenPacks, onBackToSets }) {
+function CollectionPage({
+  set,
+  collection,
+  binders = [],
+  onAddToBinder,
+  onRemoveFromBinder,
+  onOpenPacks,
+  onBackToSets,
+}) {
   const [filter, setFilter] = useState("all");
   const [sortMode, setSortMode] = useState("number");
   const [query, setQuery] = useState("");
@@ -82,7 +92,8 @@ function CollectionPage({ set, collection, onOpenPacks, onBackToSets }) {
 
         return matchesFilter && matchesSearch;
       }),
-      sortMode
+      sortMode,
+      set
     );
   }, [cards, collection, filter, query, set.id, sortMode]);
   const totalPages = Math.max(1, Math.ceil(visibleCards.length / COLLECTION_PAGE_SIZE));
@@ -186,9 +197,9 @@ function CollectionPage({ set, collection, onOpenPacks, onBackToSets }) {
                 {count > 1 && <span className="count-badge">x{count}</span>}
               </div>
               <div className="collection-card-meta">
-                <strong>{card.name}</strong>
+                <strong>{getDisplayCardName(card, set)}</strong>
                 <span>
-                  #{card.number} - {card.rarity}
+                  #{card.number} - {getDisplayRarity(card, set)}
                 </span>
               </div>
             </article>
@@ -220,6 +231,10 @@ function CollectionPage({ set, collection, onOpenPacks, onBackToSets }) {
           set={set}
           collected={selectedCollected}
           count={selectedCount}
+          showBinderControl={selectedCollected}
+          binders={binders}
+          onAddToBinder={onAddToBinder}
+          onRemoveFromBinder={onRemoveFromBinder}
           onClose={() => setSelectedCard(null)}
         />
       )}

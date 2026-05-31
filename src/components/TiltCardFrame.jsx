@@ -10,8 +10,11 @@ function TiltCardFrame({ children, variant = "default", className = "", enabled 
     <div
       ref={tilt.ref}
       className={`tilt-card-shell tilt-card-shell--${variant} ${enabled ? "is-interactive" : "is-static"} ${className}`.trim()}
-      onMouseMove={enabled ? tilt.onMouseMove : undefined}
-      onMouseLeave={enabled ? tilt.onMouseLeave : undefined}
+      onPointerDown={enabled ? tilt.onPointerDown : undefined}
+      onPointerMove={enabled ? tilt.onPointerMove : undefined}
+      onPointerUp={enabled ? tilt.onPointerUp : undefined}
+      onPointerCancel={enabled ? tilt.onPointerCancel : undefined}
+      onPointerLeave={enabled ? tilt.onPointerLeave : undefined}
     >
       <div className={`tilt-card-frame tilt-card-frame--${variant}`}>
         {children}

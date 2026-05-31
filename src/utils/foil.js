@@ -63,6 +63,7 @@ const PREMIUM_CATEGORIES = new Set([
 ]);
 
 const STANDARD_HIT_CATEGORIES = new Set(["holoRare", "doubleRare", "gx", "pokemonV", "vmaxOrVstar"]);
+const NO_SOUND_CATEGORIES = new Set(["common", "uncommon", "rare", "holoRare"]);
 
 export function normalizeText(value) {
   return normalizeRarity(value);
@@ -283,6 +284,42 @@ export function getHitSoundType(card, set = {}) {
   const category = getRarityCategory(card, set);
 
   if (card.isReverseHolo || variant === "reverseholo" || variant === "reverse holo") {
+    return "none";
+  }
+
+  if (
+    [
+      "fullArt",
+      "secretRare",
+      "hyperRare",
+      "rainbowRare",
+      "illustrationRare",
+      "specialIllustrationRare",
+      "trainerGallery",
+      "galarianGallery",
+      "classicCollection",
+      "shinyRare",
+      "shinyUltraRare",
+      "blackWhiteRare",
+      "victiniRare",
+      "megaHyperRare",
+      "breakRare",
+      "alternateArt",
+      "goldRare",
+    ].includes(category)
+  ) {
+    return "bigHit";
+  }
+
+  if (
+    ["doubleRare", "gx", "pokemonV", "vmaxOrVstar", "megaDoubleRare", "ultraRare", "radiantRare", "aceSpecRare"].includes(
+      category
+    )
+  ) {
+    return "hit";
+  }
+
+  if (NO_SOUND_CATEGORIES.has(category)) {
     return "none";
   }
 
