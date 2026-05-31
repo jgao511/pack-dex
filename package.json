@@ -4,6 +4,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "check-randomness": "node scripts/check-randomness.js",
+    "audit-rarities": "node scripts/audit-rarities.mjs",
     "organize-assets": "node scripts/organize-assets.js",
     "generate-json": "node scripts/generate-json-from-assets.js"
   },
