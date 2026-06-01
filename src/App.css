@@ -2766,6 +2766,11 @@ button {
   .reveal-heading p {
     font-size: 0.95rem;
   }
+
+  .reveal-grid {
+    --reveal-card-width: clamp(112px, min(12vw, 15svh), 138px);
+    gap: clamp(9px, min(1.2vw, 1.4svh), 14px);
+  }
 }
 
 @media (max-width: 720px) {
@@ -2897,32 +2902,60 @@ button {
 
   .summary-header {
     display: grid;
+    justify-items: center;
     align-items: start;
+    gap: 12px;
+    margin-bottom: 14px;
+    text-align: center;
+  }
+
+  .summary-screen {
+    padding: 14px 0 24px;
+  }
+
+  .summary-header h1 {
+    font-size: clamp(2rem, 11vw, 3.25rem);
+    line-height: 0.95;
   }
 
   .summary-header .primary-button,
   .summary-header .secondary-button {
     width: 100%;
+    min-height: 38px;
+    padding: 0 10px;
+    font-size: 0.9rem;
+    gap: 5px;
+    line-height: 1;
+  }
+
+  .summary-header .primary-button svg,
+  .summary-header .secondary-button svg {
+    width: 16px;
+    height: 16px;
+    flex: 0 0 auto;
   }
 
   .summary-actions {
     width: 100%;
     display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
   }
 
   .reveal-grid {
-    --reveal-card-width: clamp(92px, 28vw, 132px);
+    --reveal-card-width: clamp(54px, calc((100vw - 74px) / 5), 110px);
     width: 100%;
     grid-template-columns: repeat(5, var(--reveal-card-width));
-    justify-content: start;
-    gap: 10px;
+    justify-content: center;
+    gap: clamp(5px, 1.4vw, 8px);
     padding-inline: 4px;
     scroll-padding-inline: 14px;
   }
 
   .pull-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: clamp(5px, 1.4vw, 8px);
+    width: 100%;
   }
 
   .collection-grid {
@@ -2939,15 +2972,54 @@ button {
     justify-content: center;
   }
 
+  .pull-card {
+    border-radius: 7px;
+    box-shadow: 0 10px 22px rgba(18, 24, 39, 0.1);
+  }
+
+  .pull-card-image {
+    padding: 3px;
+  }
+
   .pull-card-info {
-    padding: 12px;
+    display: none;
+  }
+
+  .pull-card .new-badge,
+  .pull-card .count-badge {
+    top: 4px;
+    padding: 3px 5px;
+    font-size: 0.58rem;
+    box-shadow: 0 4px 10px rgba(18, 24, 39, 0.18);
+  }
+
+  .pull-card .new-badge {
+    left: 4px;
+  }
+
+  .pull-card .count-badge {
+    right: 4px;
   }
 }
 
 @media (max-width: 420px) {
-  .pull-grid,
   .collection-grid {
     grid-template-columns: 1fr;
+  }
+
+  .pull-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .summary-actions {
+    gap: 6px;
+  }
+
+  .summary-header .primary-button,
+  .summary-header .secondary-button {
+    min-height: 36px;
+    padding-inline: 6px;
+    font-size: 0.78rem;
   }
 
   .profile-stat-grid {
