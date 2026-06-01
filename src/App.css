@@ -56,6 +56,12 @@ button {
   backdrop-filter: blur(14px);
 }
 
+.app-shell.is-pack-flow .site-header {
+  width: min(100%, 620px);
+  justify-content: center;
+  padding-inline: 16px;
+}
+
 .site-brand {
   min-width: 0;
   display: inline-flex;
@@ -2359,7 +2365,7 @@ button {
 .inspect-modal {
   position: fixed;
   inset: 0;
-  z-index: 20;
+  z-index: 100;
   display: grid;
   place-items: center;
   padding: 24px;
@@ -2780,8 +2786,8 @@ button {
   }
 
   .inspect-card {
-    width: min(88vw, 330px);
-    max-height: min(78svh, 560px);
+    width: min(66vw, 250px);
+    max-height: min(66svh, 460px);
   }
 
   .site-header {
@@ -2828,6 +2834,19 @@ button {
   .collection-header {
     grid-template-columns: 1fr;
     align-items: start;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  .collection-title h1,
+  .dashboard-heading h1 {
+    font-size: clamp(1.9rem, 10vw, 3rem);
+  }
+
+  .dashboard-screen,
+  .collection-screen {
+    gap: 14px;
+    padding-block: 8px 24px;
   }
 
   .profile-stat-grid {
@@ -2886,6 +2905,7 @@ button {
 
   .collection-controls {
     display: grid;
+    gap: 8px;
   }
 
   .collection-search,
@@ -2959,8 +2979,76 @@ button {
   }
 
   .collection-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .collection-card {
+    border-radius: 7px;
+    box-shadow: 0 10px 22px rgba(18, 24, 39, 0.09);
+  }
+
+  .collection-card-image {
+    padding: 4px;
+  }
+
+  .collection-card-meta {
+    gap: 2px;
+    padding: 6px;
+  }
+
+  .collection-card-meta strong {
+    font-size: 0.68rem;
+    line-height: 1.05;
+  }
+
+  .collection-card-meta span {
+    font-size: 0.7rem;
+    line-height: 1.1;
+  }
+
+  .collection-card .missing-badge,
+  .collection-card .count-badge {
+    top: 4px;
+    padding: 3px 5px;
+    font-size: 0.55rem;
+  }
+
+  .collection-card .missing-badge {
+    left: 4px;
+  }
+
+  .collection-card .count-badge {
+    right: 4px;
+  }
+
+  .inspect-modal {
+    padding: 14px;
+    align-items: center;
+  }
+
+  .inspect-status {
+    bottom: -38px;
+    padding: 7px 11px;
+    font-size: 0.78rem;
+  }
+
+  .inspect-binder-control {
+    bottom: -88px;
+    grid-template-columns: 1fr;
+    width: min(280px, 86vw);
+  }
+
+  .inspect-binder-control.is-primary-action {
+    bottom: -44px;
+  }
+
+  .inspect-binder-control select,
+  .inspect-binder-control button,
+  .inspect-binder-empty {
+    min-height: 34px;
+    padding: 0 12px;
+    font-size: 0.78rem;
   }
 
   .site-footer {
@@ -3004,7 +3092,20 @@ button {
 
 @media (max-width: 420px) {
   .collection-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  .collection-card-meta strong {
+    font-size: 0.62rem;
+  }
+
+  .collection-card-meta span {
+    font-size: 0.64rem;
+  }
+
+  .inspect-card {
+    width: min(62vw, 220px);
   }
 
   .pull-grid {

@@ -864,6 +864,7 @@ function App() {
   const [isReturningToSet, setIsReturningToSet] = useState(false);
   const returnTokenRef = useRef(0);
   const tabLoadTokenRef = useRef(0);
+  const isPackFlow = activeTab === "open" && ["opening", "reveal", "summary"].includes(screen);
 
   function selectMainTab(tab) {
     if (tab === activeTab) return;
@@ -912,6 +913,22 @@ function App() {
       return nextStats;
     });
     setScreen("reveal");
+  }
+
+  function openAnotherPack() {
+    if (!selectedSet || !canGeneratePack(selectedSet)) return;
+
+    setIsReturningToSet(false);
+    setActiveTab("open");
+    setPulledCards(generatePack(selectedSet));
+    setProfileStats((currentStats) => {
+      const nextStats = updatePackOpenedStats(currentStats, selectedSet);
+
+      saveProfileStats(nextStats);
+      return nextStats;
+    });
+    setScreen("reveal");
+    setIsTabLoading(false);
   }
 
   function viewCollection(set = selectedSet) {
@@ -1010,24 +1027,26 @@ function App() {
   }
 
   return (
-    <main className="app-shell">
+    <main className={`app-shell ${isPackFlow ? "is-pack-flow" : ""}`.trim()}>
       <header className="site-header">
         <div className="site-brand">
           <img className="site-brand__icon" src="/packdex-small.png" alt="" />
           <span>PackDex</span>
         </div>
-        <nav className="main-tabs" aria-label="Main navigation">
-          {MAIN_TABS.map((tab) => (
-            <button
-              key={tab.id}
-              className={activeTab === tab.id ? "is-active" : ""}
-              type="button"
-              onClick={() => selectMainTab(tab.id)}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </nav>
+        {!isPackFlow && (
+          <nav className="main-tabs" aria-label="Main navigation">
+            {MAIN_TABS.map((tab) => (
+              <button
+                key={tab.id}
+                className={activeTab === tab.id ? "is-active" : ""}
+                type="button"
+                onClick={() => selectMainTab(tab.id)}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </nav>
+        )}
       </header>
 
       {activeTab === "open" && screen === "home" && (
@@ -1067,7 +1086,7 @@ function App() {
               cards={pulledCards}
               set={selectedSet}
               collection={collection}
-              onOpenAnother={() => startPackOpening(selectedSet)}
+              onOpenAnother={openAnotherPack}
               onBackToSets={backToSets}
               onViewCollection={viewCollection}
             />
