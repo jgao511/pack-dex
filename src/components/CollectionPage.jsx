@@ -64,8 +64,10 @@ function CollectionPage({
   set,
   collection,
   binders = [],
+  user,
   onAddToBinder,
   onRemoveFromBinder,
+  onOpenAuth,
   onOpenPacks,
   onBackToSets,
 }) {
@@ -139,6 +141,21 @@ function CollectionPage({
           </div>
         </div>
       </header>
+
+      {user ? (
+        <div className="cloud-save-badge">Cloud saving enabled</div>
+      ) : (
+        <div className="auth-save-notice">
+          <button type="button" onClick={onOpenAuth}>
+            Log in
+          </button>{" "}
+          or{" "}
+          <button type="button" onClick={onOpenAuth}>
+            create an account
+          </button>{" "}
+          to save your collection and binders across devices.
+        </div>
+      )}
 
       <div className="collection-controls">
         <label className="collection-search">

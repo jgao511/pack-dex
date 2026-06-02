@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import PackOpening from "./components/PackOpening.jsx";
+import AuthPanel, { AuthModal } from "./components/AuthPanel.jsx";
 import CardReveal from "./components/CardReveal.jsx";
 import CardDetailModal from "./components/CardDetailModal.jsx";
 import CollectionPage from "./components/CollectionPage.jsx";
@@ -7,6 +8,12 @@ import FoilCard from "./components/FoilCard.jsx";
 import PullSummary from "./components/PullSummary.jsx";
 import SetSelect from "./components/SetSelect.jsx";
 import { sets } from "./data/sets.js";
+import {
+  loadCloudCollection,
+  savePulledCardsToCloud,
+  syncLocalCollectionToCloud,
+} from "./lib/cloudCollection.js";
+import { isSupabaseConfigured, supabase } from "./lib/supabaseClient.js";
 import { canGeneratePack, generatePack, getDisplayCardName, getDisplayRarity } from "./utils/packGenerator.js";
 import {
   addCardToBinder,
@@ -81,6 +88,10 @@ function loadProfileStats() {
   }
 }
 
+function hasCollectionEntries(collection) {
+  return Object.values(collection || {}).some((setCollection) => Object.keys(setCollection || {}).length > 0);
+}
+
 function saveProfileStats(stats) {
   if (typeof window === "undefined") return;
 
@@ -153,7 +164,190 @@ function sortBinderCards(cards, sortMode) {
   return sorted;
 }
 
-function CollectionDashboard({ collection, binders, onAddToBinder, onRemoveFromBinder }) {
+function AuthSaveNotice({ onOpenAuth }) {
+  return (
+    <div className="auth-save-notice">
+      <button type="button" onClick={onOpenAuth}>
+        Log in
+      </button>{" "}
+      or{" "}
+      <button type="button" onClick={onOpenAuth}>
+        create an account
+      </button>{" "}
+      to save your collection and binders across devices.
+    </div>
+  );
+}
+
+function GuestSignupNotice({ user, onOpenAuth }) {
+  if (user) return null;
+
+  return (
+    <aside className="guest-signup-notice" aria-label="Create a PackDex account">
+      <span>You're not signed in!</span>
+      <button type="button" onClick={onOpenAuth}>
+        Sign up
+      </button>
+      <span>to save your collection and binders.</span>
+    </aside>
+  );
+}
+
+function CloudSyncPrompt({ isVisible, status, onSync, onDismiss }) {
+  if (!isVisible) return null;
+
+  return (
+    <section className="cloud-sync-prompt" aria-label="Sync guest collection">
+      <div>
+        <span className="set-mark">Cloud Sync</span>
+        <strong>You have a guest collection saved on this device.</strong>
+        <p>Sync it to your account?</p>
+        {status && <em>{status}</em>}
+      </div>
+      <div className="cloud-sync-actions">
+        <button className="primary-button" type="button" onClick={onSync}>
+          Sync to account
+        </button>
+        <button className="secondary-button" type="button" onClick={onDismiss}>
+          Not now
+        </button>
+      </div>
+    </section>
+  );
+}
+
+function LegalPage({ type }) {
+  const isPrivacy = type === "privacy";
+
+  return (
+    <section className="legal-screen">
+      <img className="site-logo" src="/packdex-large.png" alt="PackDex" />
+      <span className="set-mark">{isPrivacy ? "Privacy" : "Terms"}</span>
+      <h1>{isPrivacy ? "Privacy Policy" : "Terms of Service"}</h1>
+      <p className="legal-effective-date">Effective Date: June 1, 2026</p>
+      {isPrivacy ? (
+        <div className="legal-copy">
+          <p>This Privacy Policy explains how PackDex handles information when you use the site.</p>
+          <h2>1. Information We Collect</h2>
+          <p>
+            If you create an account, PackDex may collect and store your email address through Supabase authentication.
+            PackDex may also store collection-related data linked to your account, including card IDs, set IDs,
+            quantities, card names, card numbers, rarity, and image URLs.
+          </p>
+          <h2>2. How We Use Information</h2>
+          <p>
+            PackDex uses account and collection information to let users log in, save collections, sync collections
+            across devices, and use account-based features.
+          </p>
+          <h2>3. Authentication</h2>
+          <p>
+            PackDex uses Supabase to provide account authentication. Supabase may process login-related information
+            such as your email address and authentication tokens according to Supabase's own terms and privacy
+            practices.
+          </p>
+          <h2>4. Local Storage</h2>
+          <p>
+            PackDex may use browser localStorage to save guest collection data, preferences, or other local site data
+            on your device. Guest data may remain on your device unless you clear your browser storage.
+          </p>
+          <h2>5. Cloud Collection Saving</h2>
+          <p>
+            When you are signed in, PackDex may save your collection data to Supabase so your collection can load again
+            when you log back in.
+          </p>
+          <h2>6. What We Do Not Collect</h2>
+          <p>
+            PackDex does not intentionally collect sensitive personal information. Do not enter sensitive personal
+            information into PackDex.
+          </p>
+          <h2>7. Sharing of Information</h2>
+          <p>
+            PackDex does not sell user data. Information may be processed by service providers used to operate the
+            site, such as Supabase for authentication and database features.
+          </p>
+          <h2>8. Data Security</h2>
+          <p>
+            PackDex uses reasonable technical measures such as Supabase authentication and database access rules to help
+            protect account-linked data. However, no online service can guarantee perfect security.
+          </p>
+          <h2>9. Children's Privacy</h2>
+          <p>
+            PackDex is intended for general audiences and entertainment purposes. Users should only create accounts if
+            they are allowed to do so under the rules that apply to them.
+          </p>
+          <h2>10. Changes to This Policy</h2>
+          <p>
+            This Privacy Policy may be updated from time to time. Continued use of PackDex after changes means you
+            accept the updated policy.
+          </p>
+          <h2>11. Contact</h2>
+          <p>
+            For questions about this Privacy Policy, contact the PackDex creator through the contact method listed on
+            the site or repository.
+          </p>
+        </div>
+      ) : (
+        <div className="legal-copy">
+          <p>Welcome to PackDex. By using PackDex, you agree to these Terms of Service.</p>
+          <h2>1. About PackDex</h2>
+          <p>
+            PackDex is a fan-made Pokemon TCG pack opening simulator. PackDex is not affiliated with, endorsed by,
+            sponsored by, or approved by Nintendo, Creatures, GAME FREAK, The Pokemon Company, or any of their
+            affiliates.
+          </p>
+          <h2>2. Use of the Site</h2>
+          <p>
+            You may use PackDex for personal, non-commercial entertainment purposes. You agree not to abuse the service,
+            interfere with the site's operation, attempt to access another user's account or data, or use automated
+            tools to overload the site.
+          </p>
+          <h2>3. Accounts</h2>
+          <p>
+            You may create an account to save your collection and related account features. You are responsible for
+            keeping your login information secure. PackDex uses Supabase to provide authentication services.
+          </p>
+          <h2>4. Saved Collection Data</h2>
+          <p>
+            When you are signed in, PackDex may save collection data connected to your account, including card IDs, set
+            IDs, quantities, rarity, card names, card numbers, and image URLs. This data is used to provide
+            collection-saving features.
+          </p>
+          <h2>5. Intellectual Property</h2>
+          <p>
+            Pokemon names, card images, logos, and related materials belong to their respective owners. PackDex does not
+            claim ownership of Pokemon intellectual property. PackDex's original site design, layout, and code belong
+            to the PackDex project unless otherwise noted.
+          </p>
+          <h2>6. Availability</h2>
+          <p>
+            PackDex is provided as-is. The site may change, experience downtime, or have features removed or updated at
+            any time.
+          </p>
+          <h2>7. Limitation of Liability</h2>
+          <p>
+            PackDex is provided for entertainment purposes. To the fullest extent permitted by law, PackDex is not
+            responsible for losses, damages, or issues that may result from using the site.
+          </p>
+          <h2>8. Changes to These Terms</h2>
+          <p>
+            These Terms may be updated from time to time. Continued use of PackDex after changes means you accept the
+            updated Terms.
+          </p>
+          <h2>9. Contact</h2>
+          <p>
+            For questions about these Terms, contact the PackDex creator through the contact method listed on the site
+            or repository.
+          </p>
+        </div>
+      )}
+      <a className="primary-button" href="/">
+        Back to PackDex
+      </a>
+    </section>
+  );
+}
+
+function CollectionDashboard({ collection, binders, user, onOpenAuth, onAddToBinder, onRemoveFromBinder }) {
   const [query, setQuery] = useState("");
   const [eraFilter, setEraFilter] = useState("all");
   const [setFilter, setSetFilter] = useState("all");
@@ -216,6 +410,8 @@ function CollectionDashboard({ collection, binders, onAddToBinder, onRemoveFromB
         <h1>Collected Cards</h1>
         <p>Your pulled cards across every set live here.</p>
       </div>
+
+      {user ? <div className="cloud-save-badge">Cloud saving enabled</div> : <AuthSaveNotice onOpenAuth={onOpenAuth} />}
 
       {collectedCards.length === 0 ? (
         <div className="empty-state">
@@ -367,7 +563,16 @@ function saveActiveBinderId(binderId) {
   }
 }
 
-function BinderSection({ binders, collection, onCreateBinder, onClearBinder, onAddToBinder, onRemoveFromBinder }) {
+function BinderSection({
+  binders,
+  collection,
+  user,
+  onOpenAuth,
+  onCreateBinder,
+  onClearBinder,
+  onAddToBinder,
+  onRemoveFromBinder,
+}) {
   const [activeBinderId, setActiveBinderId] = useState(() => loadActiveBinderId());
   const [newBinderName, setNewBinderName] = useState("");
   const [newBinderTag, setNewBinderTag] = useState(BINDER_TAGS[0]);
@@ -511,6 +716,8 @@ function BinderSection({ binders, collection, onCreateBinder, onClearBinder, onA
           </button>
         </div>
       </div>
+
+      {!user && <AuthSaveNotice onOpenAuth={onOpenAuth} />}
 
       {binders.length === 0 && (
         <div className="binder-empty-state">
@@ -803,7 +1010,21 @@ function SiteFooter() {
   );
 }
 
-function ProfilePage({ collection, profileStats, binders, onCreateBinder, onClearBinder, onAddToBinder, onRemoveFromBinder }) {
+function ProfilePage({
+  collection,
+  profileStats,
+  binders,
+  user,
+  cloudSyncStatus,
+  showCloudSyncPrompt,
+  onOpenAuth,
+  onSyncGuestCollection,
+  onDismissCloudSync,
+  onCreateBinder,
+  onClearBinder,
+  onAddToBinder,
+  onRemoveFromBinder,
+}) {
   const collectedCards = useMemo(() => getCollectedCards(collection), [collection]);
   const uniqueCards = collectedCards.length;
   const totalCards = collectedCards.reduce((sum, item) => sum + item.count, 0);
@@ -820,6 +1041,17 @@ function ProfilePage({ collection, profileStats, binders, onCreateBinder, onClea
         <h1>Your PackDex</h1>
         <p>A local snapshot of your pack-opening journey.</p>
       </div>
+
+      <AuthPanel user={user} onOpenAuth={onOpenAuth} />
+
+      {user && <div className="cloud-save-badge">Cloud saving enabled</div>}
+
+      <CloudSyncPrompt
+        isVisible={showCloudSyncPrompt}
+        status={cloudSyncStatus}
+        onSync={onSyncGuestCollection}
+        onDismiss={onDismissCloudSync}
+      />
 
       <div className="profile-stat-grid">
         <article>
@@ -843,6 +1075,8 @@ function ProfilePage({ collection, profileStats, binders, onCreateBinder, onClea
       <BinderSection
         binders={binders}
         collection={collection}
+        user={user}
+        onOpenAuth={onOpenAuth}
         onCreateBinder={onCreateBinder}
         onClearBinder={onClearBinder}
         onAddToBinder={onAddToBinder}
@@ -853,6 +1087,18 @@ function ProfilePage({ collection, profileStats, binders, onCreateBinder, onClea
 }
 
 function App() {
+  const pagePath = typeof window === "undefined" ? "/" : window.location.pathname;
+  const legalPageType = pagePath === "/terms" ? "terms" : pagePath === "/privacy" ? "privacy" : "";
+
+  if (legalPageType) {
+    return (
+      <main className="app-shell">
+        <LegalPage type={legalPageType} />
+        <SiteFooter />
+      </main>
+    );
+  }
+
   const [activeTab, setActiveTab] = useState("open");
   const [screen, setScreen] = useState("home");
   const [selectedSet, setSelectedSet] = useState(null);
@@ -860,11 +1106,85 @@ function App() {
   const [collection, setCollection] = useState(() => loadCollection());
   const [binders, setBinders] = useState(() => loadBinders());
   const [profileStats, setProfileStats] = useState(() => loadProfileStats());
+  const [authSession, setAuthSession] = useState(null);
+  const [isAuthLoading, setIsAuthLoading] = useState(isSupabaseConfigured);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [cloudWarning, setCloudWarning] = useState("");
+  const [cloudSyncStatus, setCloudSyncStatus] = useState("");
+  const [showCloudSyncPrompt, setShowCloudSyncPrompt] = useState(false);
+  const [dismissedCloudSyncUserId, setDismissedCloudSyncUserId] = useState("");
   const [isTabLoading, setIsTabLoading] = useState(false);
   const [isReturningToSet, setIsReturningToSet] = useState(false);
   const returnTokenRef = useRef(0);
   const tabLoadTokenRef = useRef(0);
   const isPackFlow = activeTab === "open" && ["opening", "reveal", "summary"].includes(screen);
+  const authUser = authSession?.user || null;
+
+  useEffect(() => {
+    if (!supabase) {
+      setIsAuthLoading(false);
+      return undefined;
+    }
+
+    let isMounted = true;
+
+    supabase.auth.getSession().then(({ data }) => {
+      if (!isMounted) return;
+
+      setAuthSession(data.session || null);
+      setIsAuthLoading(false);
+    });
+
+    const { data } = supabase.auth.onAuthStateChange((_event, session) => {
+      setAuthSession(session || null);
+      setIsAuthLoading(false);
+    });
+
+    return () => {
+      isMounted = false;
+      data.subscription.unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isAuthLoading) return;
+
+    if (!authUser) {
+      setCollection(loadCollection());
+      setShowCloudSyncPrompt(false);
+      setCloudSyncStatus("");
+      setCloudWarning("");
+      return;
+    }
+
+    let isMounted = true;
+    const localCollection = loadCollection();
+
+    setCloudSyncStatus("");
+    setCloudWarning("");
+
+    loadCloudCollection()
+      .then((cloudCollection) => {
+        if (!isMounted) return;
+
+        setCollection(cloudCollection);
+        setShowCloudSyncPrompt(
+          hasCollectionEntries(localCollection) && dismissedCloudSyncUserId !== authUser.id
+        );
+      })
+      .catch((error) => {
+        console.warn("Cloud collection load failed", error);
+        if (!isMounted) return;
+
+        setCollection(localCollection);
+        setCloudWarning("Cloud collection load failed. Your local copy is still available.");
+        setShowCloudSyncPrompt(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [authUser?.id, dismissedCloudSyncUserId, isAuthLoading]);
 
   function selectMainTab(tab) {
     if (tab === activeTab) return;
@@ -943,11 +1263,45 @@ function App() {
   function handleCardsRevealed(cards) {
     if (!selectedSet || !cards.length) return;
 
-    const currentCollection = loadCollection();
+    const currentCollection = authUser ? collection : loadCollection();
     const nextCollection = markCardsCollected(currentCollection, cards, selectedSet.id);
 
-    saveCollection(nextCollection);
+    if (!authUser) {
+      saveCollection(nextCollection);
+    }
+
     setCollection(nextCollection);
+
+    if (authUser) {
+      savePulledCardsToCloud(cards, selectedSet.id).catch((error) => {
+        console.warn("Cloud save failed", error);
+        saveCollection(nextCollection);
+        setCloudWarning("Cloud save failed. Your local copy is still available.");
+      });
+    }
+  }
+
+  function handleDismissCloudSync() {
+    setDismissedCloudSyncUserId(authUser?.id || "");
+    setShowCloudSyncPrompt(false);
+    setCloudSyncStatus("");
+  }
+
+  function handleSyncGuestCollection() {
+    const localCollection = loadCollection();
+
+    setCloudSyncStatus("Syncing...");
+    syncLocalCollectionToCloud(localCollection)
+      .then((cloudCollection) => {
+        setCollection(cloudCollection);
+        setCloudSyncStatus("Synced.");
+        setShowCloudSyncPrompt(false);
+      })
+      .catch((error) => {
+        console.warn("Guest collection sync failed", error);
+        setCloudSyncStatus("Sync failed. Try again later.");
+        setCloudWarning("Cloud save failed. Your local copy is still available.");
+      });
   }
 
   function handleCreateBinder(name, tag) {
@@ -1049,6 +1403,16 @@ function App() {
         )}
       </header>
 
+      {!authUser && !["reveal", "summary"].includes(screen) && (
+        <GuestSignupNotice user={authUser} onOpenAuth={() => setIsAuthModalOpen(true)} />
+      )}
+
+      {cloudWarning && (
+        <div className="cloud-warning" role="status">
+          {cloudWarning}
+        </div>
+      )}
+
       {activeTab === "open" && screen === "home" && (
         <section className="home-brand-hero" aria-label="PackDex">
           <img className="site-logo" src="/packdex-large.png" alt="PackDex" />
@@ -1096,8 +1460,10 @@ function App() {
             <CollectionPage
               set={selectedSet}
               collection={collection}
-          binders={binders}
-          onAddToBinder={handleAddToBinder}
+              binders={binders}
+              user={authUser}
+              onOpenAuth={() => setIsAuthModalOpen(true)}
+              onAddToBinder={handleAddToBinder}
           onRemoveFromBinder={handleRemoveFromBinder}
           onOpenPacks={startPackOpening}
           onBackToSets={backToSets}
@@ -1110,6 +1476,8 @@ function App() {
         <CollectionDashboard
           collection={collection}
           binders={binders}
+          user={authUser}
+          onOpenAuth={() => setIsAuthModalOpen(true)}
           onAddToBinder={handleAddToBinder}
           onRemoveFromBinder={handleRemoveFromBinder}
         />
@@ -1120,6 +1488,13 @@ function App() {
           collection={collection}
           profileStats={profileStats}
           binders={binders}
+          user={authUser}
+          isAuthLoading={isAuthLoading}
+          cloudSyncStatus={cloudSyncStatus}
+          showCloudSyncPrompt={showCloudSyncPrompt}
+          onOpenAuth={() => setIsAuthModalOpen(true)}
+          onSyncGuestCollection={handleSyncGuestCollection}
+          onDismissCloudSync={handleDismissCloudSync}
           onCreateBinder={handleCreateBinder}
           onClearBinder={handleClearBinder}
           onAddToBinder={handleAddToBinder}
@@ -1128,6 +1503,7 @@ function App() {
       )}
 
       <SiteFooter />
+      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
       {isTabLoading && <TabLoadingOverlay />}
       {isReturningToSet && <LoadingOverlay />}
     </main>

@@ -9,6 +9,7 @@
     "generate-json": "node scripts/generate-json-from-assets.js"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.106.2",
     "@vitejs/plugin-react": "latest",
     "lucide-react": "latest",
     "react": "latest",
