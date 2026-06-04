@@ -347,6 +347,96 @@ function LegalPage({ type }) {
   );
 }
 
+function ResetPasswordPage() {
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [status, setStatus] = useState("");
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    setStatus("");
+    setError("");
+
+    if (newPassword.length < 8) {
+      setError("Password must be at least 8 characters.");
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    if (!supabase) {
+      setError("Supabase is not configured yet.");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const { error: updateError } = await supabase.auth.updateUser({
+        password: newPassword,
+      });
+
+      if (updateError) {
+        setError(updateError.message);
+        return;
+      }
+
+      setStatus("Password updated. Redirecting to PackDex...");
+      window.setTimeout(() => {
+        window.location.assign("/");
+      }, 1100);
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  return (
+    <section className="reset-password-screen">
+      <img className="site-logo" src="/packdex-large.png" alt="PackDex" />
+      <span className="set-mark">Account</span>
+      <h1>Reset Password</h1>
+      <p>Choose a new password for your PackDex account.</p>
+      <form className="auth-form reset-password-form" onSubmit={handleSubmit}>
+        <label>
+          New password
+          <input
+            type="password"
+            value={newPassword}
+            onChange={(event) => setNewPassword(event.target.value)}
+            autoComplete="new-password"
+            minLength={8}
+            required
+          />
+        </label>
+        <label>
+          Confirm new password
+          <input
+            type="password"
+            value={confirmPassword}
+            onChange={(event) => setConfirmPassword(event.target.value)}
+            autoComplete="new-password"
+            minLength={8}
+            required
+          />
+        </label>
+        <button className="primary-button" type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Updating..." : "Update Password"}
+        </button>
+      </form>
+      {status && <div className="auth-message">{status}</div>}
+      {error && <div className="auth-message is-error">{error}</div>}
+      <a className="secondary-button" href="/">
+        Back to PackDex
+      </a>
+    </section>
+  );
+}
+
 function CollectionDashboard({ collection, binders, user, onOpenAuth, onAddToBinder, onRemoveFromBinder }) {
   const [query, setQuery] = useState("");
   const [eraFilter, setEraFilter] = useState("all");
@@ -1089,6 +1179,15 @@ function ProfilePage({
 function App() {
   const pagePath = typeof window === "undefined" ? "/" : window.location.pathname;
   const legalPageType = pagePath === "/terms" ? "terms" : pagePath === "/privacy" ? "privacy" : "";
+
+  if (pagePath === "/reset-password") {
+    return (
+      <main className="app-shell">
+        <ResetPasswordPage />
+        <SiteFooter />
+      </main>
+    );
+  }
 
   if (legalPageType) {
     return (

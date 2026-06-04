@@ -10,6 +10,35 @@ function AuthForm({ onAuthenticated }) {
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isCreateMode = mode === "signup";
+  const isResetMode = mode === "reset";
+
+  async function handleResetRequest(event) {
+    event.preventDefault();
+    setStatus("");
+    setError("");
+
+    if (!isSupabaseConfigured || !supabase) {
+      setError("Supabase is not configured yet.");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const { error: resetError } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+        redirectTo: "https://www.pack-dex.com/reset-password",
+      });
+
+      if (resetError) {
+        setError(resetError.message);
+        return;
+      }
+
+      setStatus("Password reset email sent. Check your inbox for the reset link.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -60,20 +89,26 @@ function AuthForm({ onAuthenticated }) {
     <>
       <div>
         <span className="set-mark">Account</span>
-        <h2>{isCreateMode ? "Create Account" : "Log In"}</h2>
-        <p>Log in to save your collection and binders. Guest progress still works locally.</p>
+        <h2>{isResetMode ? "Reset Password" : isCreateMode ? "Create Account" : "Log In"}</h2>
+        <p>
+          {isResetMode
+            ? "Enter your account email and we will send you a password reset link."
+            : "Log in to save your collection and binders. Guest progress still works locally."}
+        </p>
       </div>
 
-      <div className="auth-mode-toggle" role="tablist" aria-label="Choose auth mode">
-        <button className={mode === "login" ? "is-active" : ""} type="button" onClick={() => setMode("login")}>
-          Log In
-        </button>
-        <button className={mode === "signup" ? "is-active" : ""} type="button" onClick={() => setMode("signup")}>
-          Create Account
-        </button>
-      </div>
+      {!isResetMode && (
+        <div className="auth-mode-toggle" role="tablist" aria-label="Choose auth mode">
+          <button className={mode === "login" ? "is-active" : ""} type="button" onClick={() => setMode("login")}>
+            Log In
+          </button>
+          <button className={mode === "signup" ? "is-active" : ""} type="button" onClick={() => setMode("signup")}>
+            Create Account
+          </button>
+        </div>
+      )}
 
-      <form className="auth-form" onSubmit={handleSubmit}>
+      <form className="auth-form" onSubmit={isResetMode ? handleResetRequest : handleSubmit}>
         <label>
           Email
           <input
@@ -85,18 +120,20 @@ function AuthForm({ onAuthenticated }) {
             required
           />
         </label>
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            placeholder="Password"
-            autoComplete={isCreateMode ? "new-password" : "current-password"}
-            minLength={6}
-            required
-          />
-        </label>
+        {!isResetMode && (
+          <label>
+            Password
+            <input
+              type="password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              placeholder="Password"
+              autoComplete={isCreateMode ? "new-password" : "current-password"}
+              minLength={6}
+              required
+            />
+          </label>
+        )}
         {isCreateMode && (
           <p className="auth-legal-copy">
             By creating an account, you agree to PackDex's{" "}
@@ -111,9 +148,22 @@ function AuthForm({ onAuthenticated }) {
           </p>
         )}
         <button className="primary-button" type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Working..." : isCreateMode ? "Create Account" : "Log In"}
+          {isSubmitting ? "Working..." : isResetMode ? "Send Reset Link" : isCreateMode ? "Create Account" : "Log In"}
         </button>
       </form>
+
+      <div className="auth-form-links">
+        {!isResetMode && (
+          <button type="button" onClick={() => setMode("reset")}>
+            Forgot password?
+          </button>
+        )}
+        {isResetMode && (
+          <button type="button" onClick={() => setMode("login")}>
+            Back to login
+          </button>
+        )}
+      </div>
 
       {!isSupabaseConfigured && (
         <div className="auth-message is-error">Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to enable login.</div>

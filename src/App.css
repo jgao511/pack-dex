@@ -1286,7 +1286,7 @@ button {
 }
 
 .summary-screen {
-  padding: 36px 0;
+  padding: clamp(14px, 2.4svh, 28px) 0;
 }
 
 .summary-header {
@@ -1294,18 +1294,23 @@ button {
   align-items: end;
   justify-content: space-between;
   gap: 24px;
-  margin-bottom: 28px;
+  margin-bottom: clamp(12px, 2svh, 20px);
 }
 
 .summary-header h1 {
   margin-top: 8px;
-  font-size: clamp(2.35rem, 6vw, 4.75rem);
+  font-size: clamp(2rem, min(5vw, 7svh), 4rem);
 }
 
 .pull-grid {
+  --pull-card-width: clamp(54px, min(calc((100vw - 74px) / 5), 15svh), 145px);
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(5, var(--pull-card-width));
+  justify-content: center;
+  gap: clamp(6px, min(1.4vw, 1.6svh), 14px);
+  width: max-content;
+  max-width: 100%;
+  margin: 0 auto;
   perspective: 1200px;
 }
 
@@ -1332,11 +1337,12 @@ button {
 .pull-card-image {
   position: relative;
   aspect-ratio: 0.716;
-  padding: 8px;
+  padding: clamp(3px, 0.7vw, 6px);
   background: rgba(255, 255, 255, 0.82);
 }
 
 .pull-card-info {
+  display: none;
   padding: 14px;
 }
 
@@ -1545,6 +1551,26 @@ button {
   box-shadow: 0 0 0 4px rgba(31, 90, 166, 0.12);
 }
 
+.auth-form-links {
+  display: flex;
+  justify-content: center;
+}
+
+.auth-form-links button {
+  border: 0;
+  padding: 0;
+  color: #1f5aa6;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--ui-condensed-font);
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-decoration: underline;
+  text-transform: uppercase;
+  text-underline-offset: 3px;
+}
+
 .auth-legal-copy {
   grid-column: 1 / -1;
   margin: -2px 0 0;
@@ -1744,6 +1770,46 @@ button {
   background: rgba(255, 255, 255, 0.82);
   text-align: center;
   box-shadow: 0 18px 44px rgba(18, 24, 39, 0.12);
+}
+
+.reset-password-screen {
+  width: min(100%, 720px);
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  border: 1px solid rgba(18, 24, 39, 0.08);
+  border-radius: 22px;
+  padding: clamp(22px, 4vw, 42px);
+  background:
+    radial-gradient(circle at top left, rgba(255, 203, 69, 0.18), transparent 34%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(245, 248, 255, 0.92));
+  text-align: center;
+  box-shadow: 0 18px 44px rgba(18, 24, 39, 0.12);
+}
+
+.reset-password-screen .site-logo {
+  max-height: 96px;
+}
+
+.reset-password-screen h1 {
+  margin: 0;
+  color: #121827;
+  font-family: var(--heading-font);
+  font-size: clamp(2.4rem, 7vw, 4.8rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.reset-password-screen p {
+  margin: 0;
+  color: #667085;
+  line-height: 1.5;
+}
+
+.reset-password-form {
+  width: 100%;
+  grid-template-columns: 1fr;
+  text-align: left;
 }
 
 .legal-screen .site-logo {
