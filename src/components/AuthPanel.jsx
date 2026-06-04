@@ -1,21 +1,59 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Turnstile } from "react-turnstile";
 import { LogOut, Mail, X } from "lucide-react";
 import { isSupabaseConfigured, supabase } from "../lib/supabaseClient.js";
+
+const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY;
 
 function AuthForm({ onAuthenticated }) {
   const [mode, setMode] = useState("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
   const [status, setStatus] = useState("");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const turnstileRef = useRef(null);
   const isCreateMode = mode === "signup";
   const isResetMode = mode === "reset";
+  const requiresTurnstile = isCreateMode || isResetMode;
+
+  useEffect(() => {
+    setTurnstileToken("");
+    turnstileRef.current?.reset?.();
+  }, [mode]);
+
+  function resetTurnstile() {
+    setTurnstileToken("");
+    turnstileRef.current?.reset?.();
+  }
+
+  function validateTurnstile() {
+    if (!requiresTurnstile) return true;
+
+    if (!TURNSTILE_SITE_KEY) {
+      setError("Turnstile is not configured. Add VITE_TURNSTILE_SITE_KEY.");
+      return false;
+    }
+
+    if (!turnstileToken) {
+      setError(
+        isCreateMode
+          ? "Please complete the verification before signing up."
+          : "Please complete the verification before requesting a password reset."
+      );
+      return false;
+    }
+
+    return true;
+  }
 
   async function handleResetRequest(event) {
     event.preventDefault();
     setStatus("");
     setError("");
+
+    if (!validateTurnstile()) return;
 
     if (!isSupabaseConfigured || !supabase) {
       setError("Supabase is not configured yet.");
@@ -27,14 +65,17 @@ function AuthForm({ onAuthenticated }) {
     try {
       const { error: resetError } = await supabase.auth.resetPasswordForEmail(email.trim(), {
         redirectTo: "https://www.pack-dex.com/reset-password",
+        captchaToken: turnstileToken,
       });
 
       if (resetError) {
         setError(resetError.message);
+        resetTurnstile();
         return;
       }
 
       setStatus("Password reset email sent. Check your inbox for the reset link.");
+      resetTurnstile();
     } finally {
       setIsSubmitting(false);
     }
@@ -44,6 +85,8 @@ function AuthForm({ onAuthenticated }) {
     event.preventDefault();
     setStatus("");
     setError("");
+
+    if (!validateTurnstile()) return;
 
     if (!isSupabaseConfigured || !supabase) {
       setError("Supabase is not configured yet.");
@@ -58,11 +101,19 @@ function AuthForm({ onAuthenticated }) {
         password,
       };
       const { data, error: authError } = isCreateMode
-        ? await supabase.auth.signUp(credentials)
+        ? await supabase.auth.signUp({
+            ...credentials,
+            options: {
+              captchaToken: turnstileToken,
+            },
+          })
         : await supabase.auth.signInWithPassword(credentials);
 
       if (authError) {
         setError(authError.message);
+        if (isCreateMode) {
+          resetTurnstile();
+        }
         return;
       }
 
@@ -76,6 +127,9 @@ function AuthForm({ onAuthenticated }) {
           : "Logged in successfully."
       );
       setPassword("");
+      if (isCreateMode) {
+        resetTurnstile();
+      }
 
       if (hasSession || !isCreateMode) {
         window.setTimeout(() => onAuthenticated?.(), 550);
@@ -146,6 +200,26 @@ function AuthForm({ onAuthenticated }) {
             </a>
             . Authentication is powered by Supabase.
           </p>
+        )}
+        {requiresTurnstile && (
+          <div className="turnstile-panel">
+            {TURNSTILE_SITE_KEY ? (
+              <Turnstile
+                ref={turnstileRef}
+                sitekey={TURNSTILE_SITE_KEY}
+                theme="light"
+                size="flexible"
+                onVerify={setTurnstileToken}
+                onExpire={() => setTurnstileToken("")}
+                onError={() => {
+                  setTurnstileToken("");
+                  setError("Verification failed. Please try again.");
+                }}
+              />
+            ) : (
+              <div className="auth-message is-error">Add VITE_TURNSTILE_SITE_KEY to enable verification.</div>
+            )}
+          </div>
         )}
         <button className="primary-button" type="submit" disabled={isSubmitting}>
           {isSubmitting ? "Working..." : isResetMode ? "Send Reset Link" : isCreateMode ? "Create Account" : "Log In"}
