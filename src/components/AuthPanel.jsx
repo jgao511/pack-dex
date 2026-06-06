@@ -2,14 +2,28 @@ import { useEffect, useRef, useState } from "react";
 import { Turnstile } from "react-turnstile";
 import { LogOut, Mail, X } from "lucide-react";
 import { isSupabaseConfigured, supabase } from "../lib/supabaseClient.js";
+import { getAuthCallbackUrl, getResetPasswordUrl } from "../utils/authRedirects.js";
+import { getPokeballLoadingUrl } from "../utils/assetUrls.js";
 
 const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY;
+const POKEBALL_LOADING_SRC = getPokeballLoadingUrl();
+
+function AuthLoadingLabel({ text }) {
+  return (
+    <>
+      <img className="auth-button-pokeball" src={POKEBALL_LOADING_SRC} alt="" />
+      <span>{text}</span>
+    </>
+  );
+}
 
 function AuthForm({ onAuthenticated }) {
   const [mode, setMode] = useState("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [turnstileToken, setTurnstileToken] = useState("");
+  const [turnstileMessage, setTurnstileMessage] = useState("");
   const [status, setStatus] = useState("");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -17,15 +31,32 @@ function AuthForm({ onAuthenticated }) {
   const isCreateMode = mode === "signup";
   const isResetMode = mode === "reset";
   const requiresTurnstile = isCreateMode || isResetMode;
+  const title = isResetMode ? "Reset your password" : isCreateMode ? "Create your PackDex account" : "Welcome back";
+  const subtitle = isResetMode
+    ? "Enter your email and we will send a secure link to reset your password."
+    : "Save your collection, binders, and pack history across devices.";
+  const submitLabel = isResetMode ? "Send reset link" : isCreateMode ? "Create account" : "Log in";
 
   useEffect(() => {
     setTurnstileToken("");
+    setTurnstileMessage("");
+    setStatus("");
+    setError("");
     turnstileRef.current?.reset?.();
-  }, [mode]);
+  }, [mode, requiresTurnstile]);
 
   function resetTurnstile() {
     setTurnstileToken("");
+    setTurnstileMessage("");
     turnstileRef.current?.reset?.();
+  }
+
+  function switchMode(nextMode) {
+    if (nextMode === mode) return;
+
+    setMode(nextMode);
+    setPassword("");
+    setConfirmPassword("");
   }
 
   function validateTurnstile() {
@@ -64,7 +95,7 @@ function AuthForm({ onAuthenticated }) {
 
     try {
       const { error: resetError } = await supabase.auth.resetPasswordForEmail(email.trim(), {
-        redirectTo: "https://www.pack-dex.com/reset-password",
+        redirectTo: getResetPasswordUrl(),
         captchaToken: turnstileToken,
       });
 
@@ -74,7 +105,7 @@ function AuthForm({ onAuthenticated }) {
         return;
       }
 
-      setStatus("Password reset email sent. Check your inbox for the reset link.");
+      setStatus("Password reset email sent. Check your inbox.");
       resetTurnstile();
     } finally {
       setIsSubmitting(false);
@@ -85,6 +116,16 @@ function AuthForm({ onAuthenticated }) {
     event.preventDefault();
     setStatus("");
     setError("");
+
+    if (isCreateMode && password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    if (!isResetMode && password.length < 8) {
+      setError("Password must be at least 8 characters.");
+      return;
+    }
 
     if (!validateTurnstile()) return;
 
@@ -102,15 +143,22 @@ function AuthForm({ onAuthenticated }) {
       };
       const { data, error: authError } = isCreateMode
         ? await supabase.auth.signUp({
-            ...credentials,
-            options: {
-              captchaToken: turnstileToken,
-            },
-          })
+          ...credentials,
+          options: {
+            captchaToken: turnstileToken,
+            emailRedirectTo: getAuthCallbackUrl(),
+          },
+        })
         : await supabase.auth.signInWithPassword(credentials);
 
       if (authError) {
-        setError(authError.message);
+        const message = String(authError.message || "");
+
+        setError(
+          message.toLowerCase().includes("email not confirmed")
+            ? "Please confirm your email before logging in."
+            : message
+        );
         if (isCreateMode) {
           resetTurnstile();
         }
@@ -123,10 +171,11 @@ function AuthForm({ onAuthenticated }) {
         isCreateMode
           ? hasSession
             ? "Account created! You're now signed in."
-            : "Account created. You may now log in."
+            : "Account created! Please check your email to confirm your account."
           : "Logged in successfully."
       );
       setPassword("");
+      setConfirmPassword("");
       if (isCreateMode) {
         resetTurnstile();
       }
@@ -141,22 +190,18 @@ function AuthForm({ onAuthenticated }) {
 
   return (
     <>
-      <div>
+      <div className="auth-modal-heading">
         <span className="set-mark">Account</span>
-        <h2>{isResetMode ? "Reset Password" : isCreateMode ? "Create Account" : "Log In"}</h2>
-        <p>
-          {isResetMode
-            ? "Enter your account email and we will send you a password reset link."
-            : "Log in to save your collection and binders. Guest progress still works locally."}
-        </p>
+        <h2>{title}</h2>
+        <p>{subtitle}</p>
       </div>
 
       {!isResetMode && (
         <div className="auth-mode-toggle" role="tablist" aria-label="Choose auth mode">
-          <button className={mode === "login" ? "is-active" : ""} type="button" onClick={() => setMode("login")}>
+          <button className={mode === "login" ? "is-active" : ""} type="button" onClick={() => switchMode("login")}>
             Log In
           </button>
-          <button className={mode === "signup" ? "is-active" : ""} type="button" onClick={() => setMode("signup")}>
+          <button className={mode === "signup" ? "is-active" : ""} type="button" onClick={() => switchMode("signup")}>
             Create Account
           </button>
         </div>
@@ -183,7 +228,21 @@ function AuthForm({ onAuthenticated }) {
               onChange={(event) => setPassword(event.target.value)}
               placeholder="Password"
               autoComplete={isCreateMode ? "new-password" : "current-password"}
-              minLength={6}
+              minLength={8}
+              required
+            />
+          </label>
+        )}
+        {isCreateMode && (
+          <label>
+            Confirm password
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(event) => setConfirmPassword(event.target.value)}
+              placeholder="Confirm password"
+              autoComplete="new-password"
+              minLength={8}
               required
             />
           </label>
@@ -204,37 +263,77 @@ function AuthForm({ onAuthenticated }) {
         {requiresTurnstile && (
           <div className="turnstile-panel">
             {TURNSTILE_SITE_KEY ? (
-              <Turnstile
-                ref={turnstileRef}
-                sitekey={TURNSTILE_SITE_KEY}
-                theme="light"
-                size="flexible"
-                onVerify={setTurnstileToken}
-                onExpire={() => setTurnstileToken("")}
-                onError={() => {
-                  setTurnstileToken("");
-                  setError("Verification failed. Please try again.");
-                }}
-              />
+              <>
+                <Turnstile
+                  ref={turnstileRef}
+                  sitekey={TURNSTILE_SITE_KEY}
+                  theme="light"
+                  size="flexible"
+                  onVerify={(token) => {
+                    setTurnstileToken(token);
+                    setTurnstileMessage("Verification complete.");
+                    setError("");
+                  }}
+                  onExpire={() => {
+                    setTurnstileToken("");
+                    setTurnstileMessage("Verification expired. Please verify again.");
+                  }}
+                  onError={() => {
+                    setTurnstileToken("");
+                    setTurnstileMessage("Verification failed. Please try again.");
+                    setError("Verification failed. Please try again.");
+                  }}
+                />
+                {turnstileMessage && <p className="turnstile-status">{turnstileMessage}</p>}
+              </>
             ) : (
               <div className="auth-message is-error">Add VITE_TURNSTILE_SITE_KEY to enable verification.</div>
             )}
           </div>
         )}
         <button className="primary-button" type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Working..." : isResetMode ? "Send Reset Link" : isCreateMode ? "Create Account" : "Log In"}
+          {isSubmitting ? (
+            <AuthLoadingLabel text={isResetMode ? "Sending..." : isCreateMode ? "Creating..." : "Logging in..."} />
+          ) : isResetMode ? (
+            submitLabel
+          ) : isCreateMode ? (
+            submitLabel
+          ) : (
+            submitLabel
+          )}
         </button>
       </form>
 
       <div className="auth-form-links">
-        {!isResetMode && (
-          <button type="button" onClick={() => setMode("reset")}>
-            Forgot password?
-          </button>
+        {mode === "login" && (
+          <>
+            <button type="button" onClick={() => switchMode("reset")}>
+              Forgot password?
+            </button>
+            <span>
+              New to PackDex?{" "}
+              <button type="button" onClick={() => switchMode("signup")}>
+                Create an account
+              </button>
+            </span>
+          </>
+        )}
+        {isCreateMode && (
+          <span>
+            Already have an account?{" "}
+            <button type="button" onClick={() => switchMode("login")}>
+              Log in
+            </button>
+          </span>
         )}
         {isResetMode && (
-          <button type="button" onClick={() => setMode("login")}>
+          <button type="button" onClick={() => switchMode("login")}>
             Back to login
+          </button>
+        )}
+        {isCreateMode && (
+          <button type="button" onClick={() => switchMode("reset")}>
+            Forgot password?
           </button>
         )}
       </div>
@@ -286,8 +385,14 @@ function AuthPanel({ user, onOpenAuth }) {
           <span>{user.email}</span>
         </div>
         <button className="secondary-button auth-logout-button" type="button" onClick={handleLogout} disabled={isSubmitting}>
-          <LogOut size={18} aria-hidden="true" />
-          Logout
+          {isSubmitting ? (
+            <AuthLoadingLabel text="Logging out..." />
+          ) : (
+            <>
+              <LogOut size={18} aria-hidden="true" />
+              Logout
+            </>
+          )}
         </button>
         {status && <div className="auth-message">{status}</div>}
         {error && <div className="auth-message is-error">{error}</div>}
@@ -327,7 +432,17 @@ export function AuthModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div className="auth-modal-overlay" role="dialog" aria-modal="true" aria-label="PackDex account" onClick={onClose}>
+    <div
+      className="auth-modal-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-label="PackDex account"
+      onClick={(event) => {
+        if (event.target === event.currentTarget) {
+          onClose();
+        }
+      }}
+    >
       <section className="auth-modal-card" onClick={(event) => event.stopPropagation()}>
         <button className="auth-modal-close" type="button" onClick={onClose} aria-label="Close account modal">
           <X size={22} aria-hidden="true" />
