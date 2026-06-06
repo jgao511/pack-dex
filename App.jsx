@@ -14,7 +14,12 @@ import {
   syncLocalCollectionToCloud,
 } from "./lib/cloudCollection.js";
 import { isSupabaseConfigured, supabase } from "./lib/supabaseClient.js";
-import { canGeneratePack, generatePack, getDisplayCardName, getDisplayRarity } from "./utils/packGenerator.js";
+import {
+  canGeneratePack,
+  generatePack,
+  getDisplayCardName,
+  getDisplayRarity,
+} from "./utils/packGenerator.js";
 import {
   addCardToBinder,
   clearBinderCards,
@@ -351,14 +356,83 @@ function LegalPage({ type }) {
 function ResetPasswordPage() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState("Preparing your password reset...");
   const [error, setError] = useState("");
+  const [isReady, setIsReady] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function prepareResetSession() {
+      if (!supabase) {
+        setError("Supabase is not configured yet.");
+        setStatus("");
+        return;
+      }
+
+      const searchParams = new URLSearchParams(window.location.search);
+      const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ""));
+      const authError = searchParams.get("error_description") || hashParams.get("error_description");
+      const code = searchParams.get("code");
+
+      if (authError) {
+        if (!isMounted) return;
+        window.history.replaceState({}, document.title, "/reset-password");
+        setError(authError);
+        setStatus("");
+        return;
+      }
+
+      try {
+        if (code) {
+          const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
+
+          if (exchangeError) {
+            throw exchangeError;
+          }
+        } else {
+          const { data, error: sessionError } = await supabase.auth.getSession();
+
+          if (sessionError) {
+            throw sessionError;
+          }
+
+          if (!data.session) {
+            throw new Error("Password reset link is missing or has expired.");
+          }
+        }
+
+        if (!isMounted) return;
+
+        window.history.replaceState({}, document.title, "/reset-password");
+        setIsReady(true);
+        setStatus("Enter a new password for your PackDex account.");
+      } catch (resetError) {
+        if (!isMounted) return;
+
+        window.history.replaceState({}, document.title, "/reset-password");
+        setStatus("");
+        setError(resetError.message || "Unable to open this password reset link.");
+      }
+    }
+
+    prepareResetSession();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   async function handleSubmit(event) {
     event.preventDefault();
     setStatus("");
     setError("");
+
+    if (!isReady) {
+      setError("Password reset link is not ready. Please request a new reset email.");
+      return;
+    }
 
     if (newPassword.length < 8) {
       setError("Password must be at least 8 characters.");
@@ -411,6 +485,7 @@ function ResetPasswordPage() {
             onChange={(event) => setNewPassword(event.target.value)}
             autoComplete="new-password"
             minLength={8}
+            disabled={!isReady}
             required
           />
         </label>
@@ -422,10 +497,11 @@ function ResetPasswordPage() {
             onChange={(event) => setConfirmPassword(event.target.value)}
             autoComplete="new-password"
             minLength={8}
+            disabled={!isReady}
             required
           />
         </label>
-        <button className="primary-button" type="submit" disabled={isSubmitting}>
+        <button className="primary-button" type="submit" disabled={isSubmitting || !isReady}>
           {isSubmitting ? "Updating..." : "Update Password"}
         </button>
       </form>
@@ -434,6 +510,91 @@ function ResetPasswordPage() {
       <a className="secondary-button" href="/">
         Back to PackDex
       </a>
+    </section>
+  );
+}
+
+function AuthCallbackPage() {
+  const [status, setStatus] = useState("Confirming your PackDex account...");
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function finishAuthCallback() {
+      if (!supabase) {
+        setError("Supabase is not configured yet.");
+        setStatus("");
+        return;
+      }
+
+      const searchParams = new URLSearchParams(window.location.search);
+      const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ""));
+      const authError = searchParams.get("error_description") || hashParams.get("error_description");
+      const code = searchParams.get("code");
+
+      if (authError) {
+        if (!isMounted) return;
+        setError(authError);
+        setStatus("");
+        window.history.replaceState({}, document.title, "/auth/callback");
+        return;
+      }
+
+      try {
+        if (code) {
+          const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
+
+          if (exchangeError) {
+            throw exchangeError;
+          }
+        } else {
+          const { data, error: sessionError } = await supabase.auth.getSession();
+
+          if (sessionError) {
+            throw sessionError;
+          }
+
+          if (!data.session) {
+            throw new Error("Confirmation link is missing or has expired.");
+          }
+        }
+
+        if (!isMounted) return;
+
+        window.history.replaceState({}, document.title, "/");
+        setStatus("Account confirmed! Redirecting to PackDex...");
+        window.setTimeout(() => {
+          window.location.assign("/");
+        }, 900);
+      } catch (callbackError) {
+        if (!isMounted) return;
+
+        window.history.replaceState({}, document.title, "/auth/callback");
+        setStatus("");
+        setError(callbackError.message || "Unable to confirm your account. Please request a new email.");
+      }
+    }
+
+    finishAuthCallback();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  return (
+    <section className="auth-callback-screen">
+      <img className="site-logo" src="/packdex-large.png" alt="PackDex" />
+      <span className="set-mark">Account</span>
+      <h1>Email Confirmation</h1>
+      {status && <div className="auth-message">{status}</div>}
+      {error && <div className="auth-message is-error">{error}</div>}
+      {error && (
+        <a className="secondary-button" href="/">
+          Back to PackDex
+        </a>
+      )}
     </section>
   );
 }
@@ -1180,6 +1341,15 @@ function ProfilePage({
 function App() {
   const pagePath = typeof window === "undefined" ? "/" : window.location.pathname;
   const legalPageType = pagePath === "/terms" ? "terms" : pagePath === "/privacy" ? "privacy" : "";
+
+  if (pagePath === "/auth/callback") {
+    return (
+      <main className="app-shell">
+        <AuthCallbackPage />
+        <SiteFooter />
+      </main>
+    );
+  }
 
   if (pagePath === "/reset-password") {
     return (
