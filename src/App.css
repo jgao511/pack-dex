@@ -3349,7 +3349,9 @@ button {
   .site-header {
     position: static;
     display: grid;
+    grid-template-columns: 1fr;
     justify-items: center;
+    align-items: center;
     gap: 7px;
     width: 100%;
     max-width: 100%;
@@ -3362,7 +3364,8 @@ button {
     justify-content: center;
     gap: 8px;
     min-width: 0;
-    width: 100%;
+    width: auto;
+    justify-self: center;
   }
 
   .site-brand__icon {
@@ -3416,6 +3419,8 @@ button {
   }
 
   .main-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     width: 100%;
     max-width: 100%;
     justify-self: center;
@@ -3426,7 +3431,7 @@ button {
   }
 
   .main-tabs button {
-    flex: 1 1 0;
+    width: 100%;
     min-height: 34px;
     min-width: 0;
     padding: 0 5px;

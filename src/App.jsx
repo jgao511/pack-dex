@@ -110,6 +110,20 @@ function resetPageScroll() {
   }, 0);
 }
 
+function pushAppHistory(state) {
+  if (typeof window === "undefined") return;
+
+  window.history.pushState(
+    {
+      ...(window.history.state || {}),
+      packdexApp: true,
+      ...state,
+    },
+    "",
+    window.location.pathname
+  );
+}
+
 function saveProfileStats(stats) {
   if (typeof window === "undefined") return;
 
@@ -1469,6 +1483,46 @@ function App() {
     };
   }, [authUser?.id, dismissedCloudSyncUserId, isAuthLoading]);
 
+  useEffect(() => {
+    function handlePopState(event) {
+      const state = event.state;
+
+      setIsTabLoading(false);
+      setIsReturningToSet(false);
+
+      if (!state?.packdexApp) {
+        setActiveTab("open");
+        setScreen("home");
+        setSelectedSet(null);
+        setPulledCards([]);
+        resetPageScroll();
+        return;
+      }
+
+      const nextTab = state.activeTab || "open";
+      const nextScreen = state.screen || (nextTab === "open" ? "home" : nextTab);
+      const nextSet = state.selectedSetId
+        ? sets.find((candidateSet) => candidateSet.id === state.selectedSetId) || null
+        : null;
+
+      setActiveTab(nextTab);
+      setScreen(nextScreen);
+      setSelectedSet(nextSet);
+
+      if (!["reveal", "summary"].includes(nextScreen)) {
+        setPulledCards([]);
+      }
+
+      resetPageScroll();
+    }
+
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, []);
+
   function selectMainTab(tab) {
     if (tab === activeTab) return;
 
@@ -1509,6 +1563,7 @@ function App() {
   function startPackOpening(set = selectedSet) {
     if (!set || !canGeneratePack(set)) return;
 
+    pushAppHistory({ activeTab: "open", screen: "opening", selectedSetId: set.id });
     setIsReturningToSet(false);
     setActiveTab("open");
     setSelectedSet(set);
@@ -1552,6 +1607,7 @@ function App() {
   function viewCollection(set = selectedSet) {
     if (!set) return;
 
+    pushAppHistory({ activeTab: "open", screen: "setCollection", selectedSetId: set.id });
     setActiveTab("open");
     setSelectedSet(set);
     setScreen("setCollection");
