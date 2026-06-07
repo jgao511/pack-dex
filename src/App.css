@@ -17,10 +17,23 @@
   box-sizing: border-box;
 }
 
+html,
+body,
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100svh;
+}
+
+img,
+svg {
+  max-width: 100%;
 }
 
 button {
@@ -3305,8 +3318,26 @@ button {
 }
 
 @media (max-width: 720px) {
+  html,
+  body,
+  #root,
+  .app-shell {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  .app-shell *,
+  .site-header *,
+  .set-select-screen *,
+  .dashboard-screen *,
+  .collection-screen *,
+  .summary-screen * {
+    min-width: 0;
+  }
+
   .app-shell {
     padding: 8px 10px 16px;
+    padding-bottom: calc(96px + env(safe-area-inset-bottom));
     gap: 9px;
   }
 
@@ -3320,13 +3351,17 @@ button {
     display: grid;
     justify-items: stretch;
     gap: 7px;
+    width: 100%;
+    max-width: 100%;
     border-radius: 16px;
     padding: 8px;
+    overflow: hidden;
   }
 
   .site-brand {
     justify-content: center;
     gap: 8px;
+    min-width: 0;
   }
 
   .site-brand__icon {
@@ -3336,31 +3371,67 @@ button {
 
   .site-brand span {
     font-size: 1.45rem;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .site-logo {
-    max-height: 82px;
+    width: min(78vw, 320px);
+    max-height: 64px;
   }
 
   .guest-signup-notice {
+    width: 100%;
+    max-width: 100%;
     justify-self: center;
     justify-content: center;
     border-radius: 18px;
-    font-size: 0.9rem;
+    padding: 8px 10px;
+    font-size: 0.76rem;
+    line-height: 1.18;
+    letter-spacing: 0.015em;
     text-align: center;
+    overflow: hidden;
+  }
+
+  .auth-save-notice {
+    width: 100%;
+    max-width: 100%;
+    padding: 10px 12px;
+    font-size: 0.8rem;
+    line-height: 1.18;
+    letter-spacing: 0.01em;
+    text-align: center;
+  }
+
+  .guest-signup-notice span,
+  .guest-signup-notice button,
+  .auth-save-notice,
+  .auth-save-notice button {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
   }
 
   .main-tabs {
     width: 100%;
+    max-width: 100%;
     border-radius: 16px;
     padding: 4px;
+    gap: 4px;
+    overflow: hidden;
   }
 
   .main-tabs button {
     flex: 1 1 0;
     min-height: 34px;
-    padding: 0 8px;
-    font-size: 0.88rem;
+    min-width: 0;
+    padding: 0 5px;
+    font-size: 0.8rem;
+    letter-spacing: 0.01em;
+    line-height: 1.02;
+    white-space: normal;
   }
 
   .era-section__hero {
@@ -3443,15 +3514,32 @@ button {
     display: grid;
     gap: 10px;
     align-content: start;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
   }
 
   .set-select-heading {
     gap: 6px;
+    width: 100%;
   }
 
   .set-select-heading h1 {
-    font-size: clamp(2.2rem, 11vw, 3.2rem);
+    font-size: clamp(1.95rem, 10vw, 2.8rem);
     line-height: 0.92;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .home-brand-hero {
+    gap: 6px;
+  }
+
+  .home-brand-hero h1 {
+    width: min(100%, 360px);
+    font-size: clamp(1.45rem, 8vw, 2.15rem);
+    line-height: 0.95;
+    letter-spacing: 0;
   }
 
   .set-select-heading p {
@@ -3460,20 +3548,26 @@ button {
 
   .era-filter {
     margin-top: 0;
+    width: min(100%, 286px);
+    justify-content: center;
     min-height: 34px;
     padding: 4px 7px 4px 10px;
   }
 
   .era-filter select {
-    min-width: 140px;
+    min-width: 0;
+    width: 100%;
     padding-top: 6px;
     padding-bottom: 6px;
     font-size: 0.9rem;
   }
 
   .set-grid {
+    width: 100%;
+    max-width: 100%;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
+    overflow: hidden;
   }
 
   .set-tile {
@@ -3534,17 +3628,76 @@ button {
 
   .collection-title h1,
   .dashboard-heading h1 {
-    font-size: clamp(1.9rem, 10vw, 3rem);
+    font-size: clamp(1.75rem, 9vw, 2.55rem);
+    line-height: 0.94;
+    max-width: 100%;
+    overflow-wrap: anywhere;
   }
 
   .dashboard-screen,
   .collection-screen {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
     gap: 14px;
     padding-block: 8px 24px;
   }
 
+  .dashboard-heading {
+    gap: 6px;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .dashboard-heading p {
+    width: min(100%, 330px);
+    justify-self: center;
+    font-size: 0.9rem;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+
+  .profile-panel,
+  .empty-state {
+    padding: 16px;
+    overflow: hidden;
+  }
+
+  .auth-panel {
+    overflow: hidden;
+  }
+
+  .auth-panel h2,
+  .profile-panel h2 {
+    font-size: clamp(1.6rem, 8vw, 2.25rem);
+  }
+
+  .auth-panel p,
+  .profile-panel p {
+    font-size: 0.9rem;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+
   .profile-stat-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .profile-stat-grid article {
+    padding: 16px;
+    overflow: hidden;
+  }
+
+  .profile-stat-grid span {
+    font-size: 0.82rem;
+  }
+
+  .profile-stat-grid strong {
+    font-size: clamp(2.1rem, 13vw, 3rem);
   }
 
   .auth-panel {
@@ -3646,7 +3799,12 @@ button {
 
   .collection-controls {
     display: grid;
-    gap: 8px;
+    gap: 7px;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 12px;
+    padding: 10px;
+    overflow: hidden;
   }
 
   .collection-search,
@@ -3659,6 +3817,28 @@ button {
 
   .collection-segments button {
     flex: 1;
+    min-width: 0;
+    padding-inline: 6px;
+    font-size: 0.82rem;
+    letter-spacing: 0.01em;
+  }
+
+  .collection-search {
+    min-width: 0;
+    min-height: 38px;
+    padding-inline: 12px;
+  }
+
+  .collection-search input {
+    min-width: 0;
+    font-size: 0.92rem;
+  }
+
+  .collection-controls select {
+    min-height: 38px;
+    max-width: 100%;
+    padding-inline: 12px;
+    font-size: 0.9rem;
   }
 
   .summary-header {
@@ -3738,8 +3918,11 @@ button {
   }
 
   .collection-grid {
+    width: 100%;
+    max-width: 100%;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 6px;
+    overflow: hidden;
   }
 
   .collection-card {
@@ -3854,6 +4037,36 @@ button {
     padding-inline: 8px;
   }
 
+  .site-header {
+    padding: 7px;
+  }
+
+  .site-brand__icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+  }
+
+  .site-brand span {
+    font-size: 1.25rem;
+  }
+
+  .main-tabs button {
+    min-height: 32px;
+    padding-inline: 3px;
+    font-size: 0.72rem;
+  }
+
+  .guest-signup-notice,
+  .auth-save-notice {
+    font-size: 0.68rem;
+    letter-spacing: 0;
+  }
+
+  .home-brand-hero h1 {
+    font-size: clamp(1.32rem, 7.2vw, 1.85rem);
+  }
+
   .opening-logo {
     max-height: 52px;
   }
@@ -3905,23 +4118,23 @@ button {
 
   .collection-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 5px;
+    gap: 4px;
   }
 
   .collection-card-image {
-    padding: 2px;
+    padding: 1px;
   }
 
   .collection-card-meta {
-    padding: 4px 3px;
+    padding: 3px 2px;
   }
 
   .collection-card-meta strong {
-    font-size: 0.52rem;
+    font-size: 0.48rem;
   }
 
   .collection-card-meta span {
-    font-size: 0.52rem;
+    font-size: 0.48rem;
   }
 
   .inspect-card {
