@@ -98,6 +98,18 @@ function hasCollectionEntries(collection) {
   return Object.values(collection || {}).some((setCollection) => Object.keys(setCollection || {}).length > 0);
 }
 
+function resetPageScroll() {
+  if (typeof window === "undefined") return;
+
+  window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  window.requestAnimationFrame(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  });
+  window.setTimeout(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, 0);
+}
+
 function saveProfileStats(stats) {
   if (typeof window === "undefined") return;
 
@@ -1466,6 +1478,7 @@ function App() {
     setIsTabLoading(true);
     setIsReturningToSet(false);
     setActiveTab(tab);
+    resetPageScroll();
 
     if (tab === "open") {
       setScreen("home");
@@ -1502,11 +1515,13 @@ function App() {
     setPulledCards([]);
     setScreen("opening");
     setIsTabLoading(false);
+    resetPageScroll();
   }
 
   function revealPack() {
     if (!selectedSet) return;
 
+    resetPageScroll();
     setPulledCards(generatePack(selectedSet));
     setProfileStats((currentStats) => {
       const nextStats = updatePackOpenedStats(currentStats, selectedSet);
@@ -1522,6 +1537,7 @@ function App() {
 
     setIsReturningToSet(false);
     setActiveTab("open");
+    resetPageScroll();
     setPulledCards(generatePack(selectedSet));
     setProfileStats((currentStats) => {
       const nextStats = updatePackOpenedStats(currentStats, selectedSet);

@@ -3349,7 +3349,7 @@ button {
   .site-header {
     position: static;
     display: grid;
-    justify-items: stretch;
+    justify-items: center;
     gap: 7px;
     width: 100%;
     max-width: 100%;
@@ -3362,6 +3362,7 @@ button {
     justify-content: center;
     gap: 8px;
     min-width: 0;
+    width: 100%;
   }
 
   .site-brand__icon {
@@ -3417,6 +3418,7 @@ button {
   .main-tabs {
     width: 100%;
     max-width: 100%;
+    justify-self: center;
     border-radius: 16px;
     padding: 4px;
     gap: 4px;
