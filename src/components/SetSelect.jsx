@@ -121,7 +121,6 @@ function SetSelect({ sets, collection, onSelectSet, onViewCollection }) {
   return (
     <section className="set-select-screen">
       <div className="set-select-heading">
-        <span className="set-mark">PackDex</span>
         <h1 className="brand-title">Open a Pack</h1>
         <p>Select a set to open a pack with the current pull rules.</p>
         <label className="era-filter">
