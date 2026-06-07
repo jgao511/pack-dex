@@ -3306,8 +3306,8 @@ button {
 
 @media (max-width: 720px) {
   .app-shell {
-    padding: 12px 14px 20px;
-    gap: 14px;
+    padding: 8px 10px 16px;
+    gap: 9px;
   }
 
   .inspect-card {
@@ -3319,16 +3319,27 @@ button {
     position: static;
     display: grid;
     justify-items: stretch;
-    gap: 10px;
-    border-radius: 18px;
+    gap: 7px;
+    border-radius: 16px;
+    padding: 8px;
   }
 
   .site-brand {
     justify-content: center;
+    gap: 8px;
+  }
+
+  .site-brand__icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .site-brand span {
+    font-size: 1.45rem;
   }
 
   .site-logo {
-    max-height: 110px;
+    max-height: 82px;
   }
 
   .guest-signup-notice {
@@ -3341,27 +3352,177 @@ button {
 
   .main-tabs {
     width: 100%;
-    border-radius: 18px;
+    border-radius: 16px;
+    padding: 4px;
   }
 
   .main-tabs button {
-    flex: 1 1 130px;
+    flex: 1 1 0;
+    min-height: 34px;
+    padding: 0 8px;
+    font-size: 0.88rem;
   }
 
   .era-section__hero {
     display: grid;
     justify-items: start;
+    gap: 8px;
+    margin-bottom: 10px;
+    padding: 10px 12px;
+    border-radius: 14px;
   }
 
   .era-section__logo {
-    width: 160px;
+    width: 118px;
+    height: 44px;
     max-width: 100%;
+  }
+
+  .era-section__text h2 {
+    font-size: 1.18rem;
+  }
+
+  .era-section-list {
+    gap: 18px;
   }
 
   .set-select-screen,
   .opening-screen,
   .reveal-screen {
     min-height: auto;
+  }
+
+  .opening-screen {
+    gap: 9px;
+    align-content: start;
+  }
+
+  .opening-logo {
+    max-height: 58px;
+  }
+
+  .opening-title {
+    gap: 5px;
+  }
+
+  .opening-title h1,
+  .opening-title .brand-title {
+    font-size: clamp(1.85rem, 9vw, 2.75rem);
+  }
+
+  .pack-stage {
+    width: min(58vw, 210px);
+    height: min(48svh, 286px);
+  }
+
+  .pack-card,
+  .pack {
+    width: min(48vw, 168px);
+    height: min(67vw, 242px);
+    border-radius: 14px;
+  }
+
+  .pack-card-back {
+    transform: rotate(-8deg) translate(-15px, 12px);
+  }
+
+  .pack-card-mid {
+    transform: rotate(6deg) translate(15px, 5px);
+  }
+
+  .pack-title {
+    max-width: 118px;
+    font-size: 1.72rem;
+  }
+
+  .pack-subtitle {
+    font-size: 0.76rem;
+  }
+
+  .set-select-screen {
+    display: grid;
+    gap: 10px;
+    align-content: start;
+  }
+
+  .set-select-heading {
+    gap: 6px;
+  }
+
+  .set-select-heading h1 {
+    font-size: clamp(2.2rem, 11vw, 3.2rem);
+    line-height: 0.92;
+  }
+
+  .set-select-heading p {
+    display: none;
+  }
+
+  .era-filter {
+    margin-top: 0;
+    min-height: 34px;
+    padding: 4px 7px 4px 10px;
+  }
+
+  .era-filter select {
+    min-width: 140px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    font-size: 0.9rem;
+  }
+
+  .set-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .set-tile {
+    min-height: 0;
+    grid-template-rows: minmax(188px, 1fr) 34px;
+    gap: 7px;
+  }
+
+  .set-tile-button {
+    grid-template-rows: 76px minmax(48px, 1fr) 34px;
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .set-logo-box {
+    height: 76px;
+    padding: 8px;
+  }
+
+  .set-tile-info h2 {
+    margin-bottom: 3px;
+    font-size: 1rem;
+    line-height: 1.05;
+  }
+
+  .set-tile-info span {
+    font-size: 0.78rem;
+    line-height: 1.1;
+  }
+
+  .set-open-pill,
+  .set-collection-button {
+    min-height: 34px;
+    gap: 5px;
+    padding-inline: 8px;
+    font-size: 0.86rem;
+  }
+
+  .set-open-pill svg,
+  .set-collection-button svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .set-card__badge-new {
+    top: 6px;
+    right: 6px;
+    padding: 3px 6px;
+    font-size: 0.62rem;
   }
 
   .collection-header {
@@ -3509,12 +3670,30 @@ button {
     text-align: center;
   }
 
+  .reveal-heading {
+    gap: 4px;
+  }
+
+  .reveal-heading h1 {
+    font-size: clamp(1.7rem, 9vw, 2.65rem);
+    line-height: 0.95;
+  }
+
+  .reveal-heading p {
+    font-size: 0.9rem;
+    line-height: 1.15;
+  }
+
+  .reveal-status {
+    font-size: 0.74rem;
+  }
+
   .summary-screen {
-    padding: 14px 0 24px;
+    padding: 4px 0 18px;
   }
 
   .summary-header h1 {
-    font-size: clamp(2rem, 11vw, 3.25rem);
+    font-size: clamp(1.55rem, 8.6vw, 2.35rem);
     line-height: 0.95;
   }
 
@@ -3543,47 +3722,47 @@ button {
   }
 
   .reveal-grid {
-    --reveal-card-width: clamp(54px, calc((100vw - 74px) / 5), 110px);
+    --reveal-card-width: clamp(50px, calc((100vw - 56px) / 5), 96px);
     width: 100%;
     grid-template-columns: repeat(5, var(--reveal-card-width));
     justify-content: center;
-    gap: clamp(5px, 1.4vw, 8px);
-    padding-inline: 4px;
+    gap: clamp(4px, 1.1vw, 7px);
+    padding-inline: 0;
     scroll-padding-inline: 14px;
   }
 
   .pull-grid {
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: clamp(5px, 1.4vw, 8px);
+    gap: clamp(4px, 1.1vw, 7px);
     width: 100%;
   }
 
   .collection-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 8px;
+    gap: 6px;
   }
 
   .collection-card {
-    border-radius: 7px;
+    border-radius: 6px;
     box-shadow: 0 10px 22px rgba(18, 24, 39, 0.09);
   }
 
   .collection-card-image {
-    padding: 4px;
+    padding: 3px;
   }
 
   .collection-card-meta {
     gap: 2px;
-    padding: 6px;
+    padding: 5px 4px;
   }
 
   .collection-card-meta strong {
-    font-size: 0.68rem;
+    font-size: 0.58rem;
     line-height: 1.05;
   }
 
   .collection-card-meta span {
-    font-size: 0.7rem;
+    font-size: 0.58rem;
     line-height: 1.1;
   }
 
@@ -3671,17 +3850,78 @@ button {
 }
 
 @media (max-width: 420px) {
+  .app-shell {
+    padding-inline: 8px;
+  }
+
+  .opening-logo {
+    max-height: 52px;
+  }
+
+  .pack-stage {
+    width: min(54vw, 190px);
+    height: min(43svh, 258px);
+  }
+
+  .pack-card,
+  .pack {
+    width: min(44vw, 154px);
+    height: min(61vw, 222px);
+  }
+
+  .set-grid {
+    gap: 8px;
+  }
+
+  .set-tile {
+    grid-template-rows: minmax(174px, 1fr) 32px;
+  }
+
+  .set-tile-button {
+    grid-template-rows: 68px minmax(46px, 1fr) 32px;
+    gap: 7px;
+    padding: 8px;
+  }
+
+  .set-logo-box {
+    height: 68px;
+    padding: 7px;
+  }
+
+  .set-tile-info h2 {
+    font-size: 0.9rem;
+  }
+
+  .set-tile-info span {
+    font-size: 0.68rem;
+  }
+
+  .set-open-pill,
+  .set-collection-button {
+    min-height: 32px;
+    padding-inline: 6px;
+    font-size: 0.76rem;
+  }
+
   .collection-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 7px;
+    gap: 5px;
+  }
+
+  .collection-card-image {
+    padding: 2px;
+  }
+
+  .collection-card-meta {
+    padding: 4px 3px;
   }
 
   .collection-card-meta strong {
-    font-size: 0.62rem;
+    font-size: 0.52rem;
   }
 
   .collection-card-meta span {
-    font-size: 0.64rem;
+    font-size: 0.52rem;
   }
 
   .inspect-card {
@@ -3690,6 +3930,7 @@ button {
 
   .pull-grid {
     grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 4px;
   }
 
   .summary-actions {
