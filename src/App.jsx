@@ -16,7 +16,9 @@ import {
 import { isSupabaseConfigured, supabase } from "./lib/supabaseClient.js";
 import {
   canGeneratePack,
+  generateForcedGodPack,
   generatePack,
+  GOD_PACK_CONFIG,
   getDisplayCardName,
   getDisplayRarity,
 } from "./utils/packGenerator.js";
@@ -38,8 +40,9 @@ import {
   markCardsCollected,
   saveCollection,
 } from "./utils/collectionStorage.js";
-import { getPokeballLoadingUrl, getSetLogoUrl } from "./utils/assetUrls.js";
+import { getPokeballLoadingUrl, getSetLogoUrl, getSetPackArtUrl } from "./utils/assetUrls.js";
 import { compareCardsByRarity } from "./utils/rarityRank.js";
+import { claimWelcomeReward, loadWelcomeRewardStatus } from "./lib/welcomeReward.js";
 
 const TAB_LOADING_MS = 420;
 const AUTH_MODAL_LOADING_MS = 380;
@@ -50,6 +53,34 @@ const PACK_STATS_STORAGE_KEY = "packdex-profile-stats";
 const COLLECTION_DASHBOARD_PAGE_SIZE = 60;
 const BINDER_PAGE_SIZE = 9;
 const ACTIVE_BINDER_STORAGE_KEY = "packdex-active-binder-id";
+const WELCOME_REWARD_CHOICES = [
+  {
+    setId: "prismatic-evolutions",
+    title: "Prismatic Evolutions",
+    description: "A premium Eeveelution God Pack with a glowing final Eevee ex reveal.",
+    forcedFormat: "PRISMATIC_FULL_EEVEELUTION_PACK",
+  },
+  {
+    setId: "black-bolt",
+    title: "Black Bolt",
+    description: "Nine Illustration Rares and one Special Illustration Rare from Black Bolt.",
+  },
+  {
+    setId: "white-flare",
+    title: "White Flare",
+    description: "Nine Illustration Rares and one Special Illustration Rare from White Flare.",
+  },
+  {
+    setId: "ascended-heroes",
+    title: "Ascended Heroes",
+    description: "Three Mega Attack Rares and seven Special Illustration Rares.",
+  },
+  {
+    setId: "151",
+    title: "151 Demi-God Pack",
+    description: "One complete starter evolution line with IR, IR, and SIR cards.",
+  },
+];
 
 const MAIN_TABS = [
   { id: "open", label: "Open a Pack" },
@@ -1288,14 +1319,149 @@ function SiteFooter() {
   );
 }
 
+function getWelcomeRewardChoices() {
+  return WELCOME_REWARD_CHOICES.map((choice) => {
+    const set = sets.find((candidateSet) => candidateSet.id === choice.setId);
+    const config = set ? GOD_PACK_CONFIG[set.id] : null;
+
+    return set && config?.enabled ? { ...choice, set, config } : null;
+  }).filter(Boolean);
+}
+
+function WelcomeRewardChoice({ choice, isSelected, onSelect }) {
+  const [packArtFailed, setPackArtFailed] = useState(false);
+  const logoUrl = getSetLogoUrl(choice.set);
+  const packArtUrl = getSetPackArtUrl(choice.set);
+  const mainImageUrl = !packArtFailed && packArtUrl ? packArtUrl : logoUrl;
+
+  return (
+    <button
+      className={`welcome-reward-choice ${isSelected ? "is-selected" : ""}`}
+      type="button"
+      onClick={() => onSelect(choice.setId)}
+    >
+      <span className="welcome-reward-choice__media">
+        {mainImageUrl && (
+          <img
+            className="welcome-reward-choice__pack"
+            src={mainImageUrl}
+            alt=""
+            onError={() => setPackArtFailed(true)}
+          />
+        )}
+        {logoUrl && <img className="welcome-reward-choice__logo" src={logoUrl} alt={`${choice.set.name} logo`} />}
+      </span>
+      <span className="welcome-reward-choice__copy">
+        <strong>{choice.title}</strong>
+        <small>{choice.description}</small>
+      </span>
+    </button>
+  );
+}
+
+function WelcomeRewardModal({
+  isOpen,
+  rewardStatus,
+  selectedSetId,
+  isClaiming,
+  error,
+  onSelect,
+  onClaim,
+  onClose,
+}) {
+  const choices = useMemo(() => getWelcomeRewardChoices(), []);
+
+  if (!isOpen || !rewardStatus?.isEligible || rewardStatus?.isClaimed) return null;
+
+  const selectedChoice = choices.find((choice) => choice.setId === selectedSetId) || choices[0];
+
+  return (
+    <div className="welcome-reward-overlay" role="dialog" aria-modal="true" aria-labelledby="welcome-reward-title" onMouseDown={onClose}>
+      <div className="welcome-reward-modal" onMouseDown={(event) => event.stopPropagation()}>
+        <button className="auth-modal-close" type="button" onClick={onClose} aria-label="Close welcome reward">
+          x
+        </button>
+
+        <div className="welcome-reward-heading">
+          <span>Welcome Reward</span>
+          <h2 id="welcome-reward-title">Welcome to PackDex!</h2>
+          <p>Choose your free God Pack.</p>
+          <small>As a thank-you for joining PackDex, pick one special God Pack to open instantly.</small>
+        </div>
+
+        <div className="welcome-reward-grid">
+          {choices.map((choice) => {
+            const isSelected = choice.setId === selectedChoice?.setId;
+
+            return (
+              <WelcomeRewardChoice
+                key={choice.setId}
+                choice={choice}
+                isSelected={isSelected}
+                onSelect={onSelect}
+              />
+            );
+          })}
+        </div>
+
+        {error && <div className="welcome-reward-error">{error}</div>}
+
+        <button
+          className="primary-button welcome-reward-cta"
+          type="button"
+          disabled={isClaiming || !selectedChoice}
+          onClick={() => onClaim(selectedChoice)}
+        >
+          {isClaiming ? "Opening reward..." : "Open This God Pack"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function WelcomeRewardProfileCard({ rewardStatus, onClaim }) {
+  if (!rewardStatus?.isEligible) return null;
+
+  if (!rewardStatus.isClaimed) {
+    return (
+      <div className="welcome-reward-profile-card is-available">
+        <div>
+          <span>Free God Pack Available</span>
+          <strong>Choose your welcome reward and open a special God Pack.</strong>
+        </div>
+        <button className="primary-button" type="button" onClick={onClaim}>
+          Claim Reward
+        </button>
+      </div>
+    );
+  }
+
+  const claimedSet = sets.find((set) => set.id === rewardStatus.setId);
+  const claimedDate = rewardStatus.claimedAt
+    ? new Date(rewardStatus.claimedAt).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })
+    : "";
+
+  return (
+    <div className="welcome-reward-profile-card is-claimed">
+      <div>
+        <span>Welcome reward claimed</span>
+        <strong>{claimedSet ? `Chosen pack: ${claimedSet.name}` : "Your welcome God Pack has been opened."}</strong>
+        {claimedDate && <small>Claimed on {claimedDate}</small>}
+      </div>
+    </div>
+  );
+}
+
 function ProfilePage({
   collection,
   profileStats,
   binders,
   user,
+  welcomeRewardStatus,
   cloudSyncStatus,
   showCloudSyncPrompt,
   onOpenAuth,
+  onOpenWelcomeReward,
   onSyncGuestCollection,
   onDismissCloudSync,
   onCreateBinder,
@@ -1323,6 +1489,8 @@ function ProfilePage({
       <AuthPanel user={user} onOpenAuth={onOpenAuth} />
 
       {user && <div className="cloud-save-badge">Cloud saving enabled</div>}
+
+      {user && <WelcomeRewardProfileCard rewardStatus={welcomeRewardStatus} onClaim={onOpenWelcomeReward} />}
 
       <CloudSyncPrompt
         isVisible={showCloudSyncPrompt}
@@ -1410,10 +1578,16 @@ function App() {
   const [cloudSyncStatus, setCloudSyncStatus] = useState("");
   const [showCloudSyncPrompt, setShowCloudSyncPrompt] = useState(false);
   const [dismissedCloudSyncUserId, setDismissedCloudSyncUserId] = useState("");
+  const [welcomeRewardStatus, setWelcomeRewardStatus] = useState(null);
+  const [isWelcomeRewardModalOpen, setIsWelcomeRewardModalOpen] = useState(false);
+  const [selectedWelcomeRewardSetId, setSelectedWelcomeRewardSetId] = useState(WELCOME_REWARD_CHOICES[0]?.setId || "");
+  const [isClaimingWelcomeReward, setIsClaimingWelcomeReward] = useState(false);
+  const [welcomeRewardError, setWelcomeRewardError] = useState("");
   const [isTabLoading, setIsTabLoading] = useState(false);
   const [isReturningToSet, setIsReturningToSet] = useState(false);
   const returnTokenRef = useRef(0);
   const tabLoadTokenRef = useRef(0);
+  const shownWelcomeRewardUserRef = useRef("");
   const isPackFlow = activeTab === "open" && ["opening", "reveal", "summary"].includes(screen);
   const authUser = authSession?.user || null;
 
@@ -1451,6 +1625,9 @@ function App() {
       setShowCloudSyncPrompt(false);
       setCloudSyncStatus("");
       setCloudWarning("");
+      setWelcomeRewardStatus(null);
+      setIsWelcomeRewardModalOpen(false);
+      setWelcomeRewardError("");
       return;
     }
 
@@ -1482,6 +1659,36 @@ function App() {
       isMounted = false;
     };
   }, [authUser?.id, dismissedCloudSyncUserId, isAuthLoading]);
+
+  useEffect(() => {
+    if (isAuthLoading || !authUser) return undefined;
+
+    let isMounted = true;
+
+    loadWelcomeRewardStatus(authUser)
+      .then((status) => {
+        if (!isMounted) return;
+
+        setWelcomeRewardStatus(status);
+        if (status.isEligible && !status.isClaimed && shownWelcomeRewardUserRef.current !== authUser.id) {
+          shownWelcomeRewardUserRef.current = authUser.id;
+          setSelectedWelcomeRewardSetId(WELCOME_REWARD_CHOICES[0]?.setId || "");
+          setWelcomeRewardError("");
+          setIsWelcomeRewardModalOpen(true);
+        }
+      })
+      .catch((error) => {
+        console.warn("Welcome reward load failed", error);
+        if (!isMounted) return;
+
+        setWelcomeRewardStatus({ isEligible: false, isClaimed: true, setId: "", claimedAt: "" });
+        setCloudWarning("Welcome reward could not be loaded yet. Pack opening still works.");
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [authUser?.id, isAuthLoading]);
 
   useEffect(() => {
     function handlePopState(event) {
@@ -1708,6 +1915,49 @@ function App() {
     });
   }
 
+  async function handleClaimWelcomeReward(choice) {
+    if (!authUser || !choice?.set || isClaimingWelcomeReward) return;
+
+    setIsClaimingWelcomeReward(true);
+    setWelcomeRewardError("");
+
+    try {
+      const rewardPack = generateForcedGodPack(choice.set, choice.set, choice.forcedFormat);
+
+      if (!rewardPack?.length || !rewardPack.isGodPack) {
+        throw new Error("This God Pack is not available right now. Please choose another pack.");
+      }
+
+      const claimedStatus = await claimWelcomeReward(choice.set.id, authUser);
+
+      Object.assign(rewardPack, {
+        isGodPack: true,
+        godPackDisplayName: "Welcome God Pack",
+        welcomeReward: true,
+      });
+
+      setWelcomeRewardStatus(claimedStatus);
+      setIsWelcomeRewardModalOpen(false);
+      setActiveTab("open");
+      setSelectedSet(choice.set);
+      setPulledCards(rewardPack);
+      setScreen("reveal");
+      setIsTabLoading(false);
+      resetPageScroll();
+      setProfileStats((currentStats) => {
+        const nextStats = updatePackOpenedStats(currentStats, choice.set);
+
+        saveProfileStats(nextStats);
+        return nextStats;
+      });
+    } catch (error) {
+      console.warn("Welcome reward claim failed", error);
+      setWelcomeRewardError(error?.message || "Could not open your welcome reward. Please try again.");
+    } finally {
+      setIsClaimingWelcomeReward(false);
+    }
+  }
+
   function backToSets() {
     const token = returnTokenRef.current + 1;
     const start = performance.now();
@@ -1844,9 +2094,14 @@ function App() {
           binders={binders}
           user={authUser}
           isAuthLoading={isAuthLoading}
+          welcomeRewardStatus={welcomeRewardStatus}
           cloudSyncStatus={cloudSyncStatus}
           showCloudSyncPrompt={showCloudSyncPrompt}
           onOpenAuth={openAuthModal}
+          onOpenWelcomeReward={() => {
+            setWelcomeRewardError("");
+            setIsWelcomeRewardModalOpen(true);
+          }}
           onSyncGuestCollection={handleSyncGuestCollection}
           onDismissCloudSync={handleDismissCloudSync}
           onCreateBinder={handleCreateBinder}
@@ -1858,6 +2113,19 @@ function App() {
 
       <SiteFooter />
       <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
+      <WelcomeRewardModal
+        isOpen={isWelcomeRewardModalOpen}
+        rewardStatus={welcomeRewardStatus}
+        selectedSetId={selectedWelcomeRewardSetId}
+        isClaiming={isClaimingWelcomeReward}
+        error={welcomeRewardError}
+        onSelect={(setId) => {
+          setSelectedWelcomeRewardSetId(setId);
+          setWelcomeRewardError("");
+        }}
+        onClaim={handleClaimWelcomeReward}
+        onClose={() => setIsWelcomeRewardModalOpen(false)}
+      />
       {isAuthOpening && <TabLoadingOverlay text="Opening account..." />}
       {isTabLoading && <TabLoadingOverlay />}
       {isReturningToSet && <LoadingOverlay />}

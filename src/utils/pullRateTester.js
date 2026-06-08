@@ -55,8 +55,8 @@ function getProfileName(set) {
   return set.pullRateProfile || "default";
 }
 
-function getExpectedProfilePercentages(profile) {
-  const weights = getFinalSlotWeights(profile);
+function getExpectedProfilePercentages(profile, set = {}) {
+  const weights = getFinalSlotWeights(profile, set);
   const total = Object.values(weights).reduce((sum, weight) => sum + weight, 0);
 
   return Object.fromEntries(
@@ -155,7 +155,7 @@ export function testPullRates(set, packCount = 10000) {
 
   const profile = getPullRateProfile(set);
   const profileName = getProfileName(set);
-  const finalSlotWeights = getFinalSlotWeights(profile);
+  const finalSlotWeights = getFinalSlotWeights(profile, set);
   const subsetSlotConfig = getSubsetSlotConfig(set);
   const pools = getPackPools(set);
   const finalSlotDiagnostics = getFinalSlotCategoryDiagnostics(pools.finalSlotPool, set);

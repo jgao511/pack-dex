@@ -225,13 +225,6 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
 
         <h1 className="brand-title">Reveal Your Pack</h1>
 
-        <p>
-          {isRevealed
-            ? "All pulls are revealed."
-            : isDealt
-              ? "Preparing the reveal..."
-              : "Dealing your cards..."}
-        </p>
       </div>
 
       <div className="reveal-grid">

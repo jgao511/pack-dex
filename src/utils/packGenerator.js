@@ -63,6 +63,7 @@ const FINAL_SLOT_CATEGORIES = new Set([
 const MODERN_SV_PRE_RARE_CATEGORIES = new Set(["illustrationRare", "specialIllustrationRare"]);
 
 const REVERSE_SLOT_CATEGORIES = new Set(["common", "uncommon", "rare"]);
+const SHOULD_VALIDATE_PACK_SLOTS = Boolean(import.meta.env?.DEV);
 
 // Simulator constants: exact English God Pack odds are not publicly disclosed.
 export const GOD_PACK_CONFIG = {
@@ -189,6 +190,320 @@ const PROFILE_CATEGORY_ALIASES = {
   megaDoubleRare: ["doubleRare", "pokemonV", "vmaxOrVstar"],
 };
 
+const EXPERIENCE_TUNED_PROFILE_WEIGHTS = {
+  xyEarly: {
+    regularRare: 0.36,
+    holoRare: 0.28,
+    rareHoloEX: 0.24,
+    ultraRareFullArt: 0.1,
+    secretRare: 0.02,
+  },
+  xyTransition: {
+    regularRare: 0.38,
+    holoRare: 0.27,
+    rareHoloEX: 0.23,
+    ultraRareFullArt: 0.09,
+    secretRare: 0.03,
+  },
+  xyLate: {
+    regularRare: 0.38,
+    holoRare: 0.27,
+    rareHoloEX: 0.22,
+    ultraRareFullArt: 0.1,
+    secretRare: 0.03,
+  },
+  xyBreak: {
+    excludeBreakCards: true,
+    regularRare: 0.42,
+    holoRare: 0.28,
+    rareHoloEX: 0.2,
+    ultraRareFullArt: 0.08,
+    secretRare: 0.02,
+  },
+  xyEvolutions: {
+    excludeBreakCards: true,
+    regularRare: 0.42,
+    holoRare: 0.29,
+    rareHoloEX: 0.2,
+    ultraRareFullArt: 0.09,
+    secretRare: 0,
+  },
+  xyGenerations: {
+    regularRare: 0.48,
+    holoRare: 0.26,
+    rareHoloEX: 0.17,
+    ultraRareFullArt: 0.09,
+    secretRare: 0,
+  },
+  xyDoubleCrisis: {
+    regularRare: 0.64,
+    holoRare: 0.25,
+    ultraRareFullArt: 0.11,
+    secretRare: 0,
+  },
+  sunMoonStandard: {
+    rare: 64,
+    gx: 22,
+    fullArt: 7,
+    rainbowRare: 4,
+    secretRare: 3,
+  },
+  sunMoonSpecial: {
+    rare: 75,
+    gx: 16,
+    fullArt: 5,
+    shinyRare: 0,
+    rainbowRare: 2,
+    secretRare: 2,
+  },
+  detectivePikachu: {
+    rare: 64,
+    higherRare: 36,
+  },
+  swordShieldStandard: {
+    rare: 62,
+    pokemonV: 25,
+    vmaxOrVstar: 4,
+    fullArt: 6,
+    rainbowRare: 3,
+    secretRare: 3,
+    alternateArt: 1,
+  },
+  swordShieldSpecial: {
+    rare: 68,
+    pokemonV: 20,
+    vmaxOrVstar: 4,
+    shinyRare: 0,
+    fullArt: 4,
+    rainbowRare: 2,
+    secretRare: 2,
+  },
+  swordShieldTrainerGallery: {
+    rare: 67,
+    pokemonV: 20,
+    vmaxOrVstar: 4,
+    fullArt: 4,
+    rainbowRare: 2,
+    secretRare: 2,
+    alternateArt: 1,
+    trainerGallery: 0,
+  },
+  scarletVioletStandard: {
+    rare: 70,
+    doubleRare: 21,
+    ultraRare: 5,
+    illustrationRare: 5.5,
+    specialIllustrationRare: 1.5,
+    hyperRare: 0.5,
+  },
+  scarletVioletSpecial: {
+    rare: 66,
+    doubleRare: 19,
+    ultraRare: 5,
+    illustrationRare: 6,
+    specialIllustrationRare: 2.5,
+    hyperRare: 1,
+  },
+  blackBoltWhiteFlare2025: {
+    rare: 63,
+    doubleRare: 19,
+    ultraRare: 5,
+    illustrationRare: 8,
+    specialIllustrationRare: 2,
+    hyperRare: 0,
+    blackWhiteRare: 0.5,
+    victiniRare: 0.1,
+  },
+  megaEvolutionStandard: {
+    rare: 68,
+    doubleRare: 0,
+    megaDoubleRare: 20,
+    ultraRare: 7,
+    illustrationRare: 5,
+    specialIllustrationRare: 1.5,
+    hyperRare: 0,
+    megaHyperRare: 0.2,
+  },
+};
+
+const EXPERIENCE_TUNED_FINAL_SLOT_WEIGHTS = {
+  // PackDex feel tuning: normal packs should usually land around 33-40% any-hit rate.
+  // Base hits get room, but mid/high/chase tiers keep meaningful odds.
+  "scarlet-violet": {
+    rare: 70,
+    doubleRare: 21,
+    ultraRare: 5,
+    illustrationRare: 5.5,
+    specialIllustrationRare: 1.5,
+    hyperRare: 0.5,
+  },
+  "paldea-evolved": {
+    rare: 70,
+    doubleRare: 21,
+    ultraRare: 5,
+    illustrationRare: 5.5,
+    specialIllustrationRare: 1.5,
+    hyperRare: 0.5,
+  },
+  "obsidian-flames": {
+    rare: 70,
+    doubleRare: 21,
+    ultraRare: 5,
+    illustrationRare: 5.5,
+    specialIllustrationRare: 1.5,
+    hyperRare: 0.5,
+  },
+  151: {
+    rare: 66,
+    doubleRare: 19,
+    ultraRare: 5,
+    illustrationRare: 6,
+    specialIllustrationRare: 2.5,
+    hyperRare: 1,
+  },
+  "paradox-rift": {
+    rare: 70,
+    doubleRare: 21,
+    ultraRare: 5,
+    illustrationRare: 5.5,
+    specialIllustrationRare: 1.5,
+    hyperRare: 0.5,
+  },
+  "paldean-fates": {
+    rare: 72,
+    doubleRare: 18,
+    ultraRare: 5,
+    specialIllustrationRare: 2,
+    hyperRare: 1,
+  },
+  "temporal-forces": {
+    rare: 70,
+    doubleRare: 21,
+    ultraRare: 5,
+    illustrationRare: 5.5,
+    specialIllustrationRare: 1.5,
+    hyperRare: 0.5,
+  },
+  "twilight-masquerade": {
+    rare: 70,
+    doubleRare: 21,
+    ultraRare: 5,
+    illustrationRare: 5.5,
+    specialIllustrationRare: 1.5,
+    hyperRare: 0.5,
+  },
+  "shrouded-fable": {
+    rare: 66,
+    doubleRare: 21,
+    ultraRare: 5,
+    illustrationRare: 5,
+    specialIllustrationRare: 2,
+    hyperRare: 1,
+  },
+  "stellar-crown": {
+    rare: 70,
+    doubleRare: 21,
+    ultraRare: 5,
+    illustrationRare: 5.5,
+    specialIllustrationRare: 1.5,
+    hyperRare: 0.5,
+  },
+  "surging-sparks": {
+    rare: 70,
+    doubleRare: 21,
+    ultraRare: 5,
+    illustrationRare: 5.5,
+    specialIllustrationRare: 1.5,
+    hyperRare: 0.5,
+  },
+  "prismatic-evolutions": {
+    rare: 65,
+    doubleRare: 20,
+    ultraRare: 8,
+    specialIllustrationRare: 4,
+    hyperRare: 2,
+  },
+  "journey-together": {
+    rare: 70,
+    doubleRare: 21,
+    ultraRare: 5,
+    illustrationRare: 5.5,
+    specialIllustrationRare: 1,
+    hyperRare: 0.5,
+  },
+  "destined-rivals": {
+    rare: 70,
+    doubleRare: 21,
+    ultraRare: 5,
+    illustrationRare: 5.5,
+    specialIllustrationRare: 1.5,
+    hyperRare: 0.5,
+  },
+  "black-bolt": {
+    rare: 63,
+    doubleRare: 19,
+    ultraRare: 5,
+    illustrationRare: 8,
+    specialIllustrationRare: 2,
+    blackWhiteRare: 0.5,
+    victiniRare: 0.1,
+  },
+  "white-flare": {
+    rare: 63,
+    doubleRare: 19,
+    ultraRare: 5,
+    illustrationRare: 8,
+    specialIllustrationRare: 2,
+    blackWhiteRare: 0.5,
+    victiniRare: 0.1,
+  },
+  "mega-evolution": {
+    rare: 67,
+    doubleRare: 0,
+    megaDoubleRare: 20,
+    ultraRare: 7,
+    illustrationRare: 5,
+    specialIllustrationRare: 1.8,
+    megaHyperRare: 0.2,
+  },
+  "phantasmal-flames": {
+    rare: 68,
+    doubleRare: 15,
+    megaDoubleRare: 11,
+    ultraRare: 5,
+    illustrationRare: 3.5,
+    specialIllustrationRare: 1.5,
+    megaHyperRare: 0.2,
+  },
+  "ascended-heroes": {
+    rare: 68,
+    doubleRare: 14,
+    megaDoubleRare: 11,
+    ultraRare: 5,
+    illustrationRare: 3.5,
+    specialIllustrationRare: 1.5,
+    megaHyperRare: 0.2,
+  },
+  "perfect-order": {
+    rare: 68,
+    doubleRare: 15,
+    megaDoubleRare: 11,
+    ultraRare: 5,
+    illustrationRare: 3.5,
+    specialIllustrationRare: 1.5,
+    megaHyperRare: 0.2,
+  },
+  "chaos-rising": {
+    rare: 68,
+    doubleRare: 15,
+    megaDoubleRare: 11,
+    ultraRare: 5,
+    illustrationRare: 3.5,
+    specialIllustrationRare: 1.5,
+    megaHyperRare: 0.2,
+  },
+};
+
 const HIGHER_THAN_RARE_CATEGORIES = new Set(
   [...FINAL_SLOT_CATEGORIES].filter((category) => category !== "rare" && category !== "holoRare")
 );
@@ -306,6 +621,27 @@ const SUBSET_SLOT_RULES = {
     regularWeight: 15,
     premiumWeight: 5,
   },
+};
+
+const EXPERIENCE_TUNED_SUBSET_SLOT_RATES = {
+  "hidden-fates": { normal: 86, shinyRare: 11, shinyUltraRare: 3 },
+  "shining-fates": { normal: 86, shinyRare: 11, shinyUltraRare: 3 },
+  celebrations: { normal: 86, classicCollection: 14 },
+  "brilliant-stars": { normal: 90, trainerGallery: 10 },
+  "astral-radiance": { normal: 90, trainerGallery: 10 },
+  "lost-origin": { normal: 90, trainerGallery: 10 },
+  "silver-tempest": { normal: 90, trainerGallery: 10 },
+  "pokemon-go": { normal: 95, radiantRare: 5 },
+  "crown-zenith": { normal: 86, galarianGallery: 11, premiumGalarianGallery: 3 },
+  "crown-zentih": { normal: 86, galarianGallery: 11, premiumGalarianGallery: 3 },
+  "paldean-fates": { normal: 88, shinyRare: 12 },
+  "prismatic-evolutions": { normal: 96, aceSpecRare: 4 },
+  "shrouded-fable": { normal: 92, shinyRare: 8 },
+  151: { normal: 100 },
+  "temporal-forces": { normal: 96, aceSpecRare: 4 },
+  "twilight-masquerade": { normal: 96, aceSpecRare: 4 },
+  "stellar-crown": { normal: 96, aceSpecRare: 4 },
+  "surging-sparks": { normal: 96, aceSpecRare: 4 },
 };
 
 const PROFILE_ALIASES_BY_SET = {
@@ -852,7 +1188,11 @@ export function getPullRateProfile(set = {}) {
   return pullRateProfiles[profileName] || pullRateProfiles[defaultPullRateProfile];
 }
 
-export function getFinalSlotWeights(profile = pullRateProfiles[defaultPullRateProfile]) {
+export function getFinalSlotWeights(profile = pullRateProfiles[defaultPullRateProfile], set = {}) {
+  const tunedWeights = getExperienceTunedFinalSlotWeights(set);
+
+  if (tunedWeights) return tunedWeights;
+
   return profile.finalSlot || profile.finalRareSlot || profile;
 }
 
@@ -868,6 +1208,14 @@ function getProfileName(set = {}) {
   return getConfiguredProfileName(set);
 }
 
+function getExperienceTunedFinalSlotWeights(set = {}) {
+  return (
+    EXPERIENCE_TUNED_FINAL_SLOT_WEIGHTS[normalizeSetId(set)] ||
+    EXPERIENCE_TUNED_PROFILE_WEIGHTS[getConfiguredProfileName(set)] ||
+    null
+  );
+}
+
 function getPackSize(set = {}) {
   const profile = getPullRateProfile(set);
   const setId = normalizeSetId(set);
@@ -881,8 +1229,14 @@ export function getProfileWeightForCategory(
   set = {},
   availableCategories = new Set()
 ) {
-  const weights = getFinalSlotWeights(profile);
+  const weights = getFinalSlotWeights(profile, set);
   const profileName = getProfileName(set);
+
+  if (weights.holoRare === undefined && weights.rare !== undefined && availableCategories.has("rare") && availableCategories.has("holoRare")) {
+    if (category === "rare") return weights.rare * 0.65;
+    if (category === "holoRare") return weights.rare * 0.35;
+  }
+
   const key = getProfileWeightKey(category);
 
   if (weights[key] !== undefined) return weights[key];
@@ -1037,7 +1391,7 @@ export function buildXYFinalRareBuckets(setCards, set = {}) {
 
 function pickFromXYFinalRareBuckets(pools, set = {}, usedIds = new Set()) {
   const profile = getPullRateProfile(set);
-  const weights = profile.coreSlots?.finalRareSlot || profile.finalRareSlot || getFinalSlotWeights(profile);
+  const weights = getExperienceTunedFinalSlotWeights(set) || profile.coreSlots?.finalRareSlot || profile.finalRareSlot || getFinalSlotWeights(profile, set);
   const buckets = buildXYFinalRareBuckets(pools, set);
   const weightedBuckets = [
     ["regularRare", weights.regularRare ?? weights.rare ?? 0],
@@ -1080,7 +1434,7 @@ export function drawXYReverseSlotCard({ setPool, allowBreak, set = {}, usedIds =
 
 export function getFinalSlotCategoryDiagnostics(finalSlotPool, set = {}) {
   const profile = getPullRateProfile(set);
-  const weights = getFinalSlotWeights(profile);
+  const weights = getFinalSlotWeights(profile, set);
   const cardsByCategory = groupCardsByCategory(finalSlotPool, new Set(), set);
   const availableCategories = new Set(Object.keys(cardsByCategory));
   const poolCounts = Object.fromEntries(
@@ -1195,11 +1549,12 @@ export function getSubsetType(card, set = {}) {
 export function getSubsetSlotConfig(set = {}) {
   const setId = normalizeSetId(set);
   const hardcoded = hardcodedPullRates[setId]?.subsetSlot;
+  const tunedRates = EXPERIENCE_TUNED_SUBSET_SLOT_RATES[setId];
 
   if (hardcoded) {
     return {
       ...hardcoded,
-      rates: hardcoded.rates || {},
+      rates: tunedRates || hardcoded.rates || {},
       legacy: false,
     };
   }
@@ -1211,13 +1566,13 @@ export function getSubsetSlotConfig(set = {}) {
   return {
     type: rule.type,
     subsetTypes: rule.subsetTypes,
-    rates: {
+    rates: tunedRates || {
       normal: rule.normalWeight || 0,
       regular: rule.regularWeight || 0,
       premium: rule.premiumWeight || 0,
       chase: rule.chaseWeight || 0,
     },
-    legacy: true,
+    legacy: !tunedRates,
   };
 }
 
@@ -1429,6 +1784,125 @@ function warnMissingPools(set, details) {
   }
 }
 
+function isRegularSlotCategory(category) {
+  return REVERSE_SLOT_CATEGORIES.has(category);
+}
+
+function isCommonSlotCard(card, set = {}) {
+  return (card?.rarityCategory || getRarityCategory(card, set)) === "common";
+}
+
+function isUncommonSlotCard(card, set = {}) {
+  return (card?.rarityCategory || getRarityCategory(card, set)) === "uncommon";
+}
+
+function isRegularSlotCard(card, set = {}) {
+  return isRegularSlotCategory(card?.rarityCategory || getRarityCategory(card, set));
+}
+
+function isSubsetOrPreRareSlotCard(card, set = {}) {
+  const category = card?.rarityCategory || getRarityCategory(card, set);
+
+  return (
+    isRegularSlotCategory(category) ||
+    getSubsetSlotWeight(card, set) > 0 ||
+    (isModernSVSet(set) && isModernSVPreRareCategory(category))
+  );
+}
+
+function isFinalRareSlotCard(card, set = {}) {
+  const category = card?.rarityCategory || getRarityCategory(card, set);
+
+  return FINAL_SLOT_CATEGORIES.has(category) && !(isModernSVSet(set) && isModernSVPreRareCategory(category));
+}
+
+function warnInvalidSlot(card, set, slotName) {
+  if (!SHOULD_VALIDATE_PACK_SLOTS || !card) return;
+
+  const category = card.rarityCategory || getRarityCategory(card, set);
+  const label = RARITY_CATEGORY_LABELS[category] || card.rarity || category;
+
+  console.warn(
+    `Invalid pack slot: ${label} appeared in ${slotName} for ${set?.name || set?.id || "this set"}.`,
+    { cardId: card.id, cardName: card.name, rarity: card.rarity, slotName }
+  );
+}
+
+function validatePackSlotPlacement(pack, set = {}) {
+  if (!SHOULD_VALIDATE_PACK_SLOTS || !Array.isArray(pack)) return pack;
+
+  const profileName = getConfiguredProfileName(set);
+  const validators = [];
+
+  if (profileName === "xyKalosStarter") {
+    validators.push(...pack.map((_, index) => [`card ${index + 1}`, isCommonSlotCard]));
+  } else if (profileName === "xyGenerations") {
+    validators.push(
+      ["common slot", isCommonSlotCard],
+      ["common slot", isCommonSlotCard],
+      ["common slot", isCommonSlotCard],
+      ["common slot", isCommonSlotCard],
+      ["uncommon slot", isUncommonSlotCard],
+      ["uncommon slot", isUncommonSlotCard],
+      ["reverse slot", isRegularSlotCard],
+      ["final rare slot", isFinalRareSlotCard],
+      ["Radiant Collection slot", (card) => isRadiantCollectionCard(card)],
+      ["Radiant Collection slot", (card) => isRadiantCollectionCard(card)]
+    );
+  } else if (isXYSet(set)) {
+    const allowEvolutionsSecret = profileName === "xyEvolutions";
+    const isXYUncommonSlot = (card) => isUncommonSlotCard(card, set) || (allowEvolutionsSecret && (card?.rarityCategory || getRarityCategory(card, set)) === "secretRare");
+    const isXYReverseSlot = (card) => isRegularSlotCard(card, set) || (isXYBreakSet(set) && isBreakCard(card));
+
+    validators.push(
+      ["common slot", isCommonSlotCard],
+      ["common slot", isCommonSlotCard],
+      ["common slot", isCommonSlotCard],
+      ["common slot", isCommonSlotCard],
+      ["common slot", isCommonSlotCard],
+      ["uncommon slot", isXYUncommonSlot],
+      ["uncommon slot", isXYUncommonSlot],
+      ["uncommon slot", isXYUncommonSlot],
+      ["reverse/BREAK slot", isXYReverseSlot],
+      ["final rare slot", isFinalRareSlotCard]
+    );
+  } else if (getPackSize(set) === 4) {
+    const setId = normalizeSetId(set);
+
+    validators.push(
+      ["regular slot", isRegularSlotCard],
+      ["regular slot", isRegularSlotCard],
+      [setId === "celebrations" ? "subset slot" : "regular slot", setId === "celebrations" ? isSubsetOrPreRareSlotCard : isRegularSlotCard],
+      ["final rare slot", isFinalRareSlotCard]
+    );
+  } else {
+    validators.push(
+      ["common slot", isCommonSlotCard],
+      ["common slot", isCommonSlotCard],
+      ["common slot", isCommonSlotCard],
+      ["common slot", isCommonSlotCard],
+      ["uncommon slot", isUncommonSlotCard],
+      ["uncommon slot", isUncommonSlotCard],
+      ["uncommon slot", isUncommonSlotCard],
+      ["regular slot", isRegularSlotCard],
+      ["art/subset slot", isSubsetOrPreRareSlotCard],
+      ["final rare slot", isFinalRareSlotCard]
+    );
+  }
+
+  pack.forEach((card, index) => {
+    const [slotName, validator] = validators[index] || ["unknown slot", () => true];
+
+    if (!validator(card, set)) warnInvalidSlot(card, set, slotName);
+  });
+
+  return pack;
+}
+
+function finalizeNormalPack(pack, pools, set) {
+  return validatePackSlotPlacement(removeEnergyFromPack(pack, pools, set), set);
+}
+
 function drawReplacementNonEnergyCard(card, pools, set, blockedIds) {
   const category = card?.rarityCategory || getRarityCategory(card, set);
   const sameRarityPool = pools.cleanCards.filter(
@@ -1506,10 +1980,10 @@ export function canGeneratePack(cardsOrSet, maybeSet) {
 
 function generateMiniPack(set, pools, profile, usedIds) {
   const setId = normalizeSetId(set);
-  const regularPool = pools.reverseSlotPool.length > 0 ? pools.reverseSlotPool : pools.mainCards;
+  const regularPool = pools.reverseSlotPool;
   const firstRegularCards = pickRandom(regularPool, MINI_PACK_SLOTS.regular - 1, usedIds);
   const possibleSubsetCard =
-    setId === "celebrations" ? pickRegularOrSubsetSlot({ ...pools, reverseSlotPool: pools.mainCards }, set, usedIds) : undefined;
+    setId === "celebrations" ? pickRegularOrSubsetSlot(pools, set, usedIds) : undefined;
   const lastRegularCards = possibleSubsetCard
     ? [possibleSubsetCard]
     : pickRandom(regularPool, 1, usedIds);
@@ -1527,7 +2001,7 @@ function generateMiniPack(set, pools, profile, usedIds) {
     });
   }
 
-  return removeEnergyFromPack(pack.slice(0, 4), pools, set);
+  return finalizeNormalPack(pack.slice(0, 4), pools, set);
 }
 
 function pickXYUncommons(pools, set = {}, usedIds = new Set()) {
@@ -1580,7 +2054,7 @@ function generateXYKalosStarterPack(set, pools, usedIds) {
     });
   }
 
-  return removeEnergyFromPack(pack.slice(0, profile.packSize || 10), pools, set);
+  return finalizeNormalPack(pack.slice(0, profile.packSize || 10), pools, set);
 }
 
 function generateXYGenerationsPack(set, pools, usedIds) {
@@ -1617,7 +2091,7 @@ function generateXYGenerationsPack(set, pools, usedIds) {
     });
   }
 
-  return removeEnergyFromPack(pack.slice(0, profile.packSize), pools, set);
+  return finalizeNormalPack(pack.slice(0, profile.packSize), pools, set);
 }
 
 function generateXYPack(set, pools, usedIds) {
@@ -1652,7 +2126,7 @@ function generateXYPack(set, pools, usedIds) {
     });
   }
 
-  return removeEnergyFromPack(pack.slice(0, profile.packSize), pools, set);
+  return finalizeNormalPack(pack.slice(0, profile.packSize), pools, set);
 }
 
 function withPackMetadata(cards, metadata = {}) {
@@ -1915,7 +2389,7 @@ function generateNormalPack(set, pools, profile, usedIds) {
     });
   }
 
-  return removeEnergyFromPack(pack.slice(0, 10), pools, set);
+  return finalizeNormalPack(pack.slice(0, 10), pools, set);
 }
 
 export function generatePack(cardsOrSet, maybeSet) {

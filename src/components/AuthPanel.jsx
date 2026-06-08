@@ -196,6 +196,13 @@ function AuthForm({ onAuthenticated }) {
         <p>{subtitle}</p>
       </div>
 
+      {isCreateMode && (
+        <div className="auth-reward-callout">
+          <strong>New account bonus</strong>
+          <span>Sign up to choose a one-time welcome God Pack after confirming your account.</span>
+        </div>
+      )}
+
       {!isResetMode && (
         <div className="auth-mode-toggle" role="tablist" aria-label="Choose auth mode">
           <button className={mode === "login" ? "is-active" : ""} type="button" onClick={() => switchMode("login")}>
