@@ -21,7 +21,12 @@ create policy "Users can create their own welcome reward"
 on public.user_welcome_rewards
 for insert
 to authenticated
-with check (auth.uid() = user_id and welcome_god_pack_claimed = false);
+with check (
+  auth.uid() = user_id
+  and welcome_god_pack_claimed = false
+  and welcome_god_pack_set is null
+  and welcome_reward_claimed_at is null
+);
 
 drop policy if exists "Users can claim their own welcome reward" on public.user_welcome_rewards;
 create policy "Users can claim their own welcome reward"
