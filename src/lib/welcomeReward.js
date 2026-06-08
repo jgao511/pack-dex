@@ -1,17 +1,13 @@
 import { supabase } from "./supabaseClient.js";
 
 const WELCOME_REWARD_TABLE = "user_welcome_rewards";
-const WELCOME_REWARD_FEATURE_CUTOFF = "2026-06-07T00:00:00.000Z";
 
 function nowIso() {
   return new Date().toISOString();
 }
 
-function isEligibleNewUser(user) {
-  const createdAt = Date.parse(user?.created_at || "");
-  const cutoff = Date.parse(WELCOME_REWARD_FEATURE_CUTOFF);
-
-  return Number.isFinite(createdAt) && createdAt >= cutoff;
+function isEligibleUser(user) {
+  return Boolean(user?.id);
 }
 
 function logWelcomeRewardDebug(stage, { error, user, rowMissing, isEligible } = {}) {
@@ -20,7 +16,6 @@ function logWelcomeRewardDebug(stage, { error, user, rowMissing, isEligible } = 
     userId: user?.id || "",
     rowMissing,
     isEligible,
-    cutoff: WELCOME_REWARD_FEATURE_CUTOFF,
     userCreatedAt: user?.created_at || "",
     code: error?.code,
     message: error?.message,
@@ -32,8 +27,8 @@ function logWelcomeRewardDebug(stage, { error, user, rowMissing, isEligible } = 
 function normalizeRewardRow(row, user) {
   if (!row) {
     return {
-      isEligible: isEligibleNewUser(user),
-      isClaimed: !isEligibleNewUser(user),
+      isEligible: isEligibleUser(user),
+      isClaimed: !isEligibleUser(user),
       setId: "",
       claimedAt: "",
       rowMissing: true,
@@ -80,7 +75,7 @@ export async function loadWelcomeRewardStatus(userOverride) {
       error,
       user,
       rowMissing: undefined,
-      isEligible: isEligibleNewUser(user),
+      isEligible: isEligibleUser(user),
     });
     throw error;
   }
@@ -131,7 +126,7 @@ export async function claimWelcomeReward(setId, userOverride) {
 
   const status = await loadWelcomeRewardStatus(user);
 
-  if (!status.isEligible) throw new Error("This welcome reward is only available for new accounts.");
+  if (!status.isEligible) throw new Error("Log in to claim your welcome reward.");
   if (status.isClaimed) throw new Error("This welcome reward has already been claimed.");
 
   const timestamp = nowIso();
