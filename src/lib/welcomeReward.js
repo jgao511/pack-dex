@@ -14,6 +14,21 @@ function isEligibleNewUser(user) {
   return Number.isFinite(createdAt) && createdAt >= cutoff;
 }
 
+function logWelcomeRewardDebug(stage, { error, user, rowMissing, isEligible } = {}) {
+  console.warn("Welcome reward debug", {
+    stage,
+    userId: user?.id || "",
+    rowMissing,
+    isEligible,
+    cutoff: WELCOME_REWARD_FEATURE_CUTOFF,
+    userCreatedAt: user?.created_at || "",
+    code: error?.code,
+    message: error?.message,
+    details: error?.details,
+    hint: error?.hint,
+  });
+}
+
 function normalizeRewardRow(row, user) {
   if (!row) {
     return {
@@ -61,27 +76,48 @@ export async function loadWelcomeRewardStatus(userOverride) {
     .maybeSingle();
 
   if (error) {
-    console.warn("Unable to load welcome reward status", error);
+    logWelcomeRewardDebug("select", {
+      error,
+      user,
+      rowMissing: undefined,
+      isEligible: isEligibleNewUser(user),
+    });
     throw error;
   }
 
   const status = normalizeRewardRow(data, user);
 
+  if (status.rowMissing) {
+    logWelcomeRewardDebug("missing-row", {
+      user,
+      rowMissing: true,
+      isEligible: status.isEligible,
+    });
+  }
+
   if (!status.rowMissing || !status.isEligible) return status;
 
   const { data: inserted, error: insertError } = await supabase
     .from(WELCOME_REWARD_TABLE)
-    .insert({
-      user_id: user.id,
-      welcome_god_pack_claimed: false,
-    })
+    .insert({ user_id: user.id })
     .select("user_id, welcome_god_pack_claimed, welcome_god_pack_set, welcome_reward_claimed_at")
     .single();
 
   if (insertError) {
-    console.warn("Unable to create welcome reward row", insertError);
+    logWelcomeRewardDebug("insert", {
+      error: insertError,
+      user,
+      rowMissing: true,
+      isEligible: status.isEligible,
+    });
     throw insertError;
   }
+
+  logWelcomeRewardDebug("inserted", {
+    user,
+    rowMissing: false,
+    isEligible: status.isEligible,
+  });
 
   return normalizeRewardRow(inserted, user);
 }
@@ -112,7 +148,12 @@ export async function claimWelcomeReward(setId, userOverride) {
     .maybeSingle();
 
   if (error) {
-    console.warn("Unable to claim welcome reward", error);
+    logWelcomeRewardDebug("claim-update", {
+      error,
+      user,
+      rowMissing: false,
+      isEligible: status.isEligible,
+    });
     throw error;
   }
 
@@ -122,4 +163,3 @@ export async function claimWelcomeReward(setId, userOverride) {
 
   return normalizeRewardRow(data, user);
 }
-
