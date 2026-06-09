@@ -12,6 +12,7 @@ import { loadCloudCollection, savePulledCardsToCloud } from "./lib/cloudCollecti
 import { isSupabaseConfigured, supabase } from "./lib/supabaseClient.js";
 import {
   canGeneratePack,
+  generateForcedGodPack,
   generatePack,
   GOD_PACK_CONFIG,
   getDisplayCardName,
@@ -233,7 +234,7 @@ function AuthSaveNotice({ onOpenAuth }) {
       <button type="button" onClick={onOpenAuth}>
         create an account
       </button>{" "}
-      to save new pulls to your account.
+      to save your pulls across devices.
     </div>
   );
 }
@@ -247,7 +248,7 @@ function GuestSignupNotice({ user, onOpenAuth }) {
       <button type="button" onClick={onOpenAuth}>
         Sign up
       </button>
-      <span>before opening packs to save pulls to your account.</span>
+      <span>to claim a free God Pack and save your pulls.</span>
     </aside>
   );
 }
@@ -690,7 +691,6 @@ function CollectionDashboard({ collection, binders, user, onOpenAuth, onAddToBin
       <div className="dashboard-heading">
         <span className="set-mark">Collection</span>
         <h1>Collected Cards</h1>
-        <p>Your pulled cards across every set live here.</p>
       </div>
 
       {user ? <div className="cloud-save-badge">Account saving enabled</div> : <AuthSaveNotice onOpenAuth={onOpenAuth} />}
@@ -1359,7 +1359,6 @@ function WelcomeRewardChoice({ choice, isSelected, onSelect }) {
             onError={() => setPackArtFailed(true)}
           />
         )}
-        {logoUrl && <img className="welcome-reward-choice__logo" src={logoUrl} alt={`${choice.set.name} logo`} />}
       </span>
       <span className="welcome-reward-choice__copy">
         <strong>{choice.title}</strong>
@@ -1446,20 +1445,7 @@ function WelcomeRewardProfileCard({ rewardStatus, onClaim }) {
     );
   }
 
-  const claimedSet = sets.find((set) => set.id === rewardStatus.setId);
-  const claimedDate = rewardStatus.claimedAt
-    ? new Date(rewardStatus.claimedAt).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })
-    : "";
-
-  return (
-    <div className="welcome-reward-profile-card is-claimed">
-      <div>
-        <span>Welcome reward claimed</span>
-        <strong>{claimedSet ? `Chosen pack: ${claimedSet.name}` : "Your welcome God Pack has been opened."}</strong>
-        {claimedDate && <small>Claimed on {claimedDate}</small>}
-      </div>
-    </div>
-  );
+  return null;
 }
 
 function ProfilePage({
@@ -1489,13 +1475,11 @@ function ProfilePage({
       <div className="dashboard-heading">
         <span className="set-mark">Profile</span>
         <h1>Your PackDex</h1>
-        <p>A local snapshot of your pack-opening journey.</p>
       </div>
 
       <AuthPanel user={user} onOpenAuth={onOpenAuth} />
 
       {user && <div className="cloud-save-badge">Account saving enabled</div>}
-      {user && <div className="cloud-save-note">You're signed in now. New pulls will save to your account.</div>}
 
       {user && <WelcomeRewardProfileCard rewardStatus={welcomeRewardStatus} onClaim={onOpenWelcomeReward} />}
 
@@ -1532,6 +1516,79 @@ function ProfilePage({
   );
 }
 
+function DevGodPackAnimationPreview() {
+  const [isChooserOpen, setIsChooserOpen] = useState(true);
+  const [selectedSetId, setSelectedSetId] = useState(WELCOME_REWARD_CHOICES[0]?.setId || "");
+  const [previewSet, setPreviewSet] = useState(null);
+  const [previewPack, setPreviewPack] = useState([]);
+
+  function handlePreviewClaim(choice) {
+    if (!choice?.set) return;
+
+    const pack = generateForcedGodPack(choice.set, choice.set, choice.forcedFormat);
+
+    Object.assign(pack, {
+      isGodPack: true,
+      godPackDisplayName: pack.godPackDisplayName || choice.config?.displayName || "God Pack",
+      welcomeReward: true,
+    });
+
+    setPreviewSet(choice.set);
+    setPreviewPack(pack);
+    setIsChooserOpen(false);
+  }
+
+  return (
+    <>
+      <div className="dev-preview-toolbar">
+        <span>Local God Pack chooser preview</span>
+        <button
+          className="secondary-button"
+          type="button"
+          onClick={() => {
+            setPreviewPack([]);
+            setPreviewSet(null);
+            setIsChooserOpen(true);
+          }}
+        >
+          Choose Pack
+        </button>
+      </div>
+      {previewSet && previewPack.length > 0 ? (
+        <CardReveal
+          key={`${previewSet.id}-${previewPack.godPackFormat || "god-pack"}`}
+          cards={previewPack}
+          set={previewSet}
+          onCardsRevealed={() => {}}
+          onComplete={() => {}}
+          onBackToSets={() => {
+            setPreviewPack([]);
+            setPreviewSet(null);
+            setIsChooserOpen(true);
+          }}
+        />
+      ) : (
+        <section className="dashboard-screen">
+          <div className="empty-state">
+            <h2>Choose a God Pack</h2>
+            <p>Use the chooser to preview the same flow a first-time account sees.</p>
+          </div>
+        </section>
+      )}
+      <WelcomeRewardModal
+        isOpen={isChooserOpen}
+        rewardStatus={{ isEligible: true, isClaimed: false }}
+        selectedSetId={selectedSetId}
+        isClaiming={false}
+        error=""
+        onSelect={setSelectedSetId}
+        onClaim={handlePreviewClaim}
+        onClose={() => setIsChooserOpen(false)}
+      />
+    </>
+  );
+}
+
 function App() {
   const pagePath = typeof window === "undefined" ? "/" : window.location.pathname;
   const legalPageType = pagePath === "/terms" ? "terms" : pagePath === "/privacy" ? "privacy" : "";
@@ -1558,6 +1615,15 @@ function App() {
     return (
       <main className="app-shell">
         <LegalPage type={legalPageType} />
+        <SiteFooter />
+      </main>
+    );
+  }
+
+  if (import.meta.env.DEV && pagePath === "/dev/god-pack-animation") {
+    return (
+      <main className="app-shell is-pack-flow">
+        <DevGodPackAnimationPreview />
         <SiteFooter />
       </main>
     );
@@ -1894,7 +1960,7 @@ function App() {
     setWelcomeRewardError("");
 
     try {
-      const result = await claimWelcomeGodPack(choice.set.id);
+      const result = await claimWelcomeGodPack(choice.set.id, choice.forcedFormat);
       const rewardPack = result.cards;
 
       if (!rewardPack?.length || !rewardPack.isGodPack) {
@@ -1911,7 +1977,7 @@ function App() {
 
       Object.assign(rewardPack, {
         isGodPack: true,
-        godPackDisplayName: "Welcome God Pack",
+        godPackDisplayName: rewardPack.godPackDisplayName || choice.config?.displayName || "God Pack",
         welcomeReward: true,
       });
 

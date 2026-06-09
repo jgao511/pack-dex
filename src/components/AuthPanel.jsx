@@ -17,6 +17,15 @@ function AuthLoadingLabel({ text }) {
   );
 }
 
+function SupabaseAuthBadge() {
+  return (
+    <div className="auth-provider-badge" aria-label="Powered by Supabase Auth">
+      <span className="auth-provider-badge__mark" aria-hidden="true" />
+      <span>Powered by Supabase Auth</span>
+    </div>
+  );
+}
+
 function AuthForm({ onAuthenticated }) {
   const [mode, setMode] = useState("login");
   const [email, setEmail] = useState("");
@@ -194,6 +203,7 @@ function AuthForm({ onAuthenticated }) {
         <span className="set-mark">Account</span>
         <h2>{title}</h2>
         <p>{subtitle}</p>
+        <SupabaseAuthBadge />
       </div>
 
       {isCreateMode && (
@@ -385,7 +395,7 @@ function AuthPanel({ user, onOpenAuth }) {
         <div>
           <span className="set-mark">Account</span>
           <h2>Signed In</h2>
-          <p>Signed in as {user.email}. Cloud collection saving will be added in the next step.</p>
+          <p>Signed in as {user.email}. New pulls save to your PackDex account.</p>
         </div>
         <div className="auth-user-card">
           <Mail size={18} aria-hidden="true" />
@@ -412,7 +422,7 @@ function AuthPanel({ user, onOpenAuth }) {
       <div>
         <span className="set-mark">Account</span>
         <h2>Guest Mode</h2>
-        <p>Playing as guest. Create an account before opening packs to save your pulls.</p>
+        <p>Playing as guest. Create an account to save pulls across devices and claim your free God Pack.</p>
       </div>
       <button className="primary-button auth-open-button" type="button" onClick={onOpenAuth}>
         Log In / Create Account

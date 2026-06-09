@@ -628,13 +628,18 @@ button {
   padding: 8px 14px;
   border-radius: 999px;
   color: white;
-  background: linear-gradient(135deg, #ff3b6b, #ffb000);
-  box-shadow: 0 12px 28px rgba(255, 80, 80, 0.28);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.35), transparent 34%),
+    linear-gradient(135deg, #ff3b6b, #ffb000 54%, #2763ff);
+  box-shadow:
+    0 14px 34px rgba(255, 80, 80, 0.34),
+    0 0 0 3px rgba(255, 203, 69, 0.24);
   font-family: var(--ui-condensed-font);
   font-size: 0.95rem;
   font-weight: 900;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  animation: godPackBadgePop 760ms cubic-bezier(0.2, 0.9, 0.2, 1.2) both;
 }
 
 .card-count {
@@ -941,6 +946,10 @@ button {
 
 .grid-card-flip.is-revealed {
   transform: rotateY(180deg);
+}
+
+.reveal-screen.god-pack-revealed .grid-card-flip.is-revealed {
+  filter: drop-shadow(0 18px 26px rgba(255, 203, 69, 0.18));
 }
 
 .grid-card-face {
@@ -1409,6 +1418,52 @@ button {
   letter-spacing: 0.02em;
 }
 
+@media (min-width: 900px) and (min-height: 650px) {
+  .summary-screen {
+    width: min(100%, 1180px);
+    margin-inline: auto;
+  }
+
+  .pull-grid {
+    --pull-card-width: clamp(130px, min(15vw, 22svh), 190px);
+    gap: clamp(14px, 2vw, 24px);
+  }
+
+  .pull-card {
+    border-radius: 12px;
+  }
+
+  .pull-card-image {
+    padding: clamp(5px, 0.8vw, 9px);
+  }
+}
+
+.dev-preview-toolbar {
+  width: min(100%, 1120px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin: 0 auto -6px;
+  border: 1px solid rgba(18, 24, 39, 0.08);
+  border-radius: 18px;
+  padding: 12px 14px;
+  color: #1f5aa6;
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: 0 14px 30px rgba(18, 24, 39, 0.08);
+  font-family: var(--ui-condensed-font);
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.dev-preview-toolbar .secondary-button {
+  min-height: 38px;
+  padding-inline: 16px;
+  font-size: 0.98rem;
+}
+
 .collection-screen {
   padding: 34px 0;
 }
@@ -1529,6 +1584,33 @@ button {
   margin: 0;
   color: #667085;
   line-height: 1.5;
+}
+
+.auth-provider-badge {
+  width: max-content;
+  max-width: 100%;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid rgba(18, 24, 39, 0.08);
+  border-radius: 999px;
+  padding: 6px 10px;
+  color: #3c465d;
+  background: rgba(255, 255, 255, 0.68);
+  font-family: var(--ui-condensed-font);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.auth-provider-badge__mark {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px 3px 8px 3px;
+  background: linear-gradient(135deg, #3ecf8e, #1f9d6a);
+  box-shadow: 0 0 0 3px rgba(62, 207, 142, 0.16);
+  transform: rotate(45deg);
 }
 
 .auth-mode-toggle {
@@ -1831,6 +1913,10 @@ button {
   padding-right: 34px;
 }
 
+.auth-modal-heading .auth-provider-badge {
+  margin-top: 2px;
+}
+
 .auth-reward-callout {
   display: grid;
   gap: 4px;
@@ -2037,17 +2123,6 @@ button {
   object-fit: contain;
   padding: 8px;
   display: block;
-}
-
-.welcome-reward-choice__logo {
-  position: absolute;
-  left: 10px;
-  right: 10px;
-  bottom: 8px;
-  max-width: calc(100% - 20px);
-  max-height: 42px;
-  object-fit: contain;
-  filter: drop-shadow(0 8px 14px rgba(18, 24, 39, 0.28));
 }
 
 .welcome-reward-choice__copy {
@@ -3462,6 +3537,23 @@ button {
   }
 }
 
+@keyframes godPackBadgePop {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.82);
+  }
+
+  62% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.06);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 @keyframes bigPullLift {
   0%,
   100% {
@@ -3578,6 +3670,16 @@ button {
 @keyframes tabOverlayIn {
   from {
     opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .god-pack-badge {
+    animation: none;
+  }
+
+  .reveal-screen.god-pack-revealed .grid-card-flip.is-revealed {
+    filter: none;
   }
 }
 

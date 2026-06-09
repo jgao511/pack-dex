@@ -153,7 +153,7 @@ function CollectionPage({
           <button type="button" onClick={onOpenAuth}>
             create an account
           </button>{" "}
-          to save new pulls to your account.
+          to save your pulls across devices.
         </div>
       )}
 

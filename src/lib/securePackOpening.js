@@ -67,11 +67,11 @@ export async function openPackAndSaveResult(setId) {
   };
 }
 
-export async function claimWelcomeGodPack(setId) {
+export async function claimWelcomeGodPack(setId, forcedFormat = "") {
   assertSupabaseConfigured();
 
   const { data, error } = await supabase.functions.invoke("claim-welcome-god-pack", {
-    body: { set_id: setId },
+    body: { set_id: setId, forcedFormat },
   });
 
   if (error) {
@@ -92,7 +92,7 @@ export async function claimWelcomeGodPack(setId) {
 
   Object.assign(cards, {
     isGodPack: true,
-    godPackDisplayName: "Welcome God Pack",
+    godPackDisplayName: data?.godPackDisplayName || data?.pack?.godPackDisplayName || "God Pack",
     godPackFormat: data?.godPackFormat || "",
     welcomeReward: true,
   });

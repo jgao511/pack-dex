@@ -5,12 +5,16 @@ import { isHigherThanRare, isSubsetCard } from "../utils/packGenerator.js";
 import { getPackRevealSoundCue, playHitSound, preloadHitSounds } from "../utils/sounds.js";
 
 const CARD_DEAL_STAGGER_MS = 120;
+const GOD_PACK_CARD_DEAL_STAGGER_MS = 260;
 const CARD_DEAL_ANIMATION_MS = 280;
 const WAIT_AFTER_DEAL_MS = 500;
 
 const CARD_FLIP_STAGGER_MS = 220;
+const GOD_PACK_CARD_FLIP_STAGGER_MS = 420;
 const LAST_CARD_EXTRA_DELAY_MS = 650;
+const GOD_PACK_LAST_CARD_EXTRA_DELAY_MS = 1100;
 const CARD_FLIP_ANIMATION_MS = 620;
+const GOD_PACK_EXTRA_WAIT_AFTER_DEAL_MS = 1300;
 const SUMMARY_AFTER_LAST_CARD_MS = 250;
 const SOUND_AFTER_FLIP_START_MS = 120;
 
@@ -48,19 +52,19 @@ function preloadImages(urls) {
   );
 }
 
-function getCardDealDelay(index) {
-  return index * CARD_DEAL_STAGGER_MS;
+function getCardDealDelay(index, isGodPack = false) {
+  return index * (isGodPack ? GOD_PACK_CARD_DEAL_STAGGER_MS : CARD_DEAL_STAGGER_MS);
 }
 
-function getDealCompleteDelay(totalCards) {
-  return Math.max(0, (totalCards - 1) * CARD_DEAL_STAGGER_MS) + CARD_DEAL_ANIMATION_MS;
+function getDealCompleteDelay(totalCards, isGodPack = false) {
+  return Math.max(0, (totalCards - 1) * (isGodPack ? GOD_PACK_CARD_DEAL_STAGGER_MS : CARD_DEAL_STAGGER_MS)) + CARD_DEAL_ANIMATION_MS;
 }
 
-function getCardRevealDelay(index, totalCards) {
-  const baseDelay = index * CARD_FLIP_STAGGER_MS;
+function getCardRevealDelay(index, totalCards, isGodPack = false) {
+  const baseDelay = index * (isGodPack ? GOD_PACK_CARD_FLIP_STAGGER_MS : CARD_FLIP_STAGGER_MS);
 
   if (index === totalCards - 1) {
-    return baseDelay + LAST_CARD_EXTRA_DELAY_MS;
+    return baseDelay + (isGodPack ? GOD_PACK_LAST_CARD_EXTRA_DELAY_MS : LAST_CARD_EXTRA_DELAY_MS);
   }
 
   return baseDelay;
@@ -119,7 +123,10 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
       setIsDealt(true);
     }, 30);
 
-    const revealDelay = getDealCompleteDelay(cards.length) + WAIT_AFTER_DEAL_MS;
+    const revealDelay =
+      getDealCompleteDelay(cards.length, isGodPack) +
+      WAIT_AFTER_DEAL_MS +
+      (isGodPack ? GOD_PACK_EXTRA_WAIT_AFTER_DEAL_MS : 0);
 
     autoRevealTimerRef.current = window.setTimeout(() => {
       revealAll();
@@ -175,7 +182,7 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
     const soundCue = getPackRevealSoundCue(cards, set);
 
     if (soundCue) {
-      const soundDelay = getCardRevealDelay(soundCue.index, cards.length) + SOUND_AFTER_FLIP_START_MS;
+      const soundDelay = getCardRevealDelay(soundCue.index, cards.length, isGodPack) + SOUND_AFTER_FLIP_START_MS;
 
       soundTimeoutsRef.current = [
         window.setTimeout(() => {
@@ -186,7 +193,7 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
     }
 
     const summaryDelay =
-      getCardRevealDelay(cards.length - 1, cards.length) +
+      getCardRevealDelay(cards.length - 1, cards.length, isGodPack) +
       CARD_FLIP_ANIMATION_MS +
       SUMMARY_AFTER_LAST_CARD_MS;
 
@@ -202,7 +209,9 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
     <section
       className={`reveal-screen ${isDealt ? "is-dealt" : ""} ${
         isRevealed && hasBigPull ? "has-big-pull" : ""
-      } ${isRevealed && hasSubsetPull ? "has-subset-pull" : ""}`}
+      } ${isRevealed && hasSubsetPull ? "has-subset-pull" : ""} ${
+        isGodPack ? "is-god-pack" : ""
+      } ${isRevealed && isGodPack ? "god-pack-revealed" : ""}`}
     >
       <div className="reveal-heading">
         <span className="reveal-status">
@@ -226,8 +235,8 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
             } ${isRevealed && index !== cards.length - 1 && isSubsetCard(card, set) ? "subset-pull-card" : ""}`}
             key={`${card.id}-${index}`}
             style={{
-              "--deal-delay": `${getCardDealDelay(index)}ms`,
-              "--delay": `${getCardRevealDelay(index, cards.length)}ms`,
+              "--deal-delay": `${getCardDealDelay(index, isGodPack)}ms`,
+              "--delay": `${getCardRevealDelay(index, cards.length, isGodPack)}ms`,
             }}
           >
             <div className="grid-card-face grid-card-back">
