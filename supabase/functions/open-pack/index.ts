@@ -6,17 +6,24 @@ Deno.serve(async (req) => {
     return new Response("ok", { headers: corsHeaders });
   }
 
+  let debugStep = "start";
+
   try {
+    debugStep = "authenticate";
     const { admin, user } = await getAuthenticatedUser(req);
+    debugStep = "parse_body";
     const body = await req.json().catch(() => ({}));
     const setId = String(body?.set_id || body?.setId || "");
+    debugStep = "find_set";
     const set = findSet(setId);
 
     if (!set) {
       return jsonResponse({ error: "Unknown set." }, 400);
     }
 
+    debugStep = "generate_pack";
     const cards = generatePack(set);
+    debugStep = "save_collection";
     const savedRows = await upsertCardsForUser(admin, user.id, cards, set);
 
     return jsonResponse({
@@ -27,7 +34,21 @@ Deno.serve(async (req) => {
       godPackDisplayName: cards.godPackDisplayName || "",
     });
   } catch (error) {
-    console.error("open-pack failed", error);
-    return jsonResponse({ error: "Unable to open pack securely." }, 500);
+    const message = error instanceof Error ? error.message : String(error);
+
+    console.error("open-pack failed", {
+      step: debugStep,
+      message,
+      error,
+    });
+
+    return jsonResponse(
+      {
+        error: "Unable to open pack securely.",
+        step: debugStep,
+        message,
+      },
+      500
+    );
   }
 });
