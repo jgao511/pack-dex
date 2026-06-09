@@ -138,6 +138,25 @@ function isValidSlot(card, set, index, api) {
   return true;
 }
 
+function getSlotValidationError(card, set, index, api) {
+  const category = categoryOf(card, set, api);
+  const displaySlot = index + 1;
+
+  if (api.isModernSVSet(set) && MODERN_SV_ART_CATEGORIES.has(category) && index !== 8) {
+    return `FAIL: ${set.name} produced ${category} in slot ${displaySlot}. Expected slot 9 only.`;
+  }
+
+  if (api.isModernSVSet(set) && index === 9 && MODERN_SV_ART_CATEGORIES.has(category)) {
+    return `FAIL: ${set.name} produced ${category} in final slot 10. Expected slot 9 only.`;
+  }
+
+  if (!isValidSlot(card, set, index, api)) {
+    return `FAIL: ${set.name} produced ${category} in slot ${displaySlot}.`;
+  }
+
+  return "";
+}
+
 function expectedRangeFor(set, bucket) {
   const id = set.id;
   const era = set.era || "";
@@ -268,10 +287,12 @@ async function main() {
 
           increment(slotCounts, `${slotIndex}:${category}`);
 
-          if (!isValidSlot(card, set, slotIndex, api)) {
+          const slotError = getSlotValidationError(card, set, slotIndex, api);
+
+          if (slotError) {
             invalidSlotCount += 1;
             if (invalidSlotExamples.length < 5) {
-              invalidSlotExamples.push(`slot ${slotIndex} ${card.name} (${category})`);
+              invalidSlotExamples.push(`${slotError} Card: ${card.name}`);
             }
           }
 
