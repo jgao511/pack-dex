@@ -26,7 +26,8 @@ alter table public.user_collection enable row level security;
 
 grant usage on schema public to authenticated, service_role;
 grant select on public.user_collection to authenticated;
-revoke insert, update, delete on public.user_collection from authenticated;
+grant insert, update on public.user_collection to authenticated;
+revoke delete on public.user_collection from authenticated;
 grant select, insert, update on public.user_collection to service_role;
 
 do $$
@@ -58,18 +59,30 @@ for select
 to authenticated
 using (auth.uid() = user_id);
 
--- Do not create authenticated INSERT/UPDATE policies for user_collection.
--- Collection grants must happen through trusted backend code only.
 drop policy if exists "Users can insert their own collection" on public.user_collection;
+create policy "Users can insert their own collection"
+on public.user_collection
+for insert
+to authenticated
+with check (auth.uid() = user_id);
+
 drop policy if exists "Users can update their own collection" on public.user_collection;
+create policy "Users can update their own collection"
+on public.user_collection
+for update
+to authenticated
+using (auth.uid() = user_id)
+with check (auth.uid() = user_id);
+
 drop policy if exists "Users can upsert their own collection" on public.user_collection;
 drop policy if exists "Users can sync their own collection" on public.user_collection;
 drop policy if exists "Users can delete their own collection" on public.user_collection;
 drop policy if exists "Users can reset their own collection" on public.user_collection;
 drop policy if exists "Users can clear their own collection" on public.user_collection;
 
--- No authenticated INSERT, UPDATE, or DELETE policies exist for this table.
--- open-pack and claim-welcome-god-pack write collection rows with the server-side service role.
+-- Authenticated users may save normal pack pulls only to their own collection rows.
+-- They still cannot delete collection rows or touch another user's rows.
+-- claim-welcome-god-pack writes reward cards with the server-side service role.
 
 create or replace function public.set_user_collection_updated_at()
 returns trigger
