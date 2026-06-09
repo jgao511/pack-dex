@@ -8,15 +8,10 @@ import FoilCard from "./components/FoilCard.jsx";
 import PullSummary from "./components/PullSummary.jsx";
 import SetSelect from "./components/SetSelect.jsx";
 import { sets } from "./data/sets.js";
-import {
-  loadCloudCollection,
-  savePulledCardsToCloud,
-  syncLocalCollectionToCloud,
-} from "./lib/cloudCollection.js";
+import { loadCloudCollection } from "./lib/cloudCollection.js";
 import { isSupabaseConfigured, supabase } from "./lib/supabaseClient.js";
 import {
   canGeneratePack,
-  generateForcedGodPack,
   generatePack,
   GOD_PACK_CONFIG,
   getDisplayCardName,
@@ -42,7 +37,8 @@ import {
 } from "./utils/collectionStorage.js";
 import { getPokeballLoadingUrl, getSetLogoUrl, getSetPackArtUrl } from "./utils/assetUrls.js";
 import { compareCardsByRarity } from "./utils/rarityRank.js";
-import { claimWelcomeReward, loadWelcomeRewardStatus } from "./lib/welcomeReward.js";
+import { loadWelcomeRewardStatus } from "./lib/welcomeReward.js";
+import { claimWelcomeGodPack, openPackAndSaveResult } from "./lib/securePackOpening.js";
 
 const TAB_LOADING_MS = 420;
 const AUTH_MODAL_LOADING_MS = 380;
@@ -237,7 +233,7 @@ function AuthSaveNotice({ onOpenAuth }) {
       <button type="button" onClick={onOpenAuth}>
         create an account
       </button>{" "}
-      to save your collection and binders across devices.
+      to save new pulls to your account.
     </div>
   );
 }
@@ -247,35 +243,12 @@ function GuestSignupNotice({ user, onOpenAuth }) {
 
   return (
     <aside className="guest-signup-notice" aria-label="Create a PackDex account">
-      <span>You're not signed in!</span>
+      <span>Playing as guest.</span>
       <button type="button" onClick={onOpenAuth}>
         Sign up
       </button>
-      <span>to save your collection and binders.</span>
+      <span>before opening packs to save pulls to your account.</span>
     </aside>
-  );
-}
-
-function CloudSyncPrompt({ isVisible, status, onSync, onDismiss }) {
-  if (!isVisible) return null;
-
-  return (
-    <section className="cloud-sync-prompt" aria-label="Sync guest collection">
-      <div>
-        <span className="set-mark">Cloud Sync</span>
-        <strong>You have a guest collection saved on this device.</strong>
-        <p>Sync it to your account?</p>
-        {status && <em>{status}</em>}
-      </div>
-      <div className="cloud-sync-actions">
-        <button className="primary-button" type="button" onClick={onSync}>
-          Sync to account
-        </button>
-        <button className="secondary-button" type="button" onClick={onDismiss}>
-          Not now
-        </button>
-      </div>
-    </section>
   );
 }
 
@@ -299,8 +272,8 @@ function LegalPage({ type }) {
           </p>
           <h2>2. How We Use Information</h2>
           <p>
-            PackDex uses account and collection information to let users log in, save collections, sync collections
-            across devices, and use account-based features.
+            PackDex uses account and collection information to let users log in, save account collections, and use
+            account-based features.
           </p>
           <h2>3. Authentication</h2>
           <p>
@@ -720,7 +693,7 @@ function CollectionDashboard({ collection, binders, user, onOpenAuth, onAddToBin
         <p>Your pulled cards across every set live here.</p>
       </div>
 
-      {user ? <div className="cloud-save-badge">Cloud saving enabled</div> : <AuthSaveNotice onOpenAuth={onOpenAuth} />}
+      {user ? <div className="cloud-save-badge">Account saving enabled</div> : <AuthSaveNotice onOpenAuth={onOpenAuth} />}
 
       {collectedCards.length === 0 ? (
         <div className="empty-state">
@@ -1458,12 +1431,8 @@ function ProfilePage({
   binders,
   user,
   welcomeRewardStatus,
-  cloudSyncStatus,
-  showCloudSyncPrompt,
   onOpenAuth,
   onOpenWelcomeReward,
-  onSyncGuestCollection,
-  onDismissCloudSync,
   onCreateBinder,
   onClearBinder,
   onAddToBinder,
@@ -1488,16 +1457,10 @@ function ProfilePage({
 
       <AuthPanel user={user} onOpenAuth={onOpenAuth} />
 
-      {user && <div className="cloud-save-badge">Cloud saving enabled</div>}
+      {user && <div className="cloud-save-badge">Account saving enabled</div>}
+      {user && <div className="cloud-save-note">You're signed in now. New pulls will save to your account.</div>}
 
       {user && <WelcomeRewardProfileCard rewardStatus={welcomeRewardStatus} onClaim={onOpenWelcomeReward} />}
-
-      <CloudSyncPrompt
-        isVisible={showCloudSyncPrompt}
-        status={cloudSyncStatus}
-        onSync={onSyncGuestCollection}
-        onDismiss={onDismissCloudSync}
-      />
 
       <div className="profile-stat-grid">
         <article>
@@ -1575,9 +1538,6 @@ function App() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isAuthOpening, setIsAuthOpening] = useState(false);
   const [cloudWarning, setCloudWarning] = useState("");
-  const [cloudSyncStatus, setCloudSyncStatus] = useState("");
-  const [showCloudSyncPrompt, setShowCloudSyncPrompt] = useState(false);
-  const [dismissedCloudSyncUserId, setDismissedCloudSyncUserId] = useState("");
   const [welcomeRewardStatus, setWelcomeRewardStatus] = useState(null);
   const [isWelcomeRewardModalOpen, setIsWelcomeRewardModalOpen] = useState(false);
   const [selectedWelcomeRewardSetId, setSelectedWelcomeRewardSetId] = useState(WELCOME_REWARD_CHOICES[0]?.setId || "");
@@ -1622,8 +1582,6 @@ function App() {
 
     if (!authUser) {
       setCollection(loadCollection());
-      setShowCloudSyncPrompt(false);
-      setCloudSyncStatus("");
       setCloudWarning("");
       setWelcomeRewardStatus(null);
       setIsWelcomeRewardModalOpen(false);
@@ -1632,9 +1590,7 @@ function App() {
     }
 
     let isMounted = true;
-    const localCollection = loadCollection();
 
-    setCloudSyncStatus("");
     setCloudWarning("");
 
     loadCloudCollection()
@@ -1642,23 +1598,19 @@ function App() {
         if (!isMounted) return;
 
         setCollection(cloudCollection);
-        setShowCloudSyncPrompt(
-          hasCollectionEntries(localCollection) && dismissedCloudSyncUserId !== authUser.id
-        );
       })
       .catch((error) => {
         console.warn("Cloud collection load failed", error);
         if (!isMounted) return;
 
-        setCollection(localCollection);
-        setCloudWarning("Cloud collection load failed. Your local copy is still available.");
-        setShowCloudSyncPrompt(false);
+        setCollection({});
+        setCloudWarning("Account collection could not be loaded yet. Guest pulls stay local on this device.");
       });
 
     return () => {
       isMounted = false;
     };
-  }, [authUser?.id, dismissedCloudSyncUserId, isAuthLoading]);
+  }, [authUser?.id, isAuthLoading]);
 
   useEffect(() => {
     if (isAuthLoading || !authUser) return undefined;
@@ -1780,11 +1732,30 @@ function App() {
     resetPageScroll();
   }
 
-  function revealPack() {
+  async function revealPack() {
     if (!selectedSet) return;
 
     resetPageScroll();
-    setPulledCards(generatePack(selectedSet));
+
+    let nextPack;
+
+    if (authUser) {
+      try {
+        const result = await openPackAndSaveResult(selectedSet.id);
+
+        nextPack = result.cards;
+        if (result.collection) setCollection(result.collection);
+      } catch (error) {
+        console.warn("Secure pack opening failed", error);
+        setCloudWarning("Secure cloud pack opening is unavailable. This pack is local only.");
+        nextPack = generatePack(selectedSet);
+      }
+    } else {
+      // Guest mode is intentionally local-only and not security-sensitive.
+      nextPack = generatePack(selectedSet);
+    }
+
+    setPulledCards(nextPack);
     setProfileStats((currentStats) => {
       const nextStats = updatePackOpenedStats(currentStats, selectedSet);
 
@@ -1794,13 +1765,32 @@ function App() {
     setScreen("reveal");
   }
 
-  function openAnotherPack() {
+  async function openAnotherPack() {
     if (!selectedSet || !canGeneratePack(selectedSet)) return;
 
     setIsReturningToSet(false);
     setActiveTab("open");
     resetPageScroll();
-    setPulledCards(generatePack(selectedSet));
+
+    let nextPack;
+
+    if (authUser) {
+      try {
+        const result = await openPackAndSaveResult(selectedSet.id);
+
+        nextPack = result.cards;
+        if (result.collection) setCollection(result.collection);
+      } catch (error) {
+        console.warn("Secure pack opening failed", error);
+        setCloudWarning("Secure cloud pack opening is unavailable. This pack is local only.");
+        nextPack = generatePack(selectedSet);
+      }
+    } else {
+      // Guest mode is intentionally local-only and not security-sensitive.
+      nextPack = generatePack(selectedSet);
+    }
+
+    setPulledCards(nextPack);
     setProfileStats((currentStats) => {
       const nextStats = updatePackOpenedStats(currentStats, selectedSet);
 
@@ -1833,36 +1823,8 @@ function App() {
 
     setCollection(nextCollection);
 
-    if (authUser) {
-      savePulledCardsToCloud(cards, selectedSet.id).catch((error) => {
-        console.warn("Cloud save failed", error);
-        saveCollection(nextCollection);
-        setCloudWarning("Cloud save failed. Your local copy is still available.");
-      });
-    }
-  }
-
-  function handleDismissCloudSync() {
-    setDismissedCloudSyncUserId(authUser?.id || "");
-    setShowCloudSyncPrompt(false);
-    setCloudSyncStatus("");
-  }
-
-  function handleSyncGuestCollection() {
-    const localCollection = loadCollection();
-
-    setCloudSyncStatus("Syncing...");
-    syncLocalCollectionToCloud(localCollection)
-      .then((cloudCollection) => {
-        setCollection(cloudCollection);
-        setCloudSyncStatus("Synced.");
-        setShowCloudSyncPrompt(false);
-      })
-      .catch((error) => {
-        console.warn("Guest collection sync failed", error);
-        setCloudSyncStatus("Sync failed. Try again later.");
-        setCloudWarning("Cloud save failed. Your local copy is still available.");
-      });
+    // Authenticated collection writes are handled by the secure pack-opening backend.
+    // This callback only updates local React state after cards are revealed.
   }
 
   function handleCreateBinder(name, tag) {
@@ -1922,13 +1884,20 @@ function App() {
     setWelcomeRewardError("");
 
     try {
-      const rewardPack = generateForcedGodPack(choice.set, choice.set, choice.forcedFormat);
+      const result = await claimWelcomeGodPack(choice.set.id);
+      const rewardPack = result.cards;
 
       if (!rewardPack?.length || !rewardPack.isGodPack) {
         throw new Error("This God Pack is not available right now. Please choose another pack.");
       }
 
-      const claimedStatus = await claimWelcomeReward(choice.set.id, authUser);
+      const claimedStatus =
+        result.status || {
+          isEligible: true,
+          isClaimed: true,
+          setId: choice.set.id,
+          claimedAt: new Date().toISOString(),
+        };
 
       Object.assign(rewardPack, {
         isGodPack: true,
@@ -1937,6 +1906,7 @@ function App() {
       });
 
       setWelcomeRewardStatus(claimedStatus);
+      if (result.collection) setCollection(result.collection);
       setIsWelcomeRewardModalOpen(false);
       setActiveTab("open");
       setSelectedSet(choice.set);
@@ -2095,15 +2065,11 @@ function App() {
           user={authUser}
           isAuthLoading={isAuthLoading}
           welcomeRewardStatus={welcomeRewardStatus}
-          cloudSyncStatus={cloudSyncStatus}
-          showCloudSyncPrompt={showCloudSyncPrompt}
           onOpenAuth={openAuthModal}
           onOpenWelcomeReward={() => {
             setWelcomeRewardError("");
             setIsWelcomeRewardModalOpen(true);
           }}
-          onSyncGuestCollection={handleSyncGuestCollection}
-          onDismissCloudSync={handleDismissCloudSync}
           onCreateBinder={handleCreateBinder}
           onClearBinder={handleClearBinder}
           onAddToBinder={handleAddToBinder}

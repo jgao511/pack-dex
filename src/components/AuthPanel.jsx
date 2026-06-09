@@ -34,7 +34,7 @@ function AuthForm({ onAuthenticated }) {
   const title = isResetMode ? "Reset your password" : isCreateMode ? "Create your PackDex account" : "Welcome back";
   const subtitle = isResetMode
     ? "Enter your email and we will send a secure link to reset your password."
-    : "Save your collection, binders, and pack history across devices.";
+    : "Create an account before opening packs to save your PackDex progress.";
   const submitLabel = isResetMode ? "Send reset link" : isCreateMode ? "Create account" : "Log in";
 
   useEffect(() => {
@@ -412,7 +412,7 @@ function AuthPanel({ user, onOpenAuth }) {
       <div>
         <span className="set-mark">Account</span>
         <h2>Guest Mode</h2>
-        <p>Log in or create an account to save your collection and binders across devices.</p>
+        <p>Playing as guest. Create an account before opening packs to save your pulls.</p>
       </div>
       <button className="primary-button auth-open-button" type="button" onClick={onOpenAuth}>
         Log In / Create Account

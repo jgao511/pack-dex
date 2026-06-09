@@ -143,7 +143,7 @@ function CollectionPage({
       </header>
 
       {user ? (
-        <div className="cloud-save-badge">Cloud saving enabled</div>
+        <div className="cloud-save-badge">Account saving enabled</div>
       ) : (
         <div className="auth-save-notice">
           <button type="button" onClick={onOpenAuth}>
@@ -153,7 +153,7 @@ function CollectionPage({
           <button type="button" onClick={onOpenAuth}>
             create an account
           </button>{" "}
-          to save your collection and binders across devices.
+          to save new pulls to your account.
         </div>
       )}
 
