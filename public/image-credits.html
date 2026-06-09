@@ -10,9 +10,26 @@
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet" />
     <style>
       :root {
-        color: #18202f;
-        background: #f6f7fb;
+        --page-bg-1: #070b16;
+        --page-bg-2: #10182b;
+        --surface: rgba(12, 18, 34, 0.88);
+        --text-primary: #f8fbff;
+        --text-secondary: #aeb9cc;
+        --border: rgba(185, 205, 255, 0.14);
+        --shadow: 0 18px 44px rgba(0, 0, 0, 0.28);
+        color: var(--text-primary);
+        background: var(--page-bg-1);
         font-family: "Nunito", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      :root[data-theme="light"] {
+        --page-bg-1: #f6f7fb;
+        --page-bg-2: #eceff6;
+        --surface: rgba(255, 255, 255, 0.8);
+        --text-primary: #121827;
+        --text-secondary: #667085;
+        --border: rgba(18, 24, 39, 0.08);
+        --shadow: 0 16px 36px rgba(18, 24, 39, 0.1);
       }
 
       * {
@@ -25,8 +42,9 @@
         margin: 0;
         padding: 32px;
         background:
-          radial-gradient(circle at top left, rgba(255, 203, 69, 0.24), transparent 34%),
-          linear-gradient(135deg, #f6f7fb 0%, #eceff6 100%);
+          radial-gradient(circle at top left, rgba(255, 203, 69, 0.1), transparent 34%),
+          radial-gradient(circle at 82% 18%, rgba(94, 168, 255, 0.12), transparent 32%),
+          linear-gradient(135deg, var(--page-bg-1) 0%, var(--page-bg-2) 100%);
       }
 
       main {
@@ -39,10 +57,10 @@
       header,
       article,
       footer {
-        border: 1px solid rgba(18, 24, 39, 0.08);
+        border: 1px solid var(--border);
         border-radius: 18px;
-        background: rgba(255, 255, 255, 0.8);
-        box-shadow: 0 16px 36px rgba(18, 24, 39, 0.1);
+        background: var(--surface);
+        box-shadow: var(--shadow);
       }
 
       header {
@@ -67,7 +85,7 @@
 
       h1 {
         margin: 0;
-        color: #121827;
+        color: var(--text-primary);
         font-size: clamp(2.4rem, 7vw, 4.6rem);
         line-height: 0.95;
       }
@@ -76,7 +94,7 @@
       footer p {
         max-width: 720px;
         margin: 0;
-        color: #667085;
+        color: var(--text-secondary);
         line-height: 1.6;
       }
 
@@ -91,13 +109,13 @@
 
       article h2 {
         margin: 0 0 8px;
-        color: #121827;
+        color: var(--text-primary);
         font-size: 1.65rem;
       }
 
       article p {
         margin: 0 0 10px;
-        color: #475467;
+        color: var(--text-secondary);
         line-height: 1.55;
       }
 
@@ -111,6 +129,11 @@
         font-size: 0.88rem;
       }
     </style>
+    <script>
+      const savedTheme = localStorage.getItem("packdex-theme");
+      document.documentElement.dataset.theme = savedTheme === "light" ? "light" : "dark";
+      document.documentElement.style.colorScheme = document.documentElement.dataset.theme;
+    </script>
   </head>
   <body>
     <main>
@@ -122,9 +145,8 @@
 
       <section class="credit-list" aria-label="Image credits">
         <article>
-          <h2>Pokemoni API</h2>
-          <p>Credit: Used for Pokémon TCG set logos and card images.</p>
-          <a href="https://pokemontcg.io/" target="_blank" rel="noopener noreferrer">https://pokemontcg.io/</a>
+          <h2>Public Pokémon API</h2>
+          <p>Credit: Pokémon TCG set logos and card images were taken from a public Pokémon API.</p>
         </article>
 
         <article>
