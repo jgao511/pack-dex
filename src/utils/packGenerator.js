@@ -1345,11 +1345,9 @@ function isModernSVPreRareCategory(category) {
 function getFinalRareSlotPool(pools, set = {}) {
   if (!isModernSVSet(set)) return pools.finalSlotPool;
 
-  const nonIllustrationPool = pools.finalSlotPool.filter(
+  return pools.finalSlotPool.filter(
     (card) => !isModernSVPreRareCategory(card.rarityCategory || getRarityCategory(card, set))
   );
-
-  return nonIllustrationPool.length > 0 ? nonIllustrationPool : pools.finalSlotPool;
 }
 
 function pickModernSVPreRareSlot(pools, set = {}, usedIds = new Set()) {
