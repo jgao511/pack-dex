@@ -8,7 +8,7 @@ import FoilCard from "./components/FoilCard.jsx";
 import PullSummary from "./components/PullSummary.jsx";
 import SetSelect from "./components/SetSelect.jsx";
 import { sets } from "./data/sets.js";
-import { loadCloudCollection } from "./lib/cloudCollection.js";
+import { loadCloudCollection, savePulledCardsToCloud } from "./lib/cloudCollection.js";
 import { isSupabaseConfigured, supabase } from "./lib/supabaseClient.js";
 import {
   canGeneratePack,
@@ -38,7 +38,7 @@ import {
 import { getPokeballLoadingUrl, getSetLogoUrl, getSetPackArtUrl } from "./utils/assetUrls.js";
 import { compareCardsByRarity } from "./utils/rarityRank.js";
 import { loadWelcomeRewardStatus } from "./lib/welcomeReward.js";
-import { claimWelcomeGodPack, openPackAndSaveResult } from "./lib/securePackOpening.js";
+import { claimWelcomeGodPack } from "./lib/securePackOpening.js";
 
 const TAB_LOADING_MS = 420;
 const AUTH_MODAL_LOADING_MS = 380;
@@ -1269,13 +1269,50 @@ function BinderSection({
   );
 }
 
+function SocialIcon({ type }) {
+  if (type === "youtube") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.2 31.2 0 0 0 0 12a31.2 31.2 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.2 31.2 0 0 0 24 12a31.2 31.2 0 0 0-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z" />
+      </svg>
+    );
+  }
+
+  if (type === "instagram") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M7.1 2h9.8A5.1 5.1 0 0 1 22 7.1v9.8a5.1 5.1 0 0 1-5.1 5.1H7.1A5.1 5.1 0 0 1 2 16.9V7.1A5.1 5.1 0 0 1 7.1 2Zm0 2A3.1 3.1 0 0 0 4 7.1v9.8A3.1 3.1 0 0 0 7.1 20h9.8a3.1 3.1 0 0 0 3.1-3.1V7.1A3.1 3.1 0 0 0 16.9 4H7.1Zm10.4 1.7a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4ZM12 7.2A4.8 4.8 0 1 1 12 16.8 4.8 4.8 0 0 1 12 7.2Zm0 2A2.8 2.8 0 1 0 12 14.8 2.8 2.8 0 0 0 12 9.2Z" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M16.6 2c.4 3 2.1 4.8 5.1 5v3.4a8.4 8.4 0 0 1-5-1.6v6.8c0 4.3-2.7 6.4-6.1 6.4-3.8 0-6.3-2.7-6.3-5.9 0-3.6 2.8-6.1 6.8-6.1.4 0 .7 0 1 .1v3.6c-.3-.1-.7-.2-1.1-.2-1.7 0-2.8 1-2.8 2.5 0 1.4 1 2.4 2.4 2.4 1.5 0 2.5-.8 2.5-2.8V2h3.5Z" />
+    </svg>
+  );
+}
+
 function SiteFooter() {
+  const socialLinks = [
+    { label: "PackDex YouTube", href: "https://www.youtube.com/@pack-dex", type: "youtube" },
+    { label: "PackDex Instagram", href: "https://www.instagram.com/pack.dex/", type: "instagram" },
+    { label: "PackDex TikTok", href: "https://www.tiktok.com/@packdex", type: "tiktok" },
+  ];
+
   return (
     <footer className="site-footer">
       <div className="site-footer__brand">
         <img src="/packdex-small.png" alt="" />
         <span>PackDex</span>
       </div>
+      <nav className="site-footer__social" aria-label="PackDex social links">
+        {socialLinks.map((link) => (
+          <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" aria-label={link.label}>
+            <SocialIcon type={link.type} />
+          </a>
+        ))}
+      </nav>
       <p>
         PackDex is a fan-made Pokémon TCG pack opening simulator. PackDex is not affiliated with, endorsed by,
         sponsored by, or associated with Nintendo, The Pokémon Company, Creatures Inc., or Game Freak. Pokémon,
@@ -1537,6 +1574,7 @@ function App() {
   const [isAuthLoading, setIsAuthLoading] = useState(isSupabaseConfigured);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isAuthOpening, setIsAuthOpening] = useState(false);
+  const [isOpeningPack, setIsOpeningPack] = useState(false);
   const [cloudWarning, setCloudWarning] = useState("");
   const [welcomeRewardStatus, setWelcomeRewardStatus] = useState(null);
   const [isWelcomeRewardModalOpen, setIsWelcomeRewardModalOpen] = useState(false);
@@ -1720,7 +1758,7 @@ function App() {
   }
 
   function startPackOpening(set = selectedSet) {
-    if (!set || !canGeneratePack(set)) return;
+    if (!set) return;
 
     pushAppHistory({ activeTab: "open", screen: "opening", selectedSetId: set.id });
     setIsReturningToSet(false);
@@ -1732,28 +1770,12 @@ function App() {
     resetPageScroll();
   }
 
-  async function revealPack() {
-    if (!selectedSet) return;
+  function revealPack() {
+    if (!selectedSet || isOpeningPack) return;
 
     resetPageScroll();
-
-    let nextPack;
-
-    if (authUser) {
-      try {
-        const result = await openPackAndSaveResult(selectedSet.id);
-
-        nextPack = result.cards;
-        if (result.collection) setCollection(result.collection);
-      } catch (error) {
-        console.warn("Secure pack opening failed", error);
-        setCloudWarning("Secure cloud pack opening is unavailable. This pack is local only.");
-        nextPack = generatePack(selectedSet);
-      }
-    } else {
-      // Guest mode is intentionally local-only and not security-sensitive.
-      nextPack = generatePack(selectedSet);
-    }
+    setCloudWarning("");
+    const nextPack = generatePack(selectedSet);
 
     setPulledCards(nextPack);
     setProfileStats((currentStats) => {
@@ -1765,30 +1787,14 @@ function App() {
     setScreen("reveal");
   }
 
-  async function openAnotherPack() {
-    if (!selectedSet || !canGeneratePack(selectedSet)) return;
+  function openAnotherPack() {
+    if (!selectedSet || !canGeneratePack(selectedSet) || isOpeningPack) return;
 
     setIsReturningToSet(false);
     setActiveTab("open");
     resetPageScroll();
-
-    let nextPack;
-
-    if (authUser) {
-      try {
-        const result = await openPackAndSaveResult(selectedSet.id);
-
-        nextPack = result.cards;
-        if (result.collection) setCollection(result.collection);
-      } catch (error) {
-        console.warn("Secure pack opening failed", error);
-        setCloudWarning("Secure cloud pack opening is unavailable. This pack is local only.");
-        nextPack = generatePack(selectedSet);
-      }
-    } else {
-      // Guest mode is intentionally local-only and not security-sensitive.
-      nextPack = generatePack(selectedSet);
-    }
+    setCloudWarning("");
+    const nextPack = generatePack(selectedSet);
 
     setPulledCards(nextPack);
     setProfileStats((currentStats) => {
@@ -1823,8 +1829,12 @@ function App() {
 
     setCollection(nextCollection);
 
-    // Authenticated collection writes are handled by the secure pack-opening backend.
-    // This callback only updates local React state after cards are revealed.
+    if (authUser) {
+      savePulledCardsToCloud(cards, selectedSet).catch((error) => {
+        console.warn("Cloud pack save failed", error);
+        setCloudWarning("Couldn't save this pack. Try again.");
+      });
+    }
   }
 
   function handleCreateBinder(name, tag) {
@@ -2006,6 +2016,7 @@ function App() {
               onOpened={revealPack}
               onBackToSets={backToSets}
               onViewCollection={viewCollection}
+              isOpening={isOpeningPack}
             />
           )}
 
@@ -2027,6 +2038,7 @@ function App() {
               onOpenAnother={openAnotherPack}
               onBackToSets={backToSets}
               onViewCollection={viewCollection}
+              isOpeningAnother={isOpeningPack}
             />
           )}
 
@@ -2093,6 +2105,7 @@ function App() {
         onClose={() => setIsWelcomeRewardModalOpen(false)}
       />
       {isAuthOpening && <TabLoadingOverlay text="Opening account..." />}
+      {isOpeningPack && <TabLoadingOverlay text={authUser ? "Saving pulls securely..." : "Opening your pack..."} />}
       {isTabLoading && <TabLoadingOverlay />}
       {isReturningToSet && <LoadingOverlay />}
     </main>

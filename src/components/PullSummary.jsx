@@ -5,7 +5,7 @@ import FoilCard from "./FoilCard.jsx";
 import { getCardCount } from "../utils/collectionStorage.js";
 import { getDisplayCardName, getDisplayRarity } from "../utils/packGenerator.js";
 
-function PullSummary({ cards, set, collection, onOpenAnother, onBackToSets, onViewCollection }) {
+function PullSummary({ cards, set, collection, onOpenAnother, onBackToSets, onViewCollection, isOpeningAnother = false }) {
   const [inspectedCard, setInspectedCard] = useState(null);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ function PullSummary({ cards, set, collection, onOpenAnother, onBackToSets, onVi
         return;
       }
 
-      if ((event.code === "Space" || event.key === " ") && !inspectedCard) {
+      if ((event.code === "Space" || event.key === " ") && !inspectedCard && !isOpeningAnother) {
         event.preventDefault();
         onOpenAnother();
       }
@@ -26,7 +26,7 @@ function PullSummary({ cards, set, collection, onOpenAnother, onBackToSets, onVi
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [inspectedCard, onOpenAnother]);
+  }, [inspectedCard, isOpeningAnother, onOpenAnother]);
 
   function closeInspect() {
     setInspectedCard(null);
@@ -40,16 +40,16 @@ function PullSummary({ cards, set, collection, onOpenAnother, onBackToSets, onVi
           <h1 className="brand-title">Your {set.name} Pulls</h1>
         </div>
         <div className="summary-actions">
-          <button className="secondary-button" onClick={onBackToSets}>
+          <button className="secondary-button" onClick={onBackToSets} disabled={isOpeningAnother}>
             Back to Sets
           </button>
-          <button className="secondary-button" onClick={() => onViewCollection(set)}>
+          <button className="secondary-button" onClick={() => onViewCollection(set)} disabled={isOpeningAnother}>
             <Library size={20} aria-hidden="true" />
             Collection
           </button>
-          <button className="primary-button" onClick={onOpenAnother}>
+          <button className="primary-button" onClick={onOpenAnother} disabled={isOpeningAnother}>
             <RotateCcw size={20} aria-hidden="true" />
-            Open Another Pack
+            {isOpeningAnother ? "Opening..." : "Open Another Pack"}
           </button>
         </div>
       </div>

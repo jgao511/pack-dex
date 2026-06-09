@@ -2,11 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import FoilCard from "./FoilCard.jsx";
 import { getCardBackUrl, getCardImageUrl } from "../utils/assetUrls.js";
 import { isHigherThanRare, isSubsetCard } from "../utils/packGenerator.js";
-import {
-  getPackRevealSoundCue,
-  playHitSound,
-  preloadHitSounds,
-} from "../utils/sounds.js";
+import { getPackRevealSoundCue, playHitSound, preloadHitSounds } from "../utils/sounds.js";
 
 const CARD_DEAL_STAGGER_MS = 120;
 const CARD_DEAL_ANIMATION_MS = 280;
@@ -85,9 +81,7 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
   const isGodPack = Boolean(cards.isGodPack);
   const finalCard = cards.at(-1);
   const hasBigPull = Boolean(finalCard && isHigherThanRare(finalCard));
-  const hasSubsetPull = cards
-    .slice(0, -1)
-    .some((card) => isSubsetCard(card, set));
+  const hasSubsetPull = cards.slice(0, -1).some((card) => isSubsetCard(card, set));
   const cardBack = getCardBackUrl();
 
   useEffect(() => {
@@ -119,7 +113,6 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
 
     const imageUrls = cards.map((card) => getCardImageUrl(card));
 
-    // Preload card fronts while the backs are being dealt and waiting.
     preloadImages(imageUrls);
 
     dealTimerRef.current = window.setTimeout(() => {
@@ -182,8 +175,7 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
     const soundCue = getPackRevealSoundCue(cards, set);
 
     if (soundCue) {
-      const soundDelay =
-        getCardRevealDelay(soundCue.index, cards.length) + SOUND_AFTER_FLIP_START_MS;
+      const soundDelay = getCardRevealDelay(soundCue.index, cards.length) + SOUND_AFTER_FLIP_START_MS;
 
       soundTimeoutsRef.current = [
         window.setTimeout(() => {
@@ -224,21 +216,14 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
         )}
 
         <h1 className="brand-title">Reveal Your Pack</h1>
-
       </div>
 
       <div className="reveal-grid">
         {cards.map((card, index) => (
           <article
             className={`grid-card-flip ${isRevealed ? "is-revealed" : ""} ${
-              isRevealed && index === cards.length - 1 && hasBigPull
-                ? "big-pull-card"
-                : ""
-            } ${
-              isRevealed && index !== cards.length - 1 && isSubsetCard(card, set)
-                ? "subset-pull-card"
-                : ""
-            }`}
+              isRevealed && index === cards.length - 1 && hasBigPull ? "big-pull-card" : ""
+            } ${isRevealed && index !== cards.length - 1 && isSubsetCard(card, set) ? "subset-pull-card" : ""}`}
             key={`${card.id}-${index}`}
             style={{
               "--deal-delay": `${getCardDealDelay(index)}ms`,

@@ -13,7 +13,7 @@ function SetLogo({ set }) {
   return <img className="opening-logo" src={logoUrl} alt={`${set.name} logo`} onError={() => setLogoFailed(true)} />;
 }
 
-function PackOpening({ set, onOpened, onBackToSets, onViewCollection }) {
+function PackOpening({ set, onOpened, onBackToSets, onViewCollection, isOpening = false }) {
   const [packArtFailed, setPackArtFailed] = useState(false);
   const cardBack = getCardBackUrl();
   const packArt = getSetPackArtUrl(set);
@@ -32,22 +32,23 @@ function PackOpening({ set, onOpened, onBackToSets, onViewCollection }) {
         <div className="pack-card pack-card-mid">
           <img src={cardBack} alt="" />
         </div>
-        <button className="pack" onClick={onOpened}>
+        <button className="pack" onClick={onOpened} disabled={isOpening} aria-busy={isOpening}>
           <span className="pack-shine" />
           <img src={packImage} alt={`${set.name} pack`} onError={() => setPackArtFailed(true)} />
+          {isOpening && <span className="pack-loading-pill">Opening your pack...</span>}
         </button>
       </div>
       <div className="screen-actions">
-        <button className="secondary-button" onClick={onBackToSets}>
+        <button className="secondary-button" onClick={onBackToSets} disabled={isOpening}>
           Back to Sets
         </button>
-        <button className="secondary-button" onClick={() => onViewCollection(set)}>
+        <button className="secondary-button" onClick={() => onViewCollection(set)} disabled={isOpening}>
           <Library size={20} aria-hidden="true" />
           Collection
         </button>
-        <button className="primary-button" onClick={onOpened}>
+        <button className="primary-button" onClick={onOpened} disabled={isOpening}>
           <PackageOpen size={20} aria-hidden="true" />
-          Click to Open
+          {isOpening ? "Opening..." : "Click to Open"}
         </button>
       </div>
     </section>

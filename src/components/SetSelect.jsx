@@ -1,5 +1,5 @@
 import { Library, Sparkles } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { getSetLogoUrl } from "../utils/assetUrls.js";
 import { canGeneratePack } from "../utils/packGenerator.js";
 import { getSetCollectionProgress } from "../utils/collectionStorage.js";
@@ -71,11 +71,24 @@ function SetLogo({ set }) {
     return <span className="set-logo-fallback">{set.name}</span>;
   }
 
-  return <img src={logoUrl} alt={`${set.name} logo`} onError={() => setLogoFailed(true)} />;
+  return (
+    <img
+      src={logoUrl}
+      alt={`${set.name} logo`}
+      loading="lazy"
+      decoding="async"
+      onError={() => setLogoFailed(true)}
+    />
+  );
 }
 
 function SetSelect({ sets, collection, onSelectSet, onViewCollection }) {
   const [selectedEra, setSelectedEra] = useState(ALL_ERAS);
+  const setReadiness = useMemo(() => new Map(sets.map((set) => [set.id, canGeneratePack(set)])), [sets]);
+  const collectionProgress = useMemo(
+    () => new Map(sets.map((set) => [set.id, getSetCollectionProgress(collection, set)])),
+    [sets, collection]
+  );
   const eraOptions = getEraOptions(sets);
   const filteredSets =
     selectedEra === ALL_ERAS
@@ -85,8 +98,8 @@ function SetSelect({ sets, collection, onSelectSet, onViewCollection }) {
   const eraGroups = groupSetsByEra(sortedFilteredSets);
 
   function renderSetCard(set) {
-    const isReady = canGeneratePack(set);
-    const progress = getSetCollectionProgress(collection, set);
+    const isReady = setReadiness.get(set.id);
+    const progress = collectionProgress.get(set.id) || { collected: 0, total: 0 };
 
     return (
       <article className="set-tile" key={set.id}>
@@ -140,7 +153,13 @@ function SetSelect({ sets, collection, onSelectSet, onViewCollection }) {
             <section className="era-section" key={era}>
               <div className="era-section__hero">
                 {getEraLogo(era, sets) && (
-                  <img className="era-section__logo" src={getEraLogo(era, sets)} alt={`${era} era logo`} />
+                  <img
+                    className="era-section__logo"
+                    src={getEraLogo(era, sets)}
+                    alt={`${era} era logo`}
+                    loading="lazy"
+                    decoding="async"
+                  />
                 )}
                 <div className="era-section__text">
                   <h2>{era} Era</h2>
