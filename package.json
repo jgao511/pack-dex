@@ -3,6 +3,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "test:pack-rates": "node scripts/pack-rate-validator.mjs",
+    "test:pack-rates:deep": "node scripts/pack-rate-validator.mjs --deep",
     "check-randomness": "node scripts/check-randomness.js",
     "audit-rarities": "node scripts/audit-rarities.mjs",
     "organize-assets": "node scripts/organize-assets.js",

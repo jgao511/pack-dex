@@ -17,24 +17,12 @@ to authenticated
 using (auth.uid() = user_id);
 
 drop policy if exists "Users can create their own welcome reward" on public.user_welcome_rewards;
-create policy "Users can create their own welcome reward"
-on public.user_welcome_rewards
-for insert
-to authenticated
-with check (
-  auth.uid() = user_id
-  and welcome_god_pack_claimed = false
-  and welcome_god_pack_set is null
-  and welcome_reward_claimed_at is null
-);
-
 drop policy if exists "Users can claim their own welcome reward" on public.user_welcome_rewards;
-create policy "Users can claim their own welcome reward"
-on public.user_welcome_rewards
-for update
-to authenticated
-using (auth.uid() = user_id and welcome_god_pack_claimed = false)
-with check (auth.uid() = user_id and welcome_god_pack_claimed = true);
+drop policy if exists "Users can update their own welcome reward" on public.user_welcome_rewards;
+drop policy if exists "Users can delete their own welcome reward" on public.user_welcome_rewards;
+
+-- Claims are handled by the server-side claim-welcome-god-pack Edge Function.
+-- Authenticated browser clients may only read their own reward status.
 
 create or replace function public.set_user_welcome_rewards_updated_at()
 returns trigger
