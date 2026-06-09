@@ -84,6 +84,7 @@ Deno.serve(async (req) => {
     return jsonResponse({
       cards: cards.map((card, index) => compactPackCardForResponse(card, set, index)),
       godPackFormat: cards.godPackFormat || forcedFormat || "",
+      godPackDisplayName: cards.godPackDisplayName || "God Pack",
       rewardStatus: {
         isEligible: true,
         isClaimed: true,
