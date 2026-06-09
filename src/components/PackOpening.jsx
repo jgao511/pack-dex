@@ -27,10 +27,10 @@ function PackOpening({ set, onOpened, onBackToSets, onViewCollection, isOpening 
       </div>
       <div className="pack-stage" aria-label={`${set.name} booster pack`}>
         <div className="pack-card pack-card-back">
-          <img src={cardBack} alt="" />
+          <img src={cardBack} alt="" decoding="async" fetchPriority="high" />
         </div>
         <div className="pack-card pack-card-mid">
-          <img src={cardBack} alt="" />
+          <img src={cardBack} alt="" decoding="async" fetchPriority="high" />
         </div>
         <button className="pack" onClick={onOpened} disabled={isOpening} aria-busy={isOpening}>
           <span className="pack-shine" />

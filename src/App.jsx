@@ -42,6 +42,7 @@ import {
   saveCollection,
 } from "./utils/collectionStorage.js";
 import { getPokeballLoadingUrl, getSetLogoUrl, getSetPackArtUrl } from "./utils/assetUrls.js";
+import { preloadImage } from "./utils/imageCache.js";
 import { compareCardsByRarity } from "./utils/rarityRank.js";
 import { loadWelcomeRewardStatus } from "./lib/welcomeReward.js";
 import { claimWelcomeGodPack } from "./lib/securePackOpening.js";
@@ -52,6 +53,7 @@ const MIN_RETURN_LOADING_MS = 450;
 const RETURN_LOADING_RENDER_DELAY_MS = 100;
 const POKEBALL_LOADING_SRC = getPokeballLoadingUrl();
 const PACK_STATS_STORAGE_KEY = "packdex-profile-stats";
+const THEME_STORAGE_KEY = "packdex-theme";
 const COLLECTION_DASHBOARD_PAGE_SIZE = 60;
 const BINDER_PAGE_SIZE = 9;
 const ACTIVE_BINDER_STORAGE_KEY = "packdex-active-binder-id";
@@ -89,6 +91,58 @@ const MAIN_TABS = [
   { id: "collection", label: "Collection" },
   { id: "profile", label: "Profile" },
 ];
+
+function getInitialTheme() {
+  if (typeof window === "undefined") return "light";
+
+  const savedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
+
+  if (savedTheme === "light" || savedTheme === "dark") {
+    return savedTheme;
+  }
+
+  return "dark";
+}
+
+function applyPackDexTheme(theme) {
+  if (typeof document === "undefined") return;
+
+  document.documentElement.dataset.theme = theme;
+  document.documentElement.style.colorScheme = theme;
+}
+
+if (typeof window !== "undefined") {
+  applyPackDexTheme(getInitialTheme());
+}
+
+function ThemeToggle() {
+  const [theme, setTheme] = useState(() => getInitialTheme());
+
+  useEffect(() => {
+    applyPackDexTheme(theme);
+    window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+  }, [theme]);
+
+  return (
+    <div
+      className="theme-toggle"
+      role="group"
+      aria-label="Theme selector"
+    >
+      {["light", "dark"].map((themeOption) => (
+        <button
+          key={themeOption}
+          className={`theme-toggle__option ${theme === themeOption ? "is-active" : ""}`}
+          type="button"
+          aria-pressed={theme === themeOption}
+          onClick={() => setTheme(themeOption)}
+        >
+          {themeOption}
+        </button>
+      ))}
+    </div>
+  );
+}
 
 function LoadingOverlay() {
   return (
@@ -249,11 +303,10 @@ function GuestSignupNotice({ user, onOpenAuth }) {
 
   return (
     <aside className="guest-signup-notice" aria-label="Create a PackDex account">
-      <span>Playing as guest.</span>
       <button type="button" onClick={onOpenAuth}>
-        Sign up
+        Sign up / Log in
       </button>
-      <span>to claim a free God Pack and sync your collection.</span>
+      <span>to save your collection across devices.</span>
     </aside>
   );
 }
@@ -708,7 +761,7 @@ function CollectionDashboard({
         <h1>{activeCollectionSubtab === "sets" ? "Set Collection" : "My Binders"}</h1>
       </div>
 
-      {user ? <div className="cloud-save-badge">Account saving enabled</div> : <AuthSaveNotice onOpenAuth={onOpenAuth} />}
+      {!user && <AuthSaveNotice onOpenAuth={onOpenAuth} />}
 
       <div className="collection-subtabs" role="tablist" aria-label="Collection views">
         <button
@@ -1527,8 +1580,6 @@ function ProfilePage({
 
       <AuthPanel user={user} onOpenAuth={onOpenAuth} />
 
-      {user && <div className="cloud-save-badge">Account saving enabled</div>}
-
       {user && <WelcomeRewardProfileCard rewardStatus={welcomeRewardStatus} onClaim={onOpenWelcomeReward} />}
 
       <div className="profile-stat-grid">
@@ -1635,6 +1686,7 @@ function App() {
       <main className="app-shell">
         <AuthCallbackPage />
         <SiteFooter />
+        <ThemeToggle />
       </main>
     );
   }
@@ -1644,6 +1696,7 @@ function App() {
       <main className="app-shell">
         <ResetPasswordPage />
         <SiteFooter />
+        <ThemeToggle />
       </main>
     );
   }
@@ -1653,6 +1706,7 @@ function App() {
       <main className="app-shell">
         <LegalPage type={legalPageType} />
         <SiteFooter />
+        <ThemeToggle />
       </main>
     );
   }
@@ -1662,6 +1716,7 @@ function App() {
       <main className="app-shell is-pack-flow">
         <DevGodPackAnimationPreview />
         <SiteFooter />
+        <ThemeToggle />
       </main>
     );
   }
@@ -1691,6 +1746,10 @@ function App() {
   const shownWelcomeRewardUserRef = useRef("");
   const isPackFlow = activeTab === "open" && ["opening", "reveal", "summary"].includes(screen);
   const authUser = authSession?.user || null;
+
+  useEffect(() => {
+    preloadImage("/card-back.png", { timeoutMs: 0 });
+  }, []);
 
   useEffect(() => {
     if (!supabase) {
@@ -2124,19 +2183,15 @@ function App() {
         )}
       </header>
 
-      {!authUser && !["reveal", "summary"].includes(screen) && (
-        <GuestSignupNotice user={authUser} onOpenAuth={openAuthModal} />
-      )}
-
       {cloudWarning && (
         <div className="cloud-warning" role="status">
           {cloudWarning}
         </div>
       )}
 
-      {activeTab === "open" && screen === "home" && (
+      {activeTab === "open" && screen === "home" && !authUser && (
         <section className="home-brand-hero" aria-label="PackDex">
-          <h1>Pokemon TCG Pack Opening Simulator</h1>
+          <GuestSignupNotice user={authUser} onOpenAuth={openAuthModal} />
         </section>
       )}
 
@@ -2240,6 +2295,7 @@ function App() {
       {isOpeningPack && <TabLoadingOverlay text={authUser ? "Saving pulls securely..." : "Opening your pack..."} />}
       {isTabLoading && <TabLoadingOverlay />}
       {isReturningToSet && <LoadingOverlay />}
+      <ThemeToggle />
     </main>
   );
 }

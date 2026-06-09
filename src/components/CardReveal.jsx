@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import FoilCard from "./FoilCard.jsx";
 import { getCardBackUrl, getCardImageUrl } from "../utils/assetUrls.js";
+import { preloadImages } from "../utils/imageCache.js";
 import { isHigherThanRare, isSubsetCard } from "../utils/packGenerator.js";
 import { getPackRevealSoundCue, playHitSound, preloadHitSounds } from "../utils/sounds.js";
 
@@ -30,26 +31,6 @@ function getPackSoundId(cards) {
   }
 
   return packSoundIds.get(cards);
-}
-
-function preloadImages(urls) {
-  return Promise.allSettled(
-    urls.map(
-      (url) =>
-        new Promise((resolve) => {
-          if (!url) {
-            resolve();
-            return;
-          }
-
-          const img = new Image();
-
-          img.onload = resolve;
-          img.onerror = resolve;
-          img.src = url;
-        })
-    )
-  );
 }
 
 function getCardDealDelay(index, isGodPack = false) {
@@ -117,7 +98,7 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
 
     const imageUrls = cards.map((card) => getCardImageUrl(card));
 
-    preloadImages(imageUrls);
+    preloadImages(imageUrls, { timeoutMs: 0 });
 
     dealTimerRef.current = window.setTimeout(() => {
       setIsDealt(true);
@@ -240,7 +221,7 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
             }}
           >
             <div className="grid-card-face grid-card-back">
-              <img src={cardBack} alt="" />
+              <img src={cardBack} alt="" decoding="async" fetchPriority="high" />
             </div>
 
             <div className="grid-card-face grid-card-front">

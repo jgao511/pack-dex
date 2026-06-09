@@ -142,9 +142,7 @@ function CollectionPage({
         </div>
       </header>
 
-      {user ? (
-        <div className="cloud-save-badge">Account saving enabled</div>
-      ) : (
+      {!user && (
         <div className="auth-save-notice">
           <button type="button" onClick={onOpenAuth}>
             Log in

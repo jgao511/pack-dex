@@ -348,11 +348,6 @@ function AuthForm({ onAuthenticated }) {
             Back to login
           </button>
         )}
-        {isCreateMode && (
-          <button type="button" onClick={() => switchMode("reset")}>
-            Forgot password?
-          </button>
-        )}
       </div>
 
       {!isSupabaseConfigured && (

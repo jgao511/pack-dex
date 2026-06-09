@@ -103,7 +103,7 @@ export function getSoundUrl(fileName) {
 }
 
 export function getCardBackUrl() {
-  return getAssetUrl("card-back.png");
+  return "/card-back.png";
 }
 
 export function getPokeballLoadingUrl() {

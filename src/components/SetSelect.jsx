@@ -204,7 +204,8 @@ function SetSelect({ sets, collection, onSelectSet, onViewCollection }) {
   return (
     <section className={`set-select-screen open-pack-page ${openPackBgClass}`} ref={pageRef}>
       <div className="set-select-heading">
-        <h1 className="brand-title">Open a Pack</h1>
+        <h1 className="brand-title simulator-title">Pokémon TCG Pack Opening Simulator</h1>
+        <h2 className="brand-title section-title">Open a Pack</h2>
         <label className="era-filter">
           <span>Era</span>
           <select value={selectedEra} onChange={(event) => setSelectedEra(event.target.value)}>
