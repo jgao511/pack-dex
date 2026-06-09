@@ -1,33 +1,55 @@
 import { generateForcedGodPack } from "../../../src/utils/packGenerator.js";
-import { corsHeaders, findSet, getAuthenticatedUser, jsonResponse, upsertCardsForUser } from "../_shared/packdex.ts";
+import {
+  compactPackCardForResponse,
+  corsHeaders,
+  findSet,
+  formatErrorForResponse,
+  getAuthenticatedUser,
+  jsonResponse,
+  upsertCardsForUser,
+} from "../_shared/packdex.ts";
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
   }
 
+  let debugStep = "start";
+
   try {
+    debugStep = "authenticate";
     const { admin, user } = await getAuthenticatedUser(req);
+    debugStep = "parse_body";
     const body = await req.json().catch(() => ({}));
     const setId = String(body?.set_id || body?.setId || "");
     const forcedFormat = body?.forcedFormat ? String(body.forcedFormat) : undefined;
+    debugStep = "find_set";
     const set = findSet(setId);
 
     if (!set) {
       return jsonResponse({ error: "Unknown welcome reward set." }, 400);
     }
 
-    await admin.from("user_welcome_rewards").upsert(
-      {
-        user_id: user.id,
-        welcome_god_pack_claimed: false,
-        welcome_god_pack_set: null,
-        welcome_reward_claimed_at: null,
-      },
-      { onConflict: "user_id", ignoreDuplicates: true }
-    );
+    debugStep = "load_reward";
+    const { data: existingReward, error: loadRewardError } = await admin
+      .from("user_welcome_rewards")
+      .select("user_id")
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    if (loadRewardError) throw loadRewardError;
+
+    if (!existingReward) {
+      debugStep = "create_reward";
+      const { error: createRewardError } = await admin
+        .from("user_welcome_rewards")
+        .insert({ user_id: user.id });
+
+      if (createRewardError) throw createRewardError;
+    }
 
     const claimedAt = new Date().toISOString();
+    debugStep = "claim_reward";
     const { data: rewardRow, error: claimError } = await admin
       .from("user_welcome_rewards")
       .update({
@@ -49,17 +71,18 @@ Deno.serve(async (req) => {
       }, 409);
     }
 
+    debugStep = "generate_pack";
     const cards = generateForcedGodPack(set, set, forcedFormat);
 
     if (!cards?.length || !cards.isGodPack) {
       return jsonResponse({ error: "This welcome reward pack is unavailable." }, 400);
     }
 
-    const savedRows = await upsertCardsForUser(admin, user.id, cards, set);
+    debugStep = "save_collection";
+    await upsertCardsForUser(admin, user.id, cards, set);
 
     return jsonResponse({
-      cards,
-      savedRows,
+      cards: cards.map((card, index) => compactPackCardForResponse(card, set, index)),
       godPackFormat: cards.godPackFormat || forcedFormat || "",
       rewardStatus: {
         isEligible: true,
@@ -69,7 +92,20 @@ Deno.serve(async (req) => {
       },
     });
   } catch (error) {
-    console.error("claim-welcome-god-pack failed", error);
-    return jsonResponse({ error: "Unable to claim welcome reward securely." }, 500);
+    const formattedError = formatErrorForResponse(error);
+
+    console.error("claim-welcome-god-pack failed", {
+      step: debugStep,
+      error: formattedError,
+    });
+
+    return jsonResponse(
+      {
+        error: "Unable to claim welcome reward securely.",
+        step: debugStep,
+        ...formattedError,
+      },
+      500
+    );
   }
 });

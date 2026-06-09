@@ -1,5 +1,13 @@
 import { generatePack } from "../../../src/utils/packGenerator.js";
-import { corsHeaders, findSet, getAuthenticatedUser, jsonResponse, upsertCardsForUser } from "../_shared/packdex.ts";
+import {
+  compactPackCardForResponse,
+  corsHeaders,
+  findSet,
+  formatErrorForResponse,
+  getAuthenticatedUser,
+  jsonResponse,
+  upsertCardsForUser,
+} from "../_shared/packdex.ts";
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -24,29 +32,28 @@ Deno.serve(async (req) => {
     debugStep = "generate_pack";
     const cards = generatePack(set);
     debugStep = "save_collection";
-    const savedRows = await upsertCardsForUser(admin, user.id, cards, set);
+    await upsertCardsForUser(admin, user.id, cards, set);
 
     return jsonResponse({
-      cards,
-      savedRows,
+      cards: cards.map((card, index) => compactPackCardForResponse(card, set, index)),
       isGodPack: Boolean(cards.isGodPack),
       godPackFormat: cards.godPackFormat || "",
       godPackDisplayName: cards.godPackDisplayName || "",
     });
   } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
+    const formattedError = formatErrorForResponse(error);
+    const message = formattedError.message || "Unknown error.";
 
     console.error("open-pack failed", {
       step: debugStep,
-      message,
-      error,
+      error: formattedError,
     });
 
     return jsonResponse(
       {
         error: "Unable to open pack securely.",
         step: debugStep,
-        message,
+        ...formattedError,
       },
       500
     );

@@ -24,8 +24,22 @@ create table if not exists public.user_collection (
 
 alter table public.user_collection enable row level security;
 
+grant usage on schema public to authenticated, service_role;
+grant select on public.user_collection to authenticated;
+revoke insert, update, delete on public.user_collection from authenticated;
+grant select, insert, update on public.user_collection to service_role;
+
 do $$
 begin
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'user_collection_user_id_set_id_card_id_key'
+  ) then
+    alter table public.user_collection
+      add constraint user_collection_user_id_set_id_card_id_key unique(user_id, set_id, card_id);
+  end if;
+
   if not exists (
     select 1
     from pg_constraint
@@ -83,6 +97,10 @@ create table if not exists public.user_welcome_rewards (
 );
 
 alter table public.user_welcome_rewards enable row level security;
+
+grant select on public.user_welcome_rewards to authenticated;
+revoke insert, update, delete on public.user_welcome_rewards from authenticated;
+grant select, insert, update on public.user_welcome_rewards to service_role;
 
 drop policy if exists "Users can read their own welcome reward" on public.user_welcome_rewards;
 create policy "Users can read their own welcome reward"
