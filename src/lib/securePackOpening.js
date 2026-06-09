@@ -14,6 +14,24 @@ function normalizeFunctionCards(data) {
   return [];
 }
 
+async function getFunctionErrorDetails(error) {
+  const response = error?.context;
+
+  if (!response || typeof response.clone !== "function") {
+    return null;
+  }
+
+  try {
+    return await response.clone().json();
+  } catch {
+    try {
+      return { message: await response.clone().text() };
+    } catch {
+      return null;
+    }
+  }
+}
+
 export async function openPackAndSaveResult(setId) {
   assertSupabaseConfigured();
 
@@ -22,6 +40,12 @@ export async function openPackAndSaveResult(setId) {
   });
 
   if (error) {
+    const details = await getFunctionErrorDetails(error);
+    console.error("open-pack function failed", {
+      error,
+      details,
+    });
+
     throw error;
   }
 
@@ -51,6 +75,12 @@ export async function claimWelcomeGodPack(setId) {
   });
 
   if (error) {
+    const details = await getFunctionErrorDetails(error);
+    console.error("claim-welcome-god-pack function failed", {
+      error,
+      details,
+    });
+
     throw error;
   }
 
