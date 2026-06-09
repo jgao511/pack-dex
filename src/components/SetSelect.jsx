@@ -1,5 +1,5 @@
 import { Library, Sparkles } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { getSetLogoUrl } from "../utils/assetUrls.js";
 import { canGeneratePack } from "../utils/packGenerator.js";
 import { getSetCollectionProgress } from "../utils/collectionStorage.js";
@@ -63,6 +63,22 @@ function getEraLogo(era, sets) {
   return baseSet ? getSetLogoUrl(baseSet) : "";
 }
 
+function getEraClassName(era) {
+  return `era-${getEraSlug(era)}`;
+}
+
+function getEraBgClassName(era) {
+  return `era-bg-${getEraSlug(era)}`;
+}
+
+function getEraSlug(era) {
+  return String(era || "default")
+    .toLowerCase()
+    .replace(/&/g, " ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
 function SetLogo({ set }) {
   const [logoFailed, setLogoFailed] = useState(false);
   const logoUrl = getSetLogoUrl(set);
@@ -84,6 +100,8 @@ function SetLogo({ set }) {
 
 function SetSelect({ sets, collection, onSelectSet, onViewCollection }) {
   const [selectedEra, setSelectedEra] = useState(ALL_ERAS);
+  const [activeEraBgClass, setActiveEraBgClass] = useState("era-bg-default");
+  const pageRef = useRef(null);
   const setReadiness = useMemo(() => new Map(sets.map((set) => [set.id, canGeneratePack(set)])), [sets]);
   const collectionProgress = useMemo(
     () => new Map(sets.map((set) => [set.id, getSetCollectionProgress(collection, set)])),
@@ -96,6 +114,58 @@ function SetSelect({ sets, collection, onSelectSet, onViewCollection }) {
       : sets.filter((set) => (set.era || "Other") === selectedEra || (!set.era && selectedEra === "Other"));
   const sortedFilteredSets = sortNewestFirst(filteredSets);
   const eraGroups = groupSetsByEra(sortedFilteredSets);
+  const openPackBgClass = selectedEra === ALL_ERAS ? activeEraBgClass : getEraBgClassName(selectedEra);
+
+  useEffect(() => {
+    if (selectedEra !== ALL_ERAS) {
+      setActiveEraBgClass(getEraBgClassName(selectedEra));
+    }
+
+    const firstEra = eraGroups[0]?.[0];
+
+    if (selectedEra === ALL_ERAS) {
+      setActiveEraBgClass(firstEra ? getEraBgClassName(firstEra) : "era-bg-default");
+    }
+
+    let eraObserver = null;
+    const root = pageRef.current;
+
+    if (!root || typeof IntersectionObserver === "undefined") return undefined;
+
+    const setupEraObserver = () => {
+      const eraSections = Array.from(root.querySelectorAll("[data-era-section]"));
+
+      eraObserver = new IntersectionObserver(
+        (entries) => {
+          const activeEntry = entries
+            .filter((entry) => entry.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+          const era = activeEntry?.target?.dataset?.era;
+
+          if (era) {
+            setActiveEraBgClass(`era-bg-${era}`);
+            if (import.meta.env.DEV) {
+              console.log("[PackDex active era]", era);
+            }
+          }
+        },
+        {
+          threshold: [0.2, 0.35, 0.5, 0.65],
+          rootMargin: "-30% 0px -45% 0px",
+        }
+      );
+
+      if (selectedEra === ALL_ERAS) {
+        eraSections.forEach((section) => eraObserver.observe(section));
+      }
+    };
+
+    setupEraObserver();
+
+    return () => {
+      eraObserver?.disconnect();
+    };
+  }, [selectedEra, eraGroups.length, sortedFilteredSets.length]);
 
   function renderSetCard(set) {
     const isReady = setReadiness.get(set.id);
@@ -132,7 +202,7 @@ function SetSelect({ sets, collection, onSelectSet, onViewCollection }) {
   }
 
   return (
-    <section className="set-select-screen">
+    <section className={`set-select-screen open-pack-page ${openPackBgClass}`} ref={pageRef}>
       <div className="set-select-heading">
         <h1 className="brand-title">Open a Pack</h1>
         <label className="era-filter">
@@ -150,7 +220,12 @@ function SetSelect({ sets, collection, onSelectSet, onViewCollection }) {
       {selectedEra === ALL_ERAS ? (
         <div className="era-section-list">
           {eraGroups.map(([era, eraSets]) => (
-            <section className="era-section" key={era}>
+            <section
+              className={`home-era-section era-section ${getEraClassName(era)}`}
+              data-era-section
+              data-era={getEraSlug(era)}
+              key={era}
+            >
               <div className="era-section__hero">
                 {getEraLogo(era, sets) && (
                   <img
@@ -171,7 +246,9 @@ function SetSelect({ sets, collection, onSelectSet, onViewCollection }) {
           ))}
         </div>
       ) : (
-        <div className="set-grid">{sortedFilteredSets.map(renderSetCard)}</div>
+        <div className={`set-grid era-filtered-grid ${getEraClassName(selectedEra)}`}>
+          {sortedFilteredSets.map(renderSetCard)}
+        </div>
       )}
     </section>
   );

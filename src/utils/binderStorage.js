@@ -3,7 +3,7 @@ import { getCardCollectionKey } from "./collectionStorage.js";
 const BINDER_STORAGE_KEY = "packdex-binders";
 const LEGACY_BINDER_STORAGE_KEY = "packdex-binder-cards";
 
-function makeId() {
+export function makeBinderId() {
   if (typeof crypto !== "undefined" && crypto.randomUUID) {
     return crypto.randomUUID();
   }
@@ -11,7 +11,7 @@ function makeId() {
   return `binder-${Date.now()}-${Math.random().toString(16).slice(2)}`;
 }
 
-function normalizeBinderCard(item) {
+export function normalizeBinderCard(item) {
   if (!item?.key || !item?.setId) return null;
 
   return {
@@ -24,7 +24,7 @@ function normalizeBinderCard(item) {
   };
 }
 
-function normalizeBinder(binder) {
+export function normalizeBinder(binder) {
   if (!binder?.id) return null;
 
   return {
@@ -74,7 +74,7 @@ export function getBinderCardKey(card, setId) {
 
 export function createBinder({ name, tag }) {
   return {
-    id: makeId(),
+    id: makeBinderId(),
     name: String(name || "New Binder").trim() || "New Binder",
     tag: String(tag || "Favorites").trim() || "Favorites",
     createdAt: Date.now(),

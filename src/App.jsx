@@ -9,6 +9,11 @@ import PullSummary from "./components/PullSummary.jsx";
 import SetSelect from "./components/SetSelect.jsx";
 import { sets } from "./data/sets.js";
 import { loadCloudCollection, savePulledCardsToCloud } from "./lib/cloudCollection.js";
+import {
+  loadCloudBinders,
+  saveCloudBinders,
+  upsertCloudBinder,
+} from "./lib/cloudBinders.js";
 import { isSupabaseConfigured, supabase } from "./lib/supabaseClient.js";
 import {
   canGeneratePack,
@@ -234,7 +239,7 @@ function AuthSaveNotice({ onOpenAuth }) {
       <button type="button" onClick={onOpenAuth}>
         create an account
       </button>{" "}
-      to save your pulls across devices.
+      to save your collection and binders across devices.
     </div>
   );
 }
@@ -248,7 +253,7 @@ function GuestSignupNotice({ user, onOpenAuth }) {
       <button type="button" onClick={onOpenAuth}>
         Sign up
       </button>
-      <span>to claim a free God Pack and save your pulls.</span>
+      <span>to claim a free God Pack and sync your collection.</span>
     </aside>
   );
 }
@@ -630,7 +635,17 @@ function AuthCallbackPage() {
   );
 }
 
-function CollectionDashboard({ collection, binders, user, onOpenAuth, onAddToBinder, onRemoveFromBinder }) {
+function CollectionDashboard({
+  collection,
+  binders,
+  user,
+  onOpenAuth,
+  onCreateBinder,
+  onClearBinder,
+  onAddToBinder,
+  onRemoveFromBinder,
+}) {
+  const [activeCollectionSubtab, setActiveCollectionSubtab] = useState("sets");
   const [query, setQuery] = useState("");
   const [eraFilter, setEraFilter] = useState("all");
   const [setFilter, setSetFilter] = useState("all");
@@ -690,97 +705,135 @@ function CollectionDashboard({ collection, binders, user, onOpenAuth, onAddToBin
     <section className="dashboard-screen">
       <div className="dashboard-heading">
         <span className="set-mark">Collection</span>
-        <h1>Collected Cards</h1>
+        <h1>{activeCollectionSubtab === "sets" ? "Set Collection" : "My Binders"}</h1>
       </div>
 
       {user ? <div className="cloud-save-badge">Account saving enabled</div> : <AuthSaveNotice onOpenAuth={onOpenAuth} />}
 
-      {collectedCards.length === 0 ? (
-        <div className="empty-state">
-          <h2>No cards collected yet</h2>
-          <p>Open a few packs first and your collection will start filling in here.</p>
+      <div className="collection-subtabs" role="tablist" aria-label="Collection views">
+        <button
+          className={activeCollectionSubtab === "sets" ? "is-active" : ""}
+          type="button"
+          role="tab"
+          aria-selected={activeCollectionSubtab === "sets"}
+          onClick={() => setActiveCollectionSubtab("sets")}
+        >
+          Set Collection
+        </button>
+        <button
+          className={activeCollectionSubtab === "binders" ? "is-active" : ""}
+          type="button"
+          role="tab"
+          aria-selected={activeCollectionSubtab === "binders"}
+          onClick={() => setActiveCollectionSubtab("binders")}
+        >
+          My Binders
+        </button>
+      </div>
+
+      {activeCollectionSubtab === "sets" ? (
+        <div className="collection-subtab-panel" role="tabpanel">
+          {collectedCards.length === 0 ? (
+            <div className="empty-state">
+              <h2>No cards collected yet</h2>
+              <p>Open a few packs first and your collection will start filling in here.</p>
+            </div>
+          ) : (
+            <>
+              <div className="collection-controls dashboard-controls">
+                <label className="collection-search">
+                  <input
+                    type="search"
+                    value={query}
+                    onChange={(event) => setQuery(event.target.value)}
+                    placeholder="Search collected cards"
+                  />
+                </label>
+                <select value={eraFilter} onChange={(event) => setEraFilter(event.target.value)} aria-label="Filter by era">
+                  {eraOptions.map((era) => (
+                    <option key={era} value={era}>
+                      {era === "all" ? "All Eras" : era}
+                    </option>
+                  ))}
+                </select>
+                <select value={setFilter} onChange={(event) => setSetFilter(event.target.value)} aria-label="Filter by set">
+                  <option value="all">All Sets</option>
+                  {setOptions.map((set) => (
+                    <option key={set.id} value={set.id}>
+                      {set.name}
+                    </option>
+                  ))}
+                </select>
+                <select value={sortMode} onChange={(event) => setSortMode(event.target.value)} aria-label="Sort collected cards">
+                  <option value="recent">Recently Collected</option>
+                  <option value="name">Name</option>
+                  <option value="rarity">Rarity</option>
+                  <option value="set">Set</option>
+                </select>
+              </div>
+
+              <div className="collection-grid">
+                {pagedCards.map(({ card, set, count }) => (
+                  <article
+                    className="collection-card is-collected"
+                    key={`${set.id}-${card.id || card.number}-${card.name}`}
+                    onClick={() => setSelectedCard({ card, set, count })}
+                  >
+                    <div className="collection-card-image">
+                      <FoilCard
+                        card={card}
+                        set={set}
+                        variant="collection"
+                        enableTransform={false}
+                        enableCursorBlob={false}
+                        enableTiltFoil={false}
+                        showFoil={false}
+                      />
+                      {count > 1 && <span className="count-badge">x{count}</span>}
+                    </div>
+                    <div className="collection-card-meta">
+                      <strong>{getDisplayCardName(card, set)}</strong>
+                      <span>
+                        {set.name} - {getDisplayRarity(card, set)}
+                      </span>
+                    </div>
+                  </article>
+                ))}
+              </div>
+
+              {visibleCards.length > COLLECTION_DASHBOARD_PAGE_SIZE && (
+                <div className="pagination-controls" aria-label="Collection pages">
+                  <button type="button" onClick={() => setPage((currentPage) => Math.max(1, currentPage - 1))} disabled={page === 1}>
+                    Previous
+                  </button>
+                  <span>
+                    Page {page} of {totalPages} - {visibleCards.length} cards
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setPage((currentPage) => Math.min(totalPages, currentPage + 1))}
+                    disabled={page === totalPages}
+                  >
+                    Next
+                  </button>
+                </div>
+              )}
+            </>
+          )}
         </div>
       ) : (
-        <>
-          <div className="collection-controls dashboard-controls">
-            <label className="collection-search">
-              <input
-                type="search"
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                placeholder="Search collected cards"
-              />
-            </label>
-            <select value={eraFilter} onChange={(event) => setEraFilter(event.target.value)} aria-label="Filter by era">
-              {eraOptions.map((era) => (
-                <option key={era} value={era}>
-                  {era === "all" ? "All Eras" : era}
-                </option>
-              ))}
-            </select>
-            <select value={setFilter} onChange={(event) => setSetFilter(event.target.value)} aria-label="Filter by set">
-              <option value="all">All Sets</option>
-              {setOptions.map((set) => (
-                <option key={set.id} value={set.id}>
-                  {set.name}
-                </option>
-              ))}
-            </select>
-            <select value={sortMode} onChange={(event) => setSortMode(event.target.value)} aria-label="Sort collected cards">
-              <option value="recent">Recently Collected</option>
-              <option value="name">Name</option>
-              <option value="rarity">Rarity</option>
-              <option value="set">Set</option>
-            </select>
-          </div>
-
-          <div className="collection-grid">
-            {pagedCards.map(({ card, set, count }) => (
-              <article
-                className="collection-card is-collected"
-                key={`${set.id}-${card.id || card.number}-${card.name}`}
-                onClick={() => setSelectedCard({ card, set, count })}
-              >
-                <div className="collection-card-image">
-                  <FoilCard
-                    card={card}
-                    set={set}
-                    variant="collection"
-                    enableTransform={false}
-                    enableCursorBlob={false}
-                    enableTiltFoil={false}
-                    showFoil={false}
-                  />
-                  {count > 1 && <span className="count-badge">x{count}</span>}
-                </div>
-                <div className="collection-card-meta">
-                  <strong>{getDisplayCardName(card, set)}</strong>
-                  <span>
-                    {set.name} - {getDisplayRarity(card, set)}
-                  </span>
-                </div>
-              </article>
-            ))}
-          </div>
-
-          {visibleCards.length > COLLECTION_DASHBOARD_PAGE_SIZE && (
-            <div className="pagination-controls" aria-label="Collection pages">
-              <button type="button" onClick={() => setPage((currentPage) => Math.max(1, currentPage - 1))} disabled={page === 1}>
-                Previous
-              </button>
-              <span>
-                Page {page} of {totalPages} - {visibleCards.length} cards
-              </span>
-              <button
-                type="button"
-                onClick={() => setPage((currentPage) => Math.min(totalPages, currentPage + 1))}
-                disabled={page === totalPages}
-              >
-                Next
-              </button>
-            </div>
-          )}
-        </>
+        <div className="collection-subtab-panel" role="tabpanel">
+          <BinderSection
+            binders={binders}
+            collection={collection}
+            user={user}
+            onOpenAuth={onOpenAuth}
+            onCreateBinder={onCreateBinder}
+            onClearBinder={onClearBinder}
+            onAddToBinder={onAddToBinder}
+            onRemoveFromBinder={onRemoveFromBinder}
+          />
+        </div>
       )}
 
       {selectedCard && (
@@ -971,7 +1024,7 @@ function BinderSection({
       <div className="binder-panel-header">
         <div>
           <h2>My Binders</h2>
-          <p>{binders.length > 0 ? "Select one binder to view and manage." : "No binders yet!"}</p>
+          <p>{binders.length > 0 ? "Select one binder to view and manage." : "No binders yet."}</p>
         </div>
         <div className="binder-controls">
           <label>
@@ -1003,7 +1056,7 @@ function BinderSection({
 
       {binders.length === 0 && (
         <div className="binder-empty-state">
-          <strong>No binders yet!</strong>
+          <strong>No binders yet.</strong>
           <span>Create your first binder to start organizing your favorite cards.</span>
         </div>
       )}
@@ -1451,15 +1504,10 @@ function WelcomeRewardProfileCard({ rewardStatus, onClaim }) {
 function ProfilePage({
   collection,
   profileStats,
-  binders,
   user,
   welcomeRewardStatus,
   onOpenAuth,
   onOpenWelcomeReward,
-  onCreateBinder,
-  onClearBinder,
-  onAddToBinder,
-  onRemoveFromBinder,
 }) {
   const collectedCards = useMemo(() => getCollectedCards(collection), [collection]);
   const uniqueCards = collectedCards.length;
@@ -1501,17 +1549,6 @@ function ProfilePage({
           <strong>{completedSets}</strong>
         </article>
       </div>
-
-      <BinderSection
-        binders={binders}
-        collection={collection}
-        user={user}
-        onOpenAuth={onOpenAuth}
-        onCreateBinder={onCreateBinder}
-        onClearBinder={onClearBinder}
-        onAddToBinder={onAddToBinder}
-        onRemoveFromBinder={onRemoveFromBinder}
-      />
     </section>
   );
 }
@@ -1686,6 +1723,7 @@ function App() {
 
     if (!authUser) {
       setCollection(loadCollection());
+      setBinders(loadBinders());
       setCloudWarning("");
       setWelcomeRewardStatus(null);
       setIsWelcomeRewardModalOpen(false);
@@ -1709,6 +1747,20 @@ function App() {
 
         setCollection({});
         setCloudWarning("Account collection could not be loaded yet. Guest pulls stay local on this device.");
+      });
+
+    loadCloudBinders(authUser.id)
+      .then((cloudBinders) => {
+        if (!isMounted) return;
+
+        setBinders(cloudBinders);
+      })
+      .catch((error) => {
+        console.warn("Cloud binder load failed", error);
+        if (!isMounted) return;
+
+        setBinders([]);
+        setCloudWarning("Account binders could not be loaded yet. Guest binders stay local on this device.");
       });
 
     return () => {
@@ -1903,13 +1955,32 @@ function App() {
     }
   }
 
+  function persistBinderState(nextBinders, changedBinderId = "") {
+    if (!authUser) {
+      saveBinders(nextBinders);
+      return;
+    }
+
+    const changedBinder = changedBinderId ? nextBinders.find((binder) => binder.id === changedBinderId) : null;
+    const saveOperation = changedBinder
+      ? upsertCloudBinder(authUser.id, changedBinder)
+      : saveCloudBinders(authUser.id, nextBinders);
+
+    saveOperation
+      .then(() => {})
+      .catch((error) => {
+        console.warn("Cloud binder save failed", error);
+        setCloudWarning("Binder save failed. Your latest binder changes may not persist after refresh.");
+      });
+  }
+
   function handleCreateBinder(name, tag) {
     const binder = createBinder({ name, tag });
 
     setBinders((currentBinders) => {
       const nextBinders = [binder, ...currentBinders];
 
-      saveBinders(nextBinders);
+      persistBinderState(nextBinders, binder.id);
       return nextBinders;
     });
 
@@ -1926,7 +1997,7 @@ function App() {
 
       const nextBinders = addCardToBinder(currentBinders, targetBinderId, card, set.id);
 
-      saveBinders(nextBinders);
+      persistBinderState(nextBinders, targetBinderId);
       return nextBinders;
     });
   }
@@ -1939,7 +2010,7 @@ function App() {
 
       const nextBinders = removeCardFromBinder(currentBinders, targetBinderId, card, set.id);
 
-      saveBinders(nextBinders);
+      persistBinderState(nextBinders, targetBinderId);
       return nextBinders;
     });
   }
@@ -1948,7 +2019,7 @@ function App() {
     setBinders((currentBinders) => {
       const nextBinders = clearBinderCards(currentBinders, binderId);
 
-      saveBinders(nextBinders);
+      persistBinderState(nextBinders, binderId);
       return nextBinders;
     });
   }
@@ -2065,8 +2136,7 @@ function App() {
 
       {activeTab === "open" && screen === "home" && (
         <section className="home-brand-hero" aria-label="PackDex">
-          <img className="site-logo" src="/packdex-large.png" alt="PackDex" />
-          <h1>PackDex: Pokemon TCG Pack Opening Simulator</h1>
+          <h1>Pokemon TCG Pack Opening Simulator</h1>
         </section>
       )}
 
@@ -2130,6 +2200,8 @@ function App() {
           binders={binders}
           user={authUser}
           onOpenAuth={openAuthModal}
+          onCreateBinder={handleCreateBinder}
+          onClearBinder={handleClearBinder}
           onAddToBinder={handleAddToBinder}
           onRemoveFromBinder={handleRemoveFromBinder}
         />
@@ -2139,19 +2211,13 @@ function App() {
         <ProfilePage
           collection={collection}
           profileStats={profileStats}
-          binders={binders}
           user={authUser}
-          isAuthLoading={isAuthLoading}
           welcomeRewardStatus={welcomeRewardStatus}
           onOpenAuth={openAuthModal}
           onOpenWelcomeReward={() => {
             setWelcomeRewardError("");
             setIsWelcomeRewardModalOpen(true);
           }}
-          onCreateBinder={handleCreateBinder}
-          onClearBinder={handleClearBinder}
-          onAddToBinder={handleAddToBinder}
-          onRemoveFromBinder={handleRemoveFromBinder}
         />
       )}
 
