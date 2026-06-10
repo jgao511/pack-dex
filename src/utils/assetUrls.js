@@ -76,6 +76,22 @@ export function getSetLogoUrl(set = {}) {
   return `/set-logos/${normalizeAssetPath(setFolder)}.png`;
 }
 
+export function getRemoteSetLogoUrl(set = {}) {
+  const explicitPath = set.logoPath || set.logo;
+
+  if (explicitPath) {
+    return getSetAssetUrl(explicitPath);
+  }
+
+  const setFolder = set.setFolder || set.id || set.code || set.setCode;
+
+  if (!setFolder) {
+    return "";
+  }
+
+  return getSetAssetUrl(`${setFolder}/logo.png`);
+}
+
 export function getSetPackArtUrl(set = {}) {
   const explicitPath = set.packArtPath || set.packArt;
 

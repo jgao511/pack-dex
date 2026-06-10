@@ -2,7 +2,7 @@ import { PackageOpen, Search } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import CardDetailModal from "./CardDetailModal.jsx";
 import FoilCard from "./FoilCard.jsx";
-import { getSetLogoUrl } from "../utils/assetUrls.js";
+import { getRemoteSetLogoUrl, getSetLogoUrl } from "../utils/assetUrls.js";
 import {
   getCardCount,
   getPullableCollectionCards,
@@ -53,11 +53,25 @@ function sortCards(cards, sortMode, set) {
 }
 
 function SetLogo({ set }) {
+  const [logoSource, setLogoSource] = useState("local");
   const logoUrl = getSetLogoUrl(set);
+  const remoteLogoUrl = getRemoteSetLogoUrl(set);
+  const displayLogoUrl = logoSource === "remote" ? remoteLogoUrl : logoUrl;
 
-  if (!logoUrl) return <h1 className="brand-title">{set.name}</h1>;
+  useEffect(() => {
+    setLogoSource("local");
+  }, [logoUrl]);
 
-  return <img className="collection-logo" src={logoUrl} alt={`${set.name} logo`} />;
+  if (!displayLogoUrl || logoSource === "failed") return <h1 className="brand-title">{set.name}</h1>;
+
+  return (
+    <img
+      className="collection-logo"
+      src={displayLogoUrl}
+      alt={`${set.name} logo`}
+      onError={() => setLogoSource(logoSource === "local" && remoteLogoUrl ? "remote" : "failed")}
+    />
+  );
 }
 
 function CollectionPage({

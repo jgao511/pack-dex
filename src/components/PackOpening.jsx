@@ -1,19 +1,32 @@
 import { Library, PackageOpen } from "lucide-react";
 import { useEffect, useState } from "react";
-import { getCardBackUrl, getSetLogoUrl, getSetPackArtUrl } from "../utils/assetUrls.js";
+import { getCardBackUrl, getRemoteSetLogoUrl, getSetLogoUrl, getSetPackArtUrl } from "../utils/assetUrls.js";
 import { markIdleCardBackLoad, markIdleCardBackRenderStart } from "../utils/cardBackDebug.js";
 import { markOpenPackClick } from "../utils/imageDebug.js";
 import { pauseImageWarmup } from "../utils/imageWarmup.js";
 
 function SetLogo({ set }) {
-  const [logoFailed, setLogoFailed] = useState(false);
+  const [logoSource, setLogoSource] = useState("local");
   const logoUrl = getSetLogoUrl(set);
+  const remoteLogoUrl = getRemoteSetLogoUrl(set);
+  const displayLogoUrl = logoSource === "remote" ? remoteLogoUrl : logoUrl;
 
-  if (!logoUrl || logoFailed) {
+  useEffect(() => {
+    setLogoSource("local");
+  }, [logoUrl]);
+
+  if (!displayLogoUrl || logoSource === "failed") {
     return <h1 className="brand-title">{set.name}</h1>;
   }
 
-  return <img className="opening-logo" src={logoUrl} alt={`${set.name} logo`} onError={() => setLogoFailed(true)} />;
+  return (
+    <img
+      className="opening-logo"
+      src={displayLogoUrl}
+      alt={`${set.name} logo`}
+      onError={() => setLogoSource(logoSource === "local" && remoteLogoUrl ? "remote" : "failed")}
+    />
+  );
 }
 
 function PackOpening({ set, onOpened, onBackToSets, onViewCollection, isOpening = false }) {

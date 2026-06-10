@@ -1,6 +1,6 @@
 import { Library, Sparkles } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { getSetLogoUrl } from "../utils/assetUrls.js";
+import { getRemoteSetLogoUrl, getSetLogoUrl } from "../utils/assetUrls.js";
 import { canGeneratePack } from "../utils/packGenerator.js";
 import { getSetCollectionProgress } from "../utils/collectionStorage.js";
 import { preloadStaticOpenPackAssets } from "../utils/staticOpenPackAssets.js";
@@ -85,23 +85,34 @@ function getEraSlug(era) {
     .replace(/^-|-$/g, "");
 }
 
-function SetLogo({ set }) {
-  const [logoFailed, setLogoFailed] = useState(false);
+function SetLogoImage({ set, className, fallback }) {
+  const [logoSource, setLogoSource] = useState("local");
   const logoUrl = getSetLogoUrl(set);
+  const remoteLogoUrl = getRemoteSetLogoUrl(set);
+  const displayLogoUrl = logoSource === "remote" ? remoteLogoUrl : logoUrl;
 
-  if (!logoUrl || logoFailed) {
-    return <span className="set-logo-fallback">{set.name}</span>;
+  useEffect(() => {
+    setLogoSource("local");
+  }, [logoUrl]);
+
+  if (!displayLogoUrl || logoSource === "failed") {
+    return fallback ?? null;
   }
 
   return (
     <img
-      src={logoUrl}
+      className={className}
+      src={displayLogoUrl}
       alt={`${set.name} logo`}
       loading="lazy"
       decoding="async"
-      onError={() => setLogoFailed(true)}
+      onError={() => setLogoSource(logoSource === "local" && remoteLogoUrl ? "remote" : "failed")}
     />
   );
+}
+
+function SetLogo({ set }) {
+  return <SetLogoImage set={set} fallback={<span className="set-logo-fallback">{set.name}</span>} />;
 }
 
 function SetSelect({ sets, collection, onSelectSet, onViewCollection }) {
@@ -251,15 +262,7 @@ function SetSelect({ sets, collection, onSelectSet, onViewCollection }) {
               key={era}
             >
               <div className="era-section__hero">
-                {getEraLogo(era, sets) && (
-                  <img
-                    className="era-section__logo"
-                    src={getEraLogo(era, sets)}
-                    alt={`${era} era logo`}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                )}
+                {getEraLogoSet(era, sets) && <SetLogoImage className="era-section__logo" set={getEraLogoSet(era, sets)} />}
                 <div className="era-section__text">
                   <h2>{era} Era</h2>
                   <span>{eraSets.length} sets</span>
