@@ -4179,6 +4179,20 @@ button {
   color: #aeb9cc;
 }
 
+:root[data-theme="dark"] .legal-effective-date,
+:root[data-theme="dark"] .legal-copy h2 {
+  color: #c7d5ff;
+}
+
+:root[data-theme="dark"] .legal-copy a {
+  color: #9fb7ff;
+}
+
+:root[data-theme="dark"] .legal-copy a:hover,
+:root[data-theme="dark"] .legal-copy a:focus-visible {
+  color: #ffffff;
+}
+
 :root[data-theme="dark"] .main-tabs,
 :root[data-theme="dark"] .collection-subtabs,
 :root[data-theme="dark"] .auth-mode-toggle,
