@@ -9,10 +9,25 @@ export function markImageLoaded(url) {
   if (url) loadedImages.add(url);
 }
 
-export function preloadImage(url, { timeoutMs = 1200 } = {}) {
+export function preloadImage(url, { timeoutMs = 1200, onStart, onLoad, onError } = {}) {
   if (!url) return Promise.resolve(false);
-  if (loadedImages.has(url)) return Promise.resolve(true);
-  if (pendingImages.has(url)) return pendingImages.get(url);
+  if (loadedImages.has(url)) {
+    onStart?.({ cached: true });
+    onLoad?.({ cached: true });
+    return Promise.resolve(true);
+  }
+  if (pendingImages.has(url)) {
+    onStart?.({ pending: true });
+    return pendingImages.get(url).then((result) => {
+      if (result) {
+        onLoad?.({ pending: true });
+      } else {
+        onError?.({ pending: true });
+      }
+
+      return result;
+    });
+  }
 
   const promise = new Promise((resolve) => {
     const img = new Image();
@@ -36,14 +51,19 @@ export function preloadImage(url, { timeoutMs = 1200 } = {}) {
         // Decoding can reject for already-usable images; keep the loaded image.
       }
 
+      onLoad?.({ img });
       finish(true);
     };
-    img.onerror = () => finish(false);
+    img.onerror = () => {
+      onError?.({ img });
+      finish(false);
+    };
 
     if (timeoutMs > 0) {
       timeoutId = window.setTimeout(() => finish(false), timeoutMs);
     }
 
+    onStart?.({ img });
     img.src = url;
   });
 

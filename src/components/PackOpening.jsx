@@ -1,6 +1,9 @@
 import { Library, PackageOpen } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getCardBackUrl, getSetLogoUrl, getSetPackArtUrl } from "../utils/assetUrls.js";
+import { markIdleCardBackLoad, markIdleCardBackRenderStart } from "../utils/cardBackDebug.js";
+import { markOpenPackClick } from "../utils/imageDebug.js";
+import { pauseImageWarmup } from "../utils/imageWarmup.js";
 
 function SetLogo({ set }) {
   const [logoFailed, setLogoFailed] = useState(false);
@@ -19,6 +22,17 @@ function PackOpening({ set, onOpened, onBackToSets, onViewCollection, isOpening 
   const packArt = getSetPackArtUrl(set);
   const packImage = !packArtFailed && packArt ? packArt : cardBack;
 
+  useEffect(() => {
+    markIdleCardBackRenderStart("idle-bobbing-back-card", cardBack);
+    markIdleCardBackRenderStart("idle-bobbing-mid-card", cardBack);
+  }, [cardBack]);
+
+  const handleOpen = () => {
+    pauseImageWarmup({ packOpening: true });
+    markOpenPackClick(set);
+    onOpened();
+  };
+
   return (
     <section className="opening-screen">
       <div className="opening-title">
@@ -27,12 +41,26 @@ function PackOpening({ set, onOpened, onBackToSets, onViewCollection, isOpening 
       </div>
       <div className="pack-stage" aria-label={`${set.name} booster pack`}>
         <div className="pack-card pack-card-back">
-          <img src={cardBack} alt="" decoding="async" fetchPriority="high" />
+          <img
+            src={cardBack}
+            alt=""
+            decoding="async"
+            fetchPriority="high"
+            onLoad={(event) => markIdleCardBackLoad("idle-bobbing-back-card", event.currentTarget, true)}
+            onError={(event) => markIdleCardBackLoad("idle-bobbing-back-card", event.currentTarget, false)}
+          />
         </div>
         <div className="pack-card pack-card-mid">
-          <img src={cardBack} alt="" decoding="async" fetchPriority="high" />
+          <img
+            src={cardBack}
+            alt=""
+            decoding="async"
+            fetchPriority="high"
+            onLoad={(event) => markIdleCardBackLoad("idle-bobbing-mid-card", event.currentTarget, true)}
+            onError={(event) => markIdleCardBackLoad("idle-bobbing-mid-card", event.currentTarget, false)}
+          />
         </div>
-        <button className="pack" onClick={onOpened} disabled={isOpening} aria-busy={isOpening}>
+        <button className="pack" onClick={handleOpen} disabled={isOpening} aria-busy={isOpening}>
           <span className="pack-shine" />
           <img src={packImage} alt={`${set.name} pack`} onError={() => setPackArtFailed(true)} />
           {isOpening && <span className="pack-loading-pill">Opening your pack...</span>}
@@ -46,7 +74,7 @@ function PackOpening({ set, onOpened, onBackToSets, onViewCollection, isOpening 
           <Library size={20} aria-hidden="true" />
           Collection
         </button>
-        <button className="primary-button" onClick={onOpened} disabled={isOpening}>
+        <button className="primary-button" onClick={handleOpen} disabled={isOpening}>
           <PackageOpen size={20} aria-hidden="true" />
           {isOpening ? "Opening..." : "Click to Open"}
         </button>

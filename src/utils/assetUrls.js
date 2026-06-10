@@ -67,19 +67,13 @@ export function getCardImageUrl(card = {}) {
 }
 
 export function getSetLogoUrl(set = {}) {
-  const explicitPath = set.logoPath || set.logo;
-
-  if (explicitPath) {
-    return getSetAssetUrl(explicitPath);
-  }
-
   const setFolder = set.setFolder || set.id || set.code || set.setCode;
 
   if (!setFolder) {
     return "";
   }
 
-  return getSetAssetUrl(`${setFolder}/logo.png`);
+  return `/set-logos/${normalizeAssetPath(setFolder)}.png`;
 }
 
 export function getSetPackArtUrl(set = {}) {
@@ -102,8 +96,10 @@ export function getSoundUrl(fileName) {
   return getAssetUrl(`sounds/${fileName}`);
 }
 
+export const CARD_BACK_URL = "/card-back.png";
+
 export function getCardBackUrl() {
-  return "/card-back.png";
+  return CARD_BACK_URL;
 }
 
 export function getPokeballLoadingUrl() {

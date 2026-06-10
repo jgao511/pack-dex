@@ -41,11 +41,19 @@ import {
   markCardsCollected,
   saveCollection,
 } from "./utils/collectionStorage.js";
-import { getCardImageUrl, getPokeballLoadingUrl, getSetLogoUrl, getSetPackArtUrl } from "./utils/assetUrls.js";
+import { CARD_BACK_URL, getCardImageUrl, getPokeballLoadingUrl, getSetLogoUrl, getSetPackArtUrl } from "./utils/assetUrls.js";
 import { preloadImage, preloadImages } from "./utils/imageCache.js";
 import { compareCardsByRarity } from "./utils/rarityRank.js";
 import { loadWelcomeRewardStatus } from "./lib/welcomeReward.js";
 import { claimWelcomeGodPack } from "./lib/securePackOpening.js";
+import { markPackGenerationComplete, markPackGenerationStart } from "./utils/imageDebug.js";
+import { markCardBackPreloadFinish, markCardBackPreloadStart } from "./utils/cardBackDebug.js";
+import {
+  clearImageWarmupQueue,
+  pauseImageWarmup,
+  resumeImageWarmup,
+  scheduleSelectedSetImageWarmup,
+} from "./utils/imageWarmup.js";
 
 const TAB_LOADING_MS = 420;
 const AUTH_MODAL_LOADING_MS = 380;
@@ -1762,8 +1770,39 @@ function App() {
   const authUser = authSession?.user || null;
 
   useEffect(() => {
-    preloadImage("/card-back.png", { timeoutMs: 0 });
+    preloadImage(CARD_BACK_URL, {
+      timeoutMs: 0,
+      onStart: (detail) => markCardBackPreloadStart(CARD_BACK_URL, detail),
+      onLoad: (detail) => markCardBackPreloadFinish(true, detail),
+      onError: (detail) => markCardBackPreloadFinish(false, detail),
+    });
   }, []);
+
+  useEffect(() => {
+    if (activeTab !== "open" || !selectedSet) {
+      clearImageWarmupQueue();
+      return;
+    }
+
+    if (screen === "reveal") {
+      pauseImageWarmup({ packOpening: true });
+      return;
+    }
+
+    if (screen === "summary") {
+      resumeImageWarmup();
+      scheduleSelectedSetImageWarmup(selectedSet, { source: "summary" });
+      return;
+    }
+
+    if (screen === "opening") {
+      resumeImageWarmup();
+      scheduleSelectedSetImageWarmup(selectedSet, { source: "selected-set" });
+      return;
+    }
+
+    clearImageWarmupQueue();
+  }, [activeTab, screen, selectedSet]);
 
   useEffect(() => {
     if (!supabase) {
@@ -1969,9 +2008,12 @@ function App() {
   function revealPack() {
     if (!selectedSet || isOpeningPack) return;
 
+    pauseImageWarmup({ packOpening: true });
     resetPageScroll();
     setCloudWarning("");
+    const generationStart = markPackGenerationStart(selectedSet);
     const nextPack = generatePack(selectedSet);
+    markPackGenerationComplete(selectedSet, nextPack, generationStart);
 
     setPulledCards(nextPack);
     setProfileStats((currentStats) => {
@@ -1986,11 +2028,14 @@ function App() {
   function openAnotherPack() {
     if (!selectedSet || !canGeneratePack(selectedSet) || isOpeningPack) return;
 
+    pauseImageWarmup({ packOpening: true });
     setIsReturningToSet(false);
     setActiveTab("open");
     resetPageScroll();
     setCloudWarning("");
+    const generationStart = markPackGenerationStart(selectedSet);
     const nextPack = generatePack(selectedSet);
+    markPackGenerationComplete(selectedSet, nextPack, generationStart);
 
     setPulledCards(nextPack);
     setProfileStats((currentStats) => {

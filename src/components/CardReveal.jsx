@@ -1,9 +1,16 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import FoilCard from "./FoilCard.jsx";
 import { getCardBackUrl, getCardImageUrl } from "../utils/assetUrls.js";
-import { preloadImages } from "../utils/imageCache.js";
+import { preloadImage } from "../utils/imageCache.js";
 import { isHigherThanRare, isSubsetCard } from "../utils/packGenerator.js";
 import { getPackRevealSoundCue, playHitSound, preloadHitSounds } from "../utils/sounds.js";
+import {
+  beginPackImageDebug,
+  markDealStart,
+  markPreloadFinish,
+  markPreloadStart,
+  markVisualRevealSchedule,
+} from "../utils/imageDebug.js";
 
 const CARD_DEAL_STAGGER_MS = 180;
 const GOD_PACK_CARD_DEAL_STAGGER_MS = 260;
@@ -61,6 +68,7 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
   const autoRevealTimerRef = useRef(null);
   const autoCompleteTimerRef = useRef(null);
   const dealTimerRef = useRef(null);
+  const imageDebugPackIdRef = useRef("");
 
   const packSoundId = getPackSoundId(cards);
   const isGodPack = Boolean(cards.isGodPack);
@@ -68,6 +76,9 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
   const hasBigPull = Boolean(finalCard && isHigherThanRare(finalCard));
   const hasSubsetPull = cards.slice(0, -1).some((card) => isSubsetCard(card, set));
   const cardBack = getCardBackUrl();
+  const imageDebugPackId = useMemo(() => beginPackImageDebug(cards, set), [cards, set]);
+
+  imageDebugPackIdRef.current = imageDebugPackId;
 
   useEffect(() => {
     preloadHitSounds();
@@ -97,11 +108,19 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
     setIsRevealed(false);
     revealStartedRef.current = false;
 
-    const imageUrls = cards.map((card) => getCardImageUrl(card));
+    cards.forEach((card, index) => {
+      const imageUrl = getCardImageUrl(card);
 
-    preloadImages(imageUrls, { timeoutMs: 0 });
+      preloadImage(imageUrl, {
+        timeoutMs: 0,
+        onStart: () => markPreloadStart(imageDebugPackId, index, imageUrl),
+        onLoad: (detail) => markPreloadFinish(imageDebugPackId, index, imageUrl, true, detail),
+        onError: (detail) => markPreloadFinish(imageDebugPackId, index, imageUrl, false, detail),
+      });
+    });
 
     dealTimerRef.current = window.setTimeout(() => {
+      markDealStart(imageDebugPackId);
       setIsDealt(true);
     }, 30);
 
@@ -162,6 +181,15 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
 
     revealStartedRef.current = true;
     setIsRevealed(true);
+    const revealStartedAt = performance.now();
+
+    cards.forEach((card, index) => {
+      markVisualRevealSchedule(
+        imageDebugPackIdRef.current,
+        index,
+        revealStartedAt + getCardRevealDelay(index, cards.length, isGodPack)
+      );
+    });
     onCardsRevealed(cards);
     clearRevealSoundTimers();
 
@@ -231,7 +259,13 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
               </div>
 
               <div className="grid-card-face grid-card-front">
-                <FoilCard card={card} set={set} interactive useCardBackPlaceholder={false} />
+                <FoilCard
+                  card={card}
+                  set={set}
+                  interactive
+                  useCardBackPlaceholder={false}
+                  imageDebugMeta={{ packId: imageDebugPackIdRef.current, slot: index }}
+                />
               </div>
             </div>
           </article>

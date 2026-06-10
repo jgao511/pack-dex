@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { getSetLogoUrl } from "../utils/assetUrls.js";
 import { canGeneratePack } from "../utils/packGenerator.js";
 import { getSetCollectionProgress } from "../utils/collectionStorage.js";
+import { preloadStaticOpenPackAssets } from "../utils/staticOpenPackAssets.js";
 
 const ALL_ERAS = "All Eras";
 const ERA_ORDER = ["Scarlet & Violet", "Mega Evolution", "Sword & Shield", "Sun & Moon", "XY", "Other"];
@@ -57,10 +58,15 @@ function isNewSet(set) {
 }
 
 function getEraLogo(era, sets) {
-  const baseSetId = ERA_LOGO_SET_IDS[era];
-  const baseSet = sets.find((set) => set.id === baseSetId);
+  const baseSet = getEraLogoSet(era, sets);
 
   return baseSet ? getSetLogoUrl(baseSet) : "";
+}
+
+function getEraLogoSet(era, sets) {
+  const baseSetId = ERA_LOGO_SET_IDS[era];
+
+  return sets.find((set) => set.id === baseSetId);
 }
 
 function getEraClassName(era) {
@@ -115,6 +121,23 @@ function SetSelect({ sets, collection, onSelectSet, onViewCollection }) {
   const sortedFilteredSets = sortNewestFirst(filteredSets);
   const eraGroups = groupSetsByEra(sortedFilteredSets);
   const openPackBgClass = selectedEra === ALL_ERAS ? activeEraBgClass : getEraBgClassName(selectedEra);
+  const staticPreloadKey = `${selectedEra}:${sortedFilteredSets.map((set) => set.id).join("|")}`;
+
+  useEffect(() => {
+    const prioritySets =
+      selectedEra === ALL_ERAS
+        ? [
+            ...eraGroups.map(([era]) => getEraLogoSet(era, sets)).filter(Boolean),
+            ...(eraGroups[0]?.[1] || []).slice(0, 8),
+          ]
+        : sortedFilteredSets.slice(0, 10);
+
+    preloadStaticOpenPackAssets(prioritySets, {
+      additionalSets: sortedFilteredSets.slice(0, 24),
+      immediateLogoLimit: 10,
+      idleLogoLimit: 12,
+    });
+  }, [staticPreloadKey, eraGroups.length]);
 
   useEffect(() => {
     if (selectedEra !== ALL_ERAS) {

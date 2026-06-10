@@ -3,6 +3,7 @@ import { getCardBackUrl, getCardImageUrl } from "../utils/assetUrls.js";
 import { isImageLoaded, markImageLoaded, preloadImage } from "../utils/imageCache.js";
 import { getFoilProfile } from "../utils/foil.js";
 import { getDisplayCardName } from "../utils/packGenerator.js";
+import { markRenderedImageError, markRenderedImageLoad, markRenderedImageSrc } from "../utils/imageDebug.js";
 import TiltCardFrame from "./TiltCardFrame.jsx";
 
 function FoilCard({
@@ -17,6 +18,7 @@ function FoilCard({
   enableTiltFoil = true,
   showFoil = true,
   useCardBackPlaceholder = false,
+  imageDebugMeta = null,
 }) {
   const [loaded, setLoaded] = useState(false);
   const [displaySrc, setDisplaySrc] = useState("");
@@ -64,6 +66,14 @@ function FoilCard({
     if (imgRef.current?.complete) {
       setLoaded(displaySrc === imageUrl);
     }
+
+    if (imageDebugMeta?.packId && displaySrc === imageUrl && imgRef.current) {
+      markRenderedImageSrc(
+        imageDebugMeta.packId,
+        imageDebugMeta.slot,
+        imgRef.current.currentSrc || imgRef.current.src
+      );
+    }
   }, [displaySrc, imageUrl]);
 
   return (
@@ -90,13 +100,28 @@ function FoilCard({
             loading={variant === "collection" ? "lazy" : "eager"}
             decoding="async"
             fetchPriority={variant === "collection" ? "low" : "high"}
-            onLoad={() => {
+            onLoad={(event) => {
               setLoaded(displaySrc === imageUrl || variant === "reveal");
               if ((displaySrc === imageUrl || variant === "reveal") && imageUrl) {
                 markImageLoaded(imageUrl);
+                if (imageDebugMeta?.packId) {
+                  markRenderedImageLoad(
+                    imageDebugMeta.packId,
+                    imageDebugMeta.slot,
+                    event.currentTarget.currentSrc || event.currentTarget.src,
+                    event.currentTarget
+                  );
+                }
               }
             }}
-            onError={() => {
+            onError={(event) => {
+              if (imageDebugMeta?.packId) {
+                markRenderedImageError(
+                  imageDebugMeta.packId,
+                  imageDebugMeta.slot,
+                  event.currentTarget.currentSrc || event.currentTarget.src
+                );
+              }
               setLoaded(false);
               setFailed(true);
               setDisplaySrc("");
