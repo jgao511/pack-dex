@@ -50,7 +50,7 @@ export function getSetAssetUrl(path) {
 }
 
 export function getCardImageUrl(card = {}) {
-  const explicitPath = card.imagePath || card.image;
+  const explicitPath = card.imagePath || card.imageUrl || card.image_url || card.image;
 
   if (explicitPath) {
     return getSetAssetUrl(explicitPath);

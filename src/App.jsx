@@ -41,8 +41,8 @@ import {
   markCardsCollected,
   saveCollection,
 } from "./utils/collectionStorage.js";
-import { getPokeballLoadingUrl, getSetLogoUrl, getSetPackArtUrl } from "./utils/assetUrls.js";
-import { preloadImage } from "./utils/imageCache.js";
+import { getCardImageUrl, getPokeballLoadingUrl, getSetLogoUrl, getSetPackArtUrl } from "./utils/assetUrls.js";
+import { preloadImage, preloadImages } from "./utils/imageCache.js";
 import { compareCardsByRarity } from "./utils/rarityRank.js";
 import { loadWelcomeRewardStatus } from "./lib/welcomeReward.js";
 import { claimWelcomeGodPack } from "./lib/securePackOpening.js";
@@ -153,12 +153,15 @@ function LoadingOverlay() {
   );
 }
 
-function TabLoadingOverlay({ text = "Loading..." }) {
+function TabLoadingOverlay({ text = "Loading...", subtext = "" }) {
   return (
     <div className="tab-loading-overlay" role="status" aria-live="polite" aria-label="Loading section">
       <div className="tab-loading-card">
         <img src={POKEBALL_LOADING_SRC} alt="" />
-        <span>{text}</span>
+        <div className="tab-loading-copy">
+          <span>{text}</span>
+          {subtext && <small>{subtext}</small>}
+        </div>
       </div>
     </div>
   );
@@ -1455,7 +1458,9 @@ function WelcomeRewardChoice({ choice, isSelected, onSelect }) {
       className={`welcome-reward-choice ${isSelected ? "is-selected" : ""}`}
       type="button"
       onClick={() => onSelect(choice.setId)}
+      aria-pressed={isSelected}
     >
+      {isSelected && <span className="welcome-reward-choice__selected">Selected</span>}
       <span className="welcome-reward-choice__media">
         {mainImageUrl && (
           <img
@@ -1527,7 +1532,15 @@ function WelcomeRewardModal({
           disabled={isClaiming || !selectedChoice}
           onClick={() => onClaim(selectedChoice)}
         >
-          {isClaiming ? "Opening reward..." : "Open This God Pack"}
+          {isClaiming ? (
+            <>
+              <img className="welcome-reward-cta__pokeball" src={POKEBALL_LOADING_SRC} alt="" />
+              <span>Opening this God Pack</span>
+              <small>This may take a moment</small>
+            </>
+          ) : (
+            "Open This God Pack"
+          )}
         </button>
       </div>
     </div>
@@ -1735,6 +1748,7 @@ function App() {
   const [isOpeningPack, setIsOpeningPack] = useState(false);
   const [cloudWarning, setCloudWarning] = useState("");
   const [welcomeRewardStatus, setWelcomeRewardStatus] = useState(null);
+  const [isWelcomeRewardLoading, setIsWelcomeRewardLoading] = useState(false);
   const [isWelcomeRewardModalOpen, setIsWelcomeRewardModalOpen] = useState(false);
   const [selectedWelcomeRewardSetId, setSelectedWelcomeRewardSetId] = useState(WELCOME_REWARD_CHOICES[0]?.setId || "");
   const [isClaimingWelcomeReward, setIsClaimingWelcomeReward] = useState(false);
@@ -1785,6 +1799,7 @@ function App() {
       setBinders(loadBinders());
       setCloudWarning("");
       setWelcomeRewardStatus(null);
+      setIsWelcomeRewardLoading(false);
       setIsWelcomeRewardModalOpen(false);
       setWelcomeRewardError("");
       return;
@@ -1832,11 +1847,14 @@ function App() {
 
     let isMounted = true;
 
+    setIsWelcomeRewardLoading(true);
+
     loadWelcomeRewardStatus(authUser)
       .then((status) => {
         if (!isMounted) return;
 
         setWelcomeRewardStatus(status);
+        setIsWelcomeRewardLoading(false);
         if (status.isEligible && !status.isClaimed && shownWelcomeRewardUserRef.current !== authUser.id) {
           shownWelcomeRewardUserRef.current = authUser.id;
           setSelectedWelcomeRewardSetId(WELCOME_REWARD_CHOICES[0]?.setId || "");
@@ -1849,6 +1867,7 @@ function App() {
         if (!isMounted) return;
 
         setWelcomeRewardStatus({ isEligible: false, isClaimed: true, setId: "", claimedAt: "" });
+        setIsWelcomeRewardLoading(false);
         setCloudWarning("Welcome reward could not be loaded yet. Pack opening still works.");
       });
 
@@ -2111,6 +2130,8 @@ function App() {
         welcomeReward: true,
       });
 
+      preloadImages(rewardPack.map((card) => getCardImageUrl(card)), { timeoutMs: 0 });
+
       setWelcomeRewardStatus(claimedStatus);
       if (result.collection) setCollection(result.collection);
       setIsWelcomeRewardModalOpen(false);
@@ -2291,6 +2312,10 @@ function App() {
         onClaim={handleClaimWelcomeReward}
         onClose={() => setIsWelcomeRewardModalOpen(false)}
       />
+      {isWelcomeRewardLoading && authUser && <TabLoadingOverlay text="Loading reward..." />}
+      {isClaimingWelcomeReward && (
+        <TabLoadingOverlay text="Opening this God Pack" subtext="This may take a moment" />
+      )}
       {isAuthOpening && <TabLoadingOverlay text="Opening account..." />}
       {isOpeningPack && <TabLoadingOverlay text={authUser ? "Saving pulls securely..." : "Opening your pack..."} />}
       {isTabLoading && <TabLoadingOverlay />}

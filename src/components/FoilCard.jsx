@@ -16,22 +16,26 @@ function FoilCard({
   enableCursorBlob = false,
   enableTiltFoil = true,
   showFoil = true,
+  useCardBackPlaceholder = false,
 }) {
   const [loaded, setLoaded] = useState(false);
   const [displaySrc, setDisplaySrc] = useState("");
+  const [failed, setFailed] = useState(false);
   const imgRef = useRef(null);
   const imageUrl = getCardImageUrl(card);
   const cardBackUrl = getCardBackUrl();
   const displayName = getDisplayCardName(card, set);
-  const shouldUsePlaceholder = variant !== "collection";
+  const shouldUsePlaceholder = useCardBackPlaceholder;
 
   useEffect(() => {
     let isMounted = true;
 
     setLoaded(false);
+    setFailed(false);
 
     if (!imageUrl) {
-      setDisplaySrc(cardBackUrl);
+      setDisplaySrc("");
+      setFailed(true);
       return () => {
         isMounted = false;
       };
@@ -72,25 +76,33 @@ function FoilCard({
         data-cursor-blob={enableCursorBlob ? "on" : "off"}
         data-tilt-foil={enableTiltFoil ? "on" : "off"}
       >
-        <img
-          ref={imgRef}
-          className="foil-card__image"
-          src={displaySrc || cardBackUrl}
-          alt={displayName}
-          loading={variant === "collection" ? "lazy" : "eager"}
-          decoding="async"
-          fetchPriority={variant === "collection" ? "low" : "high"}
-          onLoad={() => {
-            setLoaded(displaySrc === imageUrl);
-            if (displaySrc === imageUrl) {
-              markImageLoaded(imageUrl);
-            }
-          }}
-          onError={() => {
-            setLoaded(false);
-            setDisplaySrc(cardBackUrl);
-          }}
-        />
+        {failed ? (
+          <div className="foil-card__fallback" role="img" aria-label={displayName}>
+            <strong>{displayName}</strong>
+            {card.rarity && <span>{card.rarity}</span>}
+          </div>
+        ) : (
+          <img
+            ref={imgRef}
+            className="foil-card__image"
+            src={displaySrc || imageUrl || ""}
+            alt={displayName}
+            loading={variant === "collection" ? "lazy" : "eager"}
+            decoding="async"
+            fetchPriority={variant === "collection" ? "low" : "high"}
+            onLoad={() => {
+              setLoaded(displaySrc === imageUrl || variant === "reveal");
+              if ((displaySrc === imageUrl || variant === "reveal") && imageUrl) {
+                markImageLoaded(imageUrl);
+              }
+            }}
+            onError={() => {
+              setLoaded(false);
+              setFailed(true);
+              setDisplaySrc("");
+            }}
+          />
+        )}
 
         {showFoil && loaded && foilProfile !== "none" && (
           <>

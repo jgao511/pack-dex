@@ -5,14 +5,14 @@ import { preloadImages } from "../utils/imageCache.js";
 import { isHigherThanRare, isSubsetCard } from "../utils/packGenerator.js";
 import { getPackRevealSoundCue, playHitSound, preloadHitSounds } from "../utils/sounds.js";
 
-const CARD_DEAL_STAGGER_MS = 120;
+const CARD_DEAL_STAGGER_MS = 180;
 const GOD_PACK_CARD_DEAL_STAGGER_MS = 260;
 const CARD_DEAL_ANIMATION_MS = 280;
 const WAIT_AFTER_DEAL_MS = 500;
 
-const CARD_FLIP_STAGGER_MS = 220;
+const CARD_FLIP_STAGGER_MS = 330;
 const GOD_PACK_CARD_FLIP_STAGGER_MS = 420;
-const LAST_CARD_EXTRA_DELAY_MS = 650;
+const LAST_CARD_EXTRA_DELAY_MS = 850;
 const GOD_PACK_LAST_CARD_EXTRA_DELAY_MS = 1100;
 const CARD_FLIP_ANIMATION_MS = 620;
 const GOD_PACK_EXTRA_WAIT_AFTER_DEAL_MS = 1300;
@@ -92,6 +92,7 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
   useEffect(() => {
     if (!cards.length) return undefined;
 
+    let isCancelled = false;
     setIsDealt(false);
     setIsRevealed(false);
     revealStartedRef.current = false;
@@ -110,10 +111,14 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
       (isGodPack ? GOD_PACK_EXTRA_WAIT_AFTER_DEAL_MS : 0);
 
     autoRevealTimerRef.current = window.setTimeout(() => {
-      revealAll();
+      if (!isCancelled) {
+        revealAll();
+      }
     }, revealDelay);
 
     return () => {
+      isCancelled = true;
+
       if (autoRevealTimerRef.current) {
         window.clearTimeout(autoRevealTimerRef.current);
       }
@@ -192,7 +197,7 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
         isRevealed && hasBigPull ? "has-big-pull" : ""
       } ${isRevealed && hasSubsetPull ? "has-subset-pull" : ""} ${
         isGodPack ? "is-god-pack" : ""
-      } ${isRevealed && isGodPack ? "god-pack-revealed" : ""}`}
+      }`}
     >
       <div className="reveal-heading">
         <span className="reveal-status">
@@ -220,12 +225,14 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
               "--delay": `${getCardRevealDelay(index, cards.length, isGodPack)}ms`,
             }}
           >
-            <div className="grid-card-face grid-card-back">
-              <img src={cardBack} alt="" decoding="async" fetchPriority="high" />
-            </div>
+            <div className="grid-card-inner">
+              <div className="grid-card-face grid-card-back">
+                <img src={cardBack} alt="" decoding="async" fetchPriority="high" />
+              </div>
 
-            <div className="grid-card-face grid-card-front">
-              <FoilCard card={card} set={set} interactive />
+              <div className="grid-card-face grid-card-front">
+                <FoilCard card={card} set={set} interactive useCardBackPlaceholder={false} />
+              </div>
             </div>
           </article>
         ))}

@@ -415,6 +415,11 @@ button {
   box-shadow: 0 18px 42px rgba(18, 24, 39, 0.16);
 }
 
+.tab-loading-copy {
+  display: grid;
+  gap: 1px;
+}
+
 .tab-loading-card img {
   width: 34px;
   height: 34px;
@@ -430,6 +435,12 @@ button {
   font-weight: 800;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+}
+
+.tab-loading-card small {
+  color: rgba(86, 94, 118, 0.86);
+  font-size: 0.86rem;
+  font-weight: 800;
 }
 
 .loading-overlay {
@@ -1219,15 +1230,23 @@ button {
   aspect-ratio: 0.716;
   opacity: 0;
   translate: 0 18px;
-  transform-style: preserve-3d;
   transition:
     opacity 280ms ease,
-    translate 280ms ease,
-    transform 620ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    translate 280ms ease;
   transition-delay:
     var(--deal-delay, 0ms),
-    var(--deal-delay, 0ms),
-    var(--delay, 0ms);
+    var(--deal-delay, 0ms);
+}
+
+.grid-card-inner {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transform: rotateY(0deg);
+  transition:
+    transform 620ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition-delay: var(--delay, 0ms);
 }
 
 .reveal-screen.is-dealt .grid-card-flip {
@@ -1235,12 +1254,8 @@ button {
   translate: 0 0;
 }
 
-.grid-card-flip.is-revealed {
+.grid-card-flip.is-revealed .grid-card-inner {
   transform: rotateY(180deg);
-}
-
-.reveal-screen.god-pack-revealed .grid-card-flip.is-revealed {
-  filter: drop-shadow(0 18px 26px rgba(255, 203, 69, 0.18));
 }
 
 .grid-card-face {
@@ -1252,11 +1267,18 @@ button {
   border-radius: 12px;
   background: white;
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
   box-shadow: 0 18px 34px rgba(18, 24, 39, 0.16);
 }
 
+.grid-card-back {
+  transform: rotateY(0deg) translateZ(0.1px);
+}
+
 .grid-card-front {
-  transform: rotateY(180deg);
+  transform: rotateY(180deg) translateZ(0.1px);
 }
 
 .grid-card-face > img,
@@ -1342,6 +1364,42 @@ button {
   height: 100%;
   object-fit: contain;
   background: transparent;
+}
+
+.foil-card__fallback {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 8px;
+  border: 2px solid rgba(31, 90, 166, 0.28);
+  border-radius: inherit;
+  padding: 14px;
+  color: #121827;
+  background:
+    radial-gradient(circle at top left, rgba(255, 203, 69, 0.24), transparent 42%),
+    linear-gradient(145deg, #f8fbff, #e8eefb);
+  text-align: center;
+}
+
+.foil-card__fallback strong {
+  font-family: var(--ui-condensed-font);
+  font-size: clamp(1rem, 8vw, 1.45rem);
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.foil-card__fallback span {
+  color: #667085;
+  font-family: var(--ui-condensed-font);
+  font-size: 0.86rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .foil-card__rainbow-glare,
@@ -2372,6 +2430,7 @@ button {
 }
 
 .welcome-reward-choice {
+  position: relative;
   cursor: pointer;
   min-width: 0;
   display: grid;
@@ -2393,6 +2452,41 @@ button {
   transform: translateY(-3px);
   border-color: rgba(31, 90, 166, 0.5);
   box-shadow: 0 18px 42px rgba(31, 90, 166, 0.22), 0 0 0 3px rgba(255, 203, 69, 0.28);
+}
+
+.welcome-reward-choice.is-selected {
+  border-color: rgba(255, 203, 69, 0.82);
+  background:
+    radial-gradient(circle at top left, rgba(255, 203, 69, 0.28), transparent 42%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(236, 244, 255, 0.94));
+}
+
+.welcome-reward-choice__selected {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 999px;
+  padding: 5px 9px;
+  color: white;
+  background: linear-gradient(135deg, #1f5aa6, #243b86);
+  box-shadow:
+    0 8px 18px rgba(31, 90, 166, 0.28),
+    inset 0 -2px 0 rgba(255, 203, 69, 0.42);
+  font-family: var(--ui-condensed-font);
+  font-size: 0.84rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.welcome-reward-choice__selected::before {
+  content: "✓";
+  font-size: 0.9rem;
+  line-height: 1;
 }
 
 .welcome-reward-choice__media {
@@ -2446,6 +2540,28 @@ button {
 .welcome-reward-cta {
   justify-self: center;
   min-width: min(100%, 320px);
+}
+
+.welcome-reward-cta:disabled {
+  cursor: wait;
+}
+
+.welcome-reward-cta__pokeball {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  animation: pokeballSpin 0.9s linear infinite;
+}
+
+.welcome-reward-cta small {
+  display: block;
+  margin-left: 4px;
+  color: rgba(255, 255, 255, 0.78);
+  font-family: var(--body-font);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .welcome-reward-profile-card {
@@ -4033,6 +4149,28 @@ button {
   filter: drop-shadow(0 28px 44px rgba(0, 0, 0, 0.44));
 }
 
+:root[data-theme="dark"] .welcome-reward-choice.is-selected {
+  border-color: rgba(255, 203, 69, 0.88);
+  background:
+    radial-gradient(circle at top left, rgba(255, 203, 69, 0.16), transparent 42%),
+    linear-gradient(135deg, rgba(31, 90, 166, 0.18), rgba(12, 18, 34, 0.94));
+  box-shadow:
+    0 18px 42px rgba(0, 0, 0, 0.34),
+    0 0 0 3px rgba(255, 203, 69, 0.28);
+}
+
+:root[data-theme="dark"] .foil-card__fallback {
+  color: #f8fbff;
+  border-color: rgba(255, 203, 69, 0.36);
+  background:
+    radial-gradient(circle at top left, rgba(255, 203, 69, 0.16), transparent 42%),
+    linear-gradient(145deg, #111a30, #070b16);
+}
+
+:root[data-theme="dark"] .foil-card__fallback span {
+  color: #aeb9cc;
+}
+
 .inspect-close {
   position: fixed;
   top: 22px;
@@ -4240,10 +4378,6 @@ button {
 @media (prefers-reduced-motion: reduce) {
   .god-pack-badge {
     animation: none;
-  }
-
-  .reveal-screen.god-pack-revealed .grid-card-flip.is-revealed {
-    filter: none;
   }
 
   .open-pack-page {
