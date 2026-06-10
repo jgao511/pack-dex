@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { Mail } from "lucide-react";
 import PackOpening from "./components/PackOpening.jsx";
 import AuthPanel, { AuthModal } from "./components/AuthPanel.jsx";
 import CardReveal from "./components/CardReveal.jsx";
@@ -60,6 +61,9 @@ const AUTH_MODAL_LOADING_MS = 380;
 const MIN_RETURN_LOADING_MS = 450;
 const RETURN_LOADING_RENDER_DELAY_MS = 100;
 const POKEBALL_LOADING_SRC = getPokeballLoadingUrl();
+const SUPPORT_EMAIL = "packdexsupport@gmail.com";
+const GUEST_WELCOME_BETA_SEEN_KEY = "packdex_guest_welcome_beta_seen";
+const USER_WELCOME_BETA_SEEN_KEY_PREFIX = "packdex_welcome_beta_seen_";
 const PACK_STATS_STORAGE_KEY = "packdex-profile-stats";
 const THEME_STORAGE_KEY = "packdex-theme";
 const COLLECTION_DASHBOARD_PAGE_SIZE = 60;
@@ -170,6 +174,54 @@ function TabLoadingOverlay({ text = "Loading...", subtext = "" }) {
           <span>{text}</span>
           {subtext && <small>{subtext}</small>}
         </div>
+      </div>
+    </div>
+  );
+}
+
+function getWelcomeBetaSeenKey(user) {
+  return user?.id ? `${USER_WELCOME_BETA_SEEN_KEY_PREFIX}${user.id}` : GUEST_WELCOME_BETA_SEEN_KEY;
+}
+
+function hasSeenWelcomeBeta(user) {
+  if (typeof window === "undefined") return true;
+
+  return window.localStorage.getItem(getWelcomeBetaSeenKey(user)) === "true";
+}
+
+function markWelcomeBetaSeen(user) {
+  if (typeof window === "undefined") return;
+
+  window.localStorage.setItem(getWelcomeBetaSeenKey(user), "true");
+}
+
+function WelcomeBetaModal({ isOpen, onDismiss }) {
+  if (!isOpen) return null;
+
+  return (
+    <div className="welcome-beta-overlay" role="dialog" aria-modal="true" aria-labelledby="welcome-beta-title">
+      <div className="welcome-beta-card">
+        <div className="welcome-beta-heading">
+          <span>Beta</span>
+          <h2 id="welcome-beta-title">Welcome to PackDex</h2>
+        </div>
+        <div className="welcome-beta-copy">
+          <p>
+            PackDex is still heavily in beta, so you may run into occasional bugs, rough edges, or features that change
+            over time.
+          </p>
+          <p>
+            <strong>Card images may also load slowly the first few times you open packs.</strong> This is normal. Once
+            your browser caches the images, packs and card previews should get faster.
+          </p>
+          <p>
+            If you notice any issues or have feedback, contact support at{" "}
+            <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
+          </p>
+        </div>
+        <button className="primary-button welcome-beta-button" type="button" onClick={onDismiss}>
+          Got it
+        </button>
       </div>
     </div>
   );
@@ -388,8 +440,8 @@ function LegalPage({ type }) {
           </p>
           <h2>11. Contact</h2>
           <p>
-            For questions about this Privacy Policy, contact the PackDex creator through the contact method listed on
-            the site or repository.
+            For questions about this Privacy Policy, contact PackDex support at{" "}
+            <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
           </p>
         </div>
       ) : (
@@ -441,8 +493,8 @@ function LegalPage({ type }) {
           </p>
           <h2>9. Contact</h2>
           <p>
-            For questions about these Terms, contact the PackDex creator through the contact method listed on the site
-            or repository.
+            For questions about these Terms, contact PackDex support at{" "}
+            <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
           </p>
         </div>
       )}
@@ -1430,6 +1482,10 @@ function SiteFooter() {
           </a>
         ))}
       </nav>
+      <a className="site-footer__support" href={`mailto:${SUPPORT_EMAIL}`}>
+        <Mail size={17} aria-hidden="true" />
+        <span>{SUPPORT_EMAIL}</span>
+      </a>
       <p>
         PackDex is a fan-made Pokémon TCG pack opening simulator. PackDex is not affiliated with, endorsed by,
         sponsored by, or associated with Nintendo, The Pokémon Company, Creatures Inc., or Game Freak. Pokémon,
@@ -1761,6 +1817,7 @@ function App() {
   const [selectedWelcomeRewardSetId, setSelectedWelcomeRewardSetId] = useState(WELCOME_REWARD_CHOICES[0]?.setId || "");
   const [isClaimingWelcomeReward, setIsClaimingWelcomeReward] = useState(false);
   const [welcomeRewardError, setWelcomeRewardError] = useState("");
+  const [isWelcomeBetaOpen, setIsWelcomeBetaOpen] = useState(false);
   const [isTabLoading, setIsTabLoading] = useState(false);
   const [isReturningToSet, setIsReturningToSet] = useState(false);
   const returnTokenRef = useRef(0);
@@ -1829,6 +1886,14 @@ function App() {
       data.subscription.unsubscribe();
     };
   }, []);
+
+  useEffect(() => {
+    if (isAuthLoading) return;
+
+    if (!hasSeenWelcomeBeta(authUser)) {
+      setIsWelcomeBetaOpen(true);
+    }
+  }, [authUser?.id, isAuthLoading]);
 
   useEffect(() => {
     if (isAuthLoading) return;
@@ -2264,7 +2329,13 @@ function App() {
       {activeTab === "open" && (
         <>
           {screen === "home" && (
-            <SetSelect sets={sets} collection={collection} onSelectSet={startPackOpening} onViewCollection={viewCollection} />
+            <SetSelect
+              sets={sets}
+              collection={collection}
+              onSelectSet={startPackOpening}
+              onViewCollection={viewCollection}
+              footer={<SiteFooter />}
+            />
           )}
 
           {screen === "opening" && selectedSet && (
@@ -2342,8 +2413,15 @@ function App() {
         />
       )}
 
-      <SiteFooter />
+      {!(activeTab === "open" && screen === "home") && <SiteFooter />}
       <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
+      <WelcomeBetaModal
+        isOpen={isWelcomeBetaOpen}
+        onDismiss={() => {
+          markWelcomeBetaSeen(authUser);
+          setIsWelcomeBetaOpen(false);
+        }}
+      />
       <WelcomeRewardModal
         isOpen={isWelcomeRewardModalOpen}
         rewardStatus={welcomeRewardStatus}
@@ -2357,9 +2435,8 @@ function App() {
         onClaim={handleClaimWelcomeReward}
         onClose={() => setIsWelcomeRewardModalOpen(false)}
       />
-      {isWelcomeRewardLoading && authUser && <TabLoadingOverlay text="Loading reward..." />}
       {isClaimingWelcomeReward && (
-        <TabLoadingOverlay text="Opening this God Pack" subtext="This may take a moment" />
+        <TabLoadingOverlay text="Claiming reward..." subtext="Opening this God Pack" />
       )}
       {isAuthOpening && <TabLoadingOverlay text="Opening account..." />}
       {isOpeningPack && <TabLoadingOverlay text={authUser ? "Saving pulls securely..." : "Opening your pack..."} />}

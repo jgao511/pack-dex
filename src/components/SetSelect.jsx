@@ -115,7 +115,7 @@ function SetLogo({ set }) {
   return <SetLogoImage set={set} fallback={<span className="set-logo-fallback">{set.name}</span>} />;
 }
 
-function SetSelect({ sets, collection, onSelectSet, onViewCollection }) {
+function SetSelect({ sets, collection, onSelectSet, onViewCollection, footer = null }) {
   const [selectedEra, setSelectedEra] = useState(ALL_ERAS);
   const [activeEraBgClass, setActiveEraBgClass] = useState("era-bg-default");
   const pageRef = useRef(null);
@@ -277,6 +277,8 @@ function SetSelect({ sets, collection, onSelectSet, onViewCollection }) {
           {sortedFilteredSets.map(renderSetCard)}
         </div>
       )}
+
+      {footer && <div className="set-select-footer-slot">{footer}</div>}
     </section>
   );
 }
