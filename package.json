@@ -3,6 +3,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "verify:set-logos": "node scripts/verify-set-logos.mjs",
     "test:pack-rates": "node scripts/pack-rate-validator.mjs",
     "test:pack-rates:deep": "node scripts/pack-rate-validator.mjs --deep",
     "check-randomness": "node scripts/check-randomness.js",
