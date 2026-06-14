@@ -865,9 +865,9 @@ button {
 .set-tile-info span {
   display: block;
   font-family: var(--ui-condensed-font);
-  color: #667085;
+  color: #536071;
   font-size: 1.02rem;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.01em;
 }
 
@@ -2251,6 +2251,8 @@ button {
   display: grid;
   place-items: center;
   padding: clamp(14px, 3vw, 24px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
   background:
     radial-gradient(circle at top left, rgba(255, 203, 69, 0.18), transparent 32%),
     rgba(12, 16, 24, 0.68);
@@ -2261,8 +2263,12 @@ button {
 .auth-modal-card {
   position: relative;
   width: min(94vw, 520px);
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px);
   display: grid;
   gap: 18px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   border: 1px solid rgba(18, 24, 39, 0.08);
   border-radius: 26px;
   padding: clamp(22px, 4vw, 34px);
@@ -4546,6 +4552,248 @@ button {
   }
 }
 
+@media (max-height: 950px) and (min-width: 721px) {
+  .app-shell {
+    gap: clamp(10px, 1.7svh, 18px);
+    padding: clamp(10px, 1.8svh, 18px) 30px 24px;
+  }
+
+  .home-brand-hero {
+    gap: 10px;
+  }
+
+  .home-brand-hero h1 {
+    font-size: clamp(2.25rem, 5.45vw, 4.05rem);
+  }
+
+  .set-select-screen,
+  .opening-screen,
+  .reveal-screen {
+    min-height: min(560px, calc(100svh - 132px));
+    gap: clamp(10px, 1.7svh, 18px);
+  }
+
+  .set-select-heading {
+    gap: 6px;
+  }
+
+  .set-select-heading h1 {
+    font-size: clamp(2.1rem, 4.55vw, 4.05rem);
+  }
+
+  .set-select-heading h2 {
+    font-size: clamp(1.55rem, 2.7vw, 2rem);
+  }
+
+  .set-select-heading p {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .era-filter {
+    gap: 8px;
+    padding: 7px 9px 7px 12px;
+  }
+
+  .era-filter select {
+    min-width: 158px;
+    padding-block: 8px;
+  }
+
+  .era-section-list {
+    gap: clamp(28px, 4.6vw, 54px);
+  }
+
+  .era-section__hero {
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  .era-section__logo {
+    width: 162px;
+    height: 64px;
+  }
+
+  .era-section__text h2 {
+    font-size: clamp(1.26rem, 2.65vw, 1.65rem);
+  }
+
+  .set-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(202px, 100%), 202px));
+    gap: clamp(12px, 1.6vw, 18px);
+  }
+
+  .set-tile {
+    min-height: 294px;
+    grid-template-rows: minmax(246px, 1fr) 38px;
+    gap: 9px;
+  }
+
+  .set-tile-button {
+    grid-template-rows: 122px minmax(58px, 1fr) 38px;
+    gap: 12px;
+    padding: 18px;
+  }
+
+  .set-logo-box {
+    height: 122px;
+    padding: 12px 15px;
+  }
+
+  .set-tile-info h2 {
+    font-size: 1.32rem;
+  }
+
+  .set-tile-info span {
+    font-size: 0.94rem;
+  }
+
+  .set-open-pill,
+  .set-collection-button {
+    min-height: 38px;
+    padding-inline: 14px;
+    font-size: 1rem;
+  }
+
+  .opening-logo {
+    max-width: min(100%, 320px);
+    max-height: 104px;
+  }
+
+  .opening-title {
+    gap: 6px;
+  }
+
+  .opening-title h1,
+  .opening-title .brand-title {
+    font-size: clamp(2.05rem, 5.35vw, 4rem);
+  }
+
+  .pack-stage {
+    width: min(68vw, 256px);
+    height: 354px;
+  }
+
+  .pack-card,
+  .pack {
+    width: 210px;
+    height: 302px;
+    border-radius: 16px;
+  }
+
+  .pack-card-back {
+    transform: rotate(-8deg) translate(-19px, 14px);
+  }
+
+  .pack-card-mid {
+    transform: rotate(6deg) translate(19px, 5px);
+  }
+
+  .screen-actions,
+  .summary-actions {
+    gap: 10px;
+  }
+
+  .primary-button,
+  .secondary-button {
+    min-height: 44px;
+    padding-inline: 20px;
+    font-size: 1rem;
+  }
+
+  .auth-modal-overlay {
+    padding: 16px;
+  }
+
+  .auth-modal-card {
+    width: min(92vw, 490px);
+    max-height: calc(100vh - 32px);
+    max-height: calc(100dvh - 32px);
+    gap: 14px;
+    border-radius: 22px;
+    padding: 22px 26px;
+  }
+
+  .auth-modal-heading {
+    gap: 6px;
+    padding-right: 30px;
+  }
+
+  .auth-modal-card h2 {
+    font-size: clamp(2rem, 5.8vw, 3.35rem);
+    line-height: 0.88;
+  }
+
+  .auth-modal-card p {
+    line-height: 1.35;
+  }
+
+  .auth-provider-badge {
+    padding: 5px 9px;
+    font-size: 0.76rem;
+  }
+
+  .auth-reward-callout {
+    gap: 3px;
+    border-radius: 16px;
+    padding: 10px 12px;
+  }
+
+  .auth-reward-callout strong {
+    font-size: 0.98rem;
+  }
+
+  .auth-reward-callout span {
+    font-size: 0.9rem;
+    line-height: 1.28;
+  }
+
+  .auth-mode-toggle {
+    padding: 4px;
+  }
+
+  .auth-mode-toggle button {
+    min-height: 30px;
+    font-size: 0.94rem;
+  }
+
+  .auth-form {
+    gap: 9px;
+  }
+
+  .auth-form label {
+    gap: 4px;
+    font-size: 0.84rem;
+  }
+
+  .auth-form input {
+    min-height: 44px;
+    border-radius: 14px;
+    padding-inline: 14px;
+    font-size: 0.95rem;
+  }
+
+  .auth-legal-copy {
+    font-size: 0.84rem;
+    line-height: 1.32;
+  }
+
+  .auth-modal-card .auth-form .primary-button {
+    min-height: 46px;
+    font-size: 1rem;
+  }
+
+  .auth-form-links,
+  .auth-form-links button {
+    font-size: 0.94rem;
+  }
+
+  .auth-modal-close {
+    width: 34px;
+    height: 34px;
+  }
+}
+
 @media (max-height: 820px) and (min-width: 721px) {
   .app-shell {
     gap: 10px;
@@ -5034,7 +5282,8 @@ button {
   }
 
   .auth-modal-card {
-    max-height: calc(100svh - 28px);
+    max-height: calc(100vh - 28px);
+    max-height: calc(100dvh - 28px);
     overflow-y: auto;
     padding: 18px;
   }
@@ -5046,7 +5295,7 @@ button {
 
   .welcome-reward-modal {
     width: 100%;
-    max-height: calc(100svh - 20px);
+    max-height: calc(100dvh - 20px);
     padding: 16px;
     border-radius: 20px;
     gap: 14px;
