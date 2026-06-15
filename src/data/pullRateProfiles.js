@@ -223,6 +223,17 @@ export const pullRateProfiles = {
     specialIllustrationRare: 7,
     hyperRare: 3,
   },
+  thirtiethAnniversaryPreview: {
+    sourceNote:
+      "Temporary Pokemon 30th Anniversary preview: 5-card packs use only the 15 revealed cards, with 4 normal cards and 1 final special card.",
+    packSize: 5,
+    normalSlots: 4,
+    finalSlots: 1,
+    doubleRare: 30,
+    illustrationRare: 40,
+    futuristicRare: 20,
+    classic: 10,
+  },
   blackBoltWhiteFlare2025: {
     rare: 45,
     doubleRare: 22,

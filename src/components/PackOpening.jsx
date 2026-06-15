@@ -51,6 +51,7 @@ function PackOpening({ set, onOpened, onBackToSets, onViewCollection, isOpening 
       <div className="opening-title">
         <span className="set-mark">Pack Ready</span>
         <SetLogo set={set} />
+        {set.previewNote && <p className="opening-preview-note">{set.previewNote}</p>}
       </div>
       <div className="pack-stage" aria-label={`${set.name} booster pack`}>
         <div className="pack-card pack-card-back">

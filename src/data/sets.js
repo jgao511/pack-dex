@@ -68,6 +68,7 @@ import xy10Cards from "./xy10.json" with { type: "json" };
 import xy11Cards from "./xy11.json" with { type: "json" };
 import xy12Cards from "./xy12.json" with { type: "json" };
 import xySetConfig from "./xySetConfig.json" with { type: "json" };
+import { thirtiethAnniversarySetDefinition } from "./special-sets/30th-anniversary/30thAnniversarySet.js";
 
 const pullRateProfilesBySet = {
   xy0: "xyKalosStarter",
@@ -139,6 +140,7 @@ const pullRateProfilesBySet = {
   "ascended-heroes": "megaEvolutionStandard",
   "perfect-order": "megaEvolutionStandard",
   "chaos-rising": "megaEvolutionStandard",
+  "30th-anniversary": "thirtiethAnniversaryPreview",
 };
 
 const releaseDatesBySet = {
@@ -196,6 +198,7 @@ const releaseDatesBySet = {
   "ascended-heroes": "2026-01-30",
   "perfect-order": "2026-03-13",
   "chaos-rising": "2026-05-15",
+  "30th-anniversary": "2026-06-14",
 };
 
 function getEraForSet(id, metadata = {}) {
@@ -262,7 +265,7 @@ function createSet(id, name, cards, metadata = {}) {
     setFolder,
     era: getEraForSet(id, metadata),
     releaseDate: metadata.releaseDate || releaseDatesBySet[id],
-    isNew: metadata.isNew || ["perfect-order", "chaos-rising"].includes(id),
+    isNew: metadata.isNew ?? id === "chaos-rising",
     pullRateProfile: pullRateProfilesBySet[id],
     logoPath: metadata.logoPath || `${setFolder}/logo.png`,
     packArtPath: metadata.packArtPath || `${setFolder}/pack.png`,
@@ -271,6 +274,14 @@ function createSet(id, name, cards, metadata = {}) {
 }
 
 export const sets = [
+  // Special Preview Sets
+  createSet(
+    thirtiethAnniversarySetDefinition.id,
+    thirtiethAnniversarySetDefinition.name,
+    thirtiethAnniversarySetDefinition.cards,
+    thirtiethAnniversarySetDefinition.metadata
+  ),
+
   // XY
   createSet("xy0", xySetConfig.xy0.name, xy0Cards, xySetConfig.xy0),
   createSet("xy1", xySetConfig.xy1.name, xy1Cards, xySetConfig.xy1),

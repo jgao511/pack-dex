@@ -6,8 +6,9 @@ import { getSetCollectionProgress } from "../utils/collectionStorage.js";
 import { preloadStaticOpenPackAssets } from "../utils/staticOpenPackAssets.js";
 
 const ALL_ERAS = "All Eras";
-const ERA_ORDER = ["Scarlet & Violet", "Mega Evolution", "Sword & Shield", "Sun & Moon", "XY", "Other"];
+const ERA_ORDER = ["Pokemon 30th Anniversary", "Scarlet & Violet", "Mega Evolution", "Sword & Shield", "Sun & Moon", "XY", "Other"];
 const ERA_LOGO_SET_IDS = {
+  "Pokemon 30th Anniversary": "30th-anniversary",
   "Scarlet & Violet": "scarlet-violet",
   "Mega Evolution": "mega-evolution",
   "Sword & Shield": "sword-shield",
@@ -54,7 +55,7 @@ function groupSetsByEra(sets) {
 }
 
 function isNewSet(set) {
-  return set.isNew || ["chaos-rising", "perfect-order"].includes(set.id) || ["Chaos Rising", "Perfect Order"].includes(set.name);
+  return set.isNew || set.id === "chaos-rising" || set.name === "Chaos Rising";
 }
 
 function getEraLogo(era, sets) {
@@ -87,7 +88,7 @@ function getEraSlug(era) {
 
 function SetLogoImage({ set, className, fallback }) {
   const [logoSource, setLogoSource] = useState("local");
-  const logoUrl = getSetLogoUrl(set);
+  const logoUrl = className === "era-section__logo" && set.eraLogoPath ? set.eraLogoPath : getSetLogoUrl(set);
   const remoteLogoUrl = getRemoteSetLogoUrl(set);
   const displayLogoUrl = logoSource === "remote" ? remoteLogoUrl : logoUrl;
 
@@ -178,9 +179,6 @@ function SetSelect({ sets, collection, onSelectSet, onViewCollection, footer = n
 
           if (era) {
             setActiveEraBgClass(`era-bg-${era}`);
-            if (import.meta.env.DEV) {
-              console.log("[PackDex active era]", era);
-            }
           }
         },
         {
@@ -265,7 +263,7 @@ function SetSelect({ sets, collection, onSelectSet, onViewCollection, footer = n
                 {getEraLogoSet(era, sets) && <SetLogoImage className="era-section__logo" set={getEraLogoSet(era, sets)} />}
                 <div className="era-section__text">
                   <h2>{era} Era</h2>
-                  <span>{eraSets.length} sets</span>
+                  <span>{eraSets.length} {eraSets.length === 1 ? "set" : "sets"}</span>
                 </div>
               </div>
               <div className="set-grid">{eraSets.map(renderSetCard)}</div>

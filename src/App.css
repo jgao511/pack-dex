@@ -122,6 +122,14 @@ button {
   --page-base-2: #f5f7f5;
 }
 
+.app-shell:has(.open-pack-page.era-bg-pokemon-30th-anniversary) {
+  --era-bg-1: rgba(255, 203, 69, 0.22);
+  --era-bg-2: rgba(31, 90, 166, 0.16);
+  --era-bg-3: rgba(255, 255, 255, 0.56);
+  --page-base-1: #fbf4dc;
+  --page-base-2: #f1f6fb;
+}
+
 .app-shell:has(.open-pack-page.era-bg-scarlet-violet) {
   --era-bg-1: rgba(180, 45, 80, 0.15);
   --era-bg-2: rgba(92, 54, 190, 0.12);
@@ -544,6 +552,14 @@ button {
   --era-bg-3: rgba(255, 255, 255, 0.52);
   --page-base-1: #fbf5d5;
   --page-base-2: #f5f7f5;
+}
+
+.open-pack-page.era-bg-pokemon-30th-anniversary {
+  --era-bg-1: rgba(255, 203, 69, 0.22);
+  --era-bg-2: rgba(31, 90, 166, 0.16);
+  --era-bg-3: rgba(255, 255, 255, 0.56);
+  --page-base-1: #fbf4dc;
+  --page-base-2: #f1f6fb;
 }
 
 .open-pack-page.era-bg-scarlet-violet {
@@ -1036,6 +1052,15 @@ button {
   display: grid;
   gap: 8px;
   justify-items: center;
+}
+
+.opening-preview-note {
+  width: min(100%, 520px);
+  margin: 0;
+  color: #667085;
+  font-size: 0.95rem;
+  font-weight: 800;
+  line-height: 1.4;
 }
 
 .opening-title h1 {
