@@ -1,5 +1,6 @@
 import { hardcodedPullRates } from "../data/hardcodedPullRates.js";
 import { defaultPullRateProfile, pullRateProfiles } from "../data/pullRateProfiles.js";
+import { THIRTIETH_ANNIVERSARY_PACK_CONFIG } from "../data/special-sets/30th-anniversary/30thAnniversaryRates.js";
 
 const PACK_SLOTS = {
   commons: 4,
@@ -25,6 +26,8 @@ const MEGA_SET_IDS = new Set([
   "perfect-order",
   "chaos-rising",
 ]);
+
+const SPECIAL_PREVIEW_SET_IDS = new Set([THIRTIETH_ANNIVERSARY_PACK_CONFIG.setId]);
 
 const MINI_PACK_SLOTS = {
   regular: 3,
@@ -58,6 +61,8 @@ const FINAL_SLOT_CATEGORIES = new Set([
   "victiniRare",
   "megaDoubleRare",
   "megaHyperRare",
+  "futuristicRare",
+  "classic",
 ]);
 
 const MODERN_SV_PRE_RARE_CATEGORIES = new Set(["illustrationRare", "specialIllustrationRare"]);
@@ -736,12 +741,17 @@ const PROFILE_BY_SET = {
   "ascended-heroes": "megaEvolutionStandard",
   "perfect-order": "megaEvolutionStandard",
   "chaos-rising": "megaEvolutionStandard",
+  "30th-anniversary": "thirtiethAnniversaryPreview",
 };
 
 export const subsetSlotRules = SUBSET_SLOT_RULES;
 
 export function isMegaSet(set = {}) {
   return MEGA_SET_IDS.has(normalizeSetId(set));
+}
+
+export function isSpecialPreviewSet(set = {}) {
+  return SPECIAL_PREVIEW_SET_IDS.has(normalizeSetId(set));
 }
 
 export function normalizeRarity(value = "") {
@@ -1132,6 +1142,9 @@ export const RARITY_CATEGORY_LABELS = {
   victiniRare: "Victini Rare",
   megaDoubleRare: "Mega Double Rare",
   megaHyperRare: "Mega Hyper Rare",
+  pikachu: "Pikachu",
+  futuristicRare: "Futuristic Rare",
+  classic: "Classic",
 };
 
 const DISPLAY_RARITY_SUFFIXES_BY_CATEGORY = {
@@ -1814,6 +1827,28 @@ function isFinalRareSlotCard(card, set = {}) {
   return FINAL_SLOT_CATEGORIES.has(category) && !(isModernSVSet(set) && isModernSVPreRareCategory(category));
 }
 
+function getSpecialPreviewPackConfig(set = {}) {
+  if (normalizeSetId(set) === THIRTIETH_ANNIVERSARY_PACK_CONFIG.setId) {
+    return set.packConfig || THIRTIETH_ANNIVERSARY_PACK_CONFIG;
+  }
+
+  return null;
+}
+
+function isSpecialPreviewNormalSlotCard(card, set = {}) {
+  const config = getSpecialPreviewPackConfig(set);
+  const category = card?.rarityCategory || getRarityCategory(card, set);
+
+  return Boolean(config?.normalCategories?.includes(category));
+}
+
+function isSpecialPreviewFinalSlotCard(card, set = {}) {
+  const config = getSpecialPreviewPackConfig(set);
+  const category = card?.rarityCategory || getRarityCategory(card, set);
+
+  return Boolean(config?.finalCategories?.includes(category));
+}
+
 function warnInvalidSlot(card, set, slotName) {
   if (!SHOULD_VALIDATE_PACK_SLOTS || !card) return;
 
@@ -1873,6 +1908,14 @@ function validatePackSlotPlacement(pack, set = {}) {
       ["uncommon slot", isXYUncommonSlot],
       ["reverse/BREAK slot", isXYReverseSlot],
       ["final rare slot", isFinalRareSlotCard]
+    );
+  } else if (isSpecialPreviewSet(set)) {
+    validators.push(
+      ["normal preview slot", isSpecialPreviewNormalSlotCard],
+      ["normal preview slot", isSpecialPreviewNormalSlotCard],
+      ["normal preview slot", isSpecialPreviewNormalSlotCard],
+      ["normal preview slot", isSpecialPreviewNormalSlotCard],
+      ["final special slot", isSpecialPreviewFinalSlotCard]
     );
   } else if (getPackSize(set) === 4) {
     const setId = normalizeSetId(set);
@@ -1948,6 +1991,14 @@ export function canGeneratePack(cardsOrSet, maybeSet) {
   const pools = buildPools(cards, set);
   const finalRareSlotPool = getFinalRareSlotPool(pools, set);
 
+  if (isSpecialPreviewSet(set)) {
+    const config = getSpecialPreviewPackConfig(set);
+    const normalPool = pools.cleanCards.filter((card) => isSpecialPreviewNormalSlotCard(card, set));
+    const finalPool = pools.cleanCards.filter((card) => isSpecialPreviewFinalSlotCard(card, set));
+
+    return normalPool.length >= config.normalSlots && finalPool.length >= config.finalSlots;
+  }
+
   if (isXYSet(set)) {
     const profile = getPullRateProfile(set);
     const profileName = getConfiguredProfileName(set);
@@ -2010,6 +2061,27 @@ function generateMiniPack(set, pools, profile, usedIds) {
   }
 
   return finalizeNormalPack(pack.slice(0, 4), pools, set);
+}
+
+function generateSpecialPreviewPack(set, pools, profile, usedIds) {
+  const config = getSpecialPreviewPackConfig(set);
+  const normalPool = pools.cleanCards.filter((card) => isSpecialPreviewNormalSlotCard(card, set));
+  const finalPool = pools.cleanCards.filter((card) => isSpecialPreviewFinalSlotCard(card, set));
+  const normalCards = pickRandom(normalPool, config.normalSlots, usedIds);
+  const finalCard = weightedRandom(finalPool, profile, usedIds, set);
+  const pack = [
+    ...normalCards,
+    ...(finalCard ? [finalCard] : []),
+  ];
+
+  if (pack.length !== config.packSize) {
+    warnMissingPools(set, {
+      normalCards: normalCards.length === config.normalSlots,
+      finalSlot: Boolean(finalCard),
+    });
+  }
+
+  return finalizeNormalPack(pack.slice(0, config.packSize), pools, set);
 }
 
 function pickXYUncommons(pools, set = {}, usedIds = new Set()) {
@@ -2365,6 +2437,10 @@ function generateGodPack(set, pools, profile, config, forcedFormat) {
 }
 
 function generateNormalPack(set, pools, profile, usedIds) {
+  if (isSpecialPreviewSet(set)) {
+    return generateSpecialPreviewPack(set, pools, profile, usedIds);
+  }
+
   if (getPackSize(set) === 4) {
     return generateMiniPack(set, pools, profile, usedIds);
   }
@@ -2427,7 +2503,7 @@ export function generateForcedGodPack(cardsOrSet, maybeSet, forcedFormat) {
 }
 
 export function isChaseRare(card) {
-  return ["victiniRare", "blackWhiteRare", "megaHyperRare"].includes(getRarityCategory(card));
+  return ["victiniRare", "blackWhiteRare", "megaHyperRare", "futuristicRare", "classic"].includes(getRarityCategory(card));
 }
 
 export function isHigherThanRare(card) {
@@ -2441,7 +2517,7 @@ export function isRareOrHigher(card) {
 export function getFoilClass(card) {
   const category = getRarityCategory(card);
 
-  if (["victiniRare", "blackWhiteRare", "megaHyperRare"].includes(category)) {
+  if (["victiniRare", "blackWhiteRare", "megaHyperRare", "futuristicRare", "classic"].includes(category)) {
     return "card-foil card-foil--chase";
   }
 
@@ -2459,6 +2535,8 @@ export function getFoilClass(card) {
       "shinyUltraRare",
       "radiantRare",
       "aceSpecRare",
+      "futuristicRare",
+      "classic",
     ].includes(category)
   ) {
     return "card-foil card-foil--higher";
