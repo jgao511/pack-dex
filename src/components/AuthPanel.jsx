@@ -359,10 +359,17 @@ function AuthForm({ onAuthenticated }) {
   );
 }
 
-function AuthPanel({ user, onOpenAuth }) {
+function AuthPanel({ user, isAuthLoading = false, onOpenAuth }) {
   const [status, setStatus] = useState("");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (!user) return;
+
+    setStatus("");
+    setError("");
+  }, [user?.id]);
 
   async function handleLogout() {
     if (!supabase) return;
@@ -382,6 +389,18 @@ function AuthPanel({ user, onOpenAuth }) {
     } finally {
       setIsSubmitting(false);
     }
+  }
+
+  if (isAuthLoading) {
+    return (
+      <section className="auth-panel" aria-label="Loading PackDex account">
+        <div>
+          <span className="set-mark">Account</span>
+          <h2>Checking Account</h2>
+          <p>Loading your PackDex session...</p>
+        </div>
+      </section>
+    );
   }
 
   if (user) {
@@ -427,6 +446,8 @@ function AuthPanel({ user, onOpenAuth }) {
 }
 
 export function AuthModal({ isOpen, onClose }) {
+  const pointerStartedInsideRef = useRef(false);
+
   useEffect(() => {
     if (!isOpen) return undefined;
 
@@ -449,13 +470,28 @@ export function AuthModal({ isOpen, onClose }) {
       role="dialog"
       aria-modal="true"
       aria-label="PackDex account"
-      onClick={(event) => {
+      onPointerDown={(event) => {
         if (event.target === event.currentTarget) {
+          pointerStartedInsideRef.current = false;
           onClose();
+          return;
+        }
+
+        pointerStartedInsideRef.current = true;
+      }}
+      onClick={(event) => {
+        if (pointerStartedInsideRef.current) {
+          event.stopPropagation();
         }
       }}
     >
-      <section className="auth-modal-card" onClick={(event) => event.stopPropagation()}>
+      <section
+        className="auth-modal-card"
+        onPointerDown={() => {
+          pointerStartedInsideRef.current = true;
+        }}
+        onClick={(event) => event.stopPropagation()}
+      >
         <button className="auth-modal-close" type="button" onClick={onClose} aria-label="Close account modal">
           <X size={22} aria-hidden="true" />
         </button>

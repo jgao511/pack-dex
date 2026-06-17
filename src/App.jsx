@@ -22,6 +22,11 @@ import {
   saveCloudBinders,
   upsertCloudBinder,
 } from "./lib/cloudBinders.js";
+import {
+  emptyProfileStats,
+  incrementCloudProfileStats,
+  loadCloudProfileStats,
+} from "./lib/cloudProfileStats.js";
 import { isSupabaseConfigured, supabase } from "./lib/supabaseClient.js";
 import {
   canGeneratePack,
@@ -44,6 +49,7 @@ import {
   getCardCollectionKey,
   getCardCount,
   getPullableCollectionCards,
+  getSetCollectionProgress,
   isCardCollected,
   loadCollection,
   markCardsCollected,
@@ -260,6 +266,19 @@ function pushAppHistory(state) {
   window.history.pushState(
     {
       ...(window.history.state || {}),
+      packdexApp: true,
+      ...state,
+    },
+    "",
+    window.location.pathname
+  );
+}
+
+function replaceAppHistory(state) {
+  if (typeof window === "undefined") return;
+
+  window.history.replaceState(
+    {
       packdexApp: true,
       ...state,
     },
@@ -1617,19 +1636,16 @@ function WelcomeRewardProfileCard({ rewardStatus, onClaim }) {
 
 function ProfilePage({
   collection,
+  profileStats,
+  areProfileStatsLoading,
   user,
+  isAuthLoading,
   welcomeRewardStatus,
   onOpenAuth,
   onOpenWelcomeReward,
 }) {
   const collectedCards = useMemo(() => getCollectedCards(collection), [collection]);
-  const uniqueCards = collectedCards.length;
-  const totalCards = collectedCards.reduce((sum, item) => sum + item.count, 0);
-  const completedSets = sets.filter((set) => {
-    const pullableCards = getPullableCollectionCards(set);
-
-    return pullableCards.length > 0 && pullableCards.every((card) => isCardCollected(collection, card, set.id));
-  }).length;
+  const completedSets = sets.filter((set) => getSetCollectionProgress(collection, set).percent === 100).length;
 
   return (
     <section className="dashboard-screen profile-screen">
@@ -1638,20 +1654,25 @@ function ProfilePage({
         <h1>Your PackDex</h1>
       </div>
 
-      <AuthPanel user={user} onOpenAuth={onOpenAuth} />
+      <AuthPanel user={user} isAuthLoading={isAuthLoading} onOpenAuth={onOpenAuth} />
 
       {user && <WelcomeRewardProfileCard rewardStatus={welcomeRewardStatus} onClaim={onOpenWelcomeReward} />}
 
-      {user ? (
+      {isAuthLoading ? (
+        <div className="empty-state">
+          <h2>Loading account stats...</h2>
+          <p>Checking your PackDex session.</p>
+        </div>
+      ) : user ? (
         <>
           <div className="profile-stat-grid">
             <article>
-              <span>Total Cards</span>
-              <strong>{totalCards}</strong>
+              <span>Packs Opened</span>
+              <strong>{areProfileStatsLoading ? "..." : profileStats.packsOpened}</strong>
             </article>
             <article>
-              <span>Unique Cards</span>
-              <strong>{uniqueCards}</strong>
+              <span>Total Cards Pulled</span>
+              <strong>{areProfileStatsLoading ? "..." : profileStats.totalCardsPulled}</strong>
             </article>
             <article>
               <span>Completed Sets</span>
@@ -1659,13 +1680,13 @@ function ProfilePage({
             </article>
           </div>
           <div className="profile-stats-note">
-            Pack opening stats are temporarily hidden while account-based stats are rebuilt for beta.
+            Stats are tied to your signed-in PackDex account.
           </div>
         </>
       ) : (
         <div className="empty-state">
           <h2>Sign in to track your PackDex stats.</h2>
-          <p>Guest pulls stay local on this browser, but account stats will not use browser-local pack counts.</p>
+          <p>Guest pulls stay local on this browser, but sign in to view account stats.</p>
         </div>
       )}
     </section>
@@ -1795,6 +1816,8 @@ function App() {
   const [pulledCards, setPulledCards] = useState([]);
   const [collection, setCollection] = useState(() => loadCollection());
   const [binders, setBinders] = useState(() => loadBinders());
+  const [profileStats, setProfileStats] = useState(() => emptyProfileStats());
+  const [areProfileStatsLoading, setAreProfileStatsLoading] = useState(false);
   const [authSession, setAuthSession] = useState(null);
   const [isAuthLoading, setIsAuthLoading] = useState(isSupabaseConfigured);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -1818,6 +1841,10 @@ function App() {
 
   useEffect(() => {
     removeLegacyProfileStatsStorage();
+  }, []);
+
+  useEffect(() => {
+    replaceAppHistory({ activeTab: "open", screen: "home" });
   }, []);
 
   useEffect(() => {
@@ -1895,6 +1922,8 @@ function App() {
     if (!authUser) {
       setCollection(loadCollection());
       setBinders(loadBinders());
+      setProfileStats(emptyProfileStats());
+      setAreProfileStatsLoading(false);
       setCloudWarning("");
       setWelcomeRewardStatus(null);
       setIsWelcomeRewardLoading(false);
@@ -1906,6 +1935,7 @@ function App() {
     let isMounted = true;
 
     setCloudWarning("");
+    setAreProfileStatsLoading(true);
 
     loadCloudCollection()
       .then(async (cloudCollection) => {
@@ -1969,6 +1999,25 @@ function App() {
 
         setBinders([]);
         setCloudWarning("Account binders could not be loaded yet. Guest binders stay local on this device.");
+      });
+
+    loadCloudProfileStats(authUser.id)
+      .then((stats) => {
+        if (!isMounted) return;
+
+        setProfileStats(stats);
+        setAreProfileStatsLoading(false);
+      })
+      .catch((error) => {
+        console.warn("Cloud profile stats load failed", {
+          userId: authUser.id,
+          error,
+        });
+        if (!isMounted) return;
+
+        setProfileStats(emptyProfileStats());
+        setAreProfileStatsLoading(false);
+        setCloudWarning("Account stats could not be loaded yet. Pack opening still works.");
       });
 
     return () => {
@@ -2051,7 +2100,12 @@ function App() {
   }, []);
 
   function selectMainTab(tab) {
-    if (tab === activeTab) return;
+    const nextScreen = tab === "open" ? "home" : tab;
+
+    if (tab === activeTab && screen === nextScreen) {
+      resetPageScroll();
+      return;
+    }
 
     const token = tabLoadTokenRef.current + 1;
 
@@ -2059,15 +2113,11 @@ function App() {
     setIsTabLoading(true);
     setIsReturningToSet(false);
     setActiveTab(tab);
+    setScreen(nextScreen);
+    setSelectedSet(null);
+    setPulledCards([]);
+    pushAppHistory({ activeTab: tab, screen: nextScreen });
     resetPageScroll();
-
-    if (tab === "open") {
-      setScreen("home");
-      setSelectedSet(null);
-      setPulledCards([]);
-    } else {
-      setScreen(tab);
-    }
 
     window.setTimeout(() => {
       if (tabLoadTokenRef.current === token) {
@@ -2089,6 +2139,10 @@ function App() {
 
   function startPackOpening(set = selectedSet) {
     if (!set) return;
+
+    if (!(activeTab === "open" && screen === "home")) {
+      pushAppHistory({ activeTab: "open", screen: "home" });
+    }
 
     pushAppHistory({ activeTab: "open", screen: "opening", selectedSetId: set.id });
     setIsReturningToSet(false);
@@ -2134,11 +2188,26 @@ function App() {
   function viewCollection(set = selectedSet) {
     if (!set) return;
 
-    pushAppHistory({ activeTab: "open", screen: "setCollection", selectedSetId: set.id });
-    setActiveTab("open");
+    if (!(activeTab === "collection" && screen === "collection")) {
+      pushAppHistory({ activeTab: "collection", screen: "collection" });
+    }
+
+    pushAppHistory({ activeTab: "collection", screen: "setCollection", selectedSetId: set.id });
+    setActiveTab("collection");
     setSelectedSet(set);
     setScreen("setCollection");
     setIsTabLoading(false);
+    resetPageScroll();
+  }
+
+  function returnToCollectionList() {
+    pushAppHistory({ activeTab: "collection", screen: "collection" });
+    setActiveTab("collection");
+    setScreen("collection");
+    setSelectedSet(null);
+    setPulledCards([]);
+    setIsTabLoading(false);
+    resetPageScroll();
   }
 
   function handleCardsRevealed(cards) {
@@ -2153,17 +2222,35 @@ function App() {
 
     setCollection(nextCollection);
 
-    if (authUser) {
-      savePulledCardsToCloud(cards, selectedSet.id).catch((error) => {
-        console.warn("Cloud pack save failed; queued pull for retry", {
-          setId: selectedSet.id,
-          cardCount: cards.length,
-          error,
-        });
+    if (cards.welcomeReward) return;
 
-        enqueuePendingCloudPull(cards, selectedSet.id, authUser.id);
-        setCloudWarning("Couldn't save this pack to your account yet. It was saved locally and will retry automatically.");
-      });
+    if (authUser) {
+      savePulledCardsToCloud(cards, selectedSet.id)
+        .then(async () => {
+          try {
+            const stats = await incrementCloudProfileStats(authUser.id, { packsOpened: 1, totalCardsPulled: cards.length });
+
+            setProfileStats(stats);
+          } catch (statsError) {
+            console.warn("Cloud profile stats increment failed after pack save", {
+              userId: authUser.id,
+              setId: selectedSet.id,
+              cardCount: cards.length,
+              error: statsError,
+            });
+            setCloudWarning("Your collection saved, but account stats could not be updated yet.");
+          }
+        })
+        .catch((error) => {
+          console.warn("Cloud pack save failed; queued pull for retry", {
+            setId: selectedSet.id,
+            cardCount: cards.length,
+            error,
+          });
+
+          enqueuePendingCloudPull(cards, selectedSet.id, authUser.id);
+          setCloudWarning("Couldn't save this pack to your account yet. It was saved locally and will retry automatically.");
+        });
     }
   }
 
@@ -2268,6 +2355,19 @@ function App() {
 
       setWelcomeRewardStatus(claimedStatus);
       if (result.collection) setCollection(result.collection);
+      if (result.stats) {
+        setProfileStats(result.stats);
+      } else {
+        incrementCloudProfileStats(authUser.id, { packsOpened: 1, totalCardsPulled: rewardPack.length })
+          .then((stats) => setProfileStats(stats))
+          .catch((error) => {
+            console.warn("Welcome reward profile stats update failed", {
+              userId: authUser.id,
+              cardCount: rewardPack.length,
+              error,
+            });
+          });
+      }
       setIsWelcomeRewardModalOpen(false);
       setActiveTab("open");
       setSelectedSet(choice.set);
@@ -2297,6 +2397,8 @@ function App() {
       setSelectedSet(null);
       setActiveTab("open");
       setScreen("home");
+      pushAppHistory({ activeTab: "open", screen: "home" });
+      resetPageScroll();
 
       const elapsed = performance.now() - start;
       const remaining = Math.max(0, MIN_RETURN_LOADING_MS - elapsed);
@@ -2388,23 +2490,10 @@ function App() {
             />
           )}
 
-          {screen === "setCollection" && selectedSet && (
-            <CollectionPage
-              set={selectedSet}
-              collection={collection}
-              binders={binders}
-              user={authUser}
-              onOpenAuth={openAuthModal}
-              onAddToBinder={handleAddToBinder}
-          onRemoveFromBinder={handleRemoveFromBinder}
-          onOpenPacks={startPackOpening}
-          onBackToSets={backToSets}
-        />
-          )}
         </>
       )}
 
-      {activeTab === "collection" && (
+      {activeTab === "collection" && screen === "collection" && (
         <CollectionDashboard
           collection={collection}
           binders={binders}
@@ -2417,10 +2506,27 @@ function App() {
         />
       )}
 
+      {activeTab === "collection" && screen === "setCollection" && selectedSet && (
+        <CollectionPage
+          set={selectedSet}
+          collection={collection}
+          binders={binders}
+          user={authUser}
+          onOpenAuth={openAuthModal}
+          onAddToBinder={handleAddToBinder}
+          onRemoveFromBinder={handleRemoveFromBinder}
+          onOpenPacks={startPackOpening}
+          onBackToSets={returnToCollectionList}
+        />
+      )}
+
       {activeTab === "profile" && (
         <ProfilePage
           collection={collection}
+          profileStats={profileStats}
+          areProfileStatsLoading={areProfileStatsLoading}
           user={authUser}
+          isAuthLoading={isAuthLoading}
           welcomeRewardStatus={welcomeRewardStatus}
           onOpenAuth={openAuthModal}
           onOpenWelcomeReward={() => {

@@ -101,5 +101,6 @@ export async function claimWelcomeGodPack(setId, forcedFormat = "") {
     cards,
     status: data?.rewardStatus || data?.status || null,
     collection: data?.collection || null,
+    stats: data?.stats || null,
   };
 }
