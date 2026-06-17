@@ -9,7 +9,14 @@ import FoilCard from "./components/FoilCard.jsx";
 import PullSummary from "./components/PullSummary.jsx";
 import SetSelect from "./components/SetSelect.jsx";
 import { sets } from "./data/sets.js";
-import { loadCloudCollection, savePulledCardsToCloud } from "./lib/cloudCollection.js";
+import {
+  enqueuePendingCloudPull,
+  getPendingCloudPullCount,
+  loadCloudCollection,
+  mergePendingCloudPullsIntoCollection,
+  savePulledCardsToCloud,
+  syncPendingCloudPulls,
+} from "./lib/cloudCollection.js";
 import {
   loadCloudBinders,
   saveCloudBinders,
@@ -1914,16 +1921,52 @@ function App() {
     setCloudWarning("");
 
     loadCloudCollection()
-      .then((cloudCollection) => {
+      .then(async (cloudCollection) => {
         if (!isMounted) return;
 
-        setCollection(cloudCollection);
+        setCollection(mergePendingCloudPullsIntoCollection(cloudCollection, authUser.id));
+
+        const pendingPullCount = getPendingCloudPullCount(authUser.id);
+
+        if (pendingPullCount === 0) return;
+
+        try {
+          const syncResult = await syncPendingCloudPulls(authUser.id);
+
+          if (!isMounted) return;
+
+          if (syncResult.failed > 0) {
+            setCollection((currentCollection) => mergePendingCloudPullsIntoCollection(currentCollection, authUser.id));
+            setCloudWarning("Some saved pulls are waiting to sync. PackDex will retry automatically.");
+            return;
+          }
+
+          if (syncResult.saved > 0) {
+            const refreshedCollection = await loadCloudCollection();
+
+            if (!isMounted) return;
+
+            setCollection(mergePendingCloudPullsIntoCollection(refreshedCollection, authUser.id));
+            setCloudWarning("");
+          }
+        } catch (error) {
+          console.warn("Pending PackDex cloud pulls could not be synced after account load", {
+            userId: authUser.id,
+            pendingPullCount,
+            error,
+          });
+
+          if (!isMounted) return;
+
+          setCollection((currentCollection) => mergePendingCloudPullsIntoCollection(currentCollection, authUser.id));
+          setCloudWarning("Some saved pulls are waiting to sync. PackDex will retry automatically.");
+        }
       })
       .catch((error) => {
         console.warn("Cloud collection load failed", error);
         if (!isMounted) return;
 
-        setCollection({});
+        setCollection(mergePendingCloudPullsIntoCollection({}, authUser.id));
         setCloudWarning("Account collection could not be loaded yet. Guest pulls stay local on this device.");
       });
 
@@ -2136,9 +2179,15 @@ function App() {
     setCollection(nextCollection);
 
     if (authUser) {
-      savePulledCardsToCloud(cards, selectedSet).catch((error) => {
-        console.warn("Cloud pack save failed", error);
-        setCloudWarning("Couldn't save this pack. Try again.");
+      savePulledCardsToCloud(cards, selectedSet.id).catch((error) => {
+        console.warn("Cloud pack save failed; queued pull for retry", {
+          setId: selectedSet.id,
+          cardCount: cards.length,
+          error,
+        });
+
+        enqueuePendingCloudPull(cards, selectedSet.id, authUser.id);
+        setCloudWarning("Couldn't save this pack to your account yet. It was saved locally and will retry automatically.");
       });
     }
   }

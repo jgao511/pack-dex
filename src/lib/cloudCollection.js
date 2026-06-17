@@ -1,9 +1,103 @@
 import { supabase } from "./supabaseClient.js";
 import { getCardImageUrl } from "../utils/assetUrls.js";
-import { getCardCollectionKey } from "../utils/collectionStorage.js";
+import { getCardCollectionKey, markCardsCollected } from "../utils/collectionStorage.js";
 import { getDisplayCardName, getDisplayRarity } from "../utils/packGenerator.js";
+import { sets } from "../data/sets.js";
 
 const USER_COLLECTION_TABLE = "user_collection";
+const PENDING_CLOUD_PULLS_KEY = "packdex-pending-cloud-pulls";
+
+function findSet(setId) {
+  return sets.find((set) => set.id === setId);
+}
+
+function assertValidSetId(setId, context = "cloud collection save") {
+  if (typeof setId !== "string" || setId.trim() === "") {
+    const receivedType = Array.isArray(setId) ? "array" : typeof setId;
+    const error = new TypeError(`PackDex ${context} requires a non-empty string set id.`);
+
+    console.warn("Invalid PackDex cloud collection set id", {
+      context,
+      receivedType,
+      receivedValue: setId,
+    });
+
+    throw error;
+  }
+
+  return setId.trim();
+}
+
+function safeParsePendingPulls(value) {
+  if (!value) return [];
+
+  try {
+    const parsed = JSON.parse(value);
+
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+function loadPendingCloudPulls() {
+  if (typeof window === "undefined") return [];
+
+  return safeParsePendingPulls(window.localStorage.getItem(PENDING_CLOUD_PULLS_KEY));
+}
+
+function savePendingCloudPulls(pulls) {
+  if (typeof window === "undefined") return;
+
+  window.localStorage.setItem(PENDING_CLOUD_PULLS_KEY, JSON.stringify(pulls));
+}
+
+function compactPendingCard(card) {
+  return {
+    ...card,
+    id: card?.id,
+    name: card?.name,
+    number: card?.number,
+    rarity: card?.rarity,
+    rarityCategory: card?.rarityCategory,
+    pullCategory: card?.pullCategory,
+    image: card?.image,
+    imagePath: card?.imagePath,
+    imageFileName: card?.imageFileName,
+    fileName: card?.fileName,
+    filename: card?.filename,
+    setFolder: card?.setFolder,
+    setId: card?.setId,
+  };
+}
+
+function mergeCollectionCounts(baseCollection, overlayCollection) {
+  const merged = { ...(baseCollection || {}) };
+
+  Object.entries(overlayCollection || {}).forEach(([setId, setCollection]) => {
+    const currentSetCollection = merged[setId] || {};
+
+    merged[setId] = { ...currentSetCollection };
+
+    Object.entries(setCollection || {}).forEach(([cardId, entry]) => {
+      const existing = currentSetCollection[cardId];
+
+      merged[setId][cardId] = {
+        count: Number(existing?.count || 0) + Number(entry?.count || 0),
+        firstCollectedAt: Math.min(
+          Number(existing?.firstCollectedAt || entry?.firstCollectedAt || Date.now()),
+          Number(entry?.firstCollectedAt || existing?.firstCollectedAt || Date.now())
+        ),
+        lastCollectedAt: Math.max(
+          Number(existing?.lastCollectedAt || entry?.lastCollectedAt || Date.now()),
+          Number(entry?.lastCollectedAt || existing?.lastCollectedAt || Date.now())
+        ),
+      };
+    });
+  });
+
+  return merged;
+}
 
 export async function getCurrentUser() {
   if (!supabase) return null;
@@ -36,9 +130,7 @@ export async function loadCloudCollection() {
   return cloudRowsToCollection(data || []);
 }
 
-function compactCardRow(card, set, quantity = 1) {
-  const setId = String(set?.id || card?.setId || "");
-
+function compactCardRow(card, set, setId, quantity = 1) {
   return {
     card_id: getCardCollectionKey(card, setId),
     set_id: setId,
@@ -51,17 +143,111 @@ function compactCardRow(card, set, quantity = 1) {
   };
 }
 
-export async function savePulledCardsToCloud(cards, set) {
+export function enqueuePendingCloudPull(cards, setId, userId) {
+  const validSetId = assertValidSetId(setId, "pending cloud pull queue");
+
+  if (!userId || !Array.isArray(cards) || cards.length === 0) {
+    return [];
+  }
+
+  const pendingPulls = loadPendingCloudPulls();
+  const nextPendingPulls = [
+    ...pendingPulls,
+    {
+      id: `${userId}:${validSetId}:${Date.now()}:${Math.random().toString(36).slice(2)}`,
+      userId,
+      setId: validSetId,
+      cards: cards.map(compactPendingCard),
+      createdAt: Date.now(),
+    },
+  ];
+
+  savePendingCloudPulls(nextPendingPulls);
+  return nextPendingPulls.filter((pull) => pull.userId === userId);
+}
+
+export function getPendingCloudPullCount(userId) {
+  if (!userId) return 0;
+
+  return loadPendingCloudPulls().filter((pull) => pull.userId === userId).length;
+}
+
+export function mergePendingCloudPullsIntoCollection(collection, userId) {
+  if (!userId) return collection || {};
+
+  const pendingCollection = loadPendingCloudPulls()
+    .filter((pull) => pull.userId === userId && typeof pull.setId === "string" && Array.isArray(pull.cards))
+    .reduce((nextCollection, pull) => {
+      const set = findSet(pull.setId);
+
+      if (!set) {
+        console.warn("Skipping pending cloud pull for unknown set id", {
+          setId: pull.setId,
+          cardCount: pull.cards.length,
+        });
+        return nextCollection;
+      }
+
+      return markCardsCollected(nextCollection, pull.cards, pull.setId, pull.createdAt || Date.now());
+    }, {});
+
+  return mergeCollectionCounts(collection, pendingCollection);
+}
+
+export async function syncPendingCloudPulls(userId) {
+  if (!userId) return { attempted: 0, saved: 0, failed: 0 };
+
+  const pendingPulls = loadPendingCloudPulls();
+  const pullsForOtherUsers = pendingPulls.filter((pull) => pull.userId !== userId);
+  const pullsForUser = pendingPulls.filter((pull) => pull.userId === userId);
+  const failedPulls = [];
+  let saved = 0;
+
+  for (const pull of pullsForUser) {
+    try {
+      await savePulledCardsToCloud(pull.cards, pull.setId);
+      saved += 1;
+    } catch (error) {
+      console.warn("Pending PackDex cloud pull sync failed", {
+        setId: pull.setId,
+        cardCount: pull.cards?.length || 0,
+        error,
+      });
+      failedPulls.push(pull);
+    }
+  }
+
+  savePendingCloudPulls([...pullsForOtherUsers, ...failedPulls]);
+
+  return {
+    attempted: pullsForUser.length,
+    saved,
+    failed: failedPulls.length,
+  };
+}
+
+export async function savePulledCardsToCloud(cards, setId) {
+  const validSetId = assertValidSetId(setId, "cloud pull save");
   const user = await getCurrentUser();
 
-  if (!user || !Array.isArray(cards) || cards.length === 0 || !set?.id) {
+  if (!user || !Array.isArray(cards) || cards.length === 0) {
     return [];
+  }
+
+  const set = findSet(validSetId);
+
+  if (!set) {
+    console.warn("Unable to save PackDex cloud pull for unknown set id", {
+      setId: validSetId,
+      cardCount: cards.length,
+    });
+    throw new Error(`Unknown PackDex set id: ${validSetId}`);
   }
 
   const grouped = new Map();
 
   for (const card of cards) {
-    const row = compactCardRow(card, set, 1);
+    const row = compactCardRow(card, set, validSetId, 1);
     const existing = grouped.get(row.card_id);
 
     grouped.set(row.card_id, {
@@ -76,11 +262,15 @@ export async function savePulledCardsToCloud(cards, set) {
     .from(USER_COLLECTION_TABLE)
     .select("card_id, quantity")
     .eq("user_id", user.id)
-    .eq("set_id", String(set.id))
+    .eq("set_id", validSetId)
     .in("card_id", cardIds);
 
   if (existingError) {
-    console.warn("Unable to load existing cloud cards before save", existingError);
+    console.warn("Unable to load existing cloud cards before save", {
+      setId: validSetId,
+      cardCount: cards.length,
+      error: existingError,
+    });
     throw existingError;
   }
 
@@ -105,7 +295,12 @@ export async function savePulledCardsToCloud(cards, set) {
       .eq("card_id", row.card_id);
 
     if (error) {
-      console.warn("Unable to update cloud card", error);
+      console.warn("Unable to update cloud card", {
+        setId: validSetId,
+        cardId: row.card_id,
+        cardCount: cards.length,
+        error,
+      });
       throw error;
     }
   }
@@ -119,7 +314,12 @@ export async function savePulledCardsToCloud(cards, set) {
     );
 
     if (error) {
-      console.warn("Unable to insert cloud cards", error);
+      console.warn("Unable to insert cloud cards", {
+        setId: validSetId,
+        rowCount: rowsToInsert.length,
+        cardCount: cards.length,
+        error,
+      });
       throw error;
     }
   }

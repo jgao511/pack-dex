@@ -3762,6 +3762,415 @@ button {
   line-height: 1.25;
 }
 
+.master-binder-view {
+  display: grid;
+  gap: 18px;
+  min-width: 0;
+}
+
+.master-binder-cover-stage {
+  display: grid;
+  place-items: center;
+  padding: 8px 0 16px;
+}
+
+.master-binder-cover {
+  --master-cover: #18213f;
+  width: min(100%, 780px);
+  min-height: 520px;
+  display: grid;
+  grid-template-columns: 82px minmax(0, 1fr);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 18px;
+  color: white;
+  background:
+    radial-gradient(circle at 72% 18%, rgba(255, 255, 255, 0.18), transparent 28%),
+    linear-gradient(135deg, color-mix(in srgb, var(--master-cover), white 12%), var(--master-cover) 58%, #0d1327);
+  box-shadow:
+    0 28px 70px rgba(7, 10, 21, 0.36),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.master-binder-cover__spine {
+  display: grid;
+  align-content: center;
+  gap: 46px;
+  border-right: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 34px 0;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.28), transparent),
+    rgba(4, 7, 18, 0.22);
+}
+
+.master-binder-cover__spine span {
+  width: 42px;
+  height: 15px;
+  margin: 0 auto;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow:
+    inset 0 2px 4px rgba(255, 255, 255, 0.65),
+    inset 0 -3px 5px rgba(4, 7, 18, 0.28);
+}
+
+.master-binder-cover__content {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 18px;
+  min-width: 0;
+  padding: clamp(24px, 5vw, 56px);
+  text-align: center;
+}
+
+.master-binder-cover .collection-logo {
+  max-width: min(100%, 360px);
+  max-height: 110px;
+  filter: drop-shadow(0 16px 24px rgba(0, 0, 0, 0.3));
+}
+
+.master-binder-cover h2 {
+  margin: 0;
+  font-family: var(--ui-condensed-font);
+  font-size: clamp(2rem, 5vw, 3.85rem);
+  line-height: 0.92;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  text-shadow: 0 8px 26px rgba(0, 0, 0, 0.32);
+}
+
+.master-binder-progress,
+.master-binder-page-progress {
+  width: min(100%, 520px);
+  display: grid;
+  gap: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 14px;
+  padding: 14px;
+  background: rgba(6, 10, 24, 0.34);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.master-binder-progress .collection-progress-copy strong,
+.master-binder-page-progress .collection-progress-copy strong {
+  color: white;
+}
+
+.master-binder-progress .collection-progress-copy span,
+.master-binder-page-progress .collection-progress-copy span {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.master-binder-progress .collection-progress-bar,
+.master-binder-page-progress .collection-progress-bar {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.master-binder-progress p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-family: var(--card-text-font);
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.master-binder-color-picker {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.master-binder-color-picker button {
+  --swatch: #18213f;
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  padding: 0 12px;
+  color: rgba(255, 255, 255, 0.82);
+  background: rgba(6, 10, 24, 0.32);
+  cursor: pointer;
+  font-family: var(--ui-condensed-font);
+  font-size: 0.86rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.master-binder-color-picker button span {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--swatch);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.36),
+    0 0 0 2px rgba(255, 255, 255, 0.16);
+}
+
+.master-binder-color-picker button.is-active {
+  border-color: rgba(255, 255, 255, 0.48);
+  color: white;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.master-binder-cover-actions,
+.master-binder-toolbar,
+.master-binder-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.master-binder-pages {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+
+.master-binder-toolbar {
+  justify-content: space-between;
+  border: 1px solid rgba(18, 24, 39, 0.08);
+  border-radius: 8px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 14px 34px rgba(18, 24, 39, 0.08);
+}
+
+.master-binder-toolbar div {
+  display: grid;
+  gap: 3px;
+}
+
+.master-binder-toolbar strong {
+  color: #121827;
+  font-family: var(--ui-condensed-font);
+  font-size: 1.4rem;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.master-binder-toolbar em {
+  color: #667085;
+  font-family: var(--card-text-font);
+  font-size: 0.9rem;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.master-binder-page-progress {
+  width: 100%;
+  border-color: rgba(18, 24, 39, 0.08);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.master-binder-page-progress .collection-progress-copy strong {
+  color: #121827;
+}
+
+.master-binder-page-progress .collection-progress-copy span {
+  color: #667085;
+}
+
+.master-binder-page-progress .collection-progress-bar {
+  background: rgba(18, 24, 39, 0.1);
+}
+
+.master-binder-spread {
+  display: grid;
+  grid-template-columns: minmax(0, 0.76fr);
+  justify-content: center;
+  gap: 18px;
+  min-width: 0;
+  perspective: 1500px;
+}
+
+.master-binder-spread.is-spread {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.master-binder-page {
+  position: relative;
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+  border: 1px solid rgba(18, 24, 39, 0.1);
+  border-radius: 16px;
+  padding: 18px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(229, 236, 250, 0.72)),
+    #eef3ff;
+  box-shadow:
+    0 22px 54px rgba(18, 24, 39, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.86);
+  animation: masterBinderSlide 220ms ease both;
+}
+
+.master-binder-page::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  pointer-events: none;
+  border: 1px solid rgba(18, 24, 39, 0.08);
+  border-radius: 12px;
+}
+
+.master-binder-page__label {
+  position: relative;
+  z-index: 1;
+  color: #667085;
+  font-family: var(--ui-condensed-font);
+  font-size: 0.88rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.master-binder-pocket-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(7px, 1vw, 12px);
+}
+
+.master-binder-slot {
+  position: relative;
+  min-width: 0;
+  display: grid;
+  gap: 7px;
+  border: 1px solid rgba(18, 24, 39, 0.12);
+  border-radius: 10px;
+  padding: 8px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.52), rgba(255, 255, 255, 0.2)),
+    rgba(255, 255, 255, 0.42);
+  cursor: pointer;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.42),
+    0 8px 18px rgba(18, 24, 39, 0.08);
+  text-align: left;
+}
+
+.master-binder-slot::after {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  pointer-events: none;
+  border-radius: 7px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent 44%, rgba(255, 255, 255, 0.22));
+  mix-blend-mode: screen;
+}
+
+.master-binder-slot:hover {
+  border-color: rgba(82, 126, 255, 0.28);
+  transform: translateY(-1px);
+}
+
+.master-binder-slot.is-missing {
+  background:
+    repeating-linear-gradient(135deg, rgba(18, 24, 39, 0.05) 0 8px, rgba(18, 24, 39, 0.02) 8px 16px),
+    rgba(255, 255, 255, 0.32);
+}
+
+.master-binder-slot.is-empty {
+  min-height: 190px;
+  cursor: default;
+  opacity: 0.32;
+}
+
+.master-binder-slot .tilt-card-frame,
+.master-binder-slot .foil-card {
+  width: 100%;
+}
+
+.master-binder-slot .is-uncollected-preview {
+  filter: grayscale(1) saturate(0.45);
+  opacity: 0.32;
+}
+
+.master-binder-card-meta {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.master-binder-card-meta strong,
+.master-binder-card-meta em {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.master-binder-card-meta strong {
+  color: #121827;
+  font-family: var(--ui-condensed-font);
+  font-size: 0.88rem;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+}
+
+.master-binder-card-meta em {
+  color: #667085;
+  font-family: var(--card-text-font);
+  font-size: 0.72rem;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.master-binder-nav button {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 0;
+  border-radius: 999px;
+  padding: 0 16px;
+  color: white;
+  background: #161b27;
+  cursor: pointer;
+  font-family: var(--ui-condensed-font);
+  font-size: 0.95rem;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  box-shadow: 0 12px 26px rgba(18, 24, 39, 0.16);
+}
+
+.master-binder-nav button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.master-binder-nav span {
+  color: #667085;
+  font-family: var(--ui-condensed-font);
+  font-size: 0.95rem;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+@keyframes masterBinderSlide {
+  from {
+    opacity: 0;
+    transform: translateX(18px) rotateY(-4deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) rotateY(0);
+  }
+}
+
 .new-badge,
 .missing-badge,
 .count-badge {
@@ -5437,6 +5846,129 @@ button {
   .collection-actions .primary-button,
   .collection-actions .secondary-button {
     width: 100%;
+  }
+
+  .master-binder-cover {
+    min-height: auto;
+    grid-template-columns: 46px minmax(0, 1fr);
+    border-radius: 14px;
+  }
+
+  .master-binder-cover__spine {
+    gap: 28px;
+  }
+
+  .master-binder-cover__spine span {
+    width: 25px;
+    height: 11px;
+  }
+
+  .master-binder-cover__content {
+    gap: 14px;
+    padding: 20px 14px;
+  }
+
+  .master-binder-cover .collection-logo {
+    max-height: 82px;
+  }
+
+  .master-binder-cover h2 {
+    font-size: clamp(1.65rem, 9vw, 2.5rem);
+  }
+
+  .master-binder-progress,
+  .master-binder-page-progress {
+    padding: 11px;
+  }
+
+  .master-binder-color-picker {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+  }
+
+  .master-binder-color-picker button,
+  .master-binder-cover-actions .primary-button,
+  .master-binder-cover-actions .secondary-button,
+  .master-binder-toolbar .secondary-button {
+    width: 100%;
+  }
+
+  .master-binder-cover-actions,
+  .master-binder-toolbar {
+    display: grid;
+    justify-items: stretch;
+    width: 100%;
+  }
+
+  .master-binder-toolbar {
+    padding: 11px;
+  }
+
+  .master-binder-toolbar strong {
+    font-size: 1.15rem;
+  }
+
+  .master-binder-spread,
+  .master-binder-spread.is-spread {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .master-binder-page {
+    gap: 8px;
+    padding: 10px;
+    border-radius: 12px;
+  }
+
+  .master-binder-page::before {
+    inset: 7px;
+  }
+
+  .master-binder-pocket-grid {
+    gap: 5px;
+  }
+
+  .master-binder-slot {
+    gap: 4px;
+    padding: 4px;
+    border-radius: 7px;
+  }
+
+  .master-binder-slot::after {
+    inset: 3px;
+    border-radius: 5px;
+  }
+
+  .master-binder-slot.is-empty {
+    min-height: 120px;
+  }
+
+  .master-binder-card-meta strong {
+    font-size: 0.68rem;
+  }
+
+  .master-binder-card-meta em {
+    font-size: 0.56rem;
+  }
+
+  .master-binder-nav {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .master-binder-nav button {
+    width: 100%;
+    min-height: 38px;
+    font-size: 0.82rem;
+  }
+
+  .master-binder-nav span {
+    order: -1;
+    text-align: center;
+    font-size: 0.78rem;
   }
 
   .collection-segments button {
