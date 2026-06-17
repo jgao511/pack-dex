@@ -64,6 +64,10 @@ body,
   overflow-x: hidden;
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
 body {
   margin: 0;
   min-width: 320px;
@@ -2918,12 +2922,26 @@ button {
 }
 
 .binder-controls label span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   color: #667085;
   font-family: var(--ui-condensed-font);
   font-size: 0.88rem;
   font-weight: 900;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+}
+
+.binder-theme-select i {
+  --swatch: #18213f;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--swatch);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 0 0 2px rgba(18, 24, 39, 0.1);
 }
 
 .binder-controls select {
@@ -2965,31 +2983,81 @@ button {
 
 .binder-shelf {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
 }
 
 .binder-shelf-card {
+  --binder-theme: #18213f;
+  position: relative;
   display: grid;
-  gap: 4px;
-  min-height: 112px;
-  border: 1px solid rgba(18, 24, 39, 0.08);
+  grid-template-columns: 38px minmax(0, 1fr);
+  overflow: hidden;
+  min-height: 210px;
+  border: 1px solid rgba(18, 24, 39, 0.1);
   border-radius: 16px;
-  padding: 16px;
-  color: #161b27;
+  padding: 0;
+  color: white;
   background:
-    linear-gradient(90deg, rgba(31, 90, 166, 0.9) 0 12px, transparent 12px),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(245, 248, 255, 0.78));
-  cursor: pointer;
+    radial-gradient(circle at 72% 18%, rgba(255, 255, 255, 0.28), transparent 26%),
+    linear-gradient(135deg, color-mix(in srgb, var(--binder-theme), white 10%), color-mix(in srgb, var(--binder-theme), #050817 66%));
   text-align: left;
-  box-shadow: 0 14px 30px rgba(18, 24, 39, 0.1);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    0 14px 32px rgba(18, 24, 39, 0.12);
+  transition:
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.binder-shelf-card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 20px 44px rgba(18, 24, 39, 0.18);
+}
+
+.binder-shelf-card.is-master_set {
+  background:
+    radial-gradient(circle at 72% 18%, rgba(255, 255, 255, 0.22), transparent 26%),
+    linear-gradient(135deg, color-mix(in srgb, var(--binder-theme), white 18%), color-mix(in srgb, var(--binder-theme), #090d1d 68%));
+  color: white;
+}
+
+.binder-shelf-card__spine {
+  display: grid;
+  align-content: center;
+  gap: 20px;
+  padding-block: 18px;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.2), transparent),
+    color-mix(in srgb, var(--binder-theme), #090d1d 42%);
+}
+
+.binder-shelf-card__spine span {
+  width: 22px;
+  height: 8px;
+  margin-inline: auto;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.76);
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.7),
+    inset 0 -2px 3px rgba(18, 24, 39, 0.22);
+}
+
+.binder-shelf-card__body {
+  min-width: 0;
+  display: grid;
+  align-content: space-between;
+  gap: 8px;
+  padding: 18px;
 }
 
 .binder-shelf-card img {
-  width: 76px;
-  height: 30px;
+  width: 116px;
+  height: 52px;
   object-fit: contain;
-  object-position: left center;
+  object-position: left top;
 }
 
 .binder-shelf-card.is-active {
@@ -2999,14 +3067,14 @@ button {
 
 .binder-shelf-card strong {
   font-family: var(--heading-font);
-  font-size: 1.25rem;
+  font-size: 1.55rem;
   line-height: 1;
   text-transform: uppercase;
 }
 
 .binder-shelf-card span,
 .binder-shelf-card em {
-  color: #667085;
+  color: rgba(255, 255, 255, 0.74);
   font-family: var(--ui-condensed-font);
   font-style: normal;
   font-weight: 800;
@@ -3014,11 +3082,74 @@ button {
   text-transform: uppercase;
 }
 
+.binder-shelf-card.is-master_set span,
+.binder-shelf-card.is-master_set em {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.binder-shelf-card__tag {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.binder-shelf-card .primary-button {
+  min-height: 38px;
+  justify-self: start;
+  padding-inline: 14px;
+  color: white;
+  background: rgba(5, 8, 23, 0.78);
+  font-size: 0.92rem;
+}
+
+.binder-library-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: -2px;
+  color: #667085;
+  font-family: var(--ui-condensed-font);
+  font-size: 0.9rem;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.binder-library-meta label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.binder-library-meta select {
+  min-height: 34px;
+  border: 1px solid rgba(18, 24, 39, 0.08);
+  border-radius: 999px;
+  padding: 0 12px;
+  color: #161b27;
+  background: rgba(255, 255, 255, 0.92);
+  font-family: var(--ui-condensed-font);
+  font-weight: 900;
+}
+
 .binder-view-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
+}
+
+.custom-binder-pages .master-binder-toolbar {
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--master-cover, #18213f), transparent 82%), transparent),
+    rgba(255, 255, 255, 0.56);
+}
+
+.custom-binder-page {
+  background:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--master-cover, #18213f), transparent 84%), transparent 36%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(230, 235, 248, 0.76)),
+    #eef3ff;
 }
 
 .binder-view-header h3 {
@@ -3155,6 +3286,8 @@ button {
     inset 0 0 0 1px rgba(18, 24, 39, 0.05),
     inset 10px 12px 30px rgba(255, 255, 255, 0.34),
     0 10px 22px rgba(18, 24, 39, 0.08);
+  overflow: hidden;
+  overflow-anchor: none;
 }
 
 .binder-slot::after {
@@ -3212,6 +3345,7 @@ button {
   position: relative;
   z-index: 1;
   display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
   gap: 7px;
   width: 100%;
   height: 100%;
@@ -3222,10 +3356,15 @@ button {
   cursor: pointer;
 }
 
+.binder-card-button .tilt-card-shell,
 .binder-card-button .tilt-card-frame,
+.binder-card-button .card-image-shell,
 .binder-card-button .foil-card {
   width: 100%;
+  height: 100%;
+  min-height: 0;
   max-width: 100%;
+  aspect-ratio: 0.716;
 }
 
 .binder-card-button span {
@@ -3366,6 +3505,64 @@ button {
   font-weight: 900;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+}
+
+.binder-import-modal {
+  width: min(100%, 540px);
+}
+
+.binder-theme-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.binder-theme-options button {
+  --swatch: #18213f;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid rgba(18, 24, 39, 0.1);
+  border-radius: 999px;
+  padding: 0 11px;
+  color: #344054;
+  background: white;
+  cursor: pointer;
+  font-family: var(--ui-condensed-font);
+  font-size: 0.88rem;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.binder-theme-options button span {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--swatch);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.36),
+    0 0 0 2px rgba(18, 24, 39, 0.08);
+}
+
+.binder-theme-options button.is-active {
+  color: white;
+  border-color: rgba(31, 90, 166, 0.3);
+  background: #1f5aa6;
+}
+
+.binder-import-preview {
+  display: grid;
+  place-items: center;
+  padding: 8px;
+  border-radius: 18px;
+  background: rgba(31, 90, 166, 0.08);
+}
+
+.binder-import-preview .binder-shelf-card {
+  width: min(100%, 320px);
+  min-height: 170px;
 }
 
 .binder-create-actions {
@@ -3789,10 +3986,10 @@ button {
 
 .master-binder-cover {
   --master-cover: #18213f;
-  width: min(100%, 780px);
-  min-height: 520px;
+  width: min(100%, 700px);
+  min-height: 430px;
   display: grid;
-  grid-template-columns: 82px minmax(0, 1fr);
+  grid-template-columns: 70px minmax(0, 1fr);
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 18px;
@@ -3808,7 +4005,7 @@ button {
 .master-binder-cover__spine {
   display: grid;
   align-content: center;
-  gap: 46px;
+  gap: 38px;
   border-right: 1px solid rgba(255, 255, 255, 0.16);
   padding: 34px 0;
   background:
@@ -3817,8 +4014,8 @@ button {
 }
 
 .master-binder-cover__spine span {
-  width: 42px;
-  height: 15px;
+  width: 36px;
+  height: 13px;
   margin: 0 auto;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.72);
@@ -3831,22 +4028,22 @@ button {
   display: grid;
   align-content: center;
   justify-items: center;
-  gap: 18px;
+  gap: 14px;
   min-width: 0;
-  padding: clamp(24px, 5vw, 56px);
+  padding: clamp(22px, 4vw, 42px);
   text-align: center;
 }
 
 .master-binder-cover .collection-logo {
-  max-width: min(100%, 360px);
-  max-height: 110px;
+  max-width: min(100%, 300px);
+  max-height: 92px;
   filter: drop-shadow(0 16px 24px rgba(0, 0, 0, 0.3));
 }
 
 .master-binder-cover h2 {
   margin: 0;
   font-family: var(--ui-condensed-font);
-  font-size: clamp(2rem, 5vw, 3.85rem);
+  font-size: clamp(1.9rem, 4vw, 3.25rem);
   line-height: 0.92;
   letter-spacing: 0.01em;
   text-transform: uppercase;
@@ -3942,17 +4139,21 @@ button {
 }
 
 .master-binder-pages {
+  --binder-spread-min-height: clamp(620px, 52vw, 780px);
   display: grid;
   gap: 16px;
   min-width: 0;
+  overflow-anchor: none;
 }
 
 .master-binder-toolbar {
   justify-content: space-between;
-  border: 1px solid rgba(18, 24, 39, 0.08);
+  border: 1px solid color-mix(in srgb, var(--master-cover, #18213f), transparent 74%);
   border-radius: 8px;
-  padding: 14px;
-  background: rgba(255, 255, 255, 0.7);
+  padding: 12px 14px;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--master-cover, #18213f), transparent 84%), transparent),
+    rgba(255, 255, 255, 0.7);
   box-shadow: 0 14px 34px rgba(18, 24, 39, 0.08);
 }
 
@@ -3964,7 +4165,7 @@ button {
 .master-binder-toolbar strong {
   color: #121827;
   font-family: var(--ui-condensed-font);
-  font-size: 1.4rem;
+  font-size: 1.25rem;
   line-height: 1;
   letter-spacing: 0.02em;
   text-transform: uppercase;
@@ -3997,32 +4198,48 @@ button {
 }
 
 .master-binder-spread {
+  width: 100%;
+  max-width: 560px;
+  min-height: var(--binder-spread-min-height);
+  margin-inline: auto;
   display: grid;
-  grid-template-columns: minmax(0, 0.76fr);
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
   justify-content: center;
   gap: 18px;
   min-width: 0;
+  overflow-anchor: none;
   perspective: 1500px;
 }
 
 .master-binder-spread.is-spread {
+  max-width: 1138px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (min-width: 781px) {
+  .master-binder-spread.is-single {
+    max-width: min(560px, calc((100% - 18px) / 2));
+  }
 }
 
 .master-binder-page {
   position: relative;
   display: grid;
-  gap: 12px;
+  gap: 10px;
+  align-content: start;
   min-width: 0;
   border: 1px solid rgba(18, 24, 39, 0.1);
   border-radius: 16px;
-  padding: 18px;
+  padding: 14px;
   background:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--master-cover, #18213f), transparent 86%), transparent 35%),
     linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(229, 236, 250, 0.72)),
     #eef3ff;
   box-shadow:
     0 22px 54px rgba(18, 24, 39, 0.14),
     inset 0 1px 0 rgba(255, 255, 255, 0.86);
+  overflow-anchor: none;
   animation: masterBinderSlide 220ms ease both;
 }
 
@@ -4036,6 +4253,7 @@ button {
 }
 
 .master-binder-page__label {
+  display: none;
   position: relative;
   z-index: 1;
   color: #667085;
@@ -4052,17 +4270,20 @@ button {
   z-index: 1;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(7px, 1vw, 12px);
+  gap: clamp(6px, 0.8vw, 10px);
+  overflow-anchor: none;
 }
 
 .master-binder-slot {
   position: relative;
   min-width: 0;
   display: grid;
-  gap: 7px;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 5px;
+  aspect-ratio: 0.66;
   border: 1px solid rgba(18, 24, 39, 0.12);
   border-radius: 10px;
-  padding: 8px;
+  padding: 6px;
   background:
     linear-gradient(145deg, rgba(255, 255, 255, 0.52), rgba(255, 255, 255, 0.2)),
     rgba(255, 255, 255, 0.42);
@@ -4070,6 +4291,8 @@ button {
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.42),
     0 8px 18px rgba(18, 24, 39, 0.08);
+  overflow: hidden;
+  overflow-anchor: none;
   text-align: left;
 }
 
@@ -4095,14 +4318,18 @@ button {
 }
 
 .master-binder-slot.is-empty {
-  min-height: 190px;
   cursor: default;
   opacity: 0.32;
 }
 
+.master-binder-slot .tilt-card-shell,
 .master-binder-slot .tilt-card-frame,
+.master-binder-slot .card-image-shell,
 .master-binder-slot .foil-card {
   width: 100%;
+  height: 100%;
+  min-height: 0;
+  aspect-ratio: 0.716;
 }
 
 .master-binder-slot .is-uncollected-preview {
@@ -4140,7 +4367,7 @@ button {
 }
 
 .master-binder-nav button {
-  min-height: 40px;
+  min-height: 38px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -4152,7 +4379,7 @@ button {
   background: #161b27;
   cursor: pointer;
   font-family: var(--ui-condensed-font);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 900;
   letter-spacing: 0.03em;
   text-transform: uppercase;
@@ -4173,6 +4400,17 @@ button {
   text-transform: uppercase;
 }
 
+.master-binder-toolbar__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.binder-master-view .master-binder-page-progress {
+  display: none;
+}
+
 @keyframes masterBinderSlide {
   from {
     opacity: 0;
@@ -4181,6 +4419,76 @@ button {
   to {
     opacity: 1;
     transform: translateX(0) rotateY(0);
+  }
+}
+
+@media (max-height: 950px) and (min-width: 900px) {
+  .binder-panel {
+    gap: 16px;
+  }
+
+  .master-binder-pages {
+    --binder-spread-min-height: clamp(620px, 48vw, 760px);
+  }
+
+  .binder-shelf {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+  }
+
+  .binder-shelf-card {
+    min-height: 184px;
+  }
+
+  .binder-shelf-card__body {
+    padding: 15px;
+  }
+
+  .binder-shelf-card strong {
+    font-size: 1.35rem;
+  }
+
+  .binder-book {
+    padding: 14px 14px 14px 46px;
+  }
+
+  .binder-page {
+    gap: 11px;
+  }
+
+  .binder-slot {
+    padding: 7px;
+  }
+
+  .master-binder-cover {
+    width: min(100%, 650px);
+    min-height: 380px;
+    grid-template-columns: 62px minmax(0, 1fr);
+  }
+
+  .master-binder-cover__content {
+    gap: 12px;
+    padding: 24px 34px;
+  }
+
+  .master-binder-cover .collection-logo {
+    max-height: 76px;
+  }
+
+  .master-binder-progress {
+    padding: 12px;
+  }
+
+  .master-binder-page {
+    padding: 12px;
+  }
+
+  .master-binder-slot {
+    padding: 5px;
+  }
+
+  .master-binder-card-meta em {
+    display: none;
   }
 }
 
@@ -4759,6 +5067,20 @@ button {
 
 :root[data-theme="dark"] .inspect-card {
   filter: drop-shadow(0 28px 44px rgba(0, 0, 0, 0.44));
+}
+
+:root[data-theme="dark"] .binder-shelf-card {
+  color: #f7f8ff;
+  border-color: rgba(255, 255, 255, 0.12);
+  background:
+    radial-gradient(circle at 72% 18%, rgba(255, 255, 255, 0.16), transparent 26%),
+    linear-gradient(135deg, color-mix(in srgb, var(--binder-theme), white 16%), color-mix(in srgb, var(--binder-theme), #050817 70%));
+}
+
+:root[data-theme="dark"] .binder-shelf-card span,
+:root[data-theme="dark"] .binder-shelf-card em,
+:root[data-theme="dark"] .binder-shelf-card__tag {
+  color: rgba(255, 255, 255, 0.72);
 }
 
 :root[data-theme="dark"] .welcome-reward-choice.is-selected {
@@ -5803,6 +6125,32 @@ button {
     justify-items: stretch;
   }
 
+  .binder-shelf {
+    grid-template-columns: 1fr;
+  }
+
+  .binder-shelf-card {
+    min-height: 170px;
+    grid-template-columns: 32px minmax(0, 1fr);
+  }
+
+  .binder-shelf-card__body {
+    padding: 14px;
+  }
+
+  .binder-shelf-card img {
+    width: 96px;
+    height: 42px;
+  }
+
+  .binder-shelf-card strong {
+    font-size: 1.25rem;
+  }
+
+  .binder-shelf-card .primary-button {
+    width: 100%;
+  }
+
   .binder-controls select,
   .binder-create-form input,
   .binder-create-form select,
@@ -5826,10 +6174,12 @@ button {
 
   .binder-book {
     padding: 14px 14px 14px 40px;
+    overflow: hidden;
   }
 
   .binder-page {
     gap: 10px;
+    min-width: 0;
   }
 
   .binder-slot {
@@ -5916,6 +6266,12 @@ button {
     width: 100%;
   }
 
+  .master-binder-toolbar__actions {
+    display: grid;
+    justify-items: stretch;
+    width: 100%;
+  }
+
   .master-binder-toolbar {
     padding: 11px;
   }
@@ -5928,6 +6284,7 @@ button {
   .master-binder-spread.is-spread {
     grid-template-columns: minmax(0, 1fr);
     gap: 12px;
+    min-height: clamp(460px, 145vw, 720px);
     width: 100%;
     max-width: 100%;
   }
@@ -5958,7 +6315,7 @@ button {
   }
 
   .master-binder-slot.is-empty {
-    min-height: 120px;
+    min-height: 0;
   }
 
   .master-binder-card-meta strong {

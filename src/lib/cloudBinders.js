@@ -18,7 +18,11 @@ function rowToBinder(row) {
     id: row.binder_id,
     name: row.name,
     tag: row.tag,
+    type: row.type,
+    setId: row.set_id,
+    theme: row.theme,
     createdAt: toTimestamp(row.created_at),
+    updatedAt: toTimestamp(row.updated_at),
     cards: sortCards(row.cards),
   });
 }
@@ -33,10 +37,25 @@ function binderToRow(userId, binder) {
     binder_id: normalized.id,
     name: normalized.name,
     tag: normalized.tag,
+    type: normalized.type,
+    set_id: normalized.setId,
+    theme: normalized.theme,
     cards: sortCards(normalized.cards),
     created_at: new Date(normalized.createdAt || Date.now()).toISOString(),
-    updated_at: new Date().toISOString(),
+    updated_at: new Date(normalized.updatedAt || Date.now()).toISOString(),
   };
+}
+
+function isMissingMetadataColumnError(error) {
+  const message = `${error?.message || ""} ${error?.details || ""}`;
+
+  return message.includes("type") || message.includes("set_id") || message.includes("theme");
+}
+
+function stripMetadataColumns(row) {
+  const { type, set_id, theme, ...legacyRow } = row;
+
+  return legacyRow;
 }
 
 function ensureClient(userId) {
@@ -48,11 +67,23 @@ export async function loadCloudBinders(userId) {
 
   const { data, error } = await supabase
     .from(USER_BINDERS_TABLE)
-    .select("binder_id, name, tag, cards, created_at, updated_at")
+    .select("binder_id, name, tag, type, set_id, theme, cards, created_at, updated_at")
     .eq("user_id", userId)
     .order("created_at", { ascending: false });
 
   if (error) {
+    if (isMissingMetadataColumnError(error)) {
+      const { data: legacyData, error: legacyError } = await supabase
+        .from(USER_BINDERS_TABLE)
+        .select("binder_id, name, tag, cards, created_at, updated_at")
+        .eq("user_id", userId)
+        .order("created_at", { ascending: false });
+
+      if (!legacyError) {
+        return (legacyData || []).map(rowToBinder).filter(Boolean);
+      }
+    }
+
     console.warn("Unable to load cloud binders", error);
     throw error;
   }
@@ -73,8 +104,21 @@ export async function saveCloudBinders(userId, binders) {
     });
 
     if (upsertError) {
-      console.warn("Unable to save cloud binders", upsertError);
-      throw upsertError;
+      if (isMissingMetadataColumnError(upsertError)) {
+        const { error: legacyUpsertError } = await supabase.from(USER_BINDERS_TABLE).upsert(rows.map(stripMetadataColumns), {
+          onConflict: "user_id,binder_id",
+        });
+
+        if (!legacyUpsertError) {
+          console.warn("Cloud binders saved without master-set metadata. Run supabase/user_binders_master_set_metadata.sql to persist binder types.");
+        } else {
+          console.warn("Unable to save cloud binders", legacyUpsertError);
+          throw legacyUpsertError;
+        }
+      } else {
+        console.warn("Unable to save cloud binders", upsertError);
+        throw upsertError;
+      }
     }
   }
 
@@ -119,6 +163,20 @@ export async function upsertCloudBinder(userId, binder) {
   });
 
   if (error) {
+    if (isMissingMetadataColumnError(error)) {
+      const { error: legacyError } = await supabase.from(USER_BINDERS_TABLE).upsert(stripMetadataColumns(row), {
+        onConflict: "user_id,binder_id",
+      });
+
+      if (!legacyError) {
+        console.warn("Cloud binder saved without master-set metadata. Run supabase/user_binders_master_set_metadata.sql to persist binder types.");
+        return normalizeBinder(binder);
+      }
+
+      console.warn("Unable to upsert cloud binder", legacyError);
+      throw legacyError;
+    }
+
     console.warn("Unable to upsert cloud binder", error);
     throw error;
   }

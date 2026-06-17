@@ -167,6 +167,7 @@ function CollectionPage({
   onOpenAuth,
   onOpenPacks,
   onBackToSets,
+  onOpenMasterSetBinder,
 }) {
   const [filter, setFilter] = useState("all");
   const [sortMode, setSortMode] = useState("number");
@@ -321,7 +322,7 @@ function CollectionPage({
             <button className="secondary-button" onClick={onBackToSets}>
               Return to Sets
             </button>
-            <button className="secondary-button" onClick={openMasterBinderCover} type="button">
+            <button className="secondary-button" onClick={() => (onOpenMasterSetBinder ? onOpenMasterSetBinder(set) : openMasterBinderCover())} type="button">
               <BookOpen size={20} aria-hidden="true" />
               View Master Set Binder
             </button>
@@ -400,31 +401,6 @@ function CollectionPage({
             </div>
           ) : (
             <div className="master-binder-pages">
-              <div className="master-binder-toolbar">
-                <div>
-                  <span className="set-mark">Master Set Binder</span>
-                  <strong>
-                    Page {visibleMasterPageNumbers} of {masterPageCount}
-                  </strong>
-                  <em>{masterMissingCount} missing cards</em>
-                </div>
-                <button className="secondary-button" onClick={() => setIsMasterBinderOpen(false)} type="button">
-                  Binder Cover
-                </button>
-              </div>
-
-              <div className="master-binder-page-progress">
-                <div className="collection-progress-copy">
-                  <strong>
-                    {progress.collected} / {progress.total}
-                  </strong>
-                  <span>{progress.percent}% complete</span>
-                </div>
-                <div className="collection-progress-bar" aria-hidden="true">
-                  <span style={{ width: `${progress.percent}%` }} />
-                </div>
-              </div>
-
               <div className={`master-binder-spread ${visibleMasterPages.length > 1 ? "is-spread" : "is-single"}`}>
                 {(visibleMasterPages.length > 0 ? visibleMasterPages : [[]]).map((pageCards, spreadIndex) => {
                   const pageNumber = masterBinderPage + spreadIndex + 1;

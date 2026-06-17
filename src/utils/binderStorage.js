@@ -27,11 +27,17 @@ export function normalizeBinderCard(item) {
 export function normalizeBinder(binder) {
   if (!binder?.id) return null;
 
+  const type = binder.type === "master_set" ? "master_set" : "custom";
+
   return {
     id: String(binder.id),
     name: String(binder.name || "Untitled Binder").trim() || "Untitled Binder",
     tag: String(binder.tag || "Favorites").trim() || "Favorites",
+    type,
+    setId: binder.setId || binder.set_id || null,
+    theme: String(binder.theme || "midnight").trim() || "midnight",
     createdAt: binder.createdAt || Date.now(),
+    updatedAt: binder.updatedAt || binder.updated_at || binder.createdAt || Date.now(),
     cards: Array.isArray(binder.cards) ? binder.cards.map(normalizeBinderCard).filter(Boolean) : [],
   };
 }
@@ -72,14 +78,42 @@ export function getBinderCardKey(card, setId) {
   return `${setId}::${getCardCollectionKey(card, setId)}`;
 }
 
-export function createBinder({ name, tag }) {
+export function createBinder({ name, tag, theme = "midnight" }) {
+  const createdAt = Date.now();
+
   return {
     id: makeBinderId(),
     name: String(name || "New Binder").trim() || "New Binder",
     tag: String(tag || "Favorites").trim() || "Favorites",
-    createdAt: Date.now(),
+    type: "custom",
+    setId: null,
+    theme: String(theme || "midnight").trim() || "midnight",
+    createdAt,
+    updatedAt: createdAt,
     cards: [],
   };
+}
+
+export function createMasterSetBinder(set, theme = "midnight") {
+  if (!set?.id) return null;
+
+  const createdAt = Date.now();
+
+  return {
+    id: `master-set-${set.id}`,
+    name: `${set.name} Master Set`,
+    tag: "Master Set",
+    type: "master_set",
+    setId: set.id,
+    theme,
+    createdAt,
+    updatedAt: createdAt,
+    cards: [],
+  };
+}
+
+export function isMasterSetBinder(binder) {
+  return binder?.type === "master_set" && Boolean(binder.setId);
 }
 
 export function loadBinders() {
@@ -133,6 +167,7 @@ export function addCardToBinder(binders, binderId, card, setId, timestamp = Date
 
     return {
       ...binder,
+      updatedAt: timestamp,
       cards: [
         ...binder.cards,
         {
@@ -152,10 +187,16 @@ export function removeCardFromBinder(binders, binderId, card, setId) {
   const key = getBinderCardKey(card, setId);
 
   return binders.map((binder) =>
-    binder.id === binderId ? { ...binder, cards: binder.cards.filter((item) => item.key !== key) } : binder
+    binder.id === binderId ? { ...binder, updatedAt: Date.now(), cards: binder.cards.filter((item) => item.key !== key) } : binder
   );
 }
 
 export function clearBinderCards(binders, binderId) {
-  return binders.map((binder) => (binder.id === binderId ? { ...binder, cards: [] } : binder));
+  return binders.map((binder) => (binder.id === binderId ? { ...binder, updatedAt: Date.now(), cards: [] } : binder));
+}
+
+export function updateBinderTheme(binders, binderId, theme) {
+  return binders.map((binder) =>
+    binder.id === binderId ? { ...binder, theme: String(theme || "midnight"), updatedAt: Date.now() } : binder
+  );
 }

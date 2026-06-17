@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { X } from "lucide-react";
 import FoilCard from "./FoilCard.jsx";
 import { getDisplayCardName } from "../utils/packGenerator.js";
-import { isCardInBinder } from "../utils/binderStorage.js";
+import { isCardInBinder, isMasterSetBinder } from "../utils/binderStorage.js";
 
 function CardDetailModal({
   card,
@@ -20,17 +20,18 @@ function CardDetailModal({
   const displayName = getDisplayCardName(card, set);
   const canUseBinder = showBinderControl && collected;
   const hasStatus = !collected || count > 1;
+  const manualBinders = useMemo(() => binders.filter((binder) => !isMasterSetBinder(binder)), [binders]);
   const selectedBinder = useMemo(
-    () => binders.find((binder) => binder.id === selectedBinderId) || binders[0] || null,
-    [binders, selectedBinderId]
+    () => manualBinders.find((binder) => binder.id === selectedBinderId) || manualBinders[0] || null,
+    [manualBinders, selectedBinderId]
   );
   const selectedCardInBinder = selectedBinder && card ? isCardInBinder(selectedBinder, card, set.id) : false;
 
   useEffect(() => {
-    if (!selectedBinderId && binders[0]) {
-      setSelectedBinderId(binders[0].id);
+    if (!selectedBinderId && manualBinders[0]) {
+      setSelectedBinderId(manualBinders[0].id);
     }
-  }, [binders, selectedBinderId]);
+  }, [manualBinders, selectedBinderId]);
 
   if (!card) return null;
 
@@ -60,14 +61,14 @@ function CardDetailModal({
         {collected && count > 1 && <div className="inspect-status">Collected x{count}</div>}
         {canUseBinder && (
           <div className={`inspect-binder-control ${hasStatus ? "" : "is-primary-action"}`.trim()}>
-            {binders.length > 0 ? (
+            {manualBinders.length > 0 ? (
               <>
                 <select
                   value={selectedBinder?.id || ""}
                   onChange={(event) => setSelectedBinderId(event.target.value)}
                   aria-label="Choose binder"
                 >
-                  {binders.map((binder) => (
+                  {manualBinders.map((binder) => (
                     <option key={binder.id} value={binder.id}>
                       {binder.name}
                     </option>
