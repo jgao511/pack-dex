@@ -189,6 +189,54 @@ export async function upsertCardsForUser(admin: ReturnType<typeof createClient>,
   return rows;
 }
 
+export async function incrementProfileStatsForUser(
+  admin: ReturnType<typeof createClient>,
+  userId: string,
+  stats: { packsOpened?: number; totalCardsPulled?: number },
+) {
+  const packsOpened = Number(stats.packsOpened || 0);
+  const totalCardsPulled = Number(stats.totalCardsPulled || 0);
+
+  const { data: existingStats, error: loadError } = await admin
+    .from("user_profile_stats")
+    .select("packs_opened,total_cards_pulled")
+    .eq("user_id", userId)
+    .maybeSingle();
+
+  if (loadError) {
+    throw {
+      ...loadError,
+      packdexStep: "load_profile_stats",
+      userId,
+    };
+  }
+
+  const nextStats = {
+    user_id: userId,
+    packs_opened: Number(existingStats?.packs_opened || 0) + packsOpened,
+    total_cards_pulled: Number(existingStats?.total_cards_pulled || 0) + totalCardsPulled,
+  };
+
+  const { data, error } = await admin
+    .from("user_profile_stats")
+    .upsert(nextStats, { onConflict: "user_id" })
+    .select("packs_opened,total_cards_pulled")
+    .single();
+
+  if (error) {
+    throw {
+      ...error,
+      packdexStep: "upsert_profile_stats",
+      userId,
+    };
+  }
+
+  return {
+    packsOpened: Number(data?.packs_opened || 0),
+    totalCardsPulled: Number(data?.total_cards_pulled || 0),
+  };
+}
+
 export function formatErrorForResponse(error: unknown) {
   if (error instanceof Error) {
     return {
