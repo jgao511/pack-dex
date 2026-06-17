@@ -71,7 +71,7 @@ const POKEBALL_LOADING_SRC = getPokeballLoadingUrl();
 const SUPPORT_EMAIL = "packdexsupport@gmail.com";
 const GUEST_WELCOME_BETA_SEEN_KEY = "packdex_guest_welcome_beta_seen";
 const USER_WELCOME_BETA_SEEN_KEY_PREFIX = "packdex_welcome_beta_seen_";
-const PACK_STATS_STORAGE_KEY = "packdex-profile-stats";
+const LEGACY_PROFILE_STATS_STORAGE_KEYS = ["packdex-profile-stats"];
 const THEME_STORAGE_KEY = "packdex-theme";
 const COLLECTION_DASHBOARD_PAGE_SIZE = 60;
 const BINDER_PAGE_SIZE = 9;
@@ -214,15 +214,19 @@ function WelcomeBetaModal({ isOpen, onDismiss }) {
         </div>
         <div className="welcome-beta-copy">
           <p>
-            PackDex is still heavily in beta, so you may run into occasional bugs, rough edges, or features that change
-            over time.
+            Welcome to PackDex! PackDex is currently in beta, so you may still notice small bugs, layout changes, or
+            slower image loading while we continue improving the site.
           </p>
           <p>
-            <strong>Card images may also load slowly the first few times you open packs.</strong> This is normal. Once
-            your browser caches the images, packs and card previews should get faster.
+            Card images may load slowly the first few times you open a pack, but they should get faster as your browser
+            caches them.
           </p>
           <p>
-            If you notice any issues or have feedback, contact support at{" "}
+            We recently reset early beta collection data to fix account saving issues and give testers a clean start.
+            Thanks for helping test PackDex while it improves.
+          </p>
+          <p>
+            For support or bug reports, contact{" "}
             <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
           </p>
         </div>
@@ -232,23 +236,6 @@ function WelcomeBetaModal({ isOpen, onDismiss }) {
       </div>
     </div>
   );
-}
-
-function loadProfileStats() {
-  if (typeof window === "undefined") {
-    return { packsOpened: 0, recentSets: [] };
-  }
-
-  try {
-    const parsed = JSON.parse(window.localStorage.getItem(PACK_STATS_STORAGE_KEY));
-
-    return {
-      packsOpened: Number(parsed?.packsOpened || 0),
-      recentSets: Array.isArray(parsed?.recentSets) ? parsed.recentSets : [],
-    };
-  } catch {
-    return { packsOpened: 0, recentSets: [] };
-  }
 }
 
 function hasCollectionEntries(collection) {
@@ -281,22 +268,12 @@ function pushAppHistory(state) {
   );
 }
 
-function saveProfileStats(stats) {
+function removeLegacyProfileStatsStorage() {
   if (typeof window === "undefined") return;
 
-  window.localStorage.setItem(PACK_STATS_STORAGE_KEY, JSON.stringify(stats));
-}
-
-function updatePackOpenedStats(stats, set) {
-  const recentSets = [
-    { id: set.id, name: set.name, openedAt: Date.now() },
-    ...(stats.recentSets || []).filter((recentSet) => recentSet.id !== set.id),
-  ].slice(0, 5);
-
-  return {
-    packsOpened: (stats.packsOpened || 0) + 1,
-    recentSets,
-  };
+  LEGACY_PROFILE_STATS_STORAGE_KEYS.forEach((key) => {
+    window.localStorage.removeItem(key);
+  });
 }
 
 function getCollectedCards(collection) {
@@ -1640,7 +1617,6 @@ function WelcomeRewardProfileCard({ rewardStatus, onClaim }) {
 
 function ProfilePage({
   collection,
-  profileStats,
   user,
   welcomeRewardStatus,
   onOpenAuth,
@@ -1666,24 +1642,32 @@ function ProfilePage({
 
       {user && <WelcomeRewardProfileCard rewardStatus={welcomeRewardStatus} onClaim={onOpenWelcomeReward} />}
 
-      <div className="profile-stat-grid">
-        <article>
-          <span>Total Cards</span>
-          <strong>{totalCards}</strong>
-        </article>
-        <article>
-          <span>Unique Cards</span>
-          <strong>{uniqueCards}</strong>
-        </article>
-        <article>
-          <span>Packs Opened</span>
-          <strong>{profileStats.packsOpened || 0}</strong>
-        </article>
-        <article>
-          <span>Completed Sets</span>
-          <strong>{completedSets}</strong>
-        </article>
-      </div>
+      {user ? (
+        <>
+          <div className="profile-stat-grid">
+            <article>
+              <span>Total Cards</span>
+              <strong>{totalCards}</strong>
+            </article>
+            <article>
+              <span>Unique Cards</span>
+              <strong>{uniqueCards}</strong>
+            </article>
+            <article>
+              <span>Completed Sets</span>
+              <strong>{completedSets}</strong>
+            </article>
+          </div>
+          <div className="profile-stats-note">
+            Pack opening stats are temporarily hidden while account-based stats are rebuilt for beta.
+          </div>
+        </>
+      ) : (
+        <div className="empty-state">
+          <h2>Sign in to track your PackDex stats.</h2>
+          <p>Guest pulls stay local on this browser, but account stats will not use browser-local pack counts.</p>
+        </div>
+      )}
     </section>
   );
 }
@@ -1811,7 +1795,6 @@ function App() {
   const [pulledCards, setPulledCards] = useState([]);
   const [collection, setCollection] = useState(() => loadCollection());
   const [binders, setBinders] = useState(() => loadBinders());
-  const [profileStats, setProfileStats] = useState(() => loadProfileStats());
   const [authSession, setAuthSession] = useState(null);
   const [isAuthLoading, setIsAuthLoading] = useState(isSupabaseConfigured);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -1832,6 +1815,10 @@ function App() {
   const shownWelcomeRewardUserRef = useRef("");
   const isPackFlow = activeTab === "open" && ["opening", "reveal", "summary"].includes(screen);
   const authUser = authSession?.user || null;
+
+  useEffect(() => {
+    removeLegacyProfileStatsStorage();
+  }, []);
 
   useEffect(() => {
     preloadImage(CARD_BACK_URL, {
@@ -2124,12 +2111,6 @@ function App() {
     markPackGenerationComplete(selectedSet, nextPack, generationStart);
 
     setPulledCards(nextPack);
-    setProfileStats((currentStats) => {
-      const nextStats = updatePackOpenedStats(currentStats, selectedSet);
-
-      saveProfileStats(nextStats);
-      return nextStats;
-    });
     setScreen("reveal");
   }
 
@@ -2146,12 +2127,6 @@ function App() {
     markPackGenerationComplete(selectedSet, nextPack, generationStart);
 
     setPulledCards(nextPack);
-    setProfileStats((currentStats) => {
-      const nextStats = updatePackOpenedStats(currentStats, selectedSet);
-
-      saveProfileStats(nextStats);
-      return nextStats;
-    });
     setScreen("reveal");
     setIsTabLoading(false);
   }
@@ -2300,12 +2275,6 @@ function App() {
       setScreen("reveal");
       setIsTabLoading(false);
       resetPageScroll();
-      setProfileStats((currentStats) => {
-        const nextStats = updatePackOpenedStats(currentStats, choice.set);
-
-        saveProfileStats(nextStats);
-        return nextStats;
-      });
     } catch (error) {
       console.warn("Welcome reward claim failed", error);
       setWelcomeRewardError(error?.message || "Could not open your welcome reward. Please try again.");
@@ -2451,7 +2420,6 @@ function App() {
       {activeTab === "profile" && (
         <ProfilePage
           collection={collection}
-          profileStats={profileStats}
           user={authUser}
           welcomeRewardStatus={welcomeRewardStatus}
           onOpenAuth={openAuthModal}

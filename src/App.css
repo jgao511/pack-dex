@@ -2843,7 +2843,7 @@ button {
 
 .profile-stat-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
 }
 
@@ -2872,6 +2872,19 @@ button {
   font-size: 2.4rem;
   font-weight: 800;
   line-height: 1;
+}
+
+.profile-stats-note {
+  border: 1px solid rgba(31, 90, 166, 0.14);
+  border-radius: 12px;
+  padding: 12px 14px;
+  color: #475467;
+  background: rgba(255, 255, 255, 0.68);
+  font-family: var(--card-text-font);
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-align: center;
+  box-shadow: 0 12px 28px rgba(18, 24, 39, 0.08);
 }
 
 .binder-panel {
@@ -4543,6 +4556,7 @@ button {
 :root[data-theme="dark"] .pull-card,
 :root[data-theme="dark"] .set-tile-button,
 :root[data-theme="dark"] .profile-stat-grid article,
+:root[data-theme="dark"] .profile-stats-note,
 :root[data-theme="dark"] .auth-reward-callout,
 :root[data-theme="dark"] .binder-create-modal,
 :root[data-theme="dark"] .binder-add-modal,
@@ -4611,6 +4625,7 @@ button {
 :root[data-theme="dark"] .reset-password-screen p,
 :root[data-theme="dark"] .auth-callback-screen p,
 :root[data-theme="dark"] .profile-stat-grid span,
+:root[data-theme="dark"] .profile-stats-note,
 :root[data-theme="dark"] .collection-progress-copy span,
 :root[data-theme="dark"] .collection-card-meta span,
 :root[data-theme="dark"] .pull-card p,
