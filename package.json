@@ -6,6 +6,7 @@
     "verify:set-logos": "node scripts/verify-set-logos.mjs",
     "test:pack-rates": "node scripts/pack-rate-validator.mjs",
     "test:pack-rates:deep": "node scripts/pack-rate-validator.mjs --deep",
+    "audit:vintage": "node scripts/audit-vintage-sets.mjs",
     "check-randomness": "node scripts/check-randomness.js",
     "audit-rarities": "node scripts/audit-rarities.mjs",
     "organize-assets": "node scripts/organize-assets.js",
