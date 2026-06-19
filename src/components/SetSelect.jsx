@@ -6,14 +6,38 @@ import { getSetCollectionProgress } from "../utils/collectionStorage.js";
 import { preloadStaticOpenPackAssets } from "../utils/staticOpenPackAssets.js";
 
 const ALL_ERAS = "All Eras";
-const ERA_ORDER = ["Pokemon 30th Anniversary", "Scarlet & Violet", "Mega Evolution", "Sword & Shield", "Sun & Moon", "XY", "Other"];
+const ERA_ORDER = [
+  "Pokemon 30th Anniversary",
+  "Mega Evolution",
+  "Scarlet & Violet",
+  "Sword & Shield",
+  "Sun & Moon",
+  "XY",
+  "Black & White",
+  "HeartGold & SoulSilver",
+  "Platinum",
+  "Diamond & Pearl",
+  "EX",
+  "e-Card / Late WOTC",
+  "Neo",
+  "Wizards Vintage",
+  "Other",
+];
 const ERA_LOGO_SET_IDS = {
   "Pokemon 30th Anniversary": "30th-anniversary",
-  "Scarlet & Violet": "scarlet-violet",
   "Mega Evolution": "mega-evolution",
+  "Scarlet & Violet": "scarlet-violet",
   "Sword & Shield": "sword-shield",
   "Sun & Moon": "sun-moon",
   XY: "xy1",
+  "Black & White": "black-white",
+  "HeartGold & SoulSilver": "heartgold-soulsilver",
+  Platinum: "platinum",
+  "Diamond & Pearl": "diamond-pearl",
+  EX: "ex-ruby-sapphire",
+  "e-Card / Late WOTC": "expedition-base-set",
+  Neo: "neo-genesis",
+  "Wizards Vintage": "base-set",
 };
 
 function getReleaseTime(set) {

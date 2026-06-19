@@ -1,6 +1,7 @@
 import { hardcodedPullRates } from "../data/hardcodedPullRates.js";
 import { defaultPullRateProfile, pullRateProfiles } from "../data/pullRateProfiles.js";
 import { THIRTIETH_ANNIVERSARY_PACK_CONFIG } from "../data/special-sets/30th-anniversary/30thAnniversaryRates.js";
+import { getVintagePackRule, isVintageSet } from "../data/vintagePackRules.js";
 
 const PACK_SLOTS = {
   commons: 4,
@@ -1230,6 +1231,10 @@ function getExperienceTunedFinalSlotWeights(set = {}) {
 }
 
 function getPackSize(set = {}) {
+  const vintageRule = getVintagePackRule(set);
+
+  if (vintageRule) return vintageRule.packSize;
+
   const profile = getPullRateProfile(set);
   const setId = normalizeSetId(set);
 
@@ -1735,8 +1740,53 @@ function buildPools(cards, set = {}) {
   };
 }
 
+function buildVintagePools(cards, set = {}) {
+  const cleanCards = cards
+    .filter((card) => !isCodeCard(card))
+    .map((card) => ({
+      ...card,
+      rarityCategory: getRarityCategory(card, set),
+      subsetType: getSubsetType(card, set),
+    }));
+  const rule = getVintagePackRule(set) || {};
+  const basicEnergyFileNames = new Set(rule.basicEnergyFileNames || []);
+  const isForcedBasicEnergy = (card) => basicEnergyFileNames.has(card.fileName || card.imageFileName || card.filename);
+  const isRadiantCollection = (card) => isRadiantCollectionCard(card);
+  const mainCards = cleanCards.filter((card) => !(rule.type === "legendaryTreasures" && isRadiantCollection(card)));
+  const nonForcedMainCards = mainCards.filter((card) => !isForcedBasicEnergy(card));
+  const regularSlotCategories = new Set(["common", "uncommon", "rare", "holoRare"]);
+  const finalSlotCategories = new Set(["rare", "holoRare", "ultraRare", "secretRare"]);
+
+  return {
+    cleanCards,
+    mainCards,
+    commonPool: nonForcedMainCards.filter((card) => card.rarityCategory === "common"),
+    uncommonPool: nonForcedMainCards.filter((card) => card.rarityCategory === "uncommon"),
+    basicEnergyPool: cleanCards.filter((card) => isForcedBasicEnergy(card)),
+    reverseSlotPool: nonForcedMainCards.filter((card) => regularSlotCategories.has(card.rarityCategory)),
+    finalSlotPool: mainCards.filter((card) => finalSlotCategories.has(card.rarityCategory)),
+    nonHoloRarePool: mainCards.filter((card) => card.rarityCategory === "rare"),
+    holoOrChaseRarePool: mainCards.filter((card) => ["holoRare", "ultraRare", "secretRare"].includes(card.rarityCategory)),
+    radiantCollectionPool: cleanCards.filter(isRadiantCollection),
+  };
+}
+
 export function getPackPools(cardsOrSet, maybeSet) {
   const { cards, set } = getCardsAndSet(cardsOrSet, maybeSet);
+  if (isVintageSet(set)) {
+    const pools = buildVintagePools(cards, set);
+
+    return {
+      commonPool: pools.commonPool,
+      uncommonPool: pools.uncommonPool,
+      reverseSlotPool: pools.reverseSlotPool,
+      finalSlotPool: pools.finalSlotPool,
+      subsetPool: pools.radiantCollectionPool,
+      mainCards: pools.mainCards,
+      cleanCards: pools.cleanCards,
+    };
+  }
+
   const pools = buildPools(cards, set);
 
   return {
@@ -1988,6 +2038,25 @@ function hasXYFinalRareCard(pools, set = {}) {
 
 export function canGeneratePack(cardsOrSet, maybeSet) {
   const { cards, set } = getCardsAndSet(cardsOrSet, maybeSet);
+  const vintageRule = getVintagePackRule(set);
+
+  if (vintageRule) {
+    const pools = buildVintagePools(cards, set);
+
+    if (vintageRule.type === "dragonVault") {
+      return pools.cleanCards.length >= vintageRule.packSize && pools.finalSlotPool.length >= vintageRule.rareSlots;
+    }
+
+    return (
+      pools.commonPool.length >= (vintageRule.commonSlots || 0) &&
+      pools.basicEnergyPool.length >= (vintageRule.basicEnergySlots || 0) &&
+      pools.uncommonPool.length >= (vintageRule.uncommonSlots || 0) &&
+      pools.reverseSlotPool.length >= (vintageRule.reverseSlots || 0) &&
+      pools.radiantCollectionPool.length >= (vintageRule.radiantCollectionSlots || 0) &&
+      pools.finalSlotPool.length >= (vintageRule.rareSlots || 1)
+    );
+  }
+
   const pools = buildPools(cards, set);
   const finalRareSlotPool = getFinalRareSlotPool(pools, set);
 
@@ -2082,6 +2151,66 @@ function generateSpecialPreviewPack(set, pools, profile, usedIds) {
   }
 
   return finalizeNormalPack(pack.slice(0, config.packSize), pools, set);
+}
+
+function pickVintageRareSlot(pools, rule, set, usedIds) {
+  const holoPool = pools.holoOrChaseRarePool.filter((card) => !usedIds.has(card.id));
+  const rarePool = pools.nonHoloRarePool.filter((card) => !usedIds.has(card.id));
+  const finalPool = pools.finalSlotPool.filter((card) => !usedIds.has(card.id));
+  const shouldPickHolo = holoPool.length > 0 && Math.random() < (rule.holoChance || 0);
+  const preferredPool = shouldPickHolo ? holoPool : rarePool;
+
+  return pickRandom(preferredPool.length > 0 ? preferredPool : finalPool, 1, usedIds)[0];
+}
+
+function generateVintagePack(set, rule, usedIds = new Set()) {
+  const pools = buildVintagePools(set.cards || [], set);
+  const commonCards = pickRandom(pools.commonPool, rule.commonSlots || 0, usedIds);
+  const basicEnergyCards = pickRandom(pools.basicEnergyPool, rule.basicEnergySlots || 0, usedIds);
+  const uncommonCards = pickRandom(pools.uncommonPool, rule.uncommonSlots || 0, usedIds);
+  const reverseCards = pickRandom(pools.reverseSlotPool, rule.reverseSlots || 0, usedIds);
+  const radiantCards =
+    rule.radiantCollectionSlots > 0
+      ? pickRandom(pools.radiantCollectionPool, rule.radiantCollectionSlots, usedIds)
+      : [];
+  const rareCard = pickVintageRareSlot(pools, rule, set, usedIds);
+
+  if (rule.type === "dragonVault") {
+    const regularCards = pickRandom(pools.cleanCards, rule.regularSlots || 4, usedIds);
+    const finalCard = pickVintageRareSlot(pools, rule, set, usedIds);
+    const pack = [...regularCards, ...(finalCard ? [finalCard] : [])];
+
+    if (pack.length !== rule.packSize) {
+      warnMissingPools(set, {
+        regularCards: regularCards.length === (rule.regularSlots || 4),
+        finalSlot: Boolean(finalCard),
+      });
+    }
+
+    return pack.slice(0, rule.packSize);
+  }
+
+  const pack = [
+    ...commonCards,
+    ...basicEnergyCards,
+    ...uncommonCards,
+    ...reverseCards,
+    ...radiantCards,
+    ...(rareCard ? [rareCard] : []),
+  ];
+
+  if (pack.length !== rule.packSize) {
+    warnMissingPools(set, {
+      commonCards: commonCards.length === (rule.commonSlots || 0),
+      basicEnergyCards: basicEnergyCards.length === (rule.basicEnergySlots || 0),
+      uncommonCards: uncommonCards.length === (rule.uncommonSlots || 0),
+      reverseSlots: reverseCards.length === (rule.reverseSlots || 0),
+      radiantCollectionSlots: radiantCards.length === (rule.radiantCollectionSlots || 0),
+      finalSlot: Boolean(rareCard),
+    });
+  }
+
+  return pack.slice(0, rule.packSize);
 }
 
 function pickXYUncommons(pools, set = {}, usedIds = new Set()) {
@@ -2437,6 +2566,12 @@ function generateGodPack(set, pools, profile, config, forcedFormat) {
 }
 
 function generateNormalPack(set, pools, profile, usedIds) {
+  const vintageRule = getVintagePackRule(set);
+
+  if (vintageRule) {
+    return generateVintagePack(set, vintageRule, usedIds);
+  }
+
   if (isSpecialPreviewSet(set)) {
     return generateSpecialPreviewPack(set, pools, profile, usedIds);
   }
