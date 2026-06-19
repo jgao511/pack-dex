@@ -68,6 +68,7 @@ import xy10Cards from "./xy10.json" with { type: "json" };
 import xy11Cards from "./xy11.json" with { type: "json" };
 import xy12Cards from "./xy12.json" with { type: "json" };
 import xySetConfig from "./xySetConfig.json" with { type: "json" };
+import vintageSetsData from "./vintageSets.json" with { type: "json" };
 import { thirtiethAnniversarySetDefinition } from "./special-sets/30th-anniversary/30thAnniversarySet.js";
 
 const pullRateProfilesBySet = {
@@ -252,6 +253,10 @@ function getEraForSet(id, metadata = {}) {
     return "Sword & Shield";
   }
 
+  if (metadata.vintage) {
+    return metadata.era || "Vintage";
+  }
+
   return "Sun & Moon";
 }
 
@@ -281,6 +286,9 @@ export const sets = [
     thirtiethAnniversarySetDefinition.cards,
     thirtiethAnniversarySetDefinition.metadata
   ),
+
+  // Vintage
+  ...vintageSetsData.map((set) => createSet(set.id, set.name, set.cards, set)),
 
   // XY
   createSet("xy0", xySetConfig.xy0.name, xy0Cards, xySetConfig.xy0),
