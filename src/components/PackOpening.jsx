@@ -1,5 +1,6 @@
 import { Library, PackageOpen } from "lucide-react";
 import { useEffect, useState } from "react";
+import AccountSaveNotice from "./AccountSaveNotice.jsx";
 import { getCardBackUrl, getRemoteSetLogoUrl, getSetLogoUrl, getSetPackArtUrl } from "../utils/assetUrls.js";
 import { markIdleCardBackLoad, markIdleCardBackRenderStart } from "../utils/cardBackDebug.js";
 import { markOpenPackClick } from "../utils/imageDebug.js";
@@ -29,7 +30,7 @@ function SetLogo({ set }) {
   );
 }
 
-function PackOpening({ set, onOpened, onBackToSets, onViewCollection, isOpening = false }) {
+function PackOpening({ set, onOpened, onBackToSets, onViewCollection, user = null, onOpenAuth, isOpening = false }) {
   const [packArtFailed, setPackArtFailed] = useState(false);
   const cardBack = getCardBackUrl();
   const packArt = getSetPackArtUrl(set);
@@ -80,6 +81,13 @@ function PackOpening({ set, onOpened, onBackToSets, onViewCollection, isOpening 
           {isOpening && <span className="pack-loading-pill">Opening your pack...</span>}
         </button>
       </div>
+      {!user && (
+        <AccountSaveNotice
+          className="opening-save-notice"
+          onOpenAuth={onOpenAuth}
+          message="before opening packs to save your pulls and progress."
+        />
+      )}
       <div className="screen-actions">
         <button className="secondary-button" onClick={onBackToSets} disabled={isOpening}>
           Back to Sets

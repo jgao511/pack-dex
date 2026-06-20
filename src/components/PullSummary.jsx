@@ -1,11 +1,22 @@
 import { useEffect, useState } from "react";
 import { Library, RotateCcw } from "lucide-react";
+import AccountSaveNotice from "./AccountSaveNotice.jsx";
 import CardDetailModal from "./CardDetailModal.jsx";
 import FoilCard from "./FoilCard.jsx";
 import { getCardCount } from "../utils/collectionStorage.js";
 import { getDisplayCardName, getDisplayRarity } from "../utils/packGenerator.js";
 
-function PullSummary({ cards, set, collection, onOpenAnother, onBackToSets, onViewCollection, isOpeningAnother = false }) {
+function PullSummary({
+  cards,
+  set,
+  collection,
+  user = null,
+  onOpenAuth,
+  onOpenAnother,
+  onBackToSets,
+  onViewCollection,
+  isOpeningAnother = false,
+}) {
   const [inspectedCard, setInspectedCard] = useState(null);
 
   useEffect(() => {
@@ -80,6 +91,14 @@ function PullSummary({ cards, set, collection, onOpenAnother, onBackToSets, onVi
           </article>
         ))}
       </div>
+
+      {!user && (
+        <AccountSaveNotice
+          className="summary-save-notice"
+          onOpenAuth={onOpenAuth}
+          message="before opening packs to save your pulls and progress."
+        />
+      )}
 
       {inspectedCard && (
         <CardDetailModal

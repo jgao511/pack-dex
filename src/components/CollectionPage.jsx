@@ -1,5 +1,6 @@
 import { BookOpen, ChevronLeft, ChevronRight, PackageOpen, Search } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
+import AccountSaveNotice from "./AccountSaveNotice.jsx";
 import CardDetailModal from "./CardDetailModal.jsx";
 import FoilCard from "./FoilCard.jsx";
 import { getRemoteSetLogoUrl, getSetLogoUrl } from "../utils/assetUrls.js";
@@ -334,18 +335,7 @@ function CollectionPage({
         </div>
       </header>
 
-      {!user && (
-        <div className="auth-save-notice">
-          <button type="button" onClick={onOpenAuth}>
-            Log in
-          </button>{" "}
-          or{" "}
-          <button type="button" onClick={onOpenAuth}>
-            create an account
-          </button>{" "}
-          to save your pulls across devices.
-        </div>
-      )}
+      {!user && <AccountSaveNotice onOpenAuth={onOpenAuth} message="to save your pulls across devices." />}
 
       {viewMode === "masterBinder" ? (
         <section className="master-binder-view">

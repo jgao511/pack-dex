@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Mail } from "lucide-react";
 import PackOpening from "./components/PackOpening.jsx";
+import AccountSaveNotice from "./components/AccountSaveNotice.jsx";
 import AuthPanel, { AuthModal } from "./components/AuthPanel.jsx";
 import CardReveal from "./components/CardReveal.jsx";
 import CardDetailModal from "./components/CardDetailModal.jsx";
@@ -379,31 +380,7 @@ function chunkItems(items, size) {
 }
 
 function AuthSaveNotice({ onOpenAuth }) {
-  return (
-    <div className="auth-save-notice">
-      <button type="button" onClick={onOpenAuth}>
-        Log in
-      </button>{" "}
-      or{" "}
-      <button type="button" onClick={onOpenAuth}>
-        create an account
-      </button>{" "}
-      to save your collection and binders across devices.
-    </div>
-  );
-}
-
-function GuestSignupNotice({ user, onOpenAuth }) {
-  if (user) return null;
-
-  return (
-    <aside className="guest-signup-notice" aria-label="Create a PackDex account">
-      <button type="button" onClick={onOpenAuth}>
-        Sign up / Log in
-      </button>
-      <span>to save your collection across devices.</span>
-    </aside>
-  );
+  return <AccountSaveNotice onOpenAuth={onOpenAuth} message="to save your collection and binders across devices." />;
 }
 
 function LegalPage({ type }) {
@@ -3003,12 +2980,6 @@ function App() {
         </div>
       )}
 
-      {activeTab === "open" && screen === "home" && !authUser && (
-        <section className="home-brand-hero" aria-label="PackDex">
-          <GuestSignupNotice user={authUser} onOpenAuth={openAuthModal} />
-        </section>
-      )}
-
       {activeTab === "open" && (
         <>
           {screen === "home" && (
@@ -3017,6 +2988,8 @@ function App() {
               collection={collection}
               onSelectSet={startPackOpening}
               onViewCollection={viewCollection}
+              user={authUser}
+              onOpenAuth={openAuthModal}
               footer={<SiteFooter />}
             />
           )}
@@ -3027,6 +3000,8 @@ function App() {
               onOpened={revealPack}
               onBackToSets={backToSets}
               onViewCollection={viewCollection}
+              user={authUser}
+              onOpenAuth={openAuthModal}
               isOpening={isOpeningPack}
             />
           )}
@@ -3046,6 +3021,8 @@ function App() {
               cards={pulledCards}
               set={selectedSet}
               collection={collection}
+              user={authUser}
+              onOpenAuth={openAuthModal}
               onOpenAnother={openAnotherPack}
               onBackToSets={backToSets}
               onViewCollection={viewCollection}

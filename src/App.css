@@ -260,32 +260,33 @@ button {
     0 2px 0 rgba(255, 214, 84, 0.38);
 }
 
-.guest-signup-notice {
+.account-save-notice {
   justify-self: center;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 8px;
-  width: max-content;
-  max-width: min(100%, 720px);
-  border: 1px solid rgba(31, 90, 166, 0.12);
-  border-radius: 999px;
+  gap: 5px;
+  width: min(100%, 1040px);
+  max-width: min(100%, 1040px);
+  border: 1px solid rgba(18, 24, 39, 0.1);
+  border-radius: 16px;
   padding: 10px 16px;
   color: #344054;
   background:
-    linear-gradient(135deg, rgba(255, 203, 69, 0.18), rgba(31, 90, 166, 0.1)),
-    rgba(255, 255, 255, 0.88);
+    linear-gradient(135deg, rgba(31, 90, 166, 0.05), rgba(88, 99, 140, 0.06)),
+    rgba(255, 255, 255, 0.62);
   font-family: var(--ui-condensed-font);
-  font-size: 0.98rem;
+  font-size: 0.94rem;
   font-weight: 900;
   letter-spacing: 0.03em;
   text-transform: uppercase;
   text-align: center;
-  box-shadow: 0 12px 28px rgba(18, 24, 39, 0.08);
+  box-shadow: 0 12px 28px rgba(18, 24, 39, 0.06);
+  backdrop-filter: blur(10px);
 }
 
-.guest-signup-notice button,
+.account-save-notice button,
 .auth-save-notice button {
   border: 0;
   padding: 0;
@@ -1025,6 +1026,17 @@ button {
   justify-content: center;
   flex-wrap: wrap;
   gap: 12px;
+}
+
+.opening-save-notice {
+  width: min(100%, 720px);
+  margin-inline: auto;
+}
+
+.summary-save-notice {
+  width: min(100%, 860px);
+  margin-top: 12px;
+  margin-inline: auto;
 }
 
 .primary-button {
@@ -4854,6 +4866,7 @@ button {
 :root[data-theme="dark"] .profile-panel,
 :root[data-theme="dark"] .empty-state,
 :root[data-theme="dark"] .auth-panel,
+:root[data-theme="dark"] .account-save-notice,
 :root[data-theme="dark"] .auth-save-notice,
 :root[data-theme="dark"] .legal-screen,
 :root[data-theme="dark"] .reset-password-screen,
@@ -4879,6 +4892,18 @@ button {
     linear-gradient(135deg, rgba(255, 203, 69, 0.06), rgba(94, 168, 255, 0.08)),
     rgba(12, 18, 34, 0.88);
   box-shadow: 0 18px 44px rgba(0, 0, 0, 0.28);
+}
+
+:root[data-theme="dark"] .account-save-notice {
+  color: #dbe7ff;
+  background:
+    linear-gradient(135deg, rgba(94, 168, 255, 0.06), rgba(255, 255, 255, 0.03)),
+    rgba(18, 22, 38, 0.74);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+:root[data-theme="dark"] .account-save-notice button {
+  color: #76a7ff;
 }
 
 :root[data-theme="dark"] .site-brand span,
@@ -5681,14 +5706,14 @@ button {
     max-height: 64px;
   }
 
-  .guest-signup-notice {
+  .account-save-notice {
     width: 100%;
     max-width: 100%;
     justify-self: center;
     justify-content: center;
-    border-radius: 18px;
-    padding: 8px 10px;
-    font-size: 0.76rem;
+    border-radius: 14px;
+    padding: 9px 10px;
+    font-size: 0.78rem;
     line-height: 1.18;
     letter-spacing: 0.015em;
     text-align: center;
@@ -5705,8 +5730,8 @@ button {
     text-align: center;
   }
 
-  .guest-signup-notice span,
-  .guest-signup-notice button,
+  .account-save-notice,
+  .account-save-notice button,
   .auth-save-notice,
   .auth-save-notice button {
     white-space: normal;
@@ -6596,7 +6621,7 @@ button {
     font-size: 0.74rem;
   }
 
-  .guest-signup-notice,
+  .account-save-notice,
   .auth-save-notice {
     font-size: 0.68rem;
     letter-spacing: 0;
