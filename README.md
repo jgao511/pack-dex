@@ -10,9 +10,9 @@ PackDex has two experiences:
 
 
 
-\* \*\*Main Website\*\* — the full desktop collection and pack-opening experience
+\- \*\*Main Website\*\* — the full desktop collection and pack-opening experience
 
-\* \*\*PackDex Mobile\*\* — a phone-friendly app experience designed for quick openings, collection tracking, and home-screen access
+\- \*\*PackDex Mobile\*\* — a phone-friendly app experience designed for quick openings, collection tracking, and home-screen access
 
 
 
@@ -28,25 +28,25 @@ The main PackDex website is built for collectors who want the full experience on
 
 
 
-\* Open simulated Pokémon card packs from many different eras and sets
+\- Open simulated Pokémon card packs from many different eras and sets
 
-\* Chase rare cards, special illustration rares, secret rares, and god packs
+\- Chase rare cards, special illustration rares, secret rares, and god packs
 
-\* View full set collections
+\- View full set collections
 
-\* Track collected cards across your account
+\- Track collected cards across your account
 
-\* Browse binder-style collection pages
+\- Browse binder-style collection pages
 
-\* See collection progress by set
+\- See collection progress by set
 
-\* View estimated collection value
+\- View estimated collection value
 
-\* Search and explore sets
+\- Search and explore sets
 
-\* Use guest mode or sign in to save progress
+\- Use guest mode or sign in to save progress
 
-\* Clean desktop layout for opening packs and managing collections
+\- Clean desktop layout for opening packs and managing collections
 
 
 
@@ -62,29 +62,29 @@ PackDex Mobile is the app-style version of PackDex, designed for phones and home
 
 
 
-\* Mobile-first pack opening experience
+\- Mobile-first pack opening experience
 
-\* Smooth card reveal animations
+\- Smooth card reveal animations
 
-\* Tap-friendly navigation
+\- Tap-friendly navigation
 
-\* Bottom app navigation for quick access
+\- Bottom app navigation for quick access
 
-\* Open packs, view collections, and check values on the go
+\- Open packs, view collections, and check values on the go
 
-\* App-style home screen experience
+\- App-style home screen experience
 
-\* PackDex app icon and name when installed
+\- PackDex app icon and name when installed
 
-\* Mobile collection pages designed for smaller screens
+\- Mobile collection pages designed for smaller screens
 
-\* Clean profile and settings pages
+\- Clean profile and settings pages
 
-\* Sound and appearance settings
+\- Sound and appearance settings
 
-\* Simple sign-in, sign-up, and guest flow
+\- Simple sign-in, sign-up, and guest flow
 
-\* Fast access without needing to use the full desktop website
+\- Fast access without needing to use the full desktop website
 
 
 
@@ -100,17 +100,17 @@ Users can:
 
 
 
-\* Track owned cards
+\- Track owned cards
 
-\* View set completion progress
+\- View set completion progress
 
-\* Browse cards by set
+\- Browse cards by set
 
-\* See collection totals
+\- See collection totals
 
-\* Return to previously opened sets
+\- Return to previously opened sets
 
-\* Build toward completing master sets
+\- Build toward completing master sets
 
 
 
@@ -135,6 +135,4 @@ PackDex is a fan-made collector project. It is not affiliated with, endorsed by,
 
 
 Pokémon names, images, card data, and related trademarks belong to their respective owners.
-
-
 
