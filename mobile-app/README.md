@@ -1,122 +1,69 @@
-# PackDex Mobile App
+# PackDex
 
-This is a separate mobile-first PackDex preview app. It is intentionally isolated from the production website in the repo root.
+PackDex is a fan-made Pokémon card pack opening and collection app built for collectors who want a fun, clean way to open packs, chase hits, and track their cards.
 
-## Run Locally
+PackDex has two experiences:
 
-```bash
-cd mobile-app
-npm install
-npm run dev
-```
+* **Main Website** — the full desktop collection and pack-opening experience
+* **PackDex Mobile** — a phone-friendly app experience designed for quick openings, collection tracking, and home-screen access
 
-The Vite dev server uses port `5174` by default:
+## Main Website
 
-```text
-http://127.0.0.1:5174
-```
+The main PackDex website is built for collectors who want the full experience on a larger screen.
 
-## Supabase Setup
+### Features
 
-The mobile app reads env variables from `mobile-app/.env`. The root website `.env` is separate and is not used by the mobile Vite dev server.
+* Open simulated Pokémon card packs from many different eras and sets
+* Chase rare cards, special illustration rares, secret rares, and god packs
+* View full set collections
+* Track collected cards across your account
+* Browse binder-style collection pages
+* See collection progress by set
+* View estimated collection value
+* Search and explore sets
+* Use guest mode or sign in to save progress
+* Clean desktop layout for opening packs and managing collections
 
-1. Create `mobile-app/.env`:
+## PackDex Mobile
 
-```bash
-cp .env.example .env
-```
+PackDex Mobile is the app-style version of PackDex, designed for phones and home-screen use.
 
-On Windows Command Prompt, use:
+### Features
 
-```bat
-copy .env.example .env
-```
+* Mobile-first pack opening experience
+* Smooth card reveal animations
+* Tap-friendly navigation
+* Bottom app navigation for quick access
+* Open packs, view collections, and check values on the go
+* App-style home screen experience
+* PackDex app icon and name when installed
+* Mobile collection pages designed for smaller screens
+* Clean profile and settings pages
+* Sound and appearance settings
+* Simple sign-in, sign-up, and guest flow
+* Fast access without needing to use the full desktop website
 
-On PowerShell, use:
+## Collection Tracking
 
-```powershell
-Copy-Item .env.example .env
-```
+PackDex helps users keep track of what they have pulled and what they still need.
 
-2. Add the public Supabase project URL:
+Users can:
 
-```text
-VITE_SUPABASE_URL=
-```
+* Track owned cards
+* View set completion progress
+* Browse cards by set
+* See collection totals
+* Return to previously opened sets
+* Build toward completing master sets
 
-3. Add the public Supabase anon key:
+## Values
 
-```text
-VITE_SUPABASE_ANON_KEY=
-```
+PackDex includes estimated card and collection values so users can better understand the cards they have pulled.
 
-4. Add the public Cloudflare Turnstile site key used for account creation:
+Values are shown for supported cards and sets when pricing data is available.
 
-```text
-VITE_TURNSTILE_SITE_KEY=
-```
+## Disclaimer
 
-Optional asset URL overrides can stay as:
+PackDex is a fan-made collector project. It is not affiliated with, endorsed by, or sponsored by Nintendo, Creatures, GAME FREAK, The Pokémon Company, or any official Pokémon TCG partner.
 
-```text
-VITE_ASSET_BASE_URL=https://assets.pack-dex.com
-VITE_SET_ASSET_BASE_URL=https://assets.pack-dex.com/sets
-```
-
-5. Restart the dev server after editing `.env`:
-
-```bash
-npm run dev
-```
-
-Vite only reloads `.env` values on server start, so editing `.env` while the dev server is already running will not update Supabase until you stop and restart it.
-
-Only use the public Supabase anon key and the public Turnstile site key. Never put a Supabase service role key or a Turnstile secret key in this app. The mobile client expects exactly these names: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, and `VITE_TURNSTILE_SITE_KEY`.
-
-`mobile-app/.env` is ignored by git. Commit `.env.example`, not `.env`.
-
-## Current Scope
-
-- Mobile-first React/Vite shell.
-- Bottom tab navigation: Open, Collection, Value, Profile.
-- Open a Pack starts on a real scrollable set selector with compact era filtering.
-- Tapping a set opens the mobile pack-ready flow with real PackDex set logos, card manifests, card image URLs, and pack generation rules from the root app.
-- Pack opening supports the existing modern, vintage, XY, special preview, mini-pack, subset, and God Pack logic through the shared root helpers.
-- Pack reveal uses a mobile deal/flip sequence based on the website timing constants, with slower final-card timing and a 5-card row layout.
-- Pack reveal preloads the card back, selected set logo, and pulled card images before the reveal sequence starts.
-- Mobile pack backs use the same `/card-back.png` public asset as the website.
-- Supabase auth/session detection is connected through `mobile-app/src/lib/supabaseClient.js`.
-- Profile supports basic login, signup, session display, and logout when Supabase env vars are configured.
-- Collection uses the real local collection helpers and loads saved cloud collection data from the existing `user_collection` table when logged in.
-- Pack opening saves pulled cards to the logged-in user through the existing `user_collection` row shape and queues failed saves locally for retry.
-- Profile stats load/update against the existing `user_profile_stats` table when available.
-- Collection has Set Collection and My Binders subtabs.
-- Set Collection shows virtual collection cards in a 3-card mobile grid with search, era filter, set filter, and sort controls.
-- My Binders shows a mobile binder list, master set import, first-page 3x3 binder previews, and a basic 3x3 binder reader with previous/next page controls.
-- Value is structured around real owned collection data, but prices are placeholder estimates. Live pricing is not connected.
-- Light/dark preview toggle.
-- The production website files have not been moved or modified for this preview.
-
-The mobile Vite config serves the root `public` folder so existing local PackDex set logos resolve in preview.
-
-## Still Placeholder
-
-- Full mobile binder creation/editing/import flows.
-- Full mobile binder editing, animated page flipping, and card management.
-- Live card pricing, value history, and price-source integrations.
-- Final native-app pack animations and haptics.
-- Production-grade code splitting for the full card/set catalog. The preview currently imports the real catalog up front, so Vite may warn about a large bundle during build.
-
-## Future Shared Candidates
-
-Before migrating anything, these are the files/systems that should be reviewed for a future shared layer:
-
-- Set metadata and card data from `src/data`.
-- Pack generation and rarity helpers from `src/utils/packGenerator.js`.
-- Collection helpers from `src/utils/collectionStorage.js`.
-- Asset URL helpers from `src/utils/assetUrls.js`.
-- Supabase helpers from `src/lib`.
-- Binder storage/cloud helpers from `src/utils/binderStorage.js` and `src/lib/cloudBinders.js`.
-- Future pricing/value helpers once they are stable.
-
-Do not move these into shared modules until the production website and mobile app boundaries are approved.
+Pokémon names, images, card data, and related trademarks belong to their respective owners.

@@ -1,68 +1,140 @@
-# PackDex
+\# PackDex
 
-PackDex is a fan-made Pokemon TCG pack opening simulator where you can open packs, collect cards, build binders, and chase rare pulls across multiple Pokemon TCG eras.
 
-Live site: https://www.pack-dex.com/
 
-## Features
+PackDex is a fan-made Pokémon card pack opening and collection app built for collectors who want a fun, clean way to open packs, chase hits, and track their cards.
 
-- Open Pokemon TCG packs from multiple eras and sets.
-- Reveal packs card by card with a smooth pack-opening experience.
-- See all 10 pulls in a clean two-row pack summary.
-- Browse sets by era, including modern and classic releases.
-- Track collection progress for every set.
-- View missing cards as grayed-out collection slots.
-- See duplicate counts for cards you have pulled more than once.
-- Open enlarged card previews with smooth tilt interaction.
-- Enjoy animated foil effects with rainbow glare, sparkles, and shine.
-- Hear special reveal sounds for major hits.
-- Build custom binders from your collected cards.
-- Add cards from your collection into binder pages.
-- View profile stats such as packs opened and collection progress.
-- Use guest mode with local collection saving.
-- Create an account to save collection progress across devices.
-- Open rare God Pack formats for supported English sets.
 
-## Supported Highlights
 
-- Scarlet & Violet-style packs
-- Sword & Shield-style packs
-- Sun & Moon-style packs
-- XY-era packs
-- Pokemon 151 Demi-God Packs
-- Prismatic Evolutions God Packs
-- Black Bolt God Packs
-- White Flare God Packs
-- Ascended Heroes God Packs
-- XY BREAK-era packs with BREAK cards in the pre-rare slot
-- Evolutions special Secret Rare handling
-- Generations Radiant Collection handling
-- Double Crisis 7-card pack handling
+PackDex has two experiences:
 
-## Collection Features
 
-- Per-set collection pages
-- Collected and missing card states
-- Duplicate pull counts
-- Search and filters
-- Progress percentages
-- Enlarged card preview from collection
-- Binder add/remove tools
-- Persistent guest progress
-- Optional account-based collection saving
 
-## Pack Experience
+\* \*\*Main Website\*\* — the full desktop collection and pack-opening experience
 
-- Set-specific pull behavior
-- No regular/basic Energy cards in pulls
-- Reverse slot behavior represented without fake reverse-holo effects
-- Rare Holo cards stay visually special without playing hit sounds
-- Major hits and chase cards receive premium foil/sound treatment
-- God Packs only appear in supported sets
-- Pack size and reveal order stay consistent with each set's simulator rules
+\* \*\*PackDex Mobile\*\* — a phone-friendly app experience designed for quick openings, collection tracking, and home-screen access
 
-## Disclaimer
 
-PackDex is a fan-made Pokemon TCG pack opening simulator. PackDex is not affiliated with, endorsed by, sponsored by, or associated with Nintendo, The Pokemon Company, Creatures Inc., or Game Freak.
 
-Pokemon, Pokemon TCG, and related names, images, and trademarks are the property of their respective owners. Card images and related assets are used for informational and entertainment purposes only.
+\## Main Website
+
+
+
+The main PackDex website is built for collectors who want the full experience on a larger screen.
+
+
+
+\### Features
+
+
+
+\* Open simulated Pokémon card packs from many different eras and sets
+
+\* Chase rare cards, special illustration rares, secret rares, and god packs
+
+\* View full set collections
+
+\* Track collected cards across your account
+
+\* Browse binder-style collection pages
+
+\* See collection progress by set
+
+\* View estimated collection value
+
+\* Search and explore sets
+
+\* Use guest mode or sign in to save progress
+
+\* Clean desktop layout for opening packs and managing collections
+
+
+
+\## PackDex Mobile
+
+
+
+PackDex Mobile is the app-style version of PackDex, designed for phones and home-screen use.
+
+
+
+\### Features
+
+
+
+\* Mobile-first pack opening experience
+
+\* Smooth card reveal animations
+
+\* Tap-friendly navigation
+
+\* Bottom app navigation for quick access
+
+\* Open packs, view collections, and check values on the go
+
+\* App-style home screen experience
+
+\* PackDex app icon and name when installed
+
+\* Mobile collection pages designed for smaller screens
+
+\* Clean profile and settings pages
+
+\* Sound and appearance settings
+
+\* Simple sign-in, sign-up, and guest flow
+
+\* Fast access without needing to use the full desktop website
+
+
+
+\## Collection Tracking
+
+
+
+PackDex helps users keep track of what they have pulled and what they still need.
+
+
+
+Users can:
+
+
+
+\* Track owned cards
+
+\* View set completion progress
+
+\* Browse cards by set
+
+\* See collection totals
+
+\* Return to previously opened sets
+
+\* Build toward completing master sets
+
+
+
+\## Values
+
+
+
+PackDex includes estimated card and collection values so users can better understand the cards they have pulled.
+
+
+
+Values are shown for supported cards and sets when pricing data is available.
+
+
+
+\## Disclaimer
+
+
+
+PackDex is a fan-made collector project. It is not affiliated with, endorsed by, or sponsored by Nintendo, Creatures, GAME FREAK, The Pokémon Company, or any official Pokémon TCG partner.
+
+
+
+Pokémon names, images, card data, and related trademarks belong to their respective owners.
+
+
+
