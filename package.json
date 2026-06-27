@@ -1,12 +1,13 @@
 {
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && npm --prefix mobile-app run build && node scripts/copy-mobile-build.mjs",
     "preview": "vite preview",
     "verify:set-logos": "node scripts/verify-set-logos.mjs",
     "test:pack-rates": "node scripts/pack-rate-validator.mjs",
     "test:pack-rates:deep": "node scripts/pack-rate-validator.mjs --deep",
     "audit:vintage": "node scripts/audit-vintage-sets.mjs",
+    "sync:card-prices": "node scripts/sync-card-prices-batches.mjs",
     "check-randomness": "node scripts/check-randomness.js",
     "audit-rarities": "node scripts/audit-rarities.mjs",
     "organize-assets": "node scripts/organize-assets.js",

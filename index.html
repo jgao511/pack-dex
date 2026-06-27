@@ -4,13 +4,56 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="application-name" content="PackDex" />
+    <meta
+      name="description"
+      content="Open simulated Pokemon TCG packs, track a virtual collection, and explore sets in a fan-made collector tool. Not affiliated with Nintendo, Creatures, Game Freak, or The Pokemon Company."
+    />
+    <meta property="og:title" content="PackDex: Fan-Made Pokemon TCG Pack Opening Simulator" />
+    <meta
+      property="og:description"
+      content="Open simulated Pokemon TCG packs, track a virtual collection, and explore sets in a fan-made collector tool. Not affiliated with Nintendo, Creatures, Game Freak, or The Pokemon Company."
+    />
+    <meta property="og:type" content="website" />
     <meta name="theme-color" content="#f6f7fb" />
-    <link rel="icon" type="image/png" href="/packdex-small.png" />
-    <link rel="apple-touch-icon" href="/packdex-small.png" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" as="image" href="/card-back.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Nunito:wght@700;800;900&family=PT+Serif:ital,wght@1,400;1,700&display=swap" rel="stylesheet" />
-    <title>PackDex</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <title>PackDex: Fan-Made Pokemon TCG Pack Opening Simulator</title>
+    <script>
+      (() => {
+        const path = window.location.pathname || "/";
+        const lowerPath = path.toLowerCase();
+        const isMobileRoute = lowerPath.startsWith("/mobile-app");
+        const isAssetRoute =
+          lowerPath.startsWith("/api/") ||
+          lowerPath.startsWith("/assets/") ||
+          lowerPath.startsWith("/set-logos/") ||
+          lowerPath.endsWith(".png") ||
+          lowerPath.endsWith(".jpg") ||
+          lowerPath.endsWith(".jpeg") ||
+          lowerPath.endsWith(".webp") ||
+          lowerPath.endsWith(".svg") ||
+          lowerPath.endsWith(".ico") ||
+          lowerPath.endsWith(".json") ||
+          lowerPath.endsWith(".webmanifest") ||
+          lowerPath.endsWith(".css") ||
+          lowerPath.endsWith(".js");
+        const isAuthRoute =
+          lowerPath.startsWith("/auth") ||
+          lowerPath.includes("callback") ||
+          window.location.search.includes("code=") ||
+          window.location.hash.includes("access_token");
+        const isMobileUserAgent = /Android|iPhone|iPod|IEMobile|Opera Mini/i.test(navigator.userAgent || "");
+        const isPhoneWidth = window.matchMedia("(max-width: 760px) and (pointer: coarse)").matches;
+
+        if (!isMobileRoute && !isAssetRoute && !isAuthRoute && (isMobileUserAgent || isPhoneWidth)) {
+          window.location.replace(`/mobile-app/${window.location.search}${window.location.hash}`);
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

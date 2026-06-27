@@ -1,0 +1,2475 @@
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Turnstile } from "react-turnstile";
+import { sets } from "../../src/data/sets.js";
+import { getCardBackUrl, getCardImageUrl, getPokeballLoadingUrl, getSetLogoUrl } from "../../src/utils/assetUrls.js";
+import { generatePack, getDisplayCardName, getDisplayRarity, isHigherThanRare } from "../../src/utils/packGenerator.js";
+import {
+  getCardCount,
+  getPullableCollectionCards,
+  getSetCollectionProgress,
+  markCardsCollected,
+} from "../../src/utils/collectionStorage.js";
+import { createMasterSetBinder, loadBinders, saveBinders } from "../../src/utils/binderStorage.js";
+import { getFoilProfile } from "../../src/utils/foil.js";
+import { supabase, isSupabaseConfigured, missingSupabaseEnv } from "./lib/supabaseClient.js";
+import { loadCloudProfileStats, incrementCloudProfileStats } from "./lib/cloudProfileStats.js";
+import {
+  getCurrentUser,
+  loadCloudCollection,
+  savePulledCardsToCloud,
+  enqueuePendingCloudPull,
+  mergePendingCloudPullsIntoCollection,
+  syncPendingCloudPulls,
+} from "./lib/cloudCollection.js";
+import { preloadImages } from "./utils/imageCache.js";
+import { getAuthCallbackUrl } from "../../src/utils/authRedirects.js";
+import {
+  formatUsd,
+  getCardDisplayPrice,
+  getCollectionEstimatedValue,
+  loadCardPricesForCards,
+  loadCardPricesForCollection,
+  loadCardPricesForSet,
+  resolveCardPriceIds,
+  VALUE_COUNT_THRESHOLD_USD,
+} from "../../src/lib/cardPrices.js";
+import {
+  playDealSound,
+  playFinalRevealSound,
+  playFlipSound,
+  playHitRevealSound,
+  playPackOpenSound,
+  preloadMobileSounds,
+} from "./utils/mobileSounds.js";
+
+const tabs = [
+  { id: "open", label: "Open", title: "Open", icon: "open" },
+  { id: "collection", label: "Collection", title: "Collection", icon: "collection" },
+  { id: "value", label: "Value", title: "Value", icon: "value" },
+  { id: "profile", label: "Profile", title: "Profile", icon: "profile" },
+];
+
+const eraOrder = ["Pokemon 30th Anniversary", "Mega Evolution", "Scarlet & Violet", "Sword & Shield", "Sun & Moon", "XY", "Vintage"];
+const COLLECTION_ERA_FILTER_KEY = "packdex-mobile-collection-era-filter";
+const EMPTY_STATS = { packsOpened: 0, totalCardsPulled: 0 };
+const CARD_DEAL_STAGGER_MS = 180;
+const CARD_DEAL_ANIMATION_MS = 280;
+const WAIT_AFTER_DEAL_MS = 500;
+const CARD_FLIP_STAGGER_MS = 330;
+const LAST_CARD_EXTRA_DELAY_MS = 850;
+const CARD_FLIP_ANIMATION_MS = 620;
+const SUMMARY_AFTER_LAST_CARD_MS = 250;
+const POKEBALL_LOADING_SRC = getPokeballLoadingUrl();
+const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY;
+const SUPPORT_EMAIL = "packdexsupport@gmail.com";
+const MOBILE_DISCLAIMER_SEEN_PREFIX = "packdex-mobile-disclaimer-seen";
+const SETS_WITHOUT_MARKET_PRICE_DATA = new Set(["ascended-heroes", "perfect-order", "chaos-rising"]);
+const PRELOAD_SET_LIMIT = 3;
+const PRELOAD_CARD_LIMIT_PER_SET = 45;
+const LEGAL_COPY = {
+  terms: {
+    title: "Terms of Service",
+    body: [
+      "PackDex is a fan-made Pokemon TCG pack-opening simulator and virtual collection tracker made for collectors and fan enjoyment.",
+      "Pack openings are simulated. PackDex does not award physical cards, money, prizes, redeemable items, or real-world value.",
+      "Your PackDex account can save virtual collection progress, binders, and app stats. You are responsible for keeping your account credentials secure.",
+      "PackDex may change, reset, or remove beta features while the app is being tested and improved.",
+      "PackDex is not affiliated with Nintendo, Creatures, Game Freak, or The Pokemon Company. Card names, artwork, set names, and related trademarks belong to their respective owners.",
+    ],
+  },
+  privacy: {
+    title: "Privacy Policy",
+    body: [
+      "PackDex uses Supabase authentication to create and manage accounts. Your email address is used for account access and support.",
+      "PackDex stores virtual collection data, binders, profile stats, and app preferences needed to run the mobile app experience.",
+      "PackDex does not sell your personal information. Cached card price data is used only to estimate virtual collection values.",
+      "Local app preferences may be stored on your device. Supabase session storage is used to keep you signed in.",
+      `For privacy or support questions, contact ${SUPPORT_EMAIL}.`,
+    ],
+  },
+};
+
+function normalizeText(value) {
+  return String(value || "").toLowerCase().trim();
+}
+
+function getBestPriceFromRow(row) {
+  const value =
+    row?.market_price_usd ??
+    row?.low_price_usd ??
+    row?.mid_price_usd ??
+    row?.high_price_usd ??
+    row?.direct_low_price_usd ??
+    null;
+
+  return value == null ? 0 : Number(value);
+}
+
+function hasUsablePriceMap(priceMap) {
+  return priceMap instanceof Map && priceMap.size > 0;
+}
+
+function hasLoadedPriceMap(priceMapsBySet, setId) {
+  return Boolean(setId) && Object.prototype.hasOwnProperty.call(priceMapsBySet || {}, setId);
+}
+
+function formatCachedValue(value, priceMap, options = {}) {
+  if (!hasUsablePriceMap(priceMap)) {
+    if (!options.loading && options.emptyValueAsZero && Number(value || 0) === 0) return formatUsd(0);
+    return options.loading ? "Loading..." : "No price data yet";
+  }
+
+  return formatUsd(value);
+}
+
+function chunkItems(items, size) {
+  const chunks = [];
+
+  for (let index = 0; index < items.length; index += size) {
+    chunks.push(items.slice(index, index + size));
+  }
+
+  return chunks;
+}
+
+function scheduleIdleTask(callback) {
+  if (typeof window === "undefined") return null;
+  if ("requestIdleCallback" in window) {
+    return {
+      type: "idle",
+      id: window.requestIdleCallback(callback, { timeout: 1500 }),
+    };
+  }
+
+  return {
+    type: "timeout",
+    id: window.setTimeout(callback, 800),
+  };
+}
+
+function cancelIdleTask(handle) {
+  if (!handle || typeof window === "undefined") return;
+  if (handle.type === "idle" && "cancelIdleCallback" in window) {
+    window.cancelIdleCallback(handle.id);
+    return;
+  }
+
+  window.clearTimeout(handle.id);
+}
+
+function TcgplayerSourceBadge({ compact = false }) {
+  return (
+    <span className={`tcgplayer-source-badge ${compact ? "is-compact" : ""}`} aria-label="Price source: TCGplayer market data">
+      <span className="tcgplayer-source-mark" aria-hidden="true">
+        T
+      </span>
+      <span>TCGplayer</span>
+    </span>
+  );
+}
+
+function getTcgplayerCardUrl(card, set, marketPrice) {
+  if (marketPrice?.tcgplayerUrl) return marketPrice.tcgplayerUrl;
+
+  const query = [getDisplayCardName(card, set), set?.name, card?.number ? `#${card.number}` : ""]
+    .filter(Boolean)
+    .join(" ");
+
+  return `https://www.tcgplayer.com/search/pokemon/product?productLineName=pokemon&q=${encodeURIComponent(query)}`;
+}
+
+function getEstimatedCardValue(card, count = 1) {
+  const rarity = normalizeText(card?.rarity || card?.rarityCategory);
+  const name = normalizeText(card?.name);
+  let base = 0.25;
+
+  if (rarity.includes("classic") || rarity.includes("futuristic")) base = 28;
+  else if (rarity.includes("special illustration")) base = 42;
+  else if (rarity.includes("hyper") || rarity.includes("secret")) base = 31;
+  else if (rarity.includes("illustration")) base = 12;
+  else if (rarity.includes("mega") || rarity.includes("double") || rarity.includes("ex")) base = 5;
+  else if (rarity.includes("rare")) base = 1.5;
+
+  if (name.includes("charizard")) base *= 2.4;
+  if (name.includes("umbreon") || name.includes("pikachu") || name.includes("mew")) base *= 1.7;
+
+  return Math.round(base * count);
+}
+
+function getSetNumber(card) {
+  const value = String(card?.number || "").match(/\d+/)?.[0];
+
+  return value ? Number(value) : 9999;
+}
+
+function sortSetsByEra(setList) {
+  return [...setList].sort((a, b) => {
+    const dateA = new Date(a.releaseDate || 0).getTime();
+    const dateB = new Date(b.releaseDate || 0).getTime();
+
+    if (dateA !== dateB) return dateB - dateA;
+
+    const eraA = eraOrder.indexOf(a.era);
+    const eraB = eraOrder.indexOf(b.era);
+    const safeEraA = eraA === -1 ? 99 : eraA;
+    const safeEraB = eraB === -1 ? 99 : eraB;
+
+    if (safeEraA !== safeEraB) return safeEraA - safeEraB;
+
+    return String(a.name).localeCompare(String(b.name));
+  });
+}
+
+function groupSetsByEra(setList) {
+  return setList.reduce((groups, set) => {
+    const era = set.era || "Other";
+
+    return {
+      ...groups,
+      [era]: [...(groups[era] || []), set],
+    };
+  }, {});
+}
+
+function getOwnedCards(collection) {
+  return sets.flatMap((set) =>
+    getPullableCollectionCards(set)
+      .map((card) => ({
+        set,
+        card,
+        count: getCardCount(collection, card, set.id),
+        entry: collection?.[set.id]?.[String(card.id)],
+      }))
+      .filter((item) => item.count > 0)
+  );
+}
+
+function getOwnedSetIds(collection) {
+  return Object.entries(collection || {})
+    .filter(([, cards]) => Object.keys(cards || {}).length > 0)
+    .map(([setId]) => setId);
+}
+
+function getCardKey(card, setId) {
+  return `${setId}:${String(card?.id || card?.number || card?.name || "")}`;
+}
+
+function getPackCardImageUrl(card, set) {
+  return getCardImageUrl({ ...card, setFolder: card.setFolder || set?.setFolder || set?.id });
+}
+
+function SetLogo({ set, className = "" }) {
+  return <img className={className} src={getSetLogoUrl(set)} alt={`${set.name} logo`} loading="lazy" />;
+}
+
+function isFoilHit(card, set) {
+  return getFoilProfile(card, set) !== "none" || isHigherThanRare(card);
+}
+
+function CardImage({
+  card,
+  set,
+  className = "",
+  withEffects = false,
+  isFinal = false,
+  loading = "lazy",
+  fetchPriority = "auto",
+}) {
+  const foilProfile = getFoilProfile(card, set);
+  const showEffects = withEffects && foilProfile !== "none";
+  const imageUrl = getPackCardImageUrl(card, set);
+
+  return (
+    <span
+      className={`mobile-card-image-shell foil-profile-${foilProfile} ${showEffects ? "has-foil" : ""} ${
+        isFinal && showEffects ? "is-final-hit" : ""
+      } ${className}`.trim()}
+    >
+      <img
+        src={imageUrl}
+        alt={getDisplayCardName(card, set)}
+        loading={loading}
+        decoding="async"
+        fetchPriority={fetchPriority}
+      />
+      {showEffects && (
+        <>
+          <span className="mobile-foil-glare" aria-hidden="true" />
+          <span className="mobile-foil-sparkles" aria-hidden="true" />
+          <span className="mobile-foil-shine" aria-hidden="true" />
+        </>
+      )}
+    </span>
+  );
+}
+
+function CardBackImage({ className = "" }) {
+  return <img className={className} src={getCardBackUrl()} alt="" decoding="async" loading="eager" />;
+}
+
+function AccountNotice({ user, onLogin, onCreateAccount }) {
+  if (user) return null;
+
+  return (
+    <p className="account-notice">
+      <button type="button" onClick={onLogin}>
+        Log in
+      </button>{" "}
+      or{" "}
+      <button type="button" onClick={onCreateAccount}>
+        create an account
+      </button>{" "}
+      to save your simulated pulls across devices.
+    </p>
+  );
+}
+
+function PokeballLoadingOverlay({ message = "Loading..." }) {
+  return (
+    <div className="mobile-loading-overlay" role="status" aria-live="polite">
+      <div className="mobile-loading-card">
+        <img src={POKEBALL_LOADING_SRC} alt="" />
+        <span>{message}</span>
+      </div>
+    </div>
+  );
+}
+
+function getDisclaimerSeenKey(userId) {
+  return `${MOBILE_DISCLAIMER_SEEN_PREFIX}:${userId || "guest"}`;
+}
+
+function hasSeenDisclaimer(userId) {
+  if (typeof window === "undefined" || !userId) return true;
+
+  return window.localStorage.getItem(getDisclaimerSeenKey(userId)) === "true";
+}
+
+function markDisclaimerSeen(userId) {
+  if (typeof window === "undefined" || !userId) return;
+
+  window.localStorage.setItem(getDisclaimerSeenKey(userId), "true");
+}
+
+function WelcomeDisclaimerModal({ isOpen, userId, onDismiss }) {
+  if (!isOpen) return null;
+
+  function handleDismiss() {
+    markDisclaimerSeen(userId);
+    onDismiss?.();
+  }
+
+  return (
+    <div className="mobile-disclaimer-overlay" role="dialog" aria-modal="true" aria-labelledby="mobile-disclaimer-title">
+      <section className="mobile-disclaimer-modal">
+        <span className="eyebrow">Disclaimer</span>
+        <h2 id="mobile-disclaimer-title">Welcome to PackDex</h2>
+        <div className="mobile-disclaimer-copy">
+          <p>PackDex is a fan-made Pokémon TCG pack-opening simulator and collection tracker.</p>
+          <p>Pack openings are simulated and do not award physical cards, money, prizes, or redeemable items.</p>
+          <p>PackDex is not affiliated with Nintendo, Creatures, Game Freak, or The Pokémon Company.</p>
+          <p>Card names, artwork, set names, and related trademarks belong to their respective owners.</p>
+          <p>
+            For support or bug reports, contact{" "}
+            <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
+          </p>
+        </div>
+        <button className="primary-action" type="button" onClick={handleDismiss}>
+          Got it
+        </button>
+      </section>
+    </div>
+  );
+}
+
+function GearIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 8.4a3.6 3.6 0 1 0 0 7.2 3.6 3.6 0 0 0 0-7.2Z" />
+      <path d="M19.4 13.5a7.5 7.5 0 0 0 0-3l2-1.5-2-3.5-2.4 1a7.8 7.8 0 0 0-2.6-1.5L14 2.4h-4l-.4 2.6A7.8 7.8 0 0 0 7 6.5l-2.4-1-2 3.5 2 1.5a7.5 7.5 0 0 0 0 3l-2 1.5 2 3.5 2.4-1a7.8 7.8 0 0 0 2.6 1.5l.4 2.6h4l.4-2.6a7.8 7.8 0 0 0 2.6-1.5l2.4 1 2-3.5-2-1.5Z" />
+    </svg>
+  );
+}
+
+function LegalModal({ type, onClose }) {
+  if (!type) return null;
+
+  const content = LEGAL_COPY[type];
+  if (!content) return null;
+
+  return (
+    <div className="mobile-auth-overlay legal-overlay" role="dialog" aria-modal="true" aria-labelledby="mobile-legal-title" onClick={onClose}>
+      <section className="mobile-auth-modal legal-modal" onClick={(event) => event.stopPropagation()}>
+        <button className="mobile-auth-close" type="button" onClick={onClose} aria-label="Close legal information">
+          x
+        </button>
+        <div className="mobile-auth-heading">
+          <span className="eyebrow">PackDex</span>
+          <h2 id="mobile-legal-title">{content.title}</h2>
+        </div>
+        <div className="legal-copy">
+          {content.body.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function MobileAuthModal({
+  isOpen,
+  isDark,
+  authMode,
+  authEmail,
+  authPassword,
+  authConfirmPassword,
+  turnstileToken,
+  turnstileMessage,
+  authMessage,
+  isAuthSubmitting,
+  onClose,
+  onAuthMode,
+  onAuthEmail,
+  onAuthPassword,
+  onAuthConfirmPassword,
+  onTurnstileToken,
+  onTurnstileMessage,
+  onAuthSubmit,
+  onOpenLegal,
+}) {
+  if (!isOpen) return null;
+
+  const isCreateMode = authMode === "signup";
+  const canSubmitAuth =
+    isSupabaseConfigured && !isAuthSubmitting && (!isCreateMode || (Boolean(TURNSTILE_SITE_KEY) && Boolean(turnstileToken)));
+
+  return (
+    <div className="mobile-auth-overlay" role="dialog" aria-modal="true" aria-labelledby="mobile-auth-title" onClick={onClose}>
+      <section className="mobile-auth-modal" onClick={(event) => event.stopPropagation()}>
+        <button className="mobile-auth-close" type="button" onClick={onClose} aria-label="Close account form">
+          x
+        </button>
+        <div className="mobile-auth-heading">
+          <span className="eyebrow">Account</span>
+          <h2 id="mobile-auth-title">{isCreateMode ? "Create your PackDex account" : "Welcome back"}</h2>
+          <p>
+            {isCreateMode
+              ? "Create an account before opening packs to save your PackDex progress."
+              : "Log in to save simulated pulls, collection progress, binders, and future app stats."}
+          </p>
+          <span className="mobile-supabase-badge">Powered by Supabase Auth</span>
+        </div>
+        <div className="auth-tabs">
+          <button className={authMode === "login" ? "is-active" : ""} type="button" onClick={() => onAuthMode("login")}>
+            Log In
+          </button>
+          <button className={authMode === "signup" ? "is-active" : ""} type="button" onClick={() => onAuthMode("signup")}>
+            Create account
+          </button>
+        </div>
+        <form className="auth-form" onSubmit={onAuthSubmit}>
+          <label>
+            Email
+            <input value={authEmail} type="email" autoComplete="email" onChange={(event) => onAuthEmail(event.target.value)} />
+          </label>
+          <label>
+            Password
+            <input
+              value={authPassword}
+              type="password"
+              autoComplete={isCreateMode ? "new-password" : "current-password"}
+              minLength={8}
+              onChange={(event) => onAuthPassword(event.target.value)}
+            />
+          </label>
+          {isCreateMode && (
+            <>
+              <label>
+                Confirm password
+                <input
+                  value={authConfirmPassword}
+                  type="password"
+                  autoComplete="new-password"
+                  minLength={8}
+                  onChange={(event) => onAuthConfirmPassword(event.target.value)}
+                />
+              </label>
+              <div className="mobile-turnstile-panel">
+                {TURNSTILE_SITE_KEY ? (
+                  <>
+                    <Turnstile
+                      sitekey={TURNSTILE_SITE_KEY}
+                      size="flexible"
+                      theme={isDark ? "dark" : "light"}
+                      onVerify={(token) => {
+                        onTurnstileToken(token);
+                        onTurnstileMessage("Verification complete.");
+                      }}
+                      onExpire={() => {
+                        onTurnstileToken("");
+                        onTurnstileMessage("Verification expired. Please verify again.");
+                      }}
+                      onError={() => {
+                        onTurnstileToken("");
+                        onTurnstileMessage("Verification failed. Please try again.");
+                      }}
+                    />
+                    {turnstileMessage && <p className="turnstile-status">{turnstileMessage}</p>}
+                  </>
+                ) : (
+                  <p className="auth-message is-error">Add VITE_TURNSTILE_SITE_KEY to mobile-app/.env to enable account creation.</p>
+                )}
+              </div>
+            </>
+          )}
+          <button className="primary-action compact-auth-submit" type="submit" disabled={!canSubmitAuth}>
+            {isAuthSubmitting ? "Loading..." : authMode === "login" ? "Log In" : "Create Account"}
+          </button>
+          {isCreateMode && (
+            <p className="auth-legal-copy">
+              By creating an account, you agree to the{" "}
+              <button type="button" onClick={() => onOpenLegal?.("terms")}>
+                Terms of Service
+              </button>{" "}
+              and{" "}
+              <button type="button" onClick={() => onOpenLegal?.("privacy")}>
+                Privacy Policy
+              </button>
+              .
+            </p>
+          )}
+          <button className="auth-switch-link" type="button" onClick={() => onAuthMode(isCreateMode ? "login" : "signup")}>
+            {isCreateMode ? "Already have an account? Log in" : "New to PackDex? Create an account"}
+          </button>
+          {authMessage && <p className="auth-message">{authMessage}</p>}
+        </form>
+      </section>
+    </div>
+  );
+}
+
+function TabIcon({ icon }) {
+  if (icon === "collection") {
+    return (
+      <span className="mobile-icon mobile-icon-book" aria-hidden="true">
+        <i />
+        <i />
+        <i />
+      </span>
+    );
+  }
+
+  if (icon === "open") {
+    return (
+      <span className="mobile-icon mobile-icon-pack" aria-hidden="true">
+        <i />
+        <i />
+        <i />
+      </span>
+    );
+  }
+
+  if (icon === "value") {
+    return (
+      <span className="mobile-icon mobile-icon-chart" aria-hidden="true">
+        <i />
+        <i />
+        <i />
+      </span>
+    );
+  }
+
+  if (icon === "profile") {
+    return (
+      <span className="mobile-icon mobile-icon-profile" aria-hidden="true">
+        <i />
+        <i />
+      </span>
+    );
+  }
+
+  return null;
+}
+
+function MobileBrandHeader() {
+  return (
+    <header className="mobile-brand-header" aria-label="PackDex mobile app">
+      <img src="/packdex-small.png" alt="" />
+      <span className="mobile-wordmark">
+        <span>Pack</span>
+        <span>Dex</span>
+      </span>
+    </header>
+  );
+}
+
+function OpenSetSelector({ collection, onOpenPack }) {
+  const [eraFilter, setEraFilter] = useState("All Eras");
+  const orderedSets = useMemo(() => sortSetsByEra(sets), []);
+  const eras = useMemo(() => ["All Eras", ...new Set(orderedSets.map((set) => set.era).filter(Boolean))], [orderedSets]);
+  const visibleSets = eraFilter === "All Eras" ? orderedSets : orderedSets.filter((set) => set.era === eraFilter);
+  const groupedSets = groupSetsByEra(visibleSets);
+
+  return (
+    <section className="open-set-selector">
+      <div className="mobile-screen-title">
+        <span>Open a Pack</span>
+        <h1>Choose a set</h1>
+      </div>
+
+      <label className="mobile-filter-pill">
+        <span>Era</span>
+        <select value={eraFilter} onChange={(event) => setEraFilter(event.target.value)}>
+          {eras.map((era) => (
+            <option key={era}>{era}</option>
+          ))}
+        </select>
+      </label>
+
+      <div className="mobile-era-list">
+        {Object.entries(groupedSets).map(([era, eraSets]) => (
+          <section className="mobile-era-section" key={era}>
+            <div className="mobile-era-heading">
+              <h2>{era} Era</h2>
+              <span>{eraSets.length === 1 ? "1 set" : `${eraSets.length} sets`}</span>
+            </div>
+            <div className="mobile-set-list">
+              {eraSets.map((set) => {
+                const progress = getSetCollectionProgress(collection, set);
+
+                return (
+                  <article className="mobile-set-row" key={set.id}>
+                    <button className="mobile-set-main" type="button" onClick={() => onOpenPack(set)}>
+                      <SetLogo set={set} className="mobile-set-row-logo" />
+                      <div>
+                        <strong>{set.name}</strong>
+                        <span>
+                          {progress.collected} / {progress.total} collected
+                        </span>
+                      </div>
+                    </button>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function PackScreen({
+  user,
+  pack,
+  packInstanceId,
+  selectedSet,
+  stage,
+  revealedCount,
+  onStartReveal,
+  onBack,
+  onOpenAnother,
+  onViewCollection,
+  onLogin,
+  onCreateAccount,
+  onInspectCard,
+  soundEnabled,
+  newPullKeys,
+  priceMap,
+}) {
+  if (!selectedSet || !pack?.length) return null;
+
+  const isRevealing = stage === "revealing";
+  const isSummary = stage === "summary";
+  const isReady = stage === "ready";
+  const isPreloading = stage === "preloading";
+  const visibleCount = isSummary ? pack.length : revealedCount;
+  const estimatedPullValue = isSummary
+    ? getCollectionEstimatedValue(
+        pack.map((card) => ({ card, set: selectedSet, count: 1 })),
+        priceMap
+      )
+    : 0;
+
+  return (
+    <section className={`pack-stage is-${stage}`}>
+      {isReady ? (
+        <>
+          <div className="pack-ready-artwork">
+            <span className="eyebrow">Pack Ready</span>
+            <SetLogo set={selectedSet} className="pack-logo" />
+            <div className="card-stack is-floating" aria-hidden="true">
+              <div><CardBackImage /></div>
+              <div><CardBackImage /></div>
+              <div><CardBackImage /></div>
+            </div>
+          </div>
+          <div className="pack-ready-actions">
+            <AccountNotice user={user} onLogin={onLogin} onCreateAccount={onCreateAccount} />
+            <div className="pack-actions">
+              <button className="secondary-action" type="button" onClick={onBack}>
+                Back to Sets
+              </button>
+              <button className="secondary-action" type="button" onClick={() => onViewCollection?.(selectedSet)}>
+                View Collection
+              </button>
+              <button className="primary-action" type="button" onClick={onStartReveal} disabled={isPreloading}>
+                Click to Open
+              </button>
+            </div>
+          </div>
+        </>
+      ) : isSummary ? (
+        <>
+          <SetLogo set={selectedSet} className="pack-logo pack-logo-compact" />
+          <section className="value-note compact-value-note">
+            <span>Estimated Pull Value</span>
+            <strong>{formatCachedValue(estimatedPullValue, priceMap)}</strong>
+            <em>
+              <TcgplayerSourceBadge compact /> cached market data. Missing prices count as $0.
+            </em>
+          </section>
+          <div className="pack-actions">
+            <button className="secondary-action" type="button" onClick={onBack}>
+              Back to Sets
+            </button>
+            <button className="secondary-action" type="button" onClick={() => onViewCollection?.(selectedSet)}>
+              View Collection
+            </button>
+            <button className="primary-action" type="button" onClick={onOpenAnother}>
+              Open Another
+            </button>
+          </div>
+        </>
+      ) : (
+        <SetLogo set={selectedSet} className="pack-logo pack-logo-compact" />
+      )}
+
+      {(isRevealing || isSummary) && (
+        <div
+          className={`reveal-grid ${isSummary ? "is-summary-grid" : "is-reveal-grid"} count-${pack.length}`}
+          aria-live="polite"
+        >
+          {pack.map((card, index) => {
+            const isVisible = index < visibleCount;
+            const isFinal = index === pack.length - 1;
+            const isHit = isFoilHit(card, selectedSet);
+            const isNewPull = isSummary && newPullKeys?.has(getCardKey(card, selectedSet.id));
+
+            return (
+              <button
+                className={`reveal-card ${isVisible ? "is-revealed" : ""} ${isFinal ? "is-final" : ""} ${
+                  isVisible && isHit ? "is-hit" : ""
+                }`}
+                type="button"
+                key={`${packInstanceId}-${card.id || card.name}-${index}`}
+                style={{
+                  "--deal-index": index,
+                  "--deal-delay": `${index * CARD_DEAL_STAGGER_MS}ms`,
+                  "--reveal-delay": `${getMobileRevealDelay(index, pack.length)}ms`,
+                }}
+                disabled={!isVisible}
+                onClick={() => isVisible && onInspectCard?.(card, selectedSet)}
+              >
+                <span className="reveal-card-inner">
+                  <span className="reveal-card-back">
+                    <CardBackImage />
+                  </span>
+                  <span className="reveal-card-face">
+                    {isNewPull && <span className="new-pull-badge">NEW</span>}
+                    <CardImage
+                      card={card}
+                      set={selectedSet}
+                      withEffects={isVisible && isFoilHit(card, selectedSet)}
+                      isFinal={isFinal}
+                      loading="eager"
+                      fetchPriority="high"
+                    />
+                  </span>
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      )}
+
+      {isSummary && <AccountNotice user={user} onLogin={onLogin} onCreateAccount={onCreateAccount} />}
+    </section>
+  );
+}
+
+function getMobileRevealDelay(index, totalCards) {
+  const baseDelay = index * CARD_FLIP_STAGGER_MS;
+
+  return index === totalCards - 1 ? baseDelay + LAST_CARD_EXTRA_DELAY_MS : baseDelay;
+}
+
+function CollectionCards({
+  collection,
+  selectedSetId,
+  eraFilter,
+  setSearch,
+  onSelectSet,
+  onEraFilter,
+  onSetSearch,
+  onOpenPacks,
+  onViewBinder,
+  onInspectCard,
+  onReturnFromSet,
+  returnLabel,
+  priceMap,
+}) {
+  const orderedSets = useMemo(() => sortSetsByEra(sets), []);
+  const selectedSet = orderedSets.find((set) => set.id === selectedSetId) || null;
+  const [isPickingSet, setIsPickingSet] = useState(!selectedSet);
+  const eras = useMemo(() => ["All Eras", ...new Set(orderedSets.map((set) => set.era).filter(Boolean))], [orderedSets]);
+  const visibleSets = orderedSets.filter((set) => {
+    const matchesEra = eraFilter === "All Eras" || set.era === eraFilter;
+    const search = normalizeText(setSearch);
+    const matchesSearch = !search || normalizeText(set.name).includes(search) || normalizeText(set.era).includes(search);
+
+    return matchesEra && matchesSearch;
+  });
+  const progress = selectedSet ? getSetCollectionProgress(collection, selectedSet) : { collected: 0, total: 0, percent: 0 };
+  const setCards = selectedSet ? getPullableCollectionCards(selectedSet).sort((a, b) => getSetNumber(a) - getSetNumber(b)) : [];
+  const [setTotalValue, setSetTotalValue] = useState(0);
+  const [setValueLoading, setSetValueLoading] = useState(false);
+  const [setValueStatus, setSetValueStatus] = useState("idle");
+
+  useEffect(() => {
+    if (!selectedSet) setIsPickingSet(true);
+  }, [selectedSet]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadRenderedSetValue() {
+      console.debug("SET VALUE COMPONENT RAN");
+      console.debug("[PackDex prices] mobile set value current set", {
+        id: selectedSet?.id || null,
+        name: selectedSet?.name || null,
+      });
+
+      setSetValueLoading(true);
+      setSetValueStatus("loading");
+      console.debug("[PackDex prices] mobile set value loading true");
+
+      try {
+        if (!supabase || !selectedSet) {
+          console.debug("[PackDex prices] mobile set value missing client/current set");
+          if (!cancelled) {
+            setSetTotalValue(0);
+            setSetValueStatus("unavailable");
+          }
+          return;
+        }
+
+        if (setCards.length === 0) {
+          console.debug("[PackDex prices] mobile set value has no cards", {
+            setId: selectedSet.id,
+            setName: selectedSet.name,
+          });
+          if (!cancelled) {
+            setSetTotalValue(0);
+            setSetValueStatus("unavailable");
+          }
+          return;
+        }
+
+        const resolvedCardIds = [
+          ...new Set(setCards.flatMap((card) => resolveCardPriceIds(card, selectedSet.id)).filter(Boolean)),
+        ];
+
+        console.debug("[PackDex prices] mobile set value card ids", {
+          setId: selectedSet.id,
+          setName: selectedSet.name,
+          cardCount: setCards.length,
+          firstAppCardIds: setCards.slice(0, 10).map((card) => card.id),
+          resolvedCardIdCount: resolvedCardIds.length,
+          firstResolvedPriceCardIds: resolvedCardIds.slice(0, 10),
+        });
+
+        if (resolvedCardIds.length === 0) {
+          if (!cancelled) {
+            setSetTotalValue(0);
+            setSetValueStatus("unavailable");
+          }
+          return;
+        }
+
+        const rows = [];
+
+        for (const chunk of chunkItems(resolvedCardIds, 500)) {
+          const { data, error } = await supabase
+            .from("card_prices")
+            .select(
+              "card_id,set_id,card_number,name,rarity,price_type,market_price_usd,low_price_usd,mid_price_usd,high_price_usd,direct_low_price_usd,tcgplayer_url,source_updated_at,synced_at"
+            )
+            .in("card_id", chunk);
+
+          if (error) {
+            console.error("[PackDex prices] mobile set value Supabase error", {
+              setId: selectedSet.id,
+              setName: selectedSet.name,
+              error,
+            });
+            throw error;
+          }
+
+          rows.push(...(data || []));
+        }
+
+        console.debug("[PackDex prices] mobile set value rows returned", {
+          setId: selectedSet.id,
+          setName: selectedSet.name,
+          rowCount: rows.length,
+          firstRows: rows.slice(0, 5),
+        });
+
+        const uniqueRows = new Map();
+        rows.forEach((row) => {
+          if (row?.card_id) uniqueRows.set(row.card_id, row);
+        });
+        const total = [...uniqueRows.values()].reduce((sum, row) => sum + getBestPriceFromRow(row), 0);
+
+        if (!cancelled) {
+          setSetTotalValue(total);
+          setSetValueStatus(rows.length > 0 ? "loaded" : "unavailable");
+        }
+      } catch (error) {
+        console.error("[PackDex prices] mobile set value failed", {
+          setId: selectedSet?.id || null,
+          setName: selectedSet?.name || null,
+          error,
+        });
+        if (!cancelled) {
+          setSetTotalValue(0);
+          setSetValueStatus("unavailable");
+        }
+      } finally {
+        if (!cancelled) {
+          console.debug("[PackDex prices] mobile set value loading false");
+          setSetValueLoading(false);
+        }
+      }
+    }
+
+    loadRenderedSetValue();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedSet?.id]);
+
+  if (isPickingSet) {
+    return (
+      <section className="set-progress-mobile">
+        <section className="collection-toolbar set-picker-panel set-picker-page">
+          <div className="section-heading">
+            <h2>{selectedSet ? "Change Set" : "All Sets"}</h2>
+            {selectedSet && (
+              <button className="text-action compact-text-action" type="button" onClick={() => setIsPickingSet(false)}>
+                Back
+              </button>
+            )}
+          </div>
+          <label className="mobile-filter-pill set-picker-era">
+            <span>Era</span>
+            <select value={eraFilter} onChange={(event) => onEraFilter(event.target.value)}>
+              {eras.map((era) => (
+                <option key={era}>{era}</option>
+              ))}
+            </select>
+          </label>
+          <label className="mobile-search">
+            <span>Search Sets</span>
+            <input value={setSearch} type="search" placeholder="Type a set name" onChange={(event) => onSetSearch(event.target.value)} />
+          </label>
+          <div className="set-picker-list set-picker-list-full">
+            {visibleSets.map((set) => {
+              const setProgress = getSetCollectionProgress(collection, set);
+
+              return (
+                <button
+                  className={`set-picker-row ${selectedSet?.id === set.id ? "is-active" : ""}`}
+                  type="button"
+                  key={set.id}
+                  onClick={() => {
+                    onSelectSet(set);
+                    setIsPickingSet(false);
+                  }}
+                >
+                  <SetLogo set={set} className="set-picker-logo" />
+                  <span>
+                    <strong>{set.name}</strong>
+                    <em>
+                      {setProgress.collected} / {setProgress.total} collected
+                    </em>
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </section>
+      </section>
+    );
+  }
+
+  return (
+    <section className="set-progress-mobile">
+      {selectedSet && (
+        <section className="set-detail-mobile">
+          <div className="set-detail-topline">
+            <span className="eyebrow">Set Progress</span>
+            <button className="text-action compact-text-action" type="button" onClick={() => setIsPickingSet(true)}>
+              Change Set
+            </button>
+          </div>
+          <SetLogo set={selectedSet} className="set-detail-logo" />
+          <h2>{selectedSet.name}</h2>
+          <div className="set-progress-card">
+            <div>
+              <strong>
+                {progress.collected} / {progress.total}
+              </strong>
+              <span>{progress.percent}% complete</span>
+            </div>
+            <div className="set-progress-bar" aria-hidden="true">
+              <span style={{ width: `${progress.percent}%` }} />
+            </div>
+            <p className="value-inline">
+              <span>Estimated Set Value</span>
+              <strong>{setValueLoading ? "Loading..." : setValueStatus === "unavailable" ? "API price data not updated yet" : formatUsd(setTotalValue)}</strong>
+              <em>
+                <TcgplayerSourceBadge compact /> cached market data
+              </em>
+            </p>
+          </div>
+          <div className="set-detail-actions">
+            <button className="secondary-action" type="button" onClick={() => (onReturnFromSet ? onReturnFromSet(selectedSet) : onSelectSet(null))}>
+              {returnLabel || "Back to Collection"}
+            </button>
+            <button className="primary-action" type="button" onClick={() => onOpenPacks(selectedSet)}>
+              Open Packs
+            </button>
+            <button className="secondary-action" type="button" onClick={() => onViewBinder(selectedSet)}>
+              View Binder
+            </button>
+          </div>
+          <section className="set-card-grid-mobile">
+            {setCards.map((card) => {
+              const count = getCardCount(collection, card, selectedSet.id);
+              const isCollected = count > 0;
+
+              return (
+                <button
+                  className={`set-card-slot ${isCollected ? "is-collected" : "is-missing"}`}
+                  type="button"
+                  key={`${selectedSet.id}-${card.id}`}
+                  onClick={() => onInspectCard?.(card, selectedSet)}
+                >
+                  <CardImage card={card} set={selectedSet} />
+                  {!isCollected && <span className="missing-badge">Missing</span>}
+                  <strong>{getDisplayCardName(card, selectedSet)}</strong>
+                  <em>#{card.number || getSetNumber(card)} - {getDisplayRarity(card, selectedSet)}</em>
+                </button>
+              );
+            })}
+          </section>
+        </section>
+      )}
+    </section>
+  );
+}
+
+function getBinderSlots(binder) {
+  const set = binder.setId ? sets.find((candidate) => candidate.id === binder.setId) : null;
+  const masterCards = set ? getPullableCollectionCards(set).map((card) => ({ set, card })) : [];
+  const customCards = !set
+    ? binder.cards.map((item) => {
+        const itemSet = sets.find((candidate) => candidate.id === item.setId);
+        const card = itemSet?.cards?.find((candidate) => String(candidate.id) === String(item.cardId) || String(candidate.number) === String(item.cardNumber));
+
+        return { set: itemSet, card };
+      })
+    : [];
+
+  return set ? masterCards : customCards;
+}
+
+function BinderPageView({ binder, collection, onBack, onInspectCard }) {
+  const [pageIndex, setPageIndex] = useState(0);
+  const slots = getBinderSlots(binder);
+  const totalPages = Math.max(1, Math.ceil(slots.length / 9));
+  const pageSlots = slots.slice(pageIndex * 9, pageIndex * 9 + 9);
+
+  return (
+    <section className="binder-reader-mobile">
+      <div className="binder-reader-heading">
+        <div>
+          <span className="eyebrow">Binder</span>
+          <h2>{binder.name}</h2>
+          <p>
+            Page {pageIndex + 1} of {totalPages}
+          </p>
+        </div>
+        <button className="secondary-action" type="button" onClick={onBack}>
+          Back
+        </button>
+      </div>
+      <div className="binder-page-preview binder-page-reader">
+        {Array.from({ length: 9 }).map((_, index) => {
+          const item = pageSlots[index];
+          const collected = item?.set && item?.card ? getCardCount(collection, item.card, item.set.id) > 0 : false;
+
+          return (
+            <button
+              className={`binder-pocket ${item?.card && collected ? "is-filled" : ""}`}
+              type="button"
+              key={index}
+              onClick={() => item?.card && collected && onInspectCard?.(item.card, item.set)}
+              disabled={!item?.card || !collected}
+            >
+              {item?.card && collected ? <CardImage card={item.card} set={item.set} /> : <span>{item?.card ? "Missing" : "+"}</span>}
+            </button>
+          );
+        })}
+      </div>
+      <div className="binder-page-controls">
+        <button className="secondary-action" type="button" disabled={pageIndex === 0} onClick={() => setPageIndex((value) => Math.max(0, value - 1))}>
+          Previous
+        </button>
+        <button
+          className="primary-action"
+          type="button"
+          disabled={pageIndex >= totalPages - 1}
+          onClick={() => setPageIndex((value) => Math.min(totalPages - 1, value + 1))}
+        >
+          Next
+        </button>
+      </div>
+    </section>
+  );
+}
+
+function CollectionBinders({ collection, binders, onImportMasterSet, onInspectCard }) {
+  const [openBinderId, setOpenBinderId] = useState("");
+  const starterSets = ["chaos-rising", "phantasmal-flames", "perfect-order", "30th-anniversary"]
+    .map((id) => sets.find((set) => set.id === id))
+    .filter(Boolean);
+  const openBinder = binders.find((binder) => binder.id === openBinderId);
+
+  if (openBinder) {
+    return <BinderPageView binder={openBinder} collection={collection} onBack={() => setOpenBinderId("")} onInspectCard={onInspectCard} />;
+  }
+
+  return (
+    <>
+      <section className="binder-actions">
+        <div>
+          <span className="eyebrow">My Binders</span>
+          <h2>{binders.length} binders</h2>
+        </div>
+        <select onChange={(event) => {
+          const set = sets.find((candidate) => candidate.id === event.target.value);
+
+          if (set) onImportMasterSet(set);
+          event.target.value = "";
+        }} defaultValue="">
+          <option value="" disabled>Import Master Set</option>
+          {starterSets.map((set) => (
+            <option value={set.id} key={set.id}>{set.name}</option>
+          ))}
+        </select>
+      </section>
+
+      {binders.length > 0 ? (
+        <section className="binder-list-mobile">
+          {binders.map((binder) => {
+            const set = binder.setId ? sets.find((candidate) => candidate.id === binder.setId) : null;
+            const progress = set ? getSetCollectionProgress(collection, set) : null;
+
+            return (
+              <article className={`binder-card-mobile is-${binder.theme || "midnight"}`} key={binder.id}>
+                <div className="binder-spine" aria-hidden="true"><span /><span /><span /></div>
+                <div className="binder-card-body">
+                  <div className="binder-cover-logo">
+                    {set ? <SetLogo set={set} className="binder-logo" /> : <span>{binder.name?.slice(0, 2) || "PD"}</span>}
+                  </div>
+                  <strong>{binder.name}</strong>
+                  <span>{binder.type === "master_set" ? "Master Set Binder" : binder.tag}</span>
+                  <em>
+                    {progress ? `${progress.collected} / ${progress.total} - ${progress.percent}% complete` : `${binder.cards.length} cards`}
+                  </em>
+                  <button className="text-action" type="button" onClick={() => setOpenBinderId(binder.id)}>
+                    Open Binder
+                  </button>
+                </div>
+              </article>
+            );
+          })}
+        </section>
+      ) : (
+        <section className="empty-state">
+          <strong>No binders yet.</strong>
+          <span>Import a master set binder to view the mobile binder layout.</span>
+        </section>
+      )}
+    </>
+  );
+}
+
+function CollectionScreen({
+  collection,
+  binders,
+  selectedSetId,
+  collectionEraFilter,
+  collectionSetSearch,
+  onSelectSet,
+  onCollectionEraFilter,
+  onCollectionSetSearch,
+  onOpenPacks,
+  onImportMasterSet,
+  onInspectCard,
+  onReturnFromSet,
+  returnLabel,
+}) {
+  const [collectionTab, setCollectionTab] = useState("cards");
+  const isSetDetailOpen = Boolean(selectedSetId);
+
+  function showSetList() {
+    onSelectSet(null);
+    setCollectionTab("cards");
+  }
+
+  return (
+    <section className="collection-screen-mobile">
+      <div className="mobile-screen-title">
+        <span>Collection</span>
+        <h1>{collectionTab === "cards" ? "Set Collection" : "My Binders"}</h1>
+      </div>
+
+      <div className="collection-subtabs-mobile">
+        <button
+          className={[
+            collectionTab === "cards" && !isSetDetailOpen ? "is-active" : "",
+            collectionTab === "cards" && isSetDetailOpen ? "is-back-action" : "",
+          ]
+            .filter(Boolean)
+            .join(" ")}
+          type="button"
+          onClick={() => {
+            if (isSetDetailOpen) showSetList();
+            else setCollectionTab("cards");
+          }}
+        >
+          {isSetDetailOpen ? "All Sets" : "Set Collection"}
+        </button>
+        <button className={collectionTab === "binders" ? "is-active" : ""} type="button" onClick={() => setCollectionTab("binders")}>
+          My Binders
+        </button>
+      </div>
+
+      {collectionTab === "cards" ? (
+        <CollectionCards
+          collection={collection}
+          selectedSetId={selectedSetId}
+          eraFilter={collectionEraFilter}
+          setSearch={collectionSetSearch}
+          onSelectSet={onSelectSet}
+          onEraFilter={onCollectionEraFilter}
+          onSetSearch={onCollectionSetSearch}
+          onOpenPacks={onOpenPacks}
+          onViewBinder={(set) => {
+            onImportMasterSet(set);
+            setCollectionTab("binders");
+          }}
+          onInspectCard={onInspectCard}
+          onReturnFromSet={onReturnFromSet}
+          returnLabel={returnLabel}
+        />
+      ) : (
+        <CollectionBinders collection={collection} binders={binders} onImportMasterSet={onImportMasterSet} onInspectCard={onInspectCard} />
+      )}
+    </section>
+  );
+}
+
+function CardInspectModal({ item, collection, onClose, priceMap }) {
+  const [tiltStyle, setTiltStyle] = useState({});
+  const activeInspectPointerRef = useRef(null);
+
+  if (!item?.card || !item?.set) return null;
+
+  const { card, set } = item;
+  const marketPrice = getCardDisplayPrice(card, priceMap);
+  const hasMarketPrice = marketPrice?.marketPriceUsd != null;
+  const tcgplayerCardUrl = getTcgplayerCardUrl(card, set, marketPrice);
+  const ownedCount = getCardCount(collection, card, set.id);
+
+  function getInspectTilt(event, target) {
+    const rect = target.getBoundingClientRect();
+    const nx = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+    const ny = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+    const tilt = Math.min(1, Math.hypot(nx, ny));
+
+    return {
+      transform: `translate3d(${(nx * 3).toFixed(2)}px, ${(ny * 3).toFixed(2)}px, 0) rotateX(${(ny * -8).toFixed(
+        2
+      )}deg) rotateY(${(nx * 10).toFixed(2)}deg) scale(1.025)`,
+      "--foil-angle": `${(115 + nx * 24 - ny * 12).toFixed(2)}deg`,
+      "--foil-shift-x": `${(50 + nx * 18).toFixed(2)}%`,
+      "--foil-shift-y": `${(50 + ny * 12).toFixed(2)}%`,
+      "--shine-opacity": (0.18 + tilt * 0.18).toFixed(3),
+    };
+  }
+
+  function startTilt(event) {
+    activeInspectPointerRef.current = event.pointerId;
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+    setTiltStyle(getInspectTilt(event, event.currentTarget));
+  }
+
+  function updateTilt(event) {
+    const isTouchPointer = event.pointerType === "touch" || event.pointerType === "pen";
+
+    if (isTouchPointer && activeInspectPointerRef.current !== event.pointerId) return;
+    if (isTouchPointer) event.preventDefault();
+
+    setTiltStyle(getInspectTilt(event, event.currentTarget));
+  }
+
+  function resetTilt(event) {
+    if (event?.pointerId != null && activeInspectPointerRef.current === event.pointerId) {
+      event.currentTarget.releasePointerCapture?.(event.pointerId);
+      activeInspectPointerRef.current = null;
+    }
+
+    setTiltStyle({});
+  }
+
+  return (
+    <div className="inspect-backdrop" role="presentation" onClick={onClose}>
+      <section className="inspect-modal" role="dialog" aria-modal="true" aria-label={getDisplayCardName(card, set)} onClick={(event) => event.stopPropagation()}>
+        <button className="inspect-close" type="button" onClick={onClose} aria-label="Close card details">
+          ×
+        </button>
+        <div
+          className="inspect-tilt-frame"
+          style={tiltStyle}
+          onPointerDown={startTilt}
+          onPointerMove={updateTilt}
+          onPointerUp={resetTilt}
+          onPointerCancel={resetTilt}
+          onPointerLeave={resetTilt}
+        >
+          <CardImage card={card} set={set} className="inspect-card-image" withEffects={isFoilHit(card, set)} isFinal />
+        </div>
+        <div className="inspect-card-copy">
+          <span>{set.name}</span>
+          <h2>{getDisplayCardName(card, set)}</h2>
+          <p>{getDisplayRarity(card, set)}</p>
+          <p>{ownedCount > 0 ? `Owned in PackDex ×${ownedCount}` : "Not owned in your PackDex collection"}</p>
+          <p className="market-price-line">
+            Market Price: <strong>{hasMarketPrice ? formatUsd(marketPrice.marketPriceUsd) : "Not enough market data"}</strong>
+            {hasMarketPrice && <TcgplayerSourceBadge compact />}
+          </p>
+          <a className="tcgplayer-card-link" href={tcgplayerCardUrl} target="_blank" rel="noopener noreferrer">
+            View price on TCGplayer
+          </a>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function ValueScreen({
+  collection,
+  priceMapsBySet,
+  estimatedCollectionValue,
+  isValueLoading,
+}) {
+  const ownedCards = getOwnedCards(collection);
+  const valuedCards = ownedCards
+    .map((item) => ({
+      ...item,
+      price: getCardDisplayPrice(item.card, priceMapsBySet?.[item.set.id]),
+    }))
+    .filter((item) => Number(item.price?.marketPriceUsd || 0) >= VALUE_COUNT_THRESHOLD_USD)
+    .map((item) => ({ ...item, unitValue: Number(item.price.marketPriceUsd), value: Number(item.price.marketPriceUsd) * item.count }))
+    .sort((a, b) => b.value - a.value);
+  const totalValue = estimatedCollectionValue;
+
+  return (
+    <section className="value-screen-mobile">
+      <div className="mobile-screen-title">
+        <span>Value</span>
+        <h1>Collection Snapshot</h1>
+      </div>
+      <section className="value-hero">
+        <span className="eyebrow">Estimated Virtual Collection Value</span>
+        <strong>{isValueLoading ? "Loading..." : formatUsd(totalValue)}</strong>
+        <p>
+          Uses cached market prices from Supabase. Missing prices count as $0, and prices update every
+          48 hours.
+        </p>
+        <TcgplayerSourceBadge />
+      </section>
+
+      <section className="quick-stats">
+        <article className="stat-card">
+          <span>Virtual Cards</span>
+          <strong>{ownedCards.length}</strong>
+          <em>Unique cards</em>
+        </article>
+      </section>
+
+      <section className="content-section">
+        <div className="section-heading">
+          <h2>Top Estimated Cards</h2>
+        </div>
+        <div className="value-list">
+          {valuedCards.slice(0, 5).map(({ set, card, value, unitValue, count }) => (
+            <article className="value-row" key={`${set.id}-${card.id}`}>
+              <CardImage card={card} set={set} />
+              <strong>
+                {getDisplayCardName(card, set)}
+                {count > 1 ? ` ×${count}` : ""}
+              </strong>
+              <em>{formatUsd(value)}</em>
+              <small>{set.name} · {formatUsd(unitValue)} each</small>
+            </article>
+          ))}
+          {valuedCards.length === 0 && <p className="section-copy">Open simulated packs to populate this future collector dashboard.</p>}
+        </div>
+      </section>
+    </section>
+  );
+}
+
+function SettingsModal({
+  isOpen,
+  user,
+  isDark,
+  soundEnabled,
+  onClose,
+  onLogout,
+  onToggleTheme,
+  onToggleSound,
+  onOpenLegal,
+}) {
+  if (!isOpen) return null;
+
+  return (
+    <div className="mobile-auth-overlay settings-overlay" role="dialog" aria-modal="true" aria-labelledby="mobile-settings-title" onClick={onClose}>
+      <section className="mobile-auth-modal settings-modal" onClick={(event) => event.stopPropagation()}>
+        <button className="mobile-auth-close" type="button" onClick={onClose} aria-label="Close settings">
+          x
+        </button>
+        <div className="mobile-auth-heading">
+          <span className="eyebrow">Profile</span>
+          <h2 id="mobile-settings-title">Settings</h2>
+        </div>
+
+        {user && (
+          <section className="settings-section">
+            <span className="eyebrow">Account</span>
+            <p className="settings-email">{user.email}</p>
+            <button className="settings-danger" type="button" onClick={onLogout}>
+              <span aria-hidden="true">↪</span>
+              Log Out
+            </button>
+          </section>
+        )}
+
+        <section className="settings-section">
+          <span className="eyebrow">Preferences</span>
+          <button className="settings-toggle" type="button" onClick={onToggleTheme} aria-pressed={isDark}>
+            <span>
+              <strong>Appearance</strong>
+              <em>{isDark ? "Dark mode" : "Light mode"}</em>
+            </span>
+            <i className={isDark ? "is-on" : ""} />
+          </button>
+          <button className="settings-toggle" type="button" onClick={onToggleSound} aria-pressed={soundEnabled}>
+            <span>
+              <strong>Sound Effects</strong>
+              <em>{soundEnabled ? "Enabled" : "Muted"}</em>
+            </span>
+            <i className={soundEnabled ? "is-on" : ""} />
+          </button>
+        </section>
+
+        <section className="settings-section">
+          <span className="eyebrow">Support / Legal</span>
+          <a className="settings-link" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
+          <button className="settings-link" type="button" onClick={() => onOpenLegal?.("terms")}>
+            Terms of Service
+          </button>
+          <button className="settings-link" type="button" onClick={() => onOpenLegal?.("privacy")}>
+            Privacy Policy
+          </button>
+        </section>
+      </section>
+    </div>
+  );
+}
+
+function ProfileScreen({
+  user,
+  stats,
+  setsCompleted,
+  isDark,
+  isAuthPanelOpen,
+  onToggleTheme,
+  onOpenLogin,
+  onOpenSignup,
+  onLogout,
+  soundEnabled,
+  onToggleSound,
+  estimatedCollectionValue,
+  isValueLoading,
+  onOpenLegal,
+}) {
+  const isLoggedIn = Boolean(user);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+
+  return (
+    <section className="profile-screen-mobile">
+      <div className="mobile-screen-title profile-title-row">
+        <div>
+          <span>Profile</span>
+          <h1>{isLoggedIn ? "Account" : "Guest Mode"}</h1>
+        </div>
+        <button className="settings-gear-button" type="button" onClick={() => setIsSettingsOpen(true)} aria-label="Open settings">
+          <GearIcon />
+        </button>
+      </div>
+
+      {!isLoggedIn && (
+        <section className="profile-card">
+          <span className="eyebrow">Guest Mode</span>
+          <h2>Save your PackDex.</h2>
+          <p>
+            <button className="inline-auth-link" type="button" onClick={onOpenLogin}>
+              Log in
+            </button>{" "}
+            or{" "}
+            <button className="inline-auth-link" type="button" onClick={onOpenSignup}>
+              create an account
+            </button>{" "}
+            to save simulated pulls, collection progress, binders, and future app stats.
+          </p>
+        </section>
+      )}
+
+      {isLoggedIn && (
+        <section className="quick-stats">
+          <article className="stat-card">
+            <span>Packs Opened</span>
+            <strong>{stats.packsOpened}</strong>
+          </article>
+          <article className="stat-card">
+            <span>Total Pulled</span>
+            <strong>{stats.totalCardsPulled}</strong>
+          </article>
+          <article className="stat-card stat-card-wide">
+            <span>Sets Completed</span>
+            <strong>{setsCompleted}</strong>
+          </article>
+        </section>
+      )}
+
+      {!isSupabaseConfigured && (
+        <section className="content-section">
+          <p className="section-copy">
+            Supabase is not configured for this mobile app. Add {missingSupabaseEnv.join(" and ")} to
+            mobile-app/.env, then restart npm run dev.
+          </p>
+        </section>
+      )}
+
+      <section className="content-section">
+        <p className="section-copy">
+          Fan-made Pokemon TCG pack-opening simulator. Not affiliated with Nintendo, Creatures, Game Freak, or The
+          Pokemon Company. PackDex tracks a virtual collection only.
+        </p>
+      </section>
+      <SettingsModal
+        isOpen={isSettingsOpen}
+        user={user}
+        isDark={isDark}
+        soundEnabled={soundEnabled}
+        onClose={() => setIsSettingsOpen(false)}
+        onLogout={() => {
+          setIsSettingsOpen(false);
+          onLogout?.();
+        }}
+        onToggleTheme={onToggleTheme}
+        onToggleSound={onToggleSound}
+        onOpenLegal={onOpenLegal}
+      />
+    </section>
+  );
+}
+
+function App() {
+  const [activeTab, setActiveTab] = useState("open");
+  const [theme, setTheme] = useState("dark");
+  const [soundEnabled, setSoundEnabled] = useState(true);
+  const [collection, setCollection] = useState({});
+  const [binders, setBinders] = useState([]);
+  const [user, setUser] = useState(null);
+  const [stats, setStats] = useState(EMPTY_STATS);
+  const [loadingMessage, setLoadingMessage] = useState("Loading account...");
+  const [selectedSet, setSelectedSet] = useState(null);
+  const [selectedCollectionSetId, setSelectedCollectionSetId] = useState("");
+  const [collectionReturnSource, setCollectionReturnSource] = useState("collection");
+  const [collectionEraFilter, setCollectionEraFilter] = useState(() => {
+    if (typeof window === "undefined") return "All Eras";
+
+    return window.localStorage.getItem(COLLECTION_ERA_FILTER_KEY) || "All Eras";
+  });
+  const [collectionSetSearch, setCollectionSetSearch] = useState("");
+  const [pack, setPack] = useState([]);
+  const [packStage, setPackStage] = useState("sets");
+  const [revealedCount, setRevealedCount] = useState(0);
+  const [packInstanceId, setPackInstanceId] = useState(0);
+  const [newPullKeys, setNewPullKeys] = useState(() => new Set());
+  const [hasSavedCurrentPack, setHasSavedCurrentPack] = useState(false);
+  const savedPackKeyRef = useRef("");
+  const [inspectedCard, setInspectedCard] = useState(null);
+  const [authMode, setAuthMode] = useState("login");
+  const [isAuthSubmitting, setIsAuthSubmitting] = useState(false);
+  const [authEmail, setAuthEmail] = useState("");
+  const [authPassword, setAuthPassword] = useState("");
+  const [authConfirmPassword, setAuthConfirmPassword] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [turnstileMessage, setTurnstileMessage] = useState("");
+  const [authMessage, setAuthMessage] = useState("");
+  const [isAuthPanelOpen, setIsAuthPanelOpen] = useState(false);
+  const [isWelcomeDisclaimerOpen, setIsWelcomeDisclaimerOpen] = useState(false);
+  const [legalModalType, setLegalModalType] = useState("");
+  const [priceMapsBySet, setPriceMapsBySet] = useState({});
+  const [estimatedCollectionValue, setEstimatedCollectionValue] = useState(0);
+  const [isValueLoading, setIsValueLoading] = useState(false);
+  const loadingPriceSetIdsRef = useRef(new Set());
+  const cardIdLoadedSetValueIdsRef = useRef(new Set());
+  const preloadedAssetUrlsRef = useRef(new Set());
+  const screenContentRef = useRef(null);
+  const isDark = theme === "dark";
+  const setsCompleted = useMemo(
+    () =>
+      sets.filter((set) => {
+        const progress = getSetCollectionProgress(collection, set);
+
+        return progress.total > 0 && progress.collected >= progress.total;
+      }).length,
+    [collection]
+  );
+  const ownedCards = useMemo(() => getOwnedCards(collection), [collection]);
+
+  function scrollScreenToTop(behavior = "auto") {
+    window.requestAnimationFrame(() => {
+      screenContentRef.current?.scrollTo({ top: 0, left: 0, behavior });
+    });
+  }
+
+  function selectCollectionSet(set, source = "collection") {
+    if (!set?.id) {
+      setSelectedCollectionSetId("");
+      setCollectionReturnSource("collection");
+      scrollScreenToTop();
+      return;
+    }
+
+    setCollectionReturnSource(source);
+    setSelectedCollectionSetId(set.id);
+    scrollScreenToTop();
+  }
+
+  function updateCollectionEraFilter(nextEra) {
+    const normalizedEra = nextEra || "All Eras";
+
+    setCollectionEraFilter(normalizedEra);
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem(COLLECTION_ERA_FILTER_KEY, normalizedEra);
+    }
+  }
+
+  function viewSetCollection(set) {
+    selectCollectionSet(set, "open");
+    setActiveTab("collection");
+    scrollScreenToTop();
+  }
+
+  function returnFromCollectionSet() {
+    if (collectionReturnSource === "open") {
+      setActiveTab("open");
+      setSelectedCollectionSetId("");
+      setCollectionReturnSource("collection");
+      scrollScreenToTop();
+      return;
+    }
+
+    selectCollectionSet(null);
+  }
+
+  function setAuthModeClean(nextMode) {
+    setAuthMode(nextMode);
+    setAuthPassword("");
+    setAuthConfirmPassword("");
+    setTurnstileToken("");
+    setTurnstileMessage("");
+    setAuthMessage("");
+  }
+
+  function openAuthProfile(nextMode = "login") {
+    setAuthModeClean(nextMode);
+    setIsAuthPanelOpen(true);
+    setActiveTab("profile");
+    scrollScreenToTop();
+  }
+
+  function closeAuthProfile() {
+    setIsAuthPanelOpen(false);
+    setAuthMessage("");
+    setAuthPassword("");
+    setAuthConfirmPassword("");
+    setTurnstileToken("");
+    setTurnstileMessage("");
+  }
+
+  function maybeShowWelcomeDisclaimer(nextUser) {
+    if (!nextUser?.id || hasSeenDisclaimer(nextUser.id)) return;
+
+    setIsWelcomeDisclaimerOpen(true);
+  }
+
+  function clearAccountScopedState() {
+    setUser(null);
+    setCollection({});
+    setStats(EMPTY_STATS);
+    setBinders([]);
+    setSelectedCollectionSetId("");
+    setCollectionReturnSource("collection");
+    setEstimatedCollectionValue(0);
+    setIsValueLoading(false);
+    setInspectedCard(null);
+  }
+
+  async function loadAccountScopedState(currentUser) {
+    if (!currentUser?.id) {
+      clearAccountScopedState();
+      return;
+    }
+
+    await syncPendingCloudPulls(currentUser.id);
+    const cloudCollection = await loadCloudCollection();
+    const mergedCollection = mergePendingCloudPullsIntoCollection(cloudCollection, currentUser.id);
+    const cloudStats = await loadCloudProfileStats(currentUser.id);
+
+    setUser(currentUser);
+    setCollection(mergedCollection);
+    setStats(cloudStats || EMPTY_STATS);
+    setBinders(loadBinders());
+  }
+
+  useEffect(() => {
+    preloadMobileSounds();
+  }, []);
+
+  useEffect(() => {
+    if (!user?.id || !supabase) {
+      console.debug("[PackDex prices] valueLoading account set false", {
+        reason: !user?.id ? "no user" : "missing supabase client",
+      });
+      setEstimatedCollectionValue(0);
+      setIsValueLoading(false);
+      return undefined;
+    }
+
+    if (ownedCards.length === 0) {
+      console.debug("[PackDex prices] valueLoading account set false", { reason: "no owned cards" });
+      setEstimatedCollectionValue(0);
+      setIsValueLoading(false);
+      return undefined;
+    }
+
+    let cancelled = false;
+
+    async function loadCollectionValue() {
+      console.debug("[PackDex prices] valueLoading account set true");
+      setIsValueLoading(true);
+      try {
+        const result = await loadCardPricesForCollection(supabase, ownedCards);
+
+        if (cancelled) return;
+
+        setPriceMapsBySet((current) => {
+          const next = { ...current };
+          Object.entries(result.priceMapsBySet || {}).forEach(([setId, priceMap]) => {
+            next[setId] = priceMap;
+          });
+          return next;
+        });
+        setEstimatedCollectionValue(Number(result.totalValue || 0));
+      } catch (error) {
+        console.error("[PackDex prices] Unable to load mobile collection value; using $0 fallback", error);
+        if (!cancelled) setEstimatedCollectionValue(0);
+      } finally {
+        if (!cancelled) {
+          console.debug("[PackDex prices] valueLoading account set false");
+          setIsValueLoading(false);
+        }
+      }
+    }
+
+    loadCollectionValue();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [ownedCards, user?.id]);
+
+  useEffect(() => {
+    const idsToLoad = [selectedSet?.id]
+      .filter(Boolean)
+      .filter((setId) => !SETS_WITHOUT_MARKET_PRICE_DATA.has(setId))
+      .filter((setId) => !hasLoadedPriceMap(priceMapsBySet, setId) && !loadingPriceSetIdsRef.current.has(setId));
+
+    if (!supabase || idsToLoad.length === 0) return undefined;
+
+    let cancelled = false;
+
+    async function loadCurrentSetPriceMaps() {
+      idsToLoad.forEach((setId) => loadingPriceSetIdsRef.current.add(setId));
+      const entries = await Promise.allSettled(idsToLoad.map(async (setId) => [setId, await loadCardPricesForSet(supabase, setId)]));
+
+      idsToLoad.forEach((setId) => loadingPriceSetIdsRef.current.delete(setId));
+      if (cancelled) return;
+
+      setPriceMapsBySet((current) => {
+        const next = { ...current };
+        entries.forEach((entry) => {
+          if (entry.status !== "fulfilled") return;
+          const [setId, priceMap] = entry.value;
+          next[setId] = priceMap;
+        });
+        return next;
+      });
+    }
+
+    loadCurrentSetPriceMaps().catch((error) => {
+      console.warn("Unable to load selected set cached prices", {
+        setIds: idsToLoad,
+        error,
+      });
+      idsToLoad.forEach((setId) => loadingPriceSetIdsRef.current.delete(setId));
+    });
+
+    return () => {
+      cancelled = true;
+      idsToLoad.forEach((setId) => loadingPriceSetIdsRef.current.delete(setId));
+    };
+  }, [priceMapsBySet, selectedCollectionSetId, selectedSet?.id]);
+
+  useEffect(() => {
+    const collectionSet = selectedCollectionSetId ? sets.find((set) => set.id === selectedCollectionSetId) : null;
+
+    if (
+      !supabase ||
+      !collectionSet ||
+      SETS_WITHOUT_MARKET_PRICE_DATA.has(collectionSet.id) ||
+      cardIdLoadedSetValueIdsRef.current.has(collectionSet.id) ||
+      loadingPriceSetIdsRef.current.has(collectionSet.id)
+    ) {
+      return undefined;
+    }
+
+    let cancelled = false;
+    const setCards = getPullableCollectionCards(collectionSet);
+
+    async function loadSelectedCollectionSetPrices() {
+      loadingPriceSetIdsRef.current.add(collectionSet.id);
+      try {
+        const priceMap = await loadCardPricesForCards(supabase, collectionSet, setCards);
+
+        if (cancelled) return;
+
+        setPriceMapsBySet((current) => ({
+          ...current,
+          [collectionSet.id]: priceMap,
+        }));
+        cardIdLoadedSetValueIdsRef.current.add(collectionSet.id);
+      } catch (error) {
+        console.error("[PackDex prices] selected collection set value failed", {
+          setId: collectionSet.id,
+          setName: collectionSet.name,
+          error,
+        });
+        if (!cancelled) {
+          setPriceMapsBySet((current) => ({
+            ...current,
+            [collectionSet.id]: new Map(),
+          }));
+          cardIdLoadedSetValueIdsRef.current.add(collectionSet.id);
+        }
+      } finally {
+        loadingPriceSetIdsRef.current.delete(collectionSet.id);
+      }
+    }
+
+    loadSelectedCollectionSetPrices();
+
+    return () => {
+      cancelled = true;
+      loadingPriceSetIdsRef.current.delete(collectionSet.id);
+    };
+  }, [priceMapsBySet, selectedCollectionSetId]);
+
+  useEffect(() => {
+    const shouldPausePreload = Boolean(
+      isValueLoading ||
+        loadingMessage ||
+        isAuthSubmitting ||
+        packStage === "revealing" ||
+        packStage === "preloading"
+    );
+
+    if (shouldPausePreload) return undefined;
+
+    const selectedCollectionSet = selectedCollectionSetId ? sets.find((set) => set.id === selectedCollectionSetId) : null;
+    const candidateSets = [
+      selectedSet,
+      selectedCollectionSet,
+      ...sortSetsByEra(sets),
+    ]
+      .filter(Boolean)
+      .filter((set, index, list) => list.findIndex((candidate) => candidate.id === set.id) === index)
+      .slice(0, PRELOAD_SET_LIMIT);
+
+    const urls = [
+      getCardBackUrl(),
+      ...candidateSets.flatMap((set) => [
+        getSetLogoUrl(set),
+        ...getPullableCollectionCards(set)
+          .slice(0, PRELOAD_CARD_LIMIT_PER_SET)
+          .map((card) => getPackCardImageUrl(card, set)),
+      ]),
+    ].filter((url) => url && !preloadedAssetUrlsRef.current.has(url));
+
+    if (urls.length === 0) return undefined;
+
+    const idleHandle = scheduleIdleTask(() => {
+      urls.forEach((url) => preloadedAssetUrlsRef.current.add(url));
+      preloadImages(urls, { timeoutMs: 1200 }).catch(() => {});
+    });
+
+    return () => cancelIdleTask(idleHandle);
+  }, [activeTab, isAuthSubmitting, isValueLoading, loadingMessage, packStage, selectedCollectionSetId, selectedSet?.id]);
+
+  useEffect(() => {
+    let mounted = true;
+
+    async function hydrateAccount() {
+      setLoadingMessage("Loading account...");
+
+      try {
+        const currentUser = await getCurrentUser();
+
+        if (!mounted) return;
+
+        setUser(currentUser);
+
+        if (!currentUser) {
+          clearAccountScopedState();
+          setLoadingMessage("");
+          return;
+        }
+
+        await loadAccountScopedState(currentUser);
+      } catch (error) {
+        console.warn("Unable to hydrate mobile PackDex account data", error);
+        if (mounted) clearAccountScopedState();
+      } finally {
+        if (mounted) setLoadingMessage("");
+      }
+    }
+
+    hydrateAccount();
+
+    if (!supabase) {
+      return () => {
+        mounted = false;
+      };
+    }
+
+    const { data } = supabase.auth.onAuthStateChange((event, session) => {
+      const nextUser = session?.user || null;
+
+      if (!nextUser) {
+        clearAccountScopedState();
+        setLoadingMessage("");
+        return;
+      }
+
+      if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED" || event === "USER_UPDATED") {
+        loadAccountScopedState(nextUser)
+          .catch((error) => {
+            console.warn("Unable to reload mobile account data after auth change", error);
+            clearAccountScopedState();
+          })
+          .finally(() => {
+            setLoadingMessage("");
+          });
+      }
+    });
+
+    return () => {
+      mounted = false;
+      data.subscription.unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (packStage !== "revealing" || pack.length === 0) return undefined;
+
+    const timers = [];
+    const dealCompleteDelay = Math.max(0, (pack.length - 1) * CARD_DEAL_STAGGER_MS) + CARD_DEAL_ANIMATION_MS;
+    const revealStartDelay = dealCompleteDelay + WAIT_AFTER_DEAL_MS;
+
+    pack.forEach((_card, index) => {
+      const dealDelay = index * CARD_DEAL_STAGGER_MS;
+      const revealDelay = revealStartDelay + getMobileRevealDelay(index, pack.length);
+
+      timers.push(window.setTimeout(() => playDealSound(soundEnabled), dealDelay));
+      timers.push(
+        window.setTimeout(() => {
+          setRevealedCount(index + 1);
+          playFlipSound(soundEnabled);
+
+          const card = pack[index];
+
+          if (index === pack.length - 1) {
+            playFinalRevealSound(soundEnabled);
+          }
+
+          if (card && isFoilHit(card, selectedSet)) {
+            playHitRevealSound(card, selectedSet, soundEnabled);
+          }
+        }, revealDelay)
+      );
+    });
+
+    const totalDelay = revealStartDelay + getMobileRevealDelay(pack.length - 1, pack.length) + CARD_FLIP_ANIMATION_MS;
+
+    timers.push(
+      window.setTimeout(() => {
+        setPackStage("summary");
+      }, totalDelay + SUMMARY_AFTER_LAST_CARD_MS)
+    );
+
+    return () => {
+      timers.forEach((timer) => window.clearTimeout(timer));
+    };
+  }, [pack, packStage, selectedSet, soundEnabled]);
+
+  function persistSessionCollection(nextCollection) {
+    setCollection(nextCollection);
+  }
+
+  function openPack(set) {
+    const nextPack = generatePack(set);
+
+    preloadPackAssets(nextPack, set);
+    setCollectionReturnSource("collection");
+    setSelectedSet(set);
+    setPack(nextPack);
+    setPackInstanceId((current) => current + 1);
+    setPackStage("ready");
+    setRevealedCount(0);
+    setNewPullKeys(new Set());
+    setHasSavedCurrentPack(false);
+    savedPackKeyRef.current = "";
+    scrollScreenToTop();
+  }
+
+  function getPackSaveKey(cards, set) {
+    return `${set.id}:${cards.map((card) => card.id || card.number || card.name).join("|")}`;
+  }
+
+  async function preloadPackAssets(cards, set) {
+    const cardUrls = cards.map((card) => getPackCardImageUrl(card, set));
+
+    await preloadImages([getCardBackUrl(), getSetLogoUrl(set), ...cardUrls], { timeoutMs: 5000 });
+  }
+
+  async function saveRevealedPack(cards, set) {
+    const saveKey = getPackSaveKey(cards, set);
+
+    if (savedPackKeyRef.current === saveKey) return;
+
+    savedPackKeyRef.current = saveKey;
+    setHasSavedCurrentPack(true);
+
+    const timestamp = Date.now();
+    const nextNewPullKeys = new Set(
+      cards
+        .filter((card) => getCardCount(collection, card, set.id) <= 0)
+        .map((card) => getCardKey(card, set.id))
+    );
+    const nextCollection = markCardsCollected(collection, cards, set.id, timestamp);
+    const nextStats = {
+      packsOpened: stats.packsOpened + 1,
+      totalCardsPulled: stats.totalCardsPulled + cards.length,
+    };
+
+    setNewPullKeys(nextNewPullKeys);
+    persistSessionCollection(nextCollection);
+
+    if (user) {
+      try {
+        await savePulledCardsToCloud(cards, set.id);
+        const cloudStats = await incrementCloudProfileStats(user.id, { packsOpened: 1, totalCardsPulled: cards.length });
+        setStats(cloudStats);
+      } catch (error) {
+        console.warn("Mobile PackDex cloud save failed; keeping local fallback", {
+          setId: set.id,
+          cardCount: cards.length,
+          error,
+        });
+        enqueuePendingCloudPull(cards, set.id, user.id);
+        setStats(nextStats);
+      }
+    } else {
+      setStats(nextStats);
+    }
+  }
+
+  function startReveal() {
+    if (!selectedSet || pack.length === 0 || packStage !== "ready") return;
+
+    playPackOpenSound(soundEnabled);
+    beginReveal(pack, selectedSet);
+  }
+
+  function beginReveal(cards, set) {
+    setRevealedCount(0);
+    preloadPackAssets(cards, set).catch((error) => {
+      console.warn("Mobile pack image preload failed; continuing reveal with rendered image fallbacks", {
+        setId: set?.id,
+        cardCount: cards.length,
+        error,
+      });
+    });
+    setPackStage("revealing");
+    saveRevealedPack(cards, set);
+  }
+
+  function returnToSets() {
+    setPackStage("sets");
+    setCollectionReturnSource("collection");
+    setSelectedSet(null);
+    setPack([]);
+    setPackInstanceId((current) => current + 1);
+    setRevealedCount(0);
+    setNewPullKeys(new Set());
+    setHasSavedCurrentPack(false);
+    savedPackKeyRef.current = "";
+    scrollScreenToTop();
+  }
+
+  function openAnotherPack() {
+    if (!selectedSet) {
+      returnToSets();
+      return;
+    }
+
+    const nextPack = generatePack(selectedSet);
+
+    preloadPackAssets(nextPack, selectedSet);
+    setPack(nextPack);
+    setPackInstanceId((current) => current + 1);
+    setRevealedCount(0);
+    setNewPullKeys(new Set());
+    setHasSavedCurrentPack(false);
+    savedPackKeyRef.current = "";
+    playPackOpenSound(soundEnabled);
+    beginReveal(nextPack, selectedSet);
+    scrollScreenToTop();
+  }
+
+  function inspectCard(card, set) {
+    setInspectedCard({ card, set });
+
+    if (
+      supabase &&
+      set?.id &&
+      !SETS_WITHOUT_MARKET_PRICE_DATA.has(set.id) &&
+      !hasLoadedPriceMap(priceMapsBySet, set.id) &&
+      !loadingPriceSetIdsRef.current.has(set.id)
+    ) {
+      loadingPriceSetIdsRef.current.add(set.id);
+      loadCardPricesForCards(supabase, set, getPullableCollectionCards(set))
+        .then((priceMap) => {
+          setPriceMapsBySet((current) => ({
+            ...current,
+            [set.id]: priceMap,
+          }));
+          cardIdLoadedSetValueIdsRef.current.add(set.id);
+        })
+        .catch((error) => {
+          console.warn("[PackDex prices] Unable to load inspect card prices", {
+            setId: set.id,
+            setName: set.name,
+            error,
+          });
+        })
+        .finally(() => {
+          loadingPriceSetIdsRef.current.delete(set.id);
+        });
+    }
+  }
+
+  function importMasterSetBinder(set) {
+    const existing = binders.find((binder) => binder.id === `master-set-${set.id}`);
+
+    if (existing) return;
+
+    const nextBinder = createMasterSetBinder(set, "midnight");
+
+    if (!nextBinder) return;
+
+    const nextBinders = [nextBinder, ...binders];
+
+    setBinders(nextBinders);
+    saveBinders(nextBinders);
+  }
+
+  async function handleAuthSubmit(event) {
+    event.preventDefault();
+    setAuthMessage("");
+    const isCreateMode = authMode === "signup";
+
+    if (!supabase) {
+      setAuthMessage("Supabase is not configured in this mobile app.");
+      return;
+    }
+
+    if (authPassword.length < 8) {
+      setAuthMessage("Password must be at least 8 characters.");
+      return;
+    }
+
+    if (isCreateMode && authPassword !== authConfirmPassword) {
+      setAuthMessage("Passwords do not match.");
+      return;
+    }
+
+    if (isCreateMode && !TURNSTILE_SITE_KEY) {
+      setAuthMessage("Turnstile is not configured. Add VITE_TURNSTILE_SITE_KEY to mobile-app/.env.");
+      return;
+    }
+
+    if (isCreateMode && !turnstileToken) {
+      setAuthMessage("Please complete verification before creating an account.");
+      return;
+    }
+
+    setIsAuthSubmitting(true);
+    setLoadingMessage(authMode === "login" ? "Logging in..." : "Creating account...");
+
+    try {
+      const credentials = {
+        email: authEmail.trim(),
+        password: authPassword,
+      };
+      const { data, error } = isCreateMode
+        ? await supabase.auth.signUp({
+            ...credentials,
+            options: {
+              captchaToken: turnstileToken,
+              emailRedirectTo: getAuthCallbackUrl(),
+            },
+          })
+        : await supabase.auth.signInWithPassword(credentials);
+
+      if (error) {
+        setAuthMessage(error.message);
+        if (isCreateMode) {
+          setTurnstileToken("");
+          setTurnstileMessage("Verification reset. Please verify again.");
+        }
+        return;
+      }
+
+      const nextUser = data.user || data.session?.user || (await getCurrentUser());
+      setUser(nextUser);
+      setAuthMessage(authMode === "login" ? "Logged in." : "Account created. Check your email if confirmation is required.");
+      setAuthPassword("");
+      setAuthConfirmPassword("");
+      setTurnstileToken("");
+      setTurnstileMessage("");
+
+      if (nextUser) {
+        setIsAuthPanelOpen(false);
+        maybeShowWelcomeDisclaimer(nextUser);
+        await loadAccountScopedState(nextUser);
+      }
+    } catch (error) {
+      console.warn("Unable to load account data after mobile auth", error);
+      setAuthMessage("Unable to finish account loading. Please try again.");
+    } finally {
+      setIsAuthSubmitting(false);
+      setLoadingMessage("");
+    }
+  }
+
+  async function handleLogout() {
+    if (supabase) await supabase.auth.signOut();
+
+    clearAccountScopedState();
+    closeAuthProfile();
+  }
+
+  return (
+    <main className={`mobile-app ${isDark ? "theme-dark" : "theme-light"}`}>
+      <section className="phone-shell" aria-label="PackDex mobile app">
+        <div className={`screen-content screen-${activeTab}`} ref={screenContentRef}>
+          <MobileBrandHeader />
+          {activeTab === "open" &&
+            (packStage === "sets" ? (
+              <OpenSetSelector collection={collection} onOpenPack={openPack} />
+            ) : (
+              <PackScreen
+                user={user}
+                pack={pack}
+                packInstanceId={packInstanceId}
+                selectedSet={selectedSet}
+                stage={packStage}
+                revealedCount={revealedCount}
+                onStartReveal={startReveal}
+                onBack={returnToSets}
+                onOpenAnother={openAnotherPack}
+                onViewCollection={viewSetCollection}
+                onLogin={() => openAuthProfile("login")}
+                onCreateAccount={() => openAuthProfile("signup")}
+                onInspectCard={inspectCard}
+                soundEnabled={soundEnabled}
+                newPullKeys={newPullKeys}
+                priceMap={selectedSet ? priceMapsBySet[selectedSet.id] : null}
+              />
+            ))}
+          {activeTab === "collection" && (
+            <CollectionScreen
+              collection={collection}
+              binders={binders}
+              selectedSetId={selectedCollectionSetId}
+              collectionEraFilter={collectionEraFilter}
+              collectionSetSearch={collectionSetSearch}
+              onSelectSet={selectCollectionSet}
+              onCollectionEraFilter={updateCollectionEraFilter}
+              onCollectionSetSearch={setCollectionSetSearch}
+              onOpenPacks={(set) => {
+                setActiveTab("open");
+                openPack(set);
+              }}
+              onImportMasterSet={importMasterSetBinder}
+              onInspectCard={inspectCard}
+              onReturnFromSet={returnFromCollectionSet}
+              returnLabel={collectionReturnSource === "open" ? "Back to Open Packs" : "Back to Collection"}
+              priceMap={selectedCollectionSetId ? priceMapsBySet[selectedCollectionSetId] : null}
+            />
+          )}
+          {activeTab === "value" && (
+            <ValueScreen
+              collection={collection}
+              priceMapsBySet={priceMapsBySet}
+              estimatedCollectionValue={estimatedCollectionValue}
+              isValueLoading={isValueLoading}
+            />
+          )}
+          {activeTab === "profile" && (
+            <ProfileScreen
+              user={user}
+              stats={stats}
+              setsCompleted={setsCompleted}
+              isDark={isDark}
+              isAuthPanelOpen={isAuthPanelOpen}
+              onToggleTheme={() => setTheme(isDark ? "light" : "dark")}
+              soundEnabled={soundEnabled}
+              onOpenLogin={() => openAuthProfile("login")}
+              onOpenSignup={() => openAuthProfile("signup")}
+              onLogout={handleLogout}
+              onToggleSound={() => setSoundEnabled((value) => !value)}
+              estimatedCollectionValue={estimatedCollectionValue}
+              isValueLoading={isValueLoading}
+              onOpenLegal={setLegalModalType}
+            />
+          )}
+        </div>
+
+        <nav className="bottom-tabs" aria-label="Mobile app sections">
+          {tabs.map((tab) => (
+            <button
+              className={activeTab === tab.id ? "is-active" : ""}
+              key={tab.id}
+              type="button"
+              onClick={() => {
+                if (tab.id === "collection") {
+                  setSelectedCollectionSetId("");
+                  setCollectionReturnSource("collection");
+                }
+                setActiveTab(tab.id);
+                if (tab.id !== "open") returnToSets();
+                scrollScreenToTop();
+              }}
+            >
+              <TabIcon icon={tab.icon} />
+              {tab.label}
+            </button>
+          ))}
+        </nav>
+
+        <CardInspectModal
+          item={inspectedCard}
+          collection={collection}
+          priceMap={inspectedCard?.set ? priceMapsBySet[inspectedCard.set.id] : null}
+          onClose={() => setInspectedCard(null)}
+        />
+        <MobileAuthModal
+          isOpen={isAuthPanelOpen && !user}
+          isDark={isDark}
+          authMode={authMode}
+          authEmail={authEmail}
+          authPassword={authPassword}
+          authConfirmPassword={authConfirmPassword}
+          turnstileToken={turnstileToken}
+          turnstileMessage={turnstileMessage}
+          authMessage={authMessage}
+          isAuthSubmitting={isAuthSubmitting}
+          onClose={closeAuthProfile}
+          onAuthMode={setAuthModeClean}
+          onAuthEmail={setAuthEmail}
+          onAuthPassword={setAuthPassword}
+          onAuthConfirmPassword={setAuthConfirmPassword}
+          onTurnstileToken={setTurnstileToken}
+          onTurnstileMessage={setTurnstileMessage}
+          onAuthSubmit={handleAuthSubmit}
+          onOpenLegal={setLegalModalType}
+        />
+        <LegalModal type={legalModalType} onClose={() => setLegalModalType("")} />
+        <WelcomeDisclaimerModal
+          isOpen={isWelcomeDisclaimerOpen}
+          userId={user?.id}
+          onDismiss={() => setIsWelcomeDisclaimerOpen(false)}
+        />
+        {loadingMessage && <PokeballLoadingOverlay message={loadingMessage} />}
+      </section>
+    </main>
+  );
+}
+
+export default App;
