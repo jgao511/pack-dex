@@ -108,6 +108,11 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
     setIsRevealed(false);
     revealStartedRef.current = false;
 
+    const revealDelay =
+      getDealCompleteDelay(cards.length, isGodPack) +
+      WAIT_AFTER_DEAL_MS +
+      (isGodPack ? GOD_PACK_EXTRA_WAIT_AFTER_DEAL_MS : 0);
+
     cards.forEach((card, index) => {
       const imageUrl = getCardImageUrl(card);
 
@@ -123,11 +128,6 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
       markDealStart(imageDebugPackId);
       setIsDealt(true);
     }, 30);
-
-    const revealDelay =
-      getDealCompleteDelay(cards.length, isGodPack) +
-      WAIT_AFTER_DEAL_MS +
-      (isGodPack ? GOD_PACK_EXTRA_WAIT_AFTER_DEAL_MS : 0);
 
     autoRevealTimerRef.current = window.setTimeout(() => {
       if (!isCancelled) {
@@ -247,7 +247,7 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
             className={`grid-card-flip ${isRevealed ? "is-revealed" : ""} ${
               isRevealed && index === cards.length - 1 && hasBigPull ? "big-pull-card" : ""
             } ${isRevealed && index !== cards.length - 1 && isSubsetCard(card, set) ? "subset-pull-card" : ""}`}
-            key={`${card.id}-${index}`}
+            key={`${packSoundId}-${card.id}-${index}`}
             style={{
               "--deal-delay": `${getCardDealDelay(index, isGodPack)}ms`,
               "--delay": `${getCardRevealDelay(index, cards.length, isGodPack)}ms`,

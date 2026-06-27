@@ -206,12 +206,12 @@ function AuthForm({ onAuthenticated }) {
         <SupabaseAuthBadge />
       </div>
 
-      {isCreateMode && (
-        <div className="auth-reward-callout">
-          <strong>New account bonus</strong>
-          <span>Sign up to choose a one-time welcome God Pack after confirming your account.</span>
-        </div>
-      )}
+        {isCreateMode && (
+          <div className="auth-reward-callout">
+          <strong>New account welcome pack</strong>
+          <span>Sign up to choose one simulated welcome God Pack after confirming your account.</span>
+          </div>
+        )}
 
       {!isResetMode && (
         <div className="auth-mode-toggle" role="tablist" aria-label="Choose auth mode">
@@ -409,7 +409,7 @@ function AuthPanel({ user, isAuthLoading = false, onOpenAuth }) {
         <div>
           <span className="set-mark">Account</span>
           <h2>Signed In</h2>
-          <p>Signed in as {user.email}. New pulls save to your PackDex account.</p>
+          <p>Signed in as {user.email}. New simulated pulls save to your PackDex account.</p>
         </div>
         <div className="auth-user-card">
           <Mail size={18} aria-hidden="true" />
@@ -436,7 +436,7 @@ function AuthPanel({ user, isAuthLoading = false, onOpenAuth }) {
       <div>
         <span className="set-mark">Account</span>
         <h2>Guest Mode</h2>
-        <p>Playing as guest. Create an account to save pulls across devices and claim your free God Pack.</p>
+        <p>Playing as guest. Create an account to save simulated pulls across devices and open your welcome pack.</p>
       </div>
       <button className="primary-button auth-open-button" type="button" onClick={onOpenAuth}>
         Log In / Create Account

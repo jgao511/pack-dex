@@ -388,7 +388,7 @@ function LegalPage({ type }) {
 
   return (
     <section className="legal-screen">
-      <img className="site-logo" src="/packdex-large.png" alt="PackDex" />
+      <img className="site-logo" src="/packdex-small.png" alt="PackDex" />
       <span className="set-mark">{isPrivacy ? "Privacy" : "Terms"}</span>
       <h1>{isPrivacy ? "Privacy Policy" : "Terms of Service"}</h1>
       <p className="legal-effective-date">Effective Date: June 1, 2026</p>
@@ -458,9 +458,9 @@ function LegalPage({ type }) {
           <p>Welcome to PackDex. By using PackDex, you agree to these Terms of Service.</p>
           <h2>1. About PackDex</h2>
           <p>
-            PackDex is a fan-made Pokemon TCG pack opening simulator. PackDex is not affiliated with, endorsed by,
-            sponsored by, or approved by Nintendo, Creatures, GAME FREAK, The Pokemon Company, or any of their
-            affiliates.
+            PackDex is a fan-made Pokemon TCG pack-opening simulator and collection tracker for virtual collections.
+            Pack openings are simulated and do not award physical cards, money, prizes, or redeemable items.
+            PackDex is not affiliated with Nintendo, Creatures, Game Freak, or The Pokemon Company.
           </p>
           <h2>2. Use of the Site</h2>
           <p>
@@ -477,13 +477,13 @@ function LegalPage({ type }) {
           <p>
             When you are signed in, PackDex may save collection data connected to your account, including card IDs, set
             IDs, quantities, rarity, card names, card numbers, and image URLs. This data is used to provide
-            collection-saving features.
+            virtual collection-saving features inside PackDex.
           </p>
           <h2>5. Intellectual Property</h2>
           <p>
-            Pokemon names, card images, logos, and related materials belong to their respective owners. PackDex does not
-            claim ownership of Pokemon intellectual property. PackDex's original site design, layout, and code belong
-            to the PackDex project unless otherwise noted.
+            Pokemon names, card artwork, logos, and related trademarks belong to their respective owners. PackDex does
+            not claim ownership of Pokemon intellectual property. PackDex's original site design, layout, and code
+            belong to the PackDex project unless otherwise noted.
           </p>
           <h2>6. Availability</h2>
           <p>
@@ -633,7 +633,7 @@ function ResetPasswordPage() {
 
   return (
     <section className="reset-password-screen">
-      <img className="site-logo" src="/packdex-large.png" alt="PackDex" />
+      <img className="site-logo" src="/packdex-small.png" alt="PackDex" />
       <span className="set-mark">Account</span>
       <h1>Reset Password</h1>
       <p>Choose a new password for your PackDex account.</p>
@@ -746,7 +746,7 @@ function AuthCallbackPage() {
 
   return (
     <section className="auth-callback-screen">
-      <img className="site-logo" src="/packdex-large.png" alt="PackDex" />
+      <img className="site-logo" src="/packdex-small.png" alt="PackDex" />
       <span className="set-mark">Account</span>
       <h1>Email Confirmation</h1>
       {status && <div className="auth-message">{status}</div>}
@@ -1958,10 +1958,10 @@ function SiteFooter() {
         <span>{SUPPORT_EMAIL}</span>
       </a>
       <p>
-        PackDex is a fan-made Pokémon TCG pack opening simulator. PackDex is not affiliated with, endorsed by,
-        sponsored by, or associated with Nintendo, The Pokémon Company, Creatures Inc., or Game Freak. Pokémon,
-        Pokémon TCG, and related names, images, and trademarks are the property of their respective owners. All card
-        images and related assets are used for informational and entertainment purposes only.
+        Fan-made Pokemon TCG pack-opening simulator. Not affiliated with Nintendo, Creatures, Game Freak, or The
+        Pokemon Company. Pack openings are simulated for fun and do not award physical cards, money, prizes, or
+        redeemable items. Pokemon, Pokemon TCG, and related names, artwork, and trademarks belong to their respective
+        owners.
       </p>
       <div className="site-footer__bottom">
         <span>© 2026 PackDex. All rights reserved.</span>
@@ -2038,10 +2038,10 @@ function WelcomeRewardModal({
         </button>
 
         <div className="welcome-reward-heading">
-          <span>Welcome Reward</span>
+          <span>Welcome Pack</span>
           <h2 id="welcome-reward-title">Welcome to PackDex!</h2>
-          <p>Choose your free God Pack.</p>
-          <small>As a thank-you for joining PackDex, pick one special God Pack to open instantly.</small>
+          <p>Choose a welcome God Pack simulation.</p>
+          <small>As a thank-you for joining PackDex, pick one special virtual pack to open instantly.</small>
         </div>
 
         <div className="welcome-reward-grid">
@@ -2074,7 +2074,7 @@ function WelcomeRewardModal({
               <small>This may take a moment</small>
             </>
           ) : (
-            "Open This God Pack"
+            "Open Welcome Pack"
           )}
         </button>
       </div>
@@ -2089,11 +2089,11 @@ function WelcomeRewardProfileCard({ rewardStatus, onClaim }) {
     return (
       <div className="welcome-reward-profile-card is-available">
         <div>
-          <span>Free God Pack Available</span>
-          <strong>Choose your welcome reward and open a special God Pack.</strong>
+          <span>Welcome Pack Available</span>
+          <strong>Choose a virtual welcome pack to open in PackDex.</strong>
         </div>
         <button className="primary-button" type="button" onClick={onClaim}>
-          Claim Reward
+          Open Welcome Pack
         </button>
       </div>
     );
@@ -2157,6 +2157,11 @@ function ProfilePage({
           <p>Guest pulls stay local on this browser, but sign in to view account stats.</p>
         </div>
       )}
+
+      <div className="profile-stats-note">
+        Fan-made Pokemon TCG pack-opening simulator. Not affiliated with Nintendo, Creatures, Game Freak, or The
+        Pokemon Company. PackDex tracks a virtual collection only.
+      </div>
     </section>
   );
 }
@@ -3108,7 +3113,7 @@ function App() {
         onClose={() => setIsWelcomeRewardModalOpen(false)}
       />
       {isClaimingWelcomeReward && (
-        <TabLoadingOverlay text="Claiming reward..." subtext="Opening this God Pack" />
+        <TabLoadingOverlay text="Opening welcome pack..." subtext="Preparing this virtual God Pack" />
       )}
       {isAuthOpening && <TabLoadingOverlay text="Opening account..." />}
       {isOpeningPack && <TabLoadingOverlay text={authUser ? "Saving pulls securely..." : "Opening your pack..."} />}

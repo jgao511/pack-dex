@@ -1,11 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Nunito:wght@700;800;900&family=PT+Serif:ital,wght@1,400;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap");
 
 :root {
-  --app-font: "Nunito", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --heading-font: "Barlow Condensed", var(--app-font);
-  --card-text-font: "Nunito", var(--app-font);
-  --ui-condensed-font: "Barlow Condensed", var(--app-font);
-  --flavor-font: "PT Serif", Georgia, serif;
+  --app-font: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --heading-font: var(--app-font);
+  --body-font: var(--app-font);
+  --card-text-font: var(--app-font);
+  --ui-condensed-font: var(--app-font);
+  --flavor-font: Georgia, serif;
   --page-bg: #f6f7fb;
   --surface: rgba(255, 255, 255, 0.82);
   --surface-2: rgba(255, 255, 255, 0.9);
@@ -1689,11 +1690,14 @@ button {
 }
 
 .big-pull-card .grid-card-front {
-  animation: bigPullLift 1100ms ease-out both;
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.9),
     0 0 34px rgba(255, 208, 80, 0.72),
     0 24px 64px rgba(18, 24, 39, 0.24);
+}
+
+.big-pull-card .tilt-card-frame {
+  animation: bigPullLift 1100ms ease-out both;
 }
 
 .big-pull-card .grid-card-front::after {
@@ -1714,11 +1718,14 @@ button {
 }
 
 .subset-pull-card .grid-card-front {
-  animation: subsetPullLift 900ms ease-out both;
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.75),
     0 0 24px rgba(96, 165, 250, 0.42),
     0 18px 44px rgba(18, 24, 39, 0.2);
+}
+
+.subset-pull-card .tilt-card-frame {
+  animation: subsetPullLift 900ms ease-out both;
 }
 
 .subset-pull-card .grid-card-front::after {
@@ -5218,22 +5225,22 @@ button {
 @keyframes bigPullLift {
   0%,
   100% {
-    transform: rotateY(180deg) scale(1);
+    transform: scale(1);
   }
 
   45% {
-    transform: rotateY(180deg) scale(1.08);
+    transform: scale(1.08);
   }
 }
 
 @keyframes subsetPullLift {
   0%,
   100% {
-    transform: rotateY(180deg) scale(1);
+    transform: scale(1);
   }
 
   45% {
-    transform: rotateY(180deg) scale(1.045);
+    transform: scale(1.045);
   }
 }
 
