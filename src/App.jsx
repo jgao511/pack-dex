@@ -25,9 +25,9 @@ import {
 } from "./lib/cloudBinders.js";
 import {
   emptyProfileStats,
-  incrementCloudProfileStats,
   loadCloudProfileStats,
 } from "./lib/cloudProfileStats.js";
+import { ensurePackOpenClientEventId, recordPackOpenEvent } from "./lib/packOpenEvents.js";
 import { isSupabaseConfigured, supabase } from "./lib/supabaseClient.js";
 import {
   canGeneratePack,
@@ -2643,6 +2643,7 @@ function App() {
     setCloudWarning("");
     const generationStart = markPackGenerationStart(selectedSet);
     const nextPack = generatePack(selectedSet);
+    ensurePackOpenClientEventId(nextPack, selectedSet.id);
     markPackGenerationComplete(selectedSet, nextPack, generationStart);
 
     setPulledCards(nextPack);
@@ -2659,6 +2660,7 @@ function App() {
     setCloudWarning("");
     const generationStart = markPackGenerationStart(selectedSet);
     const nextPack = generatePack(selectedSet);
+    ensurePackOpenClientEventId(nextPack, selectedSet.id);
     markPackGenerationComplete(selectedSet, nextPack, generationStart);
 
     setPulledCards(nextPack);
@@ -2725,11 +2727,15 @@ function App() {
       savePulledCardsToCloud(cards, selectedSet.id)
         .then(async () => {
           try {
-            const stats = await incrementCloudProfileStats(authUser.id, { packsOpened: 1, totalCardsPulled: cards.length });
+            const result = await recordPackOpenEvent({
+              userId: authUser.id,
+              setId: selectedSet.id,
+              cards,
+            });
 
-            setProfileStats(stats);
+            if (result?.stats) setProfileStats(result.stats);
           } catch (statsError) {
-            console.warn("Cloud profile stats increment failed after pack save", {
+            console.warn("Cloud pack-open event failed after pack save", {
               userId: authUser.id,
               setId: selectedSet.id,
               cardCount: cards.length,
@@ -2903,10 +2909,10 @@ function App() {
       if (result.stats) {
         setProfileStats(result.stats);
       } else {
-        incrementCloudProfileStats(authUser.id, { packsOpened: 1, totalCardsPulled: rewardPack.length })
+        loadCloudProfileStats(authUser.id)
           .then((stats) => setProfileStats(stats))
           .catch((error) => {
-            console.warn("Welcome reward profile stats update failed", {
+            console.warn("Welcome reward profile stats reload failed", {
               userId: authUser.id,
               cardCount: rewardPack.length,
               error,

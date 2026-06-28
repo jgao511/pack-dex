@@ -37,36 +37,11 @@ export async function loadCloudProfileStats(userId) {
 }
 
 export async function incrementCloudProfileStats(userId, { packsOpened = 0, totalCardsPulled = 0 } = {}) {
-  if (!supabase || !userId) return emptyProfileStats();
+  console.warn("Browser profile stat increments are disabled; use recordPackOpenEvent instead.", {
+    userId,
+    packsOpened,
+    totalCardsPulled,
+  });
 
-  const currentStats = await loadCloudProfileStats(userId);
-  const nextStats = {
-    packsOpened: currentStats.packsOpened + Number(packsOpened || 0),
-    totalCardsPulled: currentStats.totalCardsPulled + Number(totalCardsPulled || 0),
-  };
-
-  const { data, error } = await supabase
-    .from(USER_PROFILE_STATS_TABLE)
-    .upsert(
-      {
-        user_id: userId,
-        packs_opened: nextStats.packsOpened,
-        total_cards_pulled: nextStats.totalCardsPulled,
-      },
-      { onConflict: "user_id" }
-    )
-    .select("packs_opened,total_cards_pulled")
-    .single();
-
-  if (error) {
-    console.warn("Unable to increment cloud profile stats", {
-      userId,
-      packsOpened,
-      totalCardsPulled,
-      error,
-    });
-    throw error;
-  }
-
-  return fromCloudStats(data);
+  return loadCloudProfileStats(userId);
 }

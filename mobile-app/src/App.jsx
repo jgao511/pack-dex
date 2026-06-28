@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Turnstile } from "react-turnstile";
 import { sets } from "../../src/data/sets.js";
 import { getCardBackUrl, getCardImageUrl, getPokeballLoadingUrl, getSetLogoUrl } from "../../src/utils/assetUrls.js";
@@ -12,7 +12,8 @@ import {
 import { createBinder, createMasterSetBinder, loadBinders, saveBinders } from "../../src/utils/binderStorage.js";
 import { getFoilProfile } from "../../src/utils/foil.js";
 import { supabase, isSupabaseConfigured, missingSupabaseEnv } from "./lib/supabaseClient.js";
-import { loadCloudProfileStats, incrementCloudProfileStats } from "./lib/cloudProfileStats.js";
+import { loadCloudProfileStats } from "./lib/cloudProfileStats.js";
+import { ensurePackOpenClientEventId, recordPackOpenEvent } from "../../src/lib/packOpenEvents.js";
 import {
   getCurrentUser,
   loadCloudCollection,
@@ -22,6 +23,10 @@ import {
   syncPendingCloudPulls,
 } from "./lib/cloudCollection.js";
 import { preloadImages } from "./utils/imageCache.js";
+import {
+  loadCurrentUserAchievements,
+  requestServerAchievementAward,
+} from "../../src/lib/userAchievements.js";
 import { getSiteOrigin } from "../../src/utils/authRedirects.js";
 import {
   formatUsd,
@@ -65,6 +70,20 @@ const MOBILE_DISCLAIMER_SEEN_KEY = "packdex-mobile-intro-seen";
 const SETS_WITHOUT_MARKET_PRICE_DATA = new Set(["ascended-heroes", "perfect-order", "chaos-rising"]);
 const PRELOAD_SET_LIMIT = 3;
 const PRELOAD_CARD_LIMIT_PER_SET = 45;
+const MOBILE_ACHIEVEMENTS = [
+  {
+    id: "account_created",
+    title: "PackDex Account",
+    description: "Create or sign in to a PackDex account.",
+    trust: "trusted",
+  },
+  {
+    id: "first_pack_opened",
+    title: "First Pack Opened",
+    description: "Open your first PackDex pack while signed in.",
+    trust: "trusted",
+  },
+];
 const WELCOME_REWARD_CHOICES = [
   { setId: "prismatic-evolutions", title: "Prismatic Evolutions", description: "A premium Eeveelution God Pack.", forcedFormat: "PRISMATIC_FULL_EEVEELUTION_PACK" },
   { setId: "black-bolt", title: "Black Bolt", description: "Nine Illustration Rares and one Special Illustration Rare." },
@@ -447,9 +466,9 @@ function WelcomeDisclaimerModal({ isOpen, onDismiss }) {
         <span className="eyebrow">Disclaimer</span>
         <h2 id="mobile-disclaimer-title">Welcome to PackDex</h2>
         <div className="mobile-disclaimer-copy">
-          <p>PackDex is a fan-made PokÃ©mon TCG pack-opening simulator and collection tracker.</p>
+          <p>PackDex is a fan-made Pokemon TCG pack-opening simulator and collection tracker.</p>
           <p>Pack openings are simulated and do not award physical cards, money, prizes, or redeemable items.</p>
-          <p>PackDex is not affiliated with Nintendo, Creatures, Game Freak, or The PokÃ©mon Company.</p>
+          <p>PackDex is not affiliated with Nintendo, Creatures, Game Freak, or The Pokemon Company.</p>
           <p>Card names, artwork, set names, and related trademarks belong to their respective owners.</p>
           <p>
             For support or bug reports, contact{" "}
@@ -473,6 +492,40 @@ function GearIcon() {
   );
 }
 
+function CloseIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M6.8 6.8 17.2 17.2M17.2 6.8 6.8 17.2" />
+    </svg>
+  );
+}
+
+function TrophyIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M8 4h8v4.4a4 4 0 0 1-8 0V4Z" />
+      <path d="M8 6H5.5a2.5 2.5 0 0 0 2.8 4.9M16 6h2.5a2.5 2.5 0 0 1-2.8 4.9" />
+      <path d="M12 12.5V17M8.5 20h7M10 17h4" />
+    </svg>
+  );
+}
+
+function MoonIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M18.4 15.9A7.3 7.3 0 0 1 8.1 5.6 8.1 8.1 0 1 0 18.4 15.9Z" />
+    </svg>
+  );
+}
+
+function SunIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 8.2a3.8 3.8 0 1 0 0 7.6 3.8 3.8 0 0 0 0-7.6Z" />
+      <path d="M12 2.8v2.1M12 19.1v2.1M4.9 4.9l1.5 1.5M17.6 17.6l1.5 1.5M2.8 12h2.1M19.1 12h2.1M4.9 19.1l1.5-1.5M17.6 6.4l1.5-1.5" />
+    </svg>
+  );
+}
 function LegalModal({ type, onClose }) {
   if (!type) return null;
 
@@ -483,7 +536,7 @@ function LegalModal({ type, onClose }) {
     <div className="mobile-auth-overlay legal-overlay" role="dialog" aria-modal="true" aria-labelledby="mobile-legal-title" onClick={onClose}>
       <section className="mobile-auth-modal legal-modal" onClick={(event) => event.stopPropagation()}>
         <button className="mobile-auth-close" type="button" onClick={onClose} aria-label="Close legal information">
-          x
+          <CloseIcon />
         </button>
         <div className="mobile-auth-heading">
           <span className="eyebrow">PackDex</span>
@@ -506,7 +559,7 @@ function SignupVerificationModal({ isOpen, email, onClose }) {
     <div className="mobile-auth-overlay" role="dialog" aria-modal="true" aria-labelledby="signup-verification-title" onClick={onClose}>
       <section className="mobile-auth-modal signup-verification-modal" onClick={(event) => event.stopPropagation()}>
         <button className="mobile-auth-close" type="button" onClick={onClose} aria-label="Close verification notice">
-          x
+          <CloseIcon />
         </button>
         <div className="mobile-auth-heading">
           <span className="eyebrow">Verify Email</span>
@@ -534,7 +587,7 @@ function WelcomeRewardModal({ isOpen, rewardStatus, selectedSetId, isClaiming, e
     <div className="mobile-auth-overlay welcome-reward-mobile-overlay" role="dialog" aria-modal="true" aria-labelledby="welcome-reward-title" onClick={onClose}>
       <section className="mobile-auth-modal welcome-reward-mobile-modal" onClick={(event) => event.stopPropagation()}>
         <button className="mobile-auth-close" type="button" onClick={onClose} aria-label="Close welcome reward">
-          x
+          <CloseIcon />
         </button>
         <div className="mobile-auth-heading">
           <span className="eyebrow">Welcome Pack</span>
@@ -598,7 +651,7 @@ function MobileAuthModal({
     <div className="mobile-auth-overlay" role="dialog" aria-modal="true" aria-labelledby="mobile-auth-title" onClick={onClose}>
       <section className="mobile-auth-modal" onClick={(event) => event.stopPropagation()}>
         <button className="mobile-auth-close" type="button" onClick={onClose} aria-label="Close account form">
-          x
+          <CloseIcon />
         </button>
         <div className="mobile-auth-heading">
           <span className="eyebrow">Account</span>
@@ -1553,7 +1606,7 @@ function CardInspectModal({ item, collection, onClose, priceMap }) {
     <div className="inspect-backdrop" role="presentation" onClick={onClose}>
       <section className="inspect-modal" role="dialog" aria-modal="true" aria-label={getDisplayCardName(card, set)} onClick={(event) => event.stopPropagation()}>
         <button className="inspect-close" type="button" onClick={onClose} aria-label="Close card details">
-          Ã—
+          <CloseIcon />
         </button>
         <div
           className={`inspect-tilt-frame ${isInspectTilting ? "is-tilting" : ""}`}
@@ -1570,7 +1623,7 @@ function CardInspectModal({ item, collection, onClose, priceMap }) {
           <span>{set.name}</span>
           <h2>{getDisplayCardName(card, set)}</h2>
           <p>{getDisplayRarity(card, set)}</p>
-          <p>{ownedCount > 0 ? `Owned in PackDex Ã—${ownedCount}` : "Not owned in your PackDex collection"}</p>
+          <p>{ownedCount > 0 ? `Owned in PackDex x${ownedCount}` : "Not owned in your PackDex collection"}</p>
           <p className="market-price-line">
             Market Price: <strong>{hasMarketPrice ? formatUsd(marketPrice.marketPriceUsd) : "Not enough market data"}</strong>
             {hasMarketPrice && <TcgplayerSourceBadge compact />}
@@ -1636,10 +1689,10 @@ function ValueScreen({
               <CardImage card={card} set={set} />
               <strong>
                 {getDisplayCardName(card, set)}
-                {count > 1 ? ` Ã—${count}` : ""}
+                {count > 1 ? ` x${count}` : ""}
               </strong>
               <em>{formatUsd(value)}</em>
-              <small>{set.name} Â· {formatUsd(unitValue)} each</small>
+              <small>{set.name} - {formatUsd(unitValue)} each</small>
             </button>
           ))}
           {valuedCards.length === 0 && <p className="section-copy">Open simulated packs to populate this future collector dashboard.</p>}
@@ -1666,7 +1719,7 @@ function SettingsModal({
     <div className="mobile-auth-overlay settings-overlay" role="dialog" aria-modal="true" aria-labelledby="mobile-settings-title" onClick={onClose}>
       <section className="mobile-auth-modal settings-modal" onClick={(event) => event.stopPropagation()}>
         <button className="mobile-auth-close" type="button" onClick={onClose} aria-label="Close settings">
-          x
+          <CloseIcon />
         </button>
         <div className="mobile-auth-heading">
           <span className="eyebrow">Profile</span>
@@ -1678,7 +1731,6 @@ function SettingsModal({
             <span className="eyebrow">Account</span>
             <p className="settings-email">{user.email}</p>
             <button className="settings-danger" type="button" onClick={onLogout}>
-              <span aria-hidden="true">â†ª</span>
               Log Out
             </button>
           </section>
@@ -1691,7 +1743,7 @@ function SettingsModal({
               <strong>Appearance</strong>
               <em>{isDark ? "Dark mode" : "Light mode"}</em>
             </span>
-            <span className="theme-mode-icon" aria-hidden="true">{isDark ? "â˜¾" : "â˜€"}</span>
+            <span className="theme-mode-icon" aria-hidden="true">{isDark ? <MoonIcon /> : <SunIcon />}</span>
           </button>
           <button className="settings-toggle" type="button" onClick={onToggleSound} aria-pressed={soundEnabled}>
             <span>
@@ -1736,12 +1788,20 @@ function ProfileScreen({
   onToggleSound,
   estimatedCollectionValue,
   isValueLoading,
+  achievements = [],
+  isAchievementsLoading = false,
   welcomeRewardStatus,
   onOpenWelcomeReward,
   onOpenLegal,
 }) {
   const isLoggedIn = Boolean(user);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isAchievementsOpen, setIsAchievementsOpen] = useState(false);
+  const earnedAchievementIds = useMemo(() => new Set(achievements.map((achievement) => achievement.achievementId)), [achievements]);
+  const publicAchievements = useMemo(() => MOBILE_ACHIEVEMENTS.filter((achievement) => achievement.trust === "trusted"), []);
+  const earnedPublicAchievements = publicAchievements.filter((achievement) => earnedAchievementIds.has(achievement.id)).length;
+  const achievementTotal = publicAchievements.length;
+  const achievementPercent = achievementTotal > 0 ? Math.round((earnedPublicAchievements / achievementTotal) * 100) : 0;
 
   return (
     <section className="profile-screen-mobile">
@@ -1798,7 +1858,47 @@ function ProfileScreen({
             <span>Sets Completed</span>
             <strong>{setsCompleted}</strong>
           </article>
+          <button className="stat-card stat-card-wide achievement-summary-card" type="button" onClick={() => setIsAchievementsOpen(true)}>
+            <span className="achievement-card-heading">
+              <span className="achievement-trophy-icon" aria-hidden="true"><TrophyIcon /></span>
+              Achievements
+            </span>
+            <strong>{isAchievementsLoading ? "..." : `${earnedPublicAchievements} / ${achievementTotal}`}</strong>
+            <em>{achievementPercent}% complete</em>
+          </button>
         </section>
+      )}
+
+      {isAchievementsOpen && (
+        <div className="mobile-auth-overlay achievements-overlay" role="dialog" aria-modal="true" aria-labelledby="mobile-achievements-title" onClick={() => setIsAchievementsOpen(false)}>
+          <section className="mobile-auth-modal achievements-modal" onClick={(event) => event.stopPropagation()}>
+            <button className="mobile-auth-close" type="button" onClick={() => setIsAchievementsOpen(false)} aria-label="Close achievements">
+              <CloseIcon />
+            </button>
+            <div className="mobile-auth-heading">
+              <span className="eyebrow">Profile</span>
+              <h2 id="mobile-achievements-title">Achievements</h2>
+              <p>{earnedPublicAchievements} of {achievementTotal} public achievements earned.</p>
+            </div>
+            <div className="achievement-list-mobile">
+              {MOBILE_ACHIEVEMENTS.map((achievement) => {
+                const isEarned = earnedAchievementIds.has(achievement.id);
+                const isPendingTrust = achievement.trust === "pending";
+
+                return (
+                  <article className={`achievement-row-mobile ${isEarned ? "is-earned" : ""} ${isPendingTrust ? "is-pending-trust" : ""}`} key={achievement.id}>
+                    <span className="achievement-trophy-icon" aria-hidden="true"><TrophyIcon /></span>
+                    <div>
+                      <strong>{achievement.title}</strong>
+                      <em>{achievement.description}</em>
+                    </div>
+                    <small>{isPendingTrust ? "Pending trusted stats" : isEarned ? "Earned" : "Locked"}</small>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+        </div>
       )}
 
       {!isSupabaseConfigured && (
@@ -1956,6 +2056,11 @@ function App() {
   const isMobileAuthCallbackRoute = typeof window !== "undefined" && window.location.pathname === "/mobile-app/auth/callback";
   const [isClaimingWelcomeReward, setIsClaimingWelcomeReward] = useState(false);
   const [welcomeRewardError, setWelcomeRewardError] = useState("");
+  const [achievements, setAchievements] = useState([]);
+  const [isAchievementsLoading, setIsAchievementsLoading] = useState(false);
+  const achievementCacheByUserIdRef = useRef(new Map());
+  const lastAchievementsLoadedUserIdRef = useRef("");
+  const lastAccountScopedUserIdRef = useRef("");
   const [legalModalType, setLegalModalType] = useState("");
   const [priceMapsBySet, setPriceMapsBySet] = useState({});
   const [estimatedCollectionValue, setEstimatedCollectionValue] = useState(0);
@@ -1966,6 +2071,8 @@ function App() {
   const shownWelcomeRewardUserRef = useRef("");
   const soundEnabledRef = useRef(soundEnabled);
   const playedRevealSoundKeysRef = useRef(new Set());
+  const activeRevealSoundSessionRef = useRef("");
+  const revealSoundSessionCounterRef = useRef(0);
   const screenContentRef = useRef(null);
   const isDark = theme === "dark";
   const setsCompleted = useMemo(
@@ -2068,6 +2175,11 @@ function App() {
     setWelcomeRewardStatus(null);
     setIsWelcomeRewardModalOpen(false);
     setWelcomeRewardError("");
+    setAchievements([]);
+    setIsAchievementsLoading(false);
+    achievementCacheByUserIdRef.current.clear();
+    lastAchievementsLoadedUserIdRef.current = "";
+    lastAccountScopedUserIdRef.current = "";
     setInspectedCard(null);
   }
 
@@ -2077,10 +2189,44 @@ function App() {
       return;
     }
 
+    if (lastAccountScopedUserIdRef.current && lastAccountScopedUserIdRef.current !== currentUser.id) {
+      achievementCacheByUserIdRef.current.clear();
+      lastAchievementsLoadedUserIdRef.current = "";
+      setAchievements([]);
+      setIsAchievementsLoading(false);
+    }
+    lastAccountScopedUserIdRef.current = currentUser.id;
+
     await syncPendingCloudPulls(currentUser.id);
     const cloudCollection = await loadCloudCollection();
     const mergedCollection = mergePendingCloudPullsIntoCollection(cloudCollection, currentUser.id);
     const cloudStats = await loadCloudProfileStats(currentUser.id);
+    const cachedAchievements = achievementCacheByUserIdRef.current.get(currentUser.id);
+    const shouldLoadAchievements = lastAchievementsLoadedUserIdRef.current !== currentUser.id || !cachedAchievements;
+
+    if (cachedAchievements) {
+      setAchievements(cachedAchievements);
+      setIsAchievementsLoading(false);
+    }
+
+    if (shouldLoadAchievements) {
+      setIsAchievementsLoading(true);
+      try {
+        await requestServerAchievementAward(currentUser.id);
+        const cloudAchievements = await loadCurrentUserAchievements(currentUser.id);
+        achievementCacheByUserIdRef.current.set(currentUser.id, cloudAchievements);
+        lastAchievementsLoadedUserIdRef.current = currentUser.id;
+        setAchievements(cloudAchievements);
+      } catch (error) {
+        console.warn("Unable to load mobile achievements", {
+          userId: currentUser.id,
+          error,
+        });
+        if (!cachedAchievements) setAchievements([]);
+      } finally {
+        setIsAchievementsLoading(false);
+      }
+    }
 
     setUser(currentUser);
     setCollection(mergedCollection);
@@ -2444,9 +2590,10 @@ function App() {
           }
 
           if (card && isFoilHit(card, selectedSet)) {
+            const soundSessionKey = activeRevealSoundSessionRef.current || [packInstanceId, getPackSaveKey(pack, selectedSet)].join(":");
             const hitSoundKey = pack.isGodPack
-              ? `${packInstanceId}:god-pack-hit`
-              : `${packInstanceId}:${index}:${card.id || card.name || "card"}`;
+              ? `${soundSessionKey}:god-pack-hit`
+              : `${soundSessionKey}:${index}:${card.id || card.name || "card"}`;
 
             if (!playedRevealSoundKeysRef.current.has(hitSoundKey)) {
               playedRevealSoundKeysRef.current.add(hitSoundKey);
@@ -2468,7 +2615,7 @@ function App() {
     return () => {
       timers.forEach((timer) => window.clearTimeout(timer));
     };
-  }, [pack, packInstanceId, packStage, selectedSet]);
+  }, [pack, packStage, selectedSet]);
 
   function persistSessionCollection(nextCollection) {
     setCollection(nextCollection);
@@ -2476,6 +2623,7 @@ function App() {
 
   function openPack(set) {
     const nextPack = generatePack(set);
+    ensurePackOpenClientEventId(nextPack, set.id);
 
     preloadPackAssets(nextPack, set);
     setCollectionReturnSource("collection");
@@ -2492,6 +2640,12 @@ function App() {
 
   function getPackSaveKey(cards, set) {
     return `${set.id}:${cards.map((card) => card.id || card.number || card.name).join("|")}`;
+  }
+
+  function startRevealSoundSession(cards, set) {
+    revealSoundSessionCounterRef.current += 1;
+    activeRevealSoundSessionRef.current = [revealSoundSessionCounterRef.current, getPackSaveKey(cards, set)].join(":");
+    playedRevealSoundKeysRef.current = new Set();
   }
 
   async function preloadPackAssets(cards, set) {
@@ -2526,8 +2680,6 @@ function App() {
     if (user) {
       try {
         await savePulledCardsToCloud(cards, set.id);
-        const cloudStats = await incrementCloudProfileStats(user.id, { packsOpened: 1, totalCardsPulled: cards.length });
-        setStats(cloudStats);
       } catch (error) {
         console.warn("Mobile PackDex cloud save failed; keeping local fallback", {
           setId: set.id,
@@ -2535,6 +2687,32 @@ function App() {
           error,
         });
         enqueuePendingCloudPull(cards, set.id, user.id);
+        setStats(nextStats);
+        return;
+      }
+
+      try {
+        const result = await recordPackOpenEvent({
+          userId: user.id,
+          setId: set.id,
+          cards,
+        });
+
+        if (result?.stats) setStats(result.stats);
+
+        achievementCacheByUserIdRef.current.delete(user.id);
+        lastAchievementsLoadedUserIdRef.current = "";
+        await requestServerAchievementAward(user.id);
+        const cloudAchievements = await loadCurrentUserAchievements(user.id);
+        achievementCacheByUserIdRef.current.set(user.id, cloudAchievements);
+        lastAchievementsLoadedUserIdRef.current = user.id;
+        setAchievements(cloudAchievements);
+      } catch (error) {
+        console.warn("Mobile PackDex pack-open event failed; keeping local stats fallback", {
+          setId: set.id,
+          cardCount: cards.length,
+          error,
+        });
         setStats(nextStats);
       }
     } else {
@@ -2550,7 +2728,7 @@ function App() {
   }
 
   function beginReveal(cards, set) {
-    playedRevealSoundKeysRef.current = new Set();
+    startRevealSoundSession(cards, set);
     setRevealedCount(0);
     preloadPackAssets(cards, set).catch((error) => {
       console.warn("Mobile pack image preload failed; continuing reveal with rendered image fallbacks", {
@@ -2583,6 +2761,7 @@ function App() {
     }
 
     const nextPack = generatePack(selectedSet);
+    ensurePackOpenClientEventId(nextPack, selectedSet.id);
 
     preloadPackAssets(nextPack, selectedSet);
     setPack(nextPack);
@@ -2693,7 +2872,7 @@ function App() {
       setNewPullKeys(new Set(rewardPack.map((card) => getCardKey(card, choice.set.id))));
       setHasSavedCurrentPack(true);
       savedPackKeyRef.current = getPackSaveKey(rewardPack, choice.set);
-      playedRevealSoundKeysRef.current = new Set();
+      startRevealSoundSession(rewardPack, choice.set);
       setPackStage("revealing");
       playPackOpenSound(soundEnabled);
       scrollScreenToTop();
@@ -2892,6 +3071,8 @@ function App() {
               onToggleSound={() => setSoundEnabled((value) => !value)}
               estimatedCollectionValue={estimatedCollectionValue}
               isValueLoading={isValueLoading}
+              achievements={achievements}
+              isAchievementsLoading={isAchievementsLoading}
               welcomeRewardStatus={welcomeRewardStatus}
               onOpenWelcomeReward={() => {
                 setWelcomeRewardError("");

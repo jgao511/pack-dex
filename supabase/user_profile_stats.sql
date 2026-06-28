@@ -9,7 +9,10 @@ create table if not exists public.user_profile_stats (
 alter table public.user_profile_stats enable row level security;
 
 grant usage on schema public to authenticated, service_role;
-grant select, insert, update on public.user_profile_stats to authenticated;
+revoke all on public.user_profile_stats from anon;
+revoke all on public.user_profile_stats from authenticated;
+revoke all on public.user_profile_stats from public;
+grant select on public.user_profile_stats to authenticated;
 grant select, insert, update on public.user_profile_stats to service_role;
 
 do $$
@@ -38,19 +41,10 @@ to authenticated
 using (auth.uid() = user_id);
 
 drop policy if exists "Users can insert their own profile stats" on public.user_profile_stats;
-create policy "Users can insert their own profile stats"
-on public.user_profile_stats
-for insert
-to authenticated
-with check (auth.uid() = user_id);
-
 drop policy if exists "Users can update their own profile stats" on public.user_profile_stats;
-create policy "Users can update their own profile stats"
-on public.user_profile_stats
-for update
-to authenticated
-using (auth.uid() = user_id)
-with check (auth.uid() = user_id);
+
+-- No authenticated INSERT or UPDATE policies exist for this table.
+-- Stat writes should happen from trusted Edge Functions using service_role.
 
 create or replace function public.set_user_profile_stats_updated_at()
 returns trigger
