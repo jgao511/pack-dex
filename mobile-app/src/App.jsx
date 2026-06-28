@@ -73,32 +73,50 @@ const PRELOAD_CARD_LIMIT_PER_SET = 45;
 const MOBILE_ACHIEVEMENTS = [
   {
     id: "account_created",
-    title: "PackDex Account",
+    title: "Welcome to PackDex",
     description: "Create or sign in to a PackDex account.",
     trust: "trusted",
   },
   {
     id: "first_pack_opened",
-    title: "First Pack Opened",
+    title: "First Rip",
     description: "Open your first PackDex pack while signed in.",
     trust: "trusted",
   },
   {
     id: "packs_opened_10",
-    title: "Ten Packs Opened",
+    title: "Pack Rookie",
     description: "Open 10 PackDex packs while signed in.",
     trust: "trusted",
   },
   {
     id: "packs_opened_50",
-    title: "Fifty Packs Opened",
+    title: "Rip Streak",
     description: "Open 50 PackDex packs while signed in.",
     trust: "trusted",
   },
   {
     id: "packs_opened_100",
-    title: "One Hundred Packs Opened",
+    title: "Pack Pro",
     description: "Open 100 PackDex packs while signed in.",
+    trust: "trusted",
+  },
+  {
+    id: "packs_opened_250",
+    title: "Sealed Seeker",
+    description: "Open 250 PackDex packs while signed in.",
+    trust: "trusted",
+  },
+  {
+    id: "packs_opened_500",
+    title: "Pack Veteran",
+    description: "Open 500 PackDex packs while signed in.",
+    trust: "trusted",
+  },
+  {
+    id: "packs_opened_1000",
+    title: "Thousand-Pack Club",
+    description: "Open 1,000 PackDex packs while signed in.",
     trust: "trusted",
   },
 ];

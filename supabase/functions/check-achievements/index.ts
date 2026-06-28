@@ -20,6 +20,9 @@ const PACK_OPEN_COUNT_ACHIEVEMENTS = [
   { achievementId: "packs_opened_10", threshold: 10 },
   { achievementId: "packs_opened_50", threshold: 50 },
   { achievementId: "packs_opened_100", threshold: 100 },
+  { achievementId: "packs_opened_250", threshold: 250 },
+  { achievementId: "packs_opened_500", threshold: 500 },
+  { achievementId: "packs_opened_1000", threshold: 1000 },
 ];
 
 function makeAwardKey(userId: string, achievementId: string, scopeKey = "global") {
