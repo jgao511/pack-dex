@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+﻿import { useEffect, useMemo, useRef, useState } from "react";
 import { Turnstile } from "react-turnstile";
 import { sets } from "../../src/data/sets.js";
 import { getCardBackUrl, getCardImageUrl, getPokeballLoadingUrl, getSetLogoUrl } from "../../src/utils/assetUrls.js";
@@ -61,7 +61,7 @@ const SUMMARY_AFTER_LAST_CARD_MS = 250;
 const POKEBALL_LOADING_SRC = getPokeballLoadingUrl();
 const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY;
 const SUPPORT_EMAIL = "packdexsupport@gmail.com";
-const MOBILE_DISCLAIMER_SEEN_PREFIX = "packdex-mobile-disclaimer-seen";
+const MOBILE_DISCLAIMER_SEEN_KEY = "packdex-mobile-intro-seen";
 const SETS_WITHOUT_MARKET_PRICE_DATA = new Set(["ascended-heroes", "perfect-order", "chaos-rising"]);
 const PRELOAD_SET_LIMIT = 3;
 const PRELOAD_CARD_LIMIT_PER_SET = 45;
@@ -420,27 +420,24 @@ function PokeballLoadingOverlay({ message = "Loading..." }) {
   );
 }
 
-function getDisclaimerSeenKey(userId) {
-  return `${MOBILE_DISCLAIMER_SEEN_PREFIX}:${userId || "guest"}`;
+
+function hasSeenDisclaimer() {
+  if (typeof window === "undefined") return true;
+
+  return window.localStorage.getItem(MOBILE_DISCLAIMER_SEEN_KEY) === "true";
 }
 
-function hasSeenDisclaimer(userId) {
-  if (typeof window === "undefined" || !userId) return true;
+function markDisclaimerSeen() {
+  if (typeof window === "undefined") return;
 
-  return window.localStorage.getItem(getDisclaimerSeenKey(userId)) === "true";
+  window.localStorage.setItem(MOBILE_DISCLAIMER_SEEN_KEY, "true");
 }
 
-function markDisclaimerSeen(userId) {
-  if (typeof window === "undefined" || !userId) return;
-
-  window.localStorage.setItem(getDisclaimerSeenKey(userId), "true");
-}
-
-function WelcomeDisclaimerModal({ isOpen, userId, onDismiss }) {
+function WelcomeDisclaimerModal({ isOpen, onDismiss }) {
   if (!isOpen) return null;
 
   function handleDismiss() {
-    markDisclaimerSeen(userId);
+    markDisclaimerSeen();
     onDismiss?.();
   }
 
@@ -450,9 +447,9 @@ function WelcomeDisclaimerModal({ isOpen, userId, onDismiss }) {
         <span className="eyebrow">Disclaimer</span>
         <h2 id="mobile-disclaimer-title">Welcome to PackDex</h2>
         <div className="mobile-disclaimer-copy">
-          <p>PackDex is a fan-made Pokémon TCG pack-opening simulator and collection tracker.</p>
+          <p>PackDex is a fan-made PokÃ©mon TCG pack-opening simulator and collection tracker.</p>
           <p>Pack openings are simulated and do not award physical cards, money, prizes, or redeemable items.</p>
-          <p>PackDex is not affiliated with Nintendo, Creatures, Game Freak, or The Pokémon Company.</p>
+          <p>PackDex is not affiliated with Nintendo, Creatures, Game Freak, or The PokÃ©mon Company.</p>
           <p>Card names, artwork, set names, and related trademarks belong to their respective owners.</p>
           <p>
             For support or bug reports, contact{" "}
@@ -542,7 +539,7 @@ function WelcomeRewardModal({ isOpen, rewardStatus, selectedSetId, isClaiming, e
         <div className="mobile-auth-heading">
           <span className="eyebrow">Welcome Pack</span>
           <h2 id="welcome-reward-title">Choose a welcome God Pack</h2>
-          <p>Pick one simulated reward pack. It can only be claimed once.</p>
+          <p>Thanks for signing up! Here’s a free God Pack on us to get your collection started.</p>
         </div>
         <div className="welcome-reward-mobile-grid">
           {choices.map((choice) => (
@@ -1556,7 +1553,7 @@ function CardInspectModal({ item, collection, onClose, priceMap }) {
     <div className="inspect-backdrop" role="presentation" onClick={onClose}>
       <section className="inspect-modal" role="dialog" aria-modal="true" aria-label={getDisplayCardName(card, set)} onClick={(event) => event.stopPropagation()}>
         <button className="inspect-close" type="button" onClick={onClose} aria-label="Close card details">
-          ×
+          Ã—
         </button>
         <div
           className={`inspect-tilt-frame ${isInspectTilting ? "is-tilting" : ""}`}
@@ -1573,7 +1570,7 @@ function CardInspectModal({ item, collection, onClose, priceMap }) {
           <span>{set.name}</span>
           <h2>{getDisplayCardName(card, set)}</h2>
           <p>{getDisplayRarity(card, set)}</p>
-          <p>{ownedCount > 0 ? `Owned in PackDex ×${ownedCount}` : "Not owned in your PackDex collection"}</p>
+          <p>{ownedCount > 0 ? `Owned in PackDex Ã—${ownedCount}` : "Not owned in your PackDex collection"}</p>
           <p className="market-price-line">
             Market Price: <strong>{hasMarketPrice ? formatUsd(marketPrice.marketPriceUsd) : "Not enough market data"}</strong>
             {hasMarketPrice && <TcgplayerSourceBadge compact />}
@@ -1639,10 +1636,10 @@ function ValueScreen({
               <CardImage card={card} set={set} />
               <strong>
                 {getDisplayCardName(card, set)}
-                {count > 1 ? ` ×${count}` : ""}
+                {count > 1 ? ` Ã—${count}` : ""}
               </strong>
               <em>{formatUsd(value)}</em>
-              <small>{set.name} · {formatUsd(unitValue)} each</small>
+              <small>{set.name} Â· {formatUsd(unitValue)} each</small>
             </button>
           ))}
           {valuedCards.length === 0 && <p className="section-copy">Open simulated packs to populate this future collector dashboard.</p>}
@@ -1681,7 +1678,7 @@ function SettingsModal({
             <span className="eyebrow">Account</span>
             <p className="settings-email">{user.email}</p>
             <button className="settings-danger" type="button" onClick={onLogout}>
-              <span aria-hidden="true">↪</span>
+              <span aria-hidden="true">â†ª</span>
               Log Out
             </button>
           </section>
@@ -1694,7 +1691,7 @@ function SettingsModal({
               <strong>Appearance</strong>
               <em>{isDark ? "Dark mode" : "Light mode"}</em>
             </span>
-            <span className="theme-mode-icon" aria-hidden="true">{isDark ? "☾" : "☀"}</span>
+            <span className="theme-mode-icon" aria-hidden="true">{isDark ? "â˜¾" : "â˜€"}</span>
           </button>
           <button className="settings-toggle" type="button" onClick={onToggleSound} aria-pressed={soundEnabled}>
             <span>
@@ -1779,12 +1776,13 @@ function ProfileScreen({
         <section className="welcome-reward-profile-card-mobile">
           <span className="eyebrow">Welcome Pack Available</span>
           <h2>Claim your welcome God Pack</h2>
-          <p>Choose one simulated reward pack. Closing the popup will not remove this claim.</p>
+          <p>Thanks for signing up! Here’s a free God Pack on us to get your collection started.</p>
           <button className="primary-action compact-auth-submit" type="button" onClick={onOpenWelcomeReward}>
             Claim Welcome Pack
           </button>
         </section>
       )}
+
 
       {isLoggedIn && (
         <section className="quick-stats">
@@ -1966,6 +1964,8 @@ function App() {
   const cardIdLoadedSetValueIdsRef = useRef(new Set());
   const preloadedAssetUrlsRef = useRef(new Set());
   const shownWelcomeRewardUserRef = useRef("");
+  const soundEnabledRef = useRef(soundEnabled);
+  const playedRevealSoundKeysRef = useRef(new Set());
   const screenContentRef = useRef(null);
   const isDark = theme === "dark";
   const setsCompleted = useMemo(
@@ -2050,8 +2050,8 @@ function App() {
     setTurnstileMessage("");
   }
 
-  function maybeShowWelcomeDisclaimer(nextUser) {
-    if (!nextUser?.id || hasSeenDisclaimer(nextUser.id)) return;
+  function maybeShowWelcomeDisclaimer() {
+    if (hasSeenDisclaimer()) return;
 
     setIsWelcomeDisclaimerOpen(true);
   }
@@ -2323,9 +2323,10 @@ function App() {
         return null;
       }
 
+      setIsSignupVerificationOpen(false);
+      setSignupVerificationEmail("");
       await loadAccountScopedState(sessionUser);
       await refreshWelcomeRewardStatus(sessionUser, { autoOpen: autoOpenWelcomeReward });
-      maybeShowWelcomeDisclaimer(sessionUser);
       return sessionUser;
     } catch (error) {
       console.warn("Unable to refresh mobile PackDex auth session", error);
@@ -2335,6 +2336,14 @@ function App() {
       setLoadingMessage("");
     }
   }
+
+  useEffect(() => {
+    maybeShowWelcomeDisclaimer();
+  }, []);
+
+  useEffect(() => {
+    soundEnabledRef.current = soundEnabled;
+  }, [soundEnabled]);
 
   useEffect(() => {
     let mounted = true;
@@ -2357,6 +2366,10 @@ function App() {
     const { data } = supabase.auth.onAuthStateChange((event, session) => {
       const nextUser = session?.user || null;
 
+      if (nextUser) {
+        setIsSignupVerificationOpen(false);
+        setSignupVerificationEmail("");
+      }
       if (!nextUser) {
         clearAccountScopedState();
         setLoadingMessage("");
@@ -2418,20 +2431,27 @@ function App() {
       const dealDelay = index * CARD_DEAL_STAGGER_MS;
       const revealDelay = revealStartDelay + getMobileRevealDelay(index, pack.length);
 
-      timers.push(window.setTimeout(() => playDealSound(soundEnabled), dealDelay));
+      timers.push(window.setTimeout(() => playDealSound(soundEnabledRef.current), dealDelay));
       timers.push(
         window.setTimeout(() => {
           setRevealedCount(index + 1);
-          playFlipSound(soundEnabled);
+          playFlipSound(soundEnabledRef.current);
 
           const card = pack[index];
 
           if (index === pack.length - 1) {
-            playFinalRevealSound(soundEnabled);
+            if (!pack.isGodPack) playFinalRevealSound(soundEnabledRef.current);
           }
 
           if (card && isFoilHit(card, selectedSet)) {
-            playHitRevealSound(card, selectedSet, soundEnabled);
+            const hitSoundKey = pack.isGodPack
+              ? `${packInstanceId}:god-pack-hit`
+              : `${packInstanceId}:${index}:${card.id || card.name || "card"}`;
+
+            if (!playedRevealSoundKeysRef.current.has(hitSoundKey)) {
+              playedRevealSoundKeysRef.current.add(hitSoundKey);
+              playHitRevealSound(card, selectedSet, soundEnabledRef.current);
+            }
           }
         }, revealDelay)
       );
@@ -2448,7 +2468,7 @@ function App() {
     return () => {
       timers.forEach((timer) => window.clearTimeout(timer));
     };
-  }, [pack, packStage, selectedSet, soundEnabled]);
+  }, [pack, packInstanceId, packStage, selectedSet]);
 
   function persistSessionCollection(nextCollection) {
     setCollection(nextCollection);
@@ -2530,6 +2550,7 @@ function App() {
   }
 
   function beginReveal(cards, set) {
+    playedRevealSoundKeysRef.current = new Set();
     setRevealedCount(0);
     preloadPackAssets(cards, set).catch((error) => {
       console.warn("Mobile pack image preload failed; continuing reveal with rendered image fallbacks", {
@@ -2672,6 +2693,7 @@ function App() {
       setNewPullKeys(new Set(rewardPack.map((card) => getCardKey(card, choice.set.id))));
       setHasSavedCurrentPack(true);
       savedPackKeyRef.current = getPackSaveKey(rewardPack, choice.set);
+      playedRevealSoundKeysRef.current = new Set();
       setPackStage("revealing");
       playPackOpenSound(soundEnabled);
       scrollScreenToTop();
@@ -2776,7 +2798,6 @@ function App() {
 
       if (nextUser) {
         setIsAuthPanelOpen(false);
-        maybeShowWelcomeDisclaimer(nextUser);
         await loadAccountScopedState(nextUser);
       }
     } catch (error) {
@@ -2952,7 +2973,6 @@ function App() {
         <LegalModal type={legalModalType} onClose={() => setLegalModalType("")} />
         <WelcomeDisclaimerModal
           isOpen={isWelcomeDisclaimerOpen}
-          userId={user?.id}
           onDismiss={() => setIsWelcomeDisclaimerOpen(false)}
         />
         {loadingMessage && <PokeballLoadingOverlay message={loadingMessage} />}
@@ -2962,3 +2982,5 @@ function App() {
 }
 
 export default App;
+
+
