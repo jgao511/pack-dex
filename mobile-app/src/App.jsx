@@ -83,6 +83,24 @@ const MOBILE_ACHIEVEMENTS = [
     description: "Open your first PackDex pack while signed in.",
     trust: "trusted",
   },
+  {
+    id: "packs_opened_10",
+    title: "Ten Packs Opened",
+    description: "Open 10 PackDex packs while signed in.",
+    trust: "trusted",
+  },
+  {
+    id: "packs_opened_50",
+    title: "Fifty Packs Opened",
+    description: "Open 50 PackDex packs while signed in.",
+    trust: "trusted",
+  },
+  {
+    id: "packs_opened_100",
+    title: "One Hundred Packs Opened",
+    description: "Open 100 PackDex packs while signed in.",
+    trust: "trusted",
+  },
 ];
 const WELCOME_REWARD_CHOICES = [
   { setId: "prismatic-evolutions", title: "Prismatic Evolutions", description: "A premium Eeveelution God Pack.", forcedFormat: "PRISMATIC_FULL_EEVEELUTION_PACK" },

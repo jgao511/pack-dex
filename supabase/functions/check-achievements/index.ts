@@ -16,6 +16,12 @@ type AchievementCandidate = {
   source: string;
 };
 
+const PACK_OPEN_COUNT_ACHIEVEMENTS = [
+  { achievementId: "packs_opened_10", threshold: 10 },
+  { achievementId: "packs_opened_50", threshold: 50 },
+  { achievementId: "packs_opened_100", threshold: 100 },
+];
+
 function makeAwardKey(userId: string, achievementId: string, scopeKey = "global") {
   return ["account", userId, achievementId, scopeKey].join("::");
 }
@@ -78,6 +84,42 @@ Deno.serve(async (req) => {
         achievementId: "first_pack_opened",
         reason: "missing_trusted_pack_open_event",
       });
+    }
+
+    debugStep = "count_pack_open_events";
+    const { count: packOpenCount, error: packOpenCountError } = await admin
+      .from("user_pack_open_events")
+      .select("id", { count: "exact", head: true })
+      .eq("user_id", userId);
+
+    if (packOpenCountError) {
+      if (packOpenCountError.code === "42P01") {
+        for (const milestone of PACK_OPEN_COUNT_ACHIEVEMENTS) {
+          skipped.push({
+            achievementId: milestone.achievementId,
+            reason: "pack_open_events_not_deployed",
+          });
+        }
+      } else {
+        throw packOpenCountError;
+      }
+    } else {
+      const safePackOpenCount = Number(packOpenCount || 0);
+
+      for (const milestone of PACK_OPEN_COUNT_ACHIEVEMENTS) {
+        if (safePackOpenCount >= milestone.threshold) {
+          candidates.push(makeAchievement(userId, milestone.achievementId, {
+            packsOpened: safePackOpenCount,
+            threshold: milestone.threshold,
+            sourceTable: "user_pack_open_events",
+          }));
+        } else {
+          skipped.push({
+            achievementId: milestone.achievementId,
+            reason: "insufficient_trusted_pack_open_events",
+          });
+        }
+      }
     }
 
     // TODO: Pull hit, chase-card, binder/page, and price/value achievements need a
