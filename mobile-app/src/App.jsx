@@ -1739,6 +1739,8 @@ function ProfileScreen({
   onToggleSound,
   estimatedCollectionValue,
   isValueLoading,
+  welcomeRewardStatus,
+  onOpenWelcomeReward,
   onOpenLegal,
 }) {
   const isLoggedIn = Boolean(user);
@@ -1770,6 +1772,17 @@ function ProfileScreen({
             </button>{" "}
             to save simulated pulls, collection progress, binders, and future app stats.
           </p>
+        </section>
+      )}
+
+      {isLoggedIn && welcomeRewardStatus?.isEligible && !welcomeRewardStatus?.isClaimed && (
+        <section className="welcome-reward-profile-card-mobile">
+          <span className="eyebrow">Welcome Pack Available</span>
+          <h2>Claim your welcome God Pack</h2>
+          <p>Choose one simulated reward pack. Closing the popup will not remove this claim.</p>
+          <button className="primary-action compact-auth-submit" type="button" onClick={onOpenWelcomeReward}>
+            Claim Welcome Pack
+          </button>
         </section>
       )}
 
@@ -1823,6 +1836,84 @@ function ProfileScreen({
   );
 }
 
+function MobileAuthCallbackPage() {
+  const [status, setStatus] = useState("Confirming your PackDex account...");
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    let mounted = true;
+
+    async function finishCallback() {
+      if (!supabase) {
+        setStatus("");
+        setError("Supabase is not configured for this mobile app.");
+        return;
+      }
+
+      const searchParams = new URLSearchParams(window.location.search);
+      const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ""));
+      const authError = searchParams.get("error_description") || hashParams.get("error_description");
+      const code = searchParams.get("code");
+
+      if (authError) {
+        if (!mounted) return;
+        setStatus("");
+        setError(authError);
+        window.history.replaceState({}, document.title, "/mobile-app/auth/callback");
+        return;
+      }
+
+      try {
+        if (code) {
+          const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
+          if (exchangeError) throw exchangeError;
+        } else {
+          const { data, error: sessionError } = await supabase.auth.getSession();
+          if (sessionError) throw sessionError;
+          if (!data.session) throw new Error("Confirmation link is missing or has expired.");
+        }
+
+        if (!mounted) return;
+
+        window.history.replaceState({}, document.title, "/mobile-app/");
+        setStatus("Account confirmed. Open the installed PackDex app again to continue.");
+      } catch (callbackError) {
+        if (!mounted) return;
+        window.history.replaceState({}, document.title, "/mobile-app/auth/callback");
+        setStatus("");
+        setError(callbackError.message || "Unable to confirm your account. Please request a new email.");
+      }
+    }
+
+    finishCallback();
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  return (
+    <main className="mobile-app theme-dark">
+      <section className="phone-shell" aria-label="PackDex mobile account confirmation">
+        <div className="screen-content auth-callback-mobile-screen">
+          <MobileBrandHeader />
+          <section className="mobile-auth-modal auth-callback-mobile-card">
+            <div className="mobile-auth-heading">
+              <span className="eyebrow">Account</span>
+              <h1>Email verification</h1>
+              {status && <p>{status}</p>}
+              {error && <p className="auth-message is-error">{error}</p>}
+            </div>
+            <a className="primary-action compact-auth-submit" href="/mobile-app/">
+              Open PackDex Mobile
+            </a>
+          </section>
+        </div>
+      </section>
+    </main>
+  );
+}
+
 function App() {
   const [activeTab, setActiveTab] = useState("open");
   const [theme, setTheme] = useState("dark");
@@ -1864,6 +1955,7 @@ function App() {
   const [welcomeRewardStatus, setWelcomeRewardStatus] = useState(null);
   const [selectedWelcomeRewardSetId, setSelectedWelcomeRewardSetId] = useState(WELCOME_REWARD_CHOICES[0]?.setId || "");
   const [isWelcomeRewardModalOpen, setIsWelcomeRewardModalOpen] = useState(false);
+  const isMobileAuthCallbackRoute = typeof window !== "undefined" && window.location.pathname === "/mobile-app/auth/callback";
   const [isClaimingWelcomeReward, setIsClaimingWelcomeReward] = useState(false);
   const [welcomeRewardError, setWelcomeRewardError] = useState("");
   const [legalModalType, setLegalModalType] = useState("");
@@ -2190,40 +2282,76 @@ function App() {
     return () => cancelIdleTask(idleHandle);
   }, [activeTab, isAuthSubmitting, isValueLoading, loadingMessage, packStage, selectedCollectionSetId, selectedSet?.id]);
 
+  async function refreshWelcomeRewardStatus(currentUser, { autoOpen = true } = {}) {
+    if (!currentUser?.id) {
+      setWelcomeRewardStatus(null);
+      setIsWelcomeRewardModalOpen(false);
+      setWelcomeRewardError("");
+      return null;
+    }
+
+    const status = await loadMobileWelcomeRewardStatus(currentUser);
+
+    setWelcomeRewardStatus(status);
+    if (autoOpen && status.isEligible && !status.isClaimed && shownWelcomeRewardUserRef.current !== currentUser.id) {
+      shownWelcomeRewardUserRef.current = currentUser.id;
+      setSelectedWelcomeRewardSetId(WELCOME_REWARD_CHOICES[0]?.setId || "");
+      setWelcomeRewardError("");
+      setIsWelcomeRewardModalOpen(true);
+    }
+
+    return status;
+  }
+
+  async function refreshAuthSession({ showLoading = false, autoOpenWelcomeReward = true } = {}) {
+    if (!supabase) {
+      clearAccountScopedState();
+      setLoadingMessage("");
+      return null;
+    }
+
+    if (showLoading) setLoadingMessage("Loading account...");
+
+    try {
+      const { data, error } = await supabase.auth.getSession();
+      if (error) throw error;
+
+      const sessionUser = data.session?.user || null;
+
+      if (!sessionUser) {
+        clearAccountScopedState();
+        return null;
+      }
+
+      await loadAccountScopedState(sessionUser);
+      await refreshWelcomeRewardStatus(sessionUser, { autoOpen: autoOpenWelcomeReward });
+      maybeShowWelcomeDisclaimer(sessionUser);
+      return sessionUser;
+    } catch (error) {
+      console.warn("Unable to refresh mobile PackDex auth session", error);
+      clearAccountScopedState();
+      return null;
+    } finally {
+      setLoadingMessage("");
+    }
+  }
+
   useEffect(() => {
     let mounted = true;
 
-    async function hydrateAccount() {
-      setLoadingMessage("Loading account...");
-
-      try {
-        const currentUser = await getCurrentUser();
-
-        if (!mounted) return;
-
-        setUser(currentUser);
-
-        if (!currentUser) {
-          clearAccountScopedState();
-          setLoadingMessage("");
-          return;
-        }
-
-        await loadAccountScopedState(currentUser);
-      } catch (error) {
-        console.warn("Unable to hydrate mobile PackDex account data", error);
-        if (mounted) clearAccountScopedState();
-      } finally {
-        if (mounted) setLoadingMessage("");
-      }
-    }
-
-    hydrateAccount();
+    refreshAuthSession({ showLoading: true }).finally(() => {
+      if (!mounted) return;
+    });
 
     if (!supabase) {
       return () => {
         mounted = false;
       };
+    }
+
+    function refreshIfActive() {
+      if (!mounted || document.visibilityState === "hidden") return;
+      refreshAuthSession({ autoOpenWelcomeReward: true });
     }
 
     const { data } = supabase.auth.onAuthStateChange((event, session) => {
@@ -2237,6 +2365,7 @@ function App() {
 
       if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED" || event === "USER_UPDATED") {
         loadAccountScopedState(nextUser)
+          .then(() => refreshWelcomeRewardStatus(nextUser, { autoOpen: true }))
           .catch((error) => {
             console.warn("Unable to reload mobile account data after auth change", error);
             clearAccountScopedState();
@@ -2247,8 +2376,13 @@ function App() {
       }
     });
 
+    window.addEventListener("focus", refreshIfActive);
+    document.addEventListener("visibilitychange", refreshIfActive);
+
     return () => {
       mounted = false;
+      window.removeEventListener("focus", refreshIfActive);
+      document.removeEventListener("visibilitychange", refreshIfActive);
       data.subscription.unsubscribe();
     };
   }, []);
@@ -2263,22 +2397,10 @@ function App() {
 
     let cancelled = false;
 
-    loadMobileWelcomeRewardStatus(user)
-      .then((status) => {
-        if (cancelled) return;
-
-        setWelcomeRewardStatus(status);
-        if (status.isEligible && !status.isClaimed && shownWelcomeRewardUserRef.current !== user.id) {
-          shownWelcomeRewardUserRef.current = user.id;
-          setSelectedWelcomeRewardSetId(WELCOME_REWARD_CHOICES[0]?.setId || "");
-          setWelcomeRewardError("");
-          setIsWelcomeRewardModalOpen(true);
-        }
-      })
-      .catch((error) => {
-        console.warn("Unable to load mobile welcome reward status", error);
-        if (!cancelled) setWelcomeRewardStatus({ isEligible: false, isClaimed: true, setId: "", claimedAt: "" });
-      });
+    refreshWelcomeRewardStatus(user, { autoOpen: true }).catch((error) => {
+      console.warn("Unable to load mobile welcome reward status", error);
+      if (!cancelled) setWelcomeRewardStatus({ isEligible: false, isClaimed: true, setId: "", claimedAt: "" });
+    });
 
     return () => {
       cancelled = true;
@@ -2625,13 +2747,20 @@ function App() {
       }
 
       const hasSession = Boolean(data?.session);
+      const hasVerifiedSession = Boolean(
+        data?.session &&
+          (data?.user?.email_confirmed_at ||
+            data?.user?.confirmed_at ||
+            data?.session?.user?.email_confirmed_at ||
+            data?.session?.user?.confirmed_at)
+      );
 
       setAuthPassword("");
       setAuthConfirmPassword("");
       setTurnstileToken("");
       setTurnstileMessage("");
 
-      if (isCreateMode && !hasSession) {
+      if (isCreateMode && (!hasSession || !hasVerifiedSession)) {
         setSignupVerificationEmail(authEmail.trim());
         setIsSignupVerificationOpen(true);
         setIsAuthPanelOpen(false);
@@ -2665,6 +2794,8 @@ function App() {
     clearAccountScopedState();
     closeAuthProfile();
   }
+
+  if (isMobileAuthCallbackRoute) return <MobileAuthCallbackPage />;
 
   return (
     <main className={`mobile-app ${isDark ? "theme-dark" : "theme-light"}`}>
@@ -2740,6 +2871,12 @@ function App() {
               onToggleSound={() => setSoundEnabled((value) => !value)}
               estimatedCollectionValue={estimatedCollectionValue}
               isValueLoading={isValueLoading}
+              welcomeRewardStatus={welcomeRewardStatus}
+              onOpenWelcomeReward={() => {
+                setWelcomeRewardError("");
+                setSelectedWelcomeRewardSetId(WELCOME_REWARD_CHOICES[0]?.setId || "");
+                setIsWelcomeRewardModalOpen(true);
+              }}
               onOpenLegal={setLegalModalType}
             />
           )}
@@ -2793,6 +2930,24 @@ function App() {
           onTurnstileMessage={setTurnstileMessage}
           onAuthSubmit={handleAuthSubmit}
           onOpenLegal={setLegalModalType}
+        />
+        <SignupVerificationModal
+          isOpen={isSignupVerificationOpen}
+          email={signupVerificationEmail}
+          onClose={() => setIsSignupVerificationOpen(false)}
+        />
+        <WelcomeRewardModal
+          isOpen={isWelcomeRewardModalOpen}
+          rewardStatus={welcomeRewardStatus}
+          selectedSetId={selectedWelcomeRewardSetId}
+          isClaiming={isClaimingWelcomeReward}
+          error={welcomeRewardError}
+          onSelect={(setId) => {
+            setSelectedWelcomeRewardSetId(setId);
+            setWelcomeRewardError("");
+          }}
+          onClaim={handleClaimWelcomeReward}
+          onClose={() => setIsWelcomeRewardModalOpen(false)}
         />
         <LegalModal type={legalModalType} onClose={() => setLegalModalType("")} />
         <WelcomeDisclaimerModal

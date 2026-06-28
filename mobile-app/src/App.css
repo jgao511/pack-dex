@@ -2741,3 +2741,69 @@ button {
   color: #14633f;
   background: rgba(62, 207, 142, 0.12);
 }
+
+.welcome-reward-profile-card-mobile {
+  display: grid;
+  gap: 10px;
+  border: 1px solid rgba(131, 240, 184, 0.26);
+  border-radius: 18px;
+  padding: 14px;
+  background: linear-gradient(135deg, rgba(62, 207, 142, 0.14), rgba(103, 152, 255, 0.1));
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+}
+
+.welcome-reward-profile-card-mobile h2,
+.welcome-reward-profile-card-mobile p {
+  margin: 0;
+}
+
+.welcome-reward-profile-card-mobile h2 {
+  font-size: 1.05rem;
+  line-height: 1.15;
+}
+
+.welcome-reward-profile-card-mobile p {
+  color: #c3cbe4;
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+.auth-callback-mobile-screen {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: #0b1020;
+}
+
+.auth-callback-mobile-card {
+  width: min(100%, 380px);
+  display: grid;
+  gap: 14px;
+  border: 1px solid rgba(185, 205, 255, 0.16);
+  border-radius: 20px;
+  padding: 20px;
+  color: #f7f9ff;
+  background: rgba(17, 24, 43, 0.94);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.36);
+}
+
+.auth-callback-mobile-card h1,
+.auth-callback-mobile-card p {
+  margin: 0;
+}
+
+.auth-callback-mobile-card p {
+  color: #c3cbe4;
+  line-height: 1.45;
+}
+
+.theme-light .welcome-reward-profile-card-mobile {
+  border-color: rgba(16, 153, 91, 0.18);
+  background: linear-gradient(135deg, rgba(62, 207, 142, 0.16), rgba(103, 152, 255, 0.1));
+  box-shadow: 0 16px 36px rgba(21, 31, 54, 0.11);
+}
+
+.theme-light .welcome-reward-profile-card-mobile p {
+  color: #66708a;
+}
