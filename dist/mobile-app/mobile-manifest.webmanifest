@@ -1,0 +1,24 @@
+{
+  "name": "PackDex",
+  "short_name": "PackDex",
+  "description": "Fan-made Pokemon TCG pack-opening simulator and virtual collection tracker.",
+  "start_url": "/mobile-app/",
+  "scope": "/mobile-app/",
+  "display": "standalone",
+  "background_color": "#0d1224",
+  "theme_color": "#0d1224",
+  "icons": [
+    {
+      "src": "/mobile-app/packdex-small.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/mobile-app/apple-touch-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

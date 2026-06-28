@@ -22,7 +22,7 @@ import {
   syncPendingCloudPulls,
 } from "./lib/cloudCollection.js";
 import { preloadImages } from "./utils/imageCache.js";
-import { getAuthCallbackUrl } from "../../src/utils/authRedirects.js";
+import { getSiteOrigin } from "../../src/utils/authRedirects.js";
 import {
   formatUsd,
   getCardDisplayPrice,
@@ -65,6 +65,13 @@ const MOBILE_DISCLAIMER_SEEN_PREFIX = "packdex-mobile-disclaimer-seen";
 const SETS_WITHOUT_MARKET_PRICE_DATA = new Set(["ascended-heroes", "perfect-order", "chaos-rising"]);
 const PRELOAD_SET_LIMIT = 3;
 const PRELOAD_CARD_LIMIT_PER_SET = 45;
+const WELCOME_REWARD_CHOICES = [
+  { setId: "prismatic-evolutions", title: "Prismatic Evolutions", description: "A premium Eeveelution God Pack.", forcedFormat: "PRISMATIC_FULL_EEVEELUTION_PACK" },
+  { setId: "black-bolt", title: "Black Bolt", description: "Nine Illustration Rares and one Special Illustration Rare." },
+  { setId: "white-flare", title: "White Flare", description: "Nine Illustration Rares and one Special Illustration Rare." },
+  { setId: "ascended-heroes", title: "Ascended Heroes", description: "Mega Attack Rares and Special Illustration Rares." },
+  { setId: "151", title: "151", description: "A starter evolution line demi-god pack." },
+];
 const LEGAL_COPY = {
   terms: {
     title: "Terms of Service",
@@ -87,6 +94,85 @@ const LEGAL_COPY = {
     ],
   },
 };
+
+function getMobileAuthCallbackUrl() {
+  return `${getSiteOrigin()}/mobile-app/auth/callback`;
+}
+
+function getWelcomeRewardChoices() {
+  return WELCOME_REWARD_CHOICES.map((choice) => {
+    const set = sets.find((candidate) => candidate.id === choice.setId);
+
+    return set ? { ...choice, set } : null;
+  }).filter(Boolean);
+}
+
+async function getFunctionErrorDetails(error) {
+  const response = error?.context;
+
+  if (!response || typeof response.clone !== "function") return null;
+
+  try {
+    return await response.clone().json();
+  } catch {
+    try {
+      return { message: await response.clone().text() };
+    } catch {
+      return null;
+    }
+  }
+}
+
+async function loadMobileWelcomeRewardStatus(currentUser) {
+  if (!supabase || !currentUser?.id) return { isEligible: false, isClaimed: true, setId: "", claimedAt: "" };
+
+  const { data, error } = await supabase
+    .from("user_welcome_rewards")
+    .select("user_id, welcome_god_pack_claimed, welcome_god_pack_set, welcome_reward_claimed_at")
+    .eq("user_id", currentUser.id)
+    .maybeSingle();
+
+  if (error) throw error;
+
+  if (!data) return { isEligible: true, isClaimed: false, setId: "", claimedAt: "" };
+
+  return {
+    isEligible: true,
+    isClaimed: Boolean(data.welcome_god_pack_claimed),
+    setId: data.welcome_god_pack_set || "",
+    claimedAt: data.welcome_reward_claimed_at || "",
+  };
+}
+
+async function claimMobileWelcomeGodPack(setId, forcedFormat = "") {
+  if (!supabase) throw new Error("Supabase is not configured.");
+
+  const { data, error } = await supabase.functions.invoke("claim-welcome-god-pack", {
+    body: { set_id: setId, forcedFormat },
+  });
+
+  if (error) {
+    const details = await getFunctionErrorDetails(error);
+    throw new Error(details?.error || details?.message || error.message || "Unable to claim welcome reward.");
+  }
+
+  const cards = Array.isArray(data?.cards) ? data.cards : [];
+
+  if (!cards.length) throw new Error(data?.message || "The welcome reward service did not return cards.");
+
+  Object.assign(cards, {
+    isGodPack: true,
+    godPackDisplayName: data?.godPackDisplayName || "God Pack",
+    godPackFormat: data?.godPackFormat || "",
+    welcomeReward: true,
+  });
+
+  return {
+    cards,
+    status: data?.rewardStatus || null,
+    stats: data?.stats || null,
+  };
+}
 
 function normalizeText(value) {
   return String(value || "").toLowerCase().trim();
@@ -411,6 +497,74 @@ function LegalModal({ type, onClose }) {
             <p key={paragraph}>{paragraph}</p>
           ))}
         </div>
+      </section>
+    </div>
+  );
+}
+
+function SignupVerificationModal({ isOpen, email, onClose }) {
+  if (!isOpen) return null;
+
+  return (
+    <div className="mobile-auth-overlay" role="dialog" aria-modal="true" aria-labelledby="signup-verification-title" onClick={onClose}>
+      <section className="mobile-auth-modal signup-verification-modal" onClick={(event) => event.stopPropagation()}>
+        <button className="mobile-auth-close" type="button" onClick={onClose} aria-label="Close verification notice">
+          x
+        </button>
+        <div className="mobile-auth-heading">
+          <span className="eyebrow">Verify Email</span>
+          <h2 id="signup-verification-title">Check your email</h2>
+          <p>
+            We sent a verification link{email ? ` to ${email}` : ""}. Open it to finish signup, then PackDex mobile will sign you in.
+          </p>
+        </div>
+        <button className="primary-action compact-auth-submit" type="button" onClick={onClose}>
+          Got it
+        </button>
+      </section>
+    </div>
+  );
+}
+
+function WelcomeRewardModal({ isOpen, rewardStatus, selectedSetId, isClaiming, error, onSelect, onClaim, onClose }) {
+  const choices = useMemo(() => getWelcomeRewardChoices(), []);
+
+  if (!isOpen || !rewardStatus?.isEligible || rewardStatus?.isClaimed) return null;
+
+  const selectedChoice = choices.find((choice) => choice.setId === selectedSetId) || choices[0];
+
+  return (
+    <div className="mobile-auth-overlay welcome-reward-mobile-overlay" role="dialog" aria-modal="true" aria-labelledby="welcome-reward-title" onClick={onClose}>
+      <section className="mobile-auth-modal welcome-reward-mobile-modal" onClick={(event) => event.stopPropagation()}>
+        <button className="mobile-auth-close" type="button" onClick={onClose} aria-label="Close welcome reward">
+          x
+        </button>
+        <div className="mobile-auth-heading">
+          <span className="eyebrow">Welcome Pack</span>
+          <h2 id="welcome-reward-title">Choose a welcome God Pack</h2>
+          <p>Pick one simulated reward pack. It can only be claimed once.</p>
+        </div>
+        <div className="welcome-reward-mobile-grid">
+          {choices.map((choice) => (
+            <button
+              className={`welcome-reward-mobile-choice ${choice.setId === selectedChoice?.setId ? "is-selected" : ""}`}
+              type="button"
+              key={choice.setId}
+              onClick={() => onSelect(choice.setId)}
+              aria-pressed={choice.setId === selectedChoice?.setId}
+            >
+              <SetLogo set={choice.set} className="welcome-reward-mobile-logo" />
+              <span>
+                <strong>{choice.title}</strong>
+                <small>{choice.description}</small>
+              </span>
+            </button>
+          ))}
+        </div>
+        {error && <p className="auth-message is-error">{error}</p>}
+        <button className="primary-action compact-auth-submit" type="button" disabled={isClaiming || !selectedChoice} onClick={() => onClaim(selectedChoice)}>
+          {isClaiming ? "Opening..." : "Open Welcome Pack"}
+        </button>
       </section>
     </div>
   );
@@ -1704,7 +1858,14 @@ function App() {
   const [turnstileMessage, setTurnstileMessage] = useState("");
   const [authMessage, setAuthMessage] = useState("");
   const [isAuthPanelOpen, setIsAuthPanelOpen] = useState(false);
+  const [isSignupVerificationOpen, setIsSignupVerificationOpen] = useState(false);
+  const [signupVerificationEmail, setSignupVerificationEmail] = useState("");
   const [isWelcomeDisclaimerOpen, setIsWelcomeDisclaimerOpen] = useState(false);
+  const [welcomeRewardStatus, setWelcomeRewardStatus] = useState(null);
+  const [selectedWelcomeRewardSetId, setSelectedWelcomeRewardSetId] = useState(WELCOME_REWARD_CHOICES[0]?.setId || "");
+  const [isWelcomeRewardModalOpen, setIsWelcomeRewardModalOpen] = useState(false);
+  const [isClaimingWelcomeReward, setIsClaimingWelcomeReward] = useState(false);
+  const [welcomeRewardError, setWelcomeRewardError] = useState("");
   const [legalModalType, setLegalModalType] = useState("");
   const [priceMapsBySet, setPriceMapsBySet] = useState({});
   const [estimatedCollectionValue, setEstimatedCollectionValue] = useState(0);
@@ -1712,6 +1873,7 @@ function App() {
   const loadingPriceSetIdsRef = useRef(new Set());
   const cardIdLoadedSetValueIdsRef = useRef(new Set());
   const preloadedAssetUrlsRef = useRef(new Set());
+  const shownWelcomeRewardUserRef = useRef("");
   const screenContentRef = useRef(null);
   const isDark = theme === "dark";
   const setsCompleted = useMemo(
@@ -1811,6 +1973,9 @@ function App() {
     setCollectionReturnSource("collection");
     setEstimatedCollectionValue(0);
     setIsValueLoading(false);
+    setWelcomeRewardStatus(null);
+    setIsWelcomeRewardModalOpen(false);
+    setWelcomeRewardError("");
     setInspectedCard(null);
   }
 
@@ -2089,6 +2254,38 @@ function App() {
   }, []);
 
   useEffect(() => {
+    if (!user?.id) {
+      setWelcomeRewardStatus(null);
+      setIsWelcomeRewardModalOpen(false);
+      setWelcomeRewardError("");
+      return undefined;
+    }
+
+    let cancelled = false;
+
+    loadMobileWelcomeRewardStatus(user)
+      .then((status) => {
+        if (cancelled) return;
+
+        setWelcomeRewardStatus(status);
+        if (status.isEligible && !status.isClaimed && shownWelcomeRewardUserRef.current !== user.id) {
+          shownWelcomeRewardUserRef.current = user.id;
+          setSelectedWelcomeRewardSetId(WELCOME_REWARD_CHOICES[0]?.setId || "");
+          setWelcomeRewardError("");
+          setIsWelcomeRewardModalOpen(true);
+        }
+      })
+      .catch((error) => {
+        console.warn("Unable to load mobile welcome reward status", error);
+        if (!cancelled) setWelcomeRewardStatus({ isEligible: false, isClaimed: true, setId: "", claimedAt: "" });
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [user?.id]);
+
+  useEffect(() => {
     if (packStage !== "revealing" || pack.length === 0) return undefined;
 
     const timers = [];
@@ -2311,6 +2508,60 @@ function App() {
     saveBinders(nextBinders);
   }
 
+  async function handleClaimWelcomeReward(choice) {
+    if (!user?.id || !choice?.set || isClaimingWelcomeReward) return;
+
+    setIsClaimingWelcomeReward(true);
+    setWelcomeRewardError("");
+    setLoadingMessage("Opening welcome pack...");
+
+    try {
+      const result = await claimMobileWelcomeGodPack(choice.set.id, choice.forcedFormat);
+      const rewardPack = result.cards;
+
+      if (!rewardPack?.length || !rewardPack.isGodPack) {
+        throw new Error("This God Pack is not available right now. Please choose another pack.");
+      }
+
+      setWelcomeRewardStatus(
+        result.status || {
+          isEligible: true,
+          isClaimed: true,
+          setId: choice.set.id,
+          claimedAt: new Date().toISOString(),
+        }
+      );
+      if (result.stats) setStats(result.stats);
+
+      try {
+        const refreshedCollection = await loadCloudCollection();
+        setCollection(mergePendingCloudPullsIntoCollection(refreshedCollection, user.id));
+      } catch (collectionError) {
+        console.warn("Unable to refresh collection after welcome reward claim", collectionError);
+      }
+
+      preloadPackAssets(rewardPack, choice.set).catch(() => {});
+      setIsWelcomeRewardModalOpen(false);
+      setActiveTab("open");
+      setSelectedSet(choice.set);
+      setPack(rewardPack);
+      setPackInstanceId((current) => current + 1);
+      setRevealedCount(0);
+      setNewPullKeys(new Set(rewardPack.map((card) => getCardKey(card, choice.set.id))));
+      setHasSavedCurrentPack(true);
+      savedPackKeyRef.current = getPackSaveKey(rewardPack, choice.set);
+      setPackStage("revealing");
+      playPackOpenSound(soundEnabled);
+      scrollScreenToTop();
+    } catch (error) {
+      console.warn("Mobile welcome reward claim failed", error);
+      setWelcomeRewardError(error?.message || "Could not open your welcome reward. Please try again.");
+    } finally {
+      setIsClaimingWelcomeReward(false);
+      setLoadingMessage("");
+    }
+  }
+
   async function handleAuthSubmit(event) {
     event.preventDefault();
     setAuthMessage("");
@@ -2354,7 +2605,7 @@ function App() {
             ...credentials,
             options: {
               captchaToken: turnstileToken,
-              emailRedirectTo: getAuthCallbackUrl(),
+              emailRedirectTo: getMobileAuthCallbackUrl(),
             },
           })
         : await supabase.auth.signInWithPassword(credentials);
@@ -2381,7 +2632,9 @@ function App() {
       setTurnstileMessage("");
 
       if (isCreateMode && !hasSession) {
-        setAuthMessage("Account created! Please check your email to confirm your account before logging in.");
+        setSignupVerificationEmail(authEmail.trim());
+        setIsSignupVerificationOpen(true);
+        setIsAuthPanelOpen(false);
         await supabase.auth.signOut().catch(() => {});
         clearAccountScopedState();
         return;
