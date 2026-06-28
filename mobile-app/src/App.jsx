@@ -9,7 +9,7 @@ import {
   getSetCollectionProgress,
   markCardsCollected,
 } from "../../src/utils/collectionStorage.js";
-import { createMasterSetBinder, loadBinders, saveBinders } from "../../src/utils/binderStorage.js";
+import { createBinder, createMasterSetBinder, loadBinders, saveBinders } from "../../src/utils/binderStorage.js";
 import { getFoilProfile } from "../../src/utils/foil.js";
 import { supabase, isSupabaseConfigured, missingSupabaseEnv } from "./lib/supabaseClient.js";
 import { loadCloudProfileStats, incrementCloudProfileStats } from "./lib/cloudProfileStats.js";
@@ -31,7 +31,6 @@ import {
   loadCardPricesForCollection,
   loadCardPricesForSet,
   resolveCardPriceIds,
-  VALUE_COUNT_THRESHOLD_USD,
 } from "../../src/lib/cardPrices.js";
 import {
   playDealSound,
@@ -1153,12 +1152,21 @@ function BinderPageView({ binder, collection, onBack, onInspectCard }) {
   );
 }
 
-function CollectionBinders({ collection, binders, onImportMasterSet, onInspectCard }) {
+function CollectionBinders({ collection, binders, onImportMasterSet, onCreateBinder, onInspectCard }) {
   const [openBinderId, setOpenBinderId] = useState("");
+  const [customBinderName, setCustomBinderName] = useState("");
   const starterSets = ["chaos-rising", "phantasmal-flames", "perfect-order", "30th-anniversary"]
     .map((id) => sets.find((set) => set.id === id))
     .filter(Boolean);
   const openBinder = binders.find((binder) => binder.id === openBinderId);
+
+  function handleCreateBinder(event) {
+    event.preventDefault();
+    const name = customBinderName.trim();
+    if (!name) return;
+    onCreateBinder?.(name);
+    setCustomBinderName("");
+  }
 
   if (openBinder) {
     return <BinderPageView binder={openBinder} collection={collection} onBack={() => setOpenBinderId("")} onInspectCard={onInspectCard} />;
@@ -1182,6 +1190,21 @@ function CollectionBinders({ collection, binders, onImportMasterSet, onInspectCa
             <option value={set.id} key={set.id}>{set.name}</option>
           ))}
         </select>
+        <form className="custom-binder-form" onSubmit={handleCreateBinder}>
+          <label>
+            <span>Create Binder</span>
+            <input
+              type="text"
+              value={customBinderName}
+              onChange={(event) => setCustomBinderName(event.target.value)}
+              placeholder="Binder name"
+              maxLength={48}
+            />
+          </label>
+          <button className="primary-action" type="submit" disabled={!customBinderName.trim()}>
+            Create Binder
+          </button>
+        </form>
       </section>
 
       {binders.length > 0 ? (
@@ -1213,7 +1236,7 @@ function CollectionBinders({ collection, binders, onImportMasterSet, onInspectCa
       ) : (
         <section className="empty-state">
           <strong>No binders yet.</strong>
-          <span>Import a master set binder to view the mobile binder layout.</span>
+          <span>Import a master set binder or create a custom binder to start organizing cards.</span>
         </section>
       )}
     </>
@@ -1231,6 +1254,7 @@ function CollectionScreen({
   onCollectionSetSearch,
   onOpenPacks,
   onImportMasterSet,
+  onCreateBinder,
   onInspectCard,
   onReturnFromSet,
   returnLabel,
@@ -1290,7 +1314,7 @@ function CollectionScreen({
           returnLabel={returnLabel}
         />
       ) : (
-        <CollectionBinders collection={collection} binders={binders} onImportMasterSet={onImportMasterSet} onInspectCard={onInspectCard} />
+        <CollectionBinders collection={collection} binders={binders} onImportMasterSet={onImportMasterSet} onCreateBinder={onCreateBinder} onInspectCard={onInspectCard} />
       )}
     </section>
   );
@@ -1298,7 +1322,10 @@ function CollectionScreen({
 
 function CardInspectModal({ item, collection, onClose, priceMap }) {
   const [tiltStyle, setTiltStyle] = useState({});
+  const [isInspectTilting, setIsInspectTilting] = useState(false);
   const activeInspectPointerRef = useRef(null);
+  const pendingInspectTiltRef = useRef(null);
+  const inspectTiltRafRef = useRef(null);
 
   if (!item?.card || !item?.set) return null;
 
@@ -1325,27 +1352,49 @@ function CardInspectModal({ item, collection, onClose, priceMap }) {
     };
   }
 
+  function scheduleInspectTilt(nextStyle) {
+    pendingInspectTiltRef.current = nextStyle;
+
+    if (inspectTiltRafRef.current) return;
+
+    inspectTiltRafRef.current = window.requestAnimationFrame(() => {
+      inspectTiltRafRef.current = null;
+      setTiltStyle(pendingInspectTiltRef.current || {});
+    });
+  }
+
   function startTilt(event) {
     activeInspectPointerRef.current = event.pointerId;
+    setIsInspectTilting(true);
     event.currentTarget.setPointerCapture?.(event.pointerId);
-    setTiltStyle(getInspectTilt(event, event.currentTarget));
+    event.preventDefault();
+    scheduleInspectTilt(getInspectTilt(event, event.currentTarget));
   }
 
   function updateTilt(event) {
     const isTouchPointer = event.pointerType === "touch" || event.pointerType === "pen";
+    const isMousePointer = event.pointerType === "mouse";
 
     if (isTouchPointer && activeInspectPointerRef.current !== event.pointerId) return;
-    if (isTouchPointer) event.preventDefault();
+    if (!isTouchPointer && !isMousePointer && activeInspectPointerRef.current !== event.pointerId) return;
+    if (isTouchPointer || activeInspectPointerRef.current === event.pointerId) event.preventDefault();
 
-    setTiltStyle(getInspectTilt(event, event.currentTarget));
+    scheduleInspectTilt(getInspectTilt(event, event.currentTarget));
   }
 
   function resetTilt(event) {
+    if (inspectTiltRafRef.current) {
+      window.cancelAnimationFrame(inspectTiltRafRef.current);
+      inspectTiltRafRef.current = null;
+    }
+
     if (event?.pointerId != null && activeInspectPointerRef.current === event.pointerId) {
       event.currentTarget.releasePointerCapture?.(event.pointerId);
       activeInspectPointerRef.current = null;
     }
 
+    pendingInspectTiltRef.current = null;
+    setIsInspectTilting(false);
     setTiltStyle({});
   }
 
@@ -1356,7 +1405,7 @@ function CardInspectModal({ item, collection, onClose, priceMap }) {
           ×
         </button>
         <div
-          className="inspect-tilt-frame"
+          className={`inspect-tilt-frame ${isInspectTilting ? "is-tilting" : ""}`}
           style={tiltStyle}
           onPointerDown={startTilt}
           onPointerMove={updateTilt}
@@ -1389,6 +1438,7 @@ function ValueScreen({
   priceMapsBySet,
   estimatedCollectionValue,
   isValueLoading,
+  onInspectCard,
 }) {
   const ownedCards = getOwnedCards(collection);
   const valuedCards = ownedCards
@@ -1396,7 +1446,7 @@ function ValueScreen({
       ...item,
       price: getCardDisplayPrice(item.card, priceMapsBySet?.[item.set.id]),
     }))
-    .filter((item) => Number(item.price?.marketPriceUsd || 0) >= VALUE_COUNT_THRESHOLD_USD)
+    .filter((item) => item.price?.marketPriceUsd != null)
     .map((item) => ({ ...item, unitValue: Number(item.price.marketPriceUsd), value: Number(item.price.marketPriceUsd) * item.count }))
     .sort((a, b) => b.value - a.value);
   const totalValue = estimatedCollectionValue;
@@ -1430,8 +1480,8 @@ function ValueScreen({
           <h2>Top Estimated Cards</h2>
         </div>
         <div className="value-list">
-          {valuedCards.slice(0, 5).map(({ set, card, value, unitValue, count }) => (
-            <article className="value-row" key={`${set.id}-${card.id}`}>
+          {valuedCards.slice(0, 10).map(({ set, card, value, unitValue, count }) => (
+            <button className="value-row" type="button" key={`${set.id}-${card.id}`} onClick={() => onInspectCard?.(card, set)}>
               <CardImage card={card} set={set} />
               <strong>
                 {getDisplayCardName(card, set)}
@@ -1439,7 +1489,7 @@ function ValueScreen({
               </strong>
               <em>{formatUsd(value)}</em>
               <small>{set.name} · {formatUsd(unitValue)} each</small>
-            </article>
+            </button>
           ))}
           {valuedCards.length === 0 && <p className="section-copy">Open simulated packs to populate this future collector dashboard.</p>}
         </div>
@@ -1485,12 +1535,12 @@ function SettingsModal({
 
         <section className="settings-section">
           <span className="eyebrow">Preferences</span>
-          <button className="settings-toggle" type="button" onClick={onToggleTheme} aria-pressed={isDark}>
+          <button className="settings-toggle settings-icon-toggle" type="button" onClick={onToggleTheme} aria-pressed={isDark}>
             <span>
               <strong>Appearance</strong>
               <em>{isDark ? "Dark mode" : "Light mode"}</em>
             </span>
-            <i className={isDark ? "is-on" : ""} />
+            <span className="theme-mode-icon" aria-hidden="true">{isDark ? "☾" : "☀"}</span>
           </button>
           <button className="settings-toggle" type="button" onClick={onToggleSound} aria-pressed={soundEnabled}>
             <span>
@@ -1501,9 +1551,14 @@ function SettingsModal({
           </button>
         </section>
 
+        <section className="settings-section settings-contact-section">
+          <span className="eyebrow">Support</span>
+          <span className="settings-support-label">Support email</span>
+          <a className="settings-link settings-email-link" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
+        </section>
+
         <section className="settings-section">
-          <span className="eyebrow">Support / Legal</span>
-          <a className="settings-link" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
+          <span className="eyebrow">Legal</span>
           <button className="settings-link" type="button" onClick={() => onOpenLegal?.("terms")}>
             Terms of Service
           </button>
@@ -2233,6 +2288,14 @@ function App() {
     }
   }
 
+  function createCustomBinder(name) {
+    const nextBinder = createBinder({ name, tag: "Custom Binder", theme: "midnight" });
+    const nextBinders = [nextBinder, ...binders];
+
+    setBinders(nextBinders);
+    saveBinders(nextBinders);
+  }
+
   function importMasterSetBinder(set) {
     const existing = binders.find((binder) => binder.id === `master-set-${set.id}`);
 
@@ -2296,8 +2359,13 @@ function App() {
           })
         : await supabase.auth.signInWithPassword(credentials);
 
-      if (error) {
-        setAuthMessage(error.message);
+     if (error) {
+       const message = String(error.message || "");
+       setAuthMessage(
+         message.toLowerCase().includes("email not confirmed")
+           ? "Please confirm your email before logging in."
+           : message
+       );
         if (isCreateMode) {
           setTurnstileToken("");
           setTurnstileMessage("Verification reset. Please verify again.");
@@ -2305,13 +2373,24 @@ function App() {
         return;
       }
 
-      const nextUser = data.user || data.session?.user || (await getCurrentUser());
-      setUser(nextUser);
-      setAuthMessage(authMode === "login" ? "Logged in." : "Account created. Check your email if confirmation is required.");
+      const hasSession = Boolean(data?.session);
+
       setAuthPassword("");
       setAuthConfirmPassword("");
       setTurnstileToken("");
       setTurnstileMessage("");
+
+      if (isCreateMode && !hasSession) {
+        setAuthMessage("Account created! Please check your email to confirm your account before logging in.");
+        await supabase.auth.signOut().catch(() => {});
+        clearAccountScopedState();
+        return;
+      }
+
+      const nextUser = data.session?.user || data.user || (await getCurrentUser());
+
+      setUser(nextUser);
+      setAuthMessage(isCreateMode ? "Account created! You're now signed in." : "Logged in.");
 
       if (nextUser) {
         setIsAuthPanelOpen(false);
@@ -2377,6 +2456,7 @@ function App() {
                 openPack(set);
               }}
               onImportMasterSet={importMasterSetBinder}
+              onCreateBinder={createCustomBinder}
               onInspectCard={inspectCard}
               onReturnFromSet={returnFromCollectionSet}
               returnLabel={collectionReturnSource === "open" ? "Back to Open Packs" : "Back to Collection"}
@@ -2389,6 +2469,7 @@ function App() {
               priceMapsBySet={priceMapsBySet}
               estimatedCollectionValue={estimatedCollectionValue}
               isValueLoading={isValueLoading}
+              onInspectCard={inspectCard}
             />
           )}
           {activeTab === "profile" && (
