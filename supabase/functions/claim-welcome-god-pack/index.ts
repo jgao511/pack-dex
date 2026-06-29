@@ -10,6 +10,27 @@ import {
   upsertCardsForUser,
 } from "../_shared/packdex.ts";
 
+async function recordWelcomePackOpenEvent(
+  admin: any,
+  userId: string,
+  setId: string,
+  claimId: string,
+  openedAt: string,
+) {
+  const { error } = await admin
+    .from("user_pack_open_events")
+    .insert({
+      user_id: userId,
+      client_event_id: `welcome-god-pack:${claimId}`,
+      set_id: setId,
+      opened_at: openedAt,
+    })
+    .select("id")
+    .maybeSingle();
+
+  if (error && error.code !== "23505") throw error;
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
@@ -66,9 +87,14 @@ Deno.serve(async (req) => {
       }
 
       const retryCards = existingReward.welcome_reward_cards as Record<string, unknown>[];
+      const retryClaimId = String(existingReward.welcome_reward_claim_id || existingReward.welcome_reward_claimed_at || "legacy-claim");
+      const retryOpenedAt = String(existingReward.welcome_reward_claimed_at || new Date().toISOString());
 
       await upsertCardsForUser(admin, user.id, retryCards, retrySet);
       const savedAt = new Date().toISOString();
+      debugStep = "record_retry_pack_open_event";
+      await recordWelcomePackOpenEvent(admin, user.id, retrySet.id, retryClaimId, retryOpenedAt);
+      debugStep = "save_retry_profile_stats";
       const stats = await incrementProfileStatsForUser(admin, user.id, {
         packsOpened: 1,
         totalCardsPulled: retryCards.length,
@@ -143,6 +169,8 @@ Deno.serve(async (req) => {
     debugStep = "save_collection";
     await upsertCardsForUser(admin, user.id, cards, set);
     const savedAt = new Date().toISOString();
+    debugStep = "record_pack_open_event";
+    await recordWelcomePackOpenEvent(admin, user.id, set.id, claimId, claimedAt);
     debugStep = "save_profile_stats";
     const stats = await incrementProfileStatsForUser(admin, user.id, {
       packsOpened: 1,

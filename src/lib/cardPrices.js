@@ -7,14 +7,7 @@ const PRICE_SELECT_COLUMNS =
   "card_id,set_id,card_number,name,rarity,price_type,market_price_usd,low_price_usd,mid_price_usd,high_price_usd,direct_low_price_usd,tcgplayer_url,source_updated_at,synced_at";
 
 function getBestPrice(row) {
-  return (
-    row?.market_price_usd ??
-    row?.low_price_usd ??
-    row?.mid_price_usd ??
-    row?.high_price_usd ??
-    row?.direct_low_price_usd ??
-    null
-  );
+  return row?.market_price_usd ?? null;
 }
 
 export function normalizeCardNumber(value) {
@@ -56,7 +49,8 @@ export function resolveCardPriceIds(card, setId) {
 
 function normalizePriceRow(row) {
   if (!row) return null;
-  const marketPrice = getBestPrice(row);
+  const rawMarketPrice = Number(getBestPrice(row));
+  const marketPrice = Number.isFinite(rawMarketPrice) && rawMarketPrice > 0 ? rawMarketPrice : null;
 
   return {
     cardId: row.card_id,
@@ -65,7 +59,7 @@ function normalizePriceRow(row) {
     name: row.name,
     rarity: row.rarity,
     priceType: row.price_type,
-    marketPriceUsd: marketPrice == null ? null : Number(marketPrice),
+    marketPriceUsd: marketPrice,
     lowPriceUsd: row.low_price_usd == null ? null : Number(row.low_price_usd),
     midPriceUsd: row.mid_price_usd == null ? null : Number(row.mid_price_usd),
     highPriceUsd: row.high_price_usd == null ? null : Number(row.high_price_usd),
@@ -401,9 +395,9 @@ export function getPriceMapEstimatedValue(priceMap, threshold = 0) {
   if (!(priceMap instanceof Map)) return 0;
 
   return [...priceMap.values()].reduce((total, price) => {
-    const marketPrice = price?.marketPriceUsd;
+    const marketPrice = Number(price?.marketPriceUsd);
 
-    if (marketPrice == null || marketPrice < threshold) return total;
+    if (!Number.isFinite(marketPrice) || marketPrice <= 0 || marketPrice < threshold) return total;
 
     return total + marketPrice;
   }, 0);
@@ -418,9 +412,9 @@ export function getCollectionEstimatedValue(collectionCards = [], priceMapOrMaps
       priceMapOrMaps instanceof Map
         ? priceMapOrMaps
         : priceMapOrMaps?.[setId] || priceMapOrMaps?.get?.(setId);
-    const marketPrice = getDisplayMarketPrice(card, priceMap);
+    const marketPrice = Number(getDisplayMarketPrice(card, priceMap));
 
-    if (marketPrice == null || marketPrice < threshold) return total;
+    if (!Number.isFinite(marketPrice) || marketPrice <= 0 || marketPrice < threshold) return total;
 
     return total + marketPrice * count;
   }, 0);

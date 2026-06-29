@@ -24,6 +24,7 @@ import {
 } from "./lib/cloudCollection.js";
 import { preloadImages } from "./utils/imageCache.js";
 import {
+  loadCurrentUserAchievementProgress,
   loadCurrentUserAchievements,
   requestServerAchievementAward,
 } from "../../src/lib/userAchievements.js";
@@ -38,6 +39,7 @@ import {
   resolveCardPriceIds,
 } from "../../src/lib/cardPrices.js";
 import {
+  playAchievementUnlockSound,
   playDealSound,
   playFinalRevealSound,
   playFlipSound,
@@ -70,54 +72,205 @@ const MOBILE_DISCLAIMER_SEEN_KEY = "packdex-mobile-intro-seen";
 const SETS_WITHOUT_MARKET_PRICE_DATA = new Set(["ascended-heroes", "perfect-order", "chaos-rising"]);
 const PRELOAD_SET_LIMIT = 3;
 const PRELOAD_CARD_LIMIT_PER_SET = 45;
+const ACHIEVEMENT_TOAST_AUTO_DISMISS_MS = 3400;
 const MOBILE_ACHIEVEMENTS = [
   {
     id: "account_created",
     title: "Welcome to PackDex",
     description: "Create or sign in to a PackDex account.",
     trust: "trusted",
+    category: "special",
+    icon_key: "chase",
+    progress_target: 1,
   },
   {
     id: "first_pack_opened",
     title: "First Rip",
     description: "Open your first PackDex pack while signed in.",
     trust: "trusted",
+    category: "packs",
+    icon_key: "pack",
+    progress_target: 1,
   },
   {
     id: "packs_opened_10",
     title: "Pack Rookie",
     description: "Open 10 PackDex packs while signed in.",
     trust: "trusted",
+    category: "packs",
+    icon_key: "pack",
+    progress_target: 10,
   },
   {
     id: "packs_opened_50",
     title: "Rip Streak",
     description: "Open 50 PackDex packs while signed in.",
     trust: "trusted",
+    category: "packs",
+    icon_key: "pack",
+    progress_target: 50,
   },
   {
     id: "packs_opened_100",
     title: "Pack Pro",
     description: "Open 100 PackDex packs while signed in.",
     trust: "trusted",
+    category: "packs",
+    icon_key: "pack",
+    progress_target: 100,
   },
   {
     id: "packs_opened_250",
     title: "Sealed Seeker",
     description: "Open 250 PackDex packs while signed in.",
     trust: "trusted",
+    category: "packs",
+    icon_key: "pack",
+    progress_target: 250,
   },
   {
     id: "packs_opened_500",
     title: "Pack Veteran",
     description: "Open 500 PackDex packs while signed in.",
     trust: "trusted",
+    category: "packs",
+    icon_key: "pack",
+    progress_target: 500,
   },
   {
     id: "packs_opened_1000",
     title: "Thousand-Pack Club",
     description: "Open 1,000 PackDex packs while signed in.",
     trust: "trusted",
+    category: "packs",
+    icon_key: "pack",
+    progress_target: 1000,
+  },
+  {
+    id: "pack_veteran_250",
+    title: "Rip Veteran",
+    description: "Open 250 PackDex packs while signed in.",
+    trust: "trusted",
+    category: "packs",
+    icon_key: "pack",
+    progress_target: 250,
+  },
+  {
+    id: "pack_legend_500",
+    title: "Rip Legend",
+    description: "Open 500 PackDex packs while signed in.",
+    trust: "trusted",
+    category: "packs",
+    icon_key: "pack",
+    progress_target: 500,
+  },
+  {
+    id: "binder_page_9",
+    title: "First Binder Page",
+    description: "Own 9 unique cards.",
+    trust: "trusted",
+    category: "collection",
+    icon_key: "binder",
+    progress_target: 9,
+  },
+  {
+    id: "collector_100",
+    title: "Card Collector",
+    description: "Own 100 unique cards.",
+    trust: "trusted",
+    category: "collection",
+    icon_key: "binder",
+    progress_target: 100,
+  },
+  {
+    id: "collector_500",
+    title: "Binder Beast",
+    description: "Own 500 unique cards.",
+    trust: "trusted",
+    category: "collection",
+    icon_key: "binder",
+    progress_target: 500,
+  },
+  {
+    id: "card_stack_100",
+    title: "Stacked Up",
+    description: "Own 100 total virtual cards.",
+    trust: "trusted",
+    category: "collection",
+    icon_key: "binder",
+    progress_target: 100,
+  },
+  {
+    id: "card_stack_1000",
+    title: "Bulk Box",
+    description: "Own 1,000 total virtual cards.",
+    trust: "trusted",
+    category: "collection",
+    icon_key: "binder",
+    progress_target: 1000,
+  },
+  {
+    id: "value_10",
+    title: "Pocket Change",
+    description: "Reach $10 in estimated collection value.",
+    trust: "trusted",
+    category: "value",
+    icon_key: "dollar",
+    progress_target: 10,
+  },
+  {
+    id: "value_100",
+    title: "Treasure Binder",
+    description: "Reach $100 in estimated collection value.",
+    trust: "trusted",
+    category: "value",
+    icon_key: "dollar",
+    progress_target: 100,
+  },
+  {
+    id: "value_500",
+    title: "Vault Starter",
+    description: "Reach $500 in estimated collection value.",
+    trust: "trusted",
+    category: "value",
+    icon_key: "dollar",
+    progress_target: 500,
+  },
+  {
+    id: "first_set_complete",
+    title: "Page Perfect",
+    description: "Complete your first set.",
+    trust: "trusted",
+    category: "set_mastery",
+    icon_key: "trophy",
+    progress_target: 1,
+  },
+  {
+    id: "sets_complete_5",
+    title: "Mastery Run",
+    description: "Complete 5 sets.",
+    trust: "trusted",
+    category: "set_mastery",
+    icon_key: "trophy",
+    progress_target: 5,
+  },
+  {
+    id: "first_big_hit",
+    title: "First Big Hit",
+    description: "Pull your first Rare+ hit.",
+    trust: "trusted",
+    category: "pulls",
+    icon_key: "sparkle",
+    progress_target: 1,
+  },
+  {
+    id: "big_hits_10",
+    title: "Hit Streak",
+    description: "Pull 10 Rare+ hits.",
+    trust: "trusted",
+    category: "pulls",
+    icon_key: "sparkle",
+    progress_target: 10,
   },
 ];
 const WELCOME_REWARD_CHOICES = [
@@ -234,15 +387,9 @@ function normalizeText(value) {
 }
 
 function getBestPriceFromRow(row) {
-  const value =
-    row?.market_price_usd ??
-    row?.low_price_usd ??
-    row?.mid_price_usd ??
-    row?.high_price_usd ??
-    row?.direct_low_price_usd ??
-    null;
+  const value = Number(row?.market_price_usd);
 
-  return value == null ? 0 : Number(value);
+  return Number.isFinite(value) && value > 0 ? value : 0;
 }
 
 function hasUsablePriceMap(priceMap) {
@@ -373,7 +520,7 @@ function groupSetsByEra(setList) {
 
 function getOwnedCards(collection) {
   return sets.flatMap((set) =>
-    getPullableCollectionCards(set)
+    (set.cards || [])
       .map((card) => ({
         set,
         card,
@@ -406,6 +553,10 @@ function isFoilHit(card, set) {
   return getFoilProfile(card, set) !== "none" || isHigherThanRare(card);
 }
 
+function preventCardImageBrowserAction(event) {
+  event.preventDefault();
+}
+
 function CardImage({
   card,
   set,
@@ -424,6 +575,8 @@ function CardImage({
       className={`mobile-card-image-shell foil-profile-${foilProfile} ${showEffects ? "has-foil" : ""} ${
         isFinal && showEffects ? "is-final-hit" : ""
       } ${className}`.trim()}
+      onContextMenu={preventCardImageBrowserAction}
+      onDragStart={preventCardImageBrowserAction}
     >
       <img
         src={imageUrl}
@@ -431,6 +584,9 @@ function CardImage({
         loading={loading}
         decoding="async"
         fetchPriority={fetchPriority}
+        draggable={false}
+        onContextMenu={preventCardImageBrowserAction}
+        onDragStart={preventCardImageBrowserAction}
       />
       {showEffects && (
         <>
@@ -444,7 +600,7 @@ function CardImage({
 }
 
 function CardBackImage({ className = "" }) {
-  return <img className={className} src={getCardBackUrl()} alt="" decoding="async" loading="eager" />;
+  return <img className={className} src={getCardBackUrl()} alt="" decoding="async" loading="eager" draggable={false} onContextMenu={preventCardImageBrowserAction} onDragStart={preventCardImageBrowserAction} />;
 }
 
 function AccountNotice({ user, onLogin, onCreateAccount }) {
@@ -543,6 +699,46 @@ function TrophyIcon() {
       <path d="M8 6H5.5a2.5 2.5 0 0 0 2.8 4.9M16 6h2.5a2.5 2.5 0 0 1-2.8 4.9" />
       <path d="M12 12.5V17M8.5 20h7M10 17h4" />
     </svg>
+  );
+}
+
+function AchievementIcon({ iconKey = "trophy" }) {
+  const pathsByIcon = {
+    pack: ["M5 8.5 12 4l7 4.5v7L12 20l-7-4.5v-7Z", "M5 8.5 12 13l7-4.5M12 13v7"],
+    binder: ["M6 4h10a2 2 0 0 1 2 2v14H8a2 2 0 0 1-2-2V4Z", "M9 4v16M12 8h3M12 12h3"],
+    dollar: ["M12 3v18", "M16.5 7.5c-.8-1-2.2-1.7-4-1.7-2.1 0-3.5 1-3.5 2.6 0 3.8 7.5 1.8 7.5 6 0 1.7-1.5 2.8-4 2.8-2 0-3.5-.7-4.4-1.9"],
+    sparkle: ["M12 3l1.6 5.2L19 10l-5.4 1.8L12 17l-1.6-5.2L5 10l5.4-1.8L12 3Z", "M19 16l.7 2.3L22 19l-2.3.7L19 22l-.7-2.3L16 19l2.3-.7L19 16Z"],
+    chase: ["M12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16Z", "M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z", "M12 11.2v1.6"],
+    trophy: ["M8 4h8v4.4a4 4 0 0 1-8 0V4Z", "M8 6H5.5a2.5 2.5 0 0 0 2.8 4.9M16 6h2.5a2.5 2.5 0 0 1-2.8 4.9", "M12 12.5V17M8.5 20h7M10 17h4"],
+  };
+  const paths = pathsByIcon[iconKey] || pathsByIcon.trophy;
+
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      {paths.map((path) => <path d={path} key={path} />)}
+    </svg>
+  );
+}
+
+function AchievementUnlockToast({ toast }) {
+  if (!toast) return null;
+
+  const iconKey = toast.iconKey || "trophy";
+
+  return (
+    <aside className={`achievement-unlock-toast achievement-icon-${iconKey}`} role="status" aria-live="polite">
+      <span className="achievement-toast-sparkles" aria-hidden="true">
+        <i />
+        <i />
+        <i />
+        <i />
+      </span>
+      <span className="achievement-trophy-icon" aria-hidden="true"><AchievementIcon iconKey={iconKey} /></span>
+      <span className="achievement-toast-copy">
+        <em>Achievement Unlocked!</em>
+        <strong>{toast.title}</strong>
+      </span>
+    </aside>
   );
 }
 
@@ -966,7 +1162,7 @@ function PackScreen({
             <span>Estimated Pull Value</span>
             <strong>{formatCachedValue(estimatedPullValue, priceMap)}</strong>
             <em>
-              <TcgplayerSourceBadge compact /> cached market data. Missing prices count as $0.
+              <TcgplayerSourceBadge compact /> cached market data. Missing or invalid prices are skipped.
             </em>
           </section>
           <div className="pack-actions">
@@ -1674,13 +1870,17 @@ function CardInspectModal({ item, collection, onClose, priceMap }) {
 }
 
 function ValueScreen({
+  user,
   collection,
   priceMapsBySet,
   estimatedCollectionValue,
   isValueLoading,
   onInspectCard,
+  onOpenLogin,
+  onOpenSignup,
 }) {
-  const ownedCards = getOwnedCards(collection);
+  const isLoggedIn = Boolean(user);
+  const ownedCards = isLoggedIn ? getOwnedCards(collection) : [];
   const valuedCards = ownedCards
     .map((item) => ({
       ...item,
@@ -1690,6 +1890,33 @@ function ValueScreen({
     .map((item) => ({ ...item, unitValue: Number(item.price.marketPriceUsd), value: Number(item.price.marketPriceUsd) * item.count }))
     .sort((a, b) => b.value - a.value);
   const totalValue = estimatedCollectionValue;
+
+  if (!isLoggedIn) {
+    return (
+      <section className="value-screen-mobile">
+        <div className="mobile-screen-title">
+          <span>Value</span>
+          <h1>Collection Snapshot</h1>
+        </div>
+        <section className="value-hero">
+          <span className="eyebrow">Estimated Virtual Collection Value</span>
+          <strong>Sign in to see account value</strong>
+          <p>
+            Collection value is tied to your PackDex account. Guest pack summaries can still show estimated pull value,
+            but they do not save to account totals.
+          </p>
+          <div className="value-auth-actions">
+            <button className="primary-action compact-auth-submit" type="button" onClick={onOpenLogin}>
+              Sign in
+            </button>
+            <button className="inline-auth-link" type="button" onClick={onOpenSignup}>
+              Create account
+            </button>
+          </div>
+        </section>
+      </section>
+    );
+  }
 
   return (
     <section className="value-screen-mobile">
@@ -1701,7 +1928,7 @@ function ValueScreen({
         <span className="eyebrow">Estimated Virtual Collection Value</span>
         <strong>{isValueLoading ? "Loading..." : formatUsd(totalValue)}</strong>
         <p>
-          Uses cached market prices from Supabase. Missing prices count as $0, and prices update every
+          Uses cached market prices from Supabase. Missing or invalid prices are skipped, and prices update every
           48 hours.
         </p>
         <TcgplayerSourceBadge />
@@ -1825,19 +2052,28 @@ function ProfileScreen({
   estimatedCollectionValue,
   isValueLoading,
   achievements = [],
+  achievementProgress = [],
   isAchievementsLoading = false,
   welcomeRewardStatus,
   onOpenWelcomeReward,
+  onLoadAchievementProgress,
   onOpenLegal,
 }) {
   const isLoggedIn = Boolean(user);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isAchievementsOpen, setIsAchievementsOpen] = useState(false);
-  const earnedAchievementIds = useMemo(() => new Set(achievements.map((achievement) => achievement.achievementId)), [achievements]);
+  const earnedAchievementMap = useMemo(() => new Map(achievements.map((achievement) => [achievement.achievementId, achievement])), [achievements]);
+  const earnedAchievementIds = useMemo(() => new Set(earnedAchievementMap.keys()), [earnedAchievementMap]);
+  const achievementProgressMap = useMemo(() => new Map(achievementProgress.map((progress) => [progress.achievementId, progress])), [achievementProgress]);
   const publicAchievements = useMemo(() => MOBILE_ACHIEVEMENTS.filter((achievement) => achievement.trust === "trusted"), []);
   const earnedPublicAchievements = publicAchievements.filter((achievement) => earnedAchievementIds.has(achievement.id)).length;
   const achievementTotal = publicAchievements.length;
   const achievementPercent = achievementTotal > 0 ? Math.round((earnedPublicAchievements / achievementTotal) * 100) : 0;
+
+  function openAchievements() {
+    setIsAchievementsOpen(true);
+    onLoadAchievementProgress?.();
+  }
 
   return (
     <section className="profile-screen-mobile">
@@ -1894,7 +2130,7 @@ function ProfileScreen({
             <span>Sets Completed</span>
             <strong>{setsCompleted}</strong>
           </article>
-          <button className="stat-card stat-card-wide achievement-summary-card" type="button" onClick={() => setIsAchievementsOpen(true)}>
+          <button className="stat-card stat-card-wide achievement-summary-card" type="button" onClick={openAchievements}>
             <span className="achievement-card-heading">
               <span className="achievement-trophy-icon" aria-hidden="true"><TrophyIcon /></span>
               Achievements
@@ -1918,15 +2154,33 @@ function ProfileScreen({
             </div>
             <div className="achievement-list-mobile">
               {MOBILE_ACHIEVEMENTS.map((achievement) => {
+                const earnedAchievement = earnedAchievementMap.get(achievement.id);
+                const metadata = earnedAchievement?.metadata || {};
                 const isEarned = earnedAchievementIds.has(achievement.id);
                 const isPendingTrust = achievement.trust === "pending";
+                const trustedProgress = achievementProgressMap.get(achievement.id);
+                const progressTarget = Number(trustedProgress?.progressTarget || 0);
+                const progressCurrentRaw = Number(trustedProgress?.progressCurrent || 0);
+                const hasTrustedProgress = !isEarned && progressTarget > 0 && Number.isFinite(progressCurrentRaw) && progressCurrentRaw < progressTarget;
+                const progressCurrent = hasTrustedProgress ? Math.min(progressTarget, Math.max(0, Math.floor(progressCurrentRaw))) : 0;
+                const progressPercent = hasTrustedProgress ? Math.min(99, Math.max(0, Math.floor((progressCurrent / progressTarget) * 100))) : 0;
+                const progressLabel = trustedProgress?.category === "value"
+                  ? `${formatUsd(progressCurrent, { minimumFractionDigits: 0, maximumFractionDigits: 0 })} / ${formatUsd(progressTarget, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`
+                  : `${progressCurrent} / ${progressTarget}`;
+                const iconKey = metadata.icon_key || achievement.icon_key || "trophy";
 
                 return (
-                  <article className={`achievement-row-mobile ${isEarned ? "is-earned" : ""} ${isPendingTrust ? "is-pending-trust" : ""}`} key={achievement.id}>
-                    <span className="achievement-trophy-icon" aria-hidden="true"><TrophyIcon /></span>
+                  <article className={`achievement-row-mobile achievement-icon-${iconKey} ${isEarned ? "is-earned" : ""} ${isPendingTrust ? "is-pending-trust" : ""}`} key={achievement.id}>
+                    <span className="achievement-trophy-icon" aria-hidden="true"><AchievementIcon iconKey={iconKey} /></span>
                     <div>
                       <strong>{achievement.title}</strong>
                       <em>{achievement.description}</em>
+                      {hasTrustedProgress && (
+                        <span className="achievement-progress-mobile">
+                          <i style={{ "--achievement-progress": `${progressPercent}%` }} />
+                          <b>{progressLabel}</b>
+                        </span>
+                      )}
                     </div>
                     <small>{isPendingTrust ? "Pending trusted stats" : isEarned ? "Earned" : "Locked"}</small>
                   </article>
@@ -2093,7 +2347,10 @@ function App() {
   const [isClaimingWelcomeReward, setIsClaimingWelcomeReward] = useState(false);
   const [welcomeRewardError, setWelcomeRewardError] = useState("");
   const [achievements, setAchievements] = useState([]);
+  const [achievementProgress, setAchievementProgress] = useState([]);
   const [isAchievementsLoading, setIsAchievementsLoading] = useState(false);
+  const [achievementToastQueue, setAchievementToastQueue] = useState([]);
+  const [activeAchievementToast, setActiveAchievementToast] = useState(null);
   const achievementCacheByUserIdRef = useRef(new Map());
   const lastAchievementsLoadedUserIdRef = useRef("");
   const lastAccountScopedUserIdRef = useRef("");
@@ -2121,11 +2378,25 @@ function App() {
     [collection]
   );
   const ownedCards = useMemo(() => getOwnedCards(collection), [collection]);
+  const isPackOpening = activeTab === "open" && (packStage === "revealing" || packStage === "preloading");
 
   function scrollScreenToTop(behavior = "auto") {
     window.requestAnimationFrame(() => {
       screenContentRef.current?.scrollTo({ top: 0, left: 0, behavior });
     });
+  }
+
+  function switchMobileTab(nextTab) {
+    if (isPackOpening && nextTab !== "open") return;
+
+    if (nextTab === "collection") {
+      setSelectedCollectionSetId("");
+      setCollectionReturnSource("collection");
+    }
+
+    setActiveTab(nextTab);
+    if (nextTab !== "open") returnToSets();
+    scrollScreenToTop();
   }
 
   function selectCollectionSet(set, source = "collection") {
@@ -2212,11 +2483,102 @@ function App() {
     setIsWelcomeRewardModalOpen(false);
     setWelcomeRewardError("");
     setAchievements([]);
+    setAchievementProgress([]);
     setIsAchievementsLoading(false);
+    setAchievementToastQueue([]);
+    setActiveAchievementToast(null);
     achievementCacheByUserIdRef.current.clear();
     lastAchievementsLoadedUserIdRef.current = "";
     lastAccountScopedUserIdRef.current = "";
     setInspectedCard(null);
+  }
+
+  async function loadUserAchievements(currentUser = user) {
+    if (!currentUser?.id) return [];
+
+    setIsAchievementsLoading(true);
+    try {
+      const cloudAchievements = await loadCurrentUserAchievements(currentUser.id);
+
+      achievementCacheByUserIdRef.current.set(currentUser.id, cloudAchievements);
+      lastAchievementsLoadedUserIdRef.current = currentUser.id;
+      setAchievements(cloudAchievements);
+      return cloudAchievements;
+    } catch (error) {
+      console.warn("Unable to load mobile achievements", {
+        userId: currentUser.id,
+        error,
+      });
+      return [];
+    } finally {
+      setIsAchievementsLoading(false);
+    }
+  }
+
+  async function loadUserAchievementProgress(currentUser = user) {
+    if (!currentUser?.id) {
+      setAchievementProgress([]);
+      return [];
+    }
+
+    try {
+      const cloudProgress = await loadCurrentUserAchievementProgress(currentUser.id);
+      setAchievementProgress(cloudProgress);
+      return cloudProgress;
+    } catch (error) {
+      console.warn("Unable to load mobile achievement progress", {
+        userId: currentUser.id,
+        error,
+      });
+      setAchievementProgress([]);
+      return [];
+    }
+  }
+
+  function enqueueAchievementUnlocks(awardedRows = []) {
+    const queuedToasts = (awardedRows || [])
+      .map((row) => {
+        const achievementId = row?.achievementId || row?.achievement_id;
+        const catalogAchievement = MOBILE_ACHIEVEMENTS.find((achievement) => achievement.id === achievementId);
+
+        if (!achievementId || !catalogAchievement) return null;
+
+        return {
+          id: achievementId,
+          key: `${achievementId}:${row?.awardKey || row?.award_key || row?.id || row?.awardedAt || Date.now()}`,
+          title: catalogAchievement.title,
+          iconKey: row?.metadata?.icon_key || catalogAchievement.icon_key || "trophy",
+        };
+      })
+      .filter(Boolean);
+
+    if (queuedToasts.length > 0) {
+      setAchievementToastQueue((currentQueue) => [...currentQueue, ...queuedToasts]);
+    }
+  }
+
+  async function runPostPackAchievementFlow({ currentUser = user, set, cards, openedAt = "", recordPackEvent = true } = {}) {
+    if (!currentUser?.id || !set?.id || !cards?.length) return null;
+
+    const result = recordPackEvent
+      ? await recordPackOpenEvent({
+          userId: currentUser.id,
+          setId: set.id,
+          cards,
+          openedAt,
+        })
+      : null;
+
+    if (result?.stats) setStats(result.stats);
+
+    achievementCacheByUserIdRef.current.delete(currentUser.id);
+    lastAchievementsLoadedUserIdRef.current = "";
+    const achievementResult = await requestServerAchievementAward(currentUser.id);
+    enqueueAchievementUnlocks(achievementResult?.awarded);
+    await loadUserAchievements(currentUser);
+    await loadUserAchievementProgress(currentUser);
+
+    return { packEvent: result, achievements: achievementResult };
   }
 
   async function loadAccountScopedState(currentUser) {
@@ -2229,7 +2591,8 @@ function App() {
       achievementCacheByUserIdRef.current.clear();
       lastAchievementsLoadedUserIdRef.current = "";
       setAchievements([]);
-      setIsAchievementsLoading(false);
+      setAchievementProgress([]);
+        setIsAchievementsLoading(false);
     }
     lastAccountScopedUserIdRef.current = currentUser.id;
 
@@ -2246,21 +2609,14 @@ function App() {
     }
 
     if (shouldLoadAchievements) {
-      setIsAchievementsLoading(true);
       try {
-        await requestServerAchievementAward(currentUser.id);
-        const cloudAchievements = await loadCurrentUserAchievements(currentUser.id);
-        achievementCacheByUserIdRef.current.set(currentUser.id, cloudAchievements);
-        lastAchievementsLoadedUserIdRef.current = currentUser.id;
-        setAchievements(cloudAchievements);
+        await loadUserAchievements(currentUser);
       } catch (error) {
         console.warn("Unable to load mobile achievements", {
           userId: currentUser.id,
           error,
         });
         if (!cachedAchievements) setAchievements([]);
-      } finally {
-        setIsAchievementsLoading(false);
       }
     }
 
@@ -2273,6 +2629,7 @@ function App() {
   useEffect(() => {
     preloadMobileSounds();
   }, []);
+
 
   useEffect(() => {
     if (!user?.id || !supabase) {
@@ -2528,6 +2885,25 @@ function App() {
   }, [soundEnabled]);
 
   useEffect(() => {
+    if (activeAchievementToast || achievementToastQueue.length === 0) return;
+
+    const [nextToast, ...remainingToasts] = achievementToastQueue;
+    setActiveAchievementToast(nextToast);
+    setAchievementToastQueue(remainingToasts);
+  }, [activeAchievementToast, achievementToastQueue]);
+
+  useEffect(() => {
+    if (!activeAchievementToast) return undefined;
+
+    playAchievementUnlockSound(soundEnabledRef.current);
+    const timer = window.setTimeout(() => {
+      setActiveAchievementToast(null);
+    }, ACHIEVEMENT_TOAST_AUTO_DISMISS_MS);
+
+    return () => window.clearTimeout(timer);
+  }, [activeAchievementToast]);
+
+  useEffect(() => {
     let mounted = true;
 
     refreshAuthSession({ showLoading: true }).finally(() => {
@@ -2728,21 +3104,7 @@ function App() {
       }
 
       try {
-        const result = await recordPackOpenEvent({
-          userId: user.id,
-          setId: set.id,
-          cards,
-        });
-
-        if (result?.stats) setStats(result.stats);
-
-        achievementCacheByUserIdRef.current.delete(user.id);
-        lastAchievementsLoadedUserIdRef.current = "";
-        await requestServerAchievementAward(user.id);
-        const cloudAchievements = await loadCurrentUserAchievements(user.id);
-        achievementCacheByUserIdRef.current.set(user.id, cloudAchievements);
-        lastAchievementsLoadedUserIdRef.current = user.id;
-        setAchievements(cloudAchievements);
+        await runPostPackAchievementFlow({ currentUser: user, set, cards });
       } catch (error) {
         console.warn("Mobile PackDex pack-open event failed; keeping local stats fallback", {
           setId: set.id,
@@ -2882,7 +3244,7 @@ function App() {
       }
 
       setWelcomeRewardStatus(
-        result.status || {
+        result.rewardStatus || result.status || {
           isEligible: true,
           isClaimed: true,
           setId: choice.set.id,
@@ -2896,6 +3258,22 @@ function App() {
         setCollection(mergePendingCloudPullsIntoCollection(refreshedCollection, user.id));
       } catch (collectionError) {
         console.warn("Unable to refresh collection after welcome reward claim", collectionError);
+      }
+
+      try {
+        await runPostPackAchievementFlow({
+          currentUser: user,
+          set: choice.set,
+          cards: rewardPack,
+          openedAt: result.rewardStatus?.claimedAt || result.status?.claimedAt || new Date().toISOString(),
+          recordPackEvent: false,
+        });
+      } catch (achievementError) {
+        console.warn("Unable to sync achievements after welcome reward claim", {
+          setId: choice.set.id,
+          cardCount: rewardPack.length,
+          error: achievementError,
+        });
       }
 
       preloadPackAssets(rewardPack, choice.set).catch(() => {});
@@ -3085,11 +3463,14 @@ function App() {
           )}
           {activeTab === "value" && (
             <ValueScreen
+              user={user}
               collection={collection}
               priceMapsBySet={priceMapsBySet}
               estimatedCollectionValue={estimatedCollectionValue}
               isValueLoading={isValueLoading}
               onInspectCard={inspectCard}
+              onOpenLogin={() => openAuthProfile("login")}
+              onOpenSignup={() => openAuthProfile("signup")}
             />
           )}
           {activeTab === "profile" && (
@@ -3108,7 +3489,9 @@ function App() {
               estimatedCollectionValue={estimatedCollectionValue}
               isValueLoading={isValueLoading}
               achievements={achievements}
+              achievementProgress={achievementProgress}
               isAchievementsLoading={isAchievementsLoading}
+              onLoadAchievementProgress={() => loadUserAchievementProgress(user)}
               welcomeRewardStatus={welcomeRewardStatus}
               onOpenWelcomeReward={() => {
                 setWelcomeRewardError("");
@@ -3120,27 +3503,27 @@ function App() {
           )}
         </div>
 
-        <nav className="bottom-tabs" aria-label="Mobile app sections">
-          {tabs.map((tab) => (
-            <button
-              className={activeTab === tab.id ? "is-active" : ""}
-              key={tab.id}
-              type="button"
-              onClick={() => {
-                if (tab.id === "collection") {
-                  setSelectedCollectionSetId("");
-                  setCollectionReturnSource("collection");
-                }
-                setActiveTab(tab.id);
-                if (tab.id !== "open") returnToSets();
-                scrollScreenToTop();
-              }}
-            >
-              <TabIcon icon={tab.icon} />
-              {tab.label}
-            </button>
-          ))}
+        <nav className={`bottom-tabs ${isPackOpening ? "is-pack-locked" : ""}`} aria-label="Mobile app sections">
+          {tabs.map((tab) => {
+            const isNavigationLocked = isPackOpening && tab.id !== "open";
+
+            return (
+              <button
+                className={`${activeTab === tab.id ? "is-active" : ""} ${isNavigationLocked ? "is-disabled" : ""}`}
+                key={tab.id}
+                type="button"
+                disabled={isNavigationLocked}
+                aria-disabled={isNavigationLocked}
+                onClick={() => switchMobileTab(tab.id)}
+              >
+                <TabIcon icon={tab.icon} />
+                {tab.label}
+              </button>
+            );
+          })}
         </nav>
+
+        <AchievementUnlockToast toast={activeAchievementToast} />
 
         <CardInspectModal
           item={inspectedCard}

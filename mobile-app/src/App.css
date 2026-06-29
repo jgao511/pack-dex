@@ -50,8 +50,17 @@ body:has(.mobile-app.theme-light),
 
 button,
 input,
+textarea,
 select {
   font: inherit;
+}
+
+@media (max-width: 768px) {
+  .mobile-app input,
+  .mobile-app textarea,
+  .mobile-app select {
+    font-size: 16px;
+  }
 }
 
 button {
@@ -806,6 +815,10 @@ button {
   border-radius: 5px;
   background: transparent;
   isolation: isolate;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .mobile-card-image-shell img {
@@ -815,6 +828,10 @@ button {
   height: 100%;
   object-fit: contain;
   display: block;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .mobile-foil-glare,
@@ -1542,6 +1559,14 @@ button {
   line-height: 0.95;
 }
 
+.value-auth-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding-top: 2px;
+}
+
 .quick-stats {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2148,6 +2173,12 @@ button {
   font-weight: 850;
 }
 
+.bottom-tabs.is-pack-locked button:not(.is-active),
+.bottom-tabs button.is-disabled:disabled {
+  cursor: default;
+  opacity: 0.42;
+}
+
 .bottom-tabs button span {
   font-size: 1rem;
 }
@@ -2387,7 +2418,10 @@ button {
   will-change: transform;
   transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
   touch-action: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
   user-select: none;
+  -webkit-user-drag: none;
 }
 
 .inspect-card-image {
@@ -2859,6 +2893,35 @@ button {
   background: currentColor;
 }
 
+.achievement-icon-pack .achievement-trophy-icon {
+  color: #8ed6ff;
+  background: linear-gradient(135deg, rgba(142, 214, 255, 0.2), rgba(113, 64, 255, 0.2));
+}
+
+.achievement-icon-binder .achievement-trophy-icon {
+  color: #83f0b8;
+  background: linear-gradient(135deg, rgba(131, 240, 184, 0.2), rgba(61, 144, 255, 0.18));
+}
+
+.achievement-icon-dollar .achievement-trophy-icon {
+  color: #ffde6a;
+  background: linear-gradient(135deg, rgba(255, 222, 106, 0.2), rgba(74, 222, 128, 0.16));
+}
+
+.achievement-icon-sparkle .achievement-trophy-icon {
+  color: #f0abfc;
+  background: linear-gradient(135deg, rgba(240, 171, 252, 0.22), rgba(255, 222, 106, 0.16));
+}
+
+.achievement-icon-chase .achievement-trophy-icon {
+  color: #ff9f7a;
+  background: linear-gradient(135deg, rgba(255, 159, 122, 0.22), rgba(151, 55, 255, 0.18));
+}
+
+.achievement-icon-trophy .achievement-trophy-icon {
+  color: #ffde6a;
+}
+
 .achievement-trophy-icon i:first-child {
   position: absolute;
   bottom: 7px;
@@ -2921,6 +2984,174 @@ button {
   font-style: normal;
   font-weight: 750;
   line-height: 1.25;
+}
+
+.achievement-progress-mobile {
+  width: min(100%, 170px);
+  min-height: 18px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+}
+
+.achievement-progress-mobile i {
+  height: 6px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(185, 205, 255, 0.14);
+}
+
+.achievement-progress-mobile i::before {
+  content: "";
+  width: var(--achievement-progress, 0%);
+  height: 100%;
+  display: block;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #83f0b8, #ffde6a);
+}
+
+.achievement-progress-mobile b {
+  color: #dbe5ff;
+  font-size: 0.68rem;
+  font-weight: 900;
+}
+
+.theme-light .achievement-progress-mobile b {
+  color: #32405f;
+}
+
+.achievement-unlock-toast {
+  position: absolute;
+  top: max(18px, env(safe-area-inset-top));
+  right: 18px;
+  z-index: 95;
+  width: min(292px, calc(100% - 36px));
+  min-height: 76px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  border: 1px solid rgba(185, 205, 255, 0.2);
+  border-radius: 20px;
+  padding: 13px 15px;
+  overflow: hidden;
+  color: #f8fbff;
+  background:
+    radial-gradient(circle at 82% 10%, rgba(255, 222, 106, 0.24), transparent 28%),
+    rgba(19, 20, 44, 0.94);
+  box-shadow: 0 22px 54px rgba(0, 0, 0, 0.36);
+  backdrop-filter: blur(18px);
+  animation: achievementToastIn 360ms cubic-bezier(0.2, 0.9, 0.22, 1.1) both;
+  pointer-events: none;
+}
+
+.theme-light .achievement-unlock-toast {
+  border-color: rgba(44, 55, 92, 0.14);
+  color: #192235;
+  background:
+    radial-gradient(circle at 82% 10%, rgba(255, 222, 106, 0.34), transparent 28%),
+    rgba(255, 255, 255, 0.94);
+  box-shadow: 0 22px 52px rgba(39, 44, 75, 0.18);
+}
+
+.achievement-unlock-toast .achievement-trophy-icon {
+  width: 34px;
+  height: 34px;
+}
+
+.achievement-toast-copy {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.achievement-toast-copy em {
+  color: #aebcff;
+  font-size: 0.7rem;
+  font-style: normal;
+  font-weight: 950;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.theme-light .achievement-toast-copy em {
+  color: #5d4fd3;
+}
+
+.achievement-toast-copy strong {
+  overflow: hidden;
+  color: inherit;
+  font-size: 1rem;
+  font-weight: 950;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.achievement-toast-sparkles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.achievement-toast-sparkles i {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ffde6a;
+  box-shadow: 0 0 14px rgba(255, 222, 106, 0.78);
+  animation: achievementSparklePop 900ms ease-out both;
+}
+
+.achievement-toast-sparkles i:nth-child(1) {
+  top: 16px;
+  right: 52px;
+}
+
+.achievement-toast-sparkles i:nth-child(2) {
+  top: 50px;
+  right: 24px;
+  animation-delay: 80ms;
+}
+
+.achievement-toast-sparkles i:nth-child(3) {
+  left: 22px;
+  top: 13px;
+  animation-delay: 150ms;
+}
+
+.achievement-toast-sparkles i:nth-child(4) {
+  left: 65px;
+  bottom: 12px;
+  animation-delay: 220ms;
+}
+
+@keyframes achievementToastIn {
+  from {
+    opacity: 0;
+    transform: translate3d(18px, -10px, 0) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes achievementSparklePop {
+  0% {
+    opacity: 0;
+    transform: scale(0.2) translateY(4px);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1.25) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.65) translateY(-14px);
+  }
 }
 
 .achievement-row-mobile small {

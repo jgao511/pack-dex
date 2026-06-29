@@ -1,9 +1,11 @@
 import { getSoundUrl } from "../../../src/utils/assetUrls.js";
 import { getHitSoundType } from "../../../src/utils/foil.js";
+import achievementUnlockSoundUrl from "../assets/sounds/achievement-badge-pop-sound.mp3";
 
 const SOUND_PATHS = {
   hit: getSoundUrl("hit.mp3"),
   bigHit: getSoundUrl("big-hit.mp3"),
+  achievementUnlock: achievementUnlockSoundUrl,
 };
 
 const audioCache = new Map();
@@ -87,6 +89,7 @@ function playTone(key, frequency, durationMs, gainValue = 0.035, type = "sine") 
 export function preloadMobileSounds() {
   getAudio("hit");
   getAudio("bigHit");
+  getAudio("achievementUnlock");
 }
 
 export function playPackOpenSound(enabled = true) {
@@ -123,4 +126,10 @@ export function playHitRevealSound(card, set, enabled = true) {
   } else if (soundType === "hit") {
     playAudio("hit");
   }
+}
+
+export function playAchievementUnlockSound(enabled = true) {
+  if (!enabled) return;
+
+  playAudio("achievementUnlock");
 }
