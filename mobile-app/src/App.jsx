@@ -403,7 +403,7 @@ function hasLoadedPriceMap(priceMapsBySet, setId) {
 function formatCachedValue(value, priceMap, options = {}) {
   if (!hasUsablePriceMap(priceMap)) {
     if (!options.loading && options.emptyValueAsZero && Number(value || 0) === 0) return formatUsd(0);
-    return options.loading ? "Loading..." : "No price data yet";
+    return options.loading ? "Loading..." : "No market data available";
   }
 
   return formatUsd(value);
@@ -692,6 +692,16 @@ function CloseIcon() {
   );
 }
 
+function EyeIcon({ isVisible = false }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M2.8 12s3.2-5.5 9.2-5.5 9.2 5.5 9.2 5.5-3.2 5.5-9.2 5.5S2.8 12 2.8 12Z" />
+      <path d="M12 9.3a2.7 2.7 0 1 1 0 5.4 2.7 2.7 0 0 1 0-5.4Z" />
+      {!isVisible && <path d="M4.5 4.5 19.5 19.5" />}
+    </svg>
+  );
+}
+
 function TrophyIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -873,9 +883,12 @@ function MobileAuthModal({
   onAuthSubmit,
   onOpenLegal,
 }) {
+  const isCreateMode = authMode === "signup";
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
+
   if (!isOpen) return null;
 
-  const isCreateMode = authMode === "signup";
   const canSubmitAuth =
     isSupabaseConfigured && !isAuthSubmitting && (!isCreateMode || (Boolean(TURNSTILE_SITE_KEY) && Boolean(turnstileToken)));
 
@@ -888,11 +901,6 @@ function MobileAuthModal({
         <div className="mobile-auth-heading">
           <span className="eyebrow">Account</span>
           <h2 id="mobile-auth-title">{isCreateMode ? "Create your PackDex account" : "Welcome back"}</h2>
-          <p>
-            {isCreateMode
-              ? "Create an account before opening packs to save your PackDex progress."
-              : "Log in to save simulated pulls, collection progress, binders, and future app stats."}
-          </p>
           <span className="mobile-supabase-badge">Powered by Supabase Auth</span>
         </div>
         <div className="auth-tabs">
@@ -910,25 +918,47 @@ function MobileAuthModal({
           </label>
           <label>
             Password
-            <input
-              value={authPassword}
-              type="password"
-              autoComplete={isCreateMode ? "new-password" : "current-password"}
-              minLength={8}
-              onChange={(event) => onAuthPassword(event.target.value)}
-            />
+            <span className="auth-password-field">
+              <input
+                value={authPassword}
+                type={isPasswordVisible ? "text" : "password"}
+                autoComplete={isCreateMode ? "new-password" : "current-password"}
+                minLength={8}
+                onChange={(event) => onAuthPassword(event.target.value)}
+              />
+              <button
+                className="auth-password-toggle"
+                type="button"
+                aria-label={isPasswordVisible ? "Hide password" : "Show password"}
+                aria-pressed={isPasswordVisible}
+                onClick={() => setIsPasswordVisible((value) => !value)}
+              >
+                <EyeIcon isVisible={isPasswordVisible} />
+              </button>
+            </span>
           </label>
           {isCreateMode && (
             <>
               <label>
                 Confirm password
-                <input
-                  value={authConfirmPassword}
-                  type="password"
-                  autoComplete="new-password"
-                  minLength={8}
-                  onChange={(event) => onAuthConfirmPassword(event.target.value)}
-                />
+                <span className="auth-password-field">
+                  <input
+                    value={authConfirmPassword}
+                    type={isConfirmPasswordVisible ? "text" : "password"}
+                    autoComplete="new-password"
+                    minLength={8}
+                    onChange={(event) => onAuthConfirmPassword(event.target.value)}
+                  />
+                  <button
+                    className="auth-password-toggle"
+                    type="button"
+                    aria-label={isConfirmPasswordVisible ? "Hide confirm password" : "Show confirm password"}
+                    aria-pressed={isConfirmPasswordVisible}
+                    onClick={() => setIsConfirmPasswordVisible((value) => !value)}
+                  >
+                    <EyeIcon isVisible={isConfirmPasswordVisible} />
+                  </button>
+                </span>
               </label>
               <div className="mobile-turnstile-panel">
                 {TURNSTILE_SITE_KEY ? (
@@ -939,7 +969,7 @@ function MobileAuthModal({
                       theme={isDark ? "dark" : "light"}
                       onVerify={(token) => {
                         onTurnstileToken(token);
-                        onTurnstileMessage("Verification complete.");
+                        onTurnstileMessage("");
                       }}
                       onExpire={() => {
                         onTurnstileToken("");
@@ -1588,20 +1618,81 @@ function BinderPageView({ binder, collection, onBack, onInspectCard }) {
   );
 }
 
+const MOBILE_BINDER_THEME_OPTIONS = [
+  { id: "midnight", label: "Midnight", value: "#25245a" },
+  { id: "royal", label: "Royal", value: "#3439a5" },
+  { id: "violet", label: "Violet", value: "#6425d6" },
+  { id: "forest", label: "Forest", value: "#1d6548" },
+  { id: "crimson", label: "Crimson", value: "#8a2539" },
+  { id: "gold", label: "Gold", value: "#846f20" },
+];
+
+function BinderThemePicker({ value, onChange }) {
+  return (
+    <div className="binder-theme-picker" aria-label="Binder color">
+      {MOBILE_BINDER_THEME_OPTIONS.map((theme) => (
+        <button
+          className={value === theme.id ? "is-active" : ""}
+          key={theme.id}
+          type="button"
+          style={{ "--swatch": theme.value }}
+          onClick={() => onChange(theme.id)}
+          aria-label={theme.label}
+          aria-pressed={value === theme.id}
+        >
+          <span />
+        </button>
+      ))}
+    </div>
+  );
+}
+
 function CollectionBinders({ collection, binders, onImportMasterSet, onCreateBinder, onInspectCard }) {
   const [openBinderId, setOpenBinderId] = useState("");
+  const [activeModal, setActiveModal] = useState("");
   const [customBinderName, setCustomBinderName] = useState("");
-  const starterSets = ["chaos-rising", "phantasmal-flames", "perfect-order", "30th-anniversary"]
-    .map((id) => sets.find((set) => set.id === id))
-    .filter(Boolean);
+  const [customBinderTheme, setCustomBinderTheme] = useState("midnight");
+  const eligibleSets = sets.filter((set) => !binders.some((binder) => binder.id === "master-set-" + set.id));
+  const [importSetId, setImportSetId] = useState(eligibleSets[0]?.id || "");
+  const selectedImportSet = eligibleSets.find((set) => set.id === importSetId) || eligibleSets[0] || null;
+  const [importBinderName, setImportBinderName] = useState(selectedImportSet ? selectedImportSet.name + " Master Set" : "");
+  const [importBinderTheme, setImportBinderTheme] = useState("midnight");
   const openBinder = binders.find((binder) => binder.id === openBinderId);
+
+  useEffect(() => {
+    if (!selectedImportSet) return;
+    setImportBinderName((current) => current.trim() || selectedImportSet.name + " Master Set");
+  }, [selectedImportSet?.id]);
+
+  function openCreateModal() {
+    setCustomBinderName("");
+    setCustomBinderTheme("midnight");
+    setActiveModal("create");
+  }
+
+  function openImportModal() {
+    const nextSet = selectedImportSet || eligibleSets[0] || null;
+    setImportSetId(nextSet?.id || "");
+    setImportBinderName(nextSet ? nextSet.name + " Master Set" : "");
+    setImportBinderTheme("midnight");
+    setActiveModal("import");
+  }
 
   function handleCreateBinder(event) {
     event.preventDefault();
     const name = customBinderName.trim();
     if (!name) return;
-    onCreateBinder?.(name);
+    onCreateBinder?.(name, customBinderTheme);
     setCustomBinderName("");
+    setActiveModal("");
+  }
+
+  function handleImportBinder(event) {
+    event.preventDefault();
+    if (!selectedImportSet) return;
+    const name = importBinderName.trim() || selectedImportSet.name + " Master Set";
+    onImportMasterSet?.(selectedImportSet, name, importBinderTheme);
+    setActiveModal("");
   }
 
   if (openBinder) {
@@ -1610,58 +1701,47 @@ function CollectionBinders({ collection, binders, onImportMasterSet, onCreateBin
 
   return (
     <>
-      <section className="binder-actions">
-        <div>
-          <span className="eyebrow">My Binders</span>
-          <h2>{binders.length} binders</h2>
+      <section className={"binder-actions " + (binders.length === 0 ? "is-empty" : "")}>
+        <div className="binder-actions-heading">
+          <div>
+            <span className="eyebrow">My Binders</span>
+            <h2>{binders.length} binders</h2>
+          </div>
+          {binders.length > 0 && (
+            <div className="binder-quick-actions">
+              <button className="secondary-action" type="button" onClick={openCreateModal}>+ Create</button>
+              <button className="secondary-action" type="button" onClick={openImportModal} disabled={eligibleSets.length === 0}>Import</button>
+            </div>
+          )}
         </div>
-        <select onChange={(event) => {
-          const set = sets.find((candidate) => candidate.id === event.target.value);
 
-          if (set) onImportMasterSet(set);
-          event.target.value = "";
-        }} defaultValue="">
-          <option value="" disabled>Import Master Set</option>
-          {starterSets.map((set) => (
-            <option value={set.id} key={set.id}>{set.name}</option>
-          ))}
-        </select>
-        <form className="custom-binder-form" onSubmit={handleCreateBinder}>
-          <label>
-            <span>Create Binder</span>
-            <input
-              type="text"
-              value={customBinderName}
-              onChange={(event) => setCustomBinderName(event.target.value)}
-              placeholder="Binder name"
-              maxLength={48}
-            />
-          </label>
-          <button className="primary-action" type="submit" disabled={!customBinderName.trim()}>
-            Create Binder
-          </button>
-        </form>
+        {binders.length === 0 && (
+          <div className="binder-empty-state">
+            <strong>No binders yet.</strong>
+            <p>Create a binder or import a master set to get started.</p>
+            <button className="primary-action" type="button" onClick={openCreateModal}>Create Binder</button>
+            <button className="inline-auth-link" type="button" onClick={openImportModal} disabled={eligibleSets.length === 0}>Import Master Set</button>
+          </div>
+        )}
       </section>
 
-      {binders.length > 0 ? (
+      {binders.length > 0 && (
         <section className="binder-list-mobile">
           {binders.map((binder) => {
             const set = binder.setId ? sets.find((candidate) => candidate.id === binder.setId) : null;
             const progress = set ? getSetCollectionProgress(collection, set) : null;
 
             return (
-              <article className={`binder-card-mobile is-${binder.theme || "midnight"}`} key={binder.id}>
+              <article className={"binder-card-mobile is-" + (binder.theme || "midnight")} key={binder.id}>
                 <div className="binder-spine" aria-hidden="true"><span /><span /><span /></div>
                 <div className="binder-card-body">
                   <div className="binder-cover-logo">
                     {set ? <SetLogo set={set} className="binder-logo" /> : <span>{binder.name?.slice(0, 2) || "PD"}</span>}
                   </div>
                   <strong>{binder.name}</strong>
-                  <span>{binder.type === "master_set" ? "Master Set Binder" : binder.tag}</span>
-                  <em>
-                    {progress ? `${progress.collected} / ${progress.total} - ${progress.percent}% complete` : `${binder.cards.length} cards`}
-                  </em>
-                  <button className="text-action" type="button" onClick={() => setOpenBinderId(binder.id)}>
+                  <em>{binder.tag}</em>
+                  <small>{set ? progress.owned + "/" + progress.total + " cards" : (binder.cards?.length || 0) + " cards"}</small>
+                  <button className="secondary-action" type="button" onClick={() => setOpenBinderId(binder.id)}>
                     Open Binder
                   </button>
                 </div>
@@ -1669,11 +1749,42 @@ function CollectionBinders({ collection, binders, onImportMasterSet, onCreateBin
             );
           })}
         </section>
-      ) : (
-        <section className="empty-state">
-          <strong>No binders yet.</strong>
-          <span>Import a master set binder or create a custom binder to start organizing cards.</span>
-        </section>
+      )}
+
+      {activeModal === "create" && (
+        <div className="mobile-auth-overlay binder-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="create-binder-title" onClick={() => setActiveModal("")}>
+          <section className="mobile-auth-modal binder-sheet" onClick={(event) => event.stopPropagation()}>
+            <button className="mobile-auth-close" type="button" onClick={() => setActiveModal("")} aria-label="Close create binder"><CloseIcon /></button>
+            <div className="mobile-auth-heading"><span className="eyebrow">My Binders</span><h2 id="create-binder-title">Create Binder</h2></div>
+            <form className="custom-binder-form" onSubmit={handleCreateBinder}>
+              <label><span>Binder name</span><input type="text" value={customBinderName} onChange={(event) => setCustomBinderName(event.target.value)} placeholder="Binder name" maxLength={48} autoFocus /></label>
+              <label><span>Color</span><BinderThemePicker value={customBinderTheme} onChange={setCustomBinderTheme} /></label>
+              <button className="primary-action" type="submit" disabled={!customBinderName.trim()}>Create Binder</button>
+            </form>
+          </section>
+        </div>
+      )}
+
+      {activeModal === "import" && (
+        <div className="mobile-auth-overlay binder-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="import-binder-title" onClick={() => setActiveModal("")}>
+          <section className="mobile-auth-modal binder-sheet" onClick={(event) => event.stopPropagation()}>
+            <button className="mobile-auth-close" type="button" onClick={() => setActiveModal("")} aria-label="Close import binder"><CloseIcon /></button>
+            <div className="mobile-auth-heading"><span className="eyebrow">My Binders</span><h2 id="import-binder-title">Import Master Set</h2></div>
+            <form className="custom-binder-form" onSubmit={handleImportBinder}>
+              <div className="binder-set-choice-list" aria-label="Eligible master sets">
+                {eligibleSets.map((set) => (
+                  <button className={set.id === selectedImportSet?.id ? "is-active" : ""} key={set.id} type="button" onClick={() => { setImportSetId(set.id); setImportBinderName(set.name + " Master Set"); }}>
+                    <SetLogo set={set} className="binder-set-choice-logo" />
+                    <span>{set.name}</span>
+                  </button>
+                ))}
+              </div>
+              <label><span>Binder name</span><input type="text" value={importBinderName} onChange={(event) => setImportBinderName(event.target.value)} placeholder="Binder name" maxLength={64} /></label>
+              <label><span>Color</span><BinderThemePicker value={importBinderTheme} onChange={setImportBinderTheme} /></label>
+              <button className="primary-action" type="submit" disabled={!selectedImportSet}>Import Binder</button>
+            </form>
+          </section>
+        </div>
       )}
     </>
   );
@@ -1766,7 +1877,7 @@ function CardInspectModal({ item, collection, onClose, priceMap }) {
   if (!item?.card || !item?.set) return null;
 
   const { card, set } = item;
-  const marketPrice = getCardDisplayPrice(card, priceMap);
+  const marketPrice = getCardDisplayPrice(card, priceMap, set.id);
   const hasMarketPrice = marketPrice?.marketPriceUsd != null;
   const tcgplayerCardUrl = getTcgplayerCardUrl(card, set, marketPrice);
   const ownedCount = getCardCount(collection, card, set.id);
@@ -1803,17 +1914,18 @@ function CardInspectModal({ item, collection, onClose, priceMap }) {
     activeInspectPointerRef.current = event.pointerId;
     setIsInspectTilting(true);
     event.currentTarget.setPointerCapture?.(event.pointerId);
-    event.preventDefault();
+    if (event.pointerType === "touch" || event.pointerType === "pen") event.preventDefault();
     scheduleInspectTilt(getInspectTilt(event, event.currentTarget));
   }
 
   function updateTilt(event) {
     const isTouchPointer = event.pointerType === "touch" || event.pointerType === "pen";
     const isMousePointer = event.pointerType === "mouse";
+    const hasActivePointer = activeInspectPointerRef.current === event.pointerId;
 
-    if (isTouchPointer && activeInspectPointerRef.current !== event.pointerId) return;
-    if (!isTouchPointer && !isMousePointer && activeInspectPointerRef.current !== event.pointerId) return;
-    if (isTouchPointer || activeInspectPointerRef.current === event.pointerId) event.preventDefault();
+    if (isTouchPointer && !hasActivePointer) return;
+    if (!isTouchPointer && !isMousePointer && !hasActivePointer) return;
+    if (isTouchPointer && hasActivePointer) event.preventDefault();
 
     scheduleInspectTilt(getInspectTilt(event, event.currentTarget));
   }
@@ -1826,9 +1938,9 @@ function CardInspectModal({ item, collection, onClose, priceMap }) {
 
     if (event?.pointerId != null && activeInspectPointerRef.current === event.pointerId) {
       event.currentTarget.releasePointerCapture?.(event.pointerId);
-      activeInspectPointerRef.current = null;
     }
 
+    activeInspectPointerRef.current = null;
     pendingInspectTiltRef.current = null;
     setIsInspectTilting(false);
     setTiltStyle({});
@@ -1845,9 +1957,11 @@ function CardInspectModal({ item, collection, onClose, priceMap }) {
           style={tiltStyle}
           onPointerDown={startTilt}
           onPointerMove={updateTilt}
+          onPointerEnter={updateTilt}
           onPointerUp={resetTilt}
           onPointerCancel={resetTilt}
           onPointerLeave={resetTilt}
+          onLostPointerCapture={resetTilt}
         >
           <CardImage card={card} set={set} className="inspect-card-image" withEffects={isFoilHit(card, set)} isFinal />
         </div>
@@ -1857,7 +1971,7 @@ function CardInspectModal({ item, collection, onClose, priceMap }) {
           <p>{getDisplayRarity(card, set)}</p>
           <p>{ownedCount > 0 ? `Owned in PackDex x${ownedCount}` : "Not owned in your PackDex collection"}</p>
           <p className="market-price-line">
-            Market Price: <strong>{hasMarketPrice ? formatUsd(marketPrice.marketPriceUsd) : "Not enough market data"}</strong>
+            Market Price: <strong>{hasMarketPrice ? formatUsd(marketPrice.marketPriceUsd) : "No market data available"}</strong>
             {hasMarketPrice && <TcgplayerSourceBadge compact />}
           </p>
           <a className="tcgplayer-card-link" href={tcgplayerCardUrl} target="_blank" rel="noopener noreferrer">
@@ -1884,7 +1998,7 @@ function ValueScreen({
   const valuedCards = ownedCards
     .map((item) => ({
       ...item,
-      price: getCardDisplayPrice(item.card, priceMapsBySet?.[item.set.id]),
+      price: getCardDisplayPrice(item.card, priceMapsBySet?.[item.set.id], item.set.id),
     }))
     .filter((item) => item.price?.marketPriceUsd != null)
     .map((item) => ({ ...item, unitValue: Number(item.price.marketPriceUsd), value: Number(item.price.marketPriceUsd) * item.count }))
@@ -1902,8 +2016,7 @@ function ValueScreen({
           <span className="eyebrow">Estimated Virtual Collection Value</span>
           <strong>Sign in to see account value</strong>
           <p>
-            Collection value is tied to your PackDex account. Guest pack summaries can still show estimated pull value,
-            but they do not save to account totals.
+            Collection value is tied to your PackDex account. Sign in or create an account to see your stats.
           </p>
           <div className="value-auth-actions">
             <button className="primary-action compact-auth-submit" type="button" onClick={onOpenLogin}>
@@ -3205,22 +3318,24 @@ function App() {
     }
   }
 
-  function createCustomBinder(name) {
-    const nextBinder = createBinder({ name, tag: "Custom Binder", theme: "midnight" });
+  function createCustomBinder(name, theme = "midnight") {
+    const nextBinder = createBinder({ name, tag: "Custom Binder", theme });
     const nextBinders = [nextBinder, ...binders];
 
     setBinders(nextBinders);
     saveBinders(nextBinders);
   }
 
-  function importMasterSetBinder(set) {
+  function importMasterSetBinder(set, name = "", theme = "midnight") {
     const existing = binders.find((binder) => binder.id === `master-set-${set.id}`);
 
     if (existing) return;
 
-    const nextBinder = createMasterSetBinder(set, "midnight");
+    const nextBinder = createMasterSetBinder(set, theme);
 
     if (!nextBinder) return;
+
+    if (name.trim()) nextBinder.name = name.trim();
 
     const nextBinders = [nextBinder, ...binders];
 

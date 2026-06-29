@@ -33,6 +33,10 @@ function getApiSetIdForPackDexSet(setId) {
   return getPokemonTcgApiSetId(setId) || getPriceSetAlias(setId)?.pokemonTcgApiSetId || null;
 }
 
+function getPriceSetLookupIds(setId) {
+  return [...new Set([setId, getApiSetIdForPackDexSet(setId)].filter(Boolean).map(String))];
+}
+
 function getCardPriceLookupKeys(card, setId) {
   const apiSetId = getApiSetIdForPackDexSet(setId);
   const apiCardId = apiSetId && card?.number ? `${apiSetId}-${normalizeCardNumber(card.number)}` : null;
@@ -91,12 +95,14 @@ export async function loadCardPricesForSet(supabaseOrSetId, maybeSetId) {
 
   if (!supabaseClient || !setId) return new Map();
 
-  console.debug("[PackDex prices] querying card_prices by set_id", { setId });
+  const setLookupIds = getPriceSetLookupIds(setId);
+
+  console.debug("[PackDex prices] querying card_prices by set_id", { setId, setLookupIds });
 
   const { data, error } = await supabaseClient
     .from("card_prices")
     .select(PRICE_SELECT_COLUMNS)
-    .eq("set_id", setId);
+    .in("set_id", setLookupIds);
 
   if (error) {
     console.error("[PackDex prices] card_prices set query failed", { setId, error });
@@ -167,6 +173,7 @@ function getCollectionPriceKeys(collectionCards = []) {
   const setIds = new Set();
   const cardIds = new Set();
   const keysBySet = new Map();
+  const localSetIdByLookupSetId = new Map();
 
   collectionCards.forEach((item) => {
     const card = item.card || item;
@@ -174,7 +181,10 @@ function getCollectionPriceKeys(collectionCards = []) {
 
     if (!setId || !card) return;
 
-    setIds.add(setId);
+    getPriceSetLookupIds(setId).forEach((lookupSetId) => {
+      setIds.add(lookupSetId);
+      if (!localSetIdByLookupSetId.has(lookupSetId)) localSetIdByLookupSetId.set(lookupSetId, setId);
+    });
 
     const keys = keysBySet.get(setId) || new Set();
     getCardPriceLookupKeys(card, setId).forEach((key) => {
@@ -182,10 +192,10 @@ function getCollectionPriceKeys(collectionCards = []) {
       keys.add(normalizedKey);
       cardIds.add(normalizedKey);
     });
-    keysBySet.set(setId, keys);
+    getPriceSetLookupIds(setId).forEach((lookupSetId) => keysBySet.set(lookupSetId, keys));
   });
 
-  return { cardIds: [...cardIds], setIds: [...setIds], keysBySet };
+  return { cardIds: [...cardIds], setIds: [...setIds], keysBySet, localSetIdByLookupSetId };
 }
 
 function chunkItems(items, size) {
@@ -239,7 +249,7 @@ export async function loadCardPricesForCollection(supabaseOrCollectionCards, may
     return { priceMapsBySet: {}, totalValue: 0, rows: [] };
   }
 
-  const { cardIds, setIds, keysBySet } = getCollectionPriceKeys(collectionCards);
+  const { cardIds, setIds, keysBySet, localSetIdByLookupSetId } = getCollectionPriceKeys(collectionCards);
 
   if (setIds.length === 0 && cardIds.length === 0) {
     return { priceMapsBySet: {}, totalValue: 0, rows: [] };
@@ -300,7 +310,8 @@ export async function loadCardPricesForCollection(supabaseOrCollectionCards, may
 
     if (!wantedKeys || !rowKeys.some((key) => wantedKeys.has(String(key)))) return;
 
-    rowsBySet[setId] = [...(rowsBySet[setId] || []), row];
+    const localSetId = localSetIdByLookupSetId.get(setId) || setId;
+    rowsBySet[localSetId] = [...(rowsBySet[localSetId] || []), row];
   });
 
   const priceMapsBySet = Object.fromEntries(
@@ -314,10 +325,10 @@ export async function loadCardPricesForCollection(supabaseOrCollectionCards, may
   };
 }
 
-export function getCardDisplayPrice(card, priceMap) {
+export function getCardDisplayPrice(card, priceMap, setId = null) {
   if (!card || !priceMap) return null;
 
-  for (const key of getCardPriceLookupKeys(card, card.setId || card.set_id)) {
+  for (const key of getCardPriceLookupKeys(card, setId || card.setId || card.set_id)) {
     if (priceMap.has(key)) return priceMap.get(key);
   }
 
@@ -347,6 +358,7 @@ export async function loadCardPricesForCards(supabaseClient = defaultSupabase, s
   }
 
   const rows = [];
+  const rowIds = new Set();
 
   try {
     for (const chunk of chunkItems(cardIds, 500)) {
@@ -366,8 +378,21 @@ export async function loadCardPricesForCards(supabaseClient = defaultSupabase, s
         throw error;
       }
 
-      rows.push(...(data || []));
+      (data || []).forEach((row) => {
+        const rowId = row.card_id || `${row.set_id}:${row.card_number}:${row.name}`;
+        if (rowIds.has(rowId)) return;
+        rowIds.add(rowId);
+        rows.push(row);
+      });
     }
+
+    const setScopedRows = await fetchPriceRowsBySetIds(supabaseClient, getPriceSetLookupIds(setId));
+    setScopedRows.forEach((row) => {
+      const rowId = row.card_id || `${row.set_id}:${row.card_number}:${row.name}`;
+      if (rowIds.has(rowId)) return;
+      rowIds.add(rowId);
+      rows.push(row);
+    });
 
     console.debug("[PackDex prices] set card_id rows returned", {
       setId,
@@ -386,8 +411,8 @@ export async function loadCardPricesForCards(supabaseClient = defaultSupabase, s
   }
 }
 
-export function getDisplayMarketPrice(card, priceMap) {
-  const price = getCardDisplayPrice(card, priceMap);
+export function getDisplayMarketPrice(card, priceMap, setId = null) {
+  const price = getCardDisplayPrice(card, priceMap, setId);
   return price?.marketPriceUsd == null ? null : price.marketPriceUsd;
 }
 
@@ -412,7 +437,7 @@ export function getCollectionEstimatedValue(collectionCards = [], priceMapOrMaps
       priceMapOrMaps instanceof Map
         ? priceMapOrMaps
         : priceMapOrMaps?.[setId] || priceMapOrMaps?.get?.(setId);
-    const marketPrice = Number(getDisplayMarketPrice(card, priceMap));
+    const marketPrice = Number(getDisplayMarketPrice(card, priceMap, setId));
 
     if (!Number.isFinite(marketPrice) || marketPrice <= 0 || marketPrice < threshold) return total;
 

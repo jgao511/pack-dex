@@ -1,0 +1,3592 @@
+{
+  "generatedAt": "2026-06-29T14:26:21.438Z",
+  "totals": {
+    "setsAudited": 129,
+    "setsWithAnySupabaseRows": 125,
+    "setsWithValidMarketPrices": 125,
+    "setsWithRowsButNoLocalMatches": 0,
+    "setsWithNoValidMarketData": 4
+  },
+  "sets": [
+    {
+      "setSlug": "30th-anniversary",
+      "setName": "Pokemon 30th Anniversary",
+      "pokemonTcgApiSetId": null,
+      "totalLocalCards": 15,
+      "supabasePriceRowsFound": 0,
+      "localCardsMatchedToPriceRows": 0,
+      "cardsWithValidMarketPriceUsd": 0,
+      "rowSetIdsFound": [],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "30th-anniversary-004-charizard",
+          "number": "004",
+          "name": "Charizard",
+          "lookupKeys": [
+            "30th-anniversary-004-charizard"
+          ]
+        },
+        {
+          "id": "30th-anniversary-014-pikachu",
+          "number": "014",
+          "name": "Pikachu",
+          "lookupKeys": [
+            "30th-anniversary-014-pikachu"
+          ]
+        },
+        {
+          "id": "30th-anniversary-015-pikachu",
+          "number": "015",
+          "name": "Pikachu",
+          "lookupKeys": [
+            "30th-anniversary-015-pikachu"
+          ]
+        },
+        {
+          "id": "30th-anniversary-021-greninja-ex",
+          "number": "021",
+          "name": "Greninja ex",
+          "lookupKeys": [
+            "30th-anniversary-021-greninja-ex"
+          ]
+        },
+        {
+          "id": "30th-anniversary-025-pikachu",
+          "number": "025",
+          "name": "Pikachu",
+          "lookupKeys": [
+            "30th-anniversary-025-pikachu"
+          ]
+        },
+        {
+          "id": "30th-anniversary-033-pikachu-zekrom-gx",
+          "number": "033",
+          "name": "Pikachu & Zekrom-GX",
+          "lookupKeys": [
+            "30th-anniversary-033-pikachu-zekrom-gx"
+          ]
+        },
+        {
+          "id": "30th-anniversary-069-espeon",
+          "number": "069",
+          "name": "Espeon",
+          "lookupKeys": [
+            "30th-anniversary-069-espeon"
+          ]
+        },
+        {
+          "id": "30th-anniversary-071-sylveon-ex",
+          "number": "071",
+          "name": "Sylveon ex",
+          "lookupKeys": [
+            "30th-anniversary-071-sylveon-ex"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "base-set",
+      "setName": "Base Set",
+      "pokemonTcgApiSetId": "base1",
+      "totalLocalCards": 102,
+      "supabasePriceRowsFound": 101,
+      "localCardsMatchedToPriceRows": 101,
+      "cardsWithValidMarketPriceUsd": 101,
+      "rowSetIdsFound": [
+        "base-set"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "base1-8",
+          "number": "8",
+          "name": "Machamp",
+          "lookupKeys": [
+            "base1-8"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "jungle",
+      "setName": "Jungle",
+      "pokemonTcgApiSetId": "base2",
+      "totalLocalCards": 64,
+      "supabasePriceRowsFound": 64,
+      "localCardsMatchedToPriceRows": 64,
+      "cardsWithValidMarketPriceUsd": 64,
+      "rowSetIdsFound": [
+        "jungle"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "fossil",
+      "setName": "Fossil",
+      "pokemonTcgApiSetId": "base3",
+      "totalLocalCards": 62,
+      "supabasePriceRowsFound": 62,
+      "localCardsMatchedToPriceRows": 62,
+      "cardsWithValidMarketPriceUsd": 62,
+      "rowSetIdsFound": [
+        "fossil"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "base-set-2",
+      "setName": "Base Set 2",
+      "pokemonTcgApiSetId": "base4",
+      "totalLocalCards": 130,
+      "supabasePriceRowsFound": 130,
+      "localCardsMatchedToPriceRows": 130,
+      "cardsWithValidMarketPriceUsd": 130,
+      "rowSetIdsFound": [
+        "base-set-2"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "team-rocket",
+      "setName": "Team Rocket",
+      "pokemonTcgApiSetId": "base5",
+      "totalLocalCards": 83,
+      "supabasePriceRowsFound": 83,
+      "localCardsMatchedToPriceRows": 83,
+      "cardsWithValidMarketPriceUsd": 83,
+      "rowSetIdsFound": [
+        "team-rocket"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "gym-heroes",
+      "setName": "Gym Heroes",
+      "pokemonTcgApiSetId": "gym1",
+      "totalLocalCards": 132,
+      "supabasePriceRowsFound": 132,
+      "localCardsMatchedToPriceRows": 132,
+      "cardsWithValidMarketPriceUsd": 132,
+      "rowSetIdsFound": [
+        "gym-heroes"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "gym-challenge",
+      "setName": "Gym Challenge",
+      "pokemonTcgApiSetId": "gym2",
+      "totalLocalCards": 132,
+      "supabasePriceRowsFound": 131,
+      "localCardsMatchedToPriceRows": 131,
+      "cardsWithValidMarketPriceUsd": 131,
+      "rowSetIdsFound": [
+        "gym-challenge"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "gym2-113",
+          "number": "113",
+          "name": "Cinnabar City Gym",
+          "lookupKeys": [
+            "gym2-113"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "neo-genesis",
+      "setName": "Neo Genesis",
+      "pokemonTcgApiSetId": "neo1",
+      "totalLocalCards": 111,
+      "supabasePriceRowsFound": 111,
+      "localCardsMatchedToPriceRows": 111,
+      "cardsWithValidMarketPriceUsd": 111,
+      "rowSetIdsFound": [
+        "neo-genesis"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "neo-discovery",
+      "setName": "Neo Discovery",
+      "pokemonTcgApiSetId": "neo2",
+      "totalLocalCards": 75,
+      "supabasePriceRowsFound": 75,
+      "localCardsMatchedToPriceRows": 75,
+      "cardsWithValidMarketPriceUsd": 75,
+      "rowSetIdsFound": [
+        "neo-discovery"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "neo-revelation",
+      "setName": "Neo Revelation",
+      "pokemonTcgApiSetId": "neo3",
+      "totalLocalCards": 66,
+      "supabasePriceRowsFound": 66,
+      "localCardsMatchedToPriceRows": 66,
+      "cardsWithValidMarketPriceUsd": 66,
+      "rowSetIdsFound": [
+        "neo-revelation"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "neo-destiny",
+      "setName": "Neo Destiny",
+      "pokemonTcgApiSetId": "neo4",
+      "totalLocalCards": 113,
+      "supabasePriceRowsFound": 113,
+      "localCardsMatchedToPriceRows": 113,
+      "cardsWithValidMarketPriceUsd": 113,
+      "rowSetIdsFound": [
+        "neo-destiny"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "legendary-collection",
+      "setName": "Legendary Collection",
+      "pokemonTcgApiSetId": "base6",
+      "totalLocalCards": 110,
+      "supabasePriceRowsFound": 110,
+      "localCardsMatchedToPriceRows": 110,
+      "cardsWithValidMarketPriceUsd": 110,
+      "rowSetIdsFound": [
+        "legendary-collection"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "expedition-base-set",
+      "setName": "Expedition Base Set",
+      "pokemonTcgApiSetId": "ecard1",
+      "totalLocalCards": 165,
+      "supabasePriceRowsFound": 165,
+      "localCardsMatchedToPriceRows": 165,
+      "cardsWithValidMarketPriceUsd": 165,
+      "rowSetIdsFound": [
+        "expedition-base-set"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "aquapolis",
+      "setName": "Aquapolis",
+      "pokemonTcgApiSetId": "ecard2",
+      "totalLocalCards": 182,
+      "supabasePriceRowsFound": 171,
+      "localCardsMatchedToPriceRows": 171,
+      "cardsWithValidMarketPriceUsd": 171,
+      "rowSetIdsFound": [
+        "aquapolis"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "ecard2-H1",
+          "number": "H1",
+          "name": "Ampharos",
+          "lookupKeys": [
+            "ecard2-H1",
+            "ecard2-h1"
+          ]
+        },
+        {
+          "id": "ecard2-H2",
+          "number": "H2",
+          "name": "Arcanine",
+          "lookupKeys": [
+            "ecard2-H2",
+            "ecard2-h2"
+          ]
+        },
+        {
+          "id": "ecard2-H3",
+          "number": "H3",
+          "name": "Ariados",
+          "lookupKeys": [
+            "ecard2-H3",
+            "ecard2-h3"
+          ]
+        },
+        {
+          "id": "ecard2-H4",
+          "number": "H4",
+          "name": "Azumarill",
+          "lookupKeys": [
+            "ecard2-H4",
+            "ecard2-h4"
+          ]
+        },
+        {
+          "id": "ecard2-H5",
+          "number": "H5",
+          "name": "Bellossom",
+          "lookupKeys": [
+            "ecard2-H5",
+            "ecard2-h5"
+          ]
+        },
+        {
+          "id": "ecard2-H6",
+          "number": "H6",
+          "name": "Blissey",
+          "lookupKeys": [
+            "ecard2-H6",
+            "ecard2-h6"
+          ]
+        },
+        {
+          "id": "ecard2-H7",
+          "number": "H7",
+          "name": "Electrode",
+          "lookupKeys": [
+            "ecard2-H7",
+            "ecard2-h7"
+          ]
+        },
+        {
+          "id": "ecard2-H8",
+          "number": "H8",
+          "name": "Entei",
+          "lookupKeys": [
+            "ecard2-H8",
+            "ecard2-h8"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "skyridge",
+      "setName": "Skyridge",
+      "pokemonTcgApiSetId": "ecard3",
+      "totalLocalCards": 182,
+      "supabasePriceRowsFound": 172,
+      "localCardsMatchedToPriceRows": 172,
+      "cardsWithValidMarketPriceUsd": 172,
+      "rowSetIdsFound": [
+        "skyridge"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "ecard3-H1",
+          "number": "H1",
+          "name": "Alakazam",
+          "lookupKeys": [
+            "ecard3-H1",
+            "ecard3-h1"
+          ]
+        },
+        {
+          "id": "ecard3-H2",
+          "number": "H2",
+          "name": "Arcanine",
+          "lookupKeys": [
+            "ecard3-H2",
+            "ecard3-h2"
+          ]
+        },
+        {
+          "id": "ecard3-H3",
+          "number": "H3",
+          "name": "Articuno",
+          "lookupKeys": [
+            "ecard3-H3",
+            "ecard3-h3"
+          ]
+        },
+        {
+          "id": "ecard3-H4",
+          "number": "H4",
+          "name": "Beedrill",
+          "lookupKeys": [
+            "ecard3-H4",
+            "ecard3-h4"
+          ]
+        },
+        {
+          "id": "ecard3-H5",
+          "number": "H5",
+          "name": "Crobat",
+          "lookupKeys": [
+            "ecard3-H5",
+            "ecard3-h5"
+          ]
+        },
+        {
+          "id": "ecard3-H6",
+          "number": "H6",
+          "name": "Dewgong",
+          "lookupKeys": [
+            "ecard3-H6",
+            "ecard3-h6"
+          ]
+        },
+        {
+          "id": "ecard3-H7",
+          "number": "H7",
+          "name": "Flareon",
+          "lookupKeys": [
+            "ecard3-H7",
+            "ecard3-h7"
+          ]
+        },
+        {
+          "id": "ecard3-H8",
+          "number": "H8",
+          "name": "Forretress",
+          "lookupKeys": [
+            "ecard3-H8",
+            "ecard3-h8"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "ex-ruby-sapphire",
+      "setName": "EX Ruby & Sapphire",
+      "pokemonTcgApiSetId": "ex1",
+      "totalLocalCards": 109,
+      "supabasePriceRowsFound": 109,
+      "localCardsMatchedToPriceRows": 109,
+      "cardsWithValidMarketPriceUsd": 109,
+      "rowSetIdsFound": [
+        "ex-ruby-sapphire"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "ex-sandstorm",
+      "setName": "EX Sandstorm",
+      "pokemonTcgApiSetId": "ex2",
+      "totalLocalCards": 100,
+      "supabasePriceRowsFound": 100,
+      "localCardsMatchedToPriceRows": 100,
+      "cardsWithValidMarketPriceUsd": 100,
+      "rowSetIdsFound": [
+        "ex-sandstorm"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "ex-dragon",
+      "setName": "EX Dragon",
+      "pokemonTcgApiSetId": "ex3",
+      "totalLocalCards": 100,
+      "supabasePriceRowsFound": 100,
+      "localCardsMatchedToPriceRows": 100,
+      "cardsWithValidMarketPriceUsd": 100,
+      "rowSetIdsFound": [
+        "ex-dragon"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "ex-team-magma-vs-team-aqua",
+      "setName": "EX Team Magma vs Team Aqua",
+      "pokemonTcgApiSetId": "ex4",
+      "totalLocalCards": 97,
+      "supabasePriceRowsFound": 97,
+      "localCardsMatchedToPriceRows": 97,
+      "cardsWithValidMarketPriceUsd": 97,
+      "rowSetIdsFound": [
+        "ex-team-magma-vs-team-aqua"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "ex-hidden-legends",
+      "setName": "EX Hidden Legends",
+      "pokemonTcgApiSetId": "ex5",
+      "totalLocalCards": 102,
+      "supabasePriceRowsFound": 102,
+      "localCardsMatchedToPriceRows": 102,
+      "cardsWithValidMarketPriceUsd": 102,
+      "rowSetIdsFound": [
+        "ex-hidden-legends"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "ex-firered-leafgreen",
+      "setName": "EX FireRed & LeafGreen",
+      "pokemonTcgApiSetId": "ex6",
+      "totalLocalCards": 116,
+      "supabasePriceRowsFound": 116,
+      "localCardsMatchedToPriceRows": 116,
+      "cardsWithValidMarketPriceUsd": 116,
+      "rowSetIdsFound": [
+        "ex-firered-leafgreen"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "ex-team-rocket-returns",
+      "setName": "EX Team Rocket Returns",
+      "pokemonTcgApiSetId": "ex7",
+      "totalLocalCards": 111,
+      "supabasePriceRowsFound": 110,
+      "localCardsMatchedToPriceRows": 110,
+      "cardsWithValidMarketPriceUsd": 110,
+      "rowSetIdsFound": [
+        "ex-team-rocket-returns"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "ex7-107",
+          "number": "107",
+          "name": "Mudkip ★",
+          "lookupKeys": [
+            "ex7-107"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "ex-deoxys",
+      "setName": "EX Deoxys",
+      "pokemonTcgApiSetId": "ex8",
+      "totalLocalCards": 108,
+      "supabasePriceRowsFound": 108,
+      "localCardsMatchedToPriceRows": 108,
+      "cardsWithValidMarketPriceUsd": 108,
+      "rowSetIdsFound": [
+        "ex-deoxys"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "ex-emerald",
+      "setName": "EX Emerald",
+      "pokemonTcgApiSetId": "ex9",
+      "totalLocalCards": 107,
+      "supabasePriceRowsFound": 107,
+      "localCardsMatchedToPriceRows": 107,
+      "cardsWithValidMarketPriceUsd": 107,
+      "rowSetIdsFound": [
+        "ex-emerald"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "ex-unseen-forces",
+      "setName": "EX Unseen Forces",
+      "pokemonTcgApiSetId": "ex10",
+      "totalLocalCards": 145,
+      "supabasePriceRowsFound": 145,
+      "localCardsMatchedToPriceRows": 145,
+      "cardsWithValidMarketPriceUsd": 145,
+      "rowSetIdsFound": [
+        "ex-unseen-forces"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "ex-delta-species",
+      "setName": "EX Delta Species",
+      "pokemonTcgApiSetId": "ex11",
+      "totalLocalCards": 114,
+      "supabasePriceRowsFound": 113,
+      "localCardsMatchedToPriceRows": 113,
+      "cardsWithValidMarketPriceUsd": 113,
+      "rowSetIdsFound": [
+        "ex-delta-species"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "ex11-112",
+          "number": "112",
+          "name": "Kyogre ★",
+          "lookupKeys": [
+            "ex11-112"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "ex-legend-maker",
+      "setName": "EX Legend Maker",
+      "pokemonTcgApiSetId": "ex12",
+      "totalLocalCards": 93,
+      "supabasePriceRowsFound": 92,
+      "localCardsMatchedToPriceRows": 92,
+      "cardsWithValidMarketPriceUsd": 92,
+      "rowSetIdsFound": [
+        "ex-legend-maker"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "ex12-92",
+          "number": "92",
+          "name": "Registeel ★",
+          "lookupKeys": [
+            "ex12-92"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "ex-holon-phantoms",
+      "setName": "EX Holon Phantoms",
+      "pokemonTcgApiSetId": "ex13",
+      "totalLocalCards": 111,
+      "supabasePriceRowsFound": 110,
+      "localCardsMatchedToPriceRows": 110,
+      "cardsWithValidMarketPriceUsd": 110,
+      "rowSetIdsFound": [
+        "ex-holon-phantoms"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "ex13-103",
+          "number": "103",
+          "name": "Mewtwo ★",
+          "lookupKeys": [
+            "ex13-103"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "ex-crystal-guardians",
+      "setName": "EX Crystal Guardians",
+      "pokemonTcgApiSetId": "ex14",
+      "totalLocalCards": 100,
+      "supabasePriceRowsFound": 100,
+      "localCardsMatchedToPriceRows": 100,
+      "cardsWithValidMarketPriceUsd": 100,
+      "rowSetIdsFound": [
+        "ex-crystal-guardians"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "ex-dragon-frontiers",
+      "setName": "EX Dragon Frontiers",
+      "pokemonTcgApiSetId": "ex15",
+      "totalLocalCards": 101,
+      "supabasePriceRowsFound": 101,
+      "localCardsMatchedToPriceRows": 101,
+      "cardsWithValidMarketPriceUsd": 101,
+      "rowSetIdsFound": [
+        "ex-dragon-frontiers"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "ex-power-keepers",
+      "setName": "EX Power Keepers",
+      "pokemonTcgApiSetId": "ex16",
+      "totalLocalCards": 108,
+      "supabasePriceRowsFound": 108,
+      "localCardsMatchedToPriceRows": 108,
+      "cardsWithValidMarketPriceUsd": 108,
+      "rowSetIdsFound": [
+        "ex-power-keepers"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "diamond-pearl",
+      "setName": "Diamond & Pearl",
+      "pokemonTcgApiSetId": "dp1",
+      "totalLocalCards": 130,
+      "supabasePriceRowsFound": 129,
+      "localCardsMatchedToPriceRows": 129,
+      "cardsWithValidMarketPriceUsd": 129,
+      "rowSetIdsFound": [
+        "diamond-pearl"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "dp1-96",
+          "number": "96",
+          "name": "Roselia",
+          "lookupKeys": [
+            "dp1-96"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "diamond-pearl-mysterious-treasures",
+      "setName": "Diamond & Pearl—Mysterious Treasures",
+      "pokemonTcgApiSetId": "dp2",
+      "totalLocalCards": 124,
+      "supabasePriceRowsFound": 124,
+      "localCardsMatchedToPriceRows": 124,
+      "cardsWithValidMarketPriceUsd": 124,
+      "rowSetIdsFound": [
+        "diamond-pearl-mysterious-treasures"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "diamond-pearl-secret-wonders",
+      "setName": "Diamond & Pearl—Secret Wonders",
+      "pokemonTcgApiSetId": "dp3",
+      "totalLocalCards": 132,
+      "supabasePriceRowsFound": 132,
+      "localCardsMatchedToPriceRows": 132,
+      "cardsWithValidMarketPriceUsd": 132,
+      "rowSetIdsFound": [
+        "diamond-pearl-secret-wonders"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "diamond-pearl-great-encounters",
+      "setName": "Diamond & Pearl—Great Encounters",
+      "pokemonTcgApiSetId": "dp4",
+      "totalLocalCards": 106,
+      "supabasePriceRowsFound": 106,
+      "localCardsMatchedToPriceRows": 106,
+      "cardsWithValidMarketPriceUsd": 106,
+      "rowSetIdsFound": [
+        "diamond-pearl-great-encounters"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "diamond-pearl-majestic-dawn",
+      "setName": "Diamond & Pearl—Majestic Dawn",
+      "pokemonTcgApiSetId": "dp5",
+      "totalLocalCards": 100,
+      "supabasePriceRowsFound": 100,
+      "localCardsMatchedToPriceRows": 100,
+      "cardsWithValidMarketPriceUsd": 100,
+      "rowSetIdsFound": [
+        "diamond-pearl-majestic-dawn"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "diamond-pearl-legends-awakened",
+      "setName": "Diamond & Pearl—Legends Awakened",
+      "pokemonTcgApiSetId": "dp6",
+      "totalLocalCards": 146,
+      "supabasePriceRowsFound": 145,
+      "localCardsMatchedToPriceRows": 145,
+      "cardsWithValidMarketPriceUsd": 145,
+      "rowSetIdsFound": [
+        "diamond-pearl-legends-awakened"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "dp6-70",
+          "number": "70",
+          "name": "Seadra",
+          "lookupKeys": [
+            "dp6-70"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "diamond-pearl-stormfront",
+      "setName": "Diamond & Pearl—Stormfront",
+      "pokemonTcgApiSetId": "dp7",
+      "totalLocalCards": 106,
+      "supabasePriceRowsFound": 106,
+      "localCardsMatchedToPriceRows": 106,
+      "cardsWithValidMarketPriceUsd": 106,
+      "rowSetIdsFound": [
+        "diamond-pearl-stormfront"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "platinum",
+      "setName": "Platinum",
+      "pokemonTcgApiSetId": "pl1",
+      "totalLocalCards": 133,
+      "supabasePriceRowsFound": 133,
+      "localCardsMatchedToPriceRows": 133,
+      "cardsWithValidMarketPriceUsd": 133,
+      "rowSetIdsFound": [
+        "platinum"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "platinum-rising-rivals",
+      "setName": "Platinum—Rising Rivals",
+      "pokemonTcgApiSetId": "pl2",
+      "totalLocalCards": 120,
+      "supabasePriceRowsFound": 120,
+      "localCardsMatchedToPriceRows": 120,
+      "cardsWithValidMarketPriceUsd": 120,
+      "rowSetIdsFound": [
+        "platinum-rising-rivals"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "platinum-supreme-victors",
+      "setName": "Platinum—Supreme Victors",
+      "pokemonTcgApiSetId": "pl3",
+      "totalLocalCards": 153,
+      "supabasePriceRowsFound": 153,
+      "localCardsMatchedToPriceRows": 153,
+      "cardsWithValidMarketPriceUsd": 153,
+      "rowSetIdsFound": [
+        "platinum-supreme-victors"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "platinum-arceus",
+      "setName": "Platinum—Arceus",
+      "pokemonTcgApiSetId": "pl4",
+      "totalLocalCards": 111,
+      "supabasePriceRowsFound": 111,
+      "localCardsMatchedToPriceRows": 111,
+      "cardsWithValidMarketPriceUsd": 111,
+      "rowSetIdsFound": [
+        "platinum-arceus"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "heartgold-soulsilver",
+      "setName": "HeartGold & SoulSilver",
+      "pokemonTcgApiSetId": "hgss1",
+      "totalLocalCards": 124,
+      "supabasePriceRowsFound": 124,
+      "localCardsMatchedToPriceRows": 124,
+      "cardsWithValidMarketPriceUsd": 124,
+      "rowSetIdsFound": [
+        "heartgold-soulsilver"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "hs-unleashed",
+      "setName": "HS—Unleashed",
+      "pokemonTcgApiSetId": "hgss2",
+      "totalLocalCards": 96,
+      "supabasePriceRowsFound": 96,
+      "localCardsMatchedToPriceRows": 96,
+      "cardsWithValidMarketPriceUsd": 96,
+      "rowSetIdsFound": [
+        "hs-unleashed"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "hs-undaunted",
+      "setName": "HS—Undaunted",
+      "pokemonTcgApiSetId": "hgss3",
+      "totalLocalCards": 91,
+      "supabasePriceRowsFound": 91,
+      "localCardsMatchedToPriceRows": 91,
+      "cardsWithValidMarketPriceUsd": 91,
+      "rowSetIdsFound": [
+        "hs-undaunted"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "hs-triumphant",
+      "setName": "HS—Triumphant",
+      "pokemonTcgApiSetId": "hgss4",
+      "totalLocalCards": 103,
+      "supabasePriceRowsFound": 103,
+      "localCardsMatchedToPriceRows": 103,
+      "cardsWithValidMarketPriceUsd": 103,
+      "rowSetIdsFound": [
+        "hs-triumphant"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "call-of-legends",
+      "setName": "Call of Legends",
+      "pokemonTcgApiSetId": "col1",
+      "totalLocalCards": 106,
+      "supabasePriceRowsFound": 97,
+      "localCardsMatchedToPriceRows": 97,
+      "cardsWithValidMarketPriceUsd": 97,
+      "rowSetIdsFound": [
+        "call-of-legends"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "col1-SL1",
+          "number": "SL1",
+          "name": "Deoxys",
+          "lookupKeys": [
+            "col1-SL1",
+            "col1-sl1"
+          ]
+        },
+        {
+          "id": "col1-SL2",
+          "number": "SL2",
+          "name": "Dialga",
+          "lookupKeys": [
+            "col1-SL2",
+            "col1-sl2"
+          ]
+        },
+        {
+          "id": "col1-SL3",
+          "number": "SL3",
+          "name": "Entei",
+          "lookupKeys": [
+            "col1-SL3",
+            "col1-sl3"
+          ]
+        },
+        {
+          "id": "col1-SL4",
+          "number": "SL4",
+          "name": "Groudon",
+          "lookupKeys": [
+            "col1-SL4",
+            "col1-sl4"
+          ]
+        },
+        {
+          "id": "col1-SL5",
+          "number": "SL5",
+          "name": "Ho-Oh",
+          "lookupKeys": [
+            "col1-SL5",
+            "col1-sl5"
+          ]
+        },
+        {
+          "id": "col1-SL6",
+          "number": "SL6",
+          "name": "Kyogre",
+          "lookupKeys": [
+            "col1-SL6",
+            "col1-sl6"
+          ]
+        },
+        {
+          "id": "col1-SL7",
+          "number": "SL7",
+          "name": "Lugia",
+          "lookupKeys": [
+            "col1-SL7",
+            "col1-sl7"
+          ]
+        },
+        {
+          "id": "col1-SL8",
+          "number": "SL8",
+          "name": "Palkia",
+          "lookupKeys": [
+            "col1-SL8",
+            "col1-sl8"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "black-white",
+      "setName": "Black & White",
+      "pokemonTcgApiSetId": "bw1",
+      "totalLocalCards": 115,
+      "supabasePriceRowsFound": 115,
+      "localCardsMatchedToPriceRows": 115,
+      "cardsWithValidMarketPriceUsd": 115,
+      "rowSetIdsFound": [
+        "black-white"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "black-white-emerging-powers",
+      "setName": "Black & White—Emerging Powers",
+      "pokemonTcgApiSetId": "bw2",
+      "totalLocalCards": 98,
+      "supabasePriceRowsFound": 98,
+      "localCardsMatchedToPriceRows": 98,
+      "cardsWithValidMarketPriceUsd": 98,
+      "rowSetIdsFound": [
+        "black-white-emerging-powers"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "black-white-noble-victories",
+      "setName": "Black & White—Noble Victories",
+      "pokemonTcgApiSetId": "bw3",
+      "totalLocalCards": 102,
+      "supabasePriceRowsFound": 102,
+      "localCardsMatchedToPriceRows": 102,
+      "cardsWithValidMarketPriceUsd": 102,
+      "rowSetIdsFound": [
+        "black-white-noble-victories"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "black-white-next-destinies",
+      "setName": "Black & White—Next Destinies",
+      "pokemonTcgApiSetId": "bw4",
+      "totalLocalCards": 103,
+      "supabasePriceRowsFound": 103,
+      "localCardsMatchedToPriceRows": 103,
+      "cardsWithValidMarketPriceUsd": 103,
+      "rowSetIdsFound": [
+        "black-white-next-destinies"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "black-white-dark-explorers",
+      "setName": "Black & White—Dark Explorers",
+      "pokemonTcgApiSetId": "bw5",
+      "totalLocalCards": 111,
+      "supabasePriceRowsFound": 111,
+      "localCardsMatchedToPriceRows": 111,
+      "cardsWithValidMarketPriceUsd": 111,
+      "rowSetIdsFound": [
+        "black-white-dark-explorers"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "black-white-dragons-exalted",
+      "setName": "Black & White—Dragons Exalted",
+      "pokemonTcgApiSetId": "bw6",
+      "totalLocalCards": 128,
+      "supabasePriceRowsFound": 128,
+      "localCardsMatchedToPriceRows": 128,
+      "cardsWithValidMarketPriceUsd": 128,
+      "rowSetIdsFound": [
+        "black-white-dragons-exalted"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "dragon-vault",
+      "setName": "Dragon Vault",
+      "pokemonTcgApiSetId": "dv1",
+      "totalLocalCards": 21,
+      "supabasePriceRowsFound": 21,
+      "localCardsMatchedToPriceRows": 21,
+      "cardsWithValidMarketPriceUsd": 21,
+      "rowSetIdsFound": [
+        "dragon-vault"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "black-white-boundaries-crossed",
+      "setName": "Black & White—Boundaries Crossed",
+      "pokemonTcgApiSetId": "bw7",
+      "totalLocalCards": 153,
+      "supabasePriceRowsFound": 153,
+      "localCardsMatchedToPriceRows": 153,
+      "cardsWithValidMarketPriceUsd": 153,
+      "rowSetIdsFound": [
+        "black-white-boundaries-crossed"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "black-white-plasma-storm",
+      "setName": "Black & White—Plasma Storm",
+      "pokemonTcgApiSetId": "bw8",
+      "totalLocalCards": 138,
+      "supabasePriceRowsFound": 138,
+      "localCardsMatchedToPriceRows": 138,
+      "cardsWithValidMarketPriceUsd": 138,
+      "rowSetIdsFound": [
+        "black-white-plasma-storm"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "black-white-plasma-freeze",
+      "setName": "Black & White—Plasma Freeze",
+      "pokemonTcgApiSetId": "bw9",
+      "totalLocalCards": 122,
+      "supabasePriceRowsFound": 122,
+      "localCardsMatchedToPriceRows": 122,
+      "cardsWithValidMarketPriceUsd": 122,
+      "rowSetIdsFound": [
+        "black-white-plasma-freeze"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "black-white-plasma-blast",
+      "setName": "Black & White—Plasma Blast",
+      "pokemonTcgApiSetId": "bw10",
+      "totalLocalCards": 105,
+      "supabasePriceRowsFound": 105,
+      "localCardsMatchedToPriceRows": 105,
+      "cardsWithValidMarketPriceUsd": 105,
+      "rowSetIdsFound": [
+        "black-white-plasma-blast"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "black-white-legendary-treasures",
+      "setName": "Black & White—Legendary Treasures",
+      "pokemonTcgApiSetId": "bw11",
+      "totalLocalCards": 140,
+      "supabasePriceRowsFound": 140,
+      "localCardsMatchedToPriceRows": 140,
+      "cardsWithValidMarketPriceUsd": 140,
+      "rowSetIdsFound": [
+        "black-white-legendary-treasures"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "xy0",
+      "setName": "XY-Kalos Starter Set",
+      "pokemonTcgApiSetId": "xy0",
+      "totalLocalCards": 39,
+      "supabasePriceRowsFound": 39,
+      "localCardsMatchedToPriceRows": 39,
+      "cardsWithValidMarketPriceUsd": 39,
+      "rowSetIdsFound": [
+        "xy0"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "xy1",
+      "setName": "XY",
+      "pokemonTcgApiSetId": "xy1",
+      "totalLocalCards": 146,
+      "supabasePriceRowsFound": 146,
+      "localCardsMatchedToPriceRows": 146,
+      "cardsWithValidMarketPriceUsd": 146,
+      "rowSetIdsFound": [
+        "xy1"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "xy2",
+      "setName": "XY-Flashfire",
+      "pokemonTcgApiSetId": "xy2",
+      "totalLocalCards": 110,
+      "supabasePriceRowsFound": 109,
+      "localCardsMatchedToPriceRows": 109,
+      "cardsWithValidMarketPriceUsd": 109,
+      "rowSetIdsFound": [
+        "xy2"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "xy2-88a-blacksmith",
+          "number": "88a",
+          "name": "Blacksmith",
+          "lookupKeys": [
+            "xy2-88a-blacksmith",
+            "xy2-88a"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "xy3",
+      "setName": "XY-Furious Fists",
+      "pokemonTcgApiSetId": "xy3",
+      "totalLocalCards": 114,
+      "supabasePriceRowsFound": 113,
+      "localCardsMatchedToPriceRows": 113,
+      "cardsWithValidMarketPriceUsd": 113,
+      "rowSetIdsFound": [
+        "xy3"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "xy3-55a-m_lucario-ex",
+          "number": "55a",
+          "name": "M Lucario-EX",
+          "lookupKeys": [
+            "xy3-55a-m_lucario-ex",
+            "xy3-55a"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "xy4",
+      "setName": "XY-Phantom Forces",
+      "pokemonTcgApiSetId": "xy4",
+      "totalLocalCards": 124,
+      "supabasePriceRowsFound": 122,
+      "localCardsMatchedToPriceRows": 122,
+      "cardsWithValidMarketPriceUsd": 122,
+      "rowSetIdsFound": [
+        "xy4"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "xy4-24a-m_manectric-ex",
+          "number": "24a",
+          "name": "M Manectric-EX",
+          "lookupKeys": [
+            "xy4-24a-m_manectric-ex",
+            "xy4-24a"
+          ]
+        },
+        {
+          "id": "xy4-65a-aegislash-ex",
+          "number": "65a",
+          "name": "Aegislash-EX",
+          "lookupKeys": [
+            "xy4-65a-aegislash-ex",
+            "xy4-65a"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "xy5",
+      "setName": "XY-Primal Clash",
+      "pokemonTcgApiSetId": "xy5",
+      "totalLocalCards": 164,
+      "supabasePriceRowsFound": 164,
+      "localCardsMatchedToPriceRows": 164,
+      "cardsWithValidMarketPriceUsd": 164,
+      "rowSetIdsFound": [
+        "xy5"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "dc1",
+      "setName": "Double Crisis",
+      "pokemonTcgApiSetId": "dc1",
+      "totalLocalCards": 34,
+      "supabasePriceRowsFound": 34,
+      "localCardsMatchedToPriceRows": 34,
+      "cardsWithValidMarketPriceUsd": 34,
+      "rowSetIdsFound": [
+        "dc1"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "xy6",
+      "setName": "XY-Roaring Skies",
+      "pokemonTcgApiSetId": "xy6",
+      "totalLocalCards": 112,
+      "supabasePriceRowsFound": 110,
+      "localCardsMatchedToPriceRows": 110,
+      "cardsWithValidMarketPriceUsd": 110,
+      "rowSetIdsFound": [
+        "xy6"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "xy6-77a-shaymin-ex",
+          "number": "77a",
+          "name": "Shaymin-EX",
+          "lookupKeys": [
+            "xy6-77a-shaymin-ex",
+            "xy6-77a"
+          ]
+        },
+        {
+          "id": "xy6-92a-trainers_mail",
+          "number": "92a",
+          "name": "Trainers Mail",
+          "lookupKeys": [
+            "xy6-92a-trainers_mail",
+            "xy6-92a"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "xy7",
+      "setName": "XY-Ancient Origins",
+      "pokemonTcgApiSetId": "xy7",
+      "totalLocalCards": 101,
+      "supabasePriceRowsFound": 100,
+      "localCardsMatchedToPriceRows": 100,
+      "cardsWithValidMarketPriceUsd": 100,
+      "rowSetIdsFound": [
+        "xy7"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "xy7-75a-hex_maniac",
+          "number": "75a",
+          "name": "Hex Maniac",
+          "lookupKeys": [
+            "xy7-75a-hex_maniac",
+            "xy7-75a"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "xy8",
+      "setName": "XY-BREAKthrough",
+      "pokemonTcgApiSetId": "xy8",
+      "totalLocalCards": 165,
+      "supabasePriceRowsFound": 164,
+      "localCardsMatchedToPriceRows": 164,
+      "cardsWithValidMarketPriceUsd": 164,
+      "rowSetIdsFound": [
+        "xy8"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "xy8-146a-professors_letter",
+          "number": "146a",
+          "name": "Professors Letter",
+          "lookupKeys": [
+            "xy8-146a-professors_letter",
+            "xy8-146a"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "xy9",
+      "setName": "XY-BREAKpoint",
+      "pokemonTcgApiSetId": "xy9",
+      "totalLocalCards": 126,
+      "supabasePriceRowsFound": 123,
+      "localCardsMatchedToPriceRows": 123,
+      "cardsWithValidMarketPriceUsd": 123,
+      "rowSetIdsFound": [
+        "xy9"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "xy9-98a-delinquent",
+          "number": "98a",
+          "name": "Delinquent",
+          "lookupKeys": [
+            "xy9-98a-delinquent",
+            "xy9-98a"
+          ]
+        },
+        {
+          "id": "xy9-98b-delinquent",
+          "number": "98b",
+          "name": "Delinquent",
+          "lookupKeys": [
+            "xy9-98b-delinquent",
+            "xy9-98b"
+          ]
+        },
+        {
+          "id": "xy9-107a-professor_sycamore",
+          "number": "107a",
+          "name": "Professor Sycamore",
+          "lookupKeys": [
+            "xy9-107a-professor_sycamore",
+            "xy9-107a"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "g1",
+      "setName": "Generations",
+      "pokemonTcgApiSetId": "g1",
+      "totalLocalCards": 117,
+      "supabasePriceRowsFound": 115,
+      "localCardsMatchedToPriceRows": 112,
+      "cardsWithValidMarketPriceUsd": 112,
+      "rowSetIdsFound": [
+        "g1"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "g1-28a-jolteon-ex",
+          "number": "28a",
+          "name": "Jolteon-EX",
+          "lookupKeys": [
+            "g1-28a-jolteon-ex",
+            "g1-28a"
+          ]
+        },
+        {
+          "id": "g1-73a-team_flare_grunt",
+          "number": "73a",
+          "name": "Team Flare Grunt",
+          "lookupKeys": [
+            "g1-73a-team_flare_grunt",
+            "g1-73a"
+          ]
+        },
+        {
+          "id": "g1-rc17-flabebe",
+          "number": "RC17",
+          "name": "Flabébé",
+          "lookupKeys": [
+            "g1-rc17-flabebe",
+            "g1-rc17"
+          ]
+        },
+        {
+          "id": "g1-rc26-floral_crown",
+          "number": "RC26",
+          "name": "Floral Crown",
+          "lookupKeys": [
+            "g1-rc26-floral_crown",
+            "g1-rc26"
+          ]
+        },
+        {
+          "id": "g1-rc31-m_gardevoir-ex",
+          "number": "RC31",
+          "name": "M Gardevoir-EX",
+          "lookupKeys": [
+            "g1-rc31-m_gardevoir-ex",
+            "g1-rc31"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "xy10",
+      "setName": "XY-Fates Collide",
+      "pokemonTcgApiSetId": "xy10",
+      "totalLocalCards": 129,
+      "supabasePriceRowsFound": 125,
+      "localCardsMatchedToPriceRows": 125,
+      "cardsWithValidMarketPriceUsd": 125,
+      "rowSetIdsFound": [
+        "xy10"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "xy10-43a-regirock-ex",
+          "number": "43a",
+          "name": "Regirock-EX",
+          "lookupKeys": [
+            "xy10-43a-regirock-ex",
+            "xy10-43a"
+          ]
+        },
+        {
+          "id": "xy10-54a-zygarde-ex",
+          "number": "54a",
+          "name": "Zygarde-EX",
+          "lookupKeys": [
+            "xy10-54a-zygarde-ex",
+            "xy10-54a"
+          ]
+        },
+        {
+          "id": "xy10-105a-n",
+          "number": "105a",
+          "name": "N",
+          "lookupKeys": [
+            "xy10-105a-n",
+            "xy10-105a"
+          ]
+        },
+        {
+          "id": "xy10-111a-shauna",
+          "number": "111a",
+          "name": "Shauna",
+          "lookupKeys": [
+            "xy10-111a-shauna",
+            "xy10-111a"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "xy11",
+      "setName": "XY-Steam Siege",
+      "pokemonTcgApiSetId": "xy11",
+      "totalLocalCards": 116,
+      "supabasePriceRowsFound": 116,
+      "localCardsMatchedToPriceRows": 116,
+      "cardsWithValidMarketPriceUsd": 116,
+      "rowSetIdsFound": [
+        "xy11"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "xy12",
+      "setName": "XY-Evolutions",
+      "pokemonTcgApiSetId": "xy12",
+      "totalLocalCards": 113,
+      "supabasePriceRowsFound": 113,
+      "localCardsMatchedToPriceRows": 113,
+      "cardsWithValidMarketPriceUsd": 113,
+      "rowSetIdsFound": [
+        "xy12"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "sun-moon",
+      "setName": "Sun & Moon",
+      "pokemonTcgApiSetId": "sm1",
+      "totalLocalCards": 174,
+      "supabasePriceRowsFound": 163,
+      "localCardsMatchedToPriceRows": 164,
+      "cardsWithValidMarketPriceUsd": 164,
+      "rowSetIdsFound": [
+        "sun-moon"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "sun-moon-101a-eevee",
+          "number": "101a",
+          "name": "Eevee",
+          "lookupKeys": [
+            "sun-moon-101a-eevee",
+            "sm1-101a"
+          ]
+        },
+        {
+          "id": "sun-moon-164-grass-energy",
+          "number": "164",
+          "name": "Grass Energy",
+          "lookupKeys": [
+            "sun-moon-164-grass-energy",
+            "sm1-164"
+          ]
+        },
+        {
+          "id": "sun-moon-165-fire-energy",
+          "number": "165",
+          "name": "Fire Energy",
+          "lookupKeys": [
+            "sun-moon-165-fire-energy",
+            "sm1-165"
+          ]
+        },
+        {
+          "id": "sun-moon-166-water-energy",
+          "number": "166",
+          "name": "Water Energy",
+          "lookupKeys": [
+            "sun-moon-166-water-energy",
+            "sm1-166"
+          ]
+        },
+        {
+          "id": "sun-moon-167-lightning-energy",
+          "number": "167",
+          "name": "Lightning Energy",
+          "lookupKeys": [
+            "sun-moon-167-lightning-energy",
+            "sm1-167"
+          ]
+        },
+        {
+          "id": "sun-moon-168-psychic-energy",
+          "number": "168",
+          "name": "Psychic Energy",
+          "lookupKeys": [
+            "sun-moon-168-psychic-energy",
+            "sm1-168"
+          ]
+        },
+        {
+          "id": "sun-moon-169-fighting-energy",
+          "number": "169",
+          "name": "Fighting Energy",
+          "lookupKeys": [
+            "sun-moon-169-fighting-energy",
+            "sm1-169"
+          ]
+        },
+        {
+          "id": "sun-moon-170-darkness-energy",
+          "number": "170",
+          "name": "Darkness Energy",
+          "lookupKeys": [
+            "sun-moon-170-darkness-energy",
+            "sm1-170"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "guardians-rising",
+      "setName": "Guardians Rising",
+      "pokemonTcgApiSetId": "sm2",
+      "totalLocalCards": 180,
+      "supabasePriceRowsFound": 169,
+      "localCardsMatchedToPriceRows": 169,
+      "cardsWithValidMarketPriceUsd": 169,
+      "rowSetIdsFound": [
+        "guardians-rising"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "guardians-rising-19a-alolan-sandshrew",
+          "number": "19a",
+          "name": "Alolan Sandshrew",
+          "lookupKeys": [
+            "guardians-rising-19a-alolan-sandshrew",
+            "sm2-19a"
+          ]
+        },
+        {
+          "id": "guardians-rising-21a-alolan-vulpix",
+          "number": "21a",
+          "name": "Alolan Vulpix",
+          "lookupKeys": [
+            "guardians-rising-21a-alolan-vulpix",
+            "sm2-21a"
+          ]
+        },
+        {
+          "id": "guardians-rising-51a-garbodor",
+          "number": "51a",
+          "name": "Garbodor",
+          "lookupKeys": [
+            "guardians-rising-51a-garbodor",
+            "sm2-51a"
+          ]
+        },
+        {
+          "id": "guardians-rising-60a-tapu-lele-gx",
+          "number": "60a",
+          "name": "Tapu Lele-GX",
+          "lookupKeys": [
+            "guardians-rising-60a-tapu-lele-gx",
+            "sm2-60a"
+          ]
+        },
+        {
+          "id": "guardians-rising-92a-sylveon-gx",
+          "number": "92a",
+          "name": "Sylveon-GX",
+          "lookupKeys": [
+            "guardians-rising-92a-sylveon-gx",
+            "sm2-92a"
+          ]
+        },
+        {
+          "id": "guardians-rising-121a-choice-band",
+          "number": "121a",
+          "name": "Choice Band",
+          "lookupKeys": [
+            "guardians-rising-121a-choice-band",
+            "sm2-121a"
+          ]
+        },
+        {
+          "id": "guardians-rising-124a-enhanced-hammer",
+          "number": "124a",
+          "name": "Enhanced Hammer",
+          "lookupKeys": [
+            "guardians-rising-124a-enhanced-hammer",
+            "sm2-124a"
+          ]
+        },
+        {
+          "id": "guardians-rising-125a-field-blower",
+          "number": "125a",
+          "name": "Field Blower",
+          "lookupKeys": [
+            "guardians-rising-125a-field-blower",
+            "sm2-125a"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "burning-shadows",
+      "setName": "Burning Shadows",
+      "pokemonTcgApiSetId": "sm3",
+      "totalLocalCards": 177,
+      "supabasePriceRowsFound": 169,
+      "localCardsMatchedToPriceRows": 169,
+      "cardsWithValidMarketPriceUsd": 169,
+      "rowSetIdsFound": [
+        "burning-shadows"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "burning-shadows-18a-charmander",
+          "number": "18a",
+          "name": "Charmander",
+          "lookupKeys": [
+            "burning-shadows-18a-charmander",
+            "sm3-18a"
+          ]
+        },
+        {
+          "id": "burning-shadows-39a-tapu-fini-gx",
+          "number": "39a",
+          "name": "Tapu Fini-GX",
+          "lookupKeys": [
+            "burning-shadows-39a-tapu-fini-gx",
+            "sm3-39a"
+          ]
+        },
+        {
+          "id": "burning-shadows-88a-darkrai-gx",
+          "number": "88a",
+          "name": "Darkrai-GX",
+          "lookupKeys": [
+            "burning-shadows-88a-darkrai-gx",
+            "sm3-88a"
+          ]
+        },
+        {
+          "id": "burning-shadows-92a-kirlia",
+          "number": "92a",
+          "name": "Kirlia",
+          "lookupKeys": [
+            "burning-shadows-92a-kirlia",
+            "sm3-92a"
+          ]
+        },
+        {
+          "id": "burning-shadows-105a-porygon-z",
+          "number": "105a",
+          "name": "Porygon-Z",
+          "lookupKeys": [
+            "burning-shadows-105a-porygon-z",
+            "sm3-105a"
+          ]
+        },
+        {
+          "id": "burning-shadows-112a-acerola",
+          "number": "112a",
+          "name": "Acerola",
+          "lookupKeys": [
+            "burning-shadows-112a-acerola",
+            "sm3-112a"
+          ]
+        },
+        {
+          "id": "burning-shadows-115a-guzma",
+          "number": "115a",
+          "name": "Guzma",
+          "lookupKeys": [
+            "burning-shadows-115a-guzma",
+            "sm3-115a"
+          ]
+        },
+        {
+          "id": "burning-shadows-116a-kiawe",
+          "number": "116a",
+          "name": "Kiawe",
+          "lookupKeys": [
+            "burning-shadows-116a-kiawe",
+            "sm3-116a"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "shining-legends",
+      "setName": "Shining Legends",
+      "pokemonTcgApiSetId": "sm35",
+      "totalLocalCards": 81,
+      "supabasePriceRowsFound": 78,
+      "localCardsMatchedToPriceRows": 78,
+      "cardsWithValidMarketPriceUsd": 78,
+      "rowSetIdsFound": [
+        "shining-legends"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "shining-legends-10a-entei-gx",
+          "number": "10a",
+          "name": "Entei-GX",
+          "lookupKeys": [
+            "shining-legends-10a-entei-gx",
+            "sm35-10a"
+          ]
+        },
+        {
+          "id": "shining-legends-68a-ultra-ball",
+          "number": "68a",
+          "name": "Ultra Ball",
+          "lookupKeys": [
+            "shining-legends-68a-ultra-ball",
+            "sm35-68a"
+          ]
+        },
+        {
+          "id": "shining-legends-77a-zoroark-gx",
+          "number": "77a",
+          "name": "Zoroark-GX",
+          "lookupKeys": [
+            "shining-legends-77a-zoroark-gx",
+            "sm35-77a"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "crimson-invasion",
+      "setName": "Crimson Invasion",
+      "pokemonTcgApiSetId": "sm4",
+      "totalLocalCards": 126,
+      "supabasePriceRowsFound": 124,
+      "localCardsMatchedToPriceRows": 124,
+      "cardsWithValidMarketPriceUsd": 124,
+      "rowSetIdsFound": [
+        "crimson-invasion"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "crimson-invasion-63a-guzzlord-gx",
+          "number": "63a",
+          "name": "Guzzlord-GX",
+          "lookupKeys": [
+            "crimson-invasion-63a-guzzlord-gx",
+            "sm4-63a"
+          ]
+        },
+        {
+          "id": "crimson-invasion-84a-regigigas",
+          "number": "84a",
+          "name": "Regigigas",
+          "lookupKeys": [
+            "crimson-invasion-84a-regigigas",
+            "sm4-84a"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "ultra-prism",
+      "setName": "Ultra Prism",
+      "pokemonTcgApiSetId": "sm5",
+      "totalLocalCards": 191,
+      "supabasePriceRowsFound": 173,
+      "localCardsMatchedToPriceRows": 186,
+      "cardsWithValidMarketPriceUsd": 186,
+      "rowSetIdsFound": [
+        "ultra-prism"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "ultra-prism-119a-cynthia",
+          "number": "119a",
+          "name": "Cynthia",
+          "lookupKeys": [
+            "ultra-prism-119a-cynthia",
+            "sm5-119a"
+          ]
+        },
+        {
+          "id": "ultra-prism-122a-escape-board",
+          "number": "122a",
+          "name": "Escape Board",
+          "lookupKeys": [
+            "ultra-prism-122a-escape-board",
+            "sm5-122a"
+          ]
+        },
+        {
+          "id": "ultra-prism-125a-lillie",
+          "number": "125a",
+          "name": "Lillie",
+          "lookupKeys": [
+            "ultra-prism-125a-lillie",
+            "sm5-125a"
+          ]
+        },
+        {
+          "id": "ultra-prism-135a-volkner",
+          "number": "135a",
+          "name": "Volkner",
+          "lookupKeys": [
+            "ultra-prism-135a-volkner",
+            "sm5-135a"
+          ]
+        },
+        {
+          "id": "ultra-prism-153a-lusamine",
+          "number": "153a",
+          "name": "Lusamine",
+          "lookupKeys": [
+            "ultra-prism-153a-lusamine",
+            "sm5-153a"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "forbidden-light",
+      "setName": "Forbidden Light",
+      "pokemonTcgApiSetId": "sm6",
+      "totalLocalCards": 150,
+      "supabasePriceRowsFound": 146,
+      "localCardsMatchedToPriceRows": 146,
+      "cardsWithValidMarketPriceUsd": 146,
+      "rowSetIdsFound": [
+        "forbidden-light"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "forbidden-light-2a-alolan-exeggutor",
+          "number": "2a",
+          "name": "Alolan Exeggutor",
+          "lookupKeys": [
+            "forbidden-light-2a-alolan-exeggutor",
+            "sm6-2a"
+          ]
+        },
+        {
+          "id": "forbidden-light-102a-beast-ring",
+          "number": "102a",
+          "name": "Beast Ring",
+          "lookupKeys": [
+            "forbidden-light-102a-beast-ring",
+            "sm6-102a"
+          ]
+        },
+        {
+          "id": "forbidden-light-112a-metal-frying-pan",
+          "number": "112a",
+          "name": "Metal Frying Pan",
+          "lookupKeys": [
+            "forbidden-light-112a-metal-frying-pan",
+            "sm6-112a"
+          ]
+        },
+        {
+          "id": "forbidden-light-113a-mysterious-treasure",
+          "number": "113a",
+          "name": "Mysterious Treasure",
+          "lookupKeys": [
+            "forbidden-light-113a-mysterious-treasure",
+            "sm6-113a"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "celestial-storm",
+      "setName": "Celestial Storm",
+      "pokemonTcgApiSetId": "sm7",
+      "totalLocalCards": 187,
+      "supabasePriceRowsFound": 183,
+      "localCardsMatchedToPriceRows": 183,
+      "cardsWithValidMarketPriceUsd": 183,
+      "rowSetIdsFound": [
+        "celestial-storm"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "celestial-storm-10a-sceptile",
+          "number": "10a",
+          "name": "Sceptile",
+          "lookupKeys": [
+            "celestial-storm-10a-sceptile",
+            "sm7-10a"
+          ]
+        },
+        {
+          "id": "celestial-storm-123a-acro-bike",
+          "number": "123a",
+          "name": "Acro Bike",
+          "lookupKeys": [
+            "celestial-storm-123a-acro-bike",
+            "sm7-123a"
+          ]
+        },
+        {
+          "id": "celestial-storm-148a-tate-liza",
+          "number": "148a",
+          "name": "Tate & Liza",
+          "lookupKeys": [
+            "celestial-storm-148a-tate-liza",
+            "sm7-148a"
+          ]
+        },
+        {
+          "id": "celestial-storm-177a-rayquaza-gx",
+          "number": "177a",
+          "name": "Rayquaza-GX",
+          "lookupKeys": [
+            "celestial-storm-177a-rayquaza-gx",
+            "sm7-177a"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "dragon-majesty",
+      "setName": "Dragon Majesty",
+      "pokemonTcgApiSetId": "sm75",
+      "totalLocalCards": 80,
+      "supabasePriceRowsFound": 78,
+      "localCardsMatchedToPriceRows": 78,
+      "cardsWithValidMarketPriceUsd": 78,
+      "rowSetIdsFound": [
+        "dragon-majesty"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "dragon-majesty-40a-altaria",
+          "number": "40a",
+          "name": "Altaria",
+          "lookupKeys": [
+            "dragon-majesty-40a-altaria",
+            "sm75-40a"
+          ]
+        },
+        {
+          "id": "dragon-majesty-60a-fiery-flint",
+          "number": "60a",
+          "name": "Fiery Flint",
+          "lookupKeys": [
+            "dragon-majesty-60a-fiery-flint",
+            "sm75-60a"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "lost-thunder",
+      "setName": "Lost Thunder",
+      "pokemonTcgApiSetId": "sm8",
+      "totalLocalCards": 240,
+      "supabasePriceRowsFound": 236,
+      "localCardsMatchedToPriceRows": 236,
+      "cardsWithValidMarketPriceUsd": 236,
+      "rowSetIdsFound": [
+        "lost-thunder"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "lost-thunder-172a-electropower",
+          "number": "172a",
+          "name": "Electropower",
+          "lookupKeys": [
+            "lost-thunder-172a-electropower",
+            "sm8-172a"
+          ]
+        },
+        {
+          "id": "lost-thunder-187a-net-ball",
+          "number": "187a",
+          "name": "Net Ball",
+          "lookupKeys": [
+            "lost-thunder-187a-net-ball",
+            "sm8-187a"
+          ]
+        },
+        {
+          "id": "lost-thunder-188a-professor-elm-s-lecture",
+          "number": "188a",
+          "name": "Professor Elm's Lecture",
+          "lookupKeys": [
+            "lost-thunder-188a-professor-elm-s-lecture",
+            "sm8-188a"
+          ]
+        },
+        {
+          "id": "lost-thunder-189a-sightseer",
+          "number": "189a",
+          "name": "Sightseer",
+          "lookupKeys": [
+            "lost-thunder-189a-sightseer",
+            "sm8-189a"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "team-up",
+      "setName": "Team Up",
+      "pokemonTcgApiSetId": "sm9",
+      "totalLocalCards": 199,
+      "supabasePriceRowsFound": 196,
+      "localCardsMatchedToPriceRows": 197,
+      "cardsWithValidMarketPriceUsd": 197,
+      "rowSetIdsFound": [
+        "team-up"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "team-up-152a-pok-mon-communication",
+          "number": "152a",
+          "name": "Pokémon Communication",
+          "lookupKeys": [
+            "team-up-152a-pok-mon-communication",
+            "sm9-152a"
+          ]
+        },
+        {
+          "id": "team-up-152b-pok-mon-communication",
+          "number": "152b",
+          "name": "Pokémon Communication",
+          "lookupKeys": [
+            "team-up-152b-pok-mon-communication",
+            "sm9-152b"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "detective-pikachu",
+      "setName": "Detective Pikachu",
+      "pokemonTcgApiSetId": "det1",
+      "totalLocalCards": 18,
+      "supabasePriceRowsFound": 18,
+      "localCardsMatchedToPriceRows": 18,
+      "cardsWithValidMarketPriceUsd": 18,
+      "rowSetIdsFound": [
+        "detective-pikachu"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "unbroken-bonds",
+      "setName": "Unbroken Bonds",
+      "pokemonTcgApiSetId": "sm10",
+      "totalLocalCards": 238,
+      "supabasePriceRowsFound": 234,
+      "localCardsMatchedToPriceRows": 234,
+      "cardsWithValidMarketPriceUsd": 234,
+      "rowSetIdsFound": [
+        "unbroken-bonds"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "unbroken-bonds-182a-pok-gear-3-0",
+          "number": "182a",
+          "name": "Pokégear 3.0",
+          "lookupKeys": [
+            "unbroken-bonds-182a-pok-gear-3-0",
+            "sm10-182a"
+          ]
+        },
+        {
+          "id": "unbroken-bonds-182b-pok-gear-3-0",
+          "number": "182b",
+          "name": "Pokégear 3.0",
+          "lookupKeys": [
+            "unbroken-bonds-182b-pok-gear-3-0",
+            "sm10-182b"
+          ]
+        },
+        {
+          "id": "unbroken-bonds-189a-welder",
+          "number": "189a",
+          "name": "Welder",
+          "lookupKeys": [
+            "unbroken-bonds-189a-welder",
+            "sm10-189a"
+          ]
+        },
+        {
+          "id": "unbroken-bonds-195a-dedenne-gx",
+          "number": "195a",
+          "name": "Dedenne-GX",
+          "lookupKeys": [
+            "unbroken-bonds-195a-dedenne-gx",
+            "sm10-195a"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "unified-minds",
+      "setName": "Unified Minds",
+      "pokemonTcgApiSetId": "sm11",
+      "totalLocalCards": 261,
+      "supabasePriceRowsFound": 258,
+      "localCardsMatchedToPriceRows": 258,
+      "cardsWithValidMarketPriceUsd": 258,
+      "rowSetIdsFound": [
+        "unified-minds"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "unified-minds-79a-jirachi-gx",
+          "number": "79a",
+          "name": "Jirachi-GX",
+          "lookupKeys": [
+            "unified-minds-79a-jirachi-gx",
+            "sm11-79a"
+          ]
+        },
+        {
+          "id": "unified-minds-191a-cherish-ball",
+          "number": "191a",
+          "name": "Cherish Ball",
+          "lookupKeys": [
+            "unified-minds-191a-cherish-ball",
+            "sm11-191a"
+          ]
+        },
+        {
+          "id": "unified-minds-206a-reset-stamp",
+          "number": "206a",
+          "name": "Reset Stamp",
+          "lookupKeys": [
+            "unified-minds-206a-reset-stamp",
+            "sm11-206a"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "hidden-fates",
+      "setName": "Hidden Fates",
+      "pokemonTcgApiSetId": "sm115",
+      "totalLocalCards": 163,
+      "supabasePriceRowsFound": 69,
+      "localCardsMatchedToPriceRows": 69,
+      "cardsWithValidMarketPriceUsd": 69,
+      "rowSetIdsFound": [
+        "hidden-fates"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "hidden-fates-SV1-scyther",
+          "number": "SV1",
+          "name": "Scyther",
+          "lookupKeys": [
+            "hidden-fates-SV1-scyther",
+            "sm115-sv1"
+          ]
+        },
+        {
+          "id": "hidden-fates-SV10-quagsire",
+          "number": "SV10",
+          "name": "Quagsire",
+          "lookupKeys": [
+            "hidden-fates-SV10-quagsire",
+            "sm115-sv10"
+          ]
+        },
+        {
+          "id": "hidden-fates-SV11-froakie",
+          "number": "SV11",
+          "name": "Froakie",
+          "lookupKeys": [
+            "hidden-fates-SV11-froakie",
+            "sm115-sv11"
+          ]
+        },
+        {
+          "id": "hidden-fates-SV12-frogadier",
+          "number": "SV12",
+          "name": "Frogadier",
+          "lookupKeys": [
+            "hidden-fates-SV12-frogadier",
+            "sm115-sv12"
+          ]
+        },
+        {
+          "id": "hidden-fates-SV13-voltorb",
+          "number": "SV13",
+          "name": "Voltorb",
+          "lookupKeys": [
+            "hidden-fates-SV13-voltorb",
+            "sm115-sv13"
+          ]
+        },
+        {
+          "id": "hidden-fates-SV14-xurkitree",
+          "number": "SV14",
+          "name": "Xurkitree",
+          "lookupKeys": [
+            "hidden-fates-SV14-xurkitree",
+            "sm115-sv14"
+          ]
+        },
+        {
+          "id": "hidden-fates-SV15-seviper",
+          "number": "SV15",
+          "name": "Seviper",
+          "lookupKeys": [
+            "hidden-fates-SV15-seviper",
+            "sm115-sv15"
+          ]
+        },
+        {
+          "id": "hidden-fates-SV16-shuppet",
+          "number": "SV16",
+          "name": "Shuppet",
+          "lookupKeys": [
+            "hidden-fates-SV16-shuppet",
+            "sm115-sv16"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "cosmic-eclipse",
+      "setName": "Cosmic Eclipse",
+      "pokemonTcgApiSetId": "sm12",
+      "totalLocalCards": 272,
+      "supabasePriceRowsFound": 271,
+      "localCardsMatchedToPriceRows": 271,
+      "cardsWithValidMarketPriceUsd": 271,
+      "rowSetIdsFound": [
+        "cosmic-eclipse"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "cosmic-eclipse-143a-togepi-cleffa-igglybuff-gx",
+          "number": "143a",
+          "name": "Togepi & Cleffa & Igglybuff-GX",
+          "lookupKeys": [
+            "cosmic-eclipse-143a-togepi-cleffa-igglybuff-gx",
+            "sm12-143a"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "sword-shield",
+      "setName": "Sword & Shield",
+      "pokemonTcgApiSetId": "swsh1",
+      "totalLocalCards": 216,
+      "supabasePriceRowsFound": 216,
+      "localCardsMatchedToPriceRows": 216,
+      "cardsWithValidMarketPriceUsd": 216,
+      "rowSetIdsFound": [
+        "sword-shield"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "rebel-clash",
+      "setName": "Rebel Clash",
+      "pokemonTcgApiSetId": "swsh2",
+      "totalLocalCards": 209,
+      "supabasePriceRowsFound": 209,
+      "localCardsMatchedToPriceRows": 209,
+      "cardsWithValidMarketPriceUsd": 209,
+      "rowSetIdsFound": [
+        "rebel-clash"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "darkness-ablaze",
+      "setName": "Darkness Ablaze",
+      "pokemonTcgApiSetId": "swsh3",
+      "totalLocalCards": 201,
+      "supabasePriceRowsFound": 201,
+      "localCardsMatchedToPriceRows": 201,
+      "cardsWithValidMarketPriceUsd": 201,
+      "rowSetIdsFound": [
+        "darkness-ablaze"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "champions-path",
+      "setName": "Champion's Path",
+      "pokemonTcgApiSetId": "swsh35",
+      "totalLocalCards": 80,
+      "supabasePriceRowsFound": 80,
+      "localCardsMatchedToPriceRows": 80,
+      "cardsWithValidMarketPriceUsd": 80,
+      "rowSetIdsFound": [
+        "champions-path"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "vivid-voltage",
+      "setName": "Vivid Voltage",
+      "pokemonTcgApiSetId": "swsh4",
+      "totalLocalCards": 203,
+      "supabasePriceRowsFound": 203,
+      "localCardsMatchedToPriceRows": 203,
+      "cardsWithValidMarketPriceUsd": 203,
+      "rowSetIdsFound": [
+        "vivid-voltage"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "shining-fates",
+      "setName": "Shining Fates",
+      "pokemonTcgApiSetId": "swsh45",
+      "totalLocalCards": 195,
+      "supabasePriceRowsFound": 73,
+      "localCardsMatchedToPriceRows": 73,
+      "cardsWithValidMarketPriceUsd": 73,
+      "rowSetIdsFound": [
+        "shining-fates"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "shining-fates-SV001-rowlet",
+          "number": "SV001",
+          "name": "Rowlet",
+          "lookupKeys": [
+            "shining-fates-SV001-rowlet",
+            "swsh45-sv001"
+          ]
+        },
+        {
+          "id": "shining-fates-SV002-dartrix",
+          "number": "SV002",
+          "name": "Dartrix",
+          "lookupKeys": [
+            "shining-fates-SV002-dartrix",
+            "swsh45-sv002"
+          ]
+        },
+        {
+          "id": "shining-fates-SV003-decidueye",
+          "number": "SV003",
+          "name": "Decidueye",
+          "lookupKeys": [
+            "shining-fates-SV003-decidueye",
+            "swsh45-sv003"
+          ]
+        },
+        {
+          "id": "shining-fates-SV004-grookey",
+          "number": "SV004",
+          "name": "Grookey",
+          "lookupKeys": [
+            "shining-fates-SV004-grookey",
+            "swsh45-sv004"
+          ]
+        },
+        {
+          "id": "shining-fates-SV005-thwackey",
+          "number": "SV005",
+          "name": "Thwackey",
+          "lookupKeys": [
+            "shining-fates-SV005-thwackey",
+            "swsh45-sv005"
+          ]
+        },
+        {
+          "id": "shining-fates-SV006-rillaboom",
+          "number": "SV006",
+          "name": "Rillaboom",
+          "lookupKeys": [
+            "shining-fates-SV006-rillaboom",
+            "swsh45-sv006"
+          ]
+        },
+        {
+          "id": "shining-fates-SV007-blipbug",
+          "number": "SV007",
+          "name": "Blipbug",
+          "lookupKeys": [
+            "shining-fates-SV007-blipbug",
+            "swsh45-sv007"
+          ]
+        },
+        {
+          "id": "shining-fates-SV008-dottler",
+          "number": "SV008",
+          "name": "Dottler",
+          "lookupKeys": [
+            "shining-fates-SV008-dottler",
+            "swsh45-sv008"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "battle-styles",
+      "setName": "Battle Styles",
+      "pokemonTcgApiSetId": "swsh5",
+      "totalLocalCards": 183,
+      "supabasePriceRowsFound": 183,
+      "localCardsMatchedToPriceRows": 183,
+      "cardsWithValidMarketPriceUsd": 183,
+      "rowSetIdsFound": [
+        "battle-styles"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "chilling-reign",
+      "setName": "Chilling Reign",
+      "pokemonTcgApiSetId": "swsh6",
+      "totalLocalCards": 233,
+      "supabasePriceRowsFound": 233,
+      "localCardsMatchedToPriceRows": 233,
+      "cardsWithValidMarketPriceUsd": 233,
+      "rowSetIdsFound": [
+        "chilling-reign"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "evolving-skies",
+      "setName": "Evolving Skies",
+      "pokemonTcgApiSetId": "swsh7",
+      "totalLocalCards": 237,
+      "supabasePriceRowsFound": 237,
+      "localCardsMatchedToPriceRows": 237,
+      "cardsWithValidMarketPriceUsd": 237,
+      "rowSetIdsFound": [
+        "evolving-skies"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "celebrations",
+      "setName": "Celebrations",
+      "pokemonTcgApiSetId": "cel25",
+      "totalLocalCards": 50,
+      "supabasePriceRowsFound": 25,
+      "localCardsMatchedToPriceRows": 36,
+      "cardsWithValidMarketPriceUsd": 36,
+      "rowSetIdsFound": [
+        "celebrations"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "celebrations-54-mewtwo-ex",
+          "number": "54",
+          "name": "Mewtwo-EX",
+          "lookupKeys": [
+            "celebrations-54-mewtwo-ex",
+            "cel25-54"
+          ]
+        },
+        {
+          "id": "celebrations-60-tapu-lele-gx",
+          "number": "60",
+          "name": "Tapu Lele-GX",
+          "lookupKeys": [
+            "celebrations-60-tapu-lele-gx",
+            "cel25-60"
+          ]
+        },
+        {
+          "id": "celebrations-66-shining-magikarp",
+          "number": "66",
+          "name": "Shining Magikarp",
+          "lookupKeys": [
+            "celebrations-66-shining-magikarp",
+            "cel25-66"
+          ]
+        },
+        {
+          "id": "celebrations-73-imposter-professor-oak",
+          "number": "73",
+          "name": "Imposter Professor Oak",
+          "lookupKeys": [
+            "celebrations-73-imposter-professor-oak",
+            "cel25-73"
+          ]
+        },
+        {
+          "id": "celebrations-76-m-rayquaza-ex",
+          "number": "76",
+          "name": "M Rayquaza-EX",
+          "lookupKeys": [
+            "celebrations-76-m-rayquaza-ex",
+            "cel25-76"
+          ]
+        },
+        {
+          "id": "celebrations-86-rocket-s-admin",
+          "number": "86",
+          "name": "Rocket's Admin.",
+          "lookupKeys": [
+            "celebrations-86-rocket-s-admin",
+            "cel25-86"
+          ]
+        },
+        {
+          "id": "celebrations-88-mew-ex",
+          "number": "88",
+          "name": "Mew ex",
+          "lookupKeys": [
+            "celebrations-88-mew-ex",
+            "cel25-88"
+          ]
+        },
+        {
+          "id": "celebrations-93-gardevoir-ex",
+          "number": "93",
+          "name": "Gardevoir ex δ",
+          "lookupKeys": [
+            "celebrations-93-gardevoir-ex",
+            "cel25-93"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "fusion-strike",
+      "setName": "Fusion Strike",
+      "pokemonTcgApiSetId": "swsh8",
+      "totalLocalCards": 284,
+      "supabasePriceRowsFound": 284,
+      "localCardsMatchedToPriceRows": 284,
+      "cardsWithValidMarketPriceUsd": 284,
+      "rowSetIdsFound": [
+        "fusion-strike"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "brilliant-stars",
+      "setName": "Brilliant Stars",
+      "pokemonTcgApiSetId": "swsh9",
+      "totalLocalCards": 216,
+      "supabasePriceRowsFound": 186,
+      "localCardsMatchedToPriceRows": 186,
+      "cardsWithValidMarketPriceUsd": 186,
+      "rowSetIdsFound": [
+        "brilliant-stars"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "brilliant-stars-TG01-flareon",
+          "number": "TG01",
+          "name": "Flareon",
+          "lookupKeys": [
+            "brilliant-stars-TG01-flareon",
+            "swsh9-tg01"
+          ]
+        },
+        {
+          "id": "brilliant-stars-TG02-vaporeon",
+          "number": "TG02",
+          "name": "Vaporeon",
+          "lookupKeys": [
+            "brilliant-stars-TG02-vaporeon",
+            "swsh9-tg02"
+          ]
+        },
+        {
+          "id": "brilliant-stars-TG03-octillery",
+          "number": "TG03",
+          "name": "Octillery",
+          "lookupKeys": [
+            "brilliant-stars-TG03-octillery",
+            "swsh9-tg03"
+          ]
+        },
+        {
+          "id": "brilliant-stars-TG04-jolteon",
+          "number": "TG04",
+          "name": "Jolteon",
+          "lookupKeys": [
+            "brilliant-stars-TG04-jolteon",
+            "swsh9-tg04"
+          ]
+        },
+        {
+          "id": "brilliant-stars-TG05-zekrom",
+          "number": "TG05",
+          "name": "Zekrom",
+          "lookupKeys": [
+            "brilliant-stars-TG05-zekrom",
+            "swsh9-tg05"
+          ]
+        },
+        {
+          "id": "brilliant-stars-TG06-dusknoir",
+          "number": "TG06",
+          "name": "Dusknoir",
+          "lookupKeys": [
+            "brilliant-stars-TG06-dusknoir",
+            "swsh9-tg06"
+          ]
+        },
+        {
+          "id": "brilliant-stars-TG07-dedenne",
+          "number": "TG07",
+          "name": "Dedenne",
+          "lookupKeys": [
+            "brilliant-stars-TG07-dedenne",
+            "swsh9-tg07"
+          ]
+        },
+        {
+          "id": "brilliant-stars-TG08-alcremie",
+          "number": "TG08",
+          "name": "Alcremie",
+          "lookupKeys": [
+            "brilliant-stars-TG08-alcremie",
+            "swsh9-tg08"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "astral-radiance",
+      "setName": "Astral Radiance",
+      "pokemonTcgApiSetId": "swsh10",
+      "totalLocalCards": 246,
+      "supabasePriceRowsFound": 216,
+      "localCardsMatchedToPriceRows": 216,
+      "cardsWithValidMarketPriceUsd": 216,
+      "rowSetIdsFound": [
+        "astral-radiance"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "astral-radiance-TG01-abomasnow",
+          "number": "TG01",
+          "name": "Abomasnow",
+          "lookupKeys": [
+            "astral-radiance-TG01-abomasnow",
+            "swsh10-tg01"
+          ]
+        },
+        {
+          "id": "astral-radiance-TG02-flapple",
+          "number": "TG02",
+          "name": "Flapple",
+          "lookupKeys": [
+            "astral-radiance-TG02-flapple",
+            "swsh10-tg02"
+          ]
+        },
+        {
+          "id": "astral-radiance-TG03-kingdra",
+          "number": "TG03",
+          "name": "Kingdra",
+          "lookupKeys": [
+            "astral-radiance-TG03-kingdra",
+            "swsh10-tg03"
+          ]
+        },
+        {
+          "id": "astral-radiance-TG04-frosmoth",
+          "number": "TG04",
+          "name": "Frosmoth",
+          "lookupKeys": [
+            "astral-radiance-TG04-frosmoth",
+            "swsh10-tg04"
+          ]
+        },
+        {
+          "id": "astral-radiance-TG05-gardevoir",
+          "number": "TG05",
+          "name": "Gardevoir",
+          "lookupKeys": [
+            "astral-radiance-TG05-gardevoir",
+            "swsh10-tg05"
+          ]
+        },
+        {
+          "id": "astral-radiance-TG06-wyrdeer",
+          "number": "TG06",
+          "name": "Wyrdeer",
+          "lookupKeys": [
+            "astral-radiance-TG06-wyrdeer",
+            "swsh10-tg06"
+          ]
+        },
+        {
+          "id": "astral-radiance-TG07-falinks",
+          "number": "TG07",
+          "name": "Falinks",
+          "lookupKeys": [
+            "astral-radiance-TG07-falinks",
+            "swsh10-tg07"
+          ]
+        },
+        {
+          "id": "astral-radiance-TG08-kleavor",
+          "number": "TG08",
+          "name": "Kleavor",
+          "lookupKeys": [
+            "astral-radiance-TG08-kleavor",
+            "swsh10-tg08"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "pokemon-go",
+      "setName": "Pokemon GO",
+      "pokemonTcgApiSetId": "pgo",
+      "totalLocalCards": 88,
+      "supabasePriceRowsFound": 88,
+      "localCardsMatchedToPriceRows": 88,
+      "cardsWithValidMarketPriceUsd": 88,
+      "rowSetIdsFound": [
+        "pokemon-go"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "lost-origin",
+      "setName": "Lost Origin",
+      "pokemonTcgApiSetId": "swsh11",
+      "totalLocalCards": 247,
+      "supabasePriceRowsFound": 217,
+      "localCardsMatchedToPriceRows": 217,
+      "cardsWithValidMarketPriceUsd": 217,
+      "rowSetIdsFound": [
+        "lost-origin"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "lost-origin-TG01-parasect",
+          "number": "TG01",
+          "name": "Parasect",
+          "lookupKeys": [
+            "lost-origin-TG01-parasect",
+            "swsh11-tg01"
+          ]
+        },
+        {
+          "id": "lost-origin-TG02-roserade",
+          "number": "TG02",
+          "name": "Roserade",
+          "lookupKeys": [
+            "lost-origin-TG02-roserade",
+            "swsh11-tg02"
+          ]
+        },
+        {
+          "id": "lost-origin-TG03-charizard",
+          "number": "TG03",
+          "name": "Charizard",
+          "lookupKeys": [
+            "lost-origin-TG03-charizard",
+            "swsh11-tg03"
+          ]
+        },
+        {
+          "id": "lost-origin-TG04-chandelure",
+          "number": "TG04",
+          "name": "Chandelure",
+          "lookupKeys": [
+            "lost-origin-TG04-chandelure",
+            "swsh11-tg04"
+          ]
+        },
+        {
+          "id": "lost-origin-TG05-pikachu",
+          "number": "TG05",
+          "name": "Pikachu",
+          "lookupKeys": [
+            "lost-origin-TG05-pikachu",
+            "swsh11-tg05"
+          ]
+        },
+        {
+          "id": "lost-origin-TG06-gengar",
+          "number": "TG06",
+          "name": "Gengar",
+          "lookupKeys": [
+            "lost-origin-TG06-gengar",
+            "swsh11-tg06"
+          ]
+        },
+        {
+          "id": "lost-origin-TG07-banette",
+          "number": "TG07",
+          "name": "Banette",
+          "lookupKeys": [
+            "lost-origin-TG07-banette",
+            "swsh11-tg07"
+          ]
+        },
+        {
+          "id": "lost-origin-TG08-hisuian-arcanine",
+          "number": "TG08",
+          "name": "Hisuian Arcanine",
+          "lookupKeys": [
+            "lost-origin-TG08-hisuian-arcanine",
+            "swsh11-tg08"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "silver-tempest",
+      "setName": "Silver Tempest",
+      "pokemonTcgApiSetId": "swsh12",
+      "totalLocalCards": 245,
+      "supabasePriceRowsFound": 215,
+      "localCardsMatchedToPriceRows": 215,
+      "cardsWithValidMarketPriceUsd": 215,
+      "rowSetIdsFound": [
+        "silver-tempest"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "silver-tempest-TG01-braixen",
+          "number": "TG01",
+          "name": "Braixen",
+          "lookupKeys": [
+            "silver-tempest-TG01-braixen",
+            "swsh12-tg01"
+          ]
+        },
+        {
+          "id": "silver-tempest-TG02-milotic",
+          "number": "TG02",
+          "name": "Milotic",
+          "lookupKeys": [
+            "silver-tempest-TG02-milotic",
+            "swsh12-tg02"
+          ]
+        },
+        {
+          "id": "silver-tempest-TG03-flaaffy",
+          "number": "TG03",
+          "name": "Flaaffy",
+          "lookupKeys": [
+            "silver-tempest-TG03-flaaffy",
+            "swsh12-tg03"
+          ]
+        },
+        {
+          "id": "silver-tempest-TG04-jynx",
+          "number": "TG04",
+          "name": "Jynx",
+          "lookupKeys": [
+            "silver-tempest-TG04-jynx",
+            "swsh12-tg04"
+          ]
+        },
+        {
+          "id": "silver-tempest-TG05-gardevoir",
+          "number": "TG05",
+          "name": "Gardevoir",
+          "lookupKeys": [
+            "silver-tempest-TG05-gardevoir",
+            "swsh12-tg05"
+          ]
+        },
+        {
+          "id": "silver-tempest-TG06-malamar",
+          "number": "TG06",
+          "name": "Malamar",
+          "lookupKeys": [
+            "silver-tempest-TG06-malamar",
+            "swsh12-tg06"
+          ]
+        },
+        {
+          "id": "silver-tempest-TG07-rockruff",
+          "number": "TG07",
+          "name": "Rockruff",
+          "lookupKeys": [
+            "silver-tempest-TG07-rockruff",
+            "swsh12-tg07"
+          ]
+        },
+        {
+          "id": "silver-tempest-TG08-passimian",
+          "number": "TG08",
+          "name": "Passimian",
+          "lookupKeys": [
+            "silver-tempest-TG08-passimian",
+            "swsh12-tg08"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "crown-zenith",
+      "setName": "Crown Zenith",
+      "pokemonTcgApiSetId": "swsh12pt5",
+      "totalLocalCards": 230,
+      "supabasePriceRowsFound": 160,
+      "localCardsMatchedToPriceRows": 160,
+      "cardsWithValidMarketPriceUsd": 160,
+      "rowSetIdsFound": [
+        "crown-zenith"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "crown-zenith-GG01-hisuian-voltorb",
+          "number": "GG01",
+          "name": "Hisuian Voltorb",
+          "lookupKeys": [
+            "crown-zenith-GG01-hisuian-voltorb",
+            "swsh12pt5-gg01"
+          ]
+        },
+        {
+          "id": "crown-zenith-GG02-kricketune",
+          "number": "GG02",
+          "name": "Kricketune",
+          "lookupKeys": [
+            "crown-zenith-GG02-kricketune",
+            "swsh12pt5-gg02"
+          ]
+        },
+        {
+          "id": "crown-zenith-GG03-magmortar",
+          "number": "GG03",
+          "name": "Magmortar",
+          "lookupKeys": [
+            "crown-zenith-GG03-magmortar",
+            "swsh12pt5-gg03"
+          ]
+        },
+        {
+          "id": "crown-zenith-GG04-oricorio",
+          "number": "GG04",
+          "name": "Oricorio",
+          "lookupKeys": [
+            "crown-zenith-GG04-oricorio",
+            "swsh12pt5-gg04"
+          ]
+        },
+        {
+          "id": "crown-zenith-GG05-lapras",
+          "number": "GG05",
+          "name": "Lapras",
+          "lookupKeys": [
+            "crown-zenith-GG05-lapras",
+            "swsh12pt5-gg05"
+          ]
+        },
+        {
+          "id": "crown-zenith-GG06-manaphy",
+          "number": "GG06",
+          "name": "Manaphy",
+          "lookupKeys": [
+            "crown-zenith-GG06-manaphy",
+            "swsh12pt5-gg06"
+          ]
+        },
+        {
+          "id": "crown-zenith-GG07-keldeo",
+          "number": "GG07",
+          "name": "Keldeo",
+          "lookupKeys": [
+            "crown-zenith-GG07-keldeo",
+            "swsh12pt5-gg07"
+          ]
+        },
+        {
+          "id": "crown-zenith-GG08-electivire",
+          "number": "GG08",
+          "name": "Electivire",
+          "lookupKeys": [
+            "crown-zenith-GG08-electivire",
+            "swsh12pt5-gg08"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "scarlet-violet",
+      "setName": "Scarlet & Violet",
+      "pokemonTcgApiSetId": "sv1",
+      "totalLocalCards": 258,
+      "supabasePriceRowsFound": 258,
+      "localCardsMatchedToPriceRows": 258,
+      "cardsWithValidMarketPriceUsd": 258,
+      "rowSetIdsFound": [
+        "scarlet-violet"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "paldea-evolved",
+      "setName": "Paldea Evolved",
+      "pokemonTcgApiSetId": "sv2",
+      "totalLocalCards": 279,
+      "supabasePriceRowsFound": 279,
+      "localCardsMatchedToPriceRows": 279,
+      "cardsWithValidMarketPriceUsd": 279,
+      "rowSetIdsFound": [
+        "paldea-evolved"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "obsidian-flames",
+      "setName": "Obsidian Flames",
+      "pokemonTcgApiSetId": "sv3",
+      "totalLocalCards": 230,
+      "supabasePriceRowsFound": 230,
+      "localCardsMatchedToPriceRows": 230,
+      "cardsWithValidMarketPriceUsd": 230,
+      "rowSetIdsFound": [
+        "obsidian-flames"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "151",
+      "setName": "151",
+      "pokemonTcgApiSetId": "sv3pt5",
+      "totalLocalCards": 208,
+      "supabasePriceRowsFound": 207,
+      "localCardsMatchedToPriceRows": 208,
+      "cardsWithValidMarketPriceUsd": 208,
+      "rowSetIdsFound": [
+        "151"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "paradox-rift",
+      "setName": "Paradox Rift",
+      "pokemonTcgApiSetId": "sv4",
+      "totalLocalCards": 266,
+      "supabasePriceRowsFound": 266,
+      "localCardsMatchedToPriceRows": 266,
+      "cardsWithValidMarketPriceUsd": 266,
+      "rowSetIdsFound": [
+        "paradox-rift"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "paldean-fates",
+      "setName": "Paldean Fates",
+      "pokemonTcgApiSetId": "sv4pt5",
+      "totalLocalCards": 245,
+      "supabasePriceRowsFound": 244,
+      "localCardsMatchedToPriceRows": 244,
+      "cardsWithValidMarketPriceUsd": 244,
+      "rowSetIdsFound": [
+        "paldean-fates"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "paldean-fates-128-frigibax",
+          "number": "128",
+          "name": "Frigibax",
+          "lookupKeys": [
+            "paldean-fates-128-frigibax",
+            "sv4pt5-128"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "temporal-forces",
+      "setName": "Temporal Forces",
+      "pokemonTcgApiSetId": "sv5",
+      "totalLocalCards": 218,
+      "supabasePriceRowsFound": 218,
+      "localCardsMatchedToPriceRows": 218,
+      "cardsWithValidMarketPriceUsd": 218,
+      "rowSetIdsFound": [
+        "temporal-forces"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "twilight-masquerade",
+      "setName": "Twilight Masquerade",
+      "pokemonTcgApiSetId": "sv6",
+      "totalLocalCards": 226,
+      "supabasePriceRowsFound": 226,
+      "localCardsMatchedToPriceRows": 226,
+      "cardsWithValidMarketPriceUsd": 226,
+      "rowSetIdsFound": [
+        "twilight-masquerade"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "shrouded-fable",
+      "setName": "Shrouded Fable",
+      "pokemonTcgApiSetId": "sv6pt5",
+      "totalLocalCards": 99,
+      "supabasePriceRowsFound": 99,
+      "localCardsMatchedToPriceRows": 99,
+      "cardsWithValidMarketPriceUsd": 99,
+      "rowSetIdsFound": [
+        "shrouded-fable"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "stellar-crown",
+      "setName": "Stellar Crown",
+      "pokemonTcgApiSetId": "sv7",
+      "totalLocalCards": 175,
+      "supabasePriceRowsFound": 175,
+      "localCardsMatchedToPriceRows": 175,
+      "cardsWithValidMarketPriceUsd": 175,
+      "rowSetIdsFound": [
+        "stellar-crown"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "surging-sparks",
+      "setName": "Surging Sparks",
+      "pokemonTcgApiSetId": "sv8",
+      "totalLocalCards": 252,
+      "supabasePriceRowsFound": 252,
+      "localCardsMatchedToPriceRows": 252,
+      "cardsWithValidMarketPriceUsd": 252,
+      "rowSetIdsFound": [
+        "surging-sparks"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "prismatic-evolutions",
+      "setName": "Prismatic Evolutions",
+      "pokemonTcgApiSetId": "sv8pt5",
+      "totalLocalCards": 180,
+      "supabasePriceRowsFound": 180,
+      "localCardsMatchedToPriceRows": 180,
+      "cardsWithValidMarketPriceUsd": 180,
+      "rowSetIdsFound": [
+        "prismatic-evolutions"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "journey-together",
+      "setName": "Journey Together",
+      "pokemonTcgApiSetId": "sv9",
+      "totalLocalCards": 190,
+      "supabasePriceRowsFound": 190,
+      "localCardsMatchedToPriceRows": 190,
+      "cardsWithValidMarketPriceUsd": 190,
+      "rowSetIdsFound": [
+        "journey-together"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "destined-rivals",
+      "setName": "Destined Rivals",
+      "pokemonTcgApiSetId": "sv10",
+      "totalLocalCards": 244,
+      "supabasePriceRowsFound": 244,
+      "localCardsMatchedToPriceRows": 244,
+      "cardsWithValidMarketPriceUsd": 244,
+      "rowSetIdsFound": [
+        "destined-rivals"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "black-bolt",
+      "setName": "Black Bolt",
+      "pokemonTcgApiSetId": "rsv10pt5",
+      "totalLocalCards": 172,
+      "supabasePriceRowsFound": 173,
+      "localCardsMatchedToPriceRows": 172,
+      "cardsWithValidMarketPriceUsd": 172,
+      "rowSetIdsFound": [
+        "black-bolt"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "white-flare",
+      "setName": "White Flare",
+      "pokemonTcgApiSetId": "zsv10pt5",
+      "totalLocalCards": 173,
+      "supabasePriceRowsFound": 172,
+      "localCardsMatchedToPriceRows": 172,
+      "cardsWithValidMarketPriceUsd": 172,
+      "rowSetIdsFound": [
+        "white-flare"
+      ],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "white-flare-173-reshiram-ex",
+          "number": "173",
+          "name": "Reshiram ex",
+          "lookupKeys": [
+            "white-flare-173-reshiram-ex",
+            "zsv10pt5-173"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "mega-evolution",
+      "setName": "Mega Evolution",
+      "pokemonTcgApiSetId": "me1",
+      "totalLocalCards": 188,
+      "supabasePriceRowsFound": 188,
+      "localCardsMatchedToPriceRows": 188,
+      "cardsWithValidMarketPriceUsd": 188,
+      "rowSetIdsFound": [
+        "mega-evolution"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "phantasmal-flames",
+      "setName": "Phantasmal Flames",
+      "pokemonTcgApiSetId": "me2",
+      "totalLocalCards": 130,
+      "supabasePriceRowsFound": 130,
+      "localCardsMatchedToPriceRows": 130,
+      "cardsWithValidMarketPriceUsd": 130,
+      "rowSetIdsFound": [
+        "phantasmal-flames"
+      ],
+      "sampleUnmatchedOrMissingCards": []
+    },
+    {
+      "setSlug": "ascended-heroes",
+      "setName": "Ascended Heroes",
+      "pokemonTcgApiSetId": "me2pt5",
+      "totalLocalCards": 295,
+      "supabasePriceRowsFound": 0,
+      "localCardsMatchedToPriceRows": 0,
+      "cardsWithValidMarketPriceUsd": 0,
+      "rowSetIdsFound": [],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "ascended-heroes-1-erika-s-oddish",
+          "number": "1",
+          "name": "Erika's Oddish",
+          "lookupKeys": [
+            "ascended-heroes-1-erika-s-oddish",
+            "me2pt5-1"
+          ]
+        },
+        {
+          "id": "ascended-heroes-2-erika-s-gloom",
+          "number": "2",
+          "name": "Erika's Gloom",
+          "lookupKeys": [
+            "ascended-heroes-2-erika-s-gloom",
+            "me2pt5-2"
+          ]
+        },
+        {
+          "id": "ascended-heroes-3-erika-s-vileplume-ex",
+          "number": "3",
+          "name": "Erika's Vileplume ex",
+          "lookupKeys": [
+            "ascended-heroes-3-erika-s-vileplume-ex",
+            "me2pt5-3"
+          ]
+        },
+        {
+          "id": "ascended-heroes-4-erika-s-bellsprout",
+          "number": "4",
+          "name": "Erika's Bellsprout",
+          "lookupKeys": [
+            "ascended-heroes-4-erika-s-bellsprout",
+            "me2pt5-4"
+          ]
+        },
+        {
+          "id": "ascended-heroes-5-erika-s-weepinbell",
+          "number": "5",
+          "name": "Erika's Weepinbell",
+          "lookupKeys": [
+            "ascended-heroes-5-erika-s-weepinbell",
+            "me2pt5-5"
+          ]
+        },
+        {
+          "id": "ascended-heroes-6-erika-s-victreebel",
+          "number": "6",
+          "name": "Erika's Victreebel",
+          "lookupKeys": [
+            "ascended-heroes-6-erika-s-victreebel",
+            "me2pt5-6"
+          ]
+        },
+        {
+          "id": "ascended-heroes-7-erika-s-tangela",
+          "number": "7",
+          "name": "Erika's Tangela",
+          "lookupKeys": [
+            "ascended-heroes-7-erika-s-tangela",
+            "me2pt5-7"
+          ]
+        },
+        {
+          "id": "ascended-heroes-8-chikorita",
+          "number": "8",
+          "name": "Chikorita",
+          "lookupKeys": [
+            "ascended-heroes-8-chikorita",
+            "me2pt5-8"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "perfect-order",
+      "setName": "Perfect Order",
+      "pokemonTcgApiSetId": "me3",
+      "totalLocalCards": 124,
+      "supabasePriceRowsFound": 0,
+      "localCardsMatchedToPriceRows": 0,
+      "cardsWithValidMarketPriceUsd": 0,
+      "rowSetIdsFound": [],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "perfect-order-1-spinarak",
+          "number": "1",
+          "name": "Spinarak",
+          "lookupKeys": [
+            "perfect-order-1-spinarak",
+            "me3-1"
+          ]
+        },
+        {
+          "id": "perfect-order-2-ariados",
+          "number": "2",
+          "name": "Ariados",
+          "lookupKeys": [
+            "perfect-order-2-ariados",
+            "me3-2"
+          ]
+        },
+        {
+          "id": "perfect-order-3-shaymin",
+          "number": "3",
+          "name": "Shaymin",
+          "lookupKeys": [
+            "perfect-order-3-shaymin",
+            "me3-3"
+          ]
+        },
+        {
+          "id": "perfect-order-4-snivy",
+          "number": "4",
+          "name": "Snivy",
+          "lookupKeys": [
+            "perfect-order-4-snivy",
+            "me3-4"
+          ]
+        },
+        {
+          "id": "perfect-order-5-servine",
+          "number": "5",
+          "name": "Servine",
+          "lookupKeys": [
+            "perfect-order-5-servine",
+            "me3-5"
+          ]
+        },
+        {
+          "id": "perfect-order-6-serperior",
+          "number": "6",
+          "name": "Serperior",
+          "lookupKeys": [
+            "perfect-order-6-serperior",
+            "me3-6"
+          ]
+        },
+        {
+          "id": "perfect-order-7-scatterbug",
+          "number": "7",
+          "name": "Scatterbug",
+          "lookupKeys": [
+            "perfect-order-7-scatterbug",
+            "me3-7"
+          ]
+        },
+        {
+          "id": "perfect-order-8-spewpa",
+          "number": "8",
+          "name": "Spewpa",
+          "lookupKeys": [
+            "perfect-order-8-spewpa",
+            "me3-8"
+          ]
+        }
+      ]
+    },
+    {
+      "setSlug": "chaos-rising",
+      "setName": "Chaos Rising",
+      "pokemonTcgApiSetId": "me4",
+      "totalLocalCards": 122,
+      "supabasePriceRowsFound": 0,
+      "localCardsMatchedToPriceRows": 0,
+      "cardsWithValidMarketPriceUsd": 0,
+      "rowSetIdsFound": [],
+      "sampleUnmatchedOrMissingCards": [
+        {
+          "id": "chaos-rising-1-weedle",
+          "number": "1",
+          "name": "Weedle",
+          "lookupKeys": [
+            "chaos-rising-1-weedle",
+            "me4-1"
+          ]
+        },
+        {
+          "id": "chaos-rising-2-kakuna",
+          "number": "2",
+          "name": "Kakuna",
+          "lookupKeys": [
+            "chaos-rising-2-kakuna",
+            "me4-2"
+          ]
+        },
+        {
+          "id": "chaos-rising-3-beedrill-ex",
+          "number": "3",
+          "name": "Beedrill ex",
+          "lookupKeys": [
+            "chaos-rising-3-beedrill-ex",
+            "me4-3"
+          ]
+        },
+        {
+          "id": "chaos-rising-4-carnivine",
+          "number": "4",
+          "name": "Carnivine",
+          "lookupKeys": [
+            "chaos-rising-4-carnivine",
+            "me4-4"
+          ]
+        },
+        {
+          "id": "chaos-rising-5-chespin",
+          "number": "5",
+          "name": "Chespin",
+          "lookupKeys": [
+            "chaos-rising-5-chespin",
+            "me4-5"
+          ]
+        },
+        {
+          "id": "chaos-rising-6-quilladin",
+          "number": "6",
+          "name": "Quilladin",
+          "lookupKeys": [
+            "chaos-rising-6-quilladin",
+            "me4-6"
+          ]
+        },
+        {
+          "id": "chaos-rising-7-chesnaught",
+          "number": "7",
+          "name": "Chesnaught",
+          "lookupKeys": [
+            "chaos-rising-7-chesnaught",
+            "me4-7"
+          ]
+        },
+        {
+          "id": "chaos-rising-8-vulpix",
+          "number": "8",
+          "name": "Vulpix",
+          "lookupKeys": [
+            "chaos-rising-8-vulpix",
+            "me4-8"
+          ]
+        }
+      ]
+    }
+  ],
+  "setsWithRowsButNoLocalMatches": [],
+  "setsWithNoValidMarketData": [
+    "30th-anniversary",
+    "ascended-heroes",
+    "perfect-order",
+    "chaos-rising"
+  ]
+}
