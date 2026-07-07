@@ -1191,9 +1191,7 @@ function PackScreen({
           <section className="value-note compact-value-note">
             <span>Estimated Pull Value</span>
             <strong>{formatCachedValue(estimatedPullValue, priceMap)}</strong>
-            <em>
-              <TcgplayerSourceBadge compact /> cached market data. Missing or invalid prices are skipped.
-            </em>
+            <em>Missing or invalid prices are skipped.</em>
           </section>
           <div className="pack-actions">
             <button className="secondary-action" type="button" onClick={onBack}>
@@ -1505,19 +1503,21 @@ function CollectionCards({
             </div>
             <p className="value-inline">
               <span>Estimated Set Value</span>
-              <strong>{setValueLoading ? "Loading..." : setValueStatus === "unavailable" ? "API price data not updated yet" : formatUsd(setTotalValue)}</strong>
-              <em>
-                <TcgplayerSourceBadge compact /> cached market data
-              </em>
+              <strong>{setValueLoading ? "Loading..." : setValueStatus === "unavailable" ? "Market data not updated yet" : formatUsd(setTotalValue)}</strong>
             </p>
           </div>
+          {selectedSet.id === "30th-anniversary" && (
+            <p className="set-preview-note">New card images will be added as they are released.</p>
+          )}
           <div className="set-detail-actions">
-            <button className="secondary-action" type="button" onClick={() => (onReturnFromSet ? onReturnFromSet(selectedSet) : onSelectSet(null))}>
+            <button className={returnLabel === "Back to Open Packs" ? "primary-action" : "secondary-action"} type="button" onClick={() => (onReturnFromSet ? onReturnFromSet(selectedSet) : onSelectSet(null))}>
               {returnLabel || "Back to Collection"}
             </button>
-            <button className="primary-action" type="button" onClick={() => onOpenPacks(selectedSet)}>
-              Open Packs
-            </button>
+            {returnLabel !== "Back to Open Packs" && (
+              <button className="primary-action" type="button" onClick={() => onOpenPacks(selectedSet)}>
+                Open Packs
+              </button>
+            )}
             <button className="secondary-action" type="button" onClick={() => onViewBinder(selectedSet)}>
               View Binder
             </button>
@@ -2040,10 +2040,7 @@ function ValueScreen({
       <section className="value-hero">
         <span className="eyebrow">Estimated Virtual Collection Value</span>
         <strong>{isValueLoading ? "Loading..." : formatUsd(totalValue)}</strong>
-        <p>
-          Uses cached market prices from Supabase. Missing or invalid prices are skipped, and prices update every
-          48 hours.
-        </p>
+        <p>Estimated from current market prices. Missing prices are skipped.</p>
         <TcgplayerSourceBadge />
       </section>
 
@@ -2471,6 +2468,7 @@ function App() {
   const [priceMapsBySet, setPriceMapsBySet] = useState({});
   const [estimatedCollectionValue, setEstimatedCollectionValue] = useState(0);
   const [isValueLoading, setIsValueLoading] = useState(false);
+  const collectionValueCacheRef = useRef(new Map());
   const loadingPriceSetIdsRef = useRef(new Set());
   const cardIdLoadedSetValueIdsRef = useRef(new Set());
   const preloadedAssetUrlsRef = useRef(new Set());
@@ -2769,6 +2767,21 @@ function App() {
       return undefined;
     }
 
+    const valueCacheKey = [
+      user.id,
+      ...ownedCards
+        .map((item) => `${item.set.id}:${item.card.id || item.card.number || item.card.name}:${item.count}`)
+        .sort(),
+    ].join("|");
+    const cachedValue = collectionValueCacheRef.current.get(valueCacheKey);
+
+    if (cachedValue) {
+      setEstimatedCollectionValue(cachedValue.totalValue);
+      setPriceMapsBySet((current) => ({ ...current, ...cachedValue.priceMapsBySet }));
+      setIsValueLoading(false);
+      return undefined;
+    }
+
     let cancelled = false;
 
     async function loadCollectionValue() {
@@ -2779,16 +2792,23 @@ function App() {
 
         if (cancelled) return;
 
+        const nextPriceMapsBySet = result.priceMapsBySet || {};
+
         setPriceMapsBySet((current) => {
           const next = { ...current };
-          Object.entries(result.priceMapsBySet || {}).forEach(([setId, priceMap]) => {
+          Object.entries(nextPriceMapsBySet).forEach(([setId, priceMap]) => {
             next[setId] = priceMap;
           });
           return next;
         });
-        setEstimatedCollectionValue(Number(result.totalValue || 0));
+        const nextTotalValue = Number(result.totalValue || 0);
+        collectionValueCacheRef.current.set(valueCacheKey, {
+          totalValue: nextTotalValue,
+          priceMapsBySet: nextPriceMapsBySet,
+        });
+        setEstimatedCollectionValue(nextTotalValue);
       } catch (error) {
-        console.error("[PackDex prices] Unable to load mobile collection value; using $0 fallback", error);
+        console.error("[PackDex prices] Unable to load mobile collection value; using fallback value", error);
         if (!cancelled) setEstimatedCollectionValue(0);
       } finally {
         if (!cancelled) {
@@ -2804,7 +2824,6 @@ function App() {
       cancelled = true;
     };
   }, [ownedCards, user?.id]);
-
   useEffect(() => {
     const idsToLoad = [selectedSet?.id]
       .filter(Boolean)
