@@ -63,9 +63,14 @@ export async function loadCloudProfileStats(userId) {
   }
 
   const storedStats = fromCloudStats(profileRow);
+  const storedPacksOpened = Number(storedStats.packsOpened || 0);
+  const eventPacksOpened = Number(packOpenCount || 0);
 
   return {
-    packsOpened: Number(packOpenCount ?? storedStats.packsOpened ?? 0),
+    packsOpened: Math.max(
+      Number.isFinite(storedPacksOpened) ? storedPacksOpened : 0,
+      Number.isFinite(eventPacksOpened) ? eventPacksOpened : 0
+    ),
     totalCardsPulled: sumCollectionQuantities(collectionRows || []),
   };
 }

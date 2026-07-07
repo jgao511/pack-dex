@@ -24,6 +24,44 @@ function normalizeStats(row: Record<string, unknown> | null | undefined) {
   };
 }
 
+async function syncProfilePackStats(admin: any, userId: string, { incrementStoredBy = 0 } = {}) {
+  const { count: eventCount, error: eventCountError } = await admin
+    .from("user_pack_open_events")
+    .select("id", { count: "exact", head: true })
+    .eq("user_id", userId);
+
+  if (eventCountError) throw eventCountError;
+
+  const { data: existingStats, error: loadStatsError } = await admin
+    .from("user_profile_stats")
+    .select("packs_opened,total_cards_pulled")
+    .eq("user_id", userId)
+    .maybeSingle();
+
+  if (loadStatsError) throw loadStatsError;
+
+  const storedPacksOpened = Number(existingStats?.packs_opened || 0);
+  const storedTotalCardsPulled = Number(existingStats?.total_cards_pulled || 0);
+  const nextPacksOpened = Math.max(
+    Number.isFinite(storedPacksOpened) ? storedPacksOpened + Math.max(incrementStoredBy, 0) : Math.max(incrementStoredBy, 0),
+    Number(eventCount || 0),
+  );
+
+  const { data, error } = await admin
+    .from("user_profile_stats")
+    .upsert({
+      user_id: userId,
+      packs_opened: nextPacksOpened,
+      total_cards_pulled: Number.isFinite(storedTotalCardsPulled) ? storedTotalCardsPulled : 0,
+    }, { onConflict: "user_id" })
+    .select("packs_opened,total_cards_pulled")
+    .single();
+
+  if (error) throw error;
+
+  return data;
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
@@ -59,14 +97,8 @@ Deno.serve(async (req) => {
     if (eventError && eventError.code !== "23505") throw eventError;
 
     if (eventError?.code === "23505") {
-      debugStep = "load_existing_stats";
-      const { data: statsRow, error: statsError } = await admin
-        .from("user_profile_stats")
-        .select("packs_opened,total_cards_pulled")
-        .eq("user_id", user.id)
-        .maybeSingle();
-
-      if (statsError) throw statsError;
+      debugStep = "sync_existing_stats";
+      const statsRow = await syncProfilePackStats(admin, user.id);
 
       return jsonResponse({
         recorded: false,
@@ -75,16 +107,8 @@ Deno.serve(async (req) => {
       });
     }
 
-    debugStep = "increment_profile_stats";
-    const { data: statsRows, error: statsError } = await admin.rpc("increment_user_profile_stats_for_user", {
-      target_user_id: user.id,
-      packs_opened_delta: 1,
-      total_cards_pulled_delta: 0,
-    });
-
-    if (statsError) throw statsError;
-
-    const statsRow = Array.isArray(statsRows) ? statsRows[0] : statsRows;
+    debugStep = "sync_profile_stats";
+    const statsRow = await syncProfilePackStats(admin, user.id, { incrementStoredBy: 1 });
 
     return jsonResponse({
       recorded: true,
