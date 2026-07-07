@@ -2682,7 +2682,15 @@ function App() {
         })
       : null;
 
-    if (result?.stats) setStats(result.stats);
+    try {
+      setStats(await loadCloudProfileStats(currentUser.id));
+    } catch (statsError) {
+      console.warn("Unable to refresh trusted mobile profile stats after pack action", {
+        userId: currentUser.id,
+        setId: set.id,
+        error: statsError,
+      });
+    }
 
     achievementCacheByUserIdRef.current.delete(currentUser.id);
     lastAchievementsLoadedUserIdRef.current = "";

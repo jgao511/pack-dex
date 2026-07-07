@@ -49,7 +49,7 @@ async function wait(ms) {
   await new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function postBatch({ url, anonKey, setIds, setApiIds, setTcgplayerSlugs, appCardCounts, timeoutMs }) {
+async function postBatch({ url, anonKey, syncSecret, setIds, setApiIds, setTcgplayerSlugs, appCardCounts, timeoutMs }) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
 
@@ -62,6 +62,7 @@ async function postBatch({ url, anonKey, setIds, setApiIds, setTcgplayerSlugs, a
         Authorization: `Bearer ${anonKey}`,
         apikey: anonKey,
         "Content-Type": "application/json",
+        ...(syncSecret ? { "x-packdex-price-sync-secret": syncSecret } : {}),
       },
       body: JSON.stringify({ setIds, setApiIds, setTcgplayerSlugs, appCardCounts }),
       signal: controller.signal,
@@ -91,6 +92,7 @@ async function postBatch({ url, anonKey, setIds, setApiIds, setTcgplayerSlugs, a
 async function postBatchWithRetry({
   url,
   anonKey,
+  syncSecret,
   setIds,
   setApiIds,
   setTcgplayerSlugs,
@@ -103,7 +105,16 @@ async function postBatchWithRetry({
 
   for (let attempt = 0; attempt <= retries; attempt += 1) {
     try {
-      const result = await postBatch({ url, anonKey, setIds, setApiIds, setTcgplayerSlugs, appCardCounts, timeoutMs });
+      const result = await postBatch({
+        url,
+        anonKey,
+        syncSecret,
+        setIds,
+        setApiIds,
+        setTcgplayerSlugs,
+        appCardCounts,
+        timeoutMs,
+      });
 
       if (Array.isArray(result.errors) && result.errors.length > 0) {
         const error = new Error(`Batch returned ${result.errors.length} set error(s).`);
@@ -185,6 +196,7 @@ function logSetInventory({ appSets, requestedSetIds, selectedSets, skippedSets, 
 
 async function main() {
   const anonKey = getArg("--anon-key") || process.env.PACKDEX_SYNC_ANON_KEY || process.env.SUPABASE_ANON_KEY;
+  const syncSecret = getArg("--sync-secret") || process.env.PACKDEX_PRICE_SYNC_SECRET;
   const batchSize = Math.max(1, Number(getArg("--batch-size", "3")) || 3);
   const delayMs = Math.max(0, Number(getArg("--delay-ms", "2500")) || 0);
   const timeoutMs = Math.max(15000, Number(getArg("--timeout-ms", "150000")) || 150000);
@@ -260,6 +272,7 @@ async function main() {
       const result = await postBatchWithRetry({
         url,
         anonKey,
+        syncSecret,
         setIds: batch,
         setApiIds,
         setTcgplayerSlugs,

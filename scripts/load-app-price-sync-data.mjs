@@ -15,13 +15,19 @@ function hasCardLevelPriceInfo(card = {}) {
 }
 
 function getSetApiId(set, priceSetMap) {
+  const hasExplicitMapping = Object.prototype.hasOwnProperty.call(priceSetMap, set.id);
+  const explicitMapping = hasExplicitMapping ? priceSetMap[set.id] : undefined;
+  const aliasApiSetId = set.priceAlias?.pokemonTcgApiSetId || null;
+
+  if (explicitMapping === null && !aliasApiSetId) return null;
+
   return (
     set.pokemonTcgApiSetId ||
     set.pokemon_tcg_api_set_id ||
     set.apiSetId ||
     set.api_set_id ||
-    set.priceAlias?.pokemonTcgApiSetId ||
-    priceSetMap[set.id] ||
+    aliasApiSetId ||
+    explicitMapping ||
     null
   );
 }
