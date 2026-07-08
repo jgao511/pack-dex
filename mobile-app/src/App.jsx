@@ -2533,7 +2533,7 @@ function MobileAuthCallbackPage() {
   );
 }
 
-function App() {
+function MobileApp() {
   const [activeTab, setActiveTab] = useState("open");
   const [theme, setTheme] = useState("dark");
   const [soundEnabled, setSoundEnabled] = useState(true);
@@ -2576,7 +2576,6 @@ function App() {
   const [selectedWelcomeRewardSetId, setSelectedWelcomeRewardSetId] = useState(WELCOME_REWARD_CHOICES[0]?.setId || "");
   const [isWelcomeRewardModalOpen, setIsWelcomeRewardModalOpen] = useState(false);
   const isMobileAuthCallbackRoute = typeof window !== "undefined" && window.location.pathname === "/mobile-app/auth/callback";
-  const isMobileResetPasswordRoute = typeof window !== "undefined" && window.location.pathname === "/mobile-app/reset-password";
   const [isClaimingWelcomeReward, setIsClaimingWelcomeReward] = useState(false);
   const [welcomeRewardError, setWelcomeRewardError] = useState("");
   const [achievements, setAchievements] = useState([]);
@@ -3750,7 +3749,6 @@ function App() {
   }
 
   if (isMobileAuthCallbackRoute) return <MobileAuthCallbackPage />;
-  if (isMobileResetPasswordRoute) return <MobileResetPasswordPage />;
 
   return (
     <main className={`mobile-app ${isDark ? "theme-dark" : "theme-light"}`}>
@@ -3922,6 +3920,14 @@ function App() {
       </section>
     </main>
   );
+}
+
+function App() {
+  if (typeof window !== "undefined" && window.location.pathname === "/mobile-app/reset-password") {
+    return <MobileResetPasswordPage />;
+  }
+
+  return <MobileApp />;
 }
 
 export default App;
