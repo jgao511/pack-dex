@@ -3146,6 +3146,19 @@ function MobileApp() {
   }, []);
 
   useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+
+    if (searchParams.get("password_reset") !== "success") return;
+
+    window.history.replaceState({}, document.title, "/mobile-app/");
+    setAuthMode("login");
+    setAuthMessage("Password updated. Please sign in.");
+    setIsAuthPanelOpen(true);
+    setActiveTab("profile");
+    setLoadingMessage("");
+  }, []);
+
+  useEffect(() => {
     soundEnabledRef.current = soundEnabled;
   }, [soundEnabled]);
 

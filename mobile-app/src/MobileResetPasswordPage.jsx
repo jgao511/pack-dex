@@ -15,94 +15,51 @@ export default function MobileResetPasswordPage() {
 
   useEffect(() => {
     let mounted = true;
-    let invalidLinkTimer = 0;
 
-    function showResetForm() {
-      if (!mounted) return;
-
-      if (invalidLinkTimer) window.clearTimeout(invalidLinkTimer);
-      window.history.replaceState({}, document.title, RESET_PATH);
-      setError("");
-      setIsReady(true);
-      setStatus("Enter a new password for your PackDex account.");
-    }
-
-    function showInvalidLink() {
-      if (!mounted) return;
-
-      setIsReady(false);
-      setStatus("");
-      setError("This password reset link is invalid or has expired.");
-    }
-
-    if (!supabase) {
-      setStatus("");
-      setError("Supabase is not configured for this mobile app.");
-      return undefined;
-    }
-
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === "PASSWORD_RECOVERY" && session) {
-        showResetForm();
+    async function verifyRecoveryLink() {
+      if (!supabase) {
+        setStatus("");
+        setError("Supabase is not configured for this mobile app.");
         return;
       }
 
-      if (session && window.location.pathname === RESET_PATH) {
-        showResetForm();
-      }
-    });
-
-    async function prepareResetSession() {
       const searchParams = new URLSearchParams(window.location.search);
-      const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ""));
-      const authError = searchParams.get("error_description") || hashParams.get("error_description");
-      const code = searchParams.get("code");
+      const tokenHash = searchParams.get("token_hash");
+      const type = searchParams.get("type");
 
-      if (authError) {
+      if (!tokenHash || type !== "recovery") {
         window.history.replaceState({}, document.title, RESET_PATH);
-        showInvalidLink();
+        setStatus("");
+        setError("This password reset link is invalid or has expired.");
         return;
       }
 
       try {
-        if (code) {
-          const { data, error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
-          if (exchangeError) throw exchangeError;
-          if (data.session) {
-            showResetForm();
-            return;
-          }
-        }
+        const { data, error: verifyError } = await supabase.auth.verifyOtp({
+          token_hash: tokenHash,
+          type: "recovery",
+        });
 
-        const { data, error: sessionError } = await supabase.auth.getSession();
-        if (sessionError) throw sessionError;
-
-        if (data.session) {
-          showResetForm();
-          return;
-        }
-
-        invalidLinkTimer = window.setTimeout(showInvalidLink, 4000);
-      } catch {
-        const { data: fallbackData } = await supabase.auth.getSession();
-
-        if (fallbackData.session) {
-          showResetForm();
-          return;
-        }
+        if (verifyError || !data.session) throw verifyError || new Error("Recovery session unavailable.");
+        if (!mounted) return;
 
         window.history.replaceState({}, document.title, RESET_PATH);
-        showInvalidLink();
+        setIsReady(true);
+        setStatus("Enter a new password for your PackDex account.");
+      } catch {
+        if (!mounted) return;
+
+        window.history.replaceState({}, document.title, RESET_PATH);
+        setStatus("");
+        setError("This password reset link is invalid or has expired.");
       }
     }
 
-    prepareResetSession();
+    verifyRecoveryLink();
 
     return () => {
       mounted = false;
-      if (invalidLinkTimer) window.clearTimeout(invalidLinkTimer);
       if (redirectTimerRef.current) window.clearTimeout(redirectTimerRef.current);
-      authListener.subscription.unsubscribe();
     };
   }, []);
 
@@ -144,9 +101,10 @@ export default function MobileResetPasswordPage() {
       setNewPassword("");
       setConfirmPassword("");
       setIsReady(false);
-      setStatus("Password updated. Returning to PackDex...");
+      setStatus("Password updated. Please sign in.");
+      await supabase.auth.signOut({ scope: "local" });
       redirectTimerRef.current = window.setTimeout(() => {
-        window.location.assign(MOBILE_HOME_PATH);
+        window.location.assign(`${MOBILE_HOME_PATH}?password_reset=success`);
       }, 1100);
     } catch {
       setError("Unable to update your password. Please check your connection and try again.");
