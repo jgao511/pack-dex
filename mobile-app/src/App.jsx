@@ -3936,10 +3936,9 @@ function MobileApp() {
 }
 
 function App() {
+  const normalizedPath = typeof window === "undefined" ? "" : window.location.pathname.replace(/\/+$/, "");
   const isResetPasswordRoute =
-    typeof window !== "undefined" &&
-    (window.location.pathname === "/mobile-app/reset-password" ||
-      window.location.pathname.endsWith("/mobile-app/reset-password"));
+    normalizedPath === "/mobile-app/reset-password" || normalizedPath === "/reset-password";
 
   if (isResetPasswordRoute) {
     return <MobileResetPasswordPage supabase={supabase} />;

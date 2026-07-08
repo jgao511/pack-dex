@@ -5,9 +5,9 @@ import MobileResetPasswordPage from "./MobileResetPasswordPage.jsx";
 import { supabase } from "./lib/supabaseClient.js";
 import "./App.css";
 
+const normalizedPath = window.location.pathname.replace(/\/+$/, "");
 const isResetPasswordRoute =
-  window.location.pathname === "/mobile-app/reset-password" ||
-  window.location.pathname.endsWith("/mobile-app/reset-password");
+  normalizedPath === "/mobile-app/reset-password" || normalizedPath === "/reset-password";
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>

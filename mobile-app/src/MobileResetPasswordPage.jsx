@@ -129,7 +129,7 @@ export default function MobileResetPasswordPage({ supabase }) {
               <span className="eyebrow">Account</span>
               <h1>Reset password</h1>
               <p className="reset-route-debug">Reset route detected</p>
-              <p className="reset-route-debug">{hasRecoveryToken ? "Recovery token found" : "Missing recovery token"}</p>
+              <p className="reset-route-debug">{hasRecoveryToken ? "Token found" : "Token missing"}</p>
               {status && <p>{status}</p>}
             </div>
             <form className="auth-form" onSubmit={handleSubmit}>
