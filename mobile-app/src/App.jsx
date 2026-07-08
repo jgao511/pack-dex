@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Turnstile } from "react-turnstile";
+import MobileResetPasswordPage from "./MobileResetPasswordPage.jsx";
 import { sets } from "../../src/data/sets.js";
 import { getCardBackUrl, getCardImageUrl, getPokeballLoadingUrl, getSetLogoUrl } from "../../src/utils/assetUrls.js";
 import { generatePack, getDisplayCardName, getDisplayRarity, isHigherThanRare } from "../../src/utils/packGenerator.js";
@@ -341,6 +342,10 @@ const LEGAL_COPY = {
 
 function getMobileAuthCallbackUrl() {
   return `${getSiteOrigin()}/mobile-app/auth/callback`;
+}
+
+function getMobileResetPasswordUrl() {
+  return `${getSiteOrigin()}/mobile-app/reset-password`;
 }
 
 function getWelcomeRewardChoices() {
@@ -920,6 +925,7 @@ function MobileAuthModal({
   onOpenLegal,
 }) {
   const isCreateMode = authMode === "signup";
+  const isResetMode = authMode === "forgot";
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
 
@@ -927,6 +933,65 @@ function MobileAuthModal({
 
   const canSubmitAuth =
     isSupabaseConfigured && !isAuthSubmitting && (!isCreateMode || (Boolean(TURNSTILE_SITE_KEY) && Boolean(turnstileToken)));
+
+  if (isResetMode) {
+    const canSubmitReset = isSupabaseConfigured && !isAuthSubmitting && Boolean(TURNSTILE_SITE_KEY) && Boolean(turnstileToken);
+
+    return (
+      <div className="mobile-auth-overlay" role="dialog" aria-modal="true" aria-labelledby="mobile-auth-title" onClick={onClose}>
+        <section className="mobile-auth-modal" onClick={(event) => event.stopPropagation()}>
+          <button className="mobile-auth-close" type="button" onClick={onClose} aria-label="Close password reset form">
+            <CloseIcon />
+          </button>
+          <div className="mobile-auth-heading">
+            <span className="eyebrow">Account</span>
+            <h2 id="mobile-auth-title">Reset your password</h2>
+            <p>Enter your email to receive a reset link.</p>
+            <span className="mobile-supabase-badge">Powered by Supabase Auth</span>
+          </div>
+          <form className="auth-form" onSubmit={onAuthSubmit}>
+            <label>
+              Email
+              <input value={authEmail} type="email" autoComplete="email" required onChange={(event) => onAuthEmail(event.target.value)} />
+            </label>
+            <div className="mobile-turnstile-panel">
+              {TURNSTILE_SITE_KEY ? (
+                <>
+                  <Turnstile
+                    sitekey={TURNSTILE_SITE_KEY}
+                    size="flexible"
+                    theme={isDark ? "dark" : "light"}
+                    onVerify={(token) => {
+                      onTurnstileToken(token);
+                      onTurnstileMessage("");
+                    }}
+                    onExpire={() => {
+                      onTurnstileToken("");
+                      onTurnstileMessage("Verification expired. Please verify again.");
+                    }}
+                    onError={() => {
+                      onTurnstileToken("");
+                      onTurnstileMessage("Verification failed. Please try again.");
+                    }}
+                  />
+                  {turnstileMessage && <p className="turnstile-status">{turnstileMessage}</p>}
+                </>
+              ) : (
+                <p className="auth-message is-error">Password reset verification is unavailable.</p>
+              )}
+            </div>
+            <button className="primary-action compact-auth-submit" type="submit" disabled={!canSubmitReset}>
+              {isAuthSubmitting ? "Sending..." : "Send reset email"}
+            </button>
+            <button className="auth-switch-link" type="button" onClick={() => onAuthMode("login")}>
+              Back to log in
+            </button>
+            {authMessage && <p className="auth-message">{authMessage}</p>}
+          </form>
+        </section>
+      </div>
+    );
+  }
 
   return (
     <div className="mobile-auth-overlay" role="dialog" aria-modal="true" aria-labelledby="mobile-auth-title" onClick={onClose}>
@@ -973,6 +1038,11 @@ function MobileAuthModal({
               </button>
             </span>
           </label>
+          {authMode === "login" && (
+            <button className="auth-switch-link" type="button" onClick={() => onAuthMode("forgot")}>
+              Forgot password?
+            </button>
+          )}
           {isCreateMode && (
             <>
               <label>
@@ -2506,6 +2576,7 @@ function App() {
   const [selectedWelcomeRewardSetId, setSelectedWelcomeRewardSetId] = useState(WELCOME_REWARD_CHOICES[0]?.setId || "");
   const [isWelcomeRewardModalOpen, setIsWelcomeRewardModalOpen] = useState(false);
   const isMobileAuthCallbackRoute = typeof window !== "undefined" && window.location.pathname === "/mobile-app/auth/callback";
+  const isMobileResetPasswordRoute = typeof window !== "undefined" && window.location.pathname === "/mobile-app/reset-password";
   const [isClaimingWelcomeReward, setIsClaimingWelcomeReward] = useState(false);
   const [welcomeRewardError, setWelcomeRewardError] = useState("");
   const [achievements, setAchievements] = useState([]);
@@ -3536,6 +3607,48 @@ function App() {
       return;
     }
 
+    if (authMode === "forgot") {
+      if (!TURNSTILE_SITE_KEY) {
+        setAuthMessage("Password reset verification is unavailable.");
+        return;
+      }
+
+      if (!turnstileToken) {
+        setAuthMessage("Please complete verification before requesting a reset link.");
+        return;
+      }
+
+      setIsAuthSubmitting(true);
+      setLoadingMessage("Sending reset email...");
+
+      try {
+        const { error: resetError } = await supabase.auth.resetPasswordForEmail(authEmail.trim(), {
+          redirectTo: getMobileResetPasswordUrl(),
+          captchaToken: turnstileToken,
+        });
+
+        if (resetError) {
+          setAuthMessage("Unable to send a reset email. Please try again.");
+          setTurnstileToken("");
+          setTurnstileMessage("Verification reset. Please verify again.");
+          return;
+        }
+
+        setAuthMessage("If an account exists for this email, we sent a reset link.");
+        setTurnstileToken("");
+        setTurnstileMessage("");
+      } catch {
+        setAuthMessage("Unable to send a reset email. Please check your connection and try again.");
+        setTurnstileToken("");
+        setTurnstileMessage("Verification reset. Please verify again.");
+      } finally {
+        setIsAuthSubmitting(false);
+        setLoadingMessage("");
+      }
+
+      return;
+    }
+
     if (authPassword.length < 8) {
       setAuthMessage("Password must be at least 8 characters.");
       return;
@@ -3637,6 +3750,7 @@ function App() {
   }
 
   if (isMobileAuthCallbackRoute) return <MobileAuthCallbackPage />;
+  if (isMobileResetPasswordRoute) return <MobileResetPasswordPage />;
 
   return (
     <main className={`mobile-app ${isDark ? "theme-dark" : "theme-light"}`}>
