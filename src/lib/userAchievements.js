@@ -1,4 +1,5 @@
 import { sets } from "../data/sets.js";
+import { loadCardPricesForCollection } from "./cardPrices.js";
 import { supabase } from "./supabaseClient.js";
 
 const USER_ACHIEVEMENTS_TABLE = "user_achievements";
@@ -10,21 +11,23 @@ const ACHIEVEMENT_SELECT_COLUMNS =
 const PACK_OPEN_PROGRESS_TARGETS = [
   { achievementId: "first_pack_opened", progressTarget: 1 },
   { achievementId: "packs_opened_10", progressTarget: 10 },
+  { achievementId: "packs_opened_25", progressTarget: 25 },
   { achievementId: "packs_opened_50", progressTarget: 50 },
   { achievementId: "packs_opened_100", progressTarget: 100 },
   { achievementId: "packs_opened_250", progressTarget: 250 },
   { achievementId: "packs_opened_500", progressTarget: 500 },
   { achievementId: "packs_opened_1000", progressTarget: 1000 },
-  { achievementId: "pack_veteran_250", progressTarget: 250 },
-  { achievementId: "pack_legend_500", progressTarget: 500 },
 ];
 const UNIQUE_COLLECTION_PROGRESS_TARGETS = [
   { achievementId: "binder_page_9", progressTarget: 9 },
   { achievementId: "collector_100", progressTarget: 100 },
+  { achievementId: "unique_cards_250", progressTarget: 250 },
   { achievementId: "collector_500", progressTarget: 500 },
 ];
 const TOTAL_CARD_PROGRESS_TARGETS = [
   { achievementId: "card_stack_100", progressTarget: 100 },
+  { achievementId: "total_cards_250", progressTarget: 250 },
+  { achievementId: "total_cards_500", progressTarget: 500 },
   { achievementId: "card_stack_1000", progressTarget: 1000 },
 ];
 const VALUE_PROGRESS_TARGETS = [
@@ -39,6 +42,8 @@ const SET_MASTERY_PROGRESS_TARGETS = [
 const PULL_HIT_PROGRESS_TARGETS = [
   { achievementId: "first_big_hit", progressTarget: 1 },
   { achievementId: "big_hits_10", progressTarget: 10 },
+  { achievementId: "rare_hits_25", progressTarget: 25 },
+  { achievementId: "rare_hits_50", progressTarget: 50 },
 ];
 
 export const SERVER_ACHIEVEMENT_AWARDING_REQUIRED =
@@ -92,12 +97,6 @@ function isRarePlusRarity(value) {
     || rarity.includes("rare rainbow")
     || rarity.includes("rare secret")
     || rarity.includes("rare ultra");
-}
-
-function getValidMarketPriceUsd(value) {
-  const price = Number(value);
-
-  return Number.isFinite(price) && price > 0 ? price : null;
 }
 
 function makeProgressRows(targets, progressCurrent, category, sourceTable) {
@@ -258,37 +257,35 @@ export async function loadCurrentUserAchievementProgress(expectedUserId = "") {
     ...makeProgressRows(PULL_HIT_PROGRESS_TARGETS, rarePlusPullCount, "pulls", USER_COLLECTION_TABLE),
   );
 
-  const ownedCardIds = [...new Set(safeCollectionRows.map((row) => String(row.card_id || "")).filter(Boolean))];
-
-  if (ownedCardIds.length === 0) {
+  if (safeCollectionRows.length === 0) {
     progressRows.push(...makeProgressRows(VALUE_PROGRESS_TARGETS, 0, "value", `${USER_COLLECTION_TABLE},${CARD_PRICES_TABLE}`));
     return progressRows;
   }
 
-  const { data: priceRows, error: priceError } = await supabase
-    .from(CARD_PRICES_TABLE)
-    .select("set_id,card_id,market_price_usd")
-    .in("card_id", ownedCardIds);
+  try {
+    const pricedCollection = safeCollectionRows.map((row) => ({
+      setId: row.set_id,
+      card: {
+        id: row.card_id,
+        card_id: row.card_id,
+      },
+      count: Math.max(0, Number(row.quantity || 0)),
+    }));
+    const { totalValue } = await loadCardPricesForCollection(supabase, pricedCollection);
 
-  if (priceError) {
+    progressRows.push(...makeProgressRows(
+      VALUE_PROGRESS_TARGETS,
+      totalValue,
+      "value",
+      `${USER_COLLECTION_TABLE},${CARD_PRICES_TABLE}`,
+    ));
+  } catch (priceError) {
     console.warn("Unable to load PackDex value achievement progress", {
       userId: user.id,
       error: priceError,
     });
-    return progressRows;
+    progressRows.push(...makeProgressRows(VALUE_PROGRESS_TARGETS, 0, "value", `${USER_COLLECTION_TABLE},${CARD_PRICES_TABLE}`));
   }
-
-  const priceBySetAndCard = new Map((priceRows || []).map((row) => [`${row.set_id}:${row.card_id}`, row]));
-  const estimatedCollectionValue = safeCollectionRows.reduce((sum, row) => {
-    const priceRow = priceBySetAndCard.get(`${row.set_id}:${row.card_id}`);
-    const marketPrice = getValidMarketPriceUsd(priceRow?.market_price_usd);
-
-    if (marketPrice == null) return sum;
-
-    return sum + marketPrice * Math.max(0, Number(row.quantity || 0));
-  }, 0);
-
-  progressRows.push(...makeProgressRows(VALUE_PROGRESS_TARGETS, estimatedCollectionValue, "value", `${USER_COLLECTION_TABLE},${CARD_PRICES_TABLE}`));
 
   return progressRows;
 }

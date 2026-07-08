@@ -21,21 +21,23 @@ type AchievementCandidate = {
 
 const PACK_OPEN_COUNT_ACHIEVEMENTS = [
   { achievementId: "packs_opened_10", threshold: 10, iconKey: "pack" },
+  { achievementId: "packs_opened_25", threshold: 25, iconKey: "pack" },
   { achievementId: "packs_opened_50", threshold: 50, iconKey: "pack" },
   { achievementId: "packs_opened_100", threshold: 100, iconKey: "pack" },
   { achievementId: "packs_opened_250", threshold: 250, iconKey: "pack" },
   { achievementId: "packs_opened_500", threshold: 500, iconKey: "pack" },
   { achievementId: "packs_opened_1000", threshold: 1000, iconKey: "pack" },
-  { achievementId: "pack_veteran_250", threshold: 250, iconKey: "pack" },
-  { achievementId: "pack_legend_500", threshold: 500, iconKey: "pack" },
 ];
 const UNIQUE_COLLECTION_ACHIEVEMENTS = [
   { achievementId: "binder_page_9", threshold: 9 },
   { achievementId: "collector_100", threshold: 100 },
+  { achievementId: "unique_cards_250", threshold: 250 },
   { achievementId: "collector_500", threshold: 500 },
 ];
 const TOTAL_CARD_ACHIEVEMENTS = [
   { achievementId: "card_stack_100", threshold: 100 },
+  { achievementId: "total_cards_250", threshold: 250 },
+  { achievementId: "total_cards_500", threshold: 500 },
   { achievementId: "card_stack_1000", threshold: 1000 },
 ];
 const VALUE_ACHIEVEMENTS = [
@@ -50,6 +52,8 @@ const SET_MASTERY_ACHIEVEMENTS = [
 const PULL_HIT_ACHIEVEMENTS = [
   { achievementId: "first_big_hit", threshold: 1 },
   { achievementId: "big_hits_10", threshold: 10 },
+  { achievementId: "rare_hits_25", threshold: 25 },
+  { achievementId: "rare_hits_50", threshold: 50 },
 ];
 
 function makeAwardKey(userId: string, achievementId: string, scopeKey = "global") {

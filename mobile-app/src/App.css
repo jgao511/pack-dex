@@ -459,6 +459,13 @@ button {
   padding-bottom: calc(28px + env(safe-area-inset-bottom));
 }
 
+.pack-skip-hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
 .pack-logo {
   width: min(285px, 88%);
   max-height: clamp(82px, 15dvh, 118px);

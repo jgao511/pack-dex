@@ -102,6 +102,15 @@ const MOBILE_ACHIEVEMENTS = [
     progress_target: 10,
   },
   {
+    id: "packs_opened_25",
+    title: "Pack Regular",
+    description: "Open 25 PackDex packs while signed in.",
+    trust: "trusted",
+    category: "packs",
+    icon_key: "pack",
+    progress_target: 25,
+  },
+  {
     id: "packs_opened_50",
     title: "Rip Streak",
     description: "Open 50 PackDex packs while signed in.",
@@ -147,24 +156,6 @@ const MOBILE_ACHIEVEMENTS = [
     progress_target: 1000,
   },
   {
-    id: "pack_veteran_250",
-    title: "Rip Veteran",
-    description: "Open 250 PackDex packs while signed in.",
-    trust: "trusted",
-    category: "packs",
-    icon_key: "pack",
-    progress_target: 250,
-  },
-  {
-    id: "pack_legend_500",
-    title: "Rip Legend",
-    description: "Open 500 PackDex packs while signed in.",
-    trust: "trusted",
-    category: "packs",
-    icon_key: "pack",
-    progress_target: 500,
-  },
-  {
     id: "binder_page_9",
     title: "First Binder Page",
     description: "Own 9 unique cards.",
@@ -183,6 +174,15 @@ const MOBILE_ACHIEVEMENTS = [
     progress_target: 100,
   },
   {
+    id: "unique_cards_250",
+    title: "Binder Builder",
+    description: "Own 250 unique cards.",
+    trust: "trusted",
+    category: "collection",
+    icon_key: "binder",
+    progress_target: 250,
+  },
+  {
     id: "collector_500",
     title: "Binder Beast",
     description: "Own 500 unique cards.",
@@ -199,6 +199,24 @@ const MOBILE_ACHIEVEMENTS = [
     category: "collection",
     icon_key: "binder",
     progress_target: 100,
+  },
+  {
+    id: "total_cards_250",
+    title: "Card Stack",
+    description: "Own 250 total virtual cards.",
+    trust: "trusted",
+    category: "collection",
+    icon_key: "binder",
+    progress_target: 250,
+  },
+  {
+    id: "total_cards_500",
+    title: "Bulk Builder",
+    description: "Own 500 total virtual cards.",
+    trust: "trusted",
+    category: "collection",
+    icon_key: "binder",
+    progress_target: 500,
   },
   {
     id: "card_stack_1000",
@@ -271,6 +289,24 @@ const MOBILE_ACHIEVEMENTS = [
     category: "pulls",
     icon_key: "sparkle",
     progress_target: 10,
+  },
+  {
+    id: "rare_hits_25",
+    title: "Hit Hunter",
+    description: "Pull 25 Rare+ hits.",
+    trust: "trusted",
+    category: "pulls",
+    icon_key: "sparkle",
+    progress_target: 25,
+  },
+  {
+    id: "rare_hits_50",
+    title: "Hit Magnet",
+    description: "Pull 50 Rare+ hits.",
+    trust: "trusted",
+    category: "pulls",
+    icon_key: "sparkle",
+    progress_target: 50,
   },
 ];
 const WELCOME_REWARD_CHOICES = [
@@ -1132,7 +1168,9 @@ function PackScreen({
   selectedSet,
   stage,
   revealedCount,
+  packImagesReady,
   onStartReveal,
+  onSkipReveal,
   onBack,
   onOpenAnother,
   onViewCollection,
@@ -1209,6 +1247,8 @@ function PackScreen({
         <SetLogo set={selectedSet} className="pack-logo pack-logo-compact" />
       )}
 
+      {isRevealing && packImagesReady && <p className="pack-skip-hint">Tap anywhere to skip</p>}
+
       {(isRevealing || isSummary) && (
         <div
           className={`reveal-grid ${isSummary ? "is-summary-grid" : "is-reveal-grid"} count-${pack.length}`}
@@ -1232,8 +1272,17 @@ function PackScreen({
                   "--deal-delay": `${index * CARD_DEAL_STAGGER_MS}ms`,
                   "--reveal-delay": `${getMobileRevealDelay(index, pack.length)}ms`,
                 }}
-                disabled={!isVisible}
-                onClick={() => isVisible && onInspectCard?.(card, selectedSet)}
+                disabled={!isVisible && !isRevealing}
+                onClick={(event) => {
+                  event.stopPropagation();
+
+                  if (isRevealing) {
+                    onSkipReveal?.();
+                    return;
+                  }
+
+                  if (isVisible) onInspectCard?.(card, selectedSet);
+                }}
               >
                 <span className="reveal-card-inner">
                   <span className="reveal-card-back">
@@ -2272,7 +2321,9 @@ function ProfileScreen({
                 const progressTarget = Number(trustedProgress?.progressTarget || 0);
                 const progressCurrentRaw = Number(trustedProgress?.progressCurrent || 0);
                 const hasTrustedProgress = !isEarned && progressTarget > 0 && Number.isFinite(progressCurrentRaw) && progressCurrentRaw < progressTarget;
-                const progressCurrent = hasTrustedProgress ? Math.min(progressTarget, Math.max(0, Math.floor(progressCurrentRaw))) : 0;
+                const progressCurrent = hasTrustedProgress
+                  ? Math.min(progressTarget, Math.max(0, trustedProgress?.category === "value" ? progressCurrentRaw : Math.floor(progressCurrentRaw)))
+                  : 0;
                 const progressPercent = hasTrustedProgress ? Math.min(99, Math.max(0, Math.floor((progressCurrent / progressTarget) * 100))) : 0;
                 const progressLabel = trustedProgress?.category === "value"
                   ? `${formatUsd(progressCurrent, { minimumFractionDigits: 0, maximumFractionDigits: 0 })} / ${formatUsd(progressTarget, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`
@@ -2433,6 +2484,7 @@ function App() {
   const [pack, setPack] = useState([]);
   const [packStage, setPackStage] = useState("sets");
   const [revealedCount, setRevealedCount] = useState(0);
+  const [packImagesReady, setPackImagesReady] = useState(false);
   const [packInstanceId, setPackInstanceId] = useState(0);
   const [newPullKeys, setNewPullKeys] = useState(() => new Set());
   const [hasSavedCurrentPack, setHasSavedCurrentPack] = useState(false);
@@ -2477,6 +2529,9 @@ function App() {
   const playedRevealSoundKeysRef = useRef(new Set());
   const activeRevealSoundSessionRef = useRef("");
   const revealSoundSessionCounterRef = useRef(0);
+  const revealTimersRef = useRef([]);
+  const packImagePreloadIdRef = useRef(0);
+  const skipRevealStartedRef = useRef(false);
   const screenContentRef = useRef(null);
   const isDark = theme === "dark";
   const setsCompleted = useMemo(
@@ -3121,7 +3176,9 @@ function App() {
   useEffect(() => {
     if (packStage !== "revealing" || pack.length === 0) return undefined;
 
+    clearRevealTimers();
     const timers = [];
+    revealTimersRef.current = timers;
     const dealCompleteDelay = Math.max(0, (pack.length - 1) * CARD_DEAL_STAGGER_MS) + CARD_DEAL_ANIMATION_MS;
     const revealStartDelay = dealCompleteDelay + WAIT_AFTER_DEAL_MS;
 
@@ -3166,6 +3223,7 @@ function App() {
 
     return () => {
       timers.forEach((timer) => window.clearTimeout(timer));
+      if (revealTimersRef.current === timers) revealTimersRef.current = [];
     };
   }, [pack, packStage, selectedSet]);
 
@@ -3177,7 +3235,7 @@ function App() {
     const nextPack = generatePack(set);
     ensurePackOpenClientEventId(nextPack, set.id);
 
-    preloadPackAssets(nextPack, set);
+    preparePackImages(nextPack, set);
     setCollectionReturnSource("collection");
     setSelectedSet(set);
     setPack(nextPack);
@@ -3203,7 +3261,22 @@ function App() {
   async function preloadPackAssets(cards, set) {
     const cardUrls = cards.map((card) => getPackCardImageUrl(card, set));
 
-    await preloadImages([getCardBackUrl(), getSetLogoUrl(set), ...cardUrls], { timeoutMs: 5000 });
+    await preloadImages([getCardBackUrl(), ...cardUrls], { timeoutMs: 5000 });
+  }
+
+  function preparePackImages(cards, set) {
+    const preloadId = packImagePreloadIdRef.current + 1;
+    packImagePreloadIdRef.current = preloadId;
+    setPackImagesReady(false);
+
+    preloadPackAssets(cards, set).finally(() => {
+      if (packImagePreloadIdRef.current === preloadId) setPackImagesReady(true);
+    });
+  }
+
+  function clearRevealTimers() {
+    revealTimersRef.current.forEach((timer) => window.clearTimeout(timer));
+    revealTimersRef.current = [];
   }
 
   async function saveRevealedPack(cards, set) {
@@ -3267,19 +3340,31 @@ function App() {
 
   function beginReveal(cards, set) {
     startRevealSoundSession(cards, set);
+    skipRevealStartedRef.current = false;
     setRevealedCount(0);
-    preloadPackAssets(cards, set).catch((error) => {
-      console.warn("Mobile pack image preload failed; continuing reveal with rendered image fallbacks", {
-        setId: set?.id,
-        cardCount: cards.length,
-        error,
-      });
-    });
     setPackStage("revealing");
     saveRevealedPack(cards, set);
   }
 
+  function skipPackReveal() {
+    if (packStage !== "revealing" || !packImagesReady || skipRevealStartedRef.current) return;
+
+    skipRevealStartedRef.current = true;
+    clearRevealTimers();
+    setRevealedCount(pack.length);
+    setPackStage("summary");
+  }
+
+  function handlePackScreenClick(event) {
+    if (activeTab !== "open" || packStage !== "revealing" || !packImagesReady) return;
+    if (event.target.closest("button, a, input, select, textarea, [role='button']")) return;
+
+    skipPackReveal();
+  }
+
   function returnToSets() {
+    packImagePreloadIdRef.current += 1;
+    setPackImagesReady(false);
     setPackStage("sets");
     setCollectionReturnSource("collection");
     setSelectedSet(null);
@@ -3301,7 +3386,7 @@ function App() {
     const nextPack = generatePack(selectedSet);
     ensurePackOpenClientEventId(nextPack, selectedSet.id);
 
-    preloadPackAssets(nextPack, selectedSet);
+    preparePackImages(nextPack, selectedSet);
     setPack(nextPack);
     setPackInstanceId((current) => current + 1);
     setRevealedCount(0);
@@ -3418,7 +3503,7 @@ function App() {
         });
       }
 
-      preloadPackAssets(rewardPack, choice.set).catch(() => {});
+      preparePackImages(rewardPack, choice.set);
       setIsWelcomeRewardModalOpen(false);
       setActiveTab("open");
       setSelectedSet(choice.set);
@@ -3556,7 +3641,7 @@ function App() {
   return (
     <main className={`mobile-app ${isDark ? "theme-dark" : "theme-light"}`}>
       <section className="phone-shell" aria-label="PackDex mobile app">
-        <div className={`screen-content screen-${activeTab}`} ref={screenContentRef}>
+        <div className={`screen-content screen-${activeTab}`} ref={screenContentRef} onClick={handlePackScreenClick}>
           <MobileBrandHeader />
           {activeTab === "open" &&
             (packStage === "sets" ? (
@@ -3569,7 +3654,9 @@ function App() {
                 selectedSet={selectedSet}
                 stage={packStage}
                 revealedCount={revealedCount}
+                packImagesReady={packImagesReady}
                 onStartReveal={startReveal}
+                onSkipReveal={skipPackReveal}
                 onBack={returnToSets}
                 onOpenAnother={openAnotherPack}
                 onViewCollection={viewSetCollection}
