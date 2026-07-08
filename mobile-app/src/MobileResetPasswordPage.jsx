@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { supabase } from "./lib/supabaseClient.js";
 
 const RESET_PATH = "/mobile-app/reset-password";
 const MOBILE_HOME_PATH = "/mobile-app/";
 
-export default function MobileResetPasswordPage() {
+export default function MobileResetPasswordPage({ supabase }) {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [status, setStatus] = useState("Preparing your password reset...");
@@ -12,6 +11,7 @@ export default function MobileResetPasswordPage() {
   const [isReady, setIsReady] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const redirectTimerRef = useRef(0);
+  const hasRecoveryToken = Boolean(new URLSearchParams(window.location.search).get("token_hash"));
 
   useEffect(() => {
     let mounted = true;
@@ -128,6 +128,8 @@ export default function MobileResetPasswordPage() {
             <div className="mobile-auth-heading">
               <span className="eyebrow">Account</span>
               <h1>Reset password</h1>
+              <p className="reset-route-debug">Reset route detected</p>
+              <p className="reset-route-debug">{hasRecoveryToken ? "Recovery token found" : "Missing recovery token"}</p>
               {status && <p>{status}</p>}
             </div>
             <form className="auth-form" onSubmit={handleSubmit}>
