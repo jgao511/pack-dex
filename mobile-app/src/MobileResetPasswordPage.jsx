@@ -6,12 +6,11 @@ const MOBILE_HOME_PATH = "/mobile-app/";
 export default function MobileResetPasswordPage({ supabase }) {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [status, setStatus] = useState("Preparing your password reset...");
+  const [status, setStatus] = useState("Enter a new password for your PackDex account.");
   const [error, setError] = useState("");
   const [isReady, setIsReady] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const redirectTimerRef = useRef(0);
-  const hasRecoveryToken = Boolean(new URLSearchParams(window.location.search).get("token_hash"));
 
   useEffect(() => {
     let mounted = true;
@@ -30,7 +29,7 @@ export default function MobileResetPasswordPage({ supabase }) {
       if (!tokenHash || type !== "recovery") {
         window.history.replaceState({}, document.title, RESET_PATH);
         setStatus("");
-        setError("This password reset link is invalid or has expired.");
+        setError("This reset link is invalid or expired. Please request a new one.");
         return;
       }
 
@@ -51,7 +50,7 @@ export default function MobileResetPasswordPage({ supabase }) {
 
         window.history.replaceState({}, document.title, RESET_PATH);
         setStatus("");
-        setError("This password reset link is invalid or has expired.");
+        setError("This reset link is invalid or expired. Please request a new one.");
       }
     }
 
@@ -128,8 +127,6 @@ export default function MobileResetPasswordPage({ supabase }) {
             <div className="mobile-auth-heading">
               <span className="eyebrow">Account</span>
               <h1>Reset password</h1>
-              <p className="reset-route-debug">Reset route detected</p>
-              <p className="reset-route-debug">{hasRecoveryToken ? "Token found" : "Token missing"}</p>
               {status && <p>{status}</p>}
             </div>
             <form className="auth-form" onSubmit={handleSubmit}>
