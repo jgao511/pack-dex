@@ -15,7 +15,6 @@ import { getFoilProfile } from "../../src/utils/foil.js";
 import { supabase, isSupabaseConfigured, missingSupabaseEnv } from "./lib/supabaseClient.js";
 import { loadCloudProfileStats } from "./lib/cloudProfileStats.js";
 import { ensurePackOpenClientEventId, recordPackOpenEvent } from "../../src/lib/packOpenEvents.js";
-import { openPackAndSaveResult } from "../../src/lib/securePackOpening.js";
 import {
   getCurrentUser,
   loadCloudCollection,
@@ -36,11 +35,12 @@ import {
   formatUsd,
   getCardDisplayPrice,
   getCollectionEstimatedValue,
-  loadCardPricesForCards,
+  getPriceMapEstimatedValue,
   loadCardPricesForCollection,
   loadCardPricesForSet,
-  resolveCardPriceIds,
 } from "../../src/lib/cardPrices.js";
+import { countDevRequest } from "./utils/requestDiagnostics.js";
+import { clearCachedSupabaseUser } from "../../src/lib/sessionUserCache.js";
 import {
   playAchievementUnlockSound,
   playDealSound,
@@ -76,6 +76,7 @@ const SETS_WITHOUT_MARKET_PRICE_DATA = new Set(["ascended-heroes", "perfect-orde
 const PRELOAD_SET_LIMIT = 3;
 const PRELOAD_CARD_LIMIT_PER_SET = 45;
 const ACHIEVEMENT_TOAST_AUTO_DISMISS_MS = 3400;
+const ACCOUNT_STATE_FRESH_MS = 5 * 60 * 1000;
 const MOBILE_ACHIEVEMENTS = [
   {
     id: "account_created",
@@ -429,12 +430,6 @@ function normalizeText(value) {
   return String(value || "").toLowerCase().trim();
 }
 
-function getBestPriceFromRow(row) {
-  const value = Number(row?.market_price_usd);
-
-  return Number.isFinite(value) && value > 0 ? value : 0;
-}
-
 function hasUsablePriceMap(priceMap) {
   return priceMap instanceof Map && priceMap.size > 0;
 }
@@ -450,16 +445,6 @@ function formatCachedValue(value, priceMap, options = {}) {
   }
 
   return formatUsd(value);
-}
-
-function chunkItems(items, size) {
-  const chunks = [];
-
-  for (let index = 0; index < items.length; index += size) {
-    chunks.push(items.slice(index, index + size));
-  }
-
-  return chunks;
 }
 
 function scheduleIdleTask(callback) {
@@ -1314,8 +1299,8 @@ function PackScreen({
             </button>
             <SharePullButton
               cards={pack}
-              user={user}
-              onLogin={onLogin}
+              setId={selectedSet.id}
+              bestPullIndex={pack.length - 1}
             />
           </div>
         </>
@@ -1421,134 +1406,13 @@ function CollectionCards({
   });
   const progress = selectedSet ? getSetCollectionProgress(collection, selectedSet) : { collected: 0, total: 0, percent: 0 };
   const setCards = selectedSet ? getPullableCollectionCards(selectedSet).sort((a, b) => getSetNumber(a) - getSetNumber(b)) : [];
-  const [setTotalValue, setSetTotalValue] = useState(0);
-  const [setValueLoading, setSetValueLoading] = useState(false);
-  const [setValueStatus, setSetValueStatus] = useState("idle");
+  const setTotalValue = getPriceMapEstimatedValue(priceMap);
+  const setValueLoading = Boolean(selectedSet && !priceMap && !SETS_WITHOUT_MARKET_PRICE_DATA.has(selectedSet.id));
+  const setValueStatus = priceMap instanceof Map && priceMap.size > 0 ? "loaded" : "unavailable";
 
   useEffect(() => {
     if (!selectedSet) setIsPickingSet(true);
   }, [selectedSet]);
-
-  useEffect(() => {
-    let cancelled = false;
-
-    async function loadRenderedSetValue() {
-      console.debug("SET VALUE COMPONENT RAN");
-      console.debug("[PackDex prices] mobile set value current set", {
-        id: selectedSet?.id || null,
-        name: selectedSet?.name || null,
-      });
-
-      setSetValueLoading(true);
-      setSetValueStatus("loading");
-      console.debug("[PackDex prices] mobile set value loading true");
-
-      try {
-        if (!supabase || !selectedSet) {
-          console.debug("[PackDex prices] mobile set value missing client/current set");
-          if (!cancelled) {
-            setSetTotalValue(0);
-            setSetValueStatus("unavailable");
-          }
-          return;
-        }
-
-        if (setCards.length === 0) {
-          console.debug("[PackDex prices] mobile set value has no cards", {
-            setId: selectedSet.id,
-            setName: selectedSet.name,
-          });
-          if (!cancelled) {
-            setSetTotalValue(0);
-            setSetValueStatus("unavailable");
-          }
-          return;
-        }
-
-        const resolvedCardIds = [
-          ...new Set(setCards.flatMap((card) => resolveCardPriceIds(card, selectedSet.id)).filter(Boolean)),
-        ];
-
-        console.debug("[PackDex prices] mobile set value card ids", {
-          setId: selectedSet.id,
-          setName: selectedSet.name,
-          cardCount: setCards.length,
-          firstAppCardIds: setCards.slice(0, 10).map((card) => card.id),
-          resolvedCardIdCount: resolvedCardIds.length,
-          firstResolvedPriceCardIds: resolvedCardIds.slice(0, 10),
-        });
-
-        if (resolvedCardIds.length === 0) {
-          if (!cancelled) {
-            setSetTotalValue(0);
-            setSetValueStatus("unavailable");
-          }
-          return;
-        }
-
-        const rows = [];
-
-        for (const chunk of chunkItems(resolvedCardIds, 500)) {
-          const { data, error } = await supabase
-            .from("card_prices")
-            .select(
-              "card_id,set_id,card_number,name,rarity,price_type,market_price_usd,low_price_usd,mid_price_usd,high_price_usd,direct_low_price_usd,tcgplayer_url,source_updated_at,synced_at"
-            )
-            .in("card_id", chunk);
-
-          if (error) {
-            console.error("[PackDex prices] mobile set value Supabase error", {
-              setId: selectedSet.id,
-              setName: selectedSet.name,
-              error,
-            });
-            throw error;
-          }
-
-          rows.push(...(data || []));
-        }
-
-        console.debug("[PackDex prices] mobile set value rows returned", {
-          setId: selectedSet.id,
-          setName: selectedSet.name,
-          rowCount: rows.length,
-          firstRows: rows.slice(0, 5),
-        });
-
-        const uniqueRows = new Map();
-        rows.forEach((row) => {
-          if (row?.card_id) uniqueRows.set(row.card_id, row);
-        });
-        const total = [...uniqueRows.values()].reduce((sum, row) => sum + getBestPriceFromRow(row), 0);
-
-        if (!cancelled) {
-          setSetTotalValue(total);
-          setSetValueStatus(rows.length > 0 ? "loaded" : "unavailable");
-        }
-      } catch (error) {
-        console.error("[PackDex prices] mobile set value failed", {
-          setId: selectedSet?.id || null,
-          setName: selectedSet?.name || null,
-          error,
-        });
-        if (!cancelled) {
-          setSetTotalValue(0);
-          setSetValueStatus("unavailable");
-        }
-      } finally {
-        if (!cancelled) {
-          console.debug("[PackDex prices] mobile set value loading false");
-          setSetValueLoading(false);
-        }
-      }
-    }
-
-    loadRenderedSetValue();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [selectedSet?.id]);
 
   if (isPickingSet) {
     return (
@@ -2592,6 +2456,10 @@ function MobileApp() {
   const achievementCacheByUserIdRef = useRef(new Map());
   const lastAchievementsLoadedUserIdRef = useRef("");
   const lastAccountScopedUserIdRef = useRef("");
+  const accountLoadPromisesRef = useRef(new Map());
+  const accountLoadedAtRef = useRef(new Map());
+  const authRefreshPromiseRef = useRef(null);
+  const lastSessionCheckAtRef = useRef(0);
   const [legalModalType, setLegalModalType] = useState("");
   const [priceMapsBySet, setPriceMapsBySet] = useState({});
   const [estimatedCollectionValue, setEstimatedCollectionValue] = useState(0);
@@ -2713,6 +2581,8 @@ function MobileApp() {
   }
 
   function clearAccountScopedState() {
+    clearCachedSupabaseUser(supabase);
+    accountLoadedAtRef.current.clear();
     setUser(null);
     setCollection({});
     setStats(EMPTY_STATS);
@@ -2811,27 +2681,18 @@ function MobileApp() {
         })
       : null;
 
-    try {
-      setStats(await loadCloudProfileStats(currentUser.id));
-    } catch (statsError) {
-      console.warn("Unable to refresh trusted mobile profile stats after pack action", {
-        userId: currentUser.id,
-        setId: set.id,
-        error: statsError,
-      });
-    }
+    if (result?.stats) setStats(result.stats);
 
     achievementCacheByUserIdRef.current.delete(currentUser.id);
     lastAchievementsLoadedUserIdRef.current = "";
     const achievementResult = await requestServerAchievementAward(currentUser.id);
     enqueueAchievementUnlocks(achievementResult?.awarded);
     await loadUserAchievements(currentUser);
-    await loadUserAchievementProgress(currentUser);
 
     return { packEvent: result, achievements: achievementResult };
   }
 
-  async function loadAccountScopedState(currentUser) {
+  async function performAccountScopedStateLoad(currentUser) {
     if (!currentUser?.id) {
       clearAccountScopedState();
       return;
@@ -2849,7 +2710,11 @@ function MobileApp() {
     await syncPendingCloudPulls(currentUser.id);
     const cloudCollection = await loadCloudCollection();
     const mergedCollection = mergePendingCloudPullsIntoCollection(cloudCollection, currentUser.id);
-    const cloudStats = await loadCloudProfileStats(currentUser.id);
+    const mergedCardCount = Object.values(mergedCollection).reduce(
+      (total, setCollection) => total + Object.values(setCollection || {}).reduce((setTotal, entry) => setTotal + Number(entry?.count || 0), 0),
+      0
+    );
+    const cloudStats = await loadCloudProfileStats(currentUser.id, { totalCardsPulled: mergedCardCount });
     const cachedAchievements = achievementCacheByUserIdRef.current.get(currentUser.id);
     const shouldLoadAchievements = lastAchievementsLoadedUserIdRef.current !== currentUser.id || !cachedAchievements;
 
@@ -2876,6 +2741,29 @@ function MobileApp() {
     setBinders(loadBinders());
   }
 
+  function loadAccountScopedState(currentUser, { force = false } = {}) {
+    if (!currentUser?.id) {
+      clearAccountScopedState();
+      return Promise.resolve();
+    }
+
+    const userId = currentUser.id;
+    const existing = accountLoadPromisesRef.current.get(userId);
+    if (existing) return existing;
+    const loadedAt = accountLoadedAtRef.current.get(userId) || 0;
+    if (!force && lastAccountScopedUserIdRef.current === userId && Date.now() - loadedAt < ACCOUNT_STATE_FRESH_MS) {
+      setUser(currentUser);
+      return Promise.resolve();
+    }
+
+    countDevRequest("loadAccountScopedState");
+    const promise = performAccountScopedStateLoad(currentUser)
+      .then(() => accountLoadedAtRef.current.set(userId, Date.now()))
+      .finally(() => accountLoadPromisesRef.current.delete(userId));
+    accountLoadPromisesRef.current.set(userId, promise);
+    return promise;
+  }
+
   useEffect(() => {
     preloadMobileSounds();
   }, []);
@@ -2883,16 +2771,12 @@ function MobileApp() {
 
   useEffect(() => {
     if (!user?.id || !supabase) {
-      console.debug("[PackDex prices] valueLoading account set false", {
-        reason: !user?.id ? "no user" : "missing supabase client",
-      });
       setEstimatedCollectionValue(0);
       setIsValueLoading(false);
       return undefined;
     }
 
     if (ownedCards.length === 0) {
-      console.debug("[PackDex prices] valueLoading account set false", { reason: "no owned cards" });
       setEstimatedCollectionValue(0);
       setIsValueLoading(false);
       return undefined;
@@ -2913,10 +2797,10 @@ function MobileApp() {
       return undefined;
     }
 
+    if (activeTab !== "value" && activeTab !== "profile") return undefined;
     let cancelled = false;
 
     async function loadCollectionValue() {
-      console.debug("[PackDex prices] valueLoading account set true");
       setIsValueLoading(true);
       try {
         const result = await loadCardPricesForCollection(supabase, ownedCards);
@@ -2929,6 +2813,7 @@ function MobileApp() {
           const next = { ...current };
           Object.entries(nextPriceMapsBySet).forEach(([setId, priceMap]) => {
             next[setId] = priceMap;
+            cardIdLoadedSetValueIdsRef.current.add(setId);
           });
           return next;
         });
@@ -2943,7 +2828,6 @@ function MobileApp() {
         if (!cancelled) setEstimatedCollectionValue(0);
       } finally {
         if (!cancelled) {
-          console.debug("[PackDex prices] valueLoading account set false");
           setIsValueLoading(false);
         }
       }
@@ -2954,12 +2838,13 @@ function MobileApp() {
     return () => {
       cancelled = true;
     };
-  }, [ownedCards, user?.id]);
+  }, [activeTab, ownedCards, user?.id]);
   useEffect(() => {
-    const idsToLoad = [selectedSet?.id]
+    const idsToLoad = [selectedSet?.id, selectedCollectionSetId]
       .filter(Boolean)
+      .filter((setId, index, list) => list.indexOf(setId) === index)
       .filter((setId) => !SETS_WITHOUT_MARKET_PRICE_DATA.has(setId))
-      .filter((setId) => !hasLoadedPriceMap(priceMapsBySet, setId) && !loadingPriceSetIdsRef.current.has(setId));
+      .filter((setId) => !cardIdLoadedSetValueIdsRef.current.has(setId) && !loadingPriceSetIdsRef.current.has(setId));
 
     if (!supabase || idsToLoad.length === 0) return undefined;
 
@@ -2970,6 +2855,9 @@ function MobileApp() {
       const entries = await Promise.allSettled(idsToLoad.map(async (setId) => [setId, await loadCardPricesForSet(supabase, setId)]));
 
       idsToLoad.forEach((setId) => loadingPriceSetIdsRef.current.delete(setId));
+      entries.forEach((entry) => {
+        if (entry.status === "fulfilled") cardIdLoadedSetValueIdsRef.current.add(entry.value[0]);
+      });
       if (cancelled) return;
 
       setPriceMapsBySet((current) => {
@@ -2993,63 +2881,8 @@ function MobileApp() {
 
     return () => {
       cancelled = true;
-      idsToLoad.forEach((setId) => loadingPriceSetIdsRef.current.delete(setId));
     };
-  }, [priceMapsBySet, selectedCollectionSetId, selectedSet?.id]);
-
-  useEffect(() => {
-    const collectionSet = selectedCollectionSetId ? sets.find((set) => set.id === selectedCollectionSetId) : null;
-
-    if (
-      !supabase ||
-      !collectionSet ||
-      SETS_WITHOUT_MARKET_PRICE_DATA.has(collectionSet.id) ||
-      cardIdLoadedSetValueIdsRef.current.has(collectionSet.id) ||
-      loadingPriceSetIdsRef.current.has(collectionSet.id)
-    ) {
-      return undefined;
-    }
-
-    let cancelled = false;
-    const setCards = getPullableCollectionCards(collectionSet);
-
-    async function loadSelectedCollectionSetPrices() {
-      loadingPriceSetIdsRef.current.add(collectionSet.id);
-      try {
-        const priceMap = await loadCardPricesForCards(supabase, collectionSet, setCards);
-
-        if (cancelled) return;
-
-        setPriceMapsBySet((current) => ({
-          ...current,
-          [collectionSet.id]: priceMap,
-        }));
-        cardIdLoadedSetValueIdsRef.current.add(collectionSet.id);
-      } catch (error) {
-        console.error("[PackDex prices] selected collection set value failed", {
-          setId: collectionSet.id,
-          setName: collectionSet.name,
-          error,
-        });
-        if (!cancelled) {
-          setPriceMapsBySet((current) => ({
-            ...current,
-            [collectionSet.id]: new Map(),
-          }));
-          cardIdLoadedSetValueIdsRef.current.add(collectionSet.id);
-        }
-      } finally {
-        loadingPriceSetIdsRef.current.delete(collectionSet.id);
-      }
-    }
-
-    loadSelectedCollectionSetPrices();
-
-    return () => {
-      cancelled = true;
-      loadingPriceSetIdsRef.current.delete(collectionSet.id);
-    };
-  }, [priceMapsBySet, selectedCollectionSetId]);
+  }, [selectedCollectionSetId, selectedSet?.id]);
 
   useEffect(() => {
     const shouldPausePreload = Boolean(
@@ -3114,37 +2947,45 @@ function MobileApp() {
   }
 
   async function refreshAuthSession({ showLoading = false, autoOpenWelcomeReward = true } = {}) {
+    if (authRefreshPromiseRef.current) return authRefreshPromiseRef.current;
     if (!supabase) {
       clearAccountScopedState();
       setLoadingMessage("");
       return null;
     }
 
+    countDevRequest("refreshAuthSession");
     if (showLoading) setLoadingMessage("Loading account...");
 
-    try {
-      const { data, error } = await supabase.auth.getSession();
-      if (error) throw error;
+    const promise = (async () => {
+      try {
+        const { data, error } = await supabase.auth.getSession();
+        if (error) throw error;
+        lastSessionCheckAtRef.current = Date.now();
 
-      const sessionUser = data.session?.user || null;
+        const sessionUser = data.session?.user || null;
 
-      if (!sessionUser) {
-        clearAccountScopedState();
+        if (!sessionUser) {
+          clearAccountScopedState();
+          return null;
+        }
+
+        setIsSignupVerificationOpen(false);
+        setSignupVerificationEmail("");
+        await loadAccountScopedState(sessionUser);
+        await refreshWelcomeRewardStatus(sessionUser, { autoOpen: autoOpenWelcomeReward });
+        return sessionUser;
+      } catch (error) {
+        console.warn("Unable to refresh mobile PackDex auth session", error);
         return null;
+      } finally {
+        setLoadingMessage("");
       }
-
-      setIsSignupVerificationOpen(false);
-      setSignupVerificationEmail("");
-      await loadAccountScopedState(sessionUser);
-      await refreshWelcomeRewardStatus(sessionUser, { autoOpen: autoOpenWelcomeReward });
-      return sessionUser;
-    } catch (error) {
-      console.warn("Unable to refresh mobile PackDex auth session", error);
-      clearAccountScopedState();
-      return null;
-    } finally {
-      setLoadingMessage("");
-    }
+    })().finally(() => {
+      authRefreshPromiseRef.current = null;
+    });
+    authRefreshPromiseRef.current = promise;
+    return promise;
   }
 
   useEffect(() => {
@@ -3202,6 +3043,7 @@ function MobileApp() {
 
     function refreshIfActive() {
       if (!mounted || document.visibilityState === "hidden") return;
+      if (Date.now() - lastSessionCheckAtRef.current < ACCOUNT_STATE_FRESH_MS) return;
       refreshAuthSession({ autoOpenWelcomeReward: true });
     }
 
@@ -3218,12 +3060,13 @@ function MobileApp() {
         return;
       }
 
-      if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED" || event === "USER_UPDATED") {
+      const accountIsStale = Date.now() - (accountLoadedAtRef.current.get(nextUser.id) || 0) >= ACCOUNT_STATE_FRESH_MS;
+      const identityChanged = lastAccountScopedUserIdRef.current !== nextUser.id;
+      if (event === "SIGNED_IN" || event === "USER_UPDATED" || (event === "TOKEN_REFRESHED" && (identityChanged || accountIsStale))) {
         loadAccountScopedState(nextUser)
           .then(() => refreshWelcomeRewardStatus(nextUser, { autoOpen: true }))
           .catch((error) => {
             console.warn("Unable to reload mobile account data after auth change", error);
-            clearAccountScopedState();
           })
           .finally(() => {
             setLoadingMessage("");
@@ -3241,26 +3084,6 @@ function MobileApp() {
       data.subscription.unsubscribe();
     };
   }, []);
-
-  useEffect(() => {
-    if (!user?.id) {
-      setWelcomeRewardStatus(null);
-      setIsWelcomeRewardModalOpen(false);
-      setWelcomeRewardError("");
-      return undefined;
-    }
-
-    let cancelled = false;
-
-    refreshWelcomeRewardStatus(user, { autoOpen: true }).catch((error) => {
-      console.warn("Unable to load mobile welcome reward status", error);
-      if (!cancelled) setWelcomeRewardStatus({ isEligible: false, isClaimed: true, setId: "", claimedAt: "" });
-    });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [user?.id]);
 
   useEffect(() => {
     if (packStage !== "revealing" || pack.length === 0) return undefined;
@@ -3320,19 +3143,11 @@ function MobileApp() {
     setCollection(nextCollection);
   }
 
-  async function createPackForSession(set) {
-    if (user?.id) {
-      const result = await openPackAndSaveResult(set.id);
-      return result.cards;
-    }
-    return generatePack(set);
-  }
-
   function openPack(set) {
-    const nextPack = user?.id ? [] : generatePack(set);
-    if (nextPack.length) ensurePackOpenClientEventId(nextPack, set.id);
+    const nextPack = generatePack(set);
+    ensurePackOpenClientEventId(nextPack, set.id);
 
-    if (nextPack.length) preparePackImages(nextPack, set);
+    preparePackImages(nextPack, set);
     setCollectionReturnSource("collection");
     setSelectedSet(set);
     setPack(nextPack);
@@ -3400,15 +3215,16 @@ function MobileApp() {
     persistSessionCollection(nextCollection);
 
     if (user) {
+      const clientEventId = ensurePackOpenClientEventId(cards, set.id);
       try {
-        if (!cards.serverSaved) await savePulledCardsToCloud(cards, set.id);
+        await savePulledCardsToCloud(cards, set.id, { userId: user.id, clientEventId });
       } catch (error) {
         console.warn("Mobile PackDex cloud save failed; keeping local fallback", {
           setId: set.id,
           cardCount: cards.length,
           error,
         });
-        enqueuePendingCloudPull(cards, set.id, user.id);
+        enqueuePendingCloudPull(cards, set.id, user.id, clientEventId);
         setStats(nextStats);
         return;
       }
@@ -3428,29 +3244,11 @@ function MobileApp() {
     }
   }
 
-  async function startReveal() {
-    if (!selectedSet || packStage !== "ready") return;
+  function startReveal() {
+    if (!selectedSet || pack.length === 0 || packStage !== "ready") return;
 
     playPackOpenSound(soundEnabled);
-    if (pack.length) {
-      beginReveal(pack, selectedSet);
-      return;
-    }
-
-    setPackStage("preloading");
-    setLoadingMessage("Preparing secure pack...");
-    try {
-      const nextPack = await createPackForSession(selectedSet);
-      ensurePackOpenClientEventId(nextPack, selectedSet.id);
-      preparePackImages(nextPack, selectedSet);
-      setPack(nextPack);
-      setLoadingMessage("");
-      beginReveal(nextPack, selectedSet);
-    } catch (error) {
-      console.warn("Unable to prepare mobile pack", error);
-      setLoadingMessage("Unable to prepare this pack. Please try again.");
-      setPackStage("ready");
-    }
+    beginReveal(pack, selectedSet);
   }
 
   function beginReveal(cards, set) {
@@ -3492,21 +3290,13 @@ function MobileApp() {
     scrollScreenToTop();
   }
 
-  async function openAnotherPack() {
+  function openAnotherPack() {
     if (!selectedSet) {
       returnToSets();
       return;
     }
 
-    setLoadingMessage(user?.id ? "Preparing secure pack..." : "");
-    let nextPack;
-    try {
-      nextPack = await createPackForSession(selectedSet);
-    } catch (error) {
-      console.warn("Unable to prepare another mobile pack", error);
-      setLoadingMessage("Unable to prepare this pack. Please try again.");
-      return;
-    }
+    const nextPack = generatePack(selectedSet);
     ensurePackOpenClientEventId(nextPack, selectedSet.id);
 
     preparePackImages(nextPack, selectedSet);
@@ -3516,7 +3306,6 @@ function MobileApp() {
     setNewPullKeys(new Set());
     setHasSavedCurrentPack(false);
     savedPackKeyRef.current = "";
-    setLoadingMessage("");
     playPackOpenSound(soundEnabled);
     beginReveal(nextPack, selectedSet);
     scrollScreenToTop();
@@ -3533,7 +3322,7 @@ function MobileApp() {
       !loadingPriceSetIdsRef.current.has(set.id)
     ) {
       loadingPriceSetIdsRef.current.add(set.id);
-      loadCardPricesForCards(supabase, set, getPullableCollectionCards(set))
+      loadCardPricesForSet(supabase, set.id)
         .then((priceMap) => {
           setPriceMapsBySet((current) => ({
             ...current,

@@ -1,0 +1,16 @@
+.public-share-page { min-height: 100dvh; display: grid; justify-items: center; align-content: start; gap: 28px; padding: 34px 20px 48px; color: #f7f6ff; background: #090b18; }
+.public-share-header { display: grid; justify-items: center; gap: 8px; text-align: center; }
+.public-share-header div { display: flex; align-items: center; gap: 10px; font-size: 1.4rem; }
+.public-share-header img, .public-share-not-found img { width: 42px; height: 42px; object-fit: contain; }
+.public-share-header strong span { color: #a98cff; }
+.public-share-header h1 { margin: 8px 0 0; font-size: clamp(2rem, 7vw, 4.5rem); letter-spacing: 0; }
+.public-share-header p { margin: 0; color: #bdb5dd; font-size: 1.15rem; font-weight: 800; }
+.public-share-hero img, .public-share-hero .public-share-image-fallback { width: min(360px, 78vw); aspect-ratio: 0.716; object-fit: contain; border: 3px solid #8f75ef; border-radius: 16px; box-shadow: 0 20px 44px rgba(0,0,0,.5); }
+.public-share-card-grid { width: min(920px, 100%); display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 14px; }
+.public-share-card-grid img, .public-share-card-grid .public-share-image-fallback { width: 100%; aspect-ratio: 0.716; object-fit: contain; border: 1px solid #373152; border-radius: 8px; }
+.public-share-image-fallback { display: grid; place-items: center; padding: 10px; color: #aaa4c0; background: #121528; text-align: center; }
+.public-share-page-footer, .public-share-not-found { display: grid; justify-items: center; gap: 14px; text-align: center; }
+.public-share-page-footer p, .public-share-not-found p { margin: 0; color: #aaa4c0; }
+.public-share-page-footer a, .public-share-not-found a { min-height: 52px; display: inline-flex; align-items: center; justify-content: center; border-radius: 16px; padding: 0 24px; color: white; background: #7140ff; font-weight: 900; text-decoration: none; }
+.public-share-status { align-self: center; color: #c8c1df; font-weight: 800; }
+.public-share-not-found { align-self: center; }

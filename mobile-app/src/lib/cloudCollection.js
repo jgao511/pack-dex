@@ -1,11 +1,12 @@
 import { supabase } from "./supabaseClient.js";
-import { getCardImageUrl } from "../../../src/utils/assetUrls.js";
 import { getCardCollectionKey, markCardsCollected } from "../../../src/utils/collectionStorage.js";
-import { getDisplayCardName, getDisplayRarity } from "../../../src/utils/packGenerator.js";
 import { sets } from "../../../src/data/sets.js";
+import { countDevRequest } from "../utils/requestDiagnostics.js";
+import { getCachedSupabaseUser } from "../../../src/lib/sessionUserCache.js";
 
 const USER_COLLECTION_TABLE = "user_collection";
 const PENDING_CLOUD_PULLS_KEY = "packdex-mobile-pending-cloud-pulls";
+let pendingSyncPromise = null;
 
 function findSet(setId) {
   return sets.find((set) => set.id === setId);
@@ -100,25 +101,23 @@ function mergeCollectionCounts(baseCollection, overlayCollection) {
 
 export async function getCurrentUser() {
   if (!supabase) return null;
-
-  const { data, error } = await supabase.auth.getUser();
-
-  if (error) {
+  try {
+    return await getCachedSupabaseUser(supabase);
+  } catch (error) {
     console.warn("Unable to read mobile Supabase user", error);
     return null;
   }
-
-  return data.user || null;
 }
 
 export async function loadCloudCollection() {
+  countDevRequest("loadCloudCollection");
   const user = await getCurrentUser();
 
   if (!user) return {};
 
   const { data, error } = await supabase
     .from(USER_COLLECTION_TABLE)
-    .select("*")
+    .select("set_id,card_id,quantity,created_at,updated_at")
     .eq("user_id", user.id);
 
   if (error) {
@@ -129,20 +128,15 @@ export async function loadCloudCollection() {
   return cloudRowsToCollection(data || []);
 }
 
-function compactCardRow(card, set, setId, quantity = 1) {
+function compactCardRow(card, setId, quantity = 1) {
   return {
     card_id: getCardCollectionKey(card, setId),
     set_id: setId,
     quantity,
-    card_name: getDisplayCardName(card, set),
-    card_number: String(card?.number || ""),
-    rarity: getDisplayRarity(card, set),
-    image_url: getCardImageUrl(card),
-    card_data: null,
   };
 }
 
-export function enqueuePendingCloudPull(cards, setId, userId) {
+export function enqueuePendingCloudPull(cards, setId, userId, clientEventId = "") {
   const validSetId = assertValidSetId(setId, "pending cloud pull queue");
 
   if (!userId || !Array.isArray(cards) || cards.length === 0) {
@@ -153,7 +147,7 @@ export function enqueuePendingCloudPull(cards, setId, userId) {
   const nextPendingPulls = [
     ...pendingPulls,
     {
-      id: `${userId}:${validSetId}:${Date.now()}:${Math.random().toString(36).slice(2)}`,
+      id: clientEventId || `${userId}:${validSetId}:${Date.now()}:${Math.random().toString(36).slice(2)}`,
       userId,
       setId: validSetId,
       cards: cards.map(compactPendingCard),
@@ -187,46 +181,47 @@ export function mergePendingCloudPullsIntoCollection(collection, userId) {
   return mergeCollectionCounts(collection, pendingCollection);
 }
 
-export async function syncPendingCloudPulls(userId) {
+async function performPendingCloudPullSync(userId) {
   if (!userId) return { attempted: 0, saved: 0, failed: 0 };
 
   const pendingPulls = loadPendingCloudPulls();
   const pullsForOtherUsers = pendingPulls.filter((pull) => pull.userId !== userId);
   const pullsForUser = pendingPulls.filter((pull) => pull.userId === userId);
-  const failedPulls = [];
-  let saved = 0;
+  if (pullsForUser.length === 0) return { attempted: 0, saved: 0, failed: 0 };
 
-  for (const pull of pullsForUser) {
-    try {
-      await savePulledCardsToCloud(pull.cards, pull.setId);
-      saved += 1;
-    } catch (error) {
-      console.warn("Pending PackDex mobile cloud pull sync failed", {
-        setId: pull.setId,
-        cardCount: pull.cards?.length || 0,
-        error,
-      });
-      failedPulls.push(pull);
-    }
-  }
+  const batches = pullsForUser.map((pull) => makeCollectionBatch(pull.cards, pull.setId, pull.id));
+  const { data, error } = await supabase.rpc("increment_collection_cards", { batches });
 
+  if (error) throw error;
+
+  const confirmedIds = new Set((data || []).map((row) => String(row.client_event_id || "")));
+  const failedPulls = pullsForUser.filter((pull) => !confirmedIds.has(String(pull.id)));
   savePendingCloudPulls([...pullsForOtherUsers, ...failedPulls]);
 
   return {
     attempted: pullsForUser.length,
-    saved,
+    saved: pullsForUser.length - failedPulls.length,
     failed: failedPulls.length,
   };
 }
 
-export async function savePulledCardsToCloud(cards, setId) {
+export function syncPendingCloudPulls(userId) {
+  if (!userId) return Promise.resolve({ attempted: 0, saved: 0, failed: 0 });
+  if (pendingSyncPromise) return pendingSyncPromise;
+
+  pendingSyncPromise = performPendingCloudPullSync(userId)
+    .catch((error) => {
+      console.warn("Pending PackDex mobile cloud pull sync failed", { userId, error });
+      throw error;
+    })
+    .finally(() => {
+      pendingSyncPromise = null;
+    });
+  return pendingSyncPromise;
+}
+
+function makeCollectionBatch(cards, setId, clientEventId) {
   const validSetId = assertValidSetId(setId, "cloud pull save");
-  const user = await getCurrentUser();
-
-  if (!user || !Array.isArray(cards) || cards.length === 0) {
-    return [];
-  }
-
   const set = findSet(validSetId);
 
   if (!set) {
@@ -237,10 +232,14 @@ export async function savePulledCardsToCloud(cards, setId) {
     throw new Error(`Unknown PackDex set id: ${validSetId}`);
   }
 
+  if (!clientEventId || typeof clientEventId !== "string") {
+    throw new TypeError("PackDex cloud pull save requires a stable client event id.");
+  }
+
   const grouped = new Map();
 
   for (const card of cards) {
-    const row = compactCardRow(card, set, validSetId, 1);
+    const row = compactCardRow(card, validSetId, 1);
     const existing = grouped.get(row.card_id);
 
     grouped.set(row.card_id, {
@@ -249,75 +248,21 @@ export async function savePulledCardsToCloud(cards, setId) {
     });
   }
 
-  const rows = [...grouped.values()];
-  const cardIds = rows.map((row) => row.card_id);
-  const { data: existingRows, error: existingError } = await supabase
-    .from(USER_COLLECTION_TABLE)
-    .select("card_id, quantity")
-    .eq("user_id", user.id)
-    .eq("set_id", validSetId)
-    .in("card_id", cardIds);
+  return { client_event_id: clientEventId, cards: [...grouped.values()] };
+}
 
-  if (existingError) {
-    console.warn("Unable to load existing mobile cloud cards before save", {
-      setId: validSetId,
-      cardCount: cards.length,
-      error: existingError,
-    });
-    throw existingError;
+export async function savePulledCardsToCloud(cards, setId, { userId = "", clientEventId = "" } = {}) {
+  if (!supabase || !userId || !Array.isArray(cards) || cards.length === 0) return [];
+
+  const batch = makeCollectionBatch(cards, setId, clientEventId);
+  const { data, error } = await supabase.rpc("increment_collection_cards", { batches: [batch] });
+
+  if (error) {
+    console.warn("Unable to increment mobile cloud cards", { setId, cardCount: cards.length, error });
+    throw error;
   }
 
-  const existingQuantities = new Map((existingRows || []).map((row) => [row.card_id, Number(row.quantity || 0)]));
-  const existingCardIds = new Set((existingRows || []).map((row) => row.card_id));
-  const rowsToUpdate = rows.filter((row) => existingCardIds.has(row.card_id));
-  const rowsToInsert = rows.filter((row) => !existingCardIds.has(row.card_id));
-
-  for (const row of rowsToUpdate) {
-    const { error } = await supabase
-      .from(USER_COLLECTION_TABLE)
-      .update({
-        quantity: (existingQuantities.get(row.card_id) || 0) + row.quantity,
-        card_name: row.card_name,
-        card_number: row.card_number,
-        rarity: row.rarity,
-        image_url: row.image_url,
-        card_data: null,
-      })
-      .eq("user_id", user.id)
-      .eq("set_id", row.set_id)
-      .eq("card_id", row.card_id);
-
-    if (error) {
-      console.warn("Unable to update mobile cloud card", {
-        setId: validSetId,
-        cardId: row.card_id,
-        cardCount: cards.length,
-        error,
-      });
-      throw error;
-    }
-  }
-
-  if (rowsToInsert.length > 0) {
-    const { error } = await supabase.from(USER_COLLECTION_TABLE).insert(
-      rowsToInsert.map((row) => ({
-        ...row,
-        user_id: user.id,
-      }))
-    );
-
-    if (error) {
-      console.warn("Unable to insert mobile cloud cards", {
-        setId: validSetId,
-        rowCount: rowsToInsert.length,
-        cardCount: cards.length,
-        error,
-      });
-      throw error;
-    }
-  }
-
-  return rows;
+  return data || [];
 }
 
 export function cloudRowsToCollection(rows) {

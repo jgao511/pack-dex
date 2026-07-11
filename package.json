@@ -2,7 +2,6 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && npm --prefix mobile-app run build && node scripts/copy-mobile-build.mjs",
-    "build:function:open-pack": "node scripts/build-open-pack-function.mjs",
     "preview": "vite preview",
     "verify:set-logos": "node scripts/verify-set-logos.mjs",
     "test:pack-rates": "node scripts/pack-rate-validator.mjs",

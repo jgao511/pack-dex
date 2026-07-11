@@ -1,14 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { supabase } from "../lib/supabaseClient.js";
+import { encodeSharePullPayload } from "../utils/sharePullPayload.js";
 
-function withTimeout(promise, timeoutMs = 15000) {
-  return Promise.race([
-    promise,
-    new Promise((_, reject) => window.setTimeout(() => reject(new Error("Share request timed out.")), timeoutMs)),
-  ]);
-}
-
-export default function SharePullButton({ cards, user, onLogin }) {
+export default function SharePullButton({ cards, setId, bestPullIndex }) {
   const generationRef = useRef(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState("");
@@ -29,26 +22,15 @@ export default function SharePullButton({ cards, user, onLogin }) {
   }
 
   async function handleShare() {
-    if (!user?.id) {
-      setError("Sign in to create a permanent share link.");
-      onLogin?.();
-      return;
-    }
-    if (!cards.shareReceipt) {
-      setError("This pack doesn't have a secure share receipt. Open a new pack while signed in.");
-      return;
-    }
     if (generationRef.current) return;
     generationRef.current = true;
     setIsGenerating(true);
     setError("");
 
     try {
-      const { data, error: functionError } = await withTimeout(
-        supabase.functions.invoke("create-pull-share", { body: { shareReceipt: cards.shareReceipt } })
-      );
-      if (functionError || !data?.url) throw functionError || new Error("No share URL returned.");
-      const shareData = { title: "My PackDex Pull", text: "Look what I pulled on PackDex!", url: data.url };
+      const token = encodeSharePullPayload({ setId, cardIds: cards.map((card) => String(card.id)), bestPullIndex });
+      const url = `${window.location.origin}/share/${token}`;
+      const shareData = { title: "My PackDex Pull", text: "Look what I pulled on PackDex!", url };
       if (navigator.share) {
         try {
           await navigator.share(shareData);
@@ -57,10 +39,10 @@ export default function SharePullButton({ cards, user, onLogin }) {
           if (shareError?.name === "AbortError") return;
         }
       }
-      if (await copyShareUrl(data.url)) setError("Link copied.");
-      else setError(data.url);
+      if (await copyShareUrl(url)) setError("Link copied.");
+      else setError(url);
     } catch (shareError) {
-      console.warn("Unable to create PackDex pull image", shareError);
+      console.warn("Unable to share PackDex pull", shareError);
       setError("Couldn't create the share link. Please try again.");
     } finally {
       generationRef.current = false;
@@ -71,7 +53,7 @@ export default function SharePullButton({ cards, user, onLogin }) {
   return (
     <>
       <button className="secondary-action share-pull-action" type="button" onClick={handleShare} disabled={isGenerating}>
-        {isGenerating ? "Creating link..." : "Share Pull"}
+        {isGenerating ? "Sharing..." : "Share Pull"}
       </button>
       {error && <p className="share-pull-error" role="status">{error}</p>}
     </>
