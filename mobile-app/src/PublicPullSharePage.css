@@ -1,26 +1,9 @@
-.public-share-page { box-sizing: border-box; min-height: 100dvh; color: #f7f6ff; background: #090b18; }
-.public-share-page.is-desktop { display: grid; justify-items: center; align-content: start; gap: 28px; padding: 34px 20px 48px; }
-.is-desktop .public-share-header { display: grid; justify-items: center; gap: 8px; text-align: center; }
-.is-desktop .public-share-header div { display: flex; align-items: center; gap: 10px; font-size: 1.4rem; }
-.is-desktop .public-share-header img, .is-desktop .public-share-not-found img, .is-desktop .public-share-loading img { width: 42px; height: 42px; object-fit: contain; }
-.is-desktop .public-share-header strong span { color: #a98cff; }
-.is-desktop .public-share-header h1 { margin: 8px 0 0; font-size: clamp(2rem, 7vw, 4.5rem); letter-spacing: 0; }
-.is-desktop .public-share-header p { margin: 0; color: #bdb5dd; font-size: 1.15rem; font-weight: 800; }
-.is-desktop .public-share-hero img, .is-desktop .public-share-hero .public-share-image-fallback { width: min(360px, 78vw); aspect-ratio: 0.716; object-fit: contain; border: 3px solid #8f75ef; border-radius: 16px; box-shadow: 0 20px 44px rgba(0,0,0,.5); }
-.is-desktop .public-share-card-grid { width: min(920px, 100%); display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 14px; }
-.is-desktop .public-share-card-grid img, .is-desktop .public-share-card-grid .public-share-image-fallback { width: 100%; aspect-ratio: 0.716; object-fit: contain; border: 1px solid #373152; border-radius: 8px; }
-.public-share-image-fallback { display: grid; place-items: center; padding: 10px; color: #aaa4c0; background: #121528; text-align: center; }
-.is-desktop .public-share-page-footer, .is-desktop .public-share-not-found { display: grid; justify-items: center; gap: 14px; text-align: center; }
-.is-desktop .public-share-page-footer p, .is-desktop .public-share-not-found p { margin: 0; color: #aaa4c0; }
-.is-desktop .public-share-page-footer a, .is-desktop .public-share-not-found a { min-height: 52px; display: inline-flex; align-items: center; justify-content: center; border-radius: 16px; padding: 0 24px; color: white; background: #7140ff; font-weight: 900; text-decoration: none; }
-.public-share-status { align-self: center; color: #c8c1df; font-weight: 800; }
-.public-share-not-found { align-self: center; }
-.public-share-loading { min-height: 70dvh; display: grid; place-content: center; justify-items: center; gap: 14px; color: #c8c1df; font-weight: 800; }
-
-.public-share-page.is-mobile {
+.public-share-page {
+  box-sizing: border-box;
   width: 100%;
   height: 100dvh;
   max-width: 430px;
+  min-height: 100dvh;
   margin: 0 auto;
   padding: max(14px, env(safe-area-inset-top)) 14px max(22px, env(safe-area-inset-bottom));
   display: grid;
@@ -29,28 +12,32 @@
   gap: 14px;
   overflow-x: hidden;
   overflow-y: auto;
+  color: #f7f6ff;
+  background: #090b18;
 }
-.mobile-public-share-header { display: grid; justify-items: center; gap: 5px; text-align: center; }
-.mobile-share-brand { display: flex; align-items: center; justify-content: center; gap: 7px; font-size: 1.2rem; line-height: 1; }
-.mobile-share-brand img { width: 29px; height: 29px; object-fit: contain; }
-.mobile-share-brand strong span { color: #a98cff; }
-.mobile-public-share-header h1 { max-width: 100%; margin: 6px 0 0; font-size: clamp(1.75rem, 8.4vw, 2.05rem); line-height: .98; letter-spacing: -.035em; text-wrap: balance; }
-.mobile-public-share-header p { margin: 0; color: #bdb5dd; font-size: .875rem; font-weight: 800; }
-.mobile-public-share-hero { display: grid; justify-items: center; width: 100%; }
-.mobile-public-share-hero img, .mobile-public-share-hero .public-share-image-fallback { width: clamp(180px, 56vw, 225px); max-width: 100%; aspect-ratio: .716; object-fit: contain; border: 2px solid #8f75ef; border-radius: 11px; box-shadow: 0 12px 28px rgba(0,0,0,.42); }
-.mobile-public-share-grid { width: 100%; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 7px; }
-.mobile-public-share-grid img, .mobile-public-share-grid .public-share-image-fallback { grid-column: span 2; width: 100%; min-width: 0; aspect-ratio: .716; object-fit: contain; border: 1px solid #373152; border-radius: 6px; }
-.mobile-public-share-grid.remainder-1 > :last-child { grid-column: 3 / span 2; }
-.mobile-public-share-grid.remainder-2 > :nth-last-child(2) { grid-column: 2 / span 2; }
-.mobile-public-share-footer { display: grid; justify-items: center; gap: 9px; width: 100%; padding-top: 2px; text-align: center; }
-.mobile-public-share-footer p { margin: 0; color: #aaa4c0; font-size: .82rem; }
-.mobile-public-share-footer a, .is-mobile .public-share-not-found a { width: min(100%, 260px); min-height: 48px; display: inline-flex; align-items: center; justify-content: center; border-radius: 14px; padding: 0 22px; color: white; background: #7140ff; font-weight: 900; text-decoration: none; }
-.is-mobile .public-share-loading, .is-mobile .public-share-not-found { width: 100%; min-height: calc(100dvh - max(36px, env(safe-area-inset-top)) - max(44px, env(safe-area-inset-bottom))); display: grid; place-content: center; justify-items: center; gap: 12px; padding: 16px; text-align: center; }
-.is-mobile .public-share-loading p, .is-mobile .public-share-not-found p { margin: 0; color: #aaa4c0; font-size: .875rem; }
-.is-mobile .public-share-not-found h1 { margin: 2px 0 0; font-size: 1.65rem; line-height: 1.05; }
+.public-share-header { display: grid; justify-items: center; gap: 5px; text-align: center; }
+.public-share-brand { display: flex; align-items: center; justify-content: center; gap: 7px; font-size: 1.2rem; line-height: 1; }
+.public-share-brand img { width: 29px; height: 29px; object-fit: contain; }
+.public-share-brand strong span { color: #a98cff; }
+.public-share-header h1 { max-width: 100%; margin: 6px 0 0; font-size: clamp(1.75rem, 8.4vw, 2.05rem); line-height: .98; letter-spacing: -.035em; text-wrap: balance; }
+.public-share-header p { margin: 0; color: #bdb5dd; font-size: .875rem; font-weight: 800; }
+.public-share-hero { display: grid; justify-items: center; width: 100%; }
+.public-share-hero img, .public-share-hero .public-share-image-fallback { width: clamp(180px, 56vw, 225px); max-width: 100%; aspect-ratio: .716; object-fit: contain; border: 2px solid #8f75ef; border-radius: 11px; box-shadow: 0 12px 28px rgba(0,0,0,.42); }
+.public-share-card-grid { width: 100%; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 7px; }
+.public-share-card-grid img, .public-share-card-grid .public-share-image-fallback { grid-column: span 2; width: 100%; min-width: 0; aspect-ratio: .716; object-fit: contain; border: 1px solid #373152; border-radius: 6px; }
+.public-share-card-grid.remainder-1 > :last-child { grid-column: 3 / span 2; }
+.public-share-card-grid.remainder-2 > :nth-last-child(2) { grid-column: 2 / span 2; }
+.public-share-image-fallback { display: grid; place-items: center; padding: 10px; color: #aaa4c0; background: #121528; text-align: center; }
+.public-share-page-footer { display: grid; justify-items: center; gap: 9px; width: 100%; padding-top: 2px; text-align: center; }
+.public-share-page-footer p { margin: 0; color: #aaa4c0; font-size: .82rem; }
+.public-share-page-footer a, .public-share-not-found a { width: min(100%, 260px); min-height: 48px; display: inline-flex; align-items: center; justify-content: center; border-radius: 14px; padding: 0 22px; color: white; background: #7140ff; font-weight: 900; text-decoration: none; }
+.public-share-loading, .public-share-not-found { width: 100%; min-height: calc(100dvh - max(36px, env(safe-area-inset-top)) - max(44px, env(safe-area-inset-bottom))); display: grid; place-content: center; justify-items: center; gap: 12px; padding: 16px; text-align: center; }
+.public-share-loading { color: #c8c1df; font-weight: 800; }
+.public-share-loading p, .public-share-not-found p { margin: 0; color: #aaa4c0; font-size: .875rem; }
+.public-share-not-found h1 { margin: 2px 0 0; font-size: 1.65rem; line-height: 1.05; }
 
 @media (max-width: 340px) {
-  .public-share-page.is-mobile { padding-inline: 12px; gap: 12px; }
-  .mobile-public-share-header h1 { font-size: 1.75rem; }
-  .mobile-public-share-grid { gap: 6px; }
+  .public-share-page { padding-inline: 12px; gap: 12px; }
+  .public-share-header h1 { font-size: 1.75rem; }
+  .public-share-card-grid { gap: 6px; }
 }

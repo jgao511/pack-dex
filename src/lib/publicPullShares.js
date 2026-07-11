@@ -10,7 +10,7 @@ export async function createPublicPullShare({ setId, cardIds, packNumber = null 
     body: { set_id: setId, card_ids: cardIds, pack_number: packNumber },
   });
   if (error) throw error;
-  if (!data?.url || !data?.share_code) throw new Error("Unable to create pull share.");
+  if (!data?.share_code) throw new Error("Unable to create pull share.");
   return data;
 }
 

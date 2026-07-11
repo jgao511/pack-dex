@@ -64,8 +64,6 @@ function assertEntryAssets(entry, expectedPrefix) {
 const redirects = parseRedirects(read(redirectsPath));
 assert.deepEqual(redirects, [
   { from: "/mobile-app/share/*", to: "/mobile-app/index.html", status: "200" },
-  { from: "/share/*", to: "/index.html", status: "200" },
-  { from: "/s/*", to: "/mobile-app/index.html", status: "200" },
   { from: "/mobile-app/*", to: "/mobile-app/index.html", status: "200" },
 ]);
 assert.ok(!fs.existsSync(path.join(dist, "mobile-app", "_redirects")), "Nested mobile _redirects must not be deployed");
@@ -73,11 +71,10 @@ assert.ok(!fs.existsSync(path.join(dist, "mobile-app", "_redirects")), "Nested m
 const routeCases = [
   ["/mobile-app", mobileEntry],
   ["/mobile-app/", mobileEntry],
-  ["/mobile-app/share/VALID_TOKEN", mobileEntry],
-  ["/mobile-app/share/INVALID_TOKEN", mobileEntry],
+  ["/mobile-app/share/VALID_SHARE_CODE", mobileEntry],
+  ["/mobile-app/share/INVALID_SHARE_CODE", mobileEntry],
   ["/mobile-app/reset-password", path.join(dist, "mobile-app", "reset-password", "index.html")],
   ["/mobile-app/auth/callback", mobileEntry],
-  ["/share/VALID_TOKEN", desktopEntry],
 ];
 
 for (const [pathname, expected] of routeCases) {

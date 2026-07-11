@@ -10,11 +10,11 @@ function ShareCardImage({ card, className = "" }) {
   return <img className={className} src={getCardImageUrl(card)} alt={card.name} loading="eager" decoding="async" onError={() => setFailed(true)} />;
 }
 
-function MobileShareBrand() {
-  return <div className="mobile-share-brand"><img src="/packdex-small.png" alt="" /><strong><span>Pack</span>Dex</strong></div>;
+function ShareBrand() {
+  return <div className="public-share-brand"><img src="/packdex-small.png" alt="" /><strong><span>Pack</span>Dex</strong></div>;
 }
 
-export default function PublicPullSharePage({ shareCode, token, interfaceMode = "desktop" }) {
+export default function PublicPullSharePage({ shareCode }) {
   const [state, setState] = useState({ status: "loading", share: null });
 
   useEffect(() => {
@@ -22,9 +22,7 @@ export default function PublicPullSharePage({ shareCode, token, interfaceMode = 
 
     async function loadShare() {
       try {
-        const data = token
-          ? (await import("./utils/sharePullPayload.js")).decodeSharePullPayload(token)
-          : await getPublicPullShare(shareCode);
+        const data = await getPublicPullShare(shareCode);
         const set = sets.find((candidate) => candidate.id === data?.set_id || candidate.id === data?.setId);
         const cardIds = data?.card_ids || data?.cardIds || [];
         if (!data || !set) throw new Error("Share not found.");
@@ -40,7 +38,7 @@ export default function PublicPullSharePage({ shareCode, token, interfaceMode = 
     setState({ status: "loading", share: null });
     loadShare();
     return () => { active = false; };
-  }, [shareCode, token]);
+  }, [shareCode]);
 
   useEffect(() => {
     const title = state.share ? `${state.share.setName} Pull | PackDex` : "Shared Pull | PackDex";
@@ -54,32 +52,21 @@ export default function PublicPullSharePage({ shareCode, token, interfaceMode = 
     });
     let link = document.head.querySelector('link[rel="canonical"]');
     if (!link) { link = document.createElement("link"); link.rel = "canonical"; document.head.appendChild(link); }
-    const identifier = token || shareCode;
-    link.href = `${window.location.origin}/${interfaceMode === "mobile" ? "mobile-app/share" : "share"}/${encodeURIComponent(identifier)}`;
-  }, [interfaceMode, state.share, shareCode, token]);
+    link.href = `${window.location.origin}/mobile-app/share/${encodeURIComponent(shareCode)}`;
+  }, [state.share, shareCode]);
 
   const bestPullIndex = Number.isInteger(state.share?.bestPullIndex) ? state.share.bestPullIndex : (state.share?.cards?.length || 1) - 1;
   const bestPull = state.share?.cards?.[bestPullIndex];
   const others = useMemo(() => state.share?.cards?.filter((_, index) => index !== bestPullIndex) || [], [bestPullIndex, state.share]);
-  const openPackHref = interfaceMode === "mobile" ? "/mobile-app" : "/";
 
-  if (state.status === "loading") return <main className={`public-share-page is-${interfaceMode}`}><section className="public-share-loading" role="status" aria-live="polite">{interfaceMode === "mobile" ? <MobileShareBrand /> : <img src="/packdex-small.png" alt="" />}<p>Loading shared pull...</p></section></main>;
-  if (state.status === "not-found" || !bestPull) return <main className={`public-share-page is-${interfaceMode}`}><section className="public-share-not-found">{interfaceMode === "mobile" ? <MobileShareBrand /> : <img src="/packdex-small.png" alt="PackDex" />}<h1>Shared pull not found</h1><p>This link may be invalid or unavailable.</p><a href={openPackHref}>Try PackDex</a></section></main>;
+  if (state.status === "loading") return <main className="public-share-page"><section className="public-share-loading" role="status" aria-live="polite"><ShareBrand /><p>Loading shared pull...</p></section></main>;
+  if (state.status === "not-found" || !bestPull) return <main className="public-share-page"><section className="public-share-not-found"><ShareBrand /><h1>Shared pull not found</h1><p>This link may be invalid or unavailable.</p><a href="/mobile-app">Try PackDex</a></section></main>;
 
-  if (interfaceMode === "mobile") {
-    const gridRemainder = others.length % 3;
-    return <main className="public-share-page is-mobile">
-      <header className="mobile-public-share-header"><MobileShareBrand /><h1>LOOK WHAT I PULLED!</h1><p>{state.share.setName}{state.share.pack_number ? ` · Pack #${state.share.pack_number}` : ""}</p></header>
-      <section className="mobile-public-share-hero"><ShareCardImage card={bestPull} /></section>
-      {others.length > 0 && <section className={`mobile-public-share-grid remainder-${gridRemainder}`}>{others.map((card, index) => <ShareCardImage key={`${card.id}-${index}`} card={card} />)}</section>}
-      <footer className="mobile-public-share-footer"><p>Opened on PackDex.</p><a href="/mobile-app">Open a Pack</a></footer>
-    </main>;
-  }
-
-  return <main className="public-share-page is-desktop">
-    <header className="public-share-header"><div><img src="/packdex-small.png" alt="" /><strong><span>Pack</span>Dex</strong></div><h1>LOOK WHAT I PULLED!</h1><p>{state.share.setName}{state.share.pack_number ? ` · Pack #${state.share.pack_number}` : ""}</p></header>
+  const gridRemainder = others.length % 3;
+  return <main className="public-share-page">
+    <header className="public-share-header"><ShareBrand /><h1>LOOK WHAT I PULLED!</h1><p>{state.share.setName}{state.share.pack_number ? ` · Pack #${state.share.pack_number}` : ""}</p></header>
     <section className="public-share-hero"><ShareCardImage card={bestPull} /></section>
-    <section className="public-share-card-grid">{others.map((card, index) => <ShareCardImage key={`${card.id}-${index}`} card={card} />)}</section>
-    <footer className="public-share-page-footer"><p>Opened on PackDex.</p><a href={openPackHref}>Open a Pack</a></footer>
+    {others.length > 0 && <section className={`public-share-card-grid remainder-${gridRemainder}`}>{others.map((card, index) => <ShareCardImage key={`${card.id}-${index}`} card={card} />)}</section>}
+    <footer className="public-share-page-footer"><p>Opened on PackDex.</p><a href="/mobile-app">Open a Pack</a></footer>
   </main>;
 }

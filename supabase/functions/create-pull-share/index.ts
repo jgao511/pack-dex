@@ -80,7 +80,7 @@ Deno.serve(async (req) => {
         card_ids: cardIds,
         pack_number: packNumber ?? null,
       });
-      if (!error) return jsonResponse({ share_code: shareCode, url: `${SHARE_ORIGIN}/s/${shareCode}` }, 201);
+      if (!error) return jsonResponse({ share_code: shareCode, url: `${SHARE_ORIGIN}/mobile-app/share/${shareCode}` }, 201);
       if (error.code !== "23505") throw error;
     }
 
