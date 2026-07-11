@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { createPublicPullShare } from "../../../src/lib/publicPullShares.js";
+import { buildMobileShareUrl } from "../utils/mobileShareUrl.js";
 
 export default function SharePullButton({ cards, setId, packNumber = null }) {
   const generationRef = useRef(false);
@@ -28,12 +29,13 @@ export default function SharePullButton({ cards, setId, packNumber = null }) {
     setError("");
 
     try {
-      const { url } = await createPublicPullShare({
+      const result = await createPublicPullShare({
         setId,
         cardIds: cards.map((card) => String(card.id)),
         packNumber,
       });
-      const shareData = { title: "My PackDex Pull", text: "Look what I pulled on PackDex!", url };
+      const mobileShareUrl = buildMobileShareUrl(result, window.location.origin);
+      const shareData = { title: "My PackDex Pull", text: "Look what I pulled on PackDex!", url: mobileShareUrl };
       if (navigator.share) {
         try {
           await navigator.share(shareData);
@@ -42,8 +44,8 @@ export default function SharePullButton({ cards, setId, packNumber = null }) {
           if (shareError?.name === "AbortError") return;
         }
       }
-      if (await copyShareUrl(url)) setError("Link copied.");
-      else setError(url);
+      if (await copyShareUrl(mobileShareUrl)) setError("Link copied.");
+      else setError(mobileShareUrl);
     } catch (shareError) {
       console.warn("Unable to share PackDex pull", shareError);
       setError("Couldn't create the share link. Please try again.");

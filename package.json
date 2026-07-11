@@ -8,6 +8,7 @@
     "test:pack-rates": "node scripts/pack-rate-validator.mjs",
     "test:pack-rates:deep": "node scripts/pack-rate-validator.mjs --deep",
     "test:tcgplayer-links": "node --test tests/tcgplayerSearch.test.mjs",
+    "test:mobile-share-links": "node --test tests/mobileShareLinks.test.mjs",
     "audit:vintage": "node scripts/audit-vintage-sets.mjs",
     "build:price-sync-catalog": "node scripts/build-price-sync-catalog.mjs",
     "check:price-sync-deploy-scope": "node scripts/assert-price-sync-deploy-scope.mjs",

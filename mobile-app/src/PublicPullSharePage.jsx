@@ -18,10 +18,9 @@ export default function PublicPullSharePage({ shareCode, token, interfaceMode = 
 
     async function loadShare() {
       try {
-        const isLegacyToken = Boolean(token?.startsWith("v") && token.includes("."));
-        const data = isLegacyToken
+        const data = token
           ? (await import("./utils/sharePullPayload.js")).decodeSharePullPayload(token)
-          : await getPublicPullShare(shareCode || token);
+          : await getPublicPullShare(shareCode);
         const set = sets.find((candidate) => candidate.id === data?.set_id || candidate.id === data?.setId);
         const cardIds = data?.card_ids || data?.cardIds || [];
         if (!data || !set) throw new Error("Share not found.");
@@ -51,9 +50,8 @@ export default function PublicPullSharePage({ shareCode, token, interfaceMode = 
     });
     let link = document.head.querySelector('link[rel="canonical"]');
     if (!link) { link = document.createElement("link"); link.rel = "canonical"; document.head.appendChild(link); }
-    link.href = token
-      ? `${window.location.origin}/${interfaceMode === "mobile" ? "mobile-app/share" : "share"}/${token}`
-      : `${window.location.origin}/s/${shareCode}`;
+    const identifier = token || shareCode;
+    link.href = `${window.location.origin}/${interfaceMode === "mobile" ? "mobile-app/share" : "share"}/${encodeURIComponent(identifier)}`;
   }, [interfaceMode, state.share, shareCode, token]);
 
   const bestPullIndex = Number.isInteger(state.share?.bestPullIndex) ? state.share.bestPullIndex : (state.share?.cards?.length || 1) - 1;
