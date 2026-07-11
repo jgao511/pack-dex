@@ -19,6 +19,7 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.106.2",
     "@vitejs/plugin-react": "latest",
+    "html-to-image": "^1.11.13",
     "lucide-react": "latest",
     "react": "latest",
     "react-dom": "latest",
