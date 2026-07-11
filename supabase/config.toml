@@ -1,2 +1,8 @@
 [functions.sync-card-prices]
 verify_jwt = false
+
+[functions.create-pull-share]
+verify_jwt = false
+
+[functions.get-pull-share]
+verify_jwt = false

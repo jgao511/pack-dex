@@ -1300,7 +1300,7 @@ function PackScreen({
             <SharePullButton
               cards={pack}
               setId={selectedSet.id}
-              bestPullIndex={pack.length - 1}
+              packNumber={packInstanceId}
             />
           </div>
         </>

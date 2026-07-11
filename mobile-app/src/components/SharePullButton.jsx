@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { encodeSharePullPayload } from "../utils/sharePullPayload.js";
+import { createPublicPullShare } from "../../../src/lib/publicPullShares.js";
 
-export default function SharePullButton({ cards, setId, bestPullIndex }) {
+export default function SharePullButton({ cards, setId, packNumber = null }) {
   const generationRef = useRef(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState("");
@@ -28,8 +28,11 @@ export default function SharePullButton({ cards, setId, bestPullIndex }) {
     setError("");
 
     try {
-      const token = encodeSharePullPayload({ setId, cardIds: cards.map((card) => String(card.id)), bestPullIndex });
-      const url = `${window.location.origin}/share/${token}`;
+      const { url } = await createPublicPullShare({
+        setId,
+        cardIds: cards.map((card) => String(card.id)),
+        packNumber,
+      });
       const shareData = { title: "My PackDex Pull", text: "Look what I pulled on PackDex!", url };
       if (navigator.share) {
         try {
