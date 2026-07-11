@@ -24,6 +24,7 @@ import {
   syncPendingCloudPulls,
 } from "./lib/cloudCollection.js";
 import { preloadImages } from "./utils/imageCache.js";
+import SharePullButton from "./components/SharePullButton.jsx";
 import {
   loadCurrentUserAchievementProgress,
   loadCurrentUserAchievements,
@@ -1264,6 +1265,14 @@ function PackScreen({
         priceMap
       )
     : 0;
+  const bestPull = useMemo(() => {
+    const rankedCards = pack.map((card, index) => {
+      const marketPrice = getCardDisplayPrice(card, priceMap, selectedSet.id)?.marketPriceUsd;
+      return { card, index, value: Number(marketPrice) || 0, isHit: isFoilHit(card, selectedSet) };
+    });
+
+    return rankedCards.sort((a, b) => b.value - a.value || Number(b.isHit) - Number(a.isHit) || b.index - a.index)[0];
+  }, [pack, priceMap, selectedSet]);
 
   return (
     <section className={`pack-stage is-${stage}`}>
@@ -1311,6 +1320,13 @@ function PackScreen({
             <button className="primary-action" type="button" onClick={onOpenAnother}>
               Open Another
             </button>
+            <SharePullButton
+              setName={selectedSet.name}
+              cards={pack}
+              bestPull={bestPull}
+              getCardImageUrl={(card) => getPackCardImageUrl(card, selectedSet)}
+              imagesReady={packImagesReady}
+            />
           </div>
         </>
       ) : (
