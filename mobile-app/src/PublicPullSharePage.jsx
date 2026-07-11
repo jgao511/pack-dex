@@ -10,6 +10,10 @@ function ShareCardImage({ card, className = "" }) {
   return <img className={className} src={getCardImageUrl(card)} alt={card.name} loading="eager" decoding="async" onError={() => setFailed(true)} />;
 }
 
+function MobileShareBrand() {
+  return <div className="mobile-share-brand"><img src="/packdex-small.png" alt="" /><strong><span>Pack</span>Dex</strong></div>;
+}
+
 export default function PublicPullSharePage({ shareCode, token, interfaceMode = "desktop" }) {
   const [state, setState] = useState({ status: "loading", share: null });
 
@@ -59,10 +63,20 @@ export default function PublicPullSharePage({ shareCode, token, interfaceMode = 
   const others = useMemo(() => state.share?.cards?.filter((_, index) => index !== bestPullIndex) || [], [bestPullIndex, state.share]);
   const openPackHref = interfaceMode === "mobile" ? "/mobile-app" : "/";
 
-  if (state.status === "loading") return <main className={`public-share-page is-${interfaceMode}`}><section className="public-share-loading" role="status" aria-live="polite"><img src="/packdex-small.png" alt="" /><p>Loading shared pull...</p></section></main>;
-  if (state.status === "not-found" || !bestPull) return <main className={`public-share-page is-${interfaceMode}`}><section className="public-share-not-found"><img src="/packdex-small.png" alt="PackDex" /><h1>Shared pull not found</h1><p>This link may be invalid or unavailable.</p><a href={openPackHref}>Try PackDex</a></section></main>;
+  if (state.status === "loading") return <main className={`public-share-page is-${interfaceMode}`}><section className="public-share-loading" role="status" aria-live="polite">{interfaceMode === "mobile" ? <MobileShareBrand /> : <img src="/packdex-small.png" alt="" />}<p>Loading shared pull...</p></section></main>;
+  if (state.status === "not-found" || !bestPull) return <main className={`public-share-page is-${interfaceMode}`}><section className="public-share-not-found">{interfaceMode === "mobile" ? <MobileShareBrand /> : <img src="/packdex-small.png" alt="PackDex" />}<h1>Shared pull not found</h1><p>This link may be invalid or unavailable.</p><a href={openPackHref}>Try PackDex</a></section></main>;
 
-  return <main className={`public-share-page is-${interfaceMode}`}>
+  if (interfaceMode === "mobile") {
+    const gridRemainder = others.length % 3;
+    return <main className="public-share-page is-mobile">
+      <header className="mobile-public-share-header"><MobileShareBrand /><h1>LOOK WHAT I PULLED!</h1><p>{state.share.setName}{state.share.pack_number ? ` · Pack #${state.share.pack_number}` : ""}</p></header>
+      <section className="mobile-public-share-hero"><ShareCardImage card={bestPull} /></section>
+      {others.length > 0 && <section className={`mobile-public-share-grid remainder-${gridRemainder}`}>{others.map((card, index) => <ShareCardImage key={`${card.id}-${index}`} card={card} />)}</section>}
+      <footer className="mobile-public-share-footer"><p>Opened on PackDex.</p><a href="/mobile-app">Open a Pack</a></footer>
+    </main>;
+  }
+
+  return <main className="public-share-page is-desktop">
     <header className="public-share-header"><div><img src="/packdex-small.png" alt="" /><strong><span>Pack</span>Dex</strong></div><h1>LOOK WHAT I PULLED!</h1><p>{state.share.setName}{state.share.pack_number ? ` · Pack #${state.share.pack_number}` : ""}</p></header>
     <section className="public-share-hero"><ShareCardImage card={bestPull} /></section>
     <section className="public-share-card-grid">{others.map((card, index) => <ShareCardImage key={`${card.id}-${index}`} card={card} />)}</section>
