@@ -1,0 +1,91 @@
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import path from "node:path";
+
+const root = process.cwd();
+const dist = path.join(root, "dist");
+const desktopEntry = path.join(dist, "index.html");
+const mobileEntry = path.join(dist, "mobile-app", "index.html");
+const redirectsPath = path.join(dist, "_redirects");
+
+function read(file) {
+  assert.ok(fs.existsSync(file), `Missing production artifact: ${path.relative(root, file)}`);
+  return fs.readFileSync(file, "utf8");
+}
+
+function parseRedirects(source) {
+  return source
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter((line) => line && !line.startsWith("#"))
+    .map((line) => {
+      const [from, to, status] = line.split(/\s+/);
+      return { from, to, status };
+    });
+}
+
+function matches(pattern, pathname) {
+  if (!pattern.includes("*")) return pattern === pathname;
+  const prefix = pattern.slice(0, pattern.indexOf("*"));
+  return pathname.startsWith(prefix);
+}
+
+function resolveEntry(pathname, rules) {
+  const exactFile = path.join(dist, pathname.replace(/^\/+/, ""));
+  if (fs.existsSync(exactFile) && fs.statSync(exactFile).isFile()) return exactFile;
+
+  const directoryEntry = path.join(exactFile, "index.html");
+  if (fs.existsSync(directoryEntry)) return directoryEntry;
+
+  const rule = rules.find((candidate) => matches(candidate.from, pathname));
+  assert.ok(rule, `No Cloudflare fallback matches ${pathname}`);
+  assert.equal(rule.status, "200", `Fallback for ${pathname} must be an internal rewrite`);
+  return path.join(dist, rule.to.replace(/^\/+/, ""));
+}
+
+function getAssetPaths(html) {
+  return [...html.matchAll(/(?:src|href)="(\/[^"?#]+\.(?:css|js))"/g)].map((match) => match[1]);
+}
+
+function assertEntryAssets(entry, expectedPrefix) {
+  const html = read(entry);
+  const assets = getAssetPaths(html);
+  assert.ok(assets.some((asset) => asset.endsWith(".css")), `${entry} does not reference CSS`);
+  assert.ok(assets.some((asset) => asset.endsWith(".js")), `${entry} does not reference JavaScript`);
+
+  for (const asset of assets) {
+    assert.ok(asset.startsWith(expectedPrefix), `${asset} uses the wrong production base`);
+    const assetFile = path.join(dist, asset.replace(/^\/+/, ""));
+    const contents = read(assetFile).trimStart();
+    assert.ok(!contents.startsWith("<!doctype html"), `${asset} incorrectly resolves to HTML`);
+  }
+}
+
+const redirects = parseRedirects(read(redirectsPath));
+assert.deepEqual(redirects, [
+  { from: "/mobile-app/share/*", to: "/mobile-app/index.html", status: "200" },
+  { from: "/share/*", to: "/index.html", status: "200" },
+  { from: "/s/*", to: "/mobile-app/index.html", status: "200" },
+  { from: "/mobile-app/*", to: "/mobile-app/index.html", status: "200" },
+]);
+assert.ok(!fs.existsSync(path.join(dist, "mobile-app", "_redirects")), "Nested mobile _redirects must not be deployed");
+
+const routeCases = [
+  ["/mobile-app", mobileEntry],
+  ["/mobile-app/", mobileEntry],
+  ["/mobile-app/share/VALID_TOKEN", mobileEntry],
+  ["/mobile-app/share/INVALID_TOKEN", mobileEntry],
+  ["/mobile-app/reset-password", path.join(dist, "mobile-app", "reset-password", "index.html")],
+  ["/mobile-app/auth/callback", mobileEntry],
+  ["/share/VALID_TOKEN", desktopEntry],
+];
+
+for (const [pathname, expected] of routeCases) {
+  assert.equal(path.resolve(resolveEntry(pathname, redirects)), path.resolve(expected), `${pathname} resolves to the wrong HTML entry`);
+}
+
+assertEntryAssets(desktopEntry, "/assets/");
+assertEntryAssets(mobileEntry, "/mobile-app/assets/");
+assertEntryAssets(path.join(dist, "mobile-app", "reset-password", "index.html"), "/mobile-app/assets/");
+
+console.log(`Verified ${routeCases.length} production routes and all generated entry assets.`);
