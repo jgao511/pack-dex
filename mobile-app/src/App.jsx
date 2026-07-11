@@ -32,6 +32,7 @@ import {
   requestServerAchievementAward,
 } from "../../src/lib/userAchievements.js";
 import { getSiteOrigin } from "../../src/utils/authRedirects.js";
+import { getTcgplayerSearchUrl } from "../../src/utils/tcgplayerSearch.js";
 import {
   formatUsd,
   getCardDisplayPrice,
@@ -458,16 +459,6 @@ function TcgplayerSourceBadge({ compact = false }) {
       <span>TCGplayer</span>
     </span>
   );
-}
-
-function getTcgplayerCardUrl(card, set, marketPrice) {
-  if (marketPrice?.tcgplayerUrl) return marketPrice.tcgplayerUrl;
-
-  const query = [getDisplayCardName(card, set), set?.name, card?.number ? `#${card.number}` : ""]
-    .filter(Boolean)
-    .join(" ");
-
-  return `https://www.tcgplayer.com/search/pokemon/product?productLineName=pokemon&q=${encodeURIComponent(query)}`;
 }
 
 function getEstimatedCardValue(card, count = 1) {
@@ -1850,7 +1841,11 @@ function CardInspectModal({ item, collection, onClose, priceMap }) {
   const { card, set } = item;
   const marketPrice = getCardDisplayPrice(card, priceMap, set.id);
   const hasMarketPrice = marketPrice?.marketPriceUsd != null;
-  const tcgplayerCardUrl = getTcgplayerCardUrl(card, set, marketPrice);
+  const tcgplayerCardUrl = getTcgplayerSearchUrl({
+    cardName: getDisplayCardName(card, set),
+    setName: set.name,
+    cardNumber: card.number,
+  });
   const ownedCount = getCardCount(collection, card, set.id);
 
   function getInspectTilt(event, target) {
@@ -1945,9 +1940,11 @@ function CardInspectModal({ item, collection, onClose, priceMap }) {
             Market Price: <strong>{hasMarketPrice ? formatUsd(marketPrice.marketPriceUsd) : "No market data available"}</strong>
             {hasMarketPrice && <TcgplayerSourceBadge compact />}
           </p>
-          <a className="tcgplayer-card-link" href={tcgplayerCardUrl} target="_blank" rel="noopener noreferrer">
-            View price on TCGplayer
-          </a>
+          {tcgplayerCardUrl && (
+            <a className="tcgplayer-card-link" href={tcgplayerCardUrl} target="_blank" rel="noopener noreferrer">
+              View price on TCGplayer
+            </a>
+          )}
         </div>
       </section>
     </div>

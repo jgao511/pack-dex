@@ -1,3 +1,4 @@
-/share/* /mobile-app/index.html 200
+/mobile-app/share/* /mobile-app/index.html 200
+/share/* /index.html 200
 /s/* /mobile-app/index.html 200
 /mobile-app/* /mobile-app/index.html 200

@@ -1,5 +1,8 @@
 import { supabase } from "./supabaseClient.js";
 
+const pullShareResults = new Map();
+const pullSharePromises = new Map();
+
 export async function createPublicPullShare({ setId, cardIds, packNumber = null } = {}) {
   if (!supabase) throw new Error("Sharing is unavailable right now.");
 
@@ -11,7 +14,7 @@ export async function createPublicPullShare({ setId, cardIds, packNumber = null 
   return data;
 }
 
-export async function getPublicPullShare(shareCode) {
+async function fetchPublicPullShare(shareCode) {
   if (!supabase) throw new Error("Sharing is unavailable right now.");
 
   const { data, error } = await supabase.functions.invoke("get-pull-share", {
@@ -19,4 +22,20 @@ export async function getPublicPullShare(shareCode) {
   });
   if (error) throw error;
   return data?.share || null;
+}
+
+export function getPublicPullShare(shareCode) {
+  const key = String(shareCode || "");
+  if (!key) return Promise.resolve(null);
+  if (pullShareResults.has(key)) return Promise.resolve(pullShareResults.get(key));
+  if (pullSharePromises.has(key)) return pullSharePromises.get(key);
+
+  const promise = fetchPublicPullShare(key)
+    .then((share) => {
+      pullShareResults.set(key, share);
+      return share;
+    })
+    .finally(() => pullSharePromises.delete(key));
+  pullSharePromises.set(key, promise);
+  return promise;
 }

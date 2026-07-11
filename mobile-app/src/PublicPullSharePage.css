@@ -1,7 +1,7 @@
 .public-share-page { min-height: 100dvh; display: grid; justify-items: center; align-content: start; gap: 28px; padding: 34px 20px 48px; color: #f7f6ff; background: #090b18; }
 .public-share-header { display: grid; justify-items: center; gap: 8px; text-align: center; }
 .public-share-header div { display: flex; align-items: center; gap: 10px; font-size: 1.4rem; }
-.public-share-header img, .public-share-not-found img { width: 42px; height: 42px; object-fit: contain; }
+.public-share-header img, .public-share-not-found img, .public-share-loading img { width: 42px; height: 42px; object-fit: contain; }
 .public-share-header strong span { color: #a98cff; }
 .public-share-header h1 { margin: 8px 0 0; font-size: clamp(2rem, 7vw, 4.5rem); letter-spacing: 0; }
 .public-share-header p { margin: 0; color: #bdb5dd; font-size: 1.15rem; font-weight: 800; }
@@ -14,3 +14,11 @@
 .public-share-page-footer a, .public-share-not-found a { min-height: 52px; display: inline-flex; align-items: center; justify-content: center; border-radius: 16px; padding: 0 24px; color: white; background: #7140ff; font-weight: 900; text-decoration: none; }
 .public-share-status { align-self: center; color: #c8c1df; font-weight: 800; }
 .public-share-not-found { align-self: center; }
+.public-share-loading { min-height: 70dvh; display: grid; place-content: center; justify-items: center; gap: 14px; color: #c8c1df; font-weight: 800; }
+@media (max-width: 640px) {
+  .public-share-page.is-mobile { gap: 20px; padding: 24px 14px 36px; }
+  .public-share-page.is-mobile .public-share-header h1 { font-size: 2.25rem; }
+  .public-share-page.is-mobile .public-share-hero img,
+  .public-share-page.is-mobile .public-share-hero .public-share-image-fallback { width: min(300px, 82vw); }
+  .public-share-page.is-mobile .public-share-card-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+}
