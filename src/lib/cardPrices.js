@@ -102,17 +102,28 @@ async function fetchCardPricesForSet(supabaseOrSetId, maybeSetId) {
 
   const setLookupIds = getPriceSetLookupIds(setId);
 
-  const { data, error } = await supabaseClient
-    .from("card_prices")
-    .select(PRICE_SELECT_COLUMNS)
-    .in("set_id", setLookupIds);
+  const rows = [];
+  const pageSize = 1000;
+  let from = 0;
 
-  if (error) {
-    console.error("[PackDex prices] card_prices set query failed", { setId, error });
-    throw error;
+  while (true) {
+    const { data, error } = await supabaseClient
+      .from("card_prices")
+      .select(PRICE_SELECT_COLUMNS)
+      .in("set_id", setLookupIds)
+      .range(from, from + pageSize - 1);
+
+    if (error) {
+      console.error("[PackDex prices] card_prices set query failed", { setId, from, error });
+      throw error;
+    }
+
+    rows.push(...(data || []));
+    if (!data || data.length < pageSize) break;
+    from += pageSize;
   }
 
-  return indexPriceRows(data || []);
+  return indexPriceRows(rows);
 }
 
 export function loadCardPricesForSet(supabaseOrSetId, maybeSetId) {
@@ -324,7 +335,13 @@ export function getDisplayMarketPrice(card, priceMap, setId = null) {
 export function getPriceMapEstimatedValue(priceMap, threshold = 0) {
   if (!(priceMap instanceof Map)) return 0;
 
-  return [...priceMap.values()].reduce((total, price) => {
+  const uniquePrices = new Map();
+  priceMap.forEach((price) => {
+    const key = price?.cardId || `${price?.setId}:${price?.cardNumber}:${price?.name}`;
+    if (key) uniquePrices.set(key, price);
+  });
+
+  return [...uniquePrices.values()].reduce((total, price) => {
     const marketPrice = Number(price?.marketPriceUsd);
 
     if (!Number.isFinite(marketPrice) || marketPrice <= 0 || marketPrice < threshold) return total;

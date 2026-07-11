@@ -62,7 +62,7 @@ import {
 import { CARD_BACK_URL, getCardImageUrl, getPokeballLoadingUrl, getSetLogoUrl, getSetPackArtUrl } from "./utils/assetUrls.js";
 import { preloadImage, preloadImages } from "./utils/imageCache.js";
 import { compareCardsByRarity } from "./utils/rarityRank.js";
-import { loadWelcomeRewardStatus } from "./lib/welcomeReward.js";
+import { cacheWelcomeRewardStatus, loadWelcomeRewardStatus } from "./lib/welcomeReward.js";
 import { claimWelcomeGodPack } from "./lib/securePackOpening.js";
 import { markPackGenerationComplete, markPackGenerationStart } from "./utils/imageDebug.js";
 import { markCardBackPreloadFinish, markCardBackPreloadStart } from "./utils/cardBackDebug.js";
@@ -2899,6 +2899,7 @@ function App() {
       preloadImages(rewardPack.map((card) => getCardImageUrl(card)), { timeoutMs: 0 });
 
       setWelcomeRewardStatus(claimedStatus);
+      cacheWelcomeRewardStatus(authUser.id, claimedStatus);
       if (result.collection) setCollection(result.collection);
       if (result.stats) {
         setProfileStats(result.stats);

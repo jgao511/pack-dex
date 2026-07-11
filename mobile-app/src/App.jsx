@@ -15,6 +15,7 @@ import { getFoilProfile } from "../../src/utils/foil.js";
 import { supabase, isSupabaseConfigured, missingSupabaseEnv } from "./lib/supabaseClient.js";
 import { loadCloudProfileStats } from "./lib/cloudProfileStats.js";
 import { ensurePackOpenClientEventId, recordPackOpenEvent } from "../../src/lib/packOpenEvents.js";
+import { cacheWelcomeRewardStatus, loadWelcomeRewardStatus } from "../../src/lib/welcomeReward.js";
 import {
   getCurrentUser,
   loadCloudCollection,
@@ -37,6 +38,7 @@ import {
   getCollectionEstimatedValue,
   getPriceMapEstimatedValue,
   loadCardPricesForCollection,
+  loadCardPricesForCards,
   loadCardPricesForSet,
 } from "../../src/lib/cardPrices.js";
 import { countDevRequest } from "./utils/requestDiagnostics.js";
@@ -375,27 +377,6 @@ async function getFunctionErrorDetails(error) {
   }
 }
 
-async function loadMobileWelcomeRewardStatus(currentUser) {
-  if (!supabase || !currentUser?.id) return { isEligible: false, isClaimed: true, setId: "", claimedAt: "" };
-
-  const { data, error } = await supabase
-    .from("user_welcome_rewards")
-    .select("user_id, welcome_god_pack_claimed, welcome_god_pack_set, welcome_reward_claimed_at")
-    .eq("user_id", currentUser.id)
-    .maybeSingle();
-
-  if (error) throw error;
-
-  if (!data) return { isEligible: true, isClaimed: false, setId: "", claimedAt: "" };
-
-  return {
-    isEligible: true,
-    isClaimed: Boolean(data.welcome_god_pack_claimed),
-    setId: data.welcome_god_pack_set || "",
-    claimedAt: data.welcome_reward_claimed_at || "",
-  };
-}
-
 async function claimMobileWelcomeGodPack(setId, forcedFormat = "") {
   if (!supabase) throw new Error("Supabase is not configured.");
 
@@ -432,10 +413,6 @@ function normalizeText(value) {
 
 function hasUsablePriceMap(priceMap) {
   return priceMap instanceof Map && priceMap.size > 0;
-}
-
-function hasLoadedPriceMap(priceMapsBySet, setId) {
-  return Boolean(setId) && Object.prototype.hasOwnProperty.call(priceMapsBySet || {}, setId);
 }
 
 function formatCachedValue(value, priceMap, options = {}) {
@@ -1392,6 +1369,7 @@ function CollectionCards({
   onReturnFromSet,
   returnLabel,
   priceMap,
+  priceStatus = "idle",
 }) {
   const orderedSets = useMemo(() => sortSetsByEra(sets), []);
   const selectedSet = orderedSets.find((set) => set.id === selectedSetId) || null;
@@ -1407,8 +1385,8 @@ function CollectionCards({
   const progress = selectedSet ? getSetCollectionProgress(collection, selectedSet) : { collected: 0, total: 0, percent: 0 };
   const setCards = selectedSet ? getPullableCollectionCards(selectedSet).sort((a, b) => getSetNumber(a) - getSetNumber(b)) : [];
   const setTotalValue = getPriceMapEstimatedValue(priceMap);
-  const setValueLoading = Boolean(selectedSet && !priceMap && !SETS_WITHOUT_MARKET_PRICE_DATA.has(selectedSet.id));
-  const setValueStatus = priceMap instanceof Map && priceMap.size > 0 ? "loaded" : "unavailable";
+  const setValueLoading = Boolean(selectedSet && priceStatus === "loading");
+  const hasSetPrices = priceMap instanceof Map && [...priceMap.values()].some((price) => Number(price?.marketPriceUsd) > 0);
 
   useEffect(() => {
     if (!selectedSet) setIsPickingSet(true);
@@ -1492,7 +1470,7 @@ function CollectionCards({
             </div>
             <p className="value-inline">
               <span>Estimated Set Value</span>
-              <strong>{setValueLoading ? "Loading..." : setValueStatus === "unavailable" ? "Market data not updated yet" : formatUsd(setTotalValue)}</strong>
+              <strong>{setValueLoading ? "Loading..." : priceStatus === "error" ? "Unable to load market data" : !hasSetPrices ? "Market data not updated yet" : formatUsd(setTotalValue)}</strong>
             </p>
           </div>
           {selectedSet.id === "30th-anniversary" && (
@@ -1794,6 +1772,8 @@ function CollectionScreen({
   onInspectCard,
   onReturnFromSet,
   returnLabel,
+  priceMap,
+  priceStatus,
 }) {
   const [collectionTab, setCollectionTab] = useState("cards");
   const isSetDetailOpen = Boolean(selectedSetId);
@@ -1848,6 +1828,8 @@ function CollectionScreen({
           onInspectCard={onInspectCard}
           onReturnFromSet={onReturnFromSet}
           returnLabel={returnLabel}
+          priceMap={priceMap}
+          priceStatus={priceStatus}
         />
       ) : (
         <CollectionBinders collection={collection} binders={binders} onImportMasterSet={onImportMasterSet} onCreateBinder={onCreateBinder} onInspectCard={onInspectCard} />
@@ -2462,11 +2444,14 @@ function MobileApp() {
   const lastSessionCheckAtRef = useRef(0);
   const [legalModalType, setLegalModalType] = useState("");
   const [priceMapsBySet, setPriceMapsBySet] = useState({});
+  const [fullSetPriceMapsBySet, setFullSetPriceMapsBySet] = useState({});
+  const [fullSetPriceStatusBySet, setFullSetPriceStatusBySet] = useState({});
   const [estimatedCollectionValue, setEstimatedCollectionValue] = useState(0);
   const [isValueLoading, setIsValueLoading] = useState(false);
   const collectionValueCacheRef = useRef(new Map());
   const loadingPriceSetIdsRef = useRef(new Set());
   const cardIdLoadedSetValueIdsRef = useRef(new Set());
+  const completePriceSetIdsRef = useRef(new Set());
   const preloadedAssetUrlsRef = useRef(new Set());
   const shownWelcomeRewardUserRef = useRef("");
   const soundEnabledRef = useRef(soundEnabled);
@@ -2844,7 +2829,7 @@ function MobileApp() {
       .filter(Boolean)
       .filter((setId, index, list) => list.indexOf(setId) === index)
       .filter((setId) => !SETS_WITHOUT_MARKET_PRICE_DATA.has(setId))
-      .filter((setId) => !cardIdLoadedSetValueIdsRef.current.has(setId) && !loadingPriceSetIdsRef.current.has(setId));
+      .filter((setId) => !completePriceSetIdsRef.current.has(setId) && !loadingPriceSetIdsRef.current.has(setId));
 
     if (!supabase || idsToLoad.length === 0) return undefined;
 
@@ -2852,20 +2837,32 @@ function MobileApp() {
 
     async function loadCurrentSetPriceMaps() {
       idsToLoad.forEach((setId) => loadingPriceSetIdsRef.current.add(setId));
+      setFullSetPriceStatusBySet((current) => ({
+        ...current,
+        ...Object.fromEntries(idsToLoad.map((setId) => [setId, "loading"])),
+      }));
       const entries = await Promise.allSettled(idsToLoad.map(async (setId) => [setId, await loadCardPricesForSet(supabase, setId)]));
 
       idsToLoad.forEach((setId) => loadingPriceSetIdsRef.current.delete(setId));
       entries.forEach((entry) => {
-        if (entry.status === "fulfilled") cardIdLoadedSetValueIdsRef.current.add(entry.value[0]);
+        if (entry.status === "fulfilled") completePriceSetIdsRef.current.add(entry.value[0]);
       });
       if (cancelled) return;
 
-      setPriceMapsBySet((current) => {
+      setFullSetPriceMapsBySet((current) => {
         const next = { ...current };
         entries.forEach((entry) => {
           if (entry.status !== "fulfilled") return;
           const [setId, priceMap] = entry.value;
           next[setId] = priceMap;
+        });
+        return next;
+      });
+      setFullSetPriceStatusBySet((current) => {
+        const next = { ...current };
+        entries.forEach((entry, index) => {
+          const setId = entry.status === "fulfilled" ? entry.value[0] : idsToLoad[index];
+          next[setId] = entry.status === "fulfilled" ? "loaded" : "error";
         });
         return next;
       });
@@ -2879,9 +2876,7 @@ function MobileApp() {
       idsToLoad.forEach((setId) => loadingPriceSetIdsRef.current.delete(setId));
     });
 
-    return () => {
-      cancelled = true;
-    };
+    return () => { cancelled = true; };
   }, [selectedCollectionSetId, selectedSet?.id]);
 
   useEffect(() => {
@@ -2933,7 +2928,7 @@ function MobileApp() {
       return null;
     }
 
-    const status = await loadMobileWelcomeRewardStatus(currentUser);
+    const status = await loadWelcomeRewardStatus(currentUser);
 
     setWelcomeRewardStatus(status);
     if (autoOpen && status.isEligible && !status.isClaimed && shownWelcomeRewardUserRef.current !== currentUser.id) {
@@ -3318,17 +3313,16 @@ function MobileApp() {
       supabase &&
       set?.id &&
       !SETS_WITHOUT_MARKET_PRICE_DATA.has(set.id) &&
-      !hasLoadedPriceMap(priceMapsBySet, set.id) &&
       !loadingPriceSetIdsRef.current.has(set.id)
     ) {
       loadingPriceSetIdsRef.current.add(set.id);
-      loadCardPricesForSet(supabase, set.id)
+      loadCardPricesForCards(supabase, set, [card])
         .then((priceMap) => {
-          setPriceMapsBySet((current) => ({
-            ...current,
-            [set.id]: priceMap,
-          }));
-          cardIdLoadedSetValueIdsRef.current.add(set.id);
+          setPriceMapsBySet((current) => {
+            const merged = new Map(current[set.id] || []);
+            priceMap.forEach((value, key) => merged.set(key, value));
+            return { ...current, [set.id]: merged };
+          });
         })
         .catch((error) => {
           console.warn("[PackDex prices] Unable to load inspect card prices", {
@@ -3383,14 +3377,14 @@ function MobileApp() {
         throw new Error("This God Pack is not available right now. Please choose another pack.");
       }
 
-      setWelcomeRewardStatus(
-        result.rewardStatus || result.status || {
+      const claimedStatus = result.rewardStatus || result.status || {
           isEligible: true,
           isClaimed: true,
           setId: choice.set.id,
           claimedAt: new Date().toISOString(),
-        }
-      );
+        };
+      setWelcomeRewardStatus(claimedStatus);
+      cacheWelcomeRewardStatus(user.id, claimedStatus);
       if (result.stats) setStats(result.stats);
 
       try {
@@ -3620,7 +3614,7 @@ function MobileApp() {
                 onInspectCard={inspectCard}
                 soundEnabled={soundEnabled}
                 newPullKeys={newPullKeys}
-                priceMap={selectedSet ? priceMapsBySet[selectedSet.id] : null}
+                priceMap={selectedSet ? fullSetPriceMapsBySet[selectedSet.id] || priceMapsBySet[selectedSet.id] : null}
               />
             ))}
           {activeTab === "collection" && (
@@ -3642,7 +3636,8 @@ function MobileApp() {
               onInspectCard={inspectCard}
               onReturnFromSet={returnFromCollectionSet}
               returnLabel={collectionReturnSource === "open" ? "Back to Open Packs" : "Back to Collection"}
-              priceMap={selectedCollectionSetId ? priceMapsBySet[selectedCollectionSetId] : null}
+              priceMap={selectedCollectionSetId ? fullSetPriceMapsBySet[selectedCollectionSetId] : null}
+              priceStatus={selectedCollectionSetId ? fullSetPriceStatusBySet[selectedCollectionSetId] || "idle" : "idle"}
             />
           )}
           {activeTab === "value" && (
@@ -3712,7 +3707,7 @@ function MobileApp() {
         <CardInspectModal
           item={inspectedCard}
           collection={collection}
-          priceMap={inspectedCard?.set ? priceMapsBySet[inspectedCard.set.id] : null}
+          priceMap={inspectedCard?.set ? fullSetPriceMapsBySet[inspectedCard.set.id] || priceMapsBySet[inspectedCard.set.id] : null}
           onClose={() => setInspectedCard(null)}
         />
         <MobileAuthModal

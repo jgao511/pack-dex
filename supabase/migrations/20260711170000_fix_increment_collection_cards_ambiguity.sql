@@ -16,6 +16,9 @@ begin
   if v_user_id is null then
     raise exception 'Authentication required' using errcode = '42501';
   end if;
+  -- Serialize one user's collection mutations so idempotency receipts,
+  -- quantity increments, and compact profile counters remain consistent.
+  perform pg_advisory_xact_lock(hashtextextended(v_user_id::text, 0));
   if jsonb_typeof($1) <> 'array' or jsonb_array_length($1) not between 1 and 50 then
     raise exception 'batches must contain between 1 and 50 items' using errcode = '22023';
   end if;

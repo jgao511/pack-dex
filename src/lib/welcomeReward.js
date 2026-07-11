@@ -1,6 +1,9 @@
 import { supabase } from "./supabaseClient.js";
+import { getCachedSupabaseUser } from "./sessionUserCache.js";
 
 const WELCOME_REWARD_TABLE = "user_welcome_rewards";
+const rewardStatusByUserId = new Map();
+const rewardStatusPromisesByUserId = new Map();
 
 function isEligibleUser(user) {
   return Boolean(user?.id);
@@ -42,51 +45,60 @@ function normalizeRewardRow(row, user) {
 
 async function getCurrentUser() {
   if (!supabase) return null;
-
-  const { data, error } = await supabase.auth.getUser();
-
-  if (error) {
+  try {
+    return await getCachedSupabaseUser(supabase);
+  } catch (error) {
     console.warn("Unable to read current user for welcome reward", error);
     return null;
   }
-
-  return data.user || null;
 }
 
-export async function loadWelcomeRewardStatus(userOverride) {
+export function cacheWelcomeRewardStatus(userId, status) {
+  if (!userId || !status) return status;
+  rewardStatusByUserId.set(String(userId), status);
+  return status;
+}
+
+export function invalidateWelcomeRewardStatus(userId) {
+  if (!userId) return;
+  rewardStatusByUserId.delete(String(userId));
+  rewardStatusPromisesByUserId.delete(String(userId));
+}
+
+export async function loadWelcomeRewardStatus(userOverride, { force = false } = {}) {
   if (!supabase) return { isEligible: false, isClaimed: true, setId: "", claimedAt: "" };
 
   const user = userOverride || (await getCurrentUser());
 
   if (!user) return { isEligible: false, isClaimed: true, setId: "", claimedAt: "" };
 
-  const { data, error } = await supabase
-    .from(WELCOME_REWARD_TABLE)
-    .select("user_id, welcome_god_pack_claimed, welcome_god_pack_set, welcome_reward_claimed_at")
-    .eq("user_id", user.id)
-    .maybeSingle();
+  const userId = String(user.id);
+  if (!force && rewardStatusByUserId.has(userId)) return rewardStatusByUserId.get(userId);
+  if (rewardStatusPromisesByUserId.has(userId)) return rewardStatusPromisesByUserId.get(userId);
 
-  if (error) {
-    logWelcomeRewardDebug("select", {
-      error,
-      user,
-      rowMissing: undefined,
-      isEligible: isEligibleUser(user),
-    });
-    throw error;
-  }
+  const promise = (async () => {
+    const { data, error } = await supabase
+      .from(WELCOME_REWARD_TABLE)
+      .select("user_id,welcome_god_pack_claimed,welcome_god_pack_set,welcome_reward_claimed_at")
+      .eq("user_id", userId)
+      .maybeSingle();
 
-  const status = normalizeRewardRow(data, user);
+    if (error) {
+      logWelcomeRewardDebug("select", { error, user, rowMissing: undefined, isEligible: isEligibleUser(user) });
+      throw error;
+    }
 
-  if (status.rowMissing) {
-    logWelcomeRewardDebug("missing-row", {
-      user,
-      rowMissing: true,
-      isEligible: status.isEligible,
-    });
-  }
+    const status = normalizeRewardRow(data, user);
 
-  return status;
+    if (status.rowMissing) {
+      logWelcomeRewardDebug("missing-row", { user, rowMissing: true, isEligible: status.isEligible });
+    }
+
+    return cacheWelcomeRewardStatus(userId, status);
+  })().finally(() => rewardStatusPromisesByUserId.delete(userId));
+
+  rewardStatusPromisesByUserId.set(userId, promise);
+  return promise;
 }
 
 export async function claimWelcomeReward(setId, userOverride) {
