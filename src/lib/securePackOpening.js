@@ -60,6 +60,14 @@ export async function openPackAndSaveResult(setId) {
     godPackFormat: data?.godPackFormat || data?.pack?.godPackFormat || "",
     godPackDisplayName: data?.godPackDisplayName || data?.pack?.godPackDisplayName || "",
   });
+  Object.defineProperties(cards, {
+    shareReceipt: { value: String(data?.shareReceipt || ""), enumerable: false, configurable: true },
+    serverSaved: { value: true, enumerable: false, configurable: true },
+  });
+  Object.defineProperties(cards, {
+    shareReceipt: { value: String(data?.shareReceipt || ""), enumerable: false, configurable: true },
+    serverSaved: { value: true, enumerable: false, configurable: true },
+  });
 
   return {
     cards,

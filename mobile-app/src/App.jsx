@@ -15,6 +15,7 @@ import { getFoilProfile } from "../../src/utils/foil.js";
 import { supabase, isSupabaseConfigured, missingSupabaseEnv } from "./lib/supabaseClient.js";
 import { loadCloudProfileStats } from "./lib/cloudProfileStats.js";
 import { ensurePackOpenClientEventId, recordPackOpenEvent } from "../../src/lib/packOpenEvents.js";
+import { openPackAndSaveResult } from "../../src/lib/securePackOpening.js";
 import {
   getCurrentUser,
   loadCloudCollection,
@@ -1252,7 +1253,7 @@ function PackScreen({
   newPullKeys,
   priceMap,
 }) {
-  if (!selectedSet || !pack?.length) return null;
+  if (!selectedSet || (!pack?.length && stage !== "ready" && stage !== "preloading")) return null;
 
   const isRevealing = stage === "revealing";
   const isSummary = stage === "summary";
@@ -1265,15 +1266,6 @@ function PackScreen({
         priceMap
       )
     : 0;
-  const bestPull = useMemo(() => {
-    const rankedCards = pack.map((card, index) => {
-      const marketPrice = getCardDisplayPrice(card, priceMap, selectedSet.id)?.marketPriceUsd;
-      return { card, index, value: Number(marketPrice) || 0, isHit: isFoilHit(card, selectedSet) };
-    });
-
-    return rankedCards.sort((a, b) => b.value - a.value || Number(b.isHit) - Number(a.isHit) || b.index - a.index)[0];
-  }, [pack, priceMap, selectedSet]);
-
   return (
     <section className={`pack-stage is-${stage}`}>
       {isReady ? (
@@ -1321,11 +1313,9 @@ function PackScreen({
               Open Another
             </button>
             <SharePullButton
-              setName={selectedSet.name}
               cards={pack}
-              bestPull={bestPull}
-              getCardImageUrl={(card) => getPackCardImageUrl(card, selectedSet)}
-              imagesReady={packImagesReady}
+              user={user}
+              onLogin={onLogin}
             />
           </div>
         </>
@@ -3330,11 +3320,19 @@ function MobileApp() {
     setCollection(nextCollection);
   }
 
-  function openPack(set) {
-    const nextPack = generatePack(set);
-    ensurePackOpenClientEventId(nextPack, set.id);
+  async function createPackForSession(set) {
+    if (user?.id) {
+      const result = await openPackAndSaveResult(set.id);
+      return result.cards;
+    }
+    return generatePack(set);
+  }
 
-    preparePackImages(nextPack, set);
+  function openPack(set) {
+    const nextPack = user?.id ? [] : generatePack(set);
+    if (nextPack.length) ensurePackOpenClientEventId(nextPack, set.id);
+
+    if (nextPack.length) preparePackImages(nextPack, set);
     setCollectionReturnSource("collection");
     setSelectedSet(set);
     setPack(nextPack);
@@ -3403,7 +3401,7 @@ function MobileApp() {
 
     if (user) {
       try {
-        await savePulledCardsToCloud(cards, set.id);
+        if (!cards.serverSaved) await savePulledCardsToCloud(cards, set.id);
       } catch (error) {
         console.warn("Mobile PackDex cloud save failed; keeping local fallback", {
           setId: set.id,
@@ -3430,11 +3428,29 @@ function MobileApp() {
     }
   }
 
-  function startReveal() {
-    if (!selectedSet || pack.length === 0 || packStage !== "ready") return;
+  async function startReveal() {
+    if (!selectedSet || packStage !== "ready") return;
 
     playPackOpenSound(soundEnabled);
-    beginReveal(pack, selectedSet);
+    if (pack.length) {
+      beginReveal(pack, selectedSet);
+      return;
+    }
+
+    setPackStage("preloading");
+    setLoadingMessage("Preparing secure pack...");
+    try {
+      const nextPack = await createPackForSession(selectedSet);
+      ensurePackOpenClientEventId(nextPack, selectedSet.id);
+      preparePackImages(nextPack, selectedSet);
+      setPack(nextPack);
+      setLoadingMessage("");
+      beginReveal(nextPack, selectedSet);
+    } catch (error) {
+      console.warn("Unable to prepare mobile pack", error);
+      setLoadingMessage("Unable to prepare this pack. Please try again.");
+      setPackStage("ready");
+    }
   }
 
   function beginReveal(cards, set) {
@@ -3476,13 +3492,21 @@ function MobileApp() {
     scrollScreenToTop();
   }
 
-  function openAnotherPack() {
+  async function openAnotherPack() {
     if (!selectedSet) {
       returnToSets();
       return;
     }
 
-    const nextPack = generatePack(selectedSet);
+    setLoadingMessage(user?.id ? "Preparing secure pack..." : "");
+    let nextPack;
+    try {
+      nextPack = await createPackForSession(selectedSet);
+    } catch (error) {
+      console.warn("Unable to prepare another mobile pack", error);
+      setLoadingMessage("Unable to prepare this pack. Please try again.");
+      return;
+    }
     ensurePackOpenClientEventId(nextPack, selectedSet.id);
 
     preparePackImages(nextPack, selectedSet);
@@ -3492,6 +3516,7 @@ function MobileApp() {
     setNewPullKeys(new Set());
     setHasSavedCurrentPack(false);
     savedPackKeyRef.current = "";
+    setLoadingMessage("");
     playPackOpenSound(soundEnabled);
     beginReveal(nextPack, selectedSet);
     scrollScreenToTop();

@@ -694,22 +694,22 @@ button {
 .share-pull-action { grid-column: 1 / -1; border-color: rgba(153, 126, 255, 0.72); color: #e5ddff; }
 .share-pull-action:disabled { cursor: wait; opacity: 0.62; }
 .share-pull-error { grid-column: 1 / -1; margin: 0; color: #ffb7c2; font-size: 0.76rem; font-weight: 750; line-height: 1.35; text-align: center; }
-.pull-share-capture { position: fixed; left: -12000px; top: 0; width: 1080px; height: 1080px; pointer-events: none; }
-.pull-share-card { box-sizing: border-box; width: 1080px; height: 1080px; display: grid; grid-template-rows: 182px 540px 246px 112px; overflow: hidden; padding: 0 72px; color: #f8f7ff; background: #090b18; font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
-.pull-share-header { display: grid; place-items: center; align-content: center; gap: 7px; border-bottom: 2px solid #302469; }
-.pull-share-brand { display: flex; align-items: center; gap: 12px; font-size: 31px; }
-.pull-share-brand img { width: 43px; height: 43px; object-fit: contain; }
-.pull-share-brand strong span { color: #a98cff; }
-.pull-share-header h1 { margin: 0; font-size: 52px; line-height: 1; letter-spacing: 0; }
-.pull-share-header p { margin: 0; color: #bdb5dd; font-size: 25px; font-weight: 750; }
-.pull-share-hero { display: grid; place-items: center; padding: 28px 0 20px; }
-.pull-share-hero img { width: auto; height: 492px; max-width: 100%; object-fit: contain; border: 4px solid #8f75ef; border-radius: 20px; box-shadow: 0 20px 42px rgba(0, 0, 0, 0.55); }
-.pull-share-grid { display: flex; align-items: center; justify-content: center; gap: 14px; overflow: hidden; }
-.pull-share-grid img { width: auto; height: 218px; max-width: calc((100% - 56px) / 5); object-fit: contain; border: 2px solid #373152; border-radius: 9px; }
-.pull-share-grid.is-dense { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); grid-template-rows: repeat(2, 110px); place-items: center; align-content: center; }
-.pull-share-grid.is-dense img { width: auto; height: 106px; max-width: 100%; }
-.pull-share-footer { display: flex; align-items: center; justify-content: space-between; border-top: 2px solid #302469; color: #aaa4c0; font-size: 24px; }
-.pull-share-footer strong { color: #d9ceff; }
+.public-share-page { min-height: 100dvh; display: grid; justify-items: center; align-content: start; gap: 28px; padding: 34px 20px 48px; color: #f7f6ff; background: #090b18; }
+.public-share-header { display: grid; justify-items: center; gap: 8px; text-align: center; }
+.public-share-header div { display: flex; align-items: center; gap: 10px; font-size: 1.4rem; }
+.public-share-header img, .public-share-not-found img { width: 42px; height: 42px; object-fit: contain; }
+.public-share-header strong span { color: #a98cff; }
+.public-share-header h1 { margin: 8px 0 0; font-size: clamp(2rem, 7vw, 4.5rem); letter-spacing: 0; }
+.public-share-header p { margin: 0; color: #bdb5dd; font-size: 1.15rem; font-weight: 800; }
+.public-share-hero img, .public-share-hero .public-share-image-fallback { width: min(360px, 78vw); aspect-ratio: 0.716; object-fit: contain; border: 3px solid #8f75ef; border-radius: 16px; box-shadow: 0 20px 44px rgba(0,0,0,.5); }
+.public-share-card-grid { width: min(920px, 100%); display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 14px; }
+.public-share-card-grid img, .public-share-card-grid .public-share-image-fallback { width: 100%; aspect-ratio: 0.716; object-fit: contain; border: 1px solid #373152; border-radius: 8px; }
+.public-share-image-fallback { display: grid; place-items: center; padding: 10px; color: #aaa4c0; background: #121528; text-align: center; }
+.public-share-page-footer, .public-share-not-found { display: grid; justify-items: center; gap: 14px; text-align: center; }
+.public-share-page-footer p, .public-share-not-found p { margin: 0; color: #aaa4c0; }
+.public-share-page-footer a, .public-share-not-found a { min-height: 52px; display: inline-flex; align-items: center; justify-content: center; border-radius: 16px; padding: 0 24px; color: white; background: #7140ff; font-weight: 900; text-decoration: none; }
+.public-share-status { align-self: center; color: #c8c1df; font-weight: 800; }
+.public-share-not-found { align-self: center; }
 
 .pull-summary-copy {
   width: 100%;

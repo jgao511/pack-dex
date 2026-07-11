@@ -1,0 +1,45 @@
+import { generatePack } from "../../../src/utils/packGenerator.js";
+import { issuePackShareReceipt } from "../../functions/_shared/packShareReceipt.ts";
+import {
+  compactPackCardForResponse,
+  corsHeaders,
+  findSet,
+  formatErrorForResponse,
+  getAuthenticatedUser,
+  jsonResponse,
+  upsertCardsForUser,
+} from "../../functions/_shared/packdex.ts";
+
+Deno.serve(async (req) => {
+  if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
+
+  let debugStep = "start";
+  try {
+    debugStep = "authenticate";
+    const { admin, user } = await getAuthenticatedUser(req);
+    debugStep = "parse_body";
+    const body = await req.json().catch(() => ({}));
+    const set = findSet(String(body?.set_id || body?.setId || ""));
+    if (!set) return jsonResponse({ error: "Unknown set." }, 400);
+
+    debugStep = "generate_pack";
+    const cards = generatePack(set);
+    debugStep = "save_collection";
+    await upsertCardsForUser(admin, user.id, cards, set);
+    const responseCards = cards.map((card, index) => compactPackCardForResponse(card, set, index));
+    debugStep = "issue_share_receipt";
+    const shareReceipt = await issuePackShareReceipt(user.id, set.id, responseCards.map((card) => card.id));
+
+    return jsonResponse({
+      cards: responseCards,
+      shareReceipt,
+      isGodPack: Boolean(cards.isGodPack),
+      godPackFormat: cards.godPackFormat || "",
+      godPackDisplayName: cards.godPackDisplayName || "",
+    });
+  } catch (error) {
+    const formattedError = formatErrorForResponse(error);
+    console.error("open-pack failed", { step: debugStep, error: formattedError });
+    return jsonResponse({ error: "Unable to open pack securely.", step: debugStep, ...formattedError }, 500);
+  }
+});
