@@ -288,7 +288,6 @@ export function loadCardPricesForCollection(supabaseOrCollectionCards, maybeColl
   const promise = fetchCardPricesForCollection(supabaseOrCollectionCards, maybeCollectionCards)
     .then((result) => {
       collectionPriceResults.set(key, result);
-      Object.entries(result.priceMapsBySet || {}).forEach(([setId, priceMap]) => setPriceResults.set(setId, priceMap));
       return result;
     })
     .finally(() => collectionPricePromises.delete(key));

@@ -2433,14 +2433,7 @@ function App() {
             return;
           }
 
-          if (syncResult.saved > 0) {
-            const refreshedCollection = await loadCloudCollection();
-
-            if (!isMounted) return;
-
-            setCollection(mergePendingCloudPullsIntoCollection(refreshedCollection, authUser.id));
-            setCloudWarning("");
-          }
+          if (syncResult.saved > 0) setCloudWarning("");
         } catch (error) {
           console.warn("Pending PackDex cloud pulls could not be synced after account load", {
             userId: authUser.id,
@@ -2724,7 +2717,8 @@ function App() {
     if (cards.welcomeReward) return;
 
     if (authUser) {
-      savePulledCardsToCloud(cards, selectedSet.id)
+      const clientEventId = ensurePackOpenClientEventId(cards, selectedSet.id);
+      savePulledCardsToCloud(cards, selectedSet.id, { userId: authUser.id, clientEventId })
         .then(async () => {
           try {
             const result = await recordPackOpenEvent({
@@ -2751,7 +2745,7 @@ function App() {
             error,
           });
 
-          enqueuePendingCloudPull(cards, selectedSet.id, authUser.id);
+          enqueuePendingCloudPull(cards, selectedSet.id, authUser.id, clientEventId);
           setCloudWarning("Couldn't save this pack to your account yet. It was saved locally and will retry automatically.");
         });
     }
