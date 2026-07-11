@@ -61,6 +61,15 @@ function assertEntryAssets(entry, expectedPrefix) {
   }
 }
 
+function assertEntryMarker(entry, expectedMarker) {
+  const html = read(entry);
+  assert.match(
+    html,
+    new RegExp(`<meta\\s+name=["']packdex-entry["']\\s+content=["']${expectedMarker}["']\\s*/?>`),
+    `${entry} does not contain the ${expectedMarker} entry marker`
+  );
+}
+
 const redirects = parseRedirects(read(redirectsPath));
 assert.deepEqual(redirects, [
   { from: "/mobile-app/share/*", to: "/mobile-app/index.html", status: "200" },
@@ -84,5 +93,8 @@ for (const [pathname, expected] of routeCases) {
 assertEntryAssets(desktopEntry, "/assets/");
 assertEntryAssets(mobileEntry, "/mobile-app/assets/");
 assertEntryAssets(path.join(dist, "mobile-app", "reset-password", "index.html"), "/mobile-app/assets/");
+assertEntryMarker(desktopEntry, "legacy-desktop");
+assertEntryMarker(mobileEntry, "mobile-app");
+assertEntryMarker(path.join(dist, "mobile-app", "reset-password", "index.html"), "mobile-app");
 
 console.log(`Verified ${routeCases.length} production routes and all generated entry assets.`);
