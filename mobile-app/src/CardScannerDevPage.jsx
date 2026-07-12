@@ -4,6 +4,7 @@ import { recognizeCardText } from "../../src/lib/cardScanner/recognizeCardText.j
 import { rankCardMatches } from "../../src/lib/cardScanner/rankCardMatches.js";
 import { confirmTrustedCandidate, getScannerResultMode, releaseTemporaryImage } from "../../src/lib/cardScanner/scannerSession.js";
 import { getCardImageUrl } from "../../src/utils/assetUrls.js";
+import { nativeCameraAdapter as defaultNativeCameraAdapter, nativeOcrAdapter as defaultOcrAdapter } from "./lib/nativeScannerAdapters.js";
 
 const examples = ["Charizard ex\n199/165", "UMBRE0N EX\n161 / 131", "Pikachu\n58/102", "Pikachu", "copyright 2025 pokemon creatures inc"];
 
@@ -20,9 +21,11 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
   const [message, setMessage] = useState("");
   const [devText, setDevText] = useState(examples[0]);
   const fileInputRef = useRef(null); const pendingFileRef = useRef(null);
-  const activeOcrAdapter = ocrAdapter || globalThis.__PACKDEX_SCANNER_OCR__;
+  const activeCameraAdapter = nativeCameraAdapter || defaultNativeCameraAdapter;
+  const activeOcrAdapter = ocrAdapter || (defaultNativeCameraAdapter.isAvailable() ? defaultOcrAdapter : globalThis.__PACKDEX_SCANNER_OCR__);
 
   useEffect(() => () => releaseTemporaryImage(image), [image]);
+  useEffect(() => { let handle; activeCameraAdapter.listenForRestoredCapture?.((restored) => { releaseTemporaryImage(image); setImage(restored); setStage("processing"); setMessage(""); recognizeCardText(restored, { adapter: activeOcrAdapter }).then((reading) => { if (!reading.fullText.trim()) throw new Error("We couldn’t read enough text from this photo. Try again with the card flat and fully visible."); finishReading(reading.fullText, reading.blocks); }).catch(() => { setStage("captured"); setMessage("We couldn’t read enough text from this photo. Try again with the card flat and fully visible."); }); }).then((value) => { handle = value; }); return () => handle?.remove?.(); }, []);
 
   function selectBrowserFile(options) {
     return new Promise((resolve) => {
@@ -35,9 +38,10 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
     setMessage(""); setConfirmed(null); setSelected(null); setMatch(null);
     let nextImage = null;
     try {
-      nextImage = await captureCardImage({ source, nativeAdapter: nativeCameraAdapter, selectBrowserFile });
+      nextImage = await captureCardImage({ source, nativeAdapter: activeCameraAdapter, selectBrowserFile });
       releaseTemporaryImage(image); setImage(nextImage); setStage("processing");
       const reading = await recognizeCardText(nextImage, { adapter: activeOcrAdapter });
+      if (!reading.fullText.trim()) throw Object.assign(new Error("We couldn’t read enough text from this photo. Try again with the card flat and fully visible."), { code: "empty-ocr" });
       finishReading(reading.fullText, reading.blocks);
     } catch (error) {
       if (error?.code === "cancelled") { setStage("start"); return; }

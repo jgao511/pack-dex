@@ -13,6 +13,8 @@
     "test:card-prices": "node --test tests/cardPriceCoverage.test.mjs",
     "test:scanner-adapters": "node --test tests/scannerAdapters.test.mjs",
     "test:scanner-production-route": "node --test tests/scannerProductionRoute.test.mjs",
+    "test:scanner-native-plugins": "node --test tests/scannerNativePlugins.test.mjs",
+    "test:scanner-test-build": "node --test tests/scannerTestBuild.test.mjs",
     "audit:vintage": "node scripts/audit-vintage-sets.mjs",
     "build:price-sync-catalog": "node scripts/build-price-sync-catalog.mjs",
     "check:price-sync-deploy-scope": "node scripts/assert-price-sync-deploy-scope.mjs",

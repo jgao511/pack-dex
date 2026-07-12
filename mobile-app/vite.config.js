@@ -5,7 +5,10 @@ import { fileURLToPath } from "node:url";
 const mobileAppDir = fileURLToPath(new URL(".", import.meta.url));
 
 export default defineConfig(({ command, mode }) => ({
-  base: command === "build" ? (mode === "native" ? "./" : "/mobile-app/") : "/",
+  base: command === "build" ? (mode.startsWith("native") ? "./" : "/mobile-app/") : "/",
+  define: {
+    __PACKDEX_SCANNER_TEST__: JSON.stringify(mode === "native-scanner"),
+  },
   plugins: [react()],
   envDir: mobileAppDir,
   publicDir: "../public",

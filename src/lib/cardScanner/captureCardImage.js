@@ -15,12 +15,15 @@ export function createTemporaryImage(file, urlApi = URL) {
 
 export async function captureCardImage({ source = "camera", nativeAdapter, selectBrowserFile, urlApi = URL } = {}) {
   if (nativeAdapter?.isAvailable?.()) {
-    let permission = await nativeAdapter.checkPermission?.();
-    if (permission !== "granted") permission = await nativeAdapter.requestPermission?.();
-    if (permission === "permanentlyDenied") throw new CardCaptureError("permission-permanently-denied", "Camera access is blocked. Enable it in device settings, then try again.");
-    if (permission !== "granted") throw new CardCaptureError("permission-denied", "Camera access was not allowed. You can choose a photo instead.");
+    if (source === "camera") {
+      let permission = await nativeAdapter.checkPermission?.();
+      if (permission !== "granted") permission = await nativeAdapter.requestPermission?.();
+      if (permission === "permanentlyDenied") throw new CardCaptureError("permission-permanently-denied", "Camera access is blocked. Enable it in device settings, then try again.");
+      if (permission !== "granted") throw new CardCaptureError("permission-denied", "Camera access wasn’t available. You can choose a photo instead.");
+    }
     const result = await nativeAdapter.capture({ source, saveToGallery: false });
     if (!result) throw new CardCaptureError("cancelled", "Card scan was cancelled.");
+    if (!result.imageUrl) throw new CardCaptureError("malformed-result", "We couldn’t open that photo. Please try another one.");
     return result;
   }
   if (!selectBrowserFile) throw new CardCaptureError("unavailable", "Camera capture is unavailable here. Choose a photo instead.");

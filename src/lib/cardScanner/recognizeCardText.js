@@ -7,6 +7,8 @@ function normalizeBox(box) {
   return { ...box };
 }
 
+function normalizeLine(line) { return { text: String(line?.text || "").trim(), boundingBox: normalizeBox(line?.boundingBox), elements: (line?.elements || []).map((element) => ({ text: String(element?.text || "").trim(), boundingBox: normalizeBox(element?.boundingBox) })) }; }
+
 export function normalizeOcrResult(result) {
   if (!result) return { fullText: "", blocks: [] };
   const sourceBlocks = result.blocks || result.textBlocks || result.lines || [];
@@ -14,6 +16,7 @@ export function normalizeOcrResult(result) {
     text: String(block?.text || "").trim(),
     ...(Number.isFinite(Number(block?.confidence)) ? { confidence: Number(block.confidence) } : {}),
     ...(block?.boundingBox || block?.frame ? { boundingBox: normalizeBox(block.boundingBox || block.frame) } : {}),
+    ...(block?.lines ? { lines: block.lines.map(normalizeLine) } : {}),
   })).filter((block) => block.text);
   return { fullText: String(result.fullText ?? result.text ?? blocks.map((block) => block.text).join("\n")).trim(), blocks };
 }

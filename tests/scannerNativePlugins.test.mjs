@@ -1,0 +1,28 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+import { readFile } from "node:fs/promises";
+import { getProportionalSize, stripDataUrlPrefix } from "../src/lib/cardScanner/prepareCardImage.js";
+
+test("prepares proportional OCR dimensions without upscaling", () => {
+  assert.deepEqual(getProportionalSize(3000, 2000, 1800), { width: 1800, height: 1200 });
+  assert.deepEqual(getProportionalSize(900, 1260, 1800), { width: 900, height: 1260 });
+});
+
+test("removes image data URL prefixes and rejects empty dimensions", () => {
+  assert.equal(stripDataUrlPrefix("data:image/jpeg;base64,ABC123"), "ABC123");
+  assert.throws(() => getProportionalSize(0, 0), /open that photo/i);
+});
+
+test("native adapters keep capture temporary and local", async () => {
+  const source = await readFile(new URL("../mobile-app/src/lib/nativeScannerAdapters.js", import.meta.url), "utf8");
+  assert.match(source, /saveToGallery:\s*false/);
+  assert.match(source, /CameraResultType\.Uri/);
+  assert.match(source, /CameraSource\.Photos/);
+  assert.match(source, /base64Image:\s*working\.base64Image/);
+  for (const forbidden of ["localStorage", "indexedDB", "supabase", "fetch(\"http", "upload", "Filesystem"]) assert.equal(source.toLowerCase().includes(forbidden.toLowerCase()), false, `Unexpected persistence or upload API: ${forbidden}`);
+});
+
+test("camera permission is requested only for camera source", async () => {
+  const source = await readFile(new URL("../src/lib/cardScanner/captureCardImage.js", import.meta.url), "utf8");
+  assert.match(source, /if \(source === "camera"\)/);
+});
