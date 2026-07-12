@@ -9,4 +9,5 @@ test("dedicated native scanner bundle includes its route and Settings entry", as
   assert.match(bundle, /\/mobile-app\/dev\/card-scanner/);
   assert.match(bundle, /Scanner Test/);
   assert.match(bundle, /Reading card/);
+  assert.match(bundle, /Scanner Diagnostics/);
 });

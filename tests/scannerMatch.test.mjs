@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { rankCardMatches } from "../src/lib/cardScanner/rankCardMatches.js";
 import { extractCollectorNumbers } from "../src/lib/cardScanner/extractCollectorNumbers.js";
+import { rerankMatchesByImage } from "../src/lib/cardScanner/rerankMatchesByImage.js";
 
 function expectTop(rawText, setId, number, confidence = "high") {
   const output = rankCardMatches({ rawText });
@@ -21,4 +22,43 @@ test("set totals support number-only matches", () => expectTop("203/198", "scarl
 test("handles secret-card numbering above the printed total", () => expectTop("205/198", "scarlet-violet", "205"));
 test("parses full-width slash, prefixes, promos, and leading zeros", () => {
   assert.deepEqual(extractCollectorNumbers("203／198 TG23/TG30 SWSH262 025/165 2025").map((x) => [x.normalized, x.normalizedTotal]), [["203", "198"], ["TG23", "TG30"], ["25", "165"], ["SWSH262", null]]);
+});
+
+test("prioritizes corrected collector numbers from bottom passes and rejects HP/year noise", () => {
+  const parsed = extractCollectorNumbers("", [
+    { text: "120 HP 2025", sourcePass: "full-card" },
+    { text: "I99 / I65", sourcePass: "collector-bottom-right" },
+  ]);
+  assert.equal(parsed.some((item) => item.normalized === "120"), false);
+  assert.equal(parsed.some((item) => item.normalized === "2025"), false);
+  const collector = parsed.find((item) => item.normalized === "199");
+  assert.equal(collector.normalizedTotal, "165");
+  assert.equal(collector.sourcePass, "collector-bottom-right");
+});
+
+test("weak unrelated OCR does not return random candidates", () => {
+  const output = rankCardMatches({ rawText: "retreat energy weakness resistance 120 damage" });
+  assert.equal(output.results.length, 0);
+  assert.equal(output.primaryMatch, null);
+});
+
+test("optional image reranking can only reorder the OCR shortlist", async () => {
+  const candidates = [
+    { card: { id: "sv1-1" }, score: 80 },
+    { card: { id: "sv1-2" }, score: 70 },
+  ];
+
+  const reordered = await rerankMatchesByImage(
+    { uri: "local-photo" },
+    candidates,
+    async (_photo, shortlist) => [...shortlist].reverse(),
+  );
+  assert.deepEqual(reordered.map(({ card }) => card.id), ["sv1-2", "sv1-1"]);
+
+  const injected = await rerankMatchesByImage(
+    { uri: "local-photo" },
+    candidates,
+    async () => [{ card: { id: "unrelated" } }, candidates[0]],
+  );
+  assert.equal(injected, candidates);
 });

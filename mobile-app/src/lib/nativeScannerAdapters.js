@@ -29,7 +29,11 @@ export const nativeCameraAdapter = {
 export const nativeOcrAdapter = {
   async recognize(image) {
     const working = await prepareCardImage(image);
-    try { return await CapacitorPluginMlKitTextRecognition.detectText({ base64Image: working.base64Image, rotation: working.rotation }); }
-    finally { working.base64Image = ""; }
+    const results = [];
+    for (const pass of working.passes) {
+      try { const result = await CapacitorPluginMlKitTextRecognition.detectText({ base64Image: pass.base64Image, rotation: 0 }); results.push({ label: pass.label, width: pass.width, height: pass.height, text: result.text || "", blocks: result.blocks || [] }); }
+      finally { pass.base64Image = ""; }
+    }
+    return { text: results.map((pass) => pass.text).filter(Boolean).join("\n"), blocks: results.flatMap((pass) => pass.blocks.map((block) => ({ ...block, sourcePass: pass.label }))), passes: results, imageDiagnostics: { originalWidth: working.originalWidth, originalHeight: working.originalHeight, preparedWidth: working.width, preparedHeight: working.height, detectedOrientation: working.detectedOrientation, rotationApplied: working.rotationApplied } };
   },
 };

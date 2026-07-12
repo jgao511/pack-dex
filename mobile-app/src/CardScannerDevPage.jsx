@@ -19,6 +19,7 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
   const [selected, setSelected] = useState(null);
   const [confirmed, setConfirmed] = useState(null);
   const [message, setMessage] = useState("");
+  const [diagnostics, setDiagnostics] = useState(null);
   const [devText, setDevText] = useState(examples[0]);
   const fileInputRef = useRef(null); const pendingFileRef = useRef(null);
   const activeCameraAdapter = nativeCameraAdapter || defaultNativeCameraAdapter;
@@ -42,18 +43,19 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
       releaseTemporaryImage(image); setImage(nextImage); setStage("processing");
       const reading = await recognizeCardText(nextImage, { adapter: activeOcrAdapter });
       if (!reading.fullText.trim()) throw Object.assign(new Error("We couldn’t read enough text from this photo. Try again with the card flat and fully visible."), { code: "empty-ocr" });
-      finishReading(reading.fullText, reading.blocks);
+      finishReading(reading.fullText, reading.blocks, reading);
     } catch (error) {
       if (error?.code === "cancelled") { setStage("start"); return; }
       setMessage(error instanceof CardCaptureError ? error.message : error.message || "We couldn’t read this card.");
       setStage(nextImage ? "captured" : "start");
     }
   }
-  function finishReading(fullText, blocks = []) {
+  function finishReading(fullText, blocks = [], reading = {}) {
     const nextMatch = rankCardMatches({ rawText: fullText, textBlocks: blocks, maxResults: 5 });
+    setDiagnostics({ image: reading.imageDiagnostics || null, passes: reading.passes || [], rawText: fullText, normalizedText: nextMatch.normalizedText, collectorNumbers: nextMatch.collectorNumbers, nameCandidates: nextMatch.nameCandidates, matches: nextMatch.results.map(({ cardId, score, confidence, reasons, setName, card }) => ({ cardId, name: card.name, setName, score, confidence, reasons })) });
     setMatch(nextMatch); setSelected(null); setStage("result"); setMessage("");
   }
-  function reset() { releaseTemporaryImage(image); setImage(null); setMatch(null); setSelected(null); setConfirmed(null); setMessage(""); setStage("start"); }
+  function reset() { releaseTemporaryImage(image); setImage(null); setMatch(null); setSelected(null); setConfirmed(null); setDiagnostics(null); setMessage(""); setStage("start"); }
   function confirm(result) { const trusted = confirmTrustedCandidate(match, result.cardId); if (trusted) { setConfirmed(trusted); setSelected(result); } }
   const mode = getScannerResultMode(match); const highResult = match?.primaryMatch;
 
@@ -67,7 +69,8 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
     {stage === "captured" && <><div className="scanner-result-actions"><button className="secondary-action" type="button" onClick={() => beginCapture("camera")}>Retake Photo</button></div><section className="scanner-dev-reading"><label htmlFor="scanner-dev-text">Development card text</label><textarea id="scanner-dev-text" rows="4" value={devText} onChange={(e) => setDevText(e.target.value)} /><div className="scanner-example-row">{examples.map((example) => <button type="button" key={example} onClick={() => setDevText(example)}>{example.split("\n")[0]}</button>)}</div><button className="primary-action" type="button" onClick={() => finishReading(devText)}>Read Test Text</button></section></>}
     {stage === "result" && mode === "high" && highResult && <section className="scanner-result"><span className="scanner-confidence">High confidence</span><Candidate result={highResult} onSelect={confirm} actionLabel="Confirm Card" /><div className="scanner-result-actions"><button className="secondary-action" type="button" onClick={() => { setMatch({ ...match, confidence: "medium", primaryMatch: null }); setSelected(null); }}>Not This Card</button><button className="secondary-action" type="button" onClick={reset}>Scan Again</button></div></section>}
     {stage === "result" && mode === "medium" && <section className="scanner-result"><h2>Choose the matching card</h2>{match.results.slice(0, 3).map((result) => <Candidate key={result.cardId} result={result} onSelect={(item) => setSelected(item)} />)}{selected && <button className="primary-action" type="button" onClick={() => confirm(selected)}>Confirm Card</button>}<button className="secondary-action" type="button" onClick={reset}>Scan Again</button></section>}
-    {stage === "result" && mode === "low" && <section className="scanner-result scanner-low"><h2>We couldn’t confidently identify this card.</h2>{match.results?.length > 0 && <details><summary>Choose From Matches</summary>{match.results.slice(0, 3).map((result) => <Candidate key={result.cardId} result={result} onSelect={(item) => setSelected(item)} />)}{selected && <button className="primary-action" type="button" onClick={() => confirm(selected)}>Confirm Card</button>}</details>}<button className="primary-action" type="button" onClick={reset}>Scan Again</button></section>}
+    {stage === "result" && mode === "low" && <section className="scanner-result scanner-low"><h2>{match.results?.length ? "We couldn’t confidently identify this card." : "We couldn’t find a reliable match."}</h2><p>Keep the full card visible on a plain background, reduce glare, hold steady, and try without a sleeve if practical.</p>{match.results?.length > 0 && <details><summary>Choose From Matches</summary>{match.results.slice(0, 3).map((result) => <Candidate key={result.cardId} result={result} onSelect={(item) => setSelected(item)} />)}{selected && <button className="primary-action" type="button" onClick={() => confirm(selected)}>Confirm Card</button>}</details>}<div className="scanner-result-actions"><button className="primary-action" type="button" onClick={reset}>Scan Again</button><button className="secondary-action" type="button" onClick={() => beginCapture("library")}>Choose Photo</button></div></section>}
+    {diagnostics && <details className="scanner-diagnostics"><summary>Scanner Diagnostics</summary><button className="secondary-action" type="button" onClick={() => navigator.clipboard?.writeText(JSON.stringify(diagnostics, null, 2))}>Copy Diagnostics</button><pre>{JSON.stringify(diagnostics, null, 2)}</pre></details>}
     {confirmed && <section className="scanner-confirmed" role="status"><span>Confirmed locally</span><strong>{confirmed.card.name}</strong><small>Trusted PackDex card ID: {confirmed.cardId}</small></section>}
   </main>;
 }

@@ -17,8 +17,9 @@ export function normalizeOcrResult(result) {
     ...(Number.isFinite(Number(block?.confidence)) ? { confidence: Number(block.confidence) } : {}),
     ...(block?.boundingBox || block?.frame ? { boundingBox: normalizeBox(block.boundingBox || block.frame) } : {}),
     ...(block?.lines ? { lines: block.lines.map(normalizeLine) } : {}),
+    ...(block?.sourcePass ? { sourcePass: block.sourcePass } : {}),
   })).filter((block) => block.text);
-  return { fullText: String(result.fullText ?? result.text ?? blocks.map((block) => block.text).join("\n")).trim(), blocks };
+  return { fullText: String(result.fullText ?? result.text ?? blocks.map((block) => block.text).join("\n")).trim(), blocks, ...(result.passes ? { passes: result.passes } : {}), ...(result.imageDiagnostics ? { imageDiagnostics: result.imageDiagnostics } : {}) };
 }
 
 export async function recognizeCardText(image, { adapter } = {}) {
