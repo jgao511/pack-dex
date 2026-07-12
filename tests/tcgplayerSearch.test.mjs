@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { sets } from "../src/data/sets.js";
 import { getPokemonTcgApiSetId } from "../src/lib/priceSetMap.js";
-import { getTcgplayerSearchNumber, getTcgplayerSearchUrl } from "../src/utils/tcgplayerSearch.js";
+import { getTcgplayerCardUrl, getTcgplayerSearchNumber, getTcgplayerSearchUrl } from "../src/utils/tcgplayerSearch.js";
 
 function findCard(setId, name, number) {
   const set = sets.find((item) => item.id === setId);
@@ -52,6 +52,20 @@ test("fails safely when a reliable search cannot be built", () => {
   assert.equal(getTcgplayerSearchUrl({ cardName: "Herdier", setName: "White Flare" }), null);
   assert.equal(getTcgplayerSearchUrl({ cardName: "Herdier", cardNumber: "75" }), null);
   assert.equal(getTcgplayerSearchUrl({ setName: "White Flare", cardNumber: "75" }), null);
+});
+
+test("encodes punctuation and international card names safely", () => {
+  const result = getTcgplayerSearchUrl({ cardName: "Pokémon's Ampersand & Mega ex", setName: "Mega Evolution", cardNumber: "001" });
+  const url = new URL(result);
+  assert.equal(url.searchParams.get("q"), "Pokémon's Ampersand & Mega ex Mega Evolution #1");
+  assert.match(result, /%26/);
+});
+
+test("preserves trusted exact TCGplayer URLs and falls back from unsafe URLs", () => {
+  const exact = "https://www.tcgplayer.com/product/12345/pokemon-test-card";
+  assert.equal(getTcgplayerCardUrl({ exactUrl: exact, cardName: "Ignored", setName: "Ignored", cardNumber: "1" }), exact);
+  const fallback = getTcgplayerCardUrl({ exactUrl: "https://example.com/wrong", cardName: "Mew ex", setName: "151", cardNumber: "151" });
+  assert.equal(new URL(fallback).searchParams.get("q"), "Mew ex 151 #151");
 });
 
 test("every catalog card produces a search tied to its own name, set, and number", () => {

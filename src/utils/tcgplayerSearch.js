@@ -23,3 +23,15 @@ export function getTcgplayerSearchUrl({ cardName, setName, cardNumber } = {}) {
   searchUrl.searchParams.set("q", `${name} ${set} ${number}`);
   return searchUrl.toString();
 }
+
+export function getTcgplayerCardUrl({ exactUrl, cardName, setName, cardNumber } = {}) {
+  if (exactUrl) {
+    try {
+      const url = new URL(String(exactUrl));
+      if (url.protocol === "https:" && /(^|\.)tcgplayer\.com$/i.test(url.hostname)) return url.toString();
+    } catch {
+      // Fall through to the trusted catalog search.
+    }
+  }
+  return getTcgplayerSearchUrl({ cardName, setName, cardNumber });
+}

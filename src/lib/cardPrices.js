@@ -2,6 +2,7 @@ import { supabase as defaultSupabase } from "./supabaseClient.js";
 import { getPokemonTcgApiSetId } from "./priceSetMap.js";
 import { getPriceSetAlias } from "./priceSetAliases.js";
 import { countDevRequest } from "../../mobile-app/src/utils/requestDiagnostics.js";
+import { calculateValueCoverage } from "./priceCoverage.js";
 
 export const VALUE_COUNT_THRESHOLD_USD = 1;
 const PRICE_SELECT_COLUMNS =
@@ -367,8 +368,17 @@ export function getCollectionEstimatedValue(collectionCards = [], priceMapOrMaps
   }, 0);
 }
 
+export function getCollectionValueCoverage(collectionCards = [], priceMapOrMaps, threshold = 0) {
+  return calculateValueCoverage(collectionCards, (item) => {
+    const card = item.card || item;
+    const setId = item.set?.id || item.setId || item.set_id;
+    const priceMap = priceMapOrMaps instanceof Map ? priceMapOrMaps : priceMapOrMaps?.[setId] || priceMapOrMaps?.get?.(setId);
+    return getDisplayMarketPrice(card, priceMap, setId);
+  }, threshold);
+}
+
 export function formatUsd(value, options = {}) {
-  if (value == null || Number.isNaN(Number(value))) return "No market data";
+  if (value == null || Number.isNaN(Number(value))) return "";
 
   return Number(value).toLocaleString(undefined, {
     style: "currency",

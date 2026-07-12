@@ -32,12 +32,11 @@ import {
   requestServerAchievementAward,
 } from "../../src/lib/userAchievements.js";
 import { getSiteOrigin } from "../../src/utils/authRedirects.js";
-import { getTcgplayerSearchUrl } from "../../src/utils/tcgplayerSearch.js";
+import { getTcgplayerCardUrl } from "../../src/utils/tcgplayerSearch.js";
 import {
   formatUsd,
   getCardDisplayPrice,
-  getCollectionEstimatedValue,
-  getPriceMapEstimatedValue,
+  getCollectionValueCoverage,
   loadCardPricesForCollection,
   loadCardPricesForCards,
   loadCardPricesForSet,
@@ -413,19 +412,6 @@ async function claimMobileWelcomeGodPack(setId, forcedFormat = "") {
 
 function normalizeText(value) {
   return String(value || "").toLowerCase().trim();
-}
-
-function hasUsablePriceMap(priceMap) {
-  return priceMap instanceof Map && priceMap.size > 0;
-}
-
-function formatCachedValue(value, priceMap, options = {}) {
-  if (!hasUsablePriceMap(priceMap)) {
-    if (!options.loading && options.emptyValueAsZero && Number(value || 0) === 0) return formatUsd(0);
-    return options.loading ? "Loading..." : "No market data available";
-  }
-
-  return formatUsd(value);
 }
 
 function scheduleIdleTask(callback) {
@@ -1208,12 +1194,12 @@ function PackScreen({
   const isReady = stage === "ready";
   const isPreloading = stage === "preloading";
   const visibleCount = isSummary ? pack.length : revealedCount;
-  const estimatedPullValue = isSummary
-    ? getCollectionEstimatedValue(
+  const pullValueCoverage = isSummary
+    ? getCollectionValueCoverage(
         pack.map((card) => ({ card, set: selectedSet, count: 1 })),
         priceMap
       )
-    : 0;
+    : null;
   return (
     <section className={`pack-stage is-${stage}`}>
       {isReady ? (
@@ -1246,11 +1232,12 @@ function PackScreen({
       ) : isSummary ? (
         <>
           <SetLogo set={selectedSet} className="pack-logo pack-logo-compact" />
-          <section className="value-note compact-value-note">
-            <span>Estimated Pull Value</span>
-            <strong>{formatCachedValue(estimatedPullValue, priceMap)}</strong>
-            <em>Missing or invalid prices are skipped.</em>
-          </section>
+          {pullValueCoverage?.isComplete && pullValueCoverage.totalCards > 0 && (
+            <section className="value-note compact-value-note">
+              <span>Estimated Pull Value</span>
+              <strong>{formatUsd(pullValueCoverage.totalValue)}</strong>
+            </section>
+          )}
           {selectedSet.id === "30th-anniversary" && <p className="anniversary-catalog-note is-summary-note">This preview includes currently confirmed cards. More cards will be added as they are announced.</p>}
           <div className="pack-actions">
             <button className="secondary-action" type="button" onClick={onBack}>
@@ -1372,9 +1359,8 @@ function CollectionCards({
   });
   const progress = selectedSet ? getSetCollectionProgress(collection, selectedSet) : { collected: 0, total: 0, percent: 0 };
   const setCards = selectedSet ? getPullableCollectionCards(selectedSet).sort((a, b) => getSetNumber(a) - getSetNumber(b)) : [];
-  const setTotalValue = getPriceMapEstimatedValue(priceMap);
   const setValueLoading = Boolean(selectedSet && priceStatus === "loading");
-  const hasSetPrices = priceMap instanceof Map && [...priceMap.values()].some((price) => Number(price?.marketPriceUsd) > 0);
+  const setValueCoverage = selectedSet ? getCollectionValueCoverage(setCards.map((card) => ({ card, set: selectedSet })), priceMap) : null;
 
   useEffect(() => {
     if (!selectedSet) setIsPickingSet(true);
@@ -1456,10 +1442,13 @@ function CollectionCards({
             <div className="set-progress-bar" aria-hidden="true">
               <span style={{ width: `${progress.percent}%` }} />
             </div>
-            <p className="value-inline">
-              <span>Estimated Set Value</span>
-              <strong>{setValueLoading ? "Loading..." : priceStatus === "error" ? "Unable to load market data" : !hasSetPrices ? "Market data not updated yet" : formatUsd(setTotalValue)}</strong>
-            </p>
+            {setValueLoading ? <p className="value-inline"><span>Set Value</span><strong>Loading...</strong></p> : setValueCoverage?.pricedCards > 0 && (
+              <p className="value-inline">
+                <span>{setValueCoverage.isComplete ? "Estimated Set Value" : "Known Set Value"}</span>
+                <strong>{formatUsd(setValueCoverage.totalValue)}</strong>
+                {!setValueCoverage.isComplete && <small>Based on {setValueCoverage.pricedCards} of {setValueCoverage.totalCards} priced cards.</small>}
+              </p>
+            )}
           </div>
           {selectedSet.id === "30th-anniversary" && (
             <p className="set-preview-note">New card images will be added as they are released.</p>
@@ -1838,8 +1827,9 @@ function CardInspectModal({ item, collection, user, wishlistKeys, wishlistPendin
 
   const { card, set } = item;
   const marketPrice = getCardDisplayPrice(card, priceMap, set.id);
-  const hasMarketPrice = marketPrice?.marketPriceUsd != null;
-  const tcgplayerCardUrl = getTcgplayerSearchUrl({
+  const hasMarketPrice = Number(marketPrice?.marketPriceUsd) > 0;
+  const tcgplayerCardUrl = getTcgplayerCardUrl({
+    exactUrl: marketPrice?.tcgplayerUrl,
     cardName: getDisplayCardName(card, set),
     setName: set.name,
     cardNumber: card.number,
@@ -1948,13 +1938,13 @@ function CardInspectModal({ item, collection, user, wishlistKeys, wishlistPendin
             </button>
           )}
           {ownedCount === 0 && wishlistMessage?.key === wishlistKey && <p className={`wishlist-inline-message ${wishlistMessage.isError ? "is-error" : ""}`}>{wishlistMessage.text}</p>}
-          <p className="market-price-line">
-            Market Price: <strong>{hasMarketPrice ? formatUsd(marketPrice.marketPriceUsd) : "No market data available"}</strong>
-            {hasMarketPrice && <TcgplayerSourceBadge compact />}
-          </p>
+          {hasMarketPrice && <p className="market-price-line">
+            Estimated Market Value: <strong>{formatUsd(marketPrice.marketPriceUsd)}</strong>
+            <TcgplayerSourceBadge compact />
+          </p>}
           {tcgplayerCardUrl && (
             <a className="tcgplayer-card-link" href={tcgplayerCardUrl} target="_blank" rel="noopener noreferrer">
-              View price on TCGplayer
+              View on TCGplayer
             </a>
           )}
         </div>
@@ -1980,10 +1970,10 @@ function ValueScreen({
       ...item,
       price: getCardDisplayPrice(item.card, priceMapsBySet?.[item.set.id], item.set.id),
     }))
-    .filter((item) => item.price?.marketPriceUsd != null)
+    .filter((item) => Number(item.price?.marketPriceUsd) > 0)
     .map((item) => ({ ...item, unitValue: Number(item.price.marketPriceUsd), value: Number(item.price.marketPriceUsd) * item.count }))
     .sort((a, b) => b.value - a.value);
-  const totalValue = estimatedCollectionValue;
+  const valueCoverage = getCollectionValueCoverage(ownedCards, priceMapsBySet);
 
   if (!isLoggedIn) {
     return (
@@ -2018,10 +2008,10 @@ function ValueScreen({
         <h1>Collection Snapshot</h1>
       </div>
       <section className="value-hero">
-        <span className="eyebrow">Estimated Virtual Collection Value</span>
-        <strong>{isValueLoading ? "Loading..." : formatUsd(totalValue)}</strong>
-        <p>Estimated from current market prices. Missing prices are skipped.</p>
-        <TcgplayerSourceBadge />
+        <span className="eyebrow">{valueCoverage.isComplete ? "Estimated Virtual Collection Value" : "Known Value"}</span>
+        {isValueLoading ? <strong>Loading...</strong> : valueCoverage.pricedCards > 0 && <strong>{formatUsd(valueCoverage.totalValue)}</strong>}
+        {!isValueLoading && valueCoverage.totalCards > 0 && <p>Based on {valueCoverage.pricedCards} of {valueCoverage.totalCards} priced cards.</p>}
+        {valueCoverage.pricedCards > 0 && <TcgplayerSourceBadge />}
       </section>
 
       <section className="quick-stats">
