@@ -2238,6 +2238,26 @@ button {
   color: #4d35cf;
 }
 
+.mobile-install-tutorial-link {
+  display: block;
+  padding: 8px 10px;
+  border: 1px solid rgba(184, 176, 255, 0.28);
+  border-radius: 12px;
+  color: #d8d3ff;
+  background: rgba(124, 77, 255, 0.1);
+  font-size: 0.8rem;
+  line-height: 1.25;
+  font-weight: 750;
+  text-align: center;
+  text-decoration: none;
+}
+
+.theme-light .mobile-install-tutorial-link {
+  border-color: rgba(77, 53, 207, 0.2);
+  color: #4d35cf;
+  background: rgba(77, 53, 207, 0.07);
+}
+
 .bottom-tabs {
   position: absolute;
   left: 14px;

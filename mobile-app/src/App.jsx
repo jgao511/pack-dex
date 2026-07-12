@@ -663,6 +663,14 @@ function WelcomeDisclaimerModal({ isOpen, onDismiss }) {
             <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
           </p>
         </div>
+        <a
+          className="mobile-install-tutorial-link"
+          href="https://youtube.com/shorts/Ri6i8fEIdrU"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Watch how to add PackDex to your Home Screen (Apple &amp; Android)
+        </a>
         <button className="primary-action" type="button" onClick={handleDismiss}>
           Got it
         </button>
