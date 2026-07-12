@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { readFile } from "node:fs/promises";
 import { getOcrCropDefinitions, getProportionalSize, stripDataUrlPrefix } from "../src/lib/cardScanner/prepareCardImage.js";
+import { mapPreviewOutlineToCapture } from "../src/lib/cardScanner/mapPreviewCrop.js";
 
 test("prepares proportional OCR dimensions without upscaling", () => {
   assert.deepEqual(getProportionalSize(3000, 2000, 1800), { width: 1800, height: 1200 });
@@ -45,4 +46,20 @@ test("orientation is applied once and scanner root is scrollable", async () => {
   assert.doesNotMatch(prep, /imageOrientation: "from-image"/);
   assert.match(css, /\.scanner-dev[^}]*overflow-y: auto/);
   assert.match(css, /calc\(86px \+ max\(14px, env\(safe-area-inset-bottom\)\) \+ 18px\)/);
+});
+
+test("maps a portrait card outline through center-cover preview coordinates", () => {
+  assert.deepEqual(mapPreviewOutlineToCapture({
+    previewWidth: 300, previewHeight: 420, captureWidth: 1200, captureHeight: 1600,
+    outline: { x: 10, y: 10, width: 280, height: 400 }, safetyMargin: 0,
+  }), { x: 67, y: 38, width: 1067, height: 1524 });
+});
+
+test("native scanner uses embedded Camera Preview and reserves Camera for photos", async () => {
+  const adapters = await readFile(new URL("../mobile-app/src/lib/nativeScannerAdapters.js", import.meta.url), "utf8");
+  const page = await readFile(new URL("../mobile-app/src/CardScannerDevPage.jsx", import.meta.url), "utf8");
+  assert.match(adapters, /CameraPreview\.start/);
+  assert.match(adapters, /CameraPreview\.capture/);
+  assert.match(adapters, /disableAudio:\s*true/);
+  assert.match(page, /onClick=\{capturePreview\}/);
 });

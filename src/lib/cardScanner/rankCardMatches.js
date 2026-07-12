@@ -31,7 +31,10 @@ export function rankCardMatches({ rawText = "", textBlocks = [], maxResults = 5 
   const hasSupport = top?.reasons.some((r) => r === "exact printed set total" || r.includes("name"));
   if (top && top.score >= 75 && hasNumber && hasSupport && gap >= 12) confidence = "high";
   else if (top && top.score >= 45 && gap >= 5) confidence = "medium";
-  const defensible = scored.filter((item) => item.reasons.some((r) => r.includes("name") || r.includes("printed set total") || r.includes("prefixed collector")));
-  const results = defensible.slice(0, Math.max(1, Math.min(5, maxResults))).map(({ entry, score, reasons }, index) => ({ cardId: entry.cardId, card: entry.card, score, confidence: index === 0 ? confidence : "low", reasons, setId: entry.setId, setName: entry.setName, printedSetTotal: entry.printedSetTotal }));
-  return { ...normalized, collectorNumbers: collectors, nameCandidates: names, confidence, scoreGap: gap, primaryMatch: confidence === "high" ? results[0] : null, results };
+  const strongIntersection = scored.some((item) => item.reasons.some((r) => r.includes("collector number")) && item.reasons.includes("exact printed set total") && item.reasons.some((r) => r.includes("name")));
+  const defensible = scored.filter((item) => strongIntersection
+    ? item.reasons.some((r) => r.includes("collector number")) && item.reasons.includes("exact printed set total") && item.reasons.some((r) => r.includes("name"))
+    : item.reasons.some((r) => r.includes("name") || r.includes("printed set total") || r.includes("prefixed collector")));
+  const results = defensible.slice(0, Math.max(1, Math.min(3, maxResults))).map(({ entry, score, reasons }, index) => ({ cardId: entry.cardId, card: entry.card, score, confidence: index === 0 ? confidence : "low", reasons, setId: entry.setId, setName: entry.setName, printedSetTotal: entry.printedSetTotal }));
+  return { ...normalized, collectorNumbers: collectors, nameCandidates: names, narrowedSetIds: [...new Set(defensible.map((item) => item.entry.setId))], narrowedCardIds: defensible.map((item) => item.entry.cardId), confidence, scoreGap: gap, primaryMatch: confidence === "high" ? results[0] : null, results };
 }

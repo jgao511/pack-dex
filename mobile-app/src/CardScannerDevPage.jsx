@@ -22,10 +22,31 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
   const [diagnostics, setDiagnostics] = useState(null);
   const [devText, setDevText] = useState(examples[0]);
   const fileInputRef = useRef(null); const pendingFileRef = useRef(null);
+  const previewRef = useRef(null); const previewGeometryRef = useRef(null);
   const activeCameraAdapter = nativeCameraAdapter || defaultNativeCameraAdapter;
   const activeOcrAdapter = ocrAdapter || (defaultNativeCameraAdapter.isAvailable() ? defaultOcrAdapter : globalThis.__PACKDEX_SCANNER_OCR__);
 
   useEffect(() => () => releaseTemporaryImage(image), [image]);
+  useEffect(() => {
+    if (stage !== "start" || !activeCameraAdapter.isAvailable()) return undefined;
+    let cancelled = false;
+    const frame = requestAnimationFrame(async () => {
+      try {
+        await activeCameraAdapter.stopPreview?.();
+        const geometry = await activeCameraAdapter.startPreview?.(previewRef.current);
+        if (cancelled) await activeCameraAdapter.stopPreview?.(); else previewGeometryRef.current = geometry;
+      } catch (error) { if (!cancelled) setMessage(error?.message || "Camera access wasn’t available."); }
+    });
+    return () => { cancelled = true; cancelAnimationFrame(frame); activeCameraAdapter.stopPreview?.(); };
+  }, [stage]);
+  useEffect(() => {
+    let handle;
+    activeCameraAdapter.listenForAppState?.(({ isActive }) => {
+      if (!isActive) activeCameraAdapter.stopPreview?.();
+      else if (stage === "start") activeCameraAdapter.startPreview?.(previewRef.current).then((geometry) => { previewGeometryRef.current = geometry; });
+    }).then((value) => { handle = value; });
+    return () => handle?.remove?.();
+  }, [stage]);
   useEffect(() => { let handle; activeCameraAdapter.listenForRestoredCapture?.((restored) => { releaseTemporaryImage(image); setImage(restored); setStage("processing"); setMessage(""); recognizeCardText(restored, { adapter: activeOcrAdapter }).then((reading) => { if (!reading.fullText.trim()) throw new Error("We couldn’t read enough text from this photo. Try again with the card flat and fully visible."); finishReading(reading.fullText, reading.blocks); }).catch(() => { setStage("captured"); setMessage("We couldn’t read enough text from this photo. Try again with the card flat and fully visible."); }); }).then((value) => { handle = value; }); return () => handle?.remove?.(); }, []);
 
   function selectBrowserFile(options) {
@@ -36,6 +57,7 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
     });
   }
   async function beginCapture(source) {
+    if (source === "camera") return capturePreview();
     setMessage(""); setConfirmed(null); setSelected(null); setMatch(null);
     let nextImage = null;
     try {
@@ -50,21 +72,39 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
       setStage(nextImage ? "captured" : "start");
     }
   }
+  async function capturePreview() {
+    setMessage(""); setConfirmed(null); setSelected(null); setMatch(null);
+    let nextImage;
+    try {
+      nextImage = await activeCameraAdapter.capturePreview(previewGeometryRef.current);
+      await activeCameraAdapter.stopPreview();
+      releaseTemporaryImage(image); setImage(nextImage); setStage("processing");
+      const reading = await recognizeCardText(nextImage, { adapter: activeOcrAdapter });
+      if (!reading.fullText.trim()) throw new Error("We couldn’t read enough text from this photo. Try again with the card flat and fully visible.");
+      if (reading.previewUrl) setImage({ ...nextImage, imageUrl: reading.previewUrl });
+      finishReading(reading.fullText, reading.blocks, reading);
+    } catch (error) {
+      await activeCameraAdapter.stopPreview?.();
+      setMessage(error?.message || "We couldn’t read this card."); setStage(nextImage ? "captured" : "start");
+    }
+  }
   function finishReading(fullText, blocks = [], reading = {}) {
     const nextMatch = rankCardMatches({ rawText: fullText, textBlocks: blocks, maxResults: 5 });
-    setDiagnostics({ image: reading.imageDiagnostics || null, passes: reading.passes || [], rawText: fullText, normalizedText: nextMatch.normalizedText, collectorNumbers: nextMatch.collectorNumbers, nameCandidates: nextMatch.nameCandidates, matches: nextMatch.results.map(({ cardId, score, confidence, reasons, setName, card }) => ({ cardId, name: card.name, setName, score, confidence, reasons })) });
+    setDiagnostics({ image: reading.imageDiagnostics || null, passes: reading.passes || [], rawText: fullText, normalizedText: nextMatch.normalizedText, collectorNumbers: nextMatch.collectorNumbers, nameCandidates: nextMatch.nameCandidates, narrowedSetIds: nextMatch.narrowedSetIds, narrowedCardIds: nextMatch.narrowedCardIds, matches: nextMatch.results.map(({ cardId, score, confidence, reasons, setName, card }) => ({ cardId, name: card.name, setName, score, confidence, reasons })) });
     setMatch(nextMatch); setSelected(null); setStage("result"); setMessage("");
   }
   function reset() { releaseTemporaryImage(image); setImage(null); setMatch(null); setSelected(null); setConfirmed(null); setDiagnostics(null); setMessage(""); setStage("start"); }
   function confirm(result) { const trusted = confirmTrustedCandidate(match, result.cardId); if (trusted) { setConfirmed(trusted); setSelected(result); } }
   const mode = getScannerResultMode(match); const highResult = match?.primaryMatch;
 
-  return <main className="scanner-dev">
-    <header><span className="eyebrow">Internal Preview</span><h1>Scan a Card</h1><p>Place the full card inside the frame</p></header>
+  return <main className={`scanner-dev ${stage === "start" ? "preview-active" : ""}`}>
+    <header><button className="scanner-close text-action" type="button" aria-label="Close scanner" onClick={() => { activeCameraAdapter.stopPreview?.(); history.length > 1 ? history.back() : window.location.assign("/"); }}>×</button><span className="eyebrow">Internal Preview</span><h1>Scan a Card</h1><p>Line up the full card inside the frame</p></header>
     <input ref={fileInputRef} className="scanner-file-input" type="file" accept="image/*" onCancel={() => { const resolve = pendingFileRef.current; pendingFileRef.current = null; resolve?.(null); }} onChange={(event) => { const resolve = pendingFileRef.current; pendingFileRef.current = null; resolve?.(event.target.files?.[0] || null); }} />
+    <div id="scanner-camera-preview" ref={previewRef} className="scanner-preview-host">
     <section className={`scanner-frame ${image ? "has-image" : ""}`}>{image ? <img src={image.imageUrl} alt="Captured card" /> : <div className="scanner-frame-guide"><span>Align card here</span></div>}{stage === "processing" && <div className="scanner-reading"><span className="scanner-spinner" />Reading card…</div>}</section>
+    </div>
     {message && <p className="scanner-message" role="status">{message}</p>}
-    {stage === "start" && <div className="scanner-primary-actions"><button className="primary-action" type="button" onClick={() => beginCapture("camera")}>Scan Card</button><button className="secondary-action" type="button" onClick={() => beginCapture("library")}>Choose Photo</button></div>}
+    {stage === "start" && <div className="scanner-primary-actions"><button className="scanner-shutter" type="button" aria-label="Capture card" onClick={capturePreview}><span /></button><button className="secondary-action" type="button" onClick={() => beginCapture("library")}>Choose Photo</button></div>}
     {(stage === "captured" || (image && stage === "result")) && <button className="text-action" type="button" onClick={reset}>Cancel</button>}
     {stage === "captured" && <><div className="scanner-result-actions"><button className="secondary-action" type="button" onClick={() => beginCapture("camera")}>Retake Photo</button></div><section className="scanner-dev-reading"><label htmlFor="scanner-dev-text">Development card text</label><textarea id="scanner-dev-text" rows="4" value={devText} onChange={(e) => setDevText(e.target.value)} /><div className="scanner-example-row">{examples.map((example) => <button type="button" key={example} onClick={() => setDevText(example)}>{example.split("\n")[0]}</button>)}</div><button className="primary-action" type="button" onClick={() => finishReading(devText)}>Read Test Text</button></section></>}
     {stage === "result" && mode === "high" && highResult && <section className="scanner-result"><span className="scanner-confidence">High confidence</span><Candidate result={highResult} onSelect={confirm} actionLabel="Confirm Card" /><div className="scanner-result-actions"><button className="secondary-action" type="button" onClick={() => { setMatch({ ...match, confidence: "medium", primaryMatch: null }); setSelected(null); }}>Not This Card</button><button className="secondary-action" type="button" onClick={reset}>Scan Again</button></div></section>}

@@ -36,5 +36,25 @@ export function buildScannerCatalog(sourceSets = sets) {
   });
 }
 
-let cached;
-export function getScannerCatalog() { return cached ||= buildScannerCatalog(); }
+function addIndex(map, key, entry) {
+  if (key === null || key === undefined || key === "") return;
+  const values = map.get(String(key)) || [];
+  values.push(entry); map.set(String(key), values);
+}
+
+let cachedIndexes;
+export function getScannerCatalogIndexes() {
+  if (cachedIndexes) return cachedIndexes;
+  const entries = buildScannerCatalog();
+  const byCollectorNumber = new Map(); const byPrintedTotal = new Map(); const byNormalizedName = new Map(); const byNameToken = new Map(); const bySetId = new Map();
+  for (const entry of entries) {
+    addIndex(byCollectorNumber, entry.normalizedNumber, entry);
+    addIndex(byPrintedTotal, entry.printedSetTotal, entry);
+    addIndex(byNormalizedName, entry.normalizedName, entry);
+    for (const token of new Set(entry.normalizedName.split(" ").filter(Boolean))) addIndex(byNameToken, token, entry);
+    addIndex(bySetId, entry.setId, entry);
+  }
+  return cachedIndexes = { entries, byCollectorNumber, byPrintedTotal, byNormalizedName, byNameToken, bySetId };
+}
+
+export function getScannerCatalog() { return getScannerCatalogIndexes().entries; }

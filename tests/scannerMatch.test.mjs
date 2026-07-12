@@ -62,3 +62,11 @@ test("optional image reranking can only reorder the OCR shortlist", async () => 
   );
   assert.equal(injected, candidates);
 });
+
+test("matches the Pixel Mega Charizard OCR fixture without unrelated fallbacks", () => {
+  const output = rankCardMatches({ rawText: "Mega Charizard XeA360\nO1B/094" });
+  assert.equal(output.results[0]?.cardId, "phantasmal-flames-13-mega-charizard-x-ex");
+  assert.equal(output.results.some((result) => result.card.number === "18"), false);
+  assert.equal(output.primaryMatch?.cardId, "phantasmal-flames-13-mega-charizard-x-ex");
+  assert.deepEqual(output.collectorNumbers.map((item) => `${item.cardNumber}/${item.printedSetTotal}`), ["013/094", "018/094"]);
+});

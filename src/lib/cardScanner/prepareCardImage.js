@@ -1,4 +1,5 @@
 import { CardRecognitionError } from "./recognizeCardText.js";
+import { mapPreviewOutlineToCapture } from "./mapPreviewCrop.js";
 
 export function getProportionalSize(width, height, maxEdge = 1800) {
   if (!(width > 0 && height > 0)) throw new CardRecognitionError("empty-image", "We couldn’t open that photo.");
@@ -35,8 +36,10 @@ export async function prepareCardImage(image, { maxEdge = 1800, quality = .92, f
   // Capacitor Camera returns corrected pixels; do not apply EXIF a second time.
   const bitmap = await createBitmap(blob, { imageOrientation: "none" });
   const originalWidth = bitmap.width; const originalHeight = bitmap.height;
-  const size = getProportionalSize(bitmap.width, bitmap.height, maxEdge);
+  const mappedCrop = image.previewGeometry ? mapPreviewOutlineToCapture({ ...image.previewGeometry, captureWidth: originalWidth, captureHeight: originalHeight }) : null;
+  const source = mappedCrop || { x: 0, y: 0, width: originalWidth, height: originalHeight };
+  const size = getProportionalSize(source.width, source.height, maxEdge);
   const canvas = canvasFactory(size.width, size.height, createCanvas);
-  canvas.getContext("2d").drawImage(bitmap, 0, 0, size.width, size.height); bitmap.close?.();
-  return { canvas, passes: createOcrPasses(canvas, { quality, createCanvas }), originalWidth, originalHeight, width: size.width, height: size.height, detectedOrientation: size.height >= size.width ? "portrait" : "landscape", rotationApplied: 0 };
+  canvas.getContext("2d").drawImage(bitmap, source.x, source.y, source.width, source.height, 0, 0, size.width, size.height); bitmap.close?.();
+  return { canvas, previewUrl: canvas.toDataURL("image/jpeg", quality), passes: createOcrPasses(canvas, { quality, createCanvas }), originalWidth, originalHeight, width: size.width, height: size.height, mappedCrop, detectedOrientation: size.height >= size.width ? "portrait" : "landscape", rotationApplied: 0 };
 }
