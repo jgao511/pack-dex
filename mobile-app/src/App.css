@@ -691,6 +691,57 @@ button {
   background: rgba(255, 255, 255, 0.06);
 }
 
+/* Shared rarity presentation and wishlist */
+.reveal-card.is-revealed.rarity-visual-rare .reveal-card-face { box-shadow: 0 0 12px rgba(115, 157, 210, .18); }
+.reveal-card.is-revealed.rarity-visual-double .reveal-card-face { box-shadow: 0 0 16px rgba(121, 126, 224, .25); }
+.reveal-card.is-revealed.rarity-visual-illustration .reveal-card-face { box-shadow: 0 0 18px rgba(91, 174, 178, .3); }
+.reveal-card.is-revealed.rarity-visual-major .reveal-card-face { box-shadow: 0 0 22px rgba(151, 109, 220, .34); }
+.reveal-card.is-revealed.rarity-visual-top .reveal-card-face { box-shadow: 0 0 25px rgba(103, 143, 221, .4), 0 0 10px rgba(182, 126, 207, .2); }
+
+.mobile-card-image-shell.has-owned-shimmer { overflow: hidden; isolation: isolate; }
+.owned-card-shimmer { position: absolute; inset: -20%; z-index: 5; pointer-events: none; opacity: 0; transform: translate3d(-75%, 0, 0) rotate(12deg); background: linear-gradient(105deg, transparent 38%, rgba(255,255,255,.22) 49%, rgba(190,220,255,.12) 54%, transparent 65%); animation: owned-card-shimmer 850ms ease-out 180ms 1 both; }
+.set-card-slot:focus-visible .owned-card-shimmer,
+.set-card-slot:active .owned-card-shimmer,
+.binder-pocket:focus-visible .owned-card-shimmer,
+.binder-pocket:active .owned-card-shimmer { animation: owned-card-shimmer 720ms ease-out 1 both; }
+@keyframes owned-card-shimmer { 0% { opacity: 0; transform: translate3d(-75%,0,0) rotate(12deg); } 25% { opacity: .8; } 100% { opacity: 0; transform: translate3d(75%,0,0) rotate(12deg); } }
+
+.inspect-wishlist-action { width: 100%; margin-top: 8px; }
+.wishlist-inline-message { margin: 4px 0 0 !important; font-size: 12px; }
+.wishlist-inline-message.is-error { color: #ff9da8 !important; }
+.wishlist-title-row, .wishlist-set-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.wishlist-screen-mobile { padding-bottom: 18px; }
+.wishlist-state { margin: 18px 0; padding: 24px 18px; text-align: center; border: 1px solid rgba(255,255,255,.09); border-radius: 18px; background: rgba(255,255,255,.035); }
+.wishlist-state h2, .wishlist-state p { margin: 0 0 10px; }
+.wishlist-set-group { margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,.08); }
+.wishlist-set-group:first-of-type { margin-top: 10px; }
+.wishlist-set-heading { align-items: center; margin-bottom: 9px; }
+.wishlist-set-identity { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1 1 auto; }
+.wishlist-set-logo { flex: 0 0 58px; width: 58px; max-height: 34px; object-fit: contain; }
+.wishlist-set-copy { display: grid; gap: 2px; min-width: 0; }
+.wishlist-set-copy strong { color: #fff; line-height: 1.2; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wishlist-set-copy small { color: rgba(220,225,244,.68); font-size: 12px; }
+.wishlist-open-collection { flex: 0 0 auto; padding: 7px 9px; border: 1px solid rgba(186,174,235,.24); border-radius: 10px; color: rgba(233,229,250,.82); background: transparent; font-size: 11px; font-weight: 700; }
+.wishlist-card-grid { align-items: start; gap: 9px 7px; }
+.wishlist-card { min-width: 0; }
+.wishlist-card .set-card-slot { width: 100%; }
+.wishlist-remove { width: 100%; margin-top: 5px; padding: 5px; border: 0; background: transparent; color: rgba(220,225,244,.7); font-size: 11px; }
+.wishlist-remove:disabled { opacity: .5; }
+.wishlist-summary-card { min-height: 0 !important; padding: 13px 16px !important; display: flex !important; align-items: center; justify-content: space-between; text-align: left; }
+.wishlist-summary-card > span { display: grid; gap: 2px; }
+.wishlist-summary-card > span strong { color: #fff !important; font-size: 15px; line-height: 1.15; }
+.wishlist-summary-card > span em { color: rgba(224,220,244,.72); font-size: 12px; font-style: normal; }
+.wishlist-summary-card > b { color: #c8b9ff; font-size: 25px; font-weight: 400; line-height: 1; }
+.anniversary-catalog-note { width: 100%; margin: 0; color: rgba(223,219,241,.7); font-size: 11px; line-height: 1.45; text-align: center; }
+.anniversary-catalog-note.is-summary-note { margin-top: 6px; }
+.theme-light .wishlist-state { border-color: rgba(25,35,70,.1); background: rgba(25,35,70,.035); }
+.theme-light .wishlist-set-heading span, .theme-light .wishlist-remove { color: rgba(35,42,70,.65); }
+
+@media (prefers-reduced-motion: reduce) {
+  .owned-card-shimmer { display: none; animation: none; }
+  .reveal-card.is-revealed .reveal-card-face { transition: none; }
+}
+
 .share-pull-action { grid-column: 1 / -1; border-color: rgba(153, 126, 255, 0.72); color: #e5ddff; }
 .share-pull-action:disabled { cursor: wait; opacity: 0.62; }
 .share-pull-error { grid-column: 1 / -1; margin: 0; color: #ffb7c2; font-size: 0.76rem; font-weight: 750; line-height: 1.35; text-align: center; }

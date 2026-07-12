@@ -53,6 +53,9 @@ import {
   playPackOpenSound,
   preloadMobileSounds,
 } from "./utils/mobileSounds.js";
+import { getRarityVisualClass, isRarePlusVisual } from "./utils/rarityPresentation.js";
+import { loadHapticsEnabled, saveHapticsEnabled, triggerRevealHaptic } from "./utils/mobileHaptics.js";
+import { addWishlistCard, getWishlistKey, loadWishlist, removeWishlistCard, resolveCatalogWishlistItem } from "./lib/wishlist.js";
 
 const tabs = [
   { id: "open", label: "Open", title: "Open", icon: "open" },
@@ -561,6 +564,7 @@ function CardImage({
   isFinal = false,
   loading = "lazy",
   fetchPriority = "auto",
+  ownedShimmer = false,
 }) {
   const foilProfile = getFoilProfile(card, set);
   const showEffects = withEffects && foilProfile !== "none";
@@ -568,7 +572,7 @@ function CardImage({
 
   return (
     <span
-      className={`mobile-card-image-shell foil-profile-${foilProfile} ${showEffects ? "has-foil" : ""} ${
+      className={`mobile-card-image-shell foil-profile-${foilProfile} ${getRarityVisualClass(card, set)} ${showEffects ? "has-foil" : ""} ${ownedShimmer && isRarePlusVisual(card, set) ? "has-owned-shimmer" : ""} ${
         isFinal && showEffects ? "is-final-hit" : ""
       } ${className}`.trim()}
       onContextMenu={preventCardImageBrowserAction}
@@ -756,22 +760,6 @@ function AchievementUnlockToast({ toast }) {
   );
 }
 
-function MoonIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M18.4 15.9A7.3 7.3 0 0 1 8.1 5.6 8.1 8.1 0 1 0 18.4 15.9Z" />
-    </svg>
-  );
-}
-
-function SunIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 8.2a3.8 3.8 0 1 0 0 7.6 3.8 3.8 0 0 0 0-7.6Z" />
-      <path d="M12 2.8v2.1M12 19.1v2.1M4.9 4.9l1.5 1.5M17.6 17.6l1.5 1.5M2.8 12h2.1M19.1 12h2.1M4.9 19.1l1.5-1.5M17.6 6.4l1.5-1.5" />
-    </svg>
-  );
-}
 function LegalModal({ type, onClose }) {
   if (!type) return null;
 
@@ -868,7 +856,6 @@ function WelcomeRewardModal({ isOpen, rewardStatus, selectedSetId, isClaiming, e
 
 function MobileAuthModal({
   isOpen,
-  isDark,
   authMode,
   authEmail,
   authPassword,
@@ -923,7 +910,7 @@ function MobileAuthModal({
                   <Turnstile
                     sitekey={TURNSTILE_SITE_KEY}
                     size="flexible"
-                    theme={isDark ? "dark" : "light"}
+                    theme="dark"
                     onVerify={(token) => {
                       onTurnstileToken(token);
                       onTurnstileMessage("");
@@ -1035,7 +1022,7 @@ function MobileAuthModal({
                     <Turnstile
                       sitekey={TURNSTILE_SITE_KEY}
                       size="flexible"
-                      theme={isDark ? "dark" : "light"}
+                      theme="dark"
                       onVerify={(token) => {
                         onTurnstileToken(token);
                         onTurnstileMessage("");
@@ -1241,6 +1228,7 @@ function PackScreen({
             </div>
           </div>
           <div className="pack-ready-actions">
+            {selectedSet.id === "30th-anniversary" && <p className="anniversary-catalog-note">This preview includes currently confirmed cards. More cards will be added as they are announced.</p>}
             <AccountNotice user={user} onLogin={onLogin} onCreateAccount={onCreateAccount} />
             <div className="pack-actions">
               <button className="secondary-action" type="button" onClick={onBack}>
@@ -1263,6 +1251,7 @@ function PackScreen({
             <strong>{formatCachedValue(estimatedPullValue, priceMap)}</strong>
             <em>Missing or invalid prices are skipped.</em>
           </section>
+          {selectedSet.id === "30th-anniversary" && <p className="anniversary-catalog-note is-summary-note">This preview includes currently confirmed cards. More cards will be added as they are announced.</p>}
           <div className="pack-actions">
             <button className="secondary-action" type="button" onClick={onBack}>
               Back to Sets
@@ -1299,7 +1288,7 @@ function PackScreen({
 
             return (
               <button
-                className={`reveal-card ${isVisible ? "is-revealed" : ""} ${isFinal ? "is-final" : ""} ${
+                className={`reveal-card ${getRarityVisualClass(card, selectedSet)} ${isVisible ? "is-revealed" : ""} ${isFinal ? "is-final" : ""} ${
                   isVisible && isHit ? "is-hit" : ""
                 }`}
                 type="button"
@@ -1500,7 +1489,7 @@ function CollectionCards({
                   key={`${selectedSet.id}-${card.id}`}
                   onClick={() => onInspectCard?.(card, selectedSet)}
                 >
-                  <CardImage card={card} set={selectedSet} />
+                  <CardImage card={card} set={selectedSet} ownedShimmer={isCollected} />
                   {!isCollected && <span className="missing-badge">Missing</span>}
                   <strong>{getDisplayCardName(card, selectedSet)}</strong>
                   <em>#{card.number || getSetNumber(card)} - {getDisplayRarity(card, selectedSet)}</em>
@@ -1562,7 +1551,7 @@ function BinderPageView({ binder, collection, onBack, onInspectCard }) {
               onClick={() => item?.card && collected && onInspectCard?.(item.card, item.set)}
               disabled={!item?.card || !collected}
             >
-              {item?.card && collected ? <CardImage card={item.card} set={item.set} /> : <span>{item?.card ? "Missing" : "+"}</span>}
+              {item?.card && collected ? <CardImage card={item.card} set={item.set} ownedShimmer /> : <span>{item?.card ? "Missing" : "+"}</span>}
             </button>
           );
         })}
@@ -1716,6 +1705,7 @@ function CollectionBinders({ collection, binders, onImportMasterSet, onCreateBin
           })}
         </section>
       )}
+      {ownedShimmer && isRarePlusVisual(card, set) && <span className="owned-card-shimmer" aria-hidden="true" />}
 
       {activeModal === "create" && (
         <div className="mobile-auth-overlay binder-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="create-binder-title" onClick={() => setActiveModal("")}>
@@ -1837,7 +1827,7 @@ function CollectionScreen({
   );
 }
 
-function CardInspectModal({ item, collection, onClose, priceMap }) {
+function CardInspectModal({ item, collection, user, wishlistKeys, wishlistPendingKeys, wishlistMessage, onToggleWishlist, onLogin, onClose, priceMap }) {
   const [tiltStyle, setTiltStyle] = useState({});
   const [isInspectTilting, setIsInspectTilting] = useState(false);
   const activeInspectPointerRef = useRef(null);
@@ -1855,6 +1845,9 @@ function CardInspectModal({ item, collection, onClose, priceMap }) {
     cardNumber: card.number,
   });
   const ownedCount = getCardCount(collection, card, set.id);
+  const wishlistKey = getWishlistKey(set.id, card.id);
+  const isWishlisted = wishlistKeys.has(wishlistKey);
+  const isWishlistPending = wishlistPendingKeys.has(wishlistKey);
 
   function getInspectTilt(event, target) {
     const rect = target.getBoundingClientRect();
@@ -1944,6 +1937,17 @@ function CardInspectModal({ item, collection, onClose, priceMap }) {
           <h2>{getDisplayCardName(card, set)}</h2>
           <p>{getDisplayRarity(card, set)}</p>
           <p>{ownedCount > 0 ? `Owned in PackDex x${ownedCount}` : "Not owned in your PackDex collection"}</p>
+          {ownedCount === 0 && (
+            <button
+              className="secondary-action inspect-wishlist-action"
+              type="button"
+              disabled={isWishlistPending}
+              onClick={() => user ? onToggleWishlist?.(set, card) : onLogin?.()}
+            >
+              {isWishlistPending ? "Saving..." : isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
+            </button>
+          )}
+          {ownedCount === 0 && wishlistMessage?.key === wishlistKey && <p className={`wishlist-inline-message ${wishlistMessage.isError ? "is-error" : ""}`}>{wishlistMessage.text}</p>}
           <p className="market-price-line">
             Market Price: <strong>{hasMarketPrice ? formatUsd(marketPrice.marketPriceUsd) : "No market data available"}</strong>
             {hasMarketPrice && <TcgplayerSourceBadge compact />}
@@ -2051,15 +2055,66 @@ function ValueScreen({
   );
 }
 
+function WishlistScreen({ entries, status, error, pendingKeys, onRetry, onBack, onOpenSet, onInspectCard, onRemove }) {
+  const resolvedGroups = useMemo(() => {
+    const bySet = new Map();
+    entries.forEach((entry) => {
+      const resolved = resolveCatalogWishlistItem(entry.setId, entry.cardId);
+      if (!resolved) return;
+      const current = bySet.get(resolved.set.id) || { set: resolved.set, cards: [] };
+      if (!current.cards.some((card) => String(card.id) === String(resolved.card.id))) current.cards.push(resolved.card);
+      bySet.set(resolved.set.id, current);
+    });
+    const order = new Map(sortSetsByEra(sets).map((set, index) => [set.id, index]));
+    return [...bySet.values()]
+      .sort((a, b) => (order.get(a.set.id) ?? 9999) - (order.get(b.set.id) ?? 9999))
+      .map((group) => ({ ...group, cards: group.cards.sort((a, b) => getSetNumber(a) - getSetNumber(b)) }));
+  }, [entries]);
+
+  return (
+    <section className="wishlist-screen-mobile">
+      <div className="mobile-screen-title wishlist-title-row">
+        <div><span>Profile</span><h1>Wishlist</h1></div>
+        <button className="secondary-action" type="button" onClick={onBack}>Back</button>
+      </div>
+      {status === "loading" && <section className="wishlist-state"><p>Loading wishlist...</p></section>}
+      {status === "error" && <section className="wishlist-state"><p>{error || "Unable to load your wishlist."}</p><button className="primary-action" type="button" onClick={onRetry}>Retry</button></section>}
+      {status === "ready" && resolvedGroups.length === 0 && <section className="wishlist-state"><h2>Your wishlist is empty</h2><p>Add missing cards from a set Collection page.</p></section>}
+      {status === "ready" && resolvedGroups.map(({ set, cards }) => (
+        <section className="wishlist-set-group" key={set.id}>
+          <div className="wishlist-set-heading">
+            <div className="wishlist-set-identity"><SetLogo set={set} className="wishlist-set-logo" /><span className="wishlist-set-copy"><strong>{set.name}</strong><small>{cards.length} card{cards.length === 1 ? "" : "s"}</small></span></div>
+            <button className="wishlist-open-collection" type="button" onClick={() => onOpenSet(set)}>Open Collection</button>
+          </div>
+          <div className="set-card-grid-mobile wishlist-card-grid">
+            {cards.map((card) => {
+              const key = getWishlistKey(set.id, card.id);
+              return <article className="wishlist-card" key={key}>
+                <button className="set-card-slot is-missing" type="button" onClick={() => onInspectCard(card, set)}>
+                  <CardImage card={card} set={set} />
+                  <strong>{getDisplayCardName(card, set)}</strong><em>#{card.number || getSetNumber(card)}</em>
+                </button>
+                <button className="wishlist-remove" type="button" disabled={pendingKeys.has(key)} onClick={() => onRemove(set, card)} aria-label={`Remove ${getDisplayCardName(card, set)} from wishlist`}>
+                  {pendingKeys.has(key) ? "Saving..." : "Remove"}
+                </button>
+              </article>;
+            })}
+          </div>
+        </section>
+      ))}
+    </section>
+  );
+}
+
 function SettingsModal({
   isOpen,
   user,
-  isDark,
   soundEnabled,
+  hapticsEnabled,
   onClose,
   onLogout,
-  onToggleTheme,
   onToggleSound,
+  onToggleHaptics,
   onOpenLegal,
 }) {
   if (!isOpen) return null;
@@ -2087,19 +2142,16 @@ function SettingsModal({
 
         <section className="settings-section">
           <span className="eyebrow">Preferences</span>
-          <button className="settings-toggle settings-icon-toggle" type="button" onClick={onToggleTheme} aria-pressed={isDark}>
-            <span>
-              <strong>Appearance</strong>
-              <em>{isDark ? "Dark mode" : "Light mode"}</em>
-            </span>
-            <span className="theme-mode-icon" aria-hidden="true">{isDark ? <MoonIcon /> : <SunIcon />}</span>
-          </button>
           <button className="settings-toggle" type="button" onClick={onToggleSound} aria-pressed={soundEnabled}>
             <span>
               <strong>Sound Effects</strong>
               <em>{soundEnabled ? "Enabled" : "Muted"}</em>
             </span>
             <i className={soundEnabled ? "is-on" : ""} />
+          </button>
+          <button className="settings-toggle" type="button" onClick={onToggleHaptics} aria-pressed={hapticsEnabled}>
+            <span><strong>Haptics</strong><em>{hapticsEnabled ? "Enabled" : "Disabled"}</em></span>
+            <i className={hapticsEnabled ? "is-on" : ""} />
           </button>
         </section>
 
@@ -2127,14 +2179,16 @@ function ProfileScreen({
   user,
   stats,
   setsCompleted,
-  isDark,
   isAuthPanelOpen,
-  onToggleTheme,
   onOpenLogin,
   onOpenSignup,
   onLogout,
   soundEnabled,
   onToggleSound,
+  hapticsEnabled,
+  onToggleHaptics,
+  wishlistCount,
+  onOpenWishlist,
   estimatedCollectionValue,
   isValueLoading,
   achievements = [],
@@ -2224,6 +2278,10 @@ function ProfileScreen({
             <strong>{isAchievementsLoading ? "..." : `${earnedPublicAchievements} / ${achievementTotal}`}</strong>
             <em>{achievementPercent}% complete</em>
           </button>
+          <button className="stat-card stat-card-wide wishlist-summary-card" type="button" onClick={onOpenWishlist}>
+            <span><strong>Wishlist</strong><em>{wishlistCount} card{wishlistCount === 1 ? "" : "s"}</em></span>
+            <b aria-hidden="true">›</b>
+          </button>
         </section>
       )}
 
@@ -2297,15 +2355,15 @@ function ProfileScreen({
       <SettingsModal
         isOpen={isSettingsOpen}
         user={user}
-        isDark={isDark}
         soundEnabled={soundEnabled}
+        hapticsEnabled={hapticsEnabled}
         onClose={() => setIsSettingsOpen(false)}
         onLogout={() => {
           setIsSettingsOpen(false);
           onLogout?.();
         }}
-        onToggleTheme={onToggleTheme}
         onToggleSound={onToggleSound}
+        onToggleHaptics={onToggleHaptics}
         onOpenLegal={onOpenLegal}
       />
     </section>
@@ -2392,8 +2450,13 @@ function MobileAuthCallbackPage() {
 
 function MobileApp() {
   const [activeTab, setActiveTab] = useState("open");
-  const [theme, setTheme] = useState("dark");
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [hapticsEnabled, setHapticsEnabled] = useState(loadHapticsEnabled);
+  const [wishlistEntries, setWishlistEntries] = useState([]);
+  const [wishlistStatus, setWishlistStatus] = useState("idle");
+  const [wishlistError, setWishlistError] = useState("");
+  const [wishlistPendingKeys, setWishlistPendingKeys] = useState(() => new Set());
+  const [wishlistMessage, setWishlistMessage] = useState(null);
   const [collection, setCollection] = useState({});
   const [binders, setBinders] = useState([]);
   const [user, setUser] = useState(null);
@@ -2460,14 +2523,16 @@ function MobileApp() {
   const preloadedAssetUrlsRef = useRef(new Set());
   const shownWelcomeRewardUserRef = useRef("");
   const soundEnabledRef = useRef(soundEnabled);
+  const hapticsEnabledRef = useRef(hapticsEnabled);
+  const wishlistScrollRef = useRef(0);
   const playedRevealSoundKeysRef = useRef(new Set());
+  const playedRevealHapticKeysRef = useRef(new Set());
   const activeRevealSoundSessionRef = useRef("");
   const revealSoundSessionCounterRef = useRef(0);
   const revealTimersRef = useRef([]);
   const packImagePreloadIdRef = useRef(0);
   const skipRevealStartedRef = useRef(false);
   const screenContentRef = useRef(null);
-  const isDark = theme === "dark";
   const setsCompleted = useMemo(
     () =>
       sets.filter((set) => {
@@ -2499,6 +2564,17 @@ function MobileApp() {
     scrollScreenToTop();
   }
 
+  function openWishlist() {
+    setActiveTab("wishlist");
+    window.requestAnimationFrame(() => screenContentRef.current?.scrollTo({ top: wishlistScrollRef.current, behavior: "auto" }));
+  }
+
+  function leaveWishlist() {
+    wishlistScrollRef.current = screenContentRef.current?.scrollTop || 0;
+    setActiveTab("profile");
+    scrollScreenToTop();
+  }
+
   function selectCollectionSet(set, source = "collection") {
     if (!set?.id) {
       setSelectedCollectionSetId("");
@@ -2527,7 +2603,20 @@ function MobileApp() {
     scrollScreenToTop();
   }
 
+  function viewWishlistSet(set) {
+    wishlistScrollRef.current = screenContentRef.current?.scrollTop || 0;
+    selectCollectionSet(set, "wishlist");
+    setActiveTab("collection");
+  }
+
   function returnFromCollectionSet() {
+    if (collectionReturnSource === "wishlist") {
+      setSelectedCollectionSetId("");
+      setCollectionReturnSource("collection");
+      openWishlist();
+      return;
+    }
+
     if (collectionReturnSource === "open") {
       setActiveTab("open");
       setSelectedCollectionSetId("");
@@ -2589,10 +2678,64 @@ function MobileApp() {
     setIsAchievementsLoading(false);
     setAchievementToastQueue([]);
     setActiveAchievementToast(null);
+    setWishlistEntries([]);
+    setWishlistStatus("idle");
+    setWishlistError("");
+    setWishlistPendingKeys(new Set());
+    setWishlistMessage(null);
     achievementCacheByUserIdRef.current.clear();
     lastAchievementsLoadedUserIdRef.current = "";
     lastAccountScopedUserIdRef.current = "";
     setInspectedCard(null);
+  }
+
+  async function refreshWishlist(currentUser = user) {
+    if (!currentUser?.id || !supabase) return [];
+    setWishlistStatus("loading");
+    setWishlistError("");
+    try {
+      const entries = await loadWishlist(supabase, currentUser.id);
+      setWishlistEntries(entries);
+      setWishlistStatus("ready");
+      return entries;
+    } catch (error) {
+      console.warn("Unable to load mobile wishlist", error);
+      setWishlistError("Unable to load your wishlist.");
+      setWishlistStatus("error");
+      return [];
+    }
+  }
+
+  async function toggleWishlistCard(set, card, forceRemove = false) {
+    if (!user?.id || !supabase) {
+      setWishlistMessage({ key: getWishlistKey(set?.id, card?.id), text: "Log in to use your wishlist.", isError: true });
+      return;
+    }
+    if (!resolveCatalogWishlistItem(set?.id, card?.id)) {
+      setWishlistMessage({ key: getWishlistKey(set?.id, card?.id), text: "This card is unavailable.", isError: true });
+      return;
+    }
+    const key = getWishlistKey(set.id, card.id);
+    if (wishlistPendingKeys.has(key)) return;
+    const wasWishlisted = wishlistEntries.some((entry) => getWishlistKey(entry.setId, entry.cardId) === key);
+    const shouldRemove = forceRemove || wasWishlisted;
+    const previous = wishlistEntries;
+    setWishlistPendingKeys((current) => new Set(current).add(key));
+    setWishlistMessage(null);
+    setWishlistEntries((current) => shouldRemove
+      ? current.filter((entry) => getWishlistKey(entry.setId, entry.cardId) !== key)
+      : [...current, { setId: set.id, cardId: String(card.id), createdAt: new Date().toISOString() }]);
+    try {
+      if (shouldRemove) await removeWishlistCard(supabase, user.id, set.id, card.id);
+      else await addWishlistCard(supabase, user.id, set.id, card.id);
+      setWishlistMessage({ key, text: shouldRemove ? "Removed from wishlist." : "Added to wishlist.", isError: false });
+    } catch (error) {
+      console.warn("Unable to update mobile wishlist", error);
+      setWishlistEntries(previous);
+      setWishlistMessage({ key, text: "Wishlist update failed. Please try again.", isError: true });
+    } finally {
+      setWishlistPendingKeys((current) => { const next = new Set(current); next.delete(key); return next; });
+    }
   }
 
   async function loadUserAchievements(currentUser = user) {
@@ -2729,6 +2872,7 @@ function MobileApp() {
     setCollection(mergedCollection);
     setStats(cloudStats || EMPTY_STATS);
     setBinders(loadBinders());
+    refreshWishlist(currentUser);
   }
 
   function loadAccountScopedState(currentUser, { force = false } = {}) {
@@ -3010,6 +3154,17 @@ function MobileApp() {
   }, [soundEnabled]);
 
   useEffect(() => {
+    hapticsEnabledRef.current = hapticsEnabled;
+    saveHapticsEnabled(hapticsEnabled);
+  }, [hapticsEnabled]);
+
+  useEffect(() => {
+    if (!wishlistMessage || wishlistMessage.isError) return undefined;
+    const timer = window.setTimeout(() => setWishlistMessage(null), 1800);
+    return () => window.clearTimeout(timer);
+  }, [wishlistMessage]);
+
+  useEffect(() => {
     if (activeAchievementToast || achievementToastQueue.length === 0) return;
 
     const [nextToast, ...remainingToasts] = achievementToastQueue;
@@ -3105,6 +3260,11 @@ function MobileApp() {
           playFlipSound(soundEnabledRef.current);
 
           const card = pack[index];
+          const revealKey = `${activeRevealSoundSessionRef.current}:${index}:${card?.id || card?.name || "card"}`;
+          if (card && !playedRevealHapticKeysRef.current.has(revealKey)) {
+            playedRevealHapticKeysRef.current.add(revealKey);
+            triggerRevealHaptic(card, selectedSet, hapticsEnabledRef.current);
+          }
 
           if (index === pack.length - 1) {
             if (!pack.isGodPack) playFinalRevealSound(soundEnabledRef.current);
@@ -3168,6 +3328,7 @@ function MobileApp() {
     revealSoundSessionCounterRef.current += 1;
     activeRevealSoundSessionRef.current = [revealSoundSessionCounterRef.current, getPackSaveKey(cards, set)].join(":");
     playedRevealSoundKeysRef.current = new Set();
+    playedRevealHapticKeysRef.current = new Set();
   }
 
   async function preloadPackAssets(cards, set) {
@@ -3312,6 +3473,7 @@ function MobileApp() {
   }
 
   function inspectCard(card, set) {
+    setWishlistMessage(null);
     setInspectedCard({ card, set });
 
     if (
@@ -3593,7 +3755,7 @@ function MobileApp() {
   if (isMobileAuthCallbackRoute) return <MobileAuthCallbackPage />;
 
   return (
-    <main className={`mobile-app ${isDark ? "theme-dark" : "theme-light"}`}>
+    <main className="mobile-app theme-dark">
       <section className="phone-shell" aria-label="PackDex mobile app">
         <div className={`screen-content screen-${activeTab}`} ref={screenContentRef} onClick={handlePackScreenClick}>
           <MobileBrandHeader />
@@ -3640,7 +3802,7 @@ function MobileApp() {
               onCreateBinder={createCustomBinder}
               onInspectCard={inspectCard}
               onReturnFromSet={returnFromCollectionSet}
-              returnLabel={collectionReturnSource === "open" ? "Back to Open Packs" : "Back to Collection"}
+              returnLabel={collectionReturnSource === "open" ? "Back to Open Packs" : collectionReturnSource === "wishlist" ? "Back to Wishlist" : "Back to Collection"}
               priceMap={selectedCollectionSetId ? fullSetPriceMapsBySet[selectedCollectionSetId] : null}
               priceStatus={selectedCollectionSetId ? fullSetPriceStatusBySet[selectedCollectionSetId] || "idle" : "idle"}
             />
@@ -3657,19 +3819,34 @@ function MobileApp() {
               onOpenSignup={() => openAuthProfile("signup")}
             />
           )}
+          {activeTab === "wishlist" && user && (
+            <WishlistScreen
+              entries={wishlistEntries}
+              status={wishlistStatus}
+              error={wishlistError}
+              pendingKeys={wishlistPendingKeys}
+              onRetry={() => refreshWishlist(user)}
+              onBack={leaveWishlist}
+              onOpenSet={viewWishlistSet}
+              onInspectCard={inspectCard}
+              onRemove={(set, card) => toggleWishlistCard(set, card, true)}
+            />
+          )}
           {activeTab === "profile" && (
             <ProfileScreen
               user={user}
               stats={stats}
               setsCompleted={setsCompleted}
-              isDark={isDark}
               isAuthPanelOpen={isAuthPanelOpen}
-              onToggleTheme={() => setTheme(isDark ? "light" : "dark")}
               soundEnabled={soundEnabled}
+              hapticsEnabled={hapticsEnabled}
               onOpenLogin={() => openAuthProfile("login")}
               onOpenSignup={() => openAuthProfile("signup")}
               onLogout={handleLogout}
               onToggleSound={() => setSoundEnabled((value) => !value)}
+              onToggleHaptics={() => setHapticsEnabled((value) => !value)}
+              wishlistCount={wishlistEntries.length}
+              onOpenWishlist={openWishlist}
               estimatedCollectionValue={estimatedCollectionValue}
               isValueLoading={isValueLoading}
               achievements={achievements}
@@ -3712,12 +3889,17 @@ function MobileApp() {
         <CardInspectModal
           item={inspectedCard}
           collection={collection}
+          user={user}
+          wishlistKeys={new Set(wishlistEntries.map((entry) => getWishlistKey(entry.setId, entry.cardId)))}
+          wishlistPendingKeys={wishlistPendingKeys}
+          wishlistMessage={wishlistMessage}
+          onToggleWishlist={toggleWishlistCard}
+          onLogin={() => openAuthProfile("login")}
           priceMap={inspectedCard?.set ? fullSetPriceMapsBySet[inspectedCard.set.id] || priceMapsBySet[inspectedCard.set.id] : null}
           onClose={() => setInspectedCard(null)}
         />
         <MobileAuthModal
           isOpen={isAuthPanelOpen && !user}
-          isDark={isDark}
           authMode={authMode}
           authEmail={authEmail}
           authPassword={authPassword}
