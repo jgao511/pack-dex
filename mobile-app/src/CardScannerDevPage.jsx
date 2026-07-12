@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { captureCardImage, CardCaptureError } from "../../src/lib/cardScanner/captureCardImage.js";
+import { captureCardImage, CardCaptureError, createTemporaryImage } from "../../src/lib/cardScanner/captureCardImage.js";
 import { recognizeCardText } from "../../src/lib/cardScanner/recognizeCardText.js";
 import { rankCardMatches } from "../../src/lib/cardScanner/rankCardMatches.js";
+import { fuseCardMatches } from "../../src/lib/cardScanner/fuseCardMatches.js";
 import { confirmTrustedCandidate, getScannerResultMode, releaseTemporaryImage } from "../../src/lib/cardScanner/scannerSession.js";
 import { getCardImageUrl } from "../../src/utils/assetUrls.js";
 import { nativeCameraAdapter as defaultNativeCameraAdapter, nativeOcrAdapter as defaultOcrAdapter } from "./lib/nativeScannerAdapters.js";
@@ -22,6 +23,8 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
   const [message, setMessage] = useState("");
   const [diagnostics, setDiagnostics] = useState(null);
   const [bottomPreviewUrl, setBottomPreviewUrl] = useState("");
+  const [originalPreviewUrl, setOriginalPreviewUrl] = useState("");
+  const [outlinePreviewUrl, setOutlinePreviewUrl] = useState("");
   const [previewInFront, setPreviewInFront] = useState(false);
   const [previewStart, setPreviewStart] = useState(null);
   const [devText, setDevText] = useState(examples[0]);
@@ -52,7 +55,7 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
     }).then((value) => { handle = value; });
     return () => handle?.remove?.();
   }, [stage, previewInFront]);
-  useEffect(() => { let handle; activeCameraAdapter.listenForRestoredCapture?.((restored) => { releaseTemporaryImage(image); setImage(restored); setStage("processing"); setMessage(""); recognizeCardText(restored, { adapter: activeOcrAdapter }).then((reading) => { if (!reading.fullText.trim()) throw new Error("We couldn’t read enough text from this photo. Try again with the card flat and fully visible."); finishReading(reading.fullText, reading.blocks); }).catch(() => { setStage("captured"); setMessage("We couldn’t read enough text from this photo. Try again with the card flat and fully visible."); }); }).then((value) => { handle = value; }); return () => handle?.remove?.(); }, []);
+  useEffect(() => { let handle; activeCameraAdapter.listenForRestoredCapture?.((restored) => { releaseTemporaryImage(image); setImage(restored); setStage("processing"); setMessage(""); recognizeCardText(restored, { adapter: activeOcrAdapter }).then((reading) => { if (!reading.fullText.trim() && !reading.visualMatch?.lightweight?.candidates?.length) throw new Error("We couldn’t read enough from this photo. Try again with the card flat and fully visible."); finishReading(reading.fullText, reading.blocks, reading); }).catch(() => { setStage("captured"); setMessage("We couldn’t read enough from this photo. Try again with the card flat and fully visible."); }); }).then((value) => { handle = value; }); return () => handle?.remove?.(); }, []);
 
   function selectBrowserFile(options) {
     return new Promise((resolve) => {
@@ -69,8 +72,9 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
       nextImage = await captureCardImage({ source, nativeAdapter: activeCameraAdapter, selectBrowserFile });
       releaseTemporaryImage(image); setImage(nextImage); setStage("processing");
       const reading = await recognizeCardText(nextImage, { adapter: activeOcrAdapter });
-      if (!reading.fullText.trim()) throw Object.assign(new Error("We couldn’t read enough text from this photo. Try again with the card flat and fully visible."), { code: "empty-ocr" });
+      if (!reading.fullText.trim() && !reading.visualMatch?.lightweight?.candidates?.length) throw Object.assign(new Error("We couldn’t read enough from this photo. Try again with the card flat and fully visible."), { code: "empty-scan" });
       if (reading.previewUrl) setImage({ ...nextImage, imageUrl: reading.previewUrl });
+      setOriginalPreviewUrl(reading.originalPreviewUrl || ""); setOutlinePreviewUrl(reading.outlinePreviewUrl || "");
       setBottomPreviewUrl(reading.bottomPreviewUrl || "");
       finishReading(reading.fullText, reading.blocks, reading);
     } catch (error) {
@@ -87,8 +91,9 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
       await activeCameraAdapter.stopPreview();
       releaseTemporaryImage(image); setImage(nextImage); setStage("processing");
       const reading = await recognizeCardText(nextImage, { adapter: activeOcrAdapter });
-      if (!reading.fullText.trim()) throw new Error("We couldn’t read enough text from this photo. Try again with the card flat and fully visible.");
+      if (!reading.fullText.trim() && !reading.visualMatch?.lightweight?.candidates?.length) throw new Error("We couldn’t read enough from this photo. Try again with the card flat and fully visible.");
       if (reading.previewUrl) setImage({ ...nextImage, imageUrl: reading.previewUrl });
+      setOriginalPreviewUrl(reading.originalPreviewUrl || ""); setOutlinePreviewUrl(reading.outlinePreviewUrl || "");
       setBottomPreviewUrl(reading.bottomPreviewUrl || "");
       finishReading(reading.fullText, reading.blocks, reading);
     } catch (error) {
@@ -99,22 +104,27 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
   async function runReferenceTest() {
     setMessage(""); setConfirmed(null); setSelected(null); setMatch(null); setBottomPreviewUrl("");
     await activeCameraAdapter.stopPreview?.();
-    const referenceImage = { imageUrl: referenceCardUrl, nativePath: null, format: "jpeg", release() {} };
-    releaseTemporaryImage(image); setImage(referenceImage); setStage("processing");
+    let referenceImage;
     try {
+      const blob = await fetch(referenceCardUrl).then((response) => response.blob());
+      const file = new File([blob], "mega-charizard-x-ex-013-094.jpg", { type: blob.type || "image/jpeg" });
+      referenceImage = createTemporaryImage(file);
+      releaseTemporaryImage(image); setImage(referenceImage); setStage("processing");
       const reading = await recognizeCardText(referenceImage, { adapter: activeOcrAdapter });
-      if (!reading.fullText.trim()) throw new Error("The reference image produced no OCR text.");
+      if (!reading.fullText.trim() && !reading.visualMatch?.lightweight?.candidates?.length) throw new Error("The reference image produced no usable local evidence.");
       if (reading.previewUrl) setImage({ ...referenceImage, imageUrl: reading.previewUrl });
+      setOriginalPreviewUrl(reading.originalPreviewUrl || ""); setOutlinePreviewUrl(reading.outlinePreviewUrl || "");
       setBottomPreviewUrl(reading.bottomPreviewUrl || "");
       finishReading(reading.fullText, reading.blocks, reading);
     } catch (error) { setMessage(error?.message || "The reference test could not run."); setStage("captured"); }
   }
   function finishReading(fullText, blocks = [], reading = {}) {
-    const nextMatch = rankCardMatches({ rawText: fullText, textBlocks: blocks, maxResults: 5 });
-    setDiagnostics({ previewStart, image: reading.imageDiagnostics || null, passes: reading.passes || [], rawText: fullText, normalizedText: nextMatch.normalizedText, collectorNumbers: nextMatch.collectorNumbers, nameCandidates: nextMatch.nameCandidates, narrowedSetIds: nextMatch.narrowedSetIds, narrowedCardIds: nextMatch.narrowedCardIds, matches: nextMatch.results.map(({ cardId, score, confidence, reasons, setName, card }) => ({ cardId, name: card.name, setName, score, confidence, reasons })) });
+    const ocrMatch = reading.ocrMatch || rankCardMatches({ rawText: fullText, textBlocks: blocks, maxResults: 3 });
+    const nextMatch = reading.visualMatch ? fuseCardMatches(ocrMatch, reading.visualMatch) : ocrMatch;
+    setDiagnostics({ previewStart, image: reading.imageDiagnostics || null, timing: reading.scannerTiming || null, passes: reading.passes || [], visual: reading.visualMatch || null, visualError: reading.visualError || null, rawText: fullText, normalizedText: nextMatch.normalizedText, collectorNumbers: nextMatch.collectorNumbers, nameCandidates: nextMatch.nameCandidates, narrowedSetIds: nextMatch.narrowedSetIds, narrowedCardIds: nextMatch.narrowedCardIds, matches: nextMatch.results.map(({ cardId, score, confidence, reasons, setName, card }) => ({ cardId, name: card.name, setName, score, confidence, reasons })) });
     setMatch(nextMatch); setSelected(null); setStage("result"); setMessage("");
   }
-  function reset() { releaseTemporaryImage(image); setImage(null); setBottomPreviewUrl(""); setMatch(null); setSelected(null); setConfirmed(null); setDiagnostics(null); setMessage(""); setStage("start"); }
+  function reset() { releaseTemporaryImage(image); setImage(null); setBottomPreviewUrl(""); setOriginalPreviewUrl(""); setOutlinePreviewUrl(""); setMatch(null); setSelected(null); setConfirmed(null); setDiagnostics(null); setMessage(""); setStage("start"); }
   function confirm(result) { const trusted = confirmTrustedCandidate(match, result.cardId); if (trusted) { setConfirmed(trusted); setSelected(result); } }
   const mode = getScannerResultMode(match); const highResult = match?.primaryMatch;
 
@@ -131,7 +141,7 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
     {stage === "result" && mode === "high" && highResult && <section className="scanner-result"><span className="scanner-confidence">High confidence</span><Candidate result={highResult} onSelect={confirm} actionLabel="Confirm Card" /><div className="scanner-result-actions"><button className="secondary-action" type="button" onClick={() => { setMatch({ ...match, confidence: "medium", primaryMatch: null }); setSelected(null); }}>Not This Card</button><button className="secondary-action" type="button" onClick={reset}>Scan Again</button></div></section>}
     {stage === "result" && mode === "medium" && <section className="scanner-result"><h2>Choose the matching card</h2>{match.results.slice(0, 3).map((result) => <Candidate key={result.cardId} result={result} onSelect={(item) => setSelected(item)} />)}{selected && <button className="primary-action" type="button" onClick={() => confirm(selected)}>Confirm Card</button>}<button className="secondary-action" type="button" onClick={reset}>Scan Again</button></section>}
     {stage === "result" && mode === "low" && <section className="scanner-result scanner-low"><h2>{match.results?.length ? "We couldn’t confidently identify this card." : "We couldn’t find a reliable match."}</h2><p>Keep the full card visible on a plain background, reduce glare, hold steady, and try without a sleeve if practical.</p>{match.results?.length > 0 && <details><summary>Choose From Matches</summary>{match.results.slice(0, 3).map((result) => <Candidate key={result.cardId} result={result} onSelect={(item) => setSelected(item)} />)}{selected && <button className="primary-action" type="button" onClick={() => confirm(selected)}>Confirm Card</button>}</details>}<div className="scanner-result-actions"><button className="primary-action" type="button" onClick={reset}>Scan Again</button><button className="secondary-action" type="button" onClick={() => beginCapture("library")}>Choose Photo</button></div></section>}
-    {diagnostics && <details className="scanner-diagnostics"><summary>Scanner Diagnostics</summary><button className="secondary-action" type="button" onClick={() => navigator.clipboard?.writeText(JSON.stringify(diagnostics, null, 2))}>Copy Diagnostics</button>{image?.imageUrl && <figure><img src={image.imageUrl} alt="Exact final OCR input" /><figcaption>Exact final OCR input</figcaption></figure>}{bottomPreviewUrl && <figure><img src={bottomPreviewUrl} alt="Bottom collector-number OCR crop" /><figcaption>Bottom collector-number OCR crop</figcaption></figure>}<pre>{JSON.stringify(diagnostics, null, 2)}</pre></details>}
+    {diagnostics && <details className="scanner-diagnostics"><summary>Scanner Diagnostics</summary><button className="secondary-action" type="button" onClick={() => navigator.clipboard?.writeText(JSON.stringify(diagnostics, null, 2))}>Copy Diagnostics</button>{originalPreviewUrl && <figure><img src={originalPreviewUrl} alt="Original complete scanner image" /><figcaption>Original complete image</figcaption></figure>}{outlinePreviewUrl && <figure><img src={outlinePreviewUrl} alt="Mapped live-preview outline crop" /><figcaption>Mapped outline crop</figcaption></figure>}{image?.imageUrl && <figure><img src={image.imageUrl} alt="Exact final OCR and visual matching input" /><figcaption>Detected/rectified final matching image</figcaption></figure>}{bottomPreviewUrl && <figure><img src={bottomPreviewUrl} alt="Bottom collector-number OCR crop" /><figcaption>Bottom collector-number OCR crop</figcaption></figure>}<pre>{JSON.stringify(diagnostics, null, 2)}</pre></details>}
     {confirmed && <section className="scanner-confirmed" role="status"><span>Confirmed locally</span><strong>{confirmed.card.name}</strong><small>Trusted PackDex card ID: {confirmed.cardId}</small></section>}
   </main>;
 }

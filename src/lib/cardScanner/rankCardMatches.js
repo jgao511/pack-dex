@@ -9,12 +9,20 @@ function editDistance(a, b) {
   return row[b.length];
 }
 function similarity(a, b) { return a && b ? 1 - editDistance(a, b) / Math.max(a.length, b.length) : 0; }
+const NON_NAME_TOKENS = new Set(["mega", "stage", "evolves", "from", "rule", "pokemon", "energy", "weakness", "resistance", "retreat", "damage", "discard", "copyright", "creatures", "nintendo", "game", "freak"]);
+function shortlistCatalog(catalog, collectors, names) {
+  const numbers = new Set(collectors.map(({ normalized }) => normalized));
+  const exactNames = new Set(names.map(({ normalized }) => normalized));
+  const prefixes = new Set(names.flatMap(({ normalized }) => normalized.split(" ")).filter((token) => token.length >= 4 && !NON_NAME_TOKENS.has(token)).map((token) => token.slice(0, 4)));
+  if (!numbers.size && !prefixes.size && !exactNames.size) return [];
+  return catalog.filter((entry) => numbers.has(entry.normalizedNumber) || exactNames.has(entry.normalizedName) || entry.normalizedName.split(" ").some((token) => token.length >= 4 && prefixes.has(token.slice(0, 4))));
+}
 
 export function rankCardMatches({ rawText = "", textBlocks = [], maxResults = 5 } = {}, catalog = getScannerCatalog()) {
   const normalized = normalizeScannerText(rawText);
   const collectors = extractCollectorNumbers(rawText, textBlocks);
   const names = extractNameCandidates(rawText, textBlocks);
-  const scored = catalog.map((entry) => {
+  const scored = shortlistCatalog(catalog, collectors, names).map((entry) => {
     let score = 0; const reasons = [];
     const number = collectors.find((item) => item.normalized === entry.normalizedNumber);
     if (number) { score += entry.normalizedNumber.match(/^[A-Z]/) ? 58 : 50; if (/^collector-bottom/.test(number.sourcePass)) score += 8; reasons.push(`${entry.normalizedNumber.match(/^[A-Z]/) ? "exact prefixed collector number" : "exact collector number"} (${number.sourcePass})`); }

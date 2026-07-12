@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { readFile } from "node:fs/promises";
-import { getOcrCropDefinitions, getProportionalSize, stripDataUrlPrefix } from "../src/lib/cardScanner/prepareCardImage.js";
+import { getOcrCropDefinitions, getProportionalSize, prepareCardImage, stripDataUrlPrefix } from "../src/lib/cardScanner/prepareCardImage.js";
 import { mapPreviewOutlineToCapture } from "../src/lib/cardScanner/mapPreviewCrop.js";
 
 test("prepares proportional OCR dimensions without upscaling", () => {
@@ -85,5 +85,31 @@ test("reference fixture is a JPEG wired through recognition without trusted-resu
   const page = await readFile(new URL("../mobile-app/src/CardScannerDevPage.jsx", import.meta.url), "utf8");
   assert.deepEqual([...fixture.subarray(0, 3)], [0xff, 0xd8, 0xff]);
   assert.match(page, /recognizeCardText\(referenceImage/);
+  assert.match(page, /new File\(\[blob\]/);
+  assert.match(page, /createTemporaryImage\(file\)/);
   assert.doesNotMatch(page, /runReferenceTest[\s\S]{0,1200}phantasmal-flames-13-mega-charizard-x-ex/);
+});
+
+test("camera preparation offers both mapped outline and complete capture to rectification", async () => {
+  const makeCanvas = (width, height) => ({ width, height, getContext: () => ({ filter: "none", drawImage() {} }), toDataURL: () => "data:image/jpeg;base64,AA==" });
+  let inputs;
+  const rectified = makeCanvas(750, 1050);
+  const result = await prepareCardImage({ imageUrl: "blob:test", previewGeometry: { previewWidth: 300, previewHeight: 420, outline: { x: 10, y: 10, width: 280, height: 400 } } }, {
+    fetchImpl: async () => ({ blob: async () => new Blob(["image"]) }),
+    createBitmap: async () => ({ width: 1080, height: 1920, close() {} }), createCanvas: makeCanvas,
+    rectify: async (value) => { inputs = value; return { canvas: rectified, diagnostics: { selectedSource: "full-capture" } }; },
+  });
+  assert.ok(inputs.mappedCrop); assert.notEqual(inputs.outlineCanvas, inputs.fullCanvas);
+  assert.equal(result.canvas, rectified); assert.equal(result.boundaryDiagnostics.selectedSource, "full-capture");
+});
+
+test("Choose Photo preparation starts from the complete File/Blob image", async () => {
+  const makeCanvas = (width, height) => ({ width, height, getContext: () => ({ filter: "none", drawImage() {} }), toDataURL: () => "data:image/jpeg;base64,AA==" });
+  let inputs;
+  await prepareCardImage({ imageUrl: "blob:user-photo" }, {
+    fetchImpl: async () => ({ blob: async () => new Blob(["image"]) }),
+    createBitmap: async () => ({ width: 716, height: 1000, close() {} }), createCanvas: makeCanvas,
+    rectify: async (value) => { inputs = value; return { canvas: value.fullCanvas, diagnostics: { selectedSource: "full-capture-fallback" } }; },
+  });
+  assert.equal(inputs.mappedCrop, null); assert.equal(inputs.outlineCanvas, inputs.fullCanvas);
 });

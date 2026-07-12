@@ -31,7 +31,7 @@ export function createOcrPasses(canvas, { quality = .92, createCanvas } = {}) {
   });
 }
 
-export async function prepareCardImage(image, { maxEdge = 1800, quality = .92, fetchImpl = fetch, createBitmap = createImageBitmap, createCanvas } = {}) {
+export async function prepareCardImage(image, { maxEdge = 1800, quality = .92, fetchImpl = fetch, createBitmap = createImageBitmap, createCanvas, rectify } = {}) {
   if (!image?.imageUrl) throw new CardRecognitionError("empty-image", "We couldn’t open that photo.");
   const response = await fetchImpl(image.imageUrl); const blob = await response.blob();
   // Capacitor Camera returns corrected pixels; do not apply EXIF a second time.
@@ -39,18 +39,21 @@ export async function prepareCardImage(image, { maxEdge = 1800, quality = .92, f
   const originalWidth = bitmap.width; const originalHeight = bitmap.height;
   const mappedCrop = image.previewGeometry ? mapPreviewOutlineToCapture({ ...image.previewGeometry, captureWidth: originalWidth, captureHeight: originalHeight }) : null;
   const source = mappedCrop || { x: 0, y: 0, width: originalWidth, height: originalHeight };
+  const fullSize = getProportionalSize(originalWidth, originalHeight, maxEdge);
+  const fullCanvas = canvasFactory(fullSize.width, fullSize.height, createCanvas);
+  fullCanvas.getContext("2d").drawImage(bitmap, 0, 0, originalWidth, originalHeight, 0, 0, fullSize.width, fullSize.height);
   const size = getProportionalSize(source.width, source.height, maxEdge);
-  const canvas = canvasFactory(size.width, size.height, createCanvas);
-  canvas.getContext("2d").drawImage(bitmap, source.x, source.y, source.width, source.height, 0, 0, size.width, size.height);
+  const outlineCanvas = mappedCrop ? canvasFactory(size.width, size.height, createCanvas) : fullCanvas;
+  if (mappedCrop) outlineCanvas.getContext("2d").drawImage(bitmap, source.x, source.y, source.width, source.height, 0, 0, size.width, size.height);
+  let rectification = null;
+  if (rectify) rectification = await rectify({ outlineCanvas, fullCanvas, mappedCrop, originalWidth, originalHeight });
+  const canvas = rectification?.canvas || (mappedCrop ? outlineCanvas : fullCanvas);
   const passes = createOcrPasses(canvas, { quality, createCanvas });
-  if (mappedCrop) {
-    const fallbackSize = getProportionalSize(originalWidth, originalHeight, maxEdge);
-    const fallbackCanvas = canvasFactory(fallbackSize.width, fallbackSize.height, createCanvas);
-    fallbackCanvas.getContext("2d").drawImage(bitmap, 0, 0, originalWidth, originalHeight, 0, 0, fallbackSize.width, fallbackSize.height);
-    const fallbackPasses = createOcrPasses(fallbackCanvas, { quality, createCanvas }).filter((pass) => pass.label === "full-card" || pass.label === "collector-bottom-edge");
+  if (mappedCrop || rectification?.canvas) {
+    const fallbackPasses = createOcrPasses(fullCanvas, { quality, createCanvas }).filter((pass) => pass.label === "full-card" || pass.label === "collector-bottom-edge");
     for (const pass of fallbackPasses) passes.push({ ...pass, label: pass.label === "full-card" ? "full-capture-fallback" : "full-capture-bottom-edge" });
   }
   bitmap.close?.();
   const bottomPass = passes.find((pass) => pass.label === "collector-bottom-edge");
-  return { canvas, previewUrl: canvas.toDataURL("image/jpeg", quality), bottomPreviewUrl: bottomPass ? `data:image/jpeg;base64,${bottomPass.base64Image}` : null, passes, originalWidth, originalHeight, width: size.width, height: size.height, mappedCrop, detectedOrientation: size.height >= size.width ? "portrait" : "landscape", rotationApplied: 0 };
+  return { canvas, previewUrl: canvas.toDataURL("image/jpeg", quality), originalPreviewUrl: fullCanvas.toDataURL("image/jpeg", quality), outlinePreviewUrl: outlineCanvas.toDataURL("image/jpeg", quality), bottomPreviewUrl: bottomPass ? `data:image/jpeg;base64,${bottomPass.base64Image}` : null, passes, originalWidth, originalHeight, width: canvas.width, height: canvas.height, mappedCrop, boundaryDiagnostics: rectification?.diagnostics || null, detectedOrientation: canvas.height >= canvas.width ? "portrait" : "landscape", rotationApplied: 0 };
 }

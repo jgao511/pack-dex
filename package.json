@@ -16,6 +16,8 @@
     "test:scanner-native-plugins": "node --test tests/scannerNativePlugins.test.mjs",
     "test:scanner-test-build": "node --test tests/scannerTestBuild.test.mjs",
     "test:scanner-visual-benchmark": "node scripts/scanner-visual-benchmark.mjs",
+    "build:scanner-visual-index": "node scripts/build-scanner-visual-index.mjs",
+    "test:scanner-visual-index": "node --test tests/scannerVisualIndex.test.mjs",
     "audit:vintage": "node scripts/audit-vintage-sets.mjs",
     "build:price-sync-catalog": "node scripts/build-price-sync-catalog.mjs",
     "check:price-sync-deploy-scope": "node scripts/assert-price-sync-deploy-scope.mjs",

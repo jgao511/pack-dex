@@ -1,39 +1,84 @@
 # PackDex local scanner visual benchmark
 
-Generated: 2026-07-12T22:17:40.915Z
+Generated: 2026-07-12T23:13:12.848Z
 
-This development-only benchmark compares each synthetic scan only with its OCR-narrowed card-family shortlist (3–5 trusted catalog cards), never the full catalog. It uses no network services or uploads.
+This development-only benchmark searches the complete 50-card trusted test catalog. Lightweight visual search evaluates every reference; ORB/RANSAC runs only against the strongest 8 fused visual/OCR candidates. It uses no cloud vision, uploads, or paid services.
 
-## Results
+## Accuracy
 
 | Pipeline | Top-1 | Top-3 |
 | --- | ---: | ---: |
-| pHash + color + OCR | 97.5% (117/120) | 100.0% (120/120) |
-| pHash + color + ORB/RANSAC + OCR | 100.0% (120/120) | 100.0% (120/120) |
+| Simulated OCR-only evidence | 57.6% (259/450) | 70.4% (317/450) |
+| Lightweight pHash + dHash + color | 99.6% (448/450) | 100.0% (450/450) |
+| Fused evidence + top-8 ORB/RANSAC | 100.0% (450/450) | 100.0% (450/450) |
 
-Mean processing time: 179.1 ms/query; p50 177.0 ms; p95 210.3 ms. Reference descriptor setup (20 cards): 2653.1 ms.
+OCR-only numbers measure deterministic, degraded text observations; this harness does not run ML Kit OCR. They are a matching benchmark, not an OCR-engine accuracy claim.
 
-ORB Top-1 change: 2.5 percentage points. ORB materially improved this benchmark.
+## Timing
 
-## Supplied Mega Charizard reference
+| Stage | Mean | p95 |
+| --- | ---: | ---: |
+| OCR score/rank only (excludes OCR inference) | 0.1 ms | 0.2 ms |
+| Query descriptors + full lightweight search | 87.3 ms | 95.0 ms |
+| Top-8 ORB/RANSAC rerank | 75.9 ms | 98.0 ms |
+| End to end (excluding OCR inference) | 163.3 ms | 187.6 ms |
 
-Expected: `phantasmal-flames-13-mega-charizard-x-ex`; pHash baseline rank: 1; ORB/RANSAC rank: 1; shortlist: xy2-11-charizard-ex, burning-shadows-20-charizard-gx, darkness-ablaze-20-charizard-vmax, obsidian-flames-223-charizard-ex, phantasmal-flames-13-mega-charizard-x-ex.
+Reference descriptor setup: 4823.2 ms. Times are desktop Node/OpenCV.js measurements, not Pixel timings.
 
-The reference observation uses the Pixel diagnostic text (`Mega Charizard XeA360`, `O1B/094`) and the bounded collector alternatives `013/094` and `018/094`; the image itself still supplies the visual evidence.
+## Mega Charizard acceptance matrix
 
-## Coverage
+| Input | OCR rank | Lightweight rank | ORB rank | ORB top |
+| --- | ---: | ---: | ---: | --- |
+| direct-fixture | 1 | 1 | 1 | `phantasmal-flames-13-mega-charizard-x-ex` |
+| file-blob-equivalent | 1 | 1 | 1 | `phantasmal-flames-13-mega-charizard-x-ex` |
+| shifted-outside-outline | 1 | 1 | 1 | `phantasmal-flames-13-mega-charizard-x-ex` |
+| missing-margin | 1 | 1 | 1 | `phantasmal-flames-13-mega-charizard-x-ex` |
+| perspective | 1 | 1 | 1 | `phantasmal-flames-13-mega-charizard-x-ex` |
+| rotation | 1 | 1 | 1 | `phantasmal-flames-13-mega-charizard-x-ex` |
+| blur | 1 | 1 | 1 | `phantasmal-flames-13-mega-charizard-x-ex` |
+| brightness | 1 | 1 | 1 | `phantasmal-flames-13-mega-charizard-x-ex` |
+| glare | 1 | 1 | 1 | `phantasmal-flames-13-mega-charizard-x-ex` |
 
-- 20 PackDex cards; 120 generated queries plus the supplied reference query
-- Eras: XY, Sun & Moon, Sword & Shield, Scarlet & Violet, Mega Evolution
-- Rarities: Rare Holo EX, Double Rare, Ultra Rare, Special Illustration Rare, Common, Secret Rare, Illustration Rare, Rare Shiny, Rare
-- Variations: perspective, rotation, brightness, blur, jpeg, glare
+Expected: `phantasmal-flames-13-mega-charizard-x-ex`. Direct fixture and File/Blob-equivalent bytes both use the normal decode/resize/descriptor/ranking functions; the Blob case creates a real Node Blob and decodes its bytes. Browser preview geometry, ML Kit, and physical-camera behavior are outside this development harness.
 
-## Failure examples
+## Catalog and variation coverage
 
-- glare: expected `phantasmal-flames-13-mega-charizard-x-ex`; baseline #3 (picked `darkness-ablaze-20-charizard-vmax`); ORB #1 (picked `phantasmal-flames-13-mega-charizard-x-ex`).
-- glare: expected `team-up-184-pikachu-zekrom-gx`; baseline #2 (picked `xy1-42-pikachu`); ORB #1 (picked `team-up-184-pikachu-zekrom-gx`).
-- glare: expected `prismatic-evolutions-167-eevee-ex`; baseline #2 (picked `hidden-fates-SV41-eevee`); ORB #1 (picked `prismatic-evolutions-167-eevee-ex`).
+- 50 trusted cards; 450 generated catalog queries
+- Eras: XY, Sun & Moon, Sword & Shield, Scarlet & Violet, Mega Evolution, Original Series, Neo Series, e-Card Series, EX Series, Diamond & Pearl Series, Black & White Series
+- Sets: 26; rarities: Rare Holo EX, Double Rare, Ultra Rare, Special Illustration Rare, Common, Secret Rare, Illustration Rare, Rare Shiny, Rare, Rare Holo, Uncommon, Rare Ultra, Rare Secret
+- Variations: exact, shifted-outside-outline, missing-margin, perspective, rotation, blur, jpeg, brightness, glare
+- Estimated lightweight index: 14055 JSON bytes; 5310 gzip bytes
+- Reference cache: 50 hits, 0 downloads, 0 failures
 
-## Interpretation
+## Failures and false positives
 
-The benchmark is a feasibility check, not a production accuracy claim: its OCR shortlist is simulated from a stable family token and selectively available collector evidence. The next useful step is to collect a labeled Pixel corpus (including sleeves, glare, real backgrounds, and failed crops), replay the real OCR shortlists, and rerun this harness before choosing an Android implementation.
+Top-1 failures: OCR-only 191/450; lightweight visual 2/450; ORB reranked 0/450. Confident ORB false positives at the benchmark threshold: 0/450.
+
+- glare: expected `dp1-7`; OCR #1, visual #2 (`base1-58`), ORB #1 (`dp1-7`), accepted=true.
+- glare: expected `bw1-20`; OCR #1, visual #2 (`bw1-47`), ORB #1 (`bw1-20`), accepted=true.
+- shifted-outside-outline: expected `xy2-11-charizard-ex`; OCR #2, visual #1 (`xy2-11-charizard-ex`), ORB #1 (`xy2-11-charizard-ex`), accepted=true.
+- missing-margin: expected `xy2-11-charizard-ex`; OCR #7, visual #1 (`xy2-11-charizard-ex`), ORB #1 (`xy2-11-charizard-ex`), accepted=true.
+- perspective: expected `xy2-11-charizard-ex`; OCR #7, visual #1 (`xy2-11-charizard-ex`), ORB #1 (`xy2-11-charizard-ex`), accepted=true.
+- rotation: expected `xy2-11-charizard-ex`; OCR #7, visual #1 (`xy2-11-charizard-ex`), ORB #1 (`xy2-11-charizard-ex`), accepted=true.
+- blur: expected `xy2-11-charizard-ex`; OCR #47, visual #1 (`xy2-11-charizard-ex`), ORB #1 (`xy2-11-charizard-ex`), accepted=true.
+- brightness: expected `xy2-11-charizard-ex`; OCR #2, visual #1 (`xy2-11-charizard-ex`), ORB #1 (`xy2-11-charizard-ex`), accepted=true.
+- glare: expected `xy2-11-charizard-ex`; OCR #7, visual #1 (`xy2-11-charizard-ex`), ORB #1 (`xy2-11-charizard-ex`), accepted=true.
+- missing-margin: expected `burning-shadows-20-charizard-gx`; OCR #4, visual #1 (`burning-shadows-20-charizard-gx`), ORB #1 (`burning-shadows-20-charizard-gx`), accepted=true.
+- perspective: expected `burning-shadows-20-charizard-gx`; OCR #4, visual #1 (`burning-shadows-20-charizard-gx`), ORB #1 (`burning-shadows-20-charizard-gx`), accepted=true.
+- rotation: expected `burning-shadows-20-charizard-gx`; OCR #4, visual #1 (`burning-shadows-20-charizard-gx`), ORB #1 (`burning-shadows-20-charizard-gx`), accepted=true.
+- blur: expected `burning-shadows-20-charizard-gx`; OCR #8, visual #1 (`burning-shadows-20-charizard-gx`), ORB #1 (`burning-shadows-20-charizard-gx`), accepted=true.
+- glare: expected `burning-shadows-20-charizard-gx`; OCR #4, visual #1 (`burning-shadows-20-charizard-gx`), ORB #1 (`burning-shadows-20-charizard-gx`), accepted=true.
+- missing-margin: expected `darkness-ablaze-20-charizard-vmax`; OCR #5, visual #1 (`darkness-ablaze-20-charizard-vmax`), ORB #1 (`darkness-ablaze-20-charizard-vmax`), accepted=true.
+- perspective: expected `darkness-ablaze-20-charizard-vmax`; OCR #5, visual #1 (`darkness-ablaze-20-charizard-vmax`), ORB #1 (`darkness-ablaze-20-charizard-vmax`), accepted=true.
+- rotation: expected `darkness-ablaze-20-charizard-vmax`; OCR #5, visual #1 (`darkness-ablaze-20-charizard-vmax`), ORB #1 (`darkness-ablaze-20-charizard-vmax`), accepted=true.
+- blur: expected `darkness-ablaze-20-charizard-vmax`; OCR #15, visual #1 (`darkness-ablaze-20-charizard-vmax`), ORB #1 (`darkness-ablaze-20-charizard-vmax`), accepted=true.
+- glare: expected `darkness-ablaze-20-charizard-vmax`; OCR #5, visual #1 (`darkness-ablaze-20-charizard-vmax`), ORB #1 (`darkness-ablaze-20-charizard-vmax`), accepted=true.
+- missing-margin: expected `obsidian-flames-223-charizard-ex`; OCR #6, visual #1 (`obsidian-flames-223-charizard-ex`), ORB #1 (`obsidian-flames-223-charizard-ex`), accepted=true.
+
+## Gardevoir/Groudon confusion check
+
+The benchmark contains both `ex1-7` and `ex9-5`. Across Gardevoir's nine variations, Groudon was never shortlisted in the top 8; Gardevoir ORB Top-1 accuracy was 100.0%.
+
+## Limits
+
+These are synthetic transforms of catalog/reference images on a desktop, not a labeled physical Pixel corpus. They do not reproduce sleeves, arbitrary backgrounds, motion during capture, incorrect preview-to-sensor mapping, real ML Kit OCR, or every crop failure. A correct benchmark result must not be described as proof that physical scanning is fixed.
