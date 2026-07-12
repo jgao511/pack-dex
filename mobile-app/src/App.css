@@ -33,6 +33,8 @@ body,
 html {
   min-height: 100%;
   background: var(--mobile-dark-bg);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body,
@@ -115,7 +117,7 @@ button {
   padding:
     max(20px, env(safe-area-inset-top))
     18px
-    calc(var(--bottom-nav-height) + var(--bottom-nav-gap) + env(safe-area-inset-bottom) + 42px);
+    calc(var(--bottom-nav-height) + max(var(--bottom-nav-gap), env(safe-area-inset-bottom)) + 18px);
   overscroll-behavior: contain;
   scrollbar-width: none;
 }
@@ -2314,7 +2316,7 @@ button {
   left: 14px;
   right: 14px;
   bottom: max(var(--bottom-nav-gap), env(safe-area-inset-bottom));
-  min-height: var(--bottom-nav-height);
+  height: var(--bottom-nav-height);
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 6px;

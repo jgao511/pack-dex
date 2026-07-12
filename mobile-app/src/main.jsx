@@ -1,11 +1,30 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
+import { Capacitor } from "@capacitor/core";
 import App from "./App.jsx";
 import MobileResetPasswordPage from "./MobileResetPasswordPage.jsx";
 import PublicPullSharePage from "./PublicPullSharePage.jsx";
 import CardScannerDevPage from "./CardScannerDevPage.jsx";
 import { supabase } from "./lib/supabaseClient.js";
 import "./App.css";
+
+const isNativePlatform = Capacitor.isNativePlatform();
+document.documentElement.classList.toggle("capacitor-native", isNativePlatform);
+
+if (import.meta.env.DEV) {
+  const viewport = window.visualViewport;
+  console.info("[PackDex mobile viewport]", {
+    innerWidth: window.innerWidth,
+    innerHeight: window.innerHeight,
+    devicePixelRatio: window.devicePixelRatio,
+    screenWidth: window.screen.width,
+    screenHeight: window.screen.height,
+    visualViewportWidth: viewport?.width ?? null,
+    visualViewportHeight: viewport?.height ?? null,
+    rootFontSize: getComputedStyle(document.documentElement).fontSize,
+    isNativePlatform,
+  });
+}
 
 const normalizedPath = window.location.pathname.replace(/\/+$/, "");
 const isResetPasswordRoute =
