@@ -4,8 +4,8 @@ import { fileURLToPath } from "node:url";
 
 const mobileAppDir = fileURLToPath(new URL(".", import.meta.url));
 
-export default defineConfig(({ command }) => ({
-  base: command === "build" ? "/mobile-app/" : "/",
+export default defineConfig(({ command, mode }) => ({
+  base: command === "build" ? (mode === "native" ? "./" : "/mobile-app/") : "/",
   plugins: [react()],
   envDir: mobileAppDir,
   publicDir: "../public",

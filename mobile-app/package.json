@@ -6,14 +6,23 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1 --port 5174",
     "build": "vite build",
+    "build:native": "vite build --mode native",
+    "cap:sync:android": "npm run build:native && cap sync android",
+    "cap:open:android": "cap open android",
+    "cap:run:android": "npm run build:native && cap run android",
     "preview": "vite preview --host 127.0.0.1 --port 4174"
   },
   "dependencies": {
+    "@capacitor/android": "8.4.1",
+    "@capacitor/core": "8.4.1",
     "@supabase/supabase-js": "^2.106.2",
     "@vitejs/plugin-react": "latest",
     "react": "latest",
     "react-dom": "latest",
     "react-turnstile": "^1.1.5",
     "vite": "latest"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.4.1"
   }
 }
