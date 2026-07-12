@@ -70,3 +70,14 @@ test("matches the Pixel Mega Charizard OCR fixture without unrelated fallbacks",
   assert.equal(output.primaryMatch?.cardId, "phantasmal-flames-13-mega-charizard-x-ex");
   assert.deepEqual(output.collectorNumbers.map((item) => `${item.cardNumber}/${item.printedSetTotal}`), ["013/094", "018/094"]);
 });
+
+test("matches the exact reference-image ML Kit output and rejects attack numbers", () => {
+  const output = rankCardMatches({ rawText: "Mega ChartzardX\ne360\nweakness 4 x2\n90x\nOPFLEN O13/094", textBlocks: [
+    { text: "Mega ChartzardX\ne360", sourcePass: "name-top" },
+    { text: "weakness 4 x2\n90x", sourcePass: "full-card" },
+    { text: "OPFLEN O13/094", sourcePass: "collector-bottom" },
+  ] });
+  assert.equal(output.confidence, "high");
+  assert.deepEqual(output.results.map((result) => result.cardId), ["phantasmal-flames-13-mega-charizard-x-ex"]);
+  assert.equal(output.collectorNumbers.some((number) => number.normalized === "4" || number.normalized === "90"), false);
+});

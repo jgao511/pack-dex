@@ -1,0 +1,1308 @@
+{
+  "generatedAt": "2026-07-12T22:17:40.915Z",
+  "developmentOnly": true,
+  "trustedCatalogValidated": true,
+  "cardCount": 20,
+  "queryCount": 120,
+  "shortlistSize": {
+    "minimum": 3,
+    "maximum": 5
+  },
+  "variations": [
+    "perspective",
+    "rotation",
+    "brightness",
+    "blur",
+    "jpeg",
+    "glare"
+  ],
+  "eras": [
+    "XY",
+    "Sun & Moon",
+    "Sword & Shield",
+    "Scarlet & Violet",
+    "Mega Evolution"
+  ],
+  "rarities": [
+    "Rare Holo EX",
+    "Double Rare",
+    "Ultra Rare",
+    "Special Illustration Rare",
+    "Common",
+    "Secret Rare",
+    "Illustration Rare",
+    "Rare Shiny",
+    "Rare"
+  ],
+  "baseline": {
+    "top1": 0.975,
+    "top3": 1,
+    "top1Count": 117,
+    "top3Count": 120,
+    "total": 120
+  },
+  "orb": {
+    "top1": 1,
+    "top3": 1,
+    "top1Count": 120,
+    "top3Count": 120,
+    "total": 120
+  },
+  "orbImprovementTop1": 0.025000000000000022,
+  "orbMateriallyImproves": true,
+  "timing": {
+    "referenceSetupMs": 2653.1315,
+    "meanMs": 179.13398000000015,
+    "p50Ms": 176.97990000000027,
+    "p95Ms": 210.3121000000001
+  },
+  "referenceImage": {
+    "path": "tests/fixtures/scanner/mega-charizard-x-ex-013-094.jpg",
+    "expectedCardId": "phantasmal-flames-13-mega-charizard-x-ex",
+    "baselineRank": 1,
+    "orbRank": 1,
+    "baselineTop": "phantasmal-flames-13-mega-charizard-x-ex",
+    "orbTop": "phantasmal-flames-13-mega-charizard-x-ex",
+    "shortlist": [
+      "xy2-11-charizard-ex",
+      "burning-shadows-20-charizard-gx",
+      "darkness-ablaze-20-charizard-vmax",
+      "obsidian-flames-223-charizard-ex",
+      "phantasmal-flames-13-mega-charizard-x-ex"
+    ]
+  },
+  "failures": [
+    {
+      "cardId": "phantasmal-flames-13-mega-charizard-x-ex",
+      "group": "charizard",
+      "variation": "glare",
+      "baselineRank": 3,
+      "orbRank": 1,
+      "baselineTop": "darkness-ablaze-20-charizard-vmax",
+      "orbTop": "phantasmal-flames-13-mega-charizard-x-ex",
+      "processingMs": 182.60130000000026
+    },
+    {
+      "cardId": "team-up-184-pikachu-zekrom-gx",
+      "group": "pikachu",
+      "variation": "glare",
+      "baselineRank": 2,
+      "orbRank": 1,
+      "baselineTop": "xy1-42-pikachu",
+      "orbTop": "team-up-184-pikachu-zekrom-gx",
+      "processingMs": 166.3217999999997
+    },
+    {
+      "cardId": "prismatic-evolutions-167-eevee-ex",
+      "group": "eevee",
+      "variation": "glare",
+      "baselineRank": 2,
+      "orbRank": 1,
+      "baselineTop": "hidden-fates-SV41-eevee",
+      "orbTop": "prismatic-evolutions-167-eevee-ex",
+      "processingMs": 164.13330000000133
+    }
+  ],
+  "results": [
+    {
+      "cardId": "xy2-11-charizard-ex",
+      "group": "charizard",
+      "variation": "perspective",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "xy2-11-charizard-ex",
+      "orbTop": "xy2-11-charizard-ex",
+      "processingMs": 212.8023000000003
+    },
+    {
+      "cardId": "xy2-11-charizard-ex",
+      "group": "charizard",
+      "variation": "rotation",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "xy2-11-charizard-ex",
+      "orbTop": "xy2-11-charizard-ex",
+      "processingMs": 201.0248999999999
+    },
+    {
+      "cardId": "xy2-11-charizard-ex",
+      "group": "charizard",
+      "variation": "brightness",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "xy2-11-charizard-ex",
+      "orbTop": "xy2-11-charizard-ex",
+      "processingMs": 197.63869999999997
+    },
+    {
+      "cardId": "xy2-11-charizard-ex",
+      "group": "charizard",
+      "variation": "blur",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "xy2-11-charizard-ex",
+      "orbTop": "xy2-11-charizard-ex",
+      "processingMs": 213.32200000000012
+    },
+    {
+      "cardId": "xy2-11-charizard-ex",
+      "group": "charizard",
+      "variation": "jpeg",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "xy2-11-charizard-ex",
+      "orbTop": "xy2-11-charizard-ex",
+      "processingMs": 199.45210000000043
+    },
+    {
+      "cardId": "xy2-11-charizard-ex",
+      "group": "charizard",
+      "variation": "glare",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "xy2-11-charizard-ex",
+      "orbTop": "xy2-11-charizard-ex",
+      "processingMs": 208.1884
+    },
+    {
+      "cardId": "burning-shadows-20-charizard-gx",
+      "group": "charizard",
+      "variation": "perspective",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "burning-shadows-20-charizard-gx",
+      "orbTop": "burning-shadows-20-charizard-gx",
+      "processingMs": 192.84960000000046
+    },
+    {
+      "cardId": "burning-shadows-20-charizard-gx",
+      "group": "charizard",
+      "variation": "rotation",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "burning-shadows-20-charizard-gx",
+      "orbTop": "burning-shadows-20-charizard-gx",
+      "processingMs": 184.3823999999995
+    },
+    {
+      "cardId": "burning-shadows-20-charizard-gx",
+      "group": "charizard",
+      "variation": "brightness",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "burning-shadows-20-charizard-gx",
+      "orbTop": "burning-shadows-20-charizard-gx",
+      "processingMs": 178.8168999999998
+    },
+    {
+      "cardId": "burning-shadows-20-charizard-gx",
+      "group": "charizard",
+      "variation": "blur",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "burning-shadows-20-charizard-gx",
+      "orbTop": "burning-shadows-20-charizard-gx",
+      "processingMs": 195.48059999999987
+    },
+    {
+      "cardId": "burning-shadows-20-charizard-gx",
+      "group": "charizard",
+      "variation": "jpeg",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "burning-shadows-20-charizard-gx",
+      "orbTop": "burning-shadows-20-charizard-gx",
+      "processingMs": 181.11409999999978
+    },
+    {
+      "cardId": "burning-shadows-20-charizard-gx",
+      "group": "charizard",
+      "variation": "glare",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "burning-shadows-20-charizard-gx",
+      "orbTop": "burning-shadows-20-charizard-gx",
+      "processingMs": 186.04120000000057
+    },
+    {
+      "cardId": "darkness-ablaze-20-charizard-vmax",
+      "group": "charizard",
+      "variation": "perspective",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "darkness-ablaze-20-charizard-vmax",
+      "orbTop": "darkness-ablaze-20-charizard-vmax",
+      "processingMs": 185.40859999999975
+    },
+    {
+      "cardId": "darkness-ablaze-20-charizard-vmax",
+      "group": "charizard",
+      "variation": "rotation",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "darkness-ablaze-20-charizard-vmax",
+      "orbTop": "darkness-ablaze-20-charizard-vmax",
+      "processingMs": 210.3121000000001
+    },
+    {
+      "cardId": "darkness-ablaze-20-charizard-vmax",
+      "group": "charizard",
+      "variation": "brightness",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "darkness-ablaze-20-charizard-vmax",
+      "orbTop": "darkness-ablaze-20-charizard-vmax",
+      "processingMs": 201.2510000000002
+    },
+    {
+      "cardId": "darkness-ablaze-20-charizard-vmax",
+      "group": "charizard",
+      "variation": "blur",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "darkness-ablaze-20-charizard-vmax",
+      "orbTop": "darkness-ablaze-20-charizard-vmax",
+      "processingMs": 199.77700000000004
+    },
+    {
+      "cardId": "darkness-ablaze-20-charizard-vmax",
+      "group": "charizard",
+      "variation": "jpeg",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "darkness-ablaze-20-charizard-vmax",
+      "orbTop": "darkness-ablaze-20-charizard-vmax",
+      "processingMs": 203.48140000000058
+    },
+    {
+      "cardId": "darkness-ablaze-20-charizard-vmax",
+      "group": "charizard",
+      "variation": "glare",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "darkness-ablaze-20-charizard-vmax",
+      "orbTop": "darkness-ablaze-20-charizard-vmax",
+      "processingMs": 176.75950000000012
+    },
+    {
+      "cardId": "obsidian-flames-223-charizard-ex",
+      "group": "charizard",
+      "variation": "perspective",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "obsidian-flames-223-charizard-ex",
+      "orbTop": "obsidian-flames-223-charizard-ex",
+      "processingMs": 178.1810000000005
+    },
+    {
+      "cardId": "obsidian-flames-223-charizard-ex",
+      "group": "charizard",
+      "variation": "rotation",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "obsidian-flames-223-charizard-ex",
+      "orbTop": "obsidian-flames-223-charizard-ex",
+      "processingMs": 188.28830000000016
+    },
+    {
+      "cardId": "obsidian-flames-223-charizard-ex",
+      "group": "charizard",
+      "variation": "brightness",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "obsidian-flames-223-charizard-ex",
+      "orbTop": "obsidian-flames-223-charizard-ex",
+      "processingMs": 172.26080000000002
+    },
+    {
+      "cardId": "obsidian-flames-223-charizard-ex",
+      "group": "charizard",
+      "variation": "blur",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "obsidian-flames-223-charizard-ex",
+      "orbTop": "obsidian-flames-223-charizard-ex",
+      "processingMs": 200.8072000000002
+    },
+    {
+      "cardId": "obsidian-flames-223-charizard-ex",
+      "group": "charizard",
+      "variation": "jpeg",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "obsidian-flames-223-charizard-ex",
+      "orbTop": "obsidian-flames-223-charizard-ex",
+      "processingMs": 194.04860000000008
+    },
+    {
+      "cardId": "obsidian-flames-223-charizard-ex",
+      "group": "charizard",
+      "variation": "glare",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "obsidian-flames-223-charizard-ex",
+      "orbTop": "obsidian-flames-223-charizard-ex",
+      "processingMs": 191.6211000000003
+    },
+    {
+      "cardId": "phantasmal-flames-13-mega-charizard-x-ex",
+      "group": "charizard",
+      "variation": "perspective",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "phantasmal-flames-13-mega-charizard-x-ex",
+      "orbTop": "phantasmal-flames-13-mega-charizard-x-ex",
+      "processingMs": 206.4391999999998
+    },
+    {
+      "cardId": "phantasmal-flames-13-mega-charizard-x-ex",
+      "group": "charizard",
+      "variation": "rotation",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "phantasmal-flames-13-mega-charizard-x-ex",
+      "orbTop": "phantasmal-flames-13-mega-charizard-x-ex",
+      "processingMs": 188.29709999999977
+    },
+    {
+      "cardId": "phantasmal-flames-13-mega-charizard-x-ex",
+      "group": "charizard",
+      "variation": "brightness",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "phantasmal-flames-13-mega-charizard-x-ex",
+      "orbTop": "phantasmal-flames-13-mega-charizard-x-ex",
+      "processingMs": 188.03830000000016
+    },
+    {
+      "cardId": "phantasmal-flames-13-mega-charizard-x-ex",
+      "group": "charizard",
+      "variation": "blur",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "phantasmal-flames-13-mega-charizard-x-ex",
+      "orbTop": "phantasmal-flames-13-mega-charizard-x-ex",
+      "processingMs": 204.0661999999993
+    },
+    {
+      "cardId": "phantasmal-flames-13-mega-charizard-x-ex",
+      "group": "charizard",
+      "variation": "jpeg",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "phantasmal-flames-13-mega-charizard-x-ex",
+      "orbTop": "phantasmal-flames-13-mega-charizard-x-ex",
+      "processingMs": 193.3763999999992
+    },
+    {
+      "cardId": "phantasmal-flames-13-mega-charizard-x-ex",
+      "group": "charizard",
+      "variation": "glare",
+      "baselineRank": 3,
+      "orbRank": 1,
+      "baselineTop": "darkness-ablaze-20-charizard-vmax",
+      "orbTop": "phantasmal-flames-13-mega-charizard-x-ex",
+      "processingMs": 182.60130000000026
+    },
+    {
+      "cardId": "xy1-42-pikachu",
+      "group": "pikachu",
+      "variation": "perspective",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "xy1-42-pikachu",
+      "orbTop": "xy1-42-pikachu",
+      "processingMs": 160.3669000000009
+    },
+    {
+      "cardId": "xy1-42-pikachu",
+      "group": "pikachu",
+      "variation": "rotation",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "xy1-42-pikachu",
+      "orbTop": "xy1-42-pikachu",
+      "processingMs": 174.15290000000095
+    },
+    {
+      "cardId": "xy1-42-pikachu",
+      "group": "pikachu",
+      "variation": "brightness",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "xy1-42-pikachu",
+      "orbTop": "xy1-42-pikachu",
+      "processingMs": 176.8100000000013
+    },
+    {
+      "cardId": "xy1-42-pikachu",
+      "group": "pikachu",
+      "variation": "blur",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "xy1-42-pikachu",
+      "orbTop": "xy1-42-pikachu",
+      "processingMs": 190.39710000000014
+    },
+    {
+      "cardId": "xy1-42-pikachu",
+      "group": "pikachu",
+      "variation": "jpeg",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "xy1-42-pikachu",
+      "orbTop": "xy1-42-pikachu",
+      "processingMs": 170.7401000000009
+    },
+    {
+      "cardId": "xy1-42-pikachu",
+      "group": "pikachu",
+      "variation": "glare",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "xy1-42-pikachu",
+      "orbTop": "xy1-42-pikachu",
+      "processingMs": 165.54069999999956
+    },
+    {
+      "cardId": "team-up-184-pikachu-zekrom-gx",
+      "group": "pikachu",
+      "variation": "perspective",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "team-up-184-pikachu-zekrom-gx",
+      "orbTop": "team-up-184-pikachu-zekrom-gx",
+      "processingMs": 185.79720000000088
+    },
+    {
+      "cardId": "team-up-184-pikachu-zekrom-gx",
+      "group": "pikachu",
+      "variation": "rotation",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "team-up-184-pikachu-zekrom-gx",
+      "orbTop": "team-up-184-pikachu-zekrom-gx",
+      "processingMs": 180.94989999999962
+    },
+    {
+      "cardId": "team-up-184-pikachu-zekrom-gx",
+      "group": "pikachu",
+      "variation": "brightness",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "team-up-184-pikachu-zekrom-gx",
+      "orbTop": "team-up-184-pikachu-zekrom-gx",
+      "processingMs": 157.96349999999984
+    },
+    {
+      "cardId": "team-up-184-pikachu-zekrom-gx",
+      "group": "pikachu",
+      "variation": "blur",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "team-up-184-pikachu-zekrom-gx",
+      "orbTop": "team-up-184-pikachu-zekrom-gx",
+      "processingMs": 176.97990000000027
+    },
+    {
+      "cardId": "team-up-184-pikachu-zekrom-gx",
+      "group": "pikachu",
+      "variation": "jpeg",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "team-up-184-pikachu-zekrom-gx",
+      "orbTop": "team-up-184-pikachu-zekrom-gx",
+      "processingMs": 175.90519999999924
+    },
+    {
+      "cardId": "team-up-184-pikachu-zekrom-gx",
+      "group": "pikachu",
+      "variation": "glare",
+      "baselineRank": 2,
+      "orbRank": 1,
+      "baselineTop": "xy1-42-pikachu",
+      "orbTop": "team-up-184-pikachu-zekrom-gx",
+      "processingMs": 166.3217999999997
+    },
+    {
+      "cardId": "vivid-voltage-188-pikachu-vmax",
+      "group": "pikachu",
+      "variation": "perspective",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "vivid-voltage-188-pikachu-vmax",
+      "orbTop": "vivid-voltage-188-pikachu-vmax",
+      "processingMs": 170.46189999999842
+    },
+    {
+      "cardId": "vivid-voltage-188-pikachu-vmax",
+      "group": "pikachu",
+      "variation": "rotation",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "vivid-voltage-188-pikachu-vmax",
+      "orbTop": "vivid-voltage-188-pikachu-vmax",
+      "processingMs": 175.20030000000042
+    },
+    {
+      "cardId": "vivid-voltage-188-pikachu-vmax",
+      "group": "pikachu",
+      "variation": "brightness",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "vivid-voltage-188-pikachu-vmax",
+      "orbTop": "vivid-voltage-188-pikachu-vmax",
+      "processingMs": 167.46069999999963
+    },
+    {
+      "cardId": "vivid-voltage-188-pikachu-vmax",
+      "group": "pikachu",
+      "variation": "blur",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "vivid-voltage-188-pikachu-vmax",
+      "orbTop": "vivid-voltage-188-pikachu-vmax",
+      "processingMs": 175.25019999999859
+    },
+    {
+      "cardId": "vivid-voltage-188-pikachu-vmax",
+      "group": "pikachu",
+      "variation": "jpeg",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "vivid-voltage-188-pikachu-vmax",
+      "orbTop": "vivid-voltage-188-pikachu-vmax",
+      "processingMs": 175.39840000000004
+    },
+    {
+      "cardId": "vivid-voltage-188-pikachu-vmax",
+      "group": "pikachu",
+      "variation": "glare",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "vivid-voltage-188-pikachu-vmax",
+      "orbTop": "vivid-voltage-188-pikachu-vmax",
+      "processingMs": 153.53369999999995
+    },
+    {
+      "cardId": "151-173-pikachu",
+      "group": "pikachu",
+      "variation": "perspective",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "151-173-pikachu",
+      "orbTop": "151-173-pikachu",
+      "processingMs": 209.58040000000074
+    },
+    {
+      "cardId": "151-173-pikachu",
+      "group": "pikachu",
+      "variation": "rotation",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "151-173-pikachu",
+      "orbTop": "151-173-pikachu",
+      "processingMs": 184.4310999999998
+    },
+    {
+      "cardId": "151-173-pikachu",
+      "group": "pikachu",
+      "variation": "brightness",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "151-173-pikachu",
+      "orbTop": "151-173-pikachu",
+      "processingMs": 157.78310000000056
+    },
+    {
+      "cardId": "151-173-pikachu",
+      "group": "pikachu",
+      "variation": "blur",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "151-173-pikachu",
+      "orbTop": "151-173-pikachu",
+      "processingMs": 179.89609999999993
+    },
+    {
+      "cardId": "151-173-pikachu",
+      "group": "pikachu",
+      "variation": "jpeg",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "151-173-pikachu",
+      "orbTop": "151-173-pikachu",
+      "processingMs": 174.21620000000075
+    },
+    {
+      "cardId": "151-173-pikachu",
+      "group": "pikachu",
+      "variation": "glare",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "151-173-pikachu",
+      "orbTop": "151-173-pikachu",
+      "processingMs": 166.1931000000004
+    },
+    {
+      "cardId": "xy4-34-gengar-ex",
+      "group": "gengar",
+      "variation": "perspective",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "xy4-34-gengar-ex",
+      "orbTop": "xy4-34-gengar-ex",
+      "processingMs": 193.65149999999994
+    },
+    {
+      "cardId": "xy4-34-gengar-ex",
+      "group": "gengar",
+      "variation": "rotation",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "xy4-34-gengar-ex",
+      "orbTop": "xy4-34-gengar-ex",
+      "processingMs": 168.08200000000033
+    },
+    {
+      "cardId": "xy4-34-gengar-ex",
+      "group": "gengar",
+      "variation": "brightness",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "xy4-34-gengar-ex",
+      "orbTop": "xy4-34-gengar-ex",
+      "processingMs": 159.46070000000145
+    },
+    {
+      "cardId": "xy4-34-gengar-ex",
+      "group": "gengar",
+      "variation": "blur",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "xy4-34-gengar-ex",
+      "orbTop": "xy4-34-gengar-ex",
+      "processingMs": 172.0662999999986
+    },
+    {
+      "cardId": "xy4-34-gengar-ex",
+      "group": "gengar",
+      "variation": "jpeg",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "xy4-34-gengar-ex",
+      "orbTop": "xy4-34-gengar-ex",
+      "processingMs": 179.9354000000003
+    },
+    {
+      "cardId": "xy4-34-gengar-ex",
+      "group": "gengar",
+      "variation": "glare",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "xy4-34-gengar-ex",
+      "orbTop": "xy4-34-gengar-ex",
+      "processingMs": 164.69490000000042
+    },
+    {
+      "cardId": "team-up-164-gengar-mimikyu-gx",
+      "group": "gengar",
+      "variation": "perspective",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "team-up-164-gengar-mimikyu-gx",
+      "orbTop": "team-up-164-gengar-mimikyu-gx",
+      "processingMs": 167.68059999999969
+    },
+    {
+      "cardId": "team-up-164-gengar-mimikyu-gx",
+      "group": "gengar",
+      "variation": "rotation",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "team-up-164-gengar-mimikyu-gx",
+      "orbTop": "team-up-164-gengar-mimikyu-gx",
+      "processingMs": 163.5632000000005
+    },
+    {
+      "cardId": "team-up-164-gengar-mimikyu-gx",
+      "group": "gengar",
+      "variation": "brightness",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "team-up-164-gengar-mimikyu-gx",
+      "orbTop": "team-up-164-gengar-mimikyu-gx",
+      "processingMs": 165.65409999999974
+    },
+    {
+      "cardId": "team-up-164-gengar-mimikyu-gx",
+      "group": "gengar",
+      "variation": "blur",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "team-up-164-gengar-mimikyu-gx",
+      "orbTop": "team-up-164-gengar-mimikyu-gx",
+      "processingMs": 222.5655000000006
+    },
+    {
+      "cardId": "team-up-164-gengar-mimikyu-gx",
+      "group": "gengar",
+      "variation": "jpeg",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "team-up-164-gengar-mimikyu-gx",
+      "orbTop": "team-up-164-gengar-mimikyu-gx",
+      "processingMs": 182.21919999999955
+    },
+    {
+      "cardId": "team-up-164-gengar-mimikyu-gx",
+      "group": "gengar",
+      "variation": "glare",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "team-up-164-gengar-mimikyu-gx",
+      "orbTop": "team-up-164-gengar-mimikyu-gx",
+      "processingMs": 178.03629999999976
+    },
+    {
+      "cardId": "fusion-strike-271-gengar-vmax",
+      "group": "gengar",
+      "variation": "perspective",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "fusion-strike-271-gengar-vmax",
+      "orbTop": "fusion-strike-271-gengar-vmax",
+      "processingMs": 183.91479999999865
+    },
+    {
+      "cardId": "fusion-strike-271-gengar-vmax",
+      "group": "gengar",
+      "variation": "rotation",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "fusion-strike-271-gengar-vmax",
+      "orbTop": "fusion-strike-271-gengar-vmax",
+      "processingMs": 164.96670000000086
+    },
+    {
+      "cardId": "fusion-strike-271-gengar-vmax",
+      "group": "gengar",
+      "variation": "brightness",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "fusion-strike-271-gengar-vmax",
+      "orbTop": "fusion-strike-271-gengar-vmax",
+      "processingMs": 161.3729000000003
+    },
+    {
+      "cardId": "fusion-strike-271-gengar-vmax",
+      "group": "gengar",
+      "variation": "blur",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "fusion-strike-271-gengar-vmax",
+      "orbTop": "fusion-strike-271-gengar-vmax",
+      "processingMs": 171.40719999999965
+    },
+    {
+      "cardId": "fusion-strike-271-gengar-vmax",
+      "group": "gengar",
+      "variation": "jpeg",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "fusion-strike-271-gengar-vmax",
+      "orbTop": "fusion-strike-271-gengar-vmax",
+      "processingMs": 179.03319999999985
+    },
+    {
+      "cardId": "fusion-strike-271-gengar-vmax",
+      "group": "gengar",
+      "variation": "glare",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "fusion-strike-271-gengar-vmax",
+      "orbTop": "fusion-strike-271-gengar-vmax",
+      "processingMs": 165.16699999999946
+    },
+    {
+      "cardId": "temporal-forces-104-gengar-ex",
+      "group": "gengar",
+      "variation": "perspective",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "temporal-forces-104-gengar-ex",
+      "orbTop": "temporal-forces-104-gengar-ex",
+      "processingMs": 173.7445000000007
+    },
+    {
+      "cardId": "temporal-forces-104-gengar-ex",
+      "group": "gengar",
+      "variation": "rotation",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "temporal-forces-104-gengar-ex",
+      "orbTop": "temporal-forces-104-gengar-ex",
+      "processingMs": 167.44859999999971
+    },
+    {
+      "cardId": "temporal-forces-104-gengar-ex",
+      "group": "gengar",
+      "variation": "brightness",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "temporal-forces-104-gengar-ex",
+      "orbTop": "temporal-forces-104-gengar-ex",
+      "processingMs": 170.97350000000006
+    },
+    {
+      "cardId": "temporal-forces-104-gengar-ex",
+      "group": "gengar",
+      "variation": "blur",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "temporal-forces-104-gengar-ex",
+      "orbTop": "temporal-forces-104-gengar-ex",
+      "processingMs": 184.6955999999991
+    },
+    {
+      "cardId": "temporal-forces-104-gengar-ex",
+      "group": "gengar",
+      "variation": "jpeg",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "temporal-forces-104-gengar-ex",
+      "orbTop": "temporal-forces-104-gengar-ex",
+      "processingMs": 170.1814000000013
+    },
+    {
+      "cardId": "temporal-forces-104-gengar-ex",
+      "group": "gengar",
+      "variation": "glare",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "temporal-forces-104-gengar-ex",
+      "orbTop": "temporal-forces-104-gengar-ex",
+      "processingMs": 189.2510000000002
+    },
+    {
+      "cardId": "xy3-80-eevee",
+      "group": "eevee",
+      "variation": "perspective",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "xy3-80-eevee",
+      "orbTop": "xy3-80-eevee",
+      "processingMs": 221.54939999999988
+    },
+    {
+      "cardId": "xy3-80-eevee",
+      "group": "eevee",
+      "variation": "rotation",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "xy3-80-eevee",
+      "orbTop": "xy3-80-eevee",
+      "processingMs": 197.33860000000277
+    },
+    {
+      "cardId": "xy3-80-eevee",
+      "group": "eevee",
+      "variation": "brightness",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "xy3-80-eevee",
+      "orbTop": "xy3-80-eevee",
+      "processingMs": 194.45360000000073
+    },
+    {
+      "cardId": "xy3-80-eevee",
+      "group": "eevee",
+      "variation": "blur",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "xy3-80-eevee",
+      "orbTop": "xy3-80-eevee",
+      "processingMs": 194.47279999999955
+    },
+    {
+      "cardId": "xy3-80-eevee",
+      "group": "eevee",
+      "variation": "jpeg",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "xy3-80-eevee",
+      "orbTop": "xy3-80-eevee",
+      "processingMs": 187.68410000000222
+    },
+    {
+      "cardId": "xy3-80-eevee",
+      "group": "eevee",
+      "variation": "glare",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "xy3-80-eevee",
+      "orbTop": "xy3-80-eevee",
+      "processingMs": 177.10510000000068
+    },
+    {
+      "cardId": "hidden-fates-SV41-eevee",
+      "group": "eevee",
+      "variation": "perspective",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "hidden-fates-SV41-eevee",
+      "orbTop": "hidden-fates-SV41-eevee",
+      "processingMs": 186.21230000000287
+    },
+    {
+      "cardId": "hidden-fates-SV41-eevee",
+      "group": "eevee",
+      "variation": "rotation",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "hidden-fates-SV41-eevee",
+      "orbTop": "hidden-fates-SV41-eevee",
+      "processingMs": 198.45569999999861
+    },
+    {
+      "cardId": "hidden-fates-SV41-eevee",
+      "group": "eevee",
+      "variation": "brightness",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "hidden-fates-SV41-eevee",
+      "orbTop": "hidden-fates-SV41-eevee",
+      "processingMs": 211.3341999999975
+    },
+    {
+      "cardId": "hidden-fates-SV41-eevee",
+      "group": "eevee",
+      "variation": "blur",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "hidden-fates-SV41-eevee",
+      "orbTop": "hidden-fates-SV41-eevee",
+      "processingMs": 183.3933999999972
+    },
+    {
+      "cardId": "hidden-fates-SV41-eevee",
+      "group": "eevee",
+      "variation": "jpeg",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "hidden-fates-SV41-eevee",
+      "orbTop": "hidden-fates-SV41-eevee",
+      "processingMs": 196.85469999999987
+    },
+    {
+      "cardId": "hidden-fates-SV41-eevee",
+      "group": "eevee",
+      "variation": "glare",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "hidden-fates-SV41-eevee",
+      "orbTop": "hidden-fates-SV41-eevee",
+      "processingMs": 194.34500000000116
+    },
+    {
+      "cardId": "brilliant-stars-TG11-eevee",
+      "group": "eevee",
+      "variation": "perspective",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "brilliant-stars-TG11-eevee",
+      "orbTop": "brilliant-stars-TG11-eevee",
+      "processingMs": 174.53650000000198
+    },
+    {
+      "cardId": "brilliant-stars-TG11-eevee",
+      "group": "eevee",
+      "variation": "rotation",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "brilliant-stars-TG11-eevee",
+      "orbTop": "brilliant-stars-TG11-eevee",
+      "processingMs": 196.48169999999664
+    },
+    {
+      "cardId": "brilliant-stars-TG11-eevee",
+      "group": "eevee",
+      "variation": "brightness",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "brilliant-stars-TG11-eevee",
+      "orbTop": "brilliant-stars-TG11-eevee",
+      "processingMs": 164.80749999999898
+    },
+    {
+      "cardId": "brilliant-stars-TG11-eevee",
+      "group": "eevee",
+      "variation": "blur",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "brilliant-stars-TG11-eevee",
+      "orbTop": "brilliant-stars-TG11-eevee",
+      "processingMs": 179.59360000000015
+    },
+    {
+      "cardId": "brilliant-stars-TG11-eevee",
+      "group": "eevee",
+      "variation": "jpeg",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "brilliant-stars-TG11-eevee",
+      "orbTop": "brilliant-stars-TG11-eevee",
+      "processingMs": 177.70910000000003
+    },
+    {
+      "cardId": "brilliant-stars-TG11-eevee",
+      "group": "eevee",
+      "variation": "glare",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "brilliant-stars-TG11-eevee",
+      "orbTop": "brilliant-stars-TG11-eevee",
+      "processingMs": 164.77779999999984
+    },
+    {
+      "cardId": "prismatic-evolutions-167-eevee-ex",
+      "group": "eevee",
+      "variation": "perspective",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "prismatic-evolutions-167-eevee-ex",
+      "orbTop": "prismatic-evolutions-167-eevee-ex",
+      "processingMs": 174.1288999999997
+    },
+    {
+      "cardId": "prismatic-evolutions-167-eevee-ex",
+      "group": "eevee",
+      "variation": "rotation",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "prismatic-evolutions-167-eevee-ex",
+      "orbTop": "prismatic-evolutions-167-eevee-ex",
+      "processingMs": 171.52840000000288
+    },
+    {
+      "cardId": "prismatic-evolutions-167-eevee-ex",
+      "group": "eevee",
+      "variation": "brightness",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "prismatic-evolutions-167-eevee-ex",
+      "orbTop": "prismatic-evolutions-167-eevee-ex",
+      "processingMs": 171.23300000000017
+    },
+    {
+      "cardId": "prismatic-evolutions-167-eevee-ex",
+      "group": "eevee",
+      "variation": "blur",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "prismatic-evolutions-167-eevee-ex",
+      "orbTop": "prismatic-evolutions-167-eevee-ex",
+      "processingMs": 174.75440000000162
+    },
+    {
+      "cardId": "prismatic-evolutions-167-eevee-ex",
+      "group": "eevee",
+      "variation": "jpeg",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "prismatic-evolutions-167-eevee-ex",
+      "orbTop": "prismatic-evolutions-167-eevee-ex",
+      "processingMs": 166.7605999999978
+    },
+    {
+      "cardId": "prismatic-evolutions-167-eevee-ex",
+      "group": "eevee",
+      "variation": "glare",
+      "baselineRank": 2,
+      "orbRank": 1,
+      "baselineTop": "hidden-fates-SV41-eevee",
+      "orbTop": "prismatic-evolutions-167-eevee-ex",
+      "processingMs": 164.13330000000133
+    },
+    {
+      "cardId": "xy8-61-mewtwo-ex",
+      "group": "mewtwo",
+      "variation": "perspective",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "xy8-61-mewtwo-ex",
+      "orbTop": "xy8-61-mewtwo-ex",
+      "processingMs": 164.7283000000025
+    },
+    {
+      "cardId": "xy8-61-mewtwo-ex",
+      "group": "mewtwo",
+      "variation": "rotation",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "xy8-61-mewtwo-ex",
+      "orbTop": "xy8-61-mewtwo-ex",
+      "processingMs": 171.7596999999987
+    },
+    {
+      "cardId": "xy8-61-mewtwo-ex",
+      "group": "mewtwo",
+      "variation": "brightness",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "xy8-61-mewtwo-ex",
+      "orbTop": "xy8-61-mewtwo-ex",
+      "processingMs": 155.62900000000081
+    },
+    {
+      "cardId": "xy8-61-mewtwo-ex",
+      "group": "mewtwo",
+      "variation": "blur",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "xy8-61-mewtwo-ex",
+      "orbTop": "xy8-61-mewtwo-ex",
+      "processingMs": 164.69119999999748
+    },
+    {
+      "cardId": "xy8-61-mewtwo-ex",
+      "group": "mewtwo",
+      "variation": "jpeg",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "xy8-61-mewtwo-ex",
+      "orbTop": "xy8-61-mewtwo-ex",
+      "processingMs": 161.3543000000027
+    },
+    {
+      "cardId": "xy8-61-mewtwo-ex",
+      "group": "mewtwo",
+      "variation": "glare",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "xy8-61-mewtwo-ex",
+      "orbTop": "xy8-61-mewtwo-ex",
+      "processingMs": 157.7554999999993
+    },
+    {
+      "cardId": "shining-legends-76-mewtwo-gx",
+      "group": "mewtwo",
+      "variation": "perspective",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "shining-legends-76-mewtwo-gx",
+      "orbTop": "shining-legends-76-mewtwo-gx",
+      "processingMs": 150.13860000000204
+    },
+    {
+      "cardId": "shining-legends-76-mewtwo-gx",
+      "group": "mewtwo",
+      "variation": "rotation",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "shining-legends-76-mewtwo-gx",
+      "orbTop": "shining-legends-76-mewtwo-gx",
+      "processingMs": 153.72750000000087
+    },
+    {
+      "cardId": "shining-legends-76-mewtwo-gx",
+      "group": "mewtwo",
+      "variation": "brightness",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "shining-legends-76-mewtwo-gx",
+      "orbTop": "shining-legends-76-mewtwo-gx",
+      "processingMs": 156.3275999999969
+    },
+    {
+      "cardId": "shining-legends-76-mewtwo-gx",
+      "group": "mewtwo",
+      "variation": "blur",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "shining-legends-76-mewtwo-gx",
+      "orbTop": "shining-legends-76-mewtwo-gx",
+      "processingMs": 181.3623000000007
+    },
+    {
+      "cardId": "shining-legends-76-mewtwo-gx",
+      "group": "mewtwo",
+      "variation": "jpeg",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "shining-legends-76-mewtwo-gx",
+      "orbTop": "shining-legends-76-mewtwo-gx",
+      "processingMs": 158.7377000000015
+    },
+    {
+      "cardId": "shining-legends-76-mewtwo-gx",
+      "group": "mewtwo",
+      "variation": "glare",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "shining-legends-76-mewtwo-gx",
+      "orbTop": "shining-legends-76-mewtwo-gx",
+      "processingMs": 142.7415000000001
+    },
+    {
+      "cardId": "crown-zenith-GG44-mewtwo-vstar",
+      "group": "mewtwo",
+      "variation": "perspective",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "crown-zenith-GG44-mewtwo-vstar",
+      "orbTop": "crown-zenith-GG44-mewtwo-vstar",
+      "processingMs": 159.4816000000028
+    },
+    {
+      "cardId": "crown-zenith-GG44-mewtwo-vstar",
+      "group": "mewtwo",
+      "variation": "rotation",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "crown-zenith-GG44-mewtwo-vstar",
+      "orbTop": "crown-zenith-GG44-mewtwo-vstar",
+      "processingMs": 164.58150000000023
+    },
+    {
+      "cardId": "crown-zenith-GG44-mewtwo-vstar",
+      "group": "mewtwo",
+      "variation": "brightness",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "crown-zenith-GG44-mewtwo-vstar",
+      "orbTop": "crown-zenith-GG44-mewtwo-vstar",
+      "processingMs": 155.65450000000055
+    },
+    {
+      "cardId": "crown-zenith-GG44-mewtwo-vstar",
+      "group": "mewtwo",
+      "variation": "blur",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "crown-zenith-GG44-mewtwo-vstar",
+      "orbTop": "crown-zenith-GG44-mewtwo-vstar",
+      "processingMs": 163.82670000000144
+    },
+    {
+      "cardId": "crown-zenith-GG44-mewtwo-vstar",
+      "group": "mewtwo",
+      "variation": "jpeg",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "crown-zenith-GG44-mewtwo-vstar",
+      "orbTop": "crown-zenith-GG44-mewtwo-vstar",
+      "processingMs": 163.84830000000147
+    },
+    {
+      "cardId": "crown-zenith-GG44-mewtwo-vstar",
+      "group": "mewtwo",
+      "variation": "glare",
+      "baselineRank": 1,
+      "orbRank": 1,
+      "baselineTop": "crown-zenith-GG44-mewtwo-vstar",
+      "orbTop": "crown-zenith-GG44-mewtwo-vstar",
+      "processingMs": 158.8633000000009
+    }
+  ]
+}

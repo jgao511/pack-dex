@@ -24,7 +24,7 @@ function parseSegment(text, sourcePass = "full-card") {
     if (occupied.some(([a, b]) => match.index >= a && match.index < b)) continue;
     const before = normalizedText.slice(Math.max(0, match.index - 5), match.index).toLowerCase(); const after = normalizedText.slice(match.index + match[0].length, match.index + match[0].length + 5).toLowerCase();
     for (const cardNumber of correctParts(match[0])) { if (YEAR.test(cardNumber) || /hp\s*$/.test(before) || /^\s*(?:hp|damage|weakness|resistance|retreat)/.test(after)) continue;
-      const prefix = cardNumber.match(/^[A-Z]+/)?.[0] || ""; if (!prefix && !BOTTOM_PASS.test(sourcePass) && sourcePass !== "full-card") continue;
+      const prefix = cardNumber.match(/^[A-Z]+/)?.[0] || ""; if (!prefix && !BOTTOM_PASS.test(sourcePass)) continue;
       results.push({ raw: match[0], cardNumber, printedSetTotal: null, prefix, numericComponent: Number(cardNumber.match(/\d+/)?.[0]), normalized: normalizeCollectorNumber(cardNumber), normalizedTotal: null, sourcePass }); }
   }
   return results;

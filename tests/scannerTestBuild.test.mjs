@@ -8,6 +8,7 @@ test("dedicated native scanner bundle includes its route and Settings entry", as
   const bundle = (await Promise.all(files.map((file) => readFile(new URL(file, assetsUrl), "utf8")))).join("\n");
   assert.match(bundle, /\/mobile-app\/dev\/card-scanner/);
   assert.match(bundle, /Scanner Test/);
+  assert.match(bundle, /Run Reference Test/);
   assert.match(bundle, /Reading card/);
   assert.match(bundle, /Scanner Diagnostics/);
 });

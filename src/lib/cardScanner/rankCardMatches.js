@@ -13,16 +13,17 @@ function similarity(a, b) { return a && b ? 1 - editDistance(a, b) / Math.max(a.
 export function rankCardMatches({ rawText = "", textBlocks = [], maxResults = 5 } = {}, catalog = getScannerCatalog()) {
   const normalized = normalizeScannerText(rawText);
   const collectors = extractCollectorNumbers(rawText, textBlocks);
-  const names = extractNameCandidates(rawText);
+  const names = extractNameCandidates(rawText, textBlocks);
   const scored = catalog.map((entry) => {
     let score = 0; const reasons = [];
     const number = collectors.find((item) => item.normalized === entry.normalizedNumber);
     if (number) { score += entry.normalizedNumber.match(/^[A-Z]/) ? 58 : 50; if (/^collector-bottom/.test(number.sourcePass)) score += 8; reasons.push(`${entry.normalizedNumber.match(/^[A-Z]/) ? "exact prefixed collector number" : "exact collector number"} (${number.sourcePass})`); }
     if (number?.printedSetTotal && number.normalizedTotal === String(entry.printedSetTotal).toUpperCase()) { score += 25; reasons.push("exact printed set total"); }
-    let bestName = 0; let corrected = false;
-    for (const candidate of names) { const exact = candidate.normalized === entry.normalizedName; const sim = similarity(candidate.normalized, entry.normalizedName); if (exact) bestName = 1; else if (sim > bestName) bestName = sim; if (!exact && sim >= .82 && /0|1/.test(candidate.raw)) corrected = true; }
+    let bestName = 0; let corrected = false; let nameFromTop = false;
+    for (const candidate of names) { const exact = candidate.normalized === entry.normalizedName; const sim = similarity(candidate.normalized, entry.normalizedName); if (exact || sim > bestName) { bestName = exact ? 1 : sim; nameFromTop = candidate.sourcePass === "name-top"; } if (!exact && sim >= .82 && /0|1/.test(candidate.raw)) corrected = true; }
     if (bestName === 1) { score += 30; reasons.push("exact normalized name"); }
     else if (bestName >= .82) { score += Math.round(25 * bestName); reasons.push("strong name similarity"); if (corrected) reasons.push("possible OCR correction"); }
+    if (bestName >= .82 && nameFromTop) { score += 5; reasons.push("name read from top crop"); }
     return { entry, score, reasons };
   }).filter((item) => item.score >= 23).sort((a, b) => b.score - a.score || a.entry.cardId.localeCompare(b.entry.cardId));
   const top = scored[0]; const gap = top && scored[1] ? top.score - scored[1].score : top?.score || 0;

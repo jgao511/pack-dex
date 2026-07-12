@@ -18,6 +18,7 @@ export function getOcrCropDefinitions(width, height) {
     { label: "collector-bottom", x: 0, y: Math.round(height * .76), width, height: Math.round(height * .24), scale: 2.5, enhance: true },
     { label: "collector-bottom-left", x: 0, y: Math.round(height * .76), width: Math.round(width * .62), height: Math.round(height * .24), scale: 2.5, enhance: true },
     { label: "collector-bottom-right", x: Math.round(width * .38), y: Math.round(height * .76), width: Math.round(width * .62), height: Math.round(height * .24), scale: 2.5, enhance: true },
+    { label: "collector-bottom-edge", x: 0, y: Math.round(height * .84), width, height: Math.round(height * .16), scale: 3, enhance: true },
   ];
 }
 
@@ -40,6 +41,16 @@ export async function prepareCardImage(image, { maxEdge = 1800, quality = .92, f
   const source = mappedCrop || { x: 0, y: 0, width: originalWidth, height: originalHeight };
   const size = getProportionalSize(source.width, source.height, maxEdge);
   const canvas = canvasFactory(size.width, size.height, createCanvas);
-  canvas.getContext("2d").drawImage(bitmap, source.x, source.y, source.width, source.height, 0, 0, size.width, size.height); bitmap.close?.();
-  return { canvas, previewUrl: canvas.toDataURL("image/jpeg", quality), passes: createOcrPasses(canvas, { quality, createCanvas }), originalWidth, originalHeight, width: size.width, height: size.height, mappedCrop, detectedOrientation: size.height >= size.width ? "portrait" : "landscape", rotationApplied: 0 };
+  canvas.getContext("2d").drawImage(bitmap, source.x, source.y, source.width, source.height, 0, 0, size.width, size.height);
+  const passes = createOcrPasses(canvas, { quality, createCanvas });
+  if (mappedCrop) {
+    const fallbackSize = getProportionalSize(originalWidth, originalHeight, maxEdge);
+    const fallbackCanvas = canvasFactory(fallbackSize.width, fallbackSize.height, createCanvas);
+    fallbackCanvas.getContext("2d").drawImage(bitmap, 0, 0, originalWidth, originalHeight, 0, 0, fallbackSize.width, fallbackSize.height);
+    const fallbackPasses = createOcrPasses(fallbackCanvas, { quality, createCanvas }).filter((pass) => pass.label === "full-card" || pass.label === "collector-bottom-edge");
+    for (const pass of fallbackPasses) passes.push({ ...pass, label: pass.label === "full-card" ? "full-capture-fallback" : "full-capture-bottom-edge" });
+  }
+  bitmap.close?.();
+  const bottomPass = passes.find((pass) => pass.label === "collector-bottom-edge");
+  return { canvas, previewUrl: canvas.toDataURL("image/jpeg", quality), bottomPreviewUrl: bottomPass ? `data:image/jpeg;base64,${bottomPass.base64Image}` : null, passes, originalWidth, originalHeight, width: size.width, height: size.height, mappedCrop, detectedOrientation: size.height >= size.width ? "portrait" : "landscape", rotationApplied: 0 };
 }
