@@ -40,11 +40,10 @@ test("defines labeled top and overlapping bottom OCR crops", () => {
   ]);
 });
 
-test("orientation is applied once and scanner root is scrollable", async () => {
+test("File/Blob EXIF orientation is honored and scanner root is scrollable", async () => {
   const prep = await readFile(new URL("../src/lib/cardScanner/prepareCardImage.js", import.meta.url), "utf8");
   const css = await readFile(new URL("../mobile-app/src/App.css", import.meta.url), "utf8");
-  assert.match(prep, /imageOrientation: "none"/);
-  assert.doesNotMatch(prep, /imageOrientation: "from-image"/);
+  assert.match(prep, /imageOrientation: "from-image"/);
   assert.match(css, /\.scanner-dev[^}]*overflow-y: auto/);
   assert.match(css, /calc\(86px \+ max\(14px, env\(safe-area-inset-bottom\)\) \+ 18px\)/);
 });
@@ -105,11 +104,12 @@ test("camera preparation offers both mapped outline and complete capture to rect
 
 test("Choose Photo preparation starts from the complete File/Blob image", async () => {
   const makeCanvas = (width, height) => ({ width, height, getContext: () => ({ filter: "none", drawImage() {} }), toDataURL: () => "data:image/jpeg;base64,AA==" });
-  let inputs;
+  let inputs; let bitmapOptions;
   await prepareCardImage({ imageUrl: "blob:user-photo" }, {
     fetchImpl: async () => ({ blob: async () => new Blob(["image"]) }),
-    createBitmap: async () => ({ width: 716, height: 1000, close() {} }), createCanvas: makeCanvas,
+    createBitmap: async (_blob, options) => { bitmapOptions = options; return { width: 716, height: 1000, close() {} }; }, createCanvas: makeCanvas,
     rectify: async (value) => { inputs = value; return { canvas: value.fullCanvas, diagnostics: { selectedSource: "full-capture-fallback" } }; },
   });
+  assert.deepEqual(bitmapOptions, { imageOrientation: "from-image" });
   assert.equal(inputs.mappedCrop, null); assert.equal(inputs.outlineCanvas, inputs.fullCanvas);
 });

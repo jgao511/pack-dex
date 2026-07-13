@@ -1,10 +1,50 @@
 import visualIndex from "../generated/scannerVisualIndex.json";
 import { detectCardBoundary, rectifyCardPerspective } from "./cardBoundary.js";
-import { generateCardProposals, releaseCardProposals } from "./cardProposals.js";
+import { generateCardProposals, orderCardProposalsForExecution, releaseCardProposals } from "./cardProposals.js";
 import { loadOpenCv, inspectOpenCvCapabilities } from "./opencvRuntime.js";
 import { calculateVisualDescriptorFromRgba, compareVisualDescriptors, scoreVisualDescriptors, scoreVisualDescriptorsCoarse } from "./visualDescriptors.js";
 
 const visualIndexEntries = Object.entries(visualIndex.cards);
+const workerStartedAt = performance.now();
+let cvPromise;
+let cvLoadMs = null;
+let cvReadyAt = null;
+let nextProposalSessionId = 1;
+let activeProposalSession = null;
+
+function getOpenCv() {
+  if (!cvPromise) {
+    const started = performance.now();
+    cvPromise = loadOpenCv().then((cv) => {
+      cvLoadMs = performance.now() - started;
+      cvReadyAt = performance.now();
+      return cv;
+    });
+  }
+  return cvPromise;
+}
+
+function clearProposalSession(sessionId) {
+  if (!activeProposalSession || (sessionId != null && activeProposalSession.id !== sessionId)) return false;
+  for (const proposal of activeProposalSession.proposals) proposal.rgba = null;
+  activeProposalSession.proposals.length = 0;
+  activeProposalSession = null;
+  return true;
+}
+
+function proposalMetadata(proposal) {
+  return {
+    id: proposal.id,
+    source: proposal.source,
+    corners: proposal.corners,
+    geometryScore: proposal.geometryScore,
+    quality: proposal.quality,
+    detector: proposal.detector,
+    isFallback: proposal.isFallback,
+    width: proposal.width,
+    height: proposal.height,
+  };
+}
 
 function post(id, result, transfer = []) { self.postMessage({ id, result }, transfer); }
 function postError(id, error) { self.postMessage({ id, error: String(error?.message || error) }); }
@@ -51,15 +91,93 @@ function orbScore(cv, query, candidate) {
 self.onmessage = async ({ data }) => {
   const { id, type, payload } = data;
   try {
-    if (type === "probe") {
-      const started = performance.now(); const cv = await loadOpenCv(); post(id, { ...inspectOpenCvCapabilities(cv), loadMs: performance.now() - started, indexedCards: Object.keys(visualIndex.cards).length }); return;
+    if (type === "probe" || type === "prewarm") {
+      const started = performance.now(); const alreadyWarm = Boolean(cvReadyAt); const cv = await getOpenCv();
+      post(id, {
+        ...inspectOpenCvCapabilities(cv),
+        loadMs: cvLoadMs,
+        requestMs: performance.now() - started,
+        alreadyWarm,
+        readyForMs: cvReadyAt == null ? 0 : performance.now() - cvReadyAt,
+        workerUptimeMs: performance.now() - workerStartedAt,
+        indexedCards: visualIndexEntries.length,
+      });
+      return;
     }
     if (type === "search") {
       const started = performance.now(); const rgba = new Uint8Array(payload.buffer); const descriptor = calculateVisualDescriptorFromRgba(rgba, payload.width, payload.height);
       const candidates = searchDescriptor(descriptor, payload.limit || 40);
       post(id, { descriptor, candidates, processingMs: performance.now() - started }); return;
     }
-    const cv = await loadOpenCv();
+    const cv = await getOpenCv();
+    if (type === "begin-proposal-scan") {
+      const started = performance.now(); const source = rgbaMat(cv, payload); let proposals = [];
+      try {
+        clearProposalSession();
+        proposals = orderCardProposalsForExecution(generateCardProposals(cv, source, payload.options));
+        const cached = proposals.map((proposal) => ({
+          ...proposalMetadata(proposal),
+          rgba: new Uint8ClampedArray(proposal.mat.data),
+        }));
+        const sessionId = `proposal-scan-${nextProposalSessionId++}`;
+        activeProposalSession = {
+          id: sessionId,
+          cursor: 0,
+          proposals: cached,
+          createdAt: performance.now(),
+          cachedBytes: cached.reduce((total, proposal) => total + proposal.rgba.byteLength, 0),
+        };
+        post(id, {
+          sessionId,
+          proposalCount: cached.length,
+          proposals: cached.map(proposalMetadata),
+          nextCursor: 0,
+          remaining: cached.length,
+          complete: cached.length === 0,
+          cachedBytes: activeProposalSession.cachedBytes,
+          generationMs: performance.now() - started,
+          cvLoadMs,
+          workerUptimeMs: performance.now() - workerStartedAt,
+        });
+      } finally { releaseCardProposals(proposals); source.delete(); }
+      return;
+    }
+    if (type === "analyze-next-proposal-batch") {
+      const started = performance.now();
+      if (!activeProposalSession || activeProposalSession.id !== payload.sessionId) throw new Error("Proposal scan session is no longer active.");
+      const batchSize = Math.max(1, Math.min(activeProposalSession.proposals.length, Math.trunc(payload.batchSize || 1)));
+      const from = activeProposalSession.cursor;
+      const to = Math.min(activeProposalSession.proposals.length, from + batchSize);
+      const outputs = []; const transfers = [];
+      for (const proposal of activeProposalSession.proposals.slice(from, to)) {
+        const descriptorStarted = performance.now();
+        const descriptor = calculateVisualDescriptorFromRgba(proposal.rgba, proposal.width, proposal.height);
+        const candidates = searchDescriptor(descriptor, payload.limit || 40);
+        const outputRgba = proposal.rgba.slice();
+        outputs.push({
+          ...proposalMetadata(proposal),
+          buffer: outputRgba.buffer,
+          lightweight: { descriptor, candidates, processingMs: performance.now() - descriptorStarted },
+        });
+        transfers.push(outputRgba.buffer);
+      }
+      activeProposalSession.cursor = to;
+      post(id, {
+        sessionId: activeProposalSession.id,
+        proposals: outputs,
+        fromCursor: from,
+        nextCursor: to,
+        remaining: activeProposalSession.proposals.length - to,
+        complete: to >= activeProposalSession.proposals.length,
+        processingMs: performance.now() - started,
+      }, transfers);
+      return;
+    }
+    if (type === "release-proposal-session") {
+      const released = clearProposalSession(payload.sessionId);
+      post(id, { sessionId: payload.sessionId, released });
+      return;
+    }
     if (type === "analyze-proposals") {
       const started = performance.now(); const source = rgbaMat(cv, payload); let proposals = [];
       try {

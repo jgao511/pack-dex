@@ -16,7 +16,7 @@ const projectRoot = path.resolve(scriptDirectory, "..");
 const DEFAULT_OUTPUT_PATH = path.join(projectRoot, "src", "lib", "cardScanner", "generated", "scannerVisualIndex.json");
 const DEFAULT_REPORT_PATH = path.join(projectRoot, "reports", "scanner-visual-index.json");
 const DEFAULT_CACHE_PATH = path.join(projectRoot, "node_modules", ".cache", "packdex-scanner-visual-index");
-const DEFAULT_ASSET_BASE_URL = "https://assets.pack-dex.com/sets";
+const DEFAULT_ASSET_BASE_URL = "https://assets.pack-dex.com/assets/sets";
 export async function calculateVisualDescriptor(image) {
   const { data, info } = await sharp(image)
     .rotate()

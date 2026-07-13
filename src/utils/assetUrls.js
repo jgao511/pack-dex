@@ -1,7 +1,7 @@
 const viteEnv = import.meta.env || {};
 
 export const ASSET_BASE_URL = viteEnv.VITE_ASSET_BASE_URL || "https://assets.pack-dex.com";
-export const SET_ASSET_BASE_URL = viteEnv.VITE_SET_ASSET_BASE_URL || `${ASSET_BASE_URL}/sets`;
+export const SET_ASSET_BASE_URL = viteEnv.VITE_SET_ASSET_BASE_URL || `${ASSET_BASE_URL}/assets/sets`;
 
 function isAbsoluteUrl(path) {
   return /^https?:\/\//i.test(String(path || ""));

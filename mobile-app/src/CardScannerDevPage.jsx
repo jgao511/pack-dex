@@ -41,6 +41,44 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
 
   useEffect(() => () => releaseTemporaryImage(image), [image]);
   useEffect(() => {
+    let active = true;
+    activeOcrAdapter?.prewarm?.().then((result) => {
+      if (active) globalThis.__PACKDEX_SCANNER_PREWARM__ = { ready: true, ...result };
+    }).catch((error) => {
+      if (active) globalThis.__PACKDEX_SCANNER_PREWARM__ = { ready: false, error: error?.message || String(error) };
+    });
+    return () => { active = false; };
+  }, [activeOcrAdapter]);
+  useEffect(() => {
+    globalThis.__PACKDEX_RUN_LOCAL_SCANNER_FILE__ = async (file) => {
+      if (!(file instanceof File)) throw new Error("A real browser File is required.");
+      const temporaryImage = createTemporaryImage(file);
+      try {
+        const reading = await recognizeCardText(temporaryImage, { adapter: activeOcrAdapter });
+        const ocrMatch = reading.ocrMatch || rankCardMatches({ rawText: reading.fullText, textBlocks: reading.blocks, maxResults: 3 });
+        const finalMatch = reading.visualMatch ? fuseCardMatches(ocrMatch, reading.visualMatch) : ocrMatch;
+        return {
+          file: { name: file.name, size: file.size, type: file.type },
+          rawText: reading.fullText,
+          ocrNames: ocrMatch.nameCandidates?.map(({ raw, normalized }) => ({ raw, normalized })) || [],
+          ocrNumbers: ocrMatch.collectorNumbers?.map(({ raw, normalized, normalizedTotal, sourcePass }) => ({ raw, normalized, normalizedTotal, sourcePass })) || [],
+          result: {
+            confidence: finalMatch.confidence,
+            results: finalMatch.results?.map(({ cardId, score, confidence, card, setName, reasons }) => ({ cardId, name: card.name, setName, score, confidence, reasons })) || [],
+          },
+          selectedProposalId: reading.imageDiagnostics?.boundary?.selectedProposalId || null,
+          selectedProposalSource: reading.imageDiagnostics?.boundary?.selectedSource || null,
+          proposals: reading.imageDiagnostics?.proposals?.map(({ id, source, processingState, enteredOrbPass, selected }) => ({ id, source, processingState, enteredOrbPass, selected })) || [],
+          lightweightCandidates: reading.visualMatch?.lightweight?.candidates || [],
+          orbShortlist: reading.visualMatch?.candidateIds || [],
+          orbCandidates: reading.visualMatch?.orb?.candidates || [],
+          timing: reading.scannerTiming || null,
+        };
+      } finally { releaseTemporaryImage(temporaryImage); }
+    };
+    return () => { delete globalThis.__PACKDEX_RUN_LOCAL_SCANNER_FILE__; };
+  }, [activeOcrAdapter]);
+  useEffect(() => {
     if (stage !== "start" || !activeCameraAdapter.isAvailable()) return undefined;
     setPreviewStart(null);
     let cancelled = false;
@@ -167,7 +205,7 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
     {stage === "result" && mode === "high" && highResult && <section className="scanner-result"><span className="scanner-confidence">High confidence</span><Candidate result={highResult} onSelect={confirm} actionLabel="Confirm Card" /><div className="scanner-result-actions"><button className="secondary-action" type="button" onClick={() => { setMatch({ ...match, confidence: "medium", primaryMatch: null }); setSelected(null); }}>Not This Card</button><button className="secondary-action" type="button" onClick={reset}>Scan Again</button></div></section>}
     {stage === "result" && mode === "medium" && <section className="scanner-result"><h2>Choose the matching card</h2>{match.results.slice(0, 3).map((result) => <Candidate key={result.cardId} result={result} onSelect={(item) => setSelected(item)} />)}{selected && <button className="primary-action" type="button" onClick={() => confirm(selected)}>Confirm Card</button>}<button className="secondary-action" type="button" onClick={reset}>Scan Again</button></section>}
     {stage === "result" && mode === "low" && <section className="scanner-result scanner-low"><h2>{match.results?.length ? "We couldn’t confidently identify this card." : "We couldn’t find a reliable match."}</h2><p>Keep the full card visible on a plain background, reduce glare, hold steady, and try without a sleeve if practical.</p>{match.results?.length > 0 && <details><summary>Choose From Matches</summary>{match.results.slice(0, 3).map((result) => <Candidate key={result.cardId} result={result} onSelect={(item) => setSelected(item)} />)}{selected && <button className="primary-action" type="button" onClick={() => confirm(selected)}>Confirm Card</button>}</details>}<div className="scanner-result-actions"><button className="primary-action" type="button" onClick={reset}>Scan Again</button><button className="secondary-action" type="button" onClick={() => beginCapture("library")}>Choose Photo</button></div></section>}
-    {diagnostics && <details className="scanner-diagnostics"><summary>Scanner Diagnostics</summary><button className="secondary-action" type="button" onClick={() => navigator.clipboard?.writeText(JSON.stringify(diagnostics, null, 2))}>Copy Diagnostics</button>{originalPreviewUrl && <figure><img src={originalPreviewUrl} alt="Original complete scanner image" /><figcaption>Original complete image</figcaption></figure>}{outlinePreviewUrl && <figure><img src={outlinePreviewUrl} alt="Mapped live-preview outline crop" /><figcaption>Mapped outline crop</figcaption></figure>}{image?.imageUrl && <figure><img src={image.imageUrl} alt="Exact final OCR and visual matching input" /><figcaption>Detected/rectified final matching image</figcaption></figure>}{bottomPreviewUrl && <figure><img src={bottomPreviewUrl} alt="Bottom collector-number OCR crop" /><figcaption>Bottom collector-number OCR crop</figcaption></figure>}{proposalPreviews.length > 0 && <details><summary>All card proposals ({proposalPreviews.length})</summary>{proposalPreviews.map((proposal) => <figure key={proposal.id}><img src={proposal.previewUrl} alt={`${proposal.source} card proposal`} /><figcaption>{proposal.id} · {proposal.source}</figcaption></figure>)}</details>}<pre>{JSON.stringify(diagnostics, null, 2)}</pre></details>}
+    {diagnostics && <details className="scanner-diagnostics"><summary>Scanner Diagnostics</summary><button className="secondary-action" type="button" onClick={() => navigator.clipboard?.writeText(JSON.stringify(diagnostics, null, 2))}>Copy Diagnostics</button>{originalPreviewUrl && <figure><img src={originalPreviewUrl} alt="Original complete scanner image" /><figcaption>Original complete image</figcaption></figure>}{outlinePreviewUrl && <figure><img src={outlinePreviewUrl} alt="Mapped live-preview outline crop" /><figcaption>Mapped outline crop</figcaption></figure>}{image?.imageUrl && <figure><img src={image.imageUrl} alt="Exact final OCR and visual matching input" /><figcaption>Detected/rectified final matching image</figcaption></figure>}{bottomPreviewUrl && <figure><img src={bottomPreviewUrl} alt="Bottom collector-number OCR crop" /><figcaption>Bottom collector-number OCR crop</figcaption></figure>}{proposalPreviews.length > 0 && <details><summary>Processed card proposals ({proposalPreviews.length})</summary>{proposalPreviews.map((proposal) => <figure key={proposal.id}><img src={proposal.previewUrl} alt={`${proposal.source} card proposal`} /><figcaption>{proposal.id} · {proposal.source}</figcaption></figure>)}</details>}<pre>{JSON.stringify(diagnostics, null, 2)}</pre></details>}
     {confirmed && <section className="scanner-confirmed" role="status"><span>Confirmed locally</span><strong>{confirmed.card.name}</strong><small>Trusted PackDex card ID: {confirmed.cardId}</small></section>}
   </main>;
 }

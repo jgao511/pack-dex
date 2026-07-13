@@ -310,3 +310,46 @@ export function generateCardProposals(cv, source, {
 export function releaseCardProposals(proposals) {
   for (const proposal of proposals ?? []) proposal?.mat?.delete?.();
 }
+
+/**
+ * Orders proposal execution without changing the proposal set or its geometry. This is kept
+ * separate from generation so staged analysis can try the highest-yield real-photo crops first
+ * while retaining every proposal and the full-frame fallback.
+ */
+export function orderCardProposalsForExecution(proposals, targetCenteredScale = 0.58) {
+  const entries = (proposals ?? []).map((proposal, index) => ({ proposal, index }));
+  const centered = entries.filter(({ proposal }) => proposal.source === "centered-aspect");
+  const unoffsetCentered = centered.filter(({ proposal }) => {
+    const { offsetX = 0, offsetY = 0 } = proposal.detector ?? {};
+    return offsetX === 0 && offsetY === 0;
+  });
+  const preferredCentered = [...unoffsetCentered].sort((first, second) => (
+    Math.abs((first.proposal.detector?.heightFraction ?? 0) - targetCenteredScale)
+      - Math.abs((second.proposal.detector?.heightFraction ?? 0) - targetCenteredScale)
+      || first.index - second.index
+  ))[0]?.proposal;
+
+  const priority = ({ proposal, index }) => {
+    if (proposal.source === "contour") return [0, 0, index];
+    if (proposal.source === "min-area-rect") return [1, 0, index];
+    if (proposal.source === "outline-expanded") return [2, 0, index];
+    if (proposal === preferredCentered) return [3, 0, index];
+    if (proposal.source === "hough-lines") return [4, 0, index];
+    if (proposal.source === "centered-aspect") {
+      const { heightFraction = 0, offsetX = 0, offsetY = 0 } = proposal.detector ?? {};
+      const isOffset = offsetX !== 0 || offsetY !== 0;
+      return [isOffset ? 6 : 5, Math.abs(heightFraction - targetCenteredScale), index];
+    }
+    if (proposal.source === "full-fallback" || proposal.isFallback) return [100, 0, index];
+    return [7, 0, index];
+  };
+
+  return entries.sort((first, second) => {
+    const firstPriority = priority(first);
+    const secondPriority = priority(second);
+    for (let index = 0; index < firstPriority.length; index += 1) {
+      if (firstPriority[index] !== secondPriority[index]) return firstPriority[index] - secondPriority[index];
+    }
+    return 0;
+  }).map(({ proposal }) => proposal);
+}

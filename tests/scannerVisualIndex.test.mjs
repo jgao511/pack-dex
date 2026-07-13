@@ -82,11 +82,11 @@ test("generated manifest is keyed only by trusted card IDs and reports unreadabl
 test("catalog image paths resolve to the existing PackDex small-image host", () => {
   assert.equal(
     resolveCatalogImageUrl("/assets/sets/151/cards/25_Pikachu_Common.png"),
-    "https://assets.pack-dex.com/sets/151/cards/25_Pikachu_Common.png",
+    "https://assets.pack-dex.com/assets/sets/151/cards/25_Pikachu_Common.png",
   );
   assert.equal(
     resolveCatalogImageUrl("sets/base-set/cards/4_charizard.jpg"),
-    "https://assets.pack-dex.com/sets/base-set/cards/4_charizard.jpg",
+    "https://assets.pack-dex.com/assets/sets/base-set/cards/4_charizard.jpg",
   );
   assert.equal(resolveCatalogImageUrl("https://example.test/card.webp"), "https://example.test/card.webp");
 });

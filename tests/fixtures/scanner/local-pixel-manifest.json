@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 1,
+  "fixtureDirectory": "tests/fixtures/scanner/local-pixel",
+  "fixtureDirectoryGitignored": true,
+  "includedInAnyBundle": false,
+  "items": [
+    {
+      "fixture": "IMG_6651.jpeg",
+      "cardId": "xy10-39-kabutops",
+      "name": "Kabutops",
+      "set": "XY-Fates Collide",
+      "collectorNumber": "39/124",
+      "sha256": "a08c44e0ab895d2c7b41cfdda9dfdb5c435b28002ae25ad30c39646fd835edf6",
+      "dimensions": { "width": 5712, "height": 4284, "exifOrientation": 6 }
+    },
+    {
+      "fixture": "IMG_6652.jpeg",
+      "cardId": "sun-moon-124-poison-barb",
+      "name": "Poison Barb",
+      "set": "Sun & Moon",
+      "collectorNumber": "124/149",
+      "sha256": "5b642a7ce7ecbb60b7ae790509737df9adb1a715aa8dfc61daa7683908c8514f",
+      "dimensions": { "width": 5712, "height": 4284, "exifOrientation": 6 }
+    },
+    {
+      "fixture": "IMG_6653.jpeg",
+      "cardId": "xy10-45-riolu",
+      "name": "Riolu",
+      "set": "XY-Fates Collide",
+      "collectorNumber": "45/124",
+      "sha256": "27a4b9594916c2fbbb0afb94359d575fa7e5a6e641c22cfa02d1803165fd33e4",
+      "dimensions": { "width": 5712, "height": 4284, "exifOrientation": 6 }
+    },
+    {
+      "fixture": "IMG_6654.jpeg",
+      "cardId": "xy10-50-carbink",
+      "name": "Carbink",
+      "set": "XY-Fates Collide",
+      "collectorNumber": "50/124",
+      "sha256": "2ab188f1163236ad5cf77331e7c8a638101048f835538ccfc6f0f6efb089344c",
+      "dimensions": { "width": 5712, "height": 4284, "exifOrientation": 6 }
+    },
+    {
+      "fixture": "IMG_6655.jpeg",
+      "cardId": "guardians-rising-12-lampent",
+      "name": "Lampent",
+      "set": "Guardians Rising",
+      "collectorNumber": "12/145",
+      "sha256": "5f407ac5939b8520b7e0b9427a835baebc783eda6440793dab6d898d87299f60",
+      "dimensions": { "width": 5712, "height": 4284, "exifOrientation": 6 }
+    },
+    {
+      "fixture": "IMG_6656.jpeg",
+      "cardId": "lost-origin-69-radiant-gardevoir-radiant",
+      "name": "Radiant Gardevoir Radiant",
+      "set": "Lost Origin",
+      "collectorNumber": "069/196",
+      "sha256": "79c3f09197b71d53baf55ab240c67175e6f3d519adc3e7bb620e4d3f4820db3d",
+      "dimensions": { "width": 5712, "height": 4284, "exifOrientation": 6 }
+    },
+    {
+      "fixture": "IMG_6657.jpeg",
+      "cardId": "xy12-60-machamp_break",
+      "name": "Machamp BREAK",
+      "set": "XY-Evolutions",
+      "collectorNumber": "60/108",
+      "sha256": "8a37a7e9a57fcd57674e578fbb77fc3407d89f61ffc88a0d53dce0c87c1a2a9f",
+      "dimensions": { "width": 5712, "height": 4284, "exifOrientation": 6 }
+    },
+    {
+      "fixture": "IMG_6658.jpeg",
+      "cardId": "journey-together-121-dudunsparce-ex",
+      "name": "Dudunsparce ex",
+      "set": "Journey Together",
+      "collectorNumber": "121/159",
+      "sha256": "8a22d61781716388e24451a01625d15d48d90379052342ec81b071aca5b5a0e9",
+      "dimensions": { "width": 5712, "height": 4284, "exifOrientation": 6 }
+    },
+    {
+      "fixture": "IMG_6659.jpeg",
+      "cardId": "xy4-119-xerosic",
+      "name": "Xerosic",
+      "set": "XY-Phantom Forces",
+      "collectorNumber": "119/119",
+      "sha256": "3940cb81db1a385ee4a6defd50a60697b9bd69a4564156c63a9bc878518a0e46",
+      "dimensions": { "width": 5712, "height": 4284, "exifOrientation": 6 }
+    },
+    {
+      "fixture": "IMG_6660.jpeg",
+      "cardId": "journey-together-171-volcanion-ex",
+      "name": "Volcanion ex",
+      "set": "Journey Together",
+      "collectorNumber": "171/159",
+      "sha256": "376795465b6d7e81c8d2824d0a34bdc0035575da1f1c32726f7fdc8fffeca718",
+      "dimensions": { "width": 5712, "height": 4284, "exifOrientation": 6 }
+    },
+    {
+      "fixture": "IMG_6661.jpeg",
+      "cardId": "sun-moon-80-umbreon-gx",
+      "name": "Umbreon-GX",
+      "set": "Sun & Moon",
+      "collectorNumber": "80/149",
+      "sha256": "2e00ddbf406eff88441681a8629b48203627bded0689a0f2705b2a433068d3e0",
+      "dimensions": { "width": 5712, "height": 4284, "exifOrientation": 6 }
+    },
+    {
+      "fixture": "IMG_6662.jpeg",
+      "cardId": "xy10-122-kingdra-ex",
+      "name": "Kingdra-EX",
+      "set": "XY-Fates Collide",
+      "collectorNumber": "122/124",
+      "sha256": "a2a85d951b4f2a4dc078fa66c9725288ff70ec79d4609841a461b33ddb6aee42",
+      "dimensions": { "width": 5712, "height": 4284, "exifOrientation": 6 }
+    },
+    {
+      "fixture": "IMG_6663.jpeg",
+      "cardId": "xy3-5-m_heracross-ex",
+      "name": "M Heracross-EX",
+      "set": "XY-Furious Fists",
+      "collectorNumber": "5/111",
+      "sha256": "fdcf2bddd47646f008e4ea5dbcaa2b13f6ea176f0187197c18956c8b4687a4bb",
+      "dimensions": { "width": 5712, "height": 4284, "exifOrientation": 6 }
+    },
+    {
+      "fixture": "IMG_6664.jpeg",
+      "cardId": "destined-rivals-234-team-rocket-s-crobat-ex",
+      "name": "Team Rocket's Crobat ex",
+      "set": "Destined Rivals",
+      "collectorNumber": "234/182",
+      "sha256": "20d36c6b0cdd57e69e92c8cfc92e24f32d0ae2c3a2ab1edac5fdcdf8c982dce0",
+      "dimensions": { "width": 5712, "height": 4284, "exifOrientation": 6 }
+    },
+    {
+      "fixture": "IMG_6665.jpeg",
+      "cardId": "phantasmal-flames-101-flygon",
+      "name": "Flygon",
+      "set": "Phantasmal Flames",
+      "collectorNumber": "101/094",
+      "sha256": "85b0a6b8737d9e0e75f9508046cd636e128ebda1548d0c93b75ae92c88de4c25",
+      "dimensions": { "width": 5712, "height": 4284, "exifOrientation": 6 }
+    },
+    {
+      "fixture": "IMG_6666.jpeg",
+      "cardId": "pokemon-go-47-melmetal-v",
+      "name": "Melmetal V",
+      "set": "Pokemon GO",
+      "collectorNumber": "047/078",
+      "sha256": "2d5d2671c0c51de18b91764530b721d4404c0e99bd91a1029e6b3b56e96903c5",
+      "dimensions": { "width": 5712, "height": 4284, "exifOrientation": 6 }
+    }
+  ]
+}

@@ -4,27 +4,55 @@
     "cardId": "xy12-113-here_comes_team_rocket",
     "name": "Here Comes Team Rocket",
     "setName": "XY-Evolutions",
-    "printedNumber": "113/108"
+    "printedNumber": "113/108",
+    "expectedTopResult": {
+      "cardId": "xy12-113-here_comes_team_rocket",
+      "confidence": "medium",
+      "score": 91,
+      "selectedProposalId": "contour-1"
+    },
+    "baselinePixel6aMs": { "cold": 7475.2, "warm": 5618.7 }
   },
   {
     "fixture": "diglett-55-108.jpg",
     "cardId": "xy12-55-diglett",
     "name": "Diglett",
     "setName": "XY-Evolutions",
-    "printedNumber": "55/108"
+    "printedNumber": "55/108",
+    "expectedTopResult": {
+      "cardId": "xy12-55-diglett",
+      "confidence": "medium",
+      "score": 61,
+      "selectedProposalId": "centered-aspect-3"
+    },
+    "baselinePixel6aMs": { "warm": 5749.7 }
   },
   {
     "fixture": "gardevoir-ex-111-114.jpg",
     "cardId": "xy11-111-gardevoir-ex",
     "name": "Gardevoir-EX",
     "setName": "XY-Steam Siege",
-    "printedNumber": "111/114"
+    "printedNumber": "111/114",
+    "expectedTopResult": {
+      "cardId": "xy11-111-gardevoir-ex",
+      "confidence": "high",
+      "score": 80,
+      "selectedProposalId": "min-area-rect-1"
+    },
+    "baselinePixel6aMs": { "warm": 6046.9 }
   },
   {
     "fixture": "mega-charizard-x-ex-013-094.jpg",
     "cardId": "phantasmal-flames-13-mega-charizard-x-ex",
     "name": "Mega Charizard X ex",
     "setName": "Phantasmal Flames",
-    "printedNumber": "013/094"
+    "printedNumber": "013/094",
+    "expectedTopResult": {
+      "cardId": "phantasmal-flames-13-mega-charizard-x-ex",
+      "confidence": "medium",
+      "score": 57,
+      "selectedProposalId": "centered-aspect-4"
+    },
+    "baselinePixel6aMs": { "warm": 5603.1 }
   }
 ]

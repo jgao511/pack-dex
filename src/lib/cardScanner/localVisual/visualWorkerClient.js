@@ -21,7 +21,20 @@ function canvasFromResult(result) {
   canvas.getContext("2d").putImageData(new ImageData(new Uint8ClampedArray(result.buffer), result.width, result.height), 0, 0); return canvas;
 }
 export function probeVisualWorker() { return request("probe", {}); }
+export function prewarmVisualWorker() { return request("prewarm", {}); }
 export async function rectifyCanvas(canvas, options) { const payload = canvasPayload(canvas); const result = await request("rectify", { ...payload, options }, [payload.buffer]); return { ...result, canvas: result.buffer ? canvasFromResult(result) : null, buffer: undefined }; }
+export async function beginProposalScan(canvas, options = {}) {
+  const payload = canvasPayload(canvas);
+  return request("begin-proposal-scan", { ...payload, options }, [payload.buffer]);
+}
+export async function analyzeNextProposalBatch(sessionId, { batchSize = 1, limit = 40 } = {}) {
+  const result = await request("analyze-next-proposal-batch", { sessionId, batchSize, limit });
+  return {
+    ...result,
+    proposals: result.proposals.map((proposal) => ({ ...proposal, canvas: canvasFromResult(proposal), buffer: undefined })),
+  };
+}
+export function releaseProposalSession(sessionId) { return request("release-proposal-session", { sessionId }); }
 export async function analyzeProposalCanvases(canvas, options = {}, limit = 40) {
   const payload = canvasPayload(canvas);
   const result = await request("analyze-proposals", { ...payload, options, limit }, [payload.buffer]);

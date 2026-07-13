@@ -5,7 +5,12 @@ import { App } from "@capacitor/app";
 import { CapacitorPluginMlKitTextRecognition } from "@pantrist/capacitor-plugin-ml-kit-text-recognition";
 import { CardCaptureError } from "../../../src/lib/cardScanner/captureCardImage.js";
 import { createOcrPasses, getOcrCropDefinitions, prepareCardImage } from "../../../src/lib/cardScanner/prepareCardImage.js";
-import { analyzeProposalCanvases } from "../../../src/lib/cardScanner/localVisual/visualWorkerClient.js";
+import {
+  analyzeNextProposalBatch,
+  beginProposalScan,
+  prewarmVisualWorker,
+  releaseProposalSession,
+} from "../../../src/lib/cardScanner/localVisual/visualWorkerClient.js";
 import { fuseCardMatches } from "../../../src/lib/cardScanner/fuseCardMatches.js";
 import { rankFinalProposalRuns, rankProposalEvidence } from "../../../src/lib/cardScanner/proposalEvidence.js";
 import { rankCardMatches } from "../../../src/lib/cardScanner/rankCardMatches.js";
@@ -94,8 +99,11 @@ export const nativeCameraAdapter = {
 };
 
 async function recognizeProposalPasses(canvas, labels) {
+  const conversionStarted = performance.now();
   const definitions = createOcrPasses(canvas, { labels }); const results = [];
-  for (const pass of definitions) {
+  const conversionMs = performance.now() - conversionStarted;
+  for (let index = 0; index < definitions.length; index += 1) {
+    const pass = definitions[index];
     const passStarted = performance.now();
     try {
       const result = await CapacitorPluginMlKitTextRecognition.detectText({ base64Image: pass.base64Image, rotation: 0 });
@@ -103,6 +111,8 @@ async function recognizeProposalPasses(canvas, labels) {
         label: pass.label, width: pass.width, height: pass.height,
         text: result.text || "", blocks: result.blocks || [],
         previewUrl: pass.label === "collector-bottom-edge" ? `data:image/jpeg;base64,${pass.base64Image}` : null,
+        conversionMs: index === 0 ? conversionMs : 0,
+        base64Bytes: pass.base64Image.length,
         processingMs: performance.now() - passStarted,
       });
     } finally { pass.base64Image = ""; }
@@ -111,106 +121,217 @@ async function recognizeProposalPasses(canvas, labels) {
 }
 
 function summarizeOcrPasses(results) {
+  const matchStarted = performance.now();
   const text = results.map((pass) => pass.text).filter(Boolean).join("\n");
   const blocks = results.flatMap((pass) => pass.blocks.map((block) => ({ ...block, sourcePass: pass.label })));
-  return { text, blocks, ocrMatch: rankCardMatches({ rawText: text, textBlocks: blocks, maxResults: 3 }) };
+  const ocrMatch = rankCardMatches({ rawText: text, textBlocks: blocks, maxResults: 3 });
+  return { text, blocks, ocrMatch, matchProcessingMs: performance.now() - matchStarted };
+}
+
+let scannerPrewarmPromise;
+let scannerPrewarmResult;
+let candidateOriginPrewarmPromise;
+function prewarmCandidateOrigin() {
+  if (!Capacitor.isNativePlatform()) return Promise.resolve({ attempted: false });
+  if (!candidateOriginPrewarmPromise) {
+    const started = performance.now();
+    candidateOriginPrewarmPromise = CapacitorHttp.request({
+      url: "https://assets.pack-dex.com/", method: "HEAD",
+      connectTimeout: 2_500, readTimeout: 2_500,
+    }).then((response) => ({ attempted: true, status: response.status, processingMs: performance.now() - started }))
+      .catch((error) => ({ attempted: true, error: error?.message || String(error), processingMs: performance.now() - started }));
+  }
+  return candidateOriginPrewarmPromise;
+}
+async function prewarmScannerResources() {
+  if (scannerPrewarmResult) return { ...scannerPrewarmResult, reused: true, waitMs: 0 };
+  if (!scannerPrewarmPromise) {
+    const started = performance.now();
+    scannerPrewarmPromise = Promise.all([prewarmVisualWorker(), prewarmCandidateOrigin()]).then(([result, candidateOrigin]) => {
+      scannerPrewarmResult = { ...result, candidateOrigin, totalMs: performance.now() - started, reused: false };
+      return scannerPrewarmResult;
+    }).catch((error) => { scannerPrewarmPromise = undefined; throw error; });
+  }
+  const waitStarted = performance.now();
+  const result = await scannerPrewarmPromise;
+  return { ...result, waitMs: performance.now() - waitStarted };
+}
+
+function securedResultReason(completed) {
+  if (completed.fusedMatch?.confidence === "high") return "existing-high-confidence";
+  const topResultId = completed.fusedMatch?.results?.[0]?.cardId;
+  const topOrb = completed.visualMatch?.orb?.candidates?.find(({ cardId }) => cardId === topResultId);
+  return topResultId && topOrb?.score >= .55 && topOrb?.inliers >= 12 ? "existing-strong-orb" : null;
+}
+
+const proposalOptions = {
+  output: { width: 500, height: 700 }, maxProposals: 10,
+  centeredHeightFractions: [.46, .52, .58, .66],
+  centeredOffsets: [{ x: 0, y: -.045 }, { x: 0, y: .045 }, { x: -.04, y: 0 }, { x: .04, y: 0 }],
+  offsetHeightFraction: .56,
+};
+
+async function completeProposalRun(run, workerRuntime) {
+  const started = performance.now();
+  const enhanced = await recognizeProposalPasses(run.proposal.canvas, ["name-top", "collector-bottom", "collector-bottom-edge"]);
+  const passes = [...run.passes, ...enhanced]; const summary = summarizeOcrPasses(passes);
+  const visualStarted = performance.now();
+  let visualMatch; let visualError = null;
+  try {
+    visualMatch = await runVisualMatching(run.proposal.canvas, summary.ocrMatch, {
+      candidateLimit: 40, orbCandidateLimit: 20,
+      precomputedLightweight: run.lightweight,
+      loadImageBlob: loadCandidateImageBlob,
+      knownWorkerRuntime: workerRuntime,
+    });
+  } catch (error) {
+    visualError = error?.message || String(error);
+    visualMatch = { lightweight: run.lightweight, orb: { candidates: [], processingMs: 0 }, candidateIds: [] };
+  }
+  const fusionStarted = performance.now();
+  const fusedMatch = fuseCardMatches(summary.ocrMatch, visualMatch);
+  const fusionMs = performance.now() - fusionStarted;
+  return {
+    ...run, ...summary, passes, visualMatch, visualError, fusedMatch, fusionMs,
+    enhancedAndVisualMs: performance.now() - started,
+    visualWallMs: fusionStarted - visualStarted,
+  };
 }
 
 export const nativeOcrAdapter = {
+  prewarm: prewarmScannerResources,
   async recognize(image) {
     const scanStarted = performance.now();
-    let proposalAnalysis;
-    const working = await prepareCardImage(image, { includePasses: false, rectify: async ({ fullCanvas, mappedCrop, originalWidth, originalHeight }) => {
-      const outline = mappedCrop ? {
-        x: mappedCrop.x * fullCanvas.width / originalWidth,
-        y: mappedCrop.y * fullCanvas.height / originalHeight,
-        width: mappedCrop.width * fullCanvas.width / originalWidth,
-        height: mappedCrop.height * fullCanvas.height / originalHeight,
-      } : null;
-      proposalAnalysis = await analyzeProposalCanvases(fullCanvas, {
-        outline, output: { width: 500, height: 700 }, maxProposals: 10,
-        centeredHeightFractions: [.46, .52, .58, .66],
-        centeredOffsets: [{ x: 0, y: -.045 }, { x: 0, y: .045 }, { x: -.04, y: 0 }, { x: .04, y: 0 }],
-        offsetHeightFraction: .56,
-      }, 40);
-      const proposals = proposalAnalysis.proposals;
-      return {
-        canvas: proposals[0]?.canvas || fullCanvas,
-        proposals,
-        diagnostics: {
-          selectedSource: null, fallbackReason: null,
-          proposalProcessingMs: proposalAnalysis.processingMs,
-          proposalCount: proposals.length,
-        },
-      };
-    } });
-    const preparationFinished = performance.now();
-    const proposals = working.proposals?.length ? working.proposals : proposalAnalysis?.proposals || [];
+    const workerRuntime = await prewarmScannerResources();
+    const resourceWaitFinished = performance.now();
+    let sessionInfo;
+    let sessionId;
+    const processedProposals = [];
+    const batchTimings = [];
+    const firstPassRuns = [];
+    const completedById = new Map();
+    let securedRun = null;
+    let earlyCompletionReason = null;
+    let preparationFinished;
+    let outputStarted;
     try {
-      const firstPassRuns = [];
-      for (const proposal of proposals) {
+      const working = await prepareCardImage(image, { includePasses: false, rectify: async ({ fullCanvas, mappedCrop, originalWidth, originalHeight }) => {
+        const outline = mappedCrop ? {
+          x: mappedCrop.x * fullCanvas.width / originalWidth,
+          y: mappedCrop.y * fullCanvas.height / originalHeight,
+          width: mappedCrop.width * fullCanvas.width / originalWidth,
+          height: mappedCrop.height * fullCanvas.height / originalHeight,
+        } : null;
+        sessionInfo = await beginProposalScan(fullCanvas, { ...proposalOptions, outline });
+        sessionId = sessionInfo.sessionId;
+        return {
+          canvas: fullCanvas,
+          diagnostics: {
+            selectedSource: null, fallbackReason: null,
+            proposalProcessingMs: sessionInfo.generationMs,
+            proposalCount: sessionInfo.proposalCount,
+          },
+        };
+      } });
+      preparationFinished = performance.now();
+
+      while (sessionInfo && processedProposals.length < sessionInfo.proposalCount) {
+        const batchStarted = performance.now();
+        const batch = await analyzeNextProposalBatch(sessionId, { batchSize: 1, limit: 40 });
+        batchTimings.push({
+          fromCursor: batch.fromCursor, nextCursor: batch.nextCursor,
+          workerMs: batch.processingMs, wallMs: performance.now() - batchStarted,
+        });
+        const proposal = batch.proposals[0];
+        if (!proposal) break;
+        processedProposals.push(proposal);
+        const firstPassStarted = performance.now();
         const passes = await recognizeProposalPasses(proposal.canvas, ["full-card"]);
         const summary = summarizeOcrPasses(passes);
-        firstPassRuns.push({ proposal, passes, ...summary, lightweight: proposal.lightweight });
-      }
-      const rankedFirstPass = rankProposalEvidence(firstPassRuns);
-      const finalists = rankedFirstPass.slice(0, Math.min(2, rankedFirstPass.length));
-      const ocrFirstPassFinished = performance.now();
-      const finalRuns = [];
-      for (const finalist of finalists) {
-        const enhanced = await recognizeProposalPasses(finalist.proposal.canvas, ["name-top", "collector-bottom", "collector-bottom-edge"]);
-        const passes = [...finalist.passes, ...enhanced]; const summary = summarizeOcrPasses(passes);
-        let visualMatch; let visualError = null;
-        try {
-          visualMatch = await runVisualMatching(finalist.proposal.canvas, summary.ocrMatch, {
-            candidateLimit: 40, orbCandidateLimit: 20,
-            precomputedLightweight: finalist.lightweight,
-            loadImageBlob: loadCandidateImageBlob,
-          });
-        } catch (error) {
-          visualError = error?.message || String(error);
-          visualMatch = { lightweight: finalist.lightweight, orb: { candidates: [], processingMs: 0 }, candidateIds: [] };
+        const ranked = rankProposalEvidence([{ proposal, passes, ...summary, lightweight: proposal.lightweight }]);
+        const run = { ...ranked[0], firstPassWallMs: performance.now() - firstPassStarted };
+        firstPassRuns.push(run);
+
+        // Proposal order is execution-only. An attempted proposal still uses
+        // the full existing OCR, visual, ORB, fusion, and confidence rules.
+        const completed = await completeProposalRun(run, workerRuntime);
+        completedById.set(proposal.id, completed);
+        const reason = securedResultReason(completed);
+        if (reason) {
+          securedRun = completed;
+          earlyCompletionReason = reason;
+          break;
         }
-        const completed = { ...finalist, ...summary, passes, visualMatch, visualError, fusedMatch: fuseCardMatches(summary.ocrMatch, visualMatch) };
-        finalRuns.push(completed);
-        const topResultId = completed.fusedMatch?.results?.[0]?.cardId;
-        const topOrb = completed.visualMatch?.orb?.candidates?.find(({ cardId }) => cardId === topResultId);
-        if (completed.fusedMatch?.confidence === "high" || (topResultId && topOrb?.score >= .55 && topOrb?.inliers >= 12)) break;
       }
-      const visualFinished = performance.now();
-      const rankedFinal = rankFinalProposalRuns(finalRuns);
-      const selected = rankedFinal[0] || finalRuns[0] || rankedFirstPass[0];
+
+      const rankedFirstPass = rankProposalEvidence(firstPassRuns);
+      let selected = securedRun;
+      if (!selected) {
+        const finalists = rankedFirstPass.slice(0, Math.min(2, rankedFirstPass.length));
+        const finalRuns = finalists.map(({ proposal }) => completedById.get(proposal.id)).filter(Boolean);
+        selected = rankFinalProposalRuns(finalRuns)[0] || finalRuns[0] || rankedFirstPass[0];
+      }
       if (!selected) throw new CardCaptureError("no-proposals", "We couldnâ€™t isolate a card in that photo.");
-      const proposalPreviews = proposals.map((proposal) => ({ id: proposal.id, source: proposal.source, previewUrl: proposal.canvas.toDataURL("image/jpeg", .76) }));
-      const proposalDiagnostics = rankedFirstPass.map((run) => {
-        const completed = finalRuns.find(({ proposal }) => proposal.id === run.proposal.id);
+
+      outputStarted = performance.now();
+      const previewUrl = selected.proposal.canvas.toDataURL("image/jpeg", .92);
+      const proposalPreviews = processedProposals.map((proposal) => ({
+        id: proposal.id, source: proposal.source,
+        previewUrl: proposal.id === selected.proposal.id ? previewUrl : proposal.canvas.toDataURL("image/jpeg", .76),
+      }));
+      const rankedById = new Map(rankedFirstPass.map((run) => [run.proposal.id, run]));
+      const proposalDiagnostics = (sessionInfo.proposals || []).map((metadata) => {
+        const run = rankedById.get(metadata.id);
+        const completed = completedById.get(metadata.id);
+        const evidenceSource = completed || run;
         return {
-          id: run.proposal.id, source: run.proposal.source, corners: run.proposal.corners,
-          geometryScore: run.proposal.geometryScore, quality: run.proposal.quality,
-          detector: run.proposal.detector, isFallback: run.proposal.isFallback,
-          evidence: run.evidence, ocrText: completed?.text || run.text,
-          ocrNames: (completed?.ocrMatch || run.ocrMatch)?.nameCandidates?.map(({ raw }) => raw) || [],
-          ocrNumbers: (completed?.ocrMatch || run.ocrMatch)?.collectorNumbers?.map(({ raw, sourcePass }) => ({ raw, sourcePass })) || [],
-          lightweightCandidates: run.lightweight?.candidates || [],
+          ...metadata,
+          processingState: completed ? "completed" : earlyCompletionReason ? "skipped-after-secure-result" : "not-processed",
+          evidence: evidenceSource?.evidence || null,
+          ocrText: completed?.text || run?.text || "",
+          ocrNames: evidenceSource?.ocrMatch?.nameCandidates?.map(({ raw }) => raw) || [],
+          ocrNumbers: evidenceSource?.ocrMatch?.collectorNumbers?.map(({ raw, sourcePass }) => ({ raw, sourcePass })) || [],
+          lightweightCandidates: run?.lightweight?.candidates || [],
           enteredOrbPass: Boolean(completed), orbShortlist: completed?.visualMatch?.candidateIds || [],
           orbCandidates: completed?.visualMatch?.orb?.candidates || [],
           fusedCandidates: completed?.fusedMatch?.results?.map(({ cardId, confidence, score }) => ({ cardId, confidence, score })) || [],
-          selected: run.proposal.id === selected.proposal.id,
+          selected: metadata.id === selected.proposal.id,
         };
       });
       const selectedBottom = selected.passes?.find((pass) => pass.label === "collector-bottom-edge")?.previewUrl || null;
-      const previewUrl = selected.proposal.canvas.toDataURL("image/jpeg", .92);
       const finished = performance.now();
+      const completedRuns = [...completedById.values()];
+      const allPasses = completedRuns.flatMap((run) => run.passes || []);
       return {
         text: selected.text || "", blocks: selected.blocks || [], passes: selected.passes || [],
         ocrMatch: selected.ocrMatch, visualMatch: selected.visualMatch || null, visualError: selected.visualError || null,
         scannerTiming: {
+          schemaVersion: 1,
           totalMs: finished - scanStarted,
-          preparationMs: preparationFinished - scanStarted,
-          proposalOcrMs: ocrFirstPassFinished - preparationFinished,
-          finalistOcrAndVisualMs: visualFinished - ocrFirstPassFinished,
-          ocrMs: (selected.passes || []).reduce((total, pass) => total + (pass.processingMs || 0), 0),
-          visualMs: selected.visualMatch?.totalProcessingMs || 0,
+          resourceWaitMs: resourceWaitFinished - scanStarted,
+          preparationMs: preparationFinished - resourceWaitFinished,
+          image: working.timing,
+          worker: {
+            prewarm: workerRuntime,
+            generationMs: sessionInfo.generationMs,
+            cvLoadMs: sessionInfo.cvLoadMs,
+            cachedProposalBytes: sessionInfo.cachedBytes,
+            batchSearchMs: batchTimings.reduce((total, timing) => total + timing.workerMs, 0),
+            batchRoundTripMs: batchTimings.reduce((total, timing) => total + timing.wallMs, 0),
+          },
+          proposalsAvailable: sessionInfo.proposalCount,
+          proposalsProcessed: processedProposals.length,
+          earlyCompletion: Boolean(earlyCompletionReason),
+          earlyCompletionReason,
+          firstPassOcrWallMs: firstPassRuns.reduce((total, run) => total + run.firstPassWallMs, 0),
+          ocrCalls: allPasses.length,
+          ocrConversionMs: allPasses.reduce((total, pass) => total + (pass.conversionMs || 0), 0),
+          ocrBridgeAndDetectMs: allPasses.reduce((total, pass) => total + (pass.processingMs || 0), 0),
+          ocrMatchMs: completedRuns.reduce((total, run) => total + (run.matchProcessingMs || 0), 0),
+          visualMs: completedRuns.reduce((total, run) => total + (run.visualMatch?.totalProcessingMs || 0), 0),
+          orbMs: completedRuns.reduce((total, run) => total + (run.visualMatch?.orb?.processingMs || 0), 0),
+          fusionMs: completedRuns.reduce((total, run) => total + (run.fusionMs || 0), 0),
+          outputPreviewMs: finished - outputStarted,
         },
         previewUrl, proposalPreviews,
         originalPreviewUrl: working.originalPreviewUrl, outlinePreviewUrl: working.outlinePreviewUrl, bottomPreviewUrl: selectedBottom,
@@ -226,7 +347,8 @@ export const nativeOcrAdapter = {
         },
       };
     } finally {
-      for (const proposal of proposals) { proposal.canvas.width = 0; proposal.canvas.height = 0; }
+      if (sessionId) { try { await releaseProposalSession(sessionId); } catch {} }
+      for (const proposal of processedProposals) { proposal.canvas.width = 0; proposal.canvas.height = 0; }
     }
   },
 };
