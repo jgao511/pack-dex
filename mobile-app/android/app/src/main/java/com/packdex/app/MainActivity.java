@@ -1,6 +1,7 @@
 package com.packdex.app;
 
 import android.os.Bundle;
+import android.webkit.WebView;
 import com.getcapacitor.BridgeActivity;
 
 public class MainActivity extends BridgeActivity {
@@ -18,6 +19,9 @@ public class MainActivity extends BridgeActivity {
     public void onCreate(Bundle savedInstanceState) {
         registerScannerAiPluginIfBundled();
         super.onCreate(savedInstanceState);
+        if (BuildConfig.PACKDEX_SCANNER_AI_POC && BuildConfig.DEBUG) {
+            WebView.setWebContentsDebuggingEnabled(true);
+        }
         // Keep CSS typography at its authored size instead of applying Android's
         // WebView-only text zoom. Page/pinch zoom accessibility remains unchanged.
         getBridge().getWebView().getSettings().setTextZoom(100);

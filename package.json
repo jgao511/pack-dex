@@ -20,6 +20,8 @@
     "test:scanner-visual-benchmark": "node scripts/scanner-visual-benchmark.mjs",
     "build:scanner-visual-index": "node scripts/build-scanner-visual-index.mjs",
     "test:scanner-visual-index": "node --test tests/scannerVisualIndex.test.mjs",
+    "build:scanner-ai:android": "node scripts/scanner-ai/build-android.mjs",
+    "freeze:scanner-ai": "node scripts/scanner-ai/freeze-runtime.mjs",
     "audit:vintage": "node scripts/audit-vintage-sets.mjs",
     "build:price-sync-catalog": "node scripts/build-price-sync-catalog.mjs",
     "check:price-sync-deploy-scope": "node scripts/assert-price-sync-deploy-scope.mjs",

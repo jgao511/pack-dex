@@ -7,13 +7,18 @@ import { confirmTrustedCandidate, getScannerResultMode, releaseTemporaryImage } 
 import { getCardImageUrl } from "../../src/utils/assetUrls.js";
 import { nativeCameraAdapter as defaultNativeCameraAdapter, nativeOcrAdapter as defaultOcrAdapter } from "./lib/nativeScannerAdapters.js";
 import referenceCardUrl from "../../tests/fixtures/scanner/mega-charizard-x-ex-013-094.jpg?url";
-import pixelFixture1Url from "../../tests/fixtures/scanner/pixel-real/here-comes-team-rocket-113-108.jpg?url";
-import pixelFixture2Url from "../../tests/fixtures/scanner/pixel-real/diglett-55-108.jpg?url";
-import pixelFixture3Url from "../../tests/fixtures/scanner/pixel-real/gardevoir-ex-111-114.jpg?url";
-import pixelFixture4Url from "../../tests/fixtures/scanner/pixel-real/mega-charizard-x-ex-013-094.jpg?url";
 
 const examples = ["Charizard ex\n199/165", "UMBRE0N EX\n161 / 131", "Pikachu\n58/102", "Pikachu", "copyright 2025 pokemon creatures inc"];
-const pixelFixtureUrls = [pixelFixture1Url, pixelFixture2Url, pixelFixture3Url, pixelFixture4Url];
+const scannerAiPocBuild = typeof __PACKDEX_SCANNER_AI_POC__ !== "undefined" && __PACKDEX_SCANNER_AI_POC__;
+// Rollup removes this branch entirely from scanner-AI builds. The locked/local
+// photos and even the four ordinary scanner regression photos must not enter
+// the AI APK that runs the holdout through Android's File input.
+const pixelFixtureLoaders = scannerAiPocBuild ? [] : [
+  () => import("../../tests/fixtures/scanner/pixel-real/here-comes-team-rocket-113-108.jpg?url"),
+  () => import("../../tests/fixtures/scanner/pixel-real/diglett-55-108.jpg?url"),
+  () => import("../../tests/fixtures/scanner/pixel-real/gardevoir-ex-111-114.jpg?url"),
+  () => import("../../tests/fixtures/scanner/pixel-real/mega-charizard-x-ex-013-094.jpg?url"),
+];
 
 function Candidate({ result, onSelect, actionLabel = "Select Card" }) {
   return <article className="scanner-candidate"><img src={getCardImageUrl(result.card)} alt={result.card.name} /><div><h3>{result.card.name}</h3><p>{result.setName} · #{result.card.number}</p><p>{result.card.rarity}</p>{result.reasons?.length > 0 && <small>{result.reasons.slice(0, 2).join(" · ")}</small>}<button className="secondary-action" type="button" onClick={() => onSelect(result)}>{actionLabel}</button></div></article>;
@@ -34,14 +39,25 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
   const [previewInFront, setPreviewInFront] = useState(false);
   const [previewStart, setPreviewStart] = useState(null);
   const [devText, setDevText] = useState(examples[0]);
+  const [pixelFixtureUrls, setPixelFixtureUrls] = useState([]);
   const fileInputRef = useRef(null); const pendingFileRef = useRef(null);
   const previewRef = useRef(null); const previewGeometryRef = useRef(null);
   const activeCameraAdapter = nativeCameraAdapter || defaultNativeCameraAdapter;
   const activeOcrAdapter = ocrAdapter || (defaultNativeCameraAdapter.isAvailable() ? defaultOcrAdapter : globalThis.__PACKDEX_SCANNER_OCR__);
-  const aiPocEnabled = typeof __PACKDEX_SCANNER_AI_POC__ !== "undefined" && __PACKDEX_SCANNER_AI_POC__;
+  const aiPocEnabled = scannerAiPocBuild;
+
+  useEffect(() => {
+    if (aiPocEnabled) return undefined;
+    let active = true;
+    Promise.all(pixelFixtureLoaders.map((load) => load())).then((modules) => {
+      if (active) setPixelFixtureUrls(modules.map((module) => module.default));
+    }).catch(() => {});
+    return () => { active = false; };
+  }, [aiPocEnabled]);
 
   useEffect(() => () => releaseTemporaryImage(image), [image]);
   useEffect(() => {
+    if (aiPocEnabled) return undefined;
     let active = true;
     activeOcrAdapter?.prewarm?.().then((result) => {
       if (active) globalThis.__PACKDEX_SCANNER_PREWARM__ = { ready: true, ...result };
@@ -49,7 +65,7 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
       if (active) globalThis.__PACKDEX_SCANNER_PREWARM__ = { ready: false, error: error?.message || String(error) };
     });
     return () => { active = false; };
-  }, [activeOcrAdapter]);
+  }, [activeOcrAdapter, aiPocEnabled]);
   useEffect(() => {
     globalThis.__PACKDEX_RUN_LOCAL_SCANNER_FILE__ = async (file) => {
       if (!(file instanceof File)) throw new Error("A real browser File is required.");
@@ -65,6 +81,7 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
           ocrNumbers: ocrMatch.collectorNumbers?.map(({ raw, normalized, normalizedTotal, sourcePass }) => ({ raw, normalized, normalizedTotal, sourcePass })) || [],
           result: {
             confidence: finalMatch.confidence,
+            primaryCardId: finalMatch.primaryMatch?.cardId || null,
             results: finalMatch.results?.map(({ cardId, score, confidence, card, setName, reasons }) => ({ cardId, name: card.name, setName, score, confidence, reasons })) || [],
           },
           selectedProposalId: reading.imageDiagnostics?.boundary?.selectedProposalId || null,
@@ -81,16 +98,28 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
   }, [activeOcrAdapter]);
   useEffect(() => {
     if (!aiPocEnabled) return undefined;
+    const aiModule = import("./lib/aiScannerPoc.js");
+    globalThis.__PACKDEX_SCANNER_AI_PRELOAD__ = aiModule
+      .then(({ preloadAiScannerPoc }) => preloadAiScannerPoc())
+      .then((runtime) => ({
+        ready: true,
+        preloadMs: runtime.preloadMs,
+        ocrWarmupMs: runtime.ocrInitialization?.warmupMs ?? null,
+        bundledOcrReady: runtime.ocrInitialization?.ready === true,
+        cardCount: runtime.index?.count || runtime.index?.cards?.length || 0,
+      }))
+      .catch((error) => ({ ready: false, error: error?.message || String(error) }));
     globalThis.__PACKDEX_RUN_AI_SCANNER_FILE__ = async (file, options = {}) => {
       if (!(file instanceof File)) throw new Error("A real browser File is required.");
       const temporaryImage = createTemporaryImage(file);
+      temporaryImage.scannerInputBlob = file;
       try {
-        const { runAiScannerPoc } = await import("./lib/aiScannerPoc.js");
+        const { runAiScannerPoc } = await aiModule;
         return runAiScannerPoc(temporaryImage, options);
       } finally { releaseTemporaryImage(temporaryImage); }
     };
     globalThis.__PACKDEX_BUILD_AI_SMOKE_INDEX__ = async (cards) => {
-      const { buildAiSmokeIndex } = await import("./lib/aiScannerPoc.js");
+      const { buildAiSmokeIndex } = await aiModule;
       return buildAiSmokeIndex(cards);
     };
     globalThis.__PACKDEX_RELEASE_AI_SCANNER__ = async () => globalThis.Capacitor?.Plugins?.PackDexAiEmbedder?.release?.();
@@ -99,6 +128,7 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
       delete globalThis.__PACKDEX_RUN_AI_SCANNER_FILE__;
       delete globalThis.__PACKDEX_BUILD_AI_SMOKE_INDEX__;
       delete globalThis.__PACKDEX_RELEASE_AI_SCANNER__;
+      delete globalThis.__PACKDEX_SCANNER_AI_PRELOAD__;
     };
   }, [aiPocEnabled]);
   useEffect(() => {

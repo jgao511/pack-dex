@@ -1,13 +1,14 @@
 node_modules/
 **/node_modules/
+**/__pycache__/
+*.py[cod]
 supabase/.temp/
 .env
 .env.*
 !.env.example
 tests/fixtures/scanner/local-pixel/
-artifacts/scanner-ai/cache/
-artifacts/scanner-ai/downloads/
-artifacts/scanner-ai/generated/
-artifacts/scanner-ai/models/
-artifacts/scanner-ai/reports/
+# Scanner-AI manifests, downloads, caches, environments, generated views,
+# checkpoints, models, reports, and temporary indexes are local-only.
+artifacts/scanner-ai/
 mobile-app/android/app/src/scannerAi/assets/scanner-ai/
+mobile-app/android/app/src/scannerAi/assets/public/scanner-ai/
