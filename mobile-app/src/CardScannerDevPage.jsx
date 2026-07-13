@@ -38,6 +38,7 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
   const previewRef = useRef(null); const previewGeometryRef = useRef(null);
   const activeCameraAdapter = nativeCameraAdapter || defaultNativeCameraAdapter;
   const activeOcrAdapter = ocrAdapter || (defaultNativeCameraAdapter.isAvailable() ? defaultOcrAdapter : globalThis.__PACKDEX_SCANNER_OCR__);
+  const aiPocEnabled = typeof __PACKDEX_SCANNER_AI_POC__ !== "undefined" && __PACKDEX_SCANNER_AI_POC__;
 
   useEffect(() => () => releaseTemporaryImage(image), [image]);
   useEffect(() => {
@@ -78,6 +79,28 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
     };
     return () => { delete globalThis.__PACKDEX_RUN_LOCAL_SCANNER_FILE__; };
   }, [activeOcrAdapter]);
+  useEffect(() => {
+    if (!aiPocEnabled) return undefined;
+    globalThis.__PACKDEX_RUN_AI_SCANNER_FILE__ = async (file, options = {}) => {
+      if (!(file instanceof File)) throw new Error("A real browser File is required.");
+      const temporaryImage = createTemporaryImage(file);
+      try {
+        const { runAiScannerPoc } = await import("./lib/aiScannerPoc.js");
+        return runAiScannerPoc(temporaryImage, options);
+      } finally { releaseTemporaryImage(temporaryImage); }
+    };
+    globalThis.__PACKDEX_BUILD_AI_SMOKE_INDEX__ = async (cards) => {
+      const { buildAiSmokeIndex } = await import("./lib/aiScannerPoc.js");
+      return buildAiSmokeIndex(cards);
+    };
+    globalThis.__PACKDEX_RELEASE_AI_SCANNER__ = async () => globalThis.Capacitor?.Plugins?.PackDexAiEmbedder?.release?.();
+    return () => {
+      globalThis.__PACKDEX_RELEASE_AI_SCANNER__?.();
+      delete globalThis.__PACKDEX_RUN_AI_SCANNER_FILE__;
+      delete globalThis.__PACKDEX_BUILD_AI_SMOKE_INDEX__;
+      delete globalThis.__PACKDEX_RELEASE_AI_SCANNER__;
+    };
+  }, [aiPocEnabled]);
   useEffect(() => {
     if (stage !== "start" || !activeCameraAdapter.isAvailable()) return undefined;
     setPreviewStart(null);
@@ -180,6 +203,18 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
       finishReading(reading.fullText, reading.blocks, reading);
     } catch (error) { setMessage(error?.message || "The Pixel fixture test could not run."); setStage("captured"); }
   }
+  async function runAiPocStatus() {
+    setMessage("");
+    await activeCameraAdapter.stopPreview?.();
+    try {
+      const blob = await fetch(referenceCardUrl).then((response) => response.blob());
+      const file = new File([blob], "scanner-ai-poc-reference.jpg", { type: blob.type || "image/jpeg" });
+      const result = await globalThis.__PACKDEX_RUN_AI_SCANNER_FILE__?.(file);
+      setDiagnostics({ aiPoc: result });
+      globalThis.__PACKDEX_SCANNER_AI_POC_LAST_RESULT__ = result;
+      setMessage(result?.modelAvailable ? "AI POC retrieved catalog candidates locally." : "AI POC is isolated and waiting for a local model/index artifact.");
+    } catch (error) { setMessage(error?.message || "AI POC status check could not run."); }
+  }
   function finishReading(fullText, blocks = [], reading = {}) {
     const ocrMatch = reading.ocrMatch || rankCardMatches({ rawText: fullText, textBlocks: blocks, maxResults: 3 });
     const nextMatch = reading.visualMatch ? fuseCardMatches(ocrMatch, reading.visualMatch) : ocrMatch;
@@ -199,7 +234,7 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
     <section className={`scanner-frame ${image ? "has-image" : ""}`}>{image ? <img src={image.imageUrl} alt="Captured card" /> : <div className="scanner-frame-guide"><span>Align card here</span></div>}{stage === "processing" && <div className="scanner-reading"><span className="scanner-spinner" />Reading card…</div>}</section>
     </div>
     {message && <p className="scanner-message" role="status">{message}</p>}
-    {stage === "start" && <div className="scanner-primary-actions"><button className="scanner-shutter" type="button" aria-label="Capture card" disabled={activeCameraAdapter.isAvailable() && !previewStart?.previewStarted} onClick={capturePreview}><span /></button><button className="secondary-action" type="button" onClick={() => beginCapture("library")}>Choose Photo</button><button className="secondary-action" type="button" onClick={runReferenceTest}>Run Reference Test</button>{pixelFixtureUrls.map((_, index) => <button className="secondary-action" type="button" key={index} onClick={() => runPixelFixtureTest(index)}>Run Pixel Fixture {index + 1}</button>)}<label className="scanner-preview-diagnostic"><input type="checkbox" checked={previewInFront} onChange={(event) => setPreviewInFront(event.target.checked)} /> Diagnostic: preview in front</label>{previewStart?.previewStarted && <small>Embedded preview started · {Math.round(previewStart.previewWidth)} × {Math.round(previewStart.previewHeight)}</small>}</div>}
+    {stage === "start" && <div className="scanner-primary-actions"><button className="scanner-shutter" type="button" aria-label="Capture card" disabled={activeCameraAdapter.isAvailable() && !previewStart?.previewStarted} onClick={capturePreview}><span /></button><button className="secondary-action" type="button" onClick={() => beginCapture("library")}>Choose Photo</button><button className="secondary-action" type="button" onClick={runReferenceTest}>Run Reference Test</button>{pixelFixtureUrls.map((_, index) => <button className="secondary-action" type="button" key={index} onClick={() => runPixelFixtureTest(index)}>Run Pixel Fixture {index + 1}</button>)}{aiPocEnabled && <button className="secondary-action" type="button" onClick={runAiPocStatus}>Run AI POC Status</button>}<label className="scanner-preview-diagnostic"><input type="checkbox" checked={previewInFront} onChange={(event) => setPreviewInFront(event.target.checked)} /> Diagnostic: preview in front</label>{previewStart?.previewStarted && <small>Embedded preview started · {Math.round(previewStart.previewWidth)} × {Math.round(previewStart.previewHeight)}</small>}</div>}
     {(stage === "captured" || (image && stage === "result")) && <button className="text-action" type="button" onClick={reset}>Cancel</button>}
     {stage === "captured" && <><div className="scanner-result-actions"><button className="secondary-action" type="button" onClick={() => beginCapture("camera")}>Retake Photo</button></div><section className="scanner-dev-reading"><label htmlFor="scanner-dev-text">Development card text</label><textarea id="scanner-dev-text" rows="4" value={devText} onChange={(e) => setDevText(e.target.value)} /><div className="scanner-example-row">{examples.map((example) => <button type="button" key={example} onClick={() => setDevText(example)}>{example.split("\n")[0]}</button>)}</div><button className="primary-action" type="button" onClick={() => finishReading(devText)}>Read Test Text</button></section></>}
     {stage === "result" && mode === "high" && highResult && <section className="scanner-result"><span className="scanner-confidence">High confidence</span><Candidate result={highResult} onSelect={confirm} actionLabel="Confirm Card" /><div className="scanner-result-actions"><button className="secondary-action" type="button" onClick={() => { setMatch({ ...match, confidence: "medium", primaryMatch: null }); setSelected(null); }}>Not This Card</button><button className="secondary-action" type="button" onClick={reset}>Scan Again</button></div></section>}

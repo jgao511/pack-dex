@@ -5,3 +5,9 @@ supabase/.temp/
 .env.*
 !.env.example
 tests/fixtures/scanner/local-pixel/
+artifacts/scanner-ai/cache/
+artifacts/scanner-ai/downloads/
+artifacts/scanner-ai/generated/
+artifacts/scanner-ai/models/
+artifacts/scanner-ai/reports/
+mobile-app/android/app/src/scannerAi/assets/scanner-ai/

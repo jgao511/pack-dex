@@ -21,5 +21,5 @@ test("dedicated native scanner bundle includes its route and Settings entry", as
   assert.match(bundle, /ORB\/RANSAC/);
   assert.match(bundle, /indexedCards/);
   assert.match(bundle, /__PACKDEX_RUN_LOCAL_SCANNER_FILE__/);
-  assert.doesNotMatch(bundle, /local-pixel|IMG_66\d{2}/);
+  assert.doesNotMatch(bundle, /Run AI POC|scanner-ai-poc|__PACKDEX_RUN_AI_SCANNER_FILE__|local-pixel|IMG_66\d{2}/);
 });

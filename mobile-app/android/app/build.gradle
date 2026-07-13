@@ -22,6 +22,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    if (project.hasProperty('packdexScannerAiPoc') && project.property('packdexScannerAiPoc') == 'true') {
+        sourceSets {
+            main {
+                java.srcDirs += 'src/scannerAi/java'
+                assets.srcDirs += 'src/scannerAi/assets'
+            }
+        }
+    }
 }
 
 repositories {
@@ -40,6 +48,9 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
     implementation project(':capacitor-cordova-android-plugins')
+    if (project.hasProperty('packdexScannerAiPoc') && project.property('packdexScannerAiPoc') == 'true') {
+        implementation 'com.google.mediapipe:tasks-vision:0.10.35'
+    }
 }
 
 apply from: 'capacitor.build.gradle'

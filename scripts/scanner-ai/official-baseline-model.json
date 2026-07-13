@@ -1,0 +1,23 @@
+{
+  "name": "MediaPipe Image Embedder MobileNet-V3 small",
+  "source": "https://storage.googleapis.com/mediapipe-models/image_embedder/mobilenet_v3_small/float32/latest/mobilenet_v3_small.tflite",
+  "documentation": "https://developers.google.com/edge/mediapipe/solutions/vision/image_embedder",
+  "sha256": "bbbb4c51a55a53905af1daec995ca1aae355046f8839bb8c9f5ce9271394bc40",
+  "bytes": 4117670,
+  "input": {
+    "width": 224,
+    "height": 224,
+    "channels": 3
+  },
+  "output": {
+    "embedding": "float32",
+    "dimensions": 1024,
+    "l2NormalizedByBridge": true
+  },
+  "training": "ImageNet baseline, not PackDex-trained or fine-tuned",
+  "license": {
+    "documentation": "CC BY 4.0",
+    "codeSamples": "Apache 2.0",
+    "model": "Official Google MediaPipe model artifact"
+  }
+}

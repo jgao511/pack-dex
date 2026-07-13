@@ -8,5 +8,5 @@ test("mobile production bundle excludes the development scanner route and UI", a
   const files = emittedFiles.filter((file) => file.endsWith(".js"));
   assert.ok(files.length > 0, "Build mobile-app before running this test");
   const bundle = `${emittedFiles.join("\n")}\n${(await Promise.all(files.map((file) => readFile(new URL(file, assetsUrl), "utf8")))).join("\n")}`;
-  assert.doesNotMatch(bundle, /\/mobile-app\/dev\/card-scanner|Development card text|Scanner Test|Scanner Diagnostics|Run Reference Test|Run Pixel Fixture|pixel-real|local-pixel|IMG_66\d{2}|diglett-55-108|gardevoir-ex-111-114|mega-charizard-x-ex-013-094|scannerVisual\.worker|analyze-proposals|ORB\/RANSAC|indexedCards|__PACKDEX_SCANNER_OCR__|__PACKDEX_RUN_LOCAL_SCANNER_FILE__/);
+  assert.doesNotMatch(bundle, /\/mobile-app\/dev\/card-scanner|Development card text|Scanner Test|Scanner Diagnostics|Run Reference Test|Run Pixel Fixture|Run AI POC|scanner-ai-poc|PackDexAiEmbedder|catalog-embeddings|pixel-real|local-pixel|IMG_66\d{2}|diglett-55-108|gardevoir-ex-111-114|mega-charizard-x-ex-013-094|scannerVisual\.worker|analyze-proposals|ORB\/RANSAC|indexedCards|__PACKDEX_SCANNER_OCR__|__PACKDEX_RUN_LOCAL_SCANNER_FILE__|__PACKDEX_RUN_AI_SCANNER_FILE__/);
 });

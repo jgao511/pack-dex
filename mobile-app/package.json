@@ -8,8 +8,10 @@
     "build": "vite build",
     "build:native": "vite build --mode native",
     "build:native:scanner": "vite build --mode native-scanner",
+    "build:native:scanner:ai": "vite build --mode native-scanner-ai",
     "cap:sync:android": "npm run build:native && cap sync android",
     "cap:sync:android:scanner": "npm run build:native:scanner && cap sync android",
+    "cap:sync:android:scanner:ai": "npm run build:native:scanner:ai && cap sync android",
     "cap:open:android": "cap open android",
     "cap:run:android": "npm run build:native && cap run android",
     "preview": "vite preview --host 127.0.0.1 --port 4174"
