@@ -1,0 +1,30 @@
+[
+  {
+    "fixture": "here-comes-team-rocket-113-108.jpg",
+    "cardId": "xy12-113-here_comes_team_rocket",
+    "name": "Here Comes Team Rocket",
+    "setName": "XY-Evolutions",
+    "printedNumber": "113/108"
+  },
+  {
+    "fixture": "diglett-55-108.jpg",
+    "cardId": "xy12-55-diglett",
+    "name": "Diglett",
+    "setName": "XY-Evolutions",
+    "printedNumber": "55/108"
+  },
+  {
+    "fixture": "gardevoir-ex-111-114.jpg",
+    "cardId": "xy11-111-gardevoir-ex",
+    "name": "Gardevoir-EX",
+    "setName": "XY-Steam Siege",
+    "printedNumber": "111/114"
+  },
+  {
+    "fixture": "mega-charizard-x-ex-013-094.jpg",
+    "cardId": "phantasmal-flames-13-mega-charizard-x-ex",
+    "name": "Mega Charizard X ex",
+    "setName": "Phantasmal Flames",
+    "printedNumber": "013/094"
+  }
+]

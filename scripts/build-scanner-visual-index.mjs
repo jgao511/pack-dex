@@ -6,7 +6,10 @@ import { gzipSync } from "node:zlib";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import sharp from "sharp";
 import { buildScannerCatalog } from "../src/lib/cardScanner/buildScannerCatalog.js";
-import { calculateVisualDescriptorFromRgba } from "../src/lib/cardScanner/localVisual/visualDescriptors.js";
+import {
+  calculateVisualDescriptorFromRgba,
+  VISUAL_DESCRIPTOR_SCHEMA,
+} from "../src/lib/cardScanner/localVisual/visualDescriptors.js";
 
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(scriptDirectory, "..");
@@ -14,92 +17,6 @@ const DEFAULT_OUTPUT_PATH = path.join(projectRoot, "src", "lib", "cardScanner", 
 const DEFAULT_REPORT_PATH = path.join(projectRoot, "reports", "scanner-visual-index.json");
 const DEFAULT_CACHE_PATH = path.join(projectRoot, "node_modules", ".cache", "packdex-scanner-visual-index");
 const DEFAULT_ASSET_BASE_URL = "https://assets.pack-dex.com/sets";
-const DESCRIPTOR_SIZE = 32;
-const HASH_WIDTH = 8;
-
-const cosineTable = Array.from({ length: HASH_WIDTH }, (_, frequency) => (
-  Float64Array.from({ length: DESCRIPTOR_SIZE }, (_, position) => (
-    Math.cos(((2 * position + 1) * frequency * Math.PI) / (2 * DESCRIPTOR_SIZE))
-  ))
-));
-
-function median(values) {
-  const sorted = [...values].sort((left, right) => left - right);
-  return sorted[Math.floor(sorted.length / 2)];
-}
-
-function bitsToHex(bits) {
-  let result = "";
-  for (let offset = 0; offset < bits.length; offset += 4) {
-    let value = 0;
-    for (let bit = 0; bit < 4; bit += 1) value = (value << 1) | Number(bits[offset + bit]);
-    result += value.toString(16);
-  }
-  return result;
-}
-
-function calculatePerceptualHash(grayscale) {
-  const rowProjection = Array.from({ length: DESCRIPTOR_SIZE }, () => new Float64Array(HASH_WIDTH));
-  for (let y = 0; y < DESCRIPTOR_SIZE; y += 1) {
-    for (let frequency = 0; frequency < HASH_WIDTH; frequency += 1) {
-      let total = 0;
-      for (let x = 0; x < DESCRIPTOR_SIZE; x += 1) {
-        total += grayscale[y * DESCRIPTOR_SIZE + x] * cosineTable[frequency][x];
-      }
-      rowProjection[y][frequency] = total;
-    }
-  }
-
-  const coefficients = [];
-  for (let vertical = 0; vertical < HASH_WIDTH; vertical += 1) {
-    for (let horizontal = 0; horizontal < HASH_WIDTH; horizontal += 1) {
-      let total = 0;
-      for (let y = 0; y < DESCRIPTOR_SIZE; y += 1) {
-        total += rowProjection[y][horizontal] * cosineTable[vertical][y];
-      }
-      coefficients.push(total);
-    }
-  }
-  const threshold = median(coefficients.slice(1));
-  return bitsToHex(coefficients.map((value, index) => index === 0 || value >= threshold));
-}
-
-function calculateEdgeHash(grayscale) {
-  const cellAverages = Array.from({ length: 8 }, () => new Float64Array(9));
-  for (let row = 0; row < 8; row += 1) {
-    const yStart = Math.floor(row * DESCRIPTOR_SIZE / 8);
-    const yEnd = Math.floor((row + 1) * DESCRIPTOR_SIZE / 8);
-    for (let column = 0; column < 9; column += 1) {
-      const xStart = Math.floor(column * DESCRIPTOR_SIZE / 9);
-      const xEnd = Math.max(xStart + 1, Math.floor((column + 1) * DESCRIPTOR_SIZE / 9));
-      let total = 0;
-      let count = 0;
-      for (let y = yStart; y < yEnd; y += 1) {
-        for (let x = xStart; x < xEnd; x += 1) {
-          total += grayscale[y * DESCRIPTOR_SIZE + x];
-          count += 1;
-        }
-      }
-      cellAverages[row][column] = total / count;
-    }
-  }
-  return bitsToHex(cellAverages.flatMap((columns) => (
-    Array.from({ length: 8 }, (_, column) => columns[column] < columns[column + 1])
-  )));
-}
-
-function calculateColorHistogram(rgb) {
-  const histogram = new Uint32Array(24);
-  const pixels = rgb.length / 3;
-  for (let offset = 0; offset < rgb.length; offset += 3) {
-    histogram[Math.min(7, rgb[offset] >> 5)] += 1;
-    histogram[8 + Math.min(7, rgb[offset + 1] >> 5)] += 1;
-    histogram[16 + Math.min(7, rgb[offset + 2] >> 5)] += 1;
-  }
-  const quantized = Uint8Array.from(histogram, (count) => Math.round(count * 255 / pixels));
-  return Buffer.from(quantized).toString("base64");
-}
-
 export async function calculateVisualDescriptor(image) {
   const { data, info } = await sharp(image)
     .rotate()
@@ -188,8 +105,13 @@ export async function generateVisualIndex({ entries, loadImage, concurrency = 12
   const sortedCards = Object.fromEntries(Object.entries(cards).sort(([left], [right]) => left.localeCompare(right)));
   return {
     manifest: {
-      version: 1,
-      descriptor: { pHash: "64-bit hex", edgeHash: "64-bit hex", colorHistogram: "24-byte base64" },
+      version: VISUAL_DESCRIPTOR_SCHEMA.version,
+      descriptor: {
+        format: "compact ordered array",
+        fields: VISUAL_DESCRIPTOR_SCHEMA.fields,
+        hash: "64-bit hex",
+        colorHistogram: "24-byte base64; full-card only",
+      },
       cards: sortedCards,
     },
     failures: failures.sort((left, right) => String(left.cardId).localeCompare(String(right.cardId))),

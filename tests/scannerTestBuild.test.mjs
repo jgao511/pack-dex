@@ -9,9 +9,13 @@ test("dedicated native scanner bundle includes its route and Settings entry", as
   assert.match(bundle, /\/mobile-app\/dev\/card-scanner/);
   assert.match(bundle, /Scanner Test/);
   assert.match(bundle, /Run Reference Test/);
+  assert.match(bundle, /Run Pixel Fixture/);
+  assert.match(bundle, /diglett-55-108/);
+  assert.match(bundle, /gardevoir-ex-111-114/);
   assert.match(bundle, /Reading card/);
   assert.match(bundle, /Scanner Diagnostics/);
   assert.match(bundle, /scannerVisual\.worker/);
+  assert.match(bundle, /analyze-proposals/);
   assert.match(bundle, /ORB\/RANSAC/);
   assert.match(bundle, /indexedCards/);
 });

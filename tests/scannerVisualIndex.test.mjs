@@ -10,6 +10,11 @@ import {
   generateVisualIndex,
   resolveCatalogImageUrl,
 } from "../scripts/build-scanner-visual-index.mjs";
+import {
+  compareVisualDescriptors,
+  scoreVisualDescriptorsCoarse,
+  VISUAL_DESCRIPTOR_SCHEMA,
+} from "../src/lib/cardScanner/localVisual/visualDescriptors.js";
 
 const testDirectory = path.dirname(fileURLToPath(import.meta.url));
 const fixtureRoot = path.join(testDirectory, "fixtures", "scanner");
@@ -23,10 +28,24 @@ test("visual descriptor is compact, deterministic, and image-specific", async ()
   const other = await calculateVisualDescriptor(await fs.readFile(pikachuPath));
 
   assert.deepEqual(first, second);
+  assert.equal(first.length, 11);
   assert.match(first[0], /^[0-9a-f]{16}$/);
   assert.match(first[1], /^[0-9a-f]{16}$/);
   assert.equal(Buffer.from(first[2], "base64").byteLength, 24);
+  for (const hash of first.slice(3)) assert.match(hash, /^[0-9a-f]{16}$/);
   assert.notDeepEqual(first, other);
+});
+
+test("v2 matching gives global color only a small supporting weight", async () => {
+  const descriptor = await calculateVisualDescriptor(await fs.readFile(charizardPath));
+  const colorChanged = [...descriptor];
+  colorChanged[2] = Buffer.alloc(24).toString("base64");
+  const comparison = compareVisualDescriptors(descriptor, colorChanged);
+  assert.equal(comparison.schemaVersion, 2);
+  assert.ok(comparison.score >= .97);
+  assert.equal(comparison.top.pHash, 1);
+  assert.equal(comparison.artwork.edgeHash, 1);
+  assert.equal(scoreVisualDescriptorsCoarse(descriptor, descriptor), 1);
 });
 
 test("generated manifest is keyed only by trusted card IDs and reports unreadable images", async () => {
@@ -51,7 +70,9 @@ test("generated manifest is keyed only by trusted card IDs and reports unreadabl
     "phantasmal-flames-13-mega-charizard-x-ex",
     "xy1-42-pikachu",
   ]);
-  assert.deepEqual(Object.keys(manifest.cards["xy1-42-pikachu"]), ["0", "1", "2"]);
+  assert.equal(manifest.version, 2);
+  assert.deepEqual(manifest.descriptor.fields, VISUAL_DESCRIPTOR_SCHEMA.fields);
+  assert.deepEqual(Object.keys(manifest.cards["xy1-42-pikachu"]), [...Array(11).keys()].map(String));
   assert.equal(failures.length, 1);
   assert.equal(failures[0].cardId, "trusted-but-unreadable");
   assert.equal("name" in manifest.cards["xy1-42-pikachu"], false);

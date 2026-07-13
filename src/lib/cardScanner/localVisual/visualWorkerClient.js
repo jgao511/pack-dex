@@ -22,6 +22,14 @@ function canvasFromResult(result) {
 }
 export function probeVisualWorker() { return request("probe", {}); }
 export async function rectifyCanvas(canvas, options) { const payload = canvasPayload(canvas); const result = await request("rectify", { ...payload, options }, [payload.buffer]); return { ...result, canvas: result.buffer ? canvasFromResult(result) : null, buffer: undefined }; }
+export async function analyzeProposalCanvases(canvas, options = {}, limit = 40) {
+  const payload = canvasPayload(canvas);
+  const result = await request("analyze-proposals", { ...payload, options, limit }, [payload.buffer]);
+  return {
+    ...result,
+    proposals: result.proposals.map((proposal) => ({ ...proposal, canvas: canvasFromResult(proposal), buffer: undefined })),
+  };
+}
 export async function searchVisualIndex(canvas, limit = 10) { const payload = canvasPayload(canvas); return request("search", { ...payload, limit }, [payload.buffer]); }
 export async function rerankWithOrb(queryCanvas, candidates) {
   const query = canvasPayload(queryCanvas); const items = candidates.map(({ cardId, canvas }) => canvasPayload(canvas, cardId));

@@ -1,7 +1,10 @@
 import visualIndex from "../generated/scannerVisualIndex.json";
 import { detectCardBoundary, rectifyCardPerspective } from "./cardBoundary.js";
+import { generateCardProposals, releaseCardProposals } from "./cardProposals.js";
 import { loadOpenCv, inspectOpenCvCapabilities } from "./opencvRuntime.js";
-import { calculateVisualDescriptorFromRgba, compareVisualDescriptors } from "./visualDescriptors.js";
+import { calculateVisualDescriptorFromRgba, compareVisualDescriptors, scoreVisualDescriptors, scoreVisualDescriptorsCoarse } from "./visualDescriptors.js";
+
+const visualIndexEntries = Object.entries(visualIndex.cards);
 
 function post(id, result, transfer = []) { self.postMessage({ id, result }, transfer); }
 function postError(id, error) { self.postMessage({ id, error: String(error?.message || error) }); }
@@ -13,6 +16,21 @@ function orbFeatures(cv, source) {
   finally { orb.delete(); mask.delete(); gray.delete(); }
 }
 function deleteFeatures(features) { features?.keypoints?.delete(); features?.descriptors?.delete(); }
+function searchDescriptor(descriptor, limit) {
+  const coarseLimit = Math.max(640, limit * 16);
+  const heap = [];
+  const swap = (left, right) => { [heap[left], heap[right]] = [heap[right], heap[left]]; };
+  const siftUp = (start) => { let index = start; while (index > 0) { const parent = Math.floor((index - 1) / 2); if (heap[parent].score <= heap[index].score) break; swap(parent, index); index = parent; } };
+  const siftDown = () => { let index = 0; while (true) { const left = index * 2 + 1; const right = left + 1; let smallest = index; if (left < heap.length && heap[left].score < heap[smallest].score) smallest = left; if (right < heap.length && heap[right].score < heap[smallest].score) smallest = right; if (smallest === index) break; swap(index, smallest); index = smallest; } };
+  for (const [cardId, candidate] of visualIndexEntries) {
+    const score = scoreVisualDescriptorsCoarse(descriptor, candidate);
+    if (heap.length < coarseLimit) { heap.push({ cardId, candidate, score }); siftUp(heap.length - 1); }
+    else if (score > heap[0].score) { heap[0] = { cardId, candidate, score }; siftDown(); }
+  }
+  return heap.map((item) => ({ ...item, score: scoreVisualDescriptors(descriptor, item.candidate) }))
+    .sort((a, b) => b.score - a.score || a.cardId.localeCompare(b.cardId)).slice(0, limit)
+    .map(({ cardId, candidate }) => ({ cardId, ...compareVisualDescriptors(descriptor, candidate) }));
+}
 function orbScore(cv, query, candidate) {
   if (query.descriptors.empty() || candidate.descriptors.empty()) return { score: 0, goodMatches: 0, inliers: 0 };
   const matcher = new cv.BFMatcher(cv.NORM_HAMMING, false); const matches = new cv.DMatchVectorVector();
@@ -38,10 +56,33 @@ self.onmessage = async ({ data }) => {
     }
     if (type === "search") {
       const started = performance.now(); const rgba = new Uint8Array(payload.buffer); const descriptor = calculateVisualDescriptorFromRgba(rgba, payload.width, payload.height);
-      const candidates = Object.entries(visualIndex.cards).map(([cardId, candidate]) => ({ cardId, ...compareVisualDescriptors(descriptor, candidate) })).sort((a, b) => b.score - a.score).slice(0, payload.limit || 10);
+      const candidates = searchDescriptor(descriptor, payload.limit || 40);
       post(id, { descriptor, candidates, processingMs: performance.now() - started }); return;
     }
     const cv = await loadOpenCv();
+    if (type === "analyze-proposals") {
+      const started = performance.now(); const source = rgbaMat(cv, payload); let proposals = [];
+      try {
+        proposals = generateCardProposals(cv, source, payload.options);
+        const outputs = []; const transfers = [];
+        for (const proposal of proposals) {
+          const buffer = new Uint8ClampedArray(proposal.mat.data);
+          const descriptorStarted = performance.now();
+          const descriptor = calculateVisualDescriptorFromRgba(buffer, proposal.width, proposal.height);
+          const candidates = searchDescriptor(descriptor, payload.limit || 40);
+          outputs.push({
+            id: proposal.id, source: proposal.source, corners: proposal.corners,
+            geometryScore: proposal.geometryScore, quality: proposal.quality,
+            detector: proposal.detector, isFallback: proposal.isFallback,
+            width: proposal.width, height: proposal.height, buffer: buffer.buffer,
+            lightweight: { descriptor, candidates, processingMs: performance.now() - descriptorStarted },
+          });
+          transfers.push(buffer.buffer);
+        }
+        post(id, { proposals: outputs, processingMs: performance.now() - started }, transfers);
+      } finally { releaseCardProposals(proposals); source.delete(); }
+      return;
+    }
     if (type === "rectify") {
       const started = performance.now(); const source = rgbaMat(cv, payload); let rectified;
       try {

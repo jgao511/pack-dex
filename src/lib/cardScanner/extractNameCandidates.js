@@ -9,7 +9,7 @@ function editDistance(left, right) {
 function correctBoundedPokemonName(value) {
   if (!/\bmega\b/i.test(value)) return value;
   let corrected = value.replace(/[A-Za-z]{6,11}/g, (token) => editDistance(token.toLowerCase(), "charizard") <= 2 ? "Charizard" : token);
-  corrected = corrected.replace(/\bCharizard([XY])\b/i, "Charizard $1").replace(/\b([XY])\s+e$/i, "$1 ex");
+  corrected = corrected.replace(/\bCharizard([XY])\b/i, "Charizard $1").replace(/\b([XY])\s+e[A-Z0-9]?\b/i, "$1 ex");
   return corrected;
 }
 
@@ -21,10 +21,13 @@ export function extractNameCandidates(rawText, textBlocks = []) {
     const lines = String(text ?? "").split(/\r?\n/);
     const linesAndJoins = lines.flatMap((line, index) => index + 1 < lines.length ? [line, `${line} ${lines[index + 1]}`] : [line]);
     return linesAndJoins.flatMap((line) => {
-      const clean = correctBoundedPokemonName(line.trim().replace(/\s*(?:HP)?\s*\d{2,3}\s*$/i, "").replace(/\bXeA\s*$/i, "X ex"));
+      const clean = correctBoundedPokemonName(line.trim()
+        .replace(/\s*(?:HP)?\s*\d{2,3}\s*$/i, "")
+        .replace(/\s+(?:supporter|item|stadium|tool)\s*$/i, "")
+        .replace(/\bXeA\s*$/i, "X ex"));
       const variants = [clean];
       const charizard = clean.match(/\b(?:Mega\s+)?Charizard(?:\s+[XY])?(?:\s+ex)?/i)?.[0];
-      if (charizard) variants.push(charizard, charizard.replace(/\s+ex$/i, ""), charizard.replace(/^Mega\s+/i, "").replace(/\s+[XY](?:\s+ex)?$/i, ""));
+      if (charizard) variants.push(charizard, charizard.replace(/\s+ex$/i, ""));
       return [...new Set(variants)].map((value) => ({ value, sourcePass }));
     });
   });

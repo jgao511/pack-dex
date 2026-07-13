@@ -28,7 +28,9 @@ export function buildScannerCatalog(sourceSets = sets) {
       return {
         cardId: String(card.id), apiCardId: card.apiCardId || card.pokemonTcgId || null,
         card, name: card.name, normalizedName: normalizeCardName(card.name), cardNumber: String(card.number), normalizedNumber,
-        printedSetTotal: String(set.printedTotal ?? totals[prefix] ?? ""), setId: set.id, setName: set.name,
+        // Card faces print the numbered base-set denominator (for example
+        // Evolutions 55/108), not the total after secret cards are included.
+        printedSetTotal: String(set.baseCards ?? set.printedTotal ?? totals[prefix] ?? ""), setId: set.id, setName: set.name,
         series: set.series || set.era || null, releaseYear: set.releaseDate ? Number(set.releaseDate.slice(0, 4)) : null,
         rarity: card.rarity || null, imageUrl: card.image || null, priceReferenceIds: [card.id, card.apiCardId].filter(Boolean),
       };

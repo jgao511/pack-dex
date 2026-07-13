@@ -1,4 +1,5 @@
 export { detectAndRectifyToCanvas, detectCardBoundary, rectifyCardPerspective } from "./cardBoundary.js";
+export { generateCardProposals, releaseCardProposals } from "./cardProposals.js";
 export { inspectOpenCvCapabilities, loadOpenCv } from "./opencvRuntime.js";
 export {
   POKEMON_CARD_ASPECT_RATIO,

@@ -60,3 +60,16 @@ test("distinctive visual-only evidence stays selectable but does not auto-confir
   const fused = fuseCardMatches({ results: [] }, visual, buildScannerCatalog());
   assert.equal(fused.confidence, "medium"); assert.equal(fused.results[0].cardId, targetId); assert.equal(fused.primaryMatch, null);
 });
+
+test("ORB can recover an OCR-compatible card from outside the lightweight top forty", () => {
+  const catalog = buildScannerCatalog(); const expected = catalog.find(({ cardId }) => cardId === "xy12-55-diglett");
+  const ocr = { narrowedCardIds: [expected.cardId], results: [{ cardId: "base1-47", card: catalog.find(({ cardId }) => cardId === "base1-47").card, score: 30, reasons: ["exact normalized name"] }] };
+  const visual = {
+    lightweight: { candidates: [{ cardId: "unrelated", score: .68 }] },
+    orb: { candidates: [{ cardId: expected.cardId, score: .97, inliers: 84 }, { cardId: "unrelated", score: .2, inliers: 4 }] },
+  };
+  const fused = fuseCardMatches(ocr, visual, catalog);
+  assert.equal(fused.results[0]?.cardId, expected.cardId);
+  assert.equal(fused.confidence, "medium");
+  assert.equal(fused.results.some(({ cardId }) => cardId === "unrelated"), false);
+});

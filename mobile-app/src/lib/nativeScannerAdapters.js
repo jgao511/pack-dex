@@ -4,8 +4,10 @@ import { CameraPreview } from "@capacitor-community/camera-preview";
 import { App } from "@capacitor/app";
 import { CapacitorPluginMlKitTextRecognition } from "@pantrist/capacitor-plugin-ml-kit-text-recognition";
 import { CardCaptureError } from "../../../src/lib/cardScanner/captureCardImage.js";
-import { getOcrCropDefinitions, prepareCardImage } from "../../../src/lib/cardScanner/prepareCardImage.js";
-import { rectifyCanvas } from "../../../src/lib/cardScanner/localVisual/visualWorkerClient.js";
+import { createOcrPasses, getOcrCropDefinitions, prepareCardImage } from "../../../src/lib/cardScanner/prepareCardImage.js";
+import { analyzeProposalCanvases } from "../../../src/lib/cardScanner/localVisual/visualWorkerClient.js";
+import { fuseCardMatches } from "../../../src/lib/cardScanner/fuseCardMatches.js";
+import { rankFinalProposalRuns, rankProposalEvidence } from "../../../src/lib/cardScanner/proposalEvidence.js";
 import { rankCardMatches } from "../../../src/lib/cardScanner/rankCardMatches.js";
 import { runVisualMatching } from "../../../src/lib/cardScanner/localVisual/runVisualMatching.js";
 
@@ -91,34 +93,140 @@ export const nativeCameraAdapter = {
   async listenForRestoredCapture(callback) { return App.addListener("appRestoredResult", ({ pluginId, methodName, data, success }) => { if (success && pluginId === "Camera" && methodName === "getPhoto" && data) callback(photoToTemporaryImage(data)); }); },
 };
 
+async function recognizeProposalPasses(canvas, labels) {
+  const definitions = createOcrPasses(canvas, { labels }); const results = [];
+  for (const pass of definitions) {
+    const passStarted = performance.now();
+    try {
+      const result = await CapacitorPluginMlKitTextRecognition.detectText({ base64Image: pass.base64Image, rotation: 0 });
+      results.push({
+        label: pass.label, width: pass.width, height: pass.height,
+        text: result.text || "", blocks: result.blocks || [],
+        previewUrl: pass.label === "collector-bottom-edge" ? `data:image/jpeg;base64,${pass.base64Image}` : null,
+        processingMs: performance.now() - passStarted,
+      });
+    } finally { pass.base64Image = ""; }
+  }
+  return results;
+}
+
+function summarizeOcrPasses(results) {
+  const text = results.map((pass) => pass.text).filter(Boolean).join("\n");
+  const blocks = results.flatMap((pass) => pass.blocks.map((block) => ({ ...block, sourcePass: pass.label })));
+  return { text, blocks, ocrMatch: rankCardMatches({ rawText: text, textBlocks: blocks, maxResults: 3 }) };
+}
+
 export const nativeOcrAdapter = {
   async recognize(image) {
     const scanStarted = performance.now();
-    const working = await prepareCardImage(image, { rectify: async ({ outlineCanvas, fullCanvas, mappedCrop }) => {
-      const attempts = [];
-      if (mappedCrop) {
-        const outline = await rectifyCanvas(outlineCanvas); attempts.push({ source: "mapped-outline", ...outline, canvas: undefined });
-        if (outline.canvas) return { canvas: outline.canvas, diagnostics: { selectedSource: "mapped-outline", fallbackReason: null, attempts } };
-      }
-      const full = await rectifyCanvas(fullCanvas); attempts.push({ source: "full-capture", ...full, canvas: undefined });
-      if (full.canvas) return { canvas: full.canvas, diagnostics: { selectedSource: "full-capture", fallbackReason: mappedCrop ? "outline-boundary-uncertain" : null, attempts } };
-      return { canvas: fullCanvas, diagnostics: { selectedSource: "full-capture-fallback", fallbackReason: full.detection?.fallbackReason || "card-boundary-uncertain", attempts } };
+    let proposalAnalysis;
+    const working = await prepareCardImage(image, { includePasses: false, rectify: async ({ fullCanvas, mappedCrop, originalWidth, originalHeight }) => {
+      const outline = mappedCrop ? {
+        x: mappedCrop.x * fullCanvas.width / originalWidth,
+        y: mappedCrop.y * fullCanvas.height / originalHeight,
+        width: mappedCrop.width * fullCanvas.width / originalWidth,
+        height: mappedCrop.height * fullCanvas.height / originalHeight,
+      } : null;
+      proposalAnalysis = await analyzeProposalCanvases(fullCanvas, {
+        outline, output: { width: 500, height: 700 }, maxProposals: 10,
+        centeredHeightFractions: [.46, .52, .58, .66],
+        centeredOffsets: [{ x: 0, y: -.045 }, { x: 0, y: .045 }, { x: -.04, y: 0 }, { x: .04, y: 0 }],
+        offsetHeightFraction: .56,
+      }, 40);
+      const proposals = proposalAnalysis.proposals;
+      return {
+        canvas: proposals[0]?.canvas || fullCanvas,
+        proposals,
+        diagnostics: {
+          selectedSource: null, fallbackReason: null,
+          proposalProcessingMs: proposalAnalysis.processingMs,
+          proposalCount: proposals.length,
+        },
+      };
     } });
     const preparationFinished = performance.now();
-    const results = [];
-    for (const pass of working.passes) {
-      const passStarted = performance.now();
-      try { const result = await CapacitorPluginMlKitTextRecognition.detectText({ base64Image: pass.base64Image, rotation: 0 }); results.push({ label: pass.label, width: pass.width, height: pass.height, text: result.text || "", blocks: result.blocks || [], processingMs: performance.now() - passStarted }); }
-      finally { pass.base64Image = ""; }
+    const proposals = working.proposals?.length ? working.proposals : proposalAnalysis?.proposals || [];
+    try {
+      const firstPassRuns = [];
+      for (const proposal of proposals) {
+        const passes = await recognizeProposalPasses(proposal.canvas, ["full-card"]);
+        const summary = summarizeOcrPasses(passes);
+        firstPassRuns.push({ proposal, passes, ...summary, lightweight: proposal.lightweight });
+      }
+      const rankedFirstPass = rankProposalEvidence(firstPassRuns);
+      const finalists = rankedFirstPass.slice(0, Math.min(2, rankedFirstPass.length));
+      const ocrFirstPassFinished = performance.now();
+      const finalRuns = [];
+      for (const finalist of finalists) {
+        const enhanced = await recognizeProposalPasses(finalist.proposal.canvas, ["name-top", "collector-bottom", "collector-bottom-edge"]);
+        const passes = [...finalist.passes, ...enhanced]; const summary = summarizeOcrPasses(passes);
+        let visualMatch; let visualError = null;
+        try {
+          visualMatch = await runVisualMatching(finalist.proposal.canvas, summary.ocrMatch, {
+            candidateLimit: 40, orbCandidateLimit: 20,
+            precomputedLightweight: finalist.lightweight,
+            loadImageBlob: loadCandidateImageBlob,
+          });
+        } catch (error) {
+          visualError = error?.message || String(error);
+          visualMatch = { lightweight: finalist.lightweight, orb: { candidates: [], processingMs: 0 }, candidateIds: [] };
+        }
+        const completed = { ...finalist, ...summary, passes, visualMatch, visualError, fusedMatch: fuseCardMatches(summary.ocrMatch, visualMatch) };
+        finalRuns.push(completed);
+        const topResultId = completed.fusedMatch?.results?.[0]?.cardId;
+        const topOrb = completed.visualMatch?.orb?.candidates?.find(({ cardId }) => cardId === topResultId);
+        if (completed.fusedMatch?.confidence === "high" || (topResultId && topOrb?.score >= .55 && topOrb?.inliers >= 12)) break;
+      }
+      const visualFinished = performance.now();
+      const rankedFinal = rankFinalProposalRuns(finalRuns);
+      const selected = rankedFinal[0] || finalRuns[0] || rankedFirstPass[0];
+      if (!selected) throw new CardCaptureError("no-proposals", "We couldnâ€™t isolate a card in that photo.");
+      const proposalPreviews = proposals.map((proposal) => ({ id: proposal.id, source: proposal.source, previewUrl: proposal.canvas.toDataURL("image/jpeg", .76) }));
+      const proposalDiagnostics = rankedFirstPass.map((run) => {
+        const completed = finalRuns.find(({ proposal }) => proposal.id === run.proposal.id);
+        return {
+          id: run.proposal.id, source: run.proposal.source, corners: run.proposal.corners,
+          geometryScore: run.proposal.geometryScore, quality: run.proposal.quality,
+          detector: run.proposal.detector, isFallback: run.proposal.isFallback,
+          evidence: run.evidence, ocrText: completed?.text || run.text,
+          ocrNames: (completed?.ocrMatch || run.ocrMatch)?.nameCandidates?.map(({ raw }) => raw) || [],
+          ocrNumbers: (completed?.ocrMatch || run.ocrMatch)?.collectorNumbers?.map(({ raw, sourcePass }) => ({ raw, sourcePass })) || [],
+          lightweightCandidates: run.lightweight?.candidates || [],
+          enteredOrbPass: Boolean(completed), orbShortlist: completed?.visualMatch?.candidateIds || [],
+          orbCandidates: completed?.visualMatch?.orb?.candidates || [],
+          fusedCandidates: completed?.fusedMatch?.results?.map(({ cardId, confidence, score }) => ({ cardId, confidence, score })) || [],
+          selected: run.proposal.id === selected.proposal.id,
+        };
+      });
+      const selectedBottom = selected.passes?.find((pass) => pass.label === "collector-bottom-edge")?.previewUrl || null;
+      const previewUrl = selected.proposal.canvas.toDataURL("image/jpeg", .92);
+      const finished = performance.now();
+      return {
+        text: selected.text || "", blocks: selected.blocks || [], passes: selected.passes || [],
+        ocrMatch: selected.ocrMatch, visualMatch: selected.visualMatch || null, visualError: selected.visualError || null,
+        scannerTiming: {
+          totalMs: finished - scanStarted,
+          preparationMs: preparationFinished - scanStarted,
+          proposalOcrMs: ocrFirstPassFinished - preparationFinished,
+          finalistOcrAndVisualMs: visualFinished - ocrFirstPassFinished,
+          ocrMs: (selected.passes || []).reduce((total, pass) => total + (pass.processingMs || 0), 0),
+          visualMs: selected.visualMatch?.totalProcessingMs || 0,
+        },
+        previewUrl, proposalPreviews,
+        originalPreviewUrl: working.originalPreviewUrl, outlinePreviewUrl: working.outlinePreviewUrl, bottomPreviewUrl: selectedBottom,
+        imageDiagnostics: {
+          originalWidth: working.originalWidth, originalHeight: working.originalHeight,
+          preparedWidth: selected.proposal.canvas.width, preparedHeight: selected.proposal.canvas.height,
+          mappedCrop: working.mappedCrop,
+          boundary: { ...working.boundaryDiagnostics, selectedSource: selected.proposal.source, selectedProposalId: selected.proposal.id },
+          proposals: proposalDiagnostics,
+          previewGeometry: image.previewGeometry || null,
+          bottomCrop: getOcrCropDefinitions(selected.proposal.canvas.width, selected.proposal.canvas.height).find((crop) => crop.label === "collector-bottom-edge"),
+          detectedOrientation: "portrait", rotationApplied: working.rotationApplied,
+        },
+      };
+    } finally {
+      for (const proposal of proposals) { proposal.canvas.width = 0; proposal.canvas.height = 0; }
     }
-    const text = results.map((pass) => pass.text).filter(Boolean).join("\n");
-    const blocks = results.flatMap((pass) => pass.blocks.map((block) => ({ ...block, sourcePass: pass.label })));
-    const ocrMatch = rankCardMatches({ rawText: text, textBlocks: blocks, maxResults: 3 });
-    let visualMatch = null; let visualError = null;
-    const visualStarted = performance.now();
-    try { visualMatch = await runVisualMatching(working.canvas, ocrMatch, { loadImageBlob: loadCandidateImageBlob }); }
-    catch (error) { visualError = error?.message || String(error); }
-    const finished = performance.now();
-    return { text, blocks, passes: results, ocrMatch, visualMatch, visualError, scannerTiming: { totalMs: finished - scanStarted, preparationMs: preparationFinished - scanStarted, ocrMs: visualStarted - preparationFinished, visualMs: finished - visualStarted }, previewUrl: working.previewUrl, originalPreviewUrl: working.originalPreviewUrl, outlinePreviewUrl: working.outlinePreviewUrl, bottomPreviewUrl: working.bottomPreviewUrl, imageDiagnostics: { originalWidth: working.originalWidth, originalHeight: working.originalHeight, preparedWidth: working.width, preparedHeight: working.height, mappedCrop: working.mappedCrop, boundary: working.boundaryDiagnostics, previewGeometry: image.previewGeometry || null, bottomCrop: getOcrCropDefinitions(working.width, working.height).find((crop) => crop.label === "collector-bottom-edge"), detectedOrientation: working.detectedOrientation, rotationApplied: working.rotationApplied } };
   },
 };

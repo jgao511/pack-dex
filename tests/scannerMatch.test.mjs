@@ -12,6 +12,21 @@ function expectTop(rawText, setId, number, confidence = "high") {
 }
 
 test("matches modern name, number, and printed total", () => expectTop("Charizard ex\n199/165", "151", "199"));
+test("uses the printed base-set denominator for real XY secret cards", () => {
+  expectTop("Here Comes Team Rocket!\n113/108", "xy12", "113");
+  expectTop("Diglett\n55/108", "xy12", "55");
+  expectTop("Gardevoir-EX\n111/114", "xy11", "111");
+});
+test("strips the Trainer subtype from a real Team Rocket OCR name", () => {
+  const output = rankCardMatches({ rawText: "TRAINER\nHere Comes Team Rocket! sUPPORTER" });
+  assert.ok(output.narrowedCardIds.includes("xy12-113-here_comes_team_rocket"));
+  assert.ok(output.nameCandidates.some(({ normalized }) => normalized === "here comes team rocket"));
+});
+test("repairs the real Pixel Mega Charizard ex suffix", () => {
+  const output = rankCardMatches({ rawText: "Mega Charizard X eN\nEvolves from Charmeleon" });
+  assert.ok(output.narrowedCardIds.includes("phantasmal-flames-13-mega-charizard-x-ex"));
+  assert.ok(output.nameCandidates.some(({ normalized }) => normalized === "mega charizard x ex"));
+});
 test("corrects a conservative OCR name mistake", () => expectTop("UMBRE0N EX\n161 / 131\n2025 Pokémon", "prismatic-evolutions", "161"));
 test("matches Trainer Gallery prefixes", () => expectTop("Pikachu\nTG05/TG30", "lost-origin", "TG05"));
 test("matches Galarian Gallery prefixes", () => expectTop("Mewtwo VSTAR\nGG44/GG70", "crown-zenith", "GG44"));
