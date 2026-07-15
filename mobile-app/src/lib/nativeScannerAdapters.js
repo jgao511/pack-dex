@@ -15,6 +15,7 @@ import { fuseCardMatches } from "../../../src/lib/cardScanner/fuseCardMatches.js
 import { rankFinalProposalRuns, rankProposalEvidence } from "../../../src/lib/cardScanner/proposalEvidence.js";
 import { rankCardMatches } from "../../../src/lib/cardScanner/rankCardMatches.js";
 import { runVisualMatching } from "../../../src/lib/cardScanner/localVisual/runVisualMatching.js";
+import { recognizeFrozenA } from "./frozenAScanner.js";
 
 function permissionStatus(value) { if (value === "granted" || value === "limited") return "granted"; if (value === "denied") return "permanentlyDenied"; return "denied"; }
 function photoToTemporaryImage(photo) {
@@ -299,12 +300,13 @@ export const nativeOcrAdapter = {
         };
       });
       const selectedBottom = selected.passes?.find((pass) => pass.label === "collector-bottom-edge")?.previewUrl || null;
+      const frozenA = await recognizeFrozenA(selected.proposal.canvas, selected.ocrMatch);
       const finished = performance.now();
       const completedRuns = [...completedById.values()];
       const allPasses = completedRuns.flatMap((run) => run.passes || []);
       return {
         text: selected.text || "", blocks: selected.blocks || [], passes: selected.passes || [],
-        ocrMatch: selected.ocrMatch, visualMatch: selected.visualMatch || null, visualError: selected.visualError || null,
+        ocrMatch: selected.ocrMatch, visualMatch: selected.visualMatch || null, frozenA, fusedMatch: frozenA.fusedMatch, visualError: selected.visualError || null,
         scannerTiming: {
           schemaVersion: 1,
           totalMs: finished - scanStarted,

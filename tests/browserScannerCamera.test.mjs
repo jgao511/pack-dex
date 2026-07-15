@@ -95,6 +95,7 @@ test("a valid browser image awaits the production visual adapter and returns rea
   const result = await recognizeBrowserImage({ file: new Blob([new Uint8Array(2048)], { type: "image/jpeg" }) }, {
     decodeImage: async () => ({ source: {}, width: 720, height: 1000, close() {} }), documentRef: { createElement: () => canvas },
     visualMatcher: async (_canvas, ocr, options) => { calls.push({ ocr, options }); return { lightweight: { candidates: [{ cardId: targetId, score: .95 }, { cardId: "ex9-5", score: .6 }] }, orb: { candidates: [{ cardId: targetId, score: .6, inliers: 30 }, { cardId: "ex9-5", score: .04, inliers: 1 }] } }; },
+    frozenRecognizer: async () => ({ fusedMatch: { confidence: "low", results: [{ cardId: targetId }] } }),
   });
   assert.equal(calls.length, 1); assert.deepEqual(calls[0].options, { candidateLimit: 40, orbCandidateLimit: 20 });
   assert.equal(result.fusedMatch.results[0].cardId, targetId);

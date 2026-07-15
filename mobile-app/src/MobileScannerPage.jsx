@@ -24,9 +24,9 @@ function ScannerTips({ onStart, onClose }) {
 
 export default function MobileScannerPage({ onInspectCard, onAddToCollection, onAddToWishlist, onSearchManually }) {
   const imageRef = useRef(null); const videoRef = useRef(null); const nativePreviewRef = useRef(null); const streamRef = useRef(null); const nativeAdapterRef = useRef(null); const nativeOcrRef = useRef(null);
-  const startingRef = useRef(null); const lifecycleRef = useRef(0); const mountedRef = useRef(true); const stageRef = useRef("camera"); const tipsRef = useRef(false); const analysisRef = useRef(0); const captureRef = useRef(false); const saveRef = useRef(false);
+  const startingRef = useRef(null); const lifecycleRef = useRef(0); const mountedRef = useRef(true); const stageRef = useRef("camera"); const tipsRef = useRef(false); const analysisRef = useRef(0); const captureRef = useRef(false); const saveRef = useRef(false); const runtimeAttemptRef = useRef(0);
   const [stage, setStage] = useState("camera"); const [match, setMatch] = useState(null); const [selectedCardId, setSelectedCardId] = useState(""); const [confirmed, setConfirmed] = useState(null); const [error, setError] = useState("");
-  const [showTips, setShowTips] = useState(() => !haveSeenTips()); const [previewReady, setPreviewReady] = useState(false); const [saving, setSaving] = useState(""); const [captureBusy, setCaptureBusy] = useState(false); const [cameraEpoch, setCameraEpoch] = useState(0);
+  const [showTips, setShowTips] = useState(() => !haveSeenTips()); const [previewReady, setPreviewReady] = useState(false); const [saving, setSaving] = useState(""); const [captureBusy, setCaptureBusy] = useState(false); const [runtimeState, setRuntimeState] = useState("idle"); const [cameraEpoch, setCameraEpoch] = useState(0);
   stageRef.current = stage; tipsRef.current = showTips;
 
   const cameraShouldRun = () => mountedRef.current && stageRef.current === "camera" && !tipsRef.current && !document.hidden;
@@ -94,6 +94,16 @@ export default function MobileScannerPage({ onInspectCard, onAddToCollection, on
     const onVisibility = () => { if (document.hidden) void stopCamera(); else setCameraEpoch((value) => value + 1); };
     document.addEventListener("visibilitychange", onVisibility); return () => document.removeEventListener("visibilitychange", onVisibility);
   }, []);
+  useEffect(() => {
+    if (showTips || stage !== "camera") return undefined;
+    const attempt = ++runtimeAttemptRef.current; setRuntimeState("loading");
+    import("./lib/frozenAScanner.js").then(({ preloadFrozenAScanner }) => preloadFrozenAScanner()).then(() => {
+      if (mountedRef.current && attempt === runtimeAttemptRef.current) setRuntimeState("ready");
+    }).catch((runtimeError) => {
+      if (mountedRef.current && attempt === runtimeAttemptRef.current) { setRuntimeState("failed"); setError(runtimeError?.message || "Scanner initialization failed. Try again."); }
+    });
+    return () => { runtimeAttemptRef.current += 1; };
+  }, [showTips, stage]);
 
   function beginScanning() { markTipsSeen(); setShowTips(false); setCameraEpoch((value) => value + 1); }
   function closeTips() { setShowTips(false); setCameraEpoch((value) => value + 1); }
@@ -145,7 +155,7 @@ export default function MobileScannerPage({ onInspectCard, onAddToCollection, on
 
   return <section className={`scanner-beta scanner-beta-${stage}`} aria-label="Card Scanner">
     {showTips && <ScannerTips onStart={beginScanning} onClose={closeTips} />}
-    {stage === "camera" && <section className="scanner-beta-camera" aria-label="Live card camera"><div className="scanner-beta-camera-host" ref={nativePreviewRef}>{!isNative() && <video ref={videoRef} muted playsInline autoPlay /> }<div className="scanner-beta-frame" aria-hidden="true"><span /></div></div><div className="scanner-beta-camera-controls"><button className="scanner-beta-camera-action" type="button" disabled={captureBusy} onClick={choosePhoto}>Choose Photo</button><button className="scanner-beta-shutter" type="button" aria-label="Capture card" disabled={!previewReady || captureBusy} onClick={capture}><span /></button><button className="scanner-beta-help" type="button" disabled={captureBusy} aria-label="Scanner tips" onClick={() => { void stopCamera(); setShowTips(true); }}>?</button></div></section>}
+    {stage === "camera" && <section className="scanner-beta-camera" aria-label="Live card camera"><div className="scanner-beta-camera-host" ref={nativePreviewRef}>{!isNative() && <video ref={videoRef} muted playsInline autoPlay /> }<div className="scanner-beta-frame" aria-hidden="true"><span /></div></div>{runtimeState === "loading" && <p className="scanner-beta-preparing" role="status">Preparing scanner…</p>}<div className="scanner-beta-camera-controls"><button className="scanner-beta-camera-action" type="button" disabled={captureBusy || runtimeState === "loading"} onClick={choosePhoto}>Choose Photo</button><button className="scanner-beta-shutter" type="button" aria-label="Capture card" disabled={!previewReady || captureBusy || runtimeState !== "ready"} onClick={capture}><span /></button><button className="scanner-beta-help" type="button" disabled={captureBusy} aria-label="Scanner tips" onClick={() => { void stopCamera(); setShowTips(true); }}>?</button></div></section>}
     {stage === "analyzing" && <section className="scanner-beta-state" aria-live="polite"><span className="scanner-spinner" aria-hidden="true" /><h2>Reading your card</h2><p>Looking for the best matches now.</p></section>}
     {stage === "no-match" && <section className="scanner-beta-state"><h2>We couldn’t identify this card confidently.</h2><p>Keep the full card in view, reduce glare, and try again.</p><div className="scanner-beta-actions"><button className="primary-action" type="button" onClick={resetCamera}>Try Again</button><button className="secondary-action" type="button" onClick={choosePhoto}>Choose Photo</button><button className="secondary-action" type="button" onClick={onSearchManually}>Search Manually</button></div></section>}
     {stage === "processing-error" && <section className="scanner-beta-state"><h2>We couldn’t process that photo</h2><p>Please try again or choose a photo.</p><div className="scanner-beta-actions"><button className="primary-action" type="button" onClick={resetCamera}>Try Again</button><button className="secondary-action" type="button" onClick={choosePhoto}>Choose Photo</button><button className="secondary-action" type="button" onClick={onSearchManually}>Search Manually</button></div></section>}

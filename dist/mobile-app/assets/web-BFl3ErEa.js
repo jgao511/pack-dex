@@ -1,0 +1,1 @@
+import{h as e}from"./index-DH2y-yw2.js";var t=class extends e{detectText(e){return Promise.reject(`Web Plugin Not implemented`)}};export{t as CapacitorPluginMlKitTextRecognitionWeb};

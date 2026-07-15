@@ -2,6 +2,7 @@ import { createTemporaryImage } from "../../../src/lib/cardScanner/captureCardIm
 import { fuseCardMatches } from "../../../src/lib/cardScanner/fuseCardMatches.js";
 import { runVisualMatching } from "../../../src/lib/cardScanner/localVisual/runVisualMatching.js";
 import { rankCardMatches } from "../../../src/lib/cardScanner/rankCardMatches.js";
+import { recognizeFrozenA } from "./frozenAScanner.js";
 
 const MIN_CAPTURE_BYTES = 1024;
 const PICKER_FOCUS_DELAY_MS = 150;
@@ -122,7 +123,7 @@ export async function captureBrowserFrame(video, { documentRef = document, FileC
   return createTemporaryImage(new FileCtor([blob], "card-scan.jpg", { type: blob.type }));
 }
 
-export async function recognizeBrowserImage(image, { decodeImage = decodeBrowserImage, documentRef = document, TextDetector = globalThis.TextDetector, visualMatcher = runVisualMatching } = {}) {
+export async function recognizeBrowserImage(image, { decodeImage = decodeBrowserImage, documentRef = document, TextDetector = globalThis.TextDetector, visualMatcher = runVisualMatching, frozenRecognizer = recognizeFrozenA } = {}) {
   const blob = image?.file || await fetch(image?.imageUrl).then((response) => {
     if (!response.ok) throw new BrowserCaptureError("image-unreadable", "We couldn't process that photo. Please try again or choose a photo.");
     return response.blob();
@@ -139,8 +140,12 @@ export async function recognizeBrowserImage(image, { decodeImage = decodeBrowser
     const blocks = detections.map((item) => ({ text: item.rawValue || "", boundingBox: item.boundingBox })).filter((item) => item.text);
     const text = blocks.map((item) => item.text).join("\n");
     const ocrMatch = rankCardMatches({ rawText: text, textBlocks: blocks, maxResults: 3 });
-    const visualMatch = await visualMatcher(canvas, ocrMatch, { candidateLimit: 40, orbCandidateLimit: 20 });
-    return { text, blocks, ocrMatch, visualMatch, fusedMatch: fuseCardMatches(ocrMatch, visualMatch) };
+    // Frozen A is the production browser recognizer. The established local
+    // matcher remains supporting evidence only and cannot hide model failures.
+    const frozen = await frozenRecognizer(canvas, ocrMatch);
+    let visualMatch;
+    try { visualMatch = await visualMatcher(canvas, ocrMatch, { candidateLimit: 40, orbCandidateLimit: 20 }); } catch { visualMatch = null; }
+    return { text, blocks, ocrMatch, visualMatch, frozenA: frozen, fusedMatch: frozen.fusedMatch || fuseCardMatches(ocrMatch, visualMatch) };
   } finally {
     decoded.close();
   }
