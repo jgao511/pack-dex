@@ -4000,3 +4000,6 @@ body.scanner-camera-active,
 .scanner-beta-confirmed-label { margin: 0 0 8px; }
 .scanner-beta-confirmed .scanner-beta-actions { width: 100%; margin-top: 20px; }
 .scanner-beta-confirmed .scanner-beta-actions button { width: 100%; min-height: 50px; }
+.scanner-beta-confirmed .scanner-beta-actions > .primary-action { display: none; }
+.scanner-beta-confirmed .scanner-beta-actions > .secondary-action:nth-child(2) { border-color: transparent; color: #fff; background: #7140ff; font-weight: 850; }
+.scanner-beta-confirmed .scanner-beta-actions > .secondary-action:nth-child(4) { border: 0; color: #b7c0d7; background: transparent; }
