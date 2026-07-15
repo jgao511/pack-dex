@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Turnstile } from "react-turnstile";
 import MobileResetPasswordPage from "./MobileResetPasswordPage.jsx";
+import MobileScannerPage from "./MobileScannerPage.jsx";
 import { sets } from "../../src/data/sets.js";
 import { getCardBackUrl, getCardImageUrl, getPokeballLoadingUrl, getSetLogoUrl } from "../../src/utils/assetUrls.js";
 import { generatePack, getDisplayCardName, getDisplayRarity, isHigherThanRare } from "../../src/utils/packGenerator.js";
@@ -57,9 +58,9 @@ import { loadHapticsEnabled, saveHapticsEnabled, triggerRevealHaptic } from "./u
 import { addWishlistCard, getWishlistKey, loadWishlist, removeWishlistCard, resolveCatalogWishlistItem } from "./lib/wishlist.js";
 
 const tabs = [
-  { id: "open", label: "Open", title: "Open", icon: "open" },
+  { id: "open", label: "Open a Pack", title: "Open a Pack", icon: "open" },
   { id: "collection", label: "Collection", title: "Collection", icon: "collection" },
-  { id: "value", label: "Value", title: "Value", icon: "value" },
+  { id: "scanner", label: "Scanner", title: "Scanner", icon: "scanner" },
   { id: "profile", label: "Profile", title: "Profile", icon: "profile" },
 ];
 
@@ -1070,6 +1071,17 @@ function TabIcon({ icon }) {
   if (icon === "open") {
     return (
       <span className="mobile-icon mobile-icon-pack" aria-hidden="true">
+        <i />
+        <i />
+        <i />
+      </span>
+    );
+  }
+
+  if (icon === "scanner") {
+    return (
+      <span className="mobile-icon mobile-icon-scanner" aria-hidden="true">
+        <i />
         <i />
         <i />
         <i />
@@ -3801,6 +3813,7 @@ function MobileApp() {
               priceStatus={selectedCollectionSetId ? fullSetPriceStatusBySet[selectedCollectionSetId] || "idle" : "idle"}
             />
           )}
+          {activeTab === "scanner" && <MobileScannerPage onInspectCard={inspectCard} />}
           {activeTab === "value" && (
             <ValueScreen
               user={user}
