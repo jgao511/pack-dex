@@ -6,6 +6,7 @@ import { fuseCardMatches } from "../../src/lib/cardScanner/fuseCardMatches.js";
 import { confirmTrustedCandidate, getScannerResultMode, releaseTemporaryImage } from "../../src/lib/cardScanner/scannerSession.js";
 import { getCardImageUrl } from "../../src/utils/assetUrls.js";
 import { nativeCameraAdapter as defaultNativeCameraAdapter, nativeOcrAdapter as defaultOcrAdapter } from "./lib/nativeScannerAdapters.js";
+import { canRetryAiFoilScan, getAiQualityGuidance, getAiScanPresentation, isAiSelectionExplicit } from "./lib/aiScannerPresentation.js";
 import referenceCardUrl from "../../tests/fixtures/scanner/mega-charizard-x-ex-013-094.jpg?url";
 
 const examples = ["Charizard ex\n199/165", "UMBRE0N EX\n161 / 131", "Pikachu\n58/102", "Pikachu", "copyright 2025 pokemon creatures inc"];
@@ -24,6 +25,10 @@ function Candidate({ result, onSelect, actionLabel = "Select Card" }) {
   return <article className="scanner-candidate"><img src={getCardImageUrl(result.card)} alt={result.card.name} /><div><h3>{result.card.name}</h3><p>{result.setName} · #{result.card.number}</p><p>{result.card.rarity}</p>{result.reasons?.length > 0 && <small>{result.reasons.slice(0, 2).join(" · ")}</small>}<button className="secondary-action" type="button" onClick={() => onSelect(result)}>{actionLabel}</button></div></article>;
 }
 
+function AiCandidate({ result, onSelect }) {
+  return <article className="scanner-candidate"><div><h3>{result.name}</h3><p>{result.setName} · #{result.collectorNumber || "?"}</p><p>Similarity {Number(result.visualScore ?? result.score ?? 0).toFixed(3)}{Number.isFinite(result.margin) && ` · margin ${result.margin.toFixed(3)}`}</p><button className="secondary-action" type="button" onClick={() => onSelect(result)}>Select Card</button></div></article>;
+}
+
 export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } = {}) {
   const [stage, setStage] = useState("start");
   const [image, setImage] = useState(null);
@@ -40,7 +45,11 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
   const [previewStart, setPreviewStart] = useState(null);
   const [devText, setDevText] = useState(examples[0]);
   const [pixelFixtureUrls, setPixelFixtureUrls] = useState([]);
+  const [aiScan, setAiScan] = useState(null);
+  const [aiSelected, setAiSelected] = useState(null);
+  const [aiConfirmed, setAiConfirmed] = useState(null);
   const fileInputRef = useRef(null); const pendingFileRef = useRef(null);
+  const aiFileRef = useRef(null);
   const previewRef = useRef(null); const previewGeometryRef = useRef(null);
   const activeCameraAdapter = nativeCameraAdapter || defaultNativeCameraAdapter;
   const activeOcrAdapter = ocrAdapter || (defaultNativeCameraAdapter.isAvailable() ? defaultOcrAdapter : globalThis.__PACKDEX_SCANNER_OCR__);
@@ -262,17 +271,28 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
       finishReading(reading.fullText, reading.blocks, reading);
     } catch (error) { setMessage(error?.message || "The Pixel fixture test could not run."); setStage("captured"); }
   }
-  async function runAiPocStatus() {
-    setMessage("");
+  async function runAiFile(file, { foilMode = false } = {}) {
+    if (!(file instanceof File)) return;
+    setMessage(""); setAiSelected(null); setAiConfirmed(null); setConfirmed(null);
     await activeCameraAdapter.stopPreview?.();
     try {
-      const blob = await fetch(referenceCardUrl).then((response) => response.blob());
-      const file = new File([blob], "scanner-ai-poc-reference.jpg", { type: blob.type || "image/jpeg" });
-      const result = await globalThis.__PACKDEX_RUN_AI_SCANNER_FILE__?.(file);
+      if (!foilMode) aiFileRef.current = file;
+      const preview = createTemporaryImage(file);
+      releaseTemporaryImage(image); setImage(preview); setStage("processing");
+      const result = await globalThis.__PACKDEX_RUN_AI_SCANNER_FILE__?.(file, { foilMode });
       setDiagnostics({ aiPoc: result });
       globalThis.__PACKDEX_SCANNER_AI_POC_LAST_RESULT__ = result;
-      setMessage(result?.modelAvailable ? "AI POC retrieved catalog candidates locally." : "AI POC is isolated and waiting for a local model/index artifact.");
-    } catch (error) { setMessage(error?.message || "AI POC status check could not run."); }
+      setAiScan(result); setStage("ai-result");
+      setMessage(result?.modelAvailable ? "Review the local candidates below." : "The local model/index is not available in this debug build.");
+    } catch (error) { setMessage(error?.message || "Scanner-AI scan could not run."); setStage("start"); }
+  }
+  async function chooseAiPhoto() {
+    const file = await selectBrowserFile({ accept: "image/*", capture: "environment" });
+    if (file) await runAiFile(file);
+  }
+  async function runAiPocStatus() {
+    const blob = await fetch(referenceCardUrl).then((response) => response.blob());
+    await runAiFile(new File([blob], "scanner-ai-poc-reference.jpg", { type: blob.type || "image/jpeg" }));
   }
   function finishReading(fullText, blocks = [], reading = {}) {
     const ocrMatch = reading.ocrMatch || rankCardMatches({ rawText: fullText, textBlocks: blocks, maxResults: 3 });
@@ -282,9 +302,10 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
     setDiagnostics(nextDiagnostics); globalThis.__PACKDEX_SCANNER_LAST_RESULT__ = nextDiagnostics;
     setMatch(nextMatch); setSelected(null); setStage("result"); setMessage("");
   }
-  function reset() { releaseTemporaryImage(image); setImage(null); setBottomPreviewUrl(""); setOriginalPreviewUrl(""); setOutlinePreviewUrl(""); setProposalPreviews([]); setMatch(null); setSelected(null); setConfirmed(null); setDiagnostics(null); setMessage(""); setStage("start"); }
+  function reset() { releaseTemporaryImage(image); setImage(null); setBottomPreviewUrl(""); setOriginalPreviewUrl(""); setOutlinePreviewUrl(""); setProposalPreviews([]); setMatch(null); setSelected(null); setConfirmed(null); setAiScan(null); setAiSelected(null); setAiConfirmed(null); aiFileRef.current = null; setDiagnostics(null); setMessage(""); setStage("start"); }
   function confirm(result) { const trusted = confirmTrustedCandidate(match, result.cardId); if (trusted) { setConfirmed(trusted); setSelected(result); } }
   const mode = getScannerResultMode(match); const highResult = match?.primaryMatch;
+  const aiPresentation = getAiScanPresentation(aiScan); const aiGuidance = getAiQualityGuidance(aiScan?.scanQuality);
 
   return <main className={`scanner-dev ${stage === "start" ? "preview-active" : ""}`}>
     <header><button className="scanner-close text-action" type="button" aria-label="Close scanner" onClick={() => { activeCameraAdapter.stopPreview?.(); history.length > 1 ? history.back() : window.location.assign("/"); }}>×</button><span className="eyebrow">Internal Preview</span><h1>Scan a Card</h1><p>Line up the full card inside the frame</p></header>
@@ -293,12 +314,13 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
     <section className={`scanner-frame ${image ? "has-image" : ""}`}>{image ? <img src={image.imageUrl} alt="Captured card" /> : <div className="scanner-frame-guide"><span>Align card here</span></div>}{stage === "processing" && <div className="scanner-reading"><span className="scanner-spinner" />Reading card…</div>}</section>
     </div>
     {message && <p className="scanner-message" role="status">{message}</p>}
-    {stage === "start" && <div className="scanner-primary-actions"><button className="scanner-shutter" type="button" aria-label="Capture card" disabled={activeCameraAdapter.isAvailable() && !previewStart?.previewStarted} onClick={capturePreview}><span /></button><button className="secondary-action" type="button" onClick={() => beginCapture("library")}>Choose Photo</button><button className="secondary-action" type="button" onClick={runReferenceTest}>Run Reference Test</button>{pixelFixtureUrls.map((_, index) => <button className="secondary-action" type="button" key={index} onClick={() => runPixelFixtureTest(index)}>Run Pixel Fixture {index + 1}</button>)}{aiPocEnabled && <button className="secondary-action" type="button" onClick={runAiPocStatus}>Run AI POC Status</button>}<label className="scanner-preview-diagnostic"><input type="checkbox" checked={previewInFront} onChange={(event) => setPreviewInFront(event.target.checked)} /> Diagnostic: preview in front</label>{previewStart?.previewStarted && <small>Embedded preview started · {Math.round(previewStart.previewWidth)} × {Math.round(previewStart.previewHeight)}</small>}</div>}
+    {stage === "start" && <div className="scanner-primary-actions"><button className="scanner-shutter" type="button" aria-label="Capture card" disabled={activeCameraAdapter.isAvailable() && !previewStart?.previewStarted} onClick={capturePreview}><span /></button><button className="secondary-action" type="button" onClick={() => beginCapture("library")}>Choose Photo</button><button className="secondary-action" type="button" onClick={runReferenceTest}>Run Reference Test</button>{pixelFixtureUrls.map((_, index) => <button className="secondary-action" type="button" key={index} onClick={() => runPixelFixtureTest(index)}>Run Pixel Fixture {index + 1}</button>)}{aiPocEnabled && <><button className="secondary-action" type="button" onClick={chooseAiPhoto}>Try Scanner-AI Photo</button><button className="secondary-action" type="button" onClick={runAiPocStatus}>Run Scanner-AI Reference</button></>}<label className="scanner-preview-diagnostic"><input type="checkbox" checked={previewInFront} onChange={(event) => setPreviewInFront(event.target.checked)} /> Diagnostic: preview in front</label>{previewStart?.previewStarted && <small>Embedded preview started · {Math.round(previewStart.previewWidth)} × {Math.round(previewStart.previewHeight)}</small>}</div>}
     {(stage === "captured" || (image && stage === "result")) && <button className="text-action" type="button" onClick={reset}>Cancel</button>}
     {stage === "captured" && <><div className="scanner-result-actions"><button className="secondary-action" type="button" onClick={() => beginCapture("camera")}>Retake Photo</button></div><section className="scanner-dev-reading"><label htmlFor="scanner-dev-text">Development card text</label><textarea id="scanner-dev-text" rows="4" value={devText} onChange={(e) => setDevText(e.target.value)} /><div className="scanner-example-row">{examples.map((example) => <button type="button" key={example} onClick={() => setDevText(example)}>{example.split("\n")[0]}</button>)}</div><button className="primary-action" type="button" onClick={() => finishReading(devText)}>Read Test Text</button></section></>}
     {stage === "result" && mode === "high" && highResult && <section className="scanner-result"><span className="scanner-confidence">High confidence</span><Candidate result={highResult} onSelect={confirm} actionLabel="Confirm Card" /><div className="scanner-result-actions"><button className="secondary-action" type="button" onClick={() => { setMatch({ ...match, confidence: "medium", primaryMatch: null }); setSelected(null); }}>Not This Card</button><button className="secondary-action" type="button" onClick={reset}>Scan Again</button></div></section>}
     {stage === "result" && mode === "medium" && <section className="scanner-result"><h2>Choose the matching card</h2>{match.results.slice(0, 3).map((result) => <Candidate key={result.cardId} result={result} onSelect={(item) => setSelected(item)} />)}{selected && <button className="primary-action" type="button" onClick={() => confirm(selected)}>Confirm Card</button>}<button className="secondary-action" type="button" onClick={reset}>Scan Again</button></section>}
     {stage === "result" && mode === "low" && <section className="scanner-result scanner-low"><h2>{match.results?.length ? "We couldn’t confidently identify this card." : "We couldn’t find a reliable match."}</h2><p>Keep the full card visible on a plain background, reduce glare, hold steady, and try without a sleeve if practical.</p>{match.results?.length > 0 && <details><summary>Choose From Matches</summary>{match.results.slice(0, 3).map((result) => <Candidate key={result.cardId} result={result} onSelect={(item) => setSelected(item)} />)}{selected && <button className="primary-action" type="button" onClick={() => confirm(selected)}>Confirm Card</button>}</details>}<div className="scanner-result-actions"><button className="primary-action" type="button" onClick={reset}>Scan Again</button><button className="secondary-action" type="button" onClick={() => beginCapture("library")}>Choose Photo</button></div></section>}
+    {aiPocEnabled && stage === "ai-result" && <section className={`scanner-result scanner-ai-${aiPresentation.kind}`}><span className="scanner-confidence">{aiPresentation.kind === "high" ? "High confidence" : aiPresentation.kind === "possible" ? "Needs confirmation" : "No reliable match"}</span><h2>{aiPresentation.title}</h2>{aiGuidance.length > 0 && <ul>{aiGuidance.map((item) => <li key={item}>{item}</li>)}</ul>}{aiPresentation.candidates.map((result) => <AiCandidate key={result.cardId} result={result} onSelect={setAiSelected} />)}{aiSelected && isAiSelectionExplicit(aiSelected) && <button className="primary-action" type="button" onClick={() => setAiConfirmed(aiSelected)}>Confirm Card</button>}{aiConfirmed && <p className="scanner-message" role="status">Confirmed locally: {aiConfirmed.name}. No collection or wishlist changes were made.</p>}<div className="scanner-result-actions">{canRetryAiFoilScan(aiScan) && aiFileRef.current && <button className="secondary-action" type="button" onClick={() => runAiFile(aiFileRef.current, { foilMode: "dim-highlights" })}>Try Foil Scan</button>}<button className="primary-action" type="button" onClick={reset}>Scan Again</button><button className="secondary-action" type="button" onClick={chooseAiPhoto}>Choose Photo</button></div></section>}
     {diagnostics && <details className="scanner-diagnostics"><summary>Scanner Diagnostics</summary><button className="secondary-action" type="button" onClick={() => navigator.clipboard?.writeText(JSON.stringify(diagnostics, null, 2))}>Copy Diagnostics</button>{originalPreviewUrl && <figure><img src={originalPreviewUrl} alt="Original complete scanner image" /><figcaption>Original complete image</figcaption></figure>}{outlinePreviewUrl && <figure><img src={outlinePreviewUrl} alt="Mapped live-preview outline crop" /><figcaption>Mapped outline crop</figcaption></figure>}{image?.imageUrl && <figure><img src={image.imageUrl} alt="Exact final OCR and visual matching input" /><figcaption>Detected/rectified final matching image</figcaption></figure>}{bottomPreviewUrl && <figure><img src={bottomPreviewUrl} alt="Bottom collector-number OCR crop" /><figcaption>Bottom collector-number OCR crop</figcaption></figure>}{proposalPreviews.length > 0 && <details><summary>Processed card proposals ({proposalPreviews.length})</summary>{proposalPreviews.map((proposal) => <figure key={proposal.id}><img src={proposal.previewUrl} alt={`${proposal.source} card proposal`} /><figcaption>{proposal.id} · {proposal.source}</figcaption></figure>)}</details>}<pre>{JSON.stringify(diagnostics, null, 2)}</pre></details>}
     {confirmed && <section className="scanner-confirmed" role="status"><span>Confirmed locally</span><strong>{confirmed.card.name}</strong><small>Trusted PackDex card ID: {confirmed.cardId}</small></section>}
   </main>;

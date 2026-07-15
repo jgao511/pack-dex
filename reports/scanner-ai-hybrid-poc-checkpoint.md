@@ -530,3 +530,54 @@ safe no-results under the unchanged conservative confirmation policy, with
 zero wrong confirmations and zero external scan-time requests. One previously
 top-1 development image (IMG_6654) no longer ranked, so the fallback is ready
 for broader real-device debug testing but not a production-policy change.
+
+## 2026-07-14 — scanner-AI user-confirmation debug flow implemented
+
+The scanner-AI build now presents the frozen ranking policy as a deliberate
+user-confirmation flow. A frozen high-confidence result is labelled
+**High-confidence match**, non-confirmed results expose at most three
+**Possible matches**, and an empty ranking says **No reliable match**. No
+candidate writes to collection or wishlist: even a high-confidence candidate
+must be selected and explicitly confirmed locally.
+
+The normal scanner remains its default path. The new UI is gated by the
+existing `__PACKDEX_SCANNER_AI_POC__` debug-build flag and is reached through
+the scanner-AI photo/reference controls only. It uses existing scan-quality
+measurements to give concise glare, move-closer, hold-steady, low-light, and
+OCR-budget/progressive-result guidance. The existing 3-second OCR budget was
+not changed. The bounded highlight-dimming pass is available only as a
+user-triggered **Try Foil Scan** retry after a glare warning or a
+non-confirmed scan; it does not run on the normal path.
+
+Focused confirmation, quality-guidance, foil-retry, progressive-result, and
+no-write tests were added. `node --test tests/scannerAi*.test.mjs` completed
+with 45 passing tests. No manual real-device card test was performed during
+this implementation run.
+
+The installed debug artifact is
+`artifacts/scanner-ai/reports/trained-float32-hybrid-webdebug-confirmation-ux.apk`
+(65,851,269 bytes, SHA-256
+`e79b41e7ddf734d6fc10f66d5d77241a08c448ae7ab05b26c097d29a38c1e823`). It
+was built successfully and installed with `adb install -r` on device
+`29231JEGR14539`. Its freeze is
+`artifacts/scanner-ai/reports/trained-float32-runtime-freeze-webdebug-confirmation-ux.json`.
+All protected model, index, catalog, calibration, thresholds/policy, and query
+artifact bindings match the prior quality-budget freeze field-for-field. The
+only changed runtime fingerprint is scanner UI/preprocessing source
+`a63fd1c9ed2ecb1062c01dfa5b7c2de8d62b5fbfcff34b8da7d24f5d53455935`.
+
+### Manual debug checklist for the next session
+
+1. Confirm a clean normal card remains recognisable and that a high-confidence
+   result still requires the Confirm Card button.
+2. Check a low-confidence/distant scan shows no auto-confirmation, no
+   collection/wishlist write, and no more than three selectable candidates.
+3. Check glare over the name area shows glare guidance and exposes Try Foil
+   Scan only after the initial result; compare it with the ordinary scan.
+4. Check a deliberately dim, blurry, and distant scan respectively surfaces
+   improve-lighting, hold-steady, and move-closer guidance.
+5. Time a slow OCR scan: it must surface progressive candidates or safe
+   no-result after the existing 3-second OCR budget rather than silently
+   waiting 8–10 seconds.
+6. Export scanner diagnostics and verify crop area, sharpness, glare, OCR
+   evidence, similarity/margin, and total latency are populated.

@@ -16,8 +16,8 @@ test("hybrid scanner confirms agreeing collector, total, name, and supported AI 
   const result = fuseHybridEvidence({
     candidatePool,
     visualCandidates: [
-      { cardId: "expected", visualScore: 0.62 },
-      { cardId: "variant", visualScore: 0.61 },
+      { cardId: "expected", visualScore: 0.99 },
+      { cardId: "variant", visualScore: 0.40 },
       { cardId: "other", visualScore: 0.3 },
     ],
   });

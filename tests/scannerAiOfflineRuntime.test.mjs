@@ -27,6 +27,19 @@ test("scanner-AI screen preload skips the production OCR adapter network prewarm
   assert.match(page, /bundledOcrReady/);
 });
 
+test("scanner-AI quality diagnostics and OCR budget preserve safe progressive results", async () => {
+  const runtime = await readFile(new URL("../mobile-app/src/lib/aiScannerPoc.js", import.meta.url), "utf8");
+  assert.match(runtime, /cropAreaFraction/);
+  assert.match(runtime, /sharpnessEstimate/);
+  assert.match(runtime, /meanLuminance/);
+  assert.match(runtime, /glareFraction/);
+  assert.match(runtime, /topGlareFraction/);
+  assert.match(runtime, /glareWarning/);
+  assert.match(runtime, /OCR_BUDGET_MS = 3_000/);
+  assert.match(runtime, /ocr-budget-exhausted/);
+  assert.match(runtime, /progressiveResult: Boolean\(ocr\.timedOut\)/);
+});
+
 test("scanner-AI native runtime uses the isolated raw LiteRT interpreter and public WebView index assets", async () => {
   const plugin = await readFile(
     new URL("../mobile-app/android/app/src/scannerAi/java/com/packdex/app/PackDexAiEmbedderPlugin.java", import.meta.url),

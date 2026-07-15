@@ -10,14 +10,21 @@ const argument = (name, fallback = null) => {
   const index = args.indexOf(name);
   return index >= 0 ? args[index + 1] : fallback;
 };
-const fixtures = (argument("--fixtures", "IMG_6652.jpeg,IMG_6658.jpeg,IMG_6663.jpeg"))
+const guideCropComparison = args.includes("--guide-crop-comparison");
+const manualPhotoDevelopment = args.includes("--manual-photo-development");
+const fixtures = (argument("--fixtures", guideCropComparison
+  ? "here-comes-team-rocket-113-108.jpg,diglett-55-108.jpg,gardevoir-ex-111-114.jpg,mega-charizard-x-ex-013-094.jpg"
+  : "IMG_6652.jpeg,IMG_6658.jpeg,IMG_6663.jpeg"))
   .split(",").map((value) => value.trim()).filter(Boolean);
-if (JSON.stringify(fixtures) !== JSON.stringify(["IMG_6652.jpeg", "IMG_6658.jpeg", "IMG_6663.jpeg"])) {
+const authorizedFixtures = guideCropComparison
+  ? ["here-comes-team-rocket-113-108.jpg", "diglett-55-108.jpg", "gardevoir-ex-111-114.jpg", "mega-charizard-x-ex-013-094.jpg"]
+  : ["IMG_6652.jpeg", "IMG_6658.jpeg", "IMG_6663.jpeg"];
+if (!manualPhotoDevelopment && JSON.stringify(fixtures) !== JSON.stringify(authorizedFixtures)) {
   throw new Error("This development collector is intentionally restricted to the three authorized consumed diagnostic photos.");
 }
-const outputRoot = path.resolve(root, argument("--output", "artifacts/scanner-ai/reports/consumed-pixel-diagnostics-stream"));
+const outputRoot = path.resolve(root, argument("--output", guideCropComparison ? "artifacts/scanner-ai/reports/pixel-real-guide-crop-development" : "artifacts/scanner-ai/reports/consumed-pixel-diagnostics-stream"));
 const freezePath = path.resolve(root, argument("--freeze", "artifacts/scanner-ai/reports/trained-float32-runtime-freeze-webdebug-diagnostics-stream.json"));
-const fixtureRoot = path.resolve(root, argument("--fixture-root", "tests/fixtures/scanner/local-pixel"));
+const fixtureRoot = path.resolve(root, argument("--fixture-root", guideCropComparison ? "tests/fixtures/scanner/pixel-real" : "tests/fixtures/scanner/local-pixel"));
 const adb = argument("--adb", process.env.ADB || path.join(process.env.LOCALAPPDATA || "", "Android", "Sdk", "platform-tools", "adb.exe"));
 const port = Number(argument("--port", "9222"));
 const runAdb = (...command) => execFileSync(adb, command, { encoding: "utf8" });
@@ -60,11 +67,12 @@ async function connectWhenReady() {
   throw new Error("The active PackDex process did not expose a matching WebView debug socket.");
 }
 
-const manifest = JSON.parse(await fs.readFile(path.resolve(root, "tests/fixtures/scanner/local-pixel-manifest.json"), "utf8"));
-const expected = new Map(manifest.items.filter(({ fixture }) => fixtures.includes(fixture)).map((item) => [item.fixture, item]));
+const manifest = manualPhotoDevelopment ? null : JSON.parse(await fs.readFile(path.resolve(root, guideCropComparison ? "tests/fixtures/scanner/pixel-real/manifest.json" : "tests/fixtures/scanner/local-pixel-manifest.json"), "utf8"));
+const manifestItems = manualPhotoDevelopment ? fixtures.map((fixture) => ({ fixture })) : (Array.isArray(manifest) ? manifest : manifest.items);
+const expected = new Map(manifestItems.filter(({ fixture }) => fixtures.includes(fixture)).map((item) => [item.fixture, item]));
 for (const fixture of fixtures) {
   const bytes = await fs.readFile(path.join(fixtureRoot, fixture));
-  if (sha256(bytes) !== expected.get(fixture)?.sha256) throw new Error(`Diagnostic fixture checksum failed: ${fixture}`);
+  if (!expected.has(fixture) || (expected.get(fixture)?.sha256 && sha256(bytes) !== expected.get(fixture).sha256)) throw new Error(`Diagnostic fixture checksum failed: ${fixture}`);
 }
 const installedApk = runAdb("shell", "pm", "path", "com.packdex.app").split(/\r?\n/).map((line) => line.replace("package:", "").trim()).find((value) => value.endsWith("/base.apk"));
 if (!installedApk) throw new Error("Could not identify the installed APK.");
@@ -90,19 +98,27 @@ const readings = [];
 try {
   for (const fixture of fixtures) {
     await client.send("DOM.setFileInputFiles", { nodeId: input.nodeId, files: [`${remoteRoot}/${fixture}`] });
-    const reading = await client.evaluate("globalThis.__PACKDEX_RUN_AI_SCANNER_FILE__(document.querySelector('input[type=file]').files[0], {includeDiagnostics:true,includeEmbedding:true,includeCandidateIds:true})", true);
-    if (reading?.status !== "scanner-ai-poc" || !Array.isArray(reading?.queryEmbedding) || reading.queryEmbedding.length !== 128) throw new Error(`Diagnostic scan failed for ${fixture}: ${reading?.error || "missing 128-d embedding"}`);
-    const directory = path.join(outputRoot, path.basename(fixture, path.extname(fixture))); await fs.mkdir(directory, { recursive: true });
-    const refs = reading.diagnostics?.imageRefs || {};
-    const save = async (key, filename) => { if (!key) return null; const image = await client.evaluate(`globalThis.__PACKDEX_READ_AI_SCANNER_DIAGNOSTIC_IMAGE__(${JSON.stringify(key)})`, true); const bytes = dataUrlBytes(image); if (!bytes) return null; await fs.writeFile(path.join(directory, filename), bytes); return filename; };
-    const diagnosticFiles = { upright: await save(refs.uprightInput, "upright.jpg"), crop: await save(refs.detectedCardCrop, "crop.jpg"), outline: await save(refs.outlineInput, "outline.jpg"), model: await save(refs.finalModelInput, "model.png"), ocr: [] };
-    for (const region of refs.ocrRegions || []) diagnosticFiles.ocr.push({ label: region.label, file: await save(region.imageRef, `ocr-${region.label}.jpg`) });
-    reading.diagnosticFiles = diagnosticFiles; delete reading.diagnostics?.imageRefs;
-    readings.push({ fixture, ...reading });
+    const strategies = guideCropComparison ? ["boundary", "centered", "guide", "auto"] : ["auto"];
+    const item = { fixture, expected: expected.get(fixture), strategies: {} };
+    for (const cropStrategy of strategies) {
+      const options = guideCropComparison
+        ? `(function(){const host=document.getElementById('scanner-camera-preview');const rect=host.getBoundingClientRect();return {previewWidth:rect.width,previewHeight:rect.height,outline:{x:10,y:10,width:rect.width-20,height:rect.height-20}};})()`
+        : "null";
+      const reading = await client.evaluate(`(async()=>{const previewGeometry=${options};return globalThis.__PACKDEX_RUN_AI_SCANNER_FILE__(document.querySelector('input[type=file]').files[0], {includeDiagnostics:true,includeEmbedding:true,includeCandidateIds:true,cropStrategy:${JSON.stringify(cropStrategy)},foilMode:${JSON.stringify(argument("--foil-mode", false))},...(previewGeometry?{previewGeometry}:{})});})()`, true);
+      if (reading?.status !== "scanner-ai-poc" || !Array.isArray(reading?.queryEmbedding) || reading.queryEmbedding.length !== 128) throw new Error(`Diagnostic scan failed for ${fixture}/${cropStrategy}: ${reading?.error || "missing 128-d embedding"}`);
+      const directory = path.join(outputRoot, path.basename(fixture, path.extname(fixture)), cropStrategy); await fs.mkdir(directory, { recursive: true });
+      const refs = reading.diagnostics?.imageRefs || {};
+      const save = async (key, filename) => { if (!key) return null; const image = await client.evaluate(`globalThis.__PACKDEX_READ_AI_SCANNER_DIAGNOSTIC_IMAGE__(${JSON.stringify(key)})`, true); const bytes = dataUrlBytes(image); if (!bytes) return null; await fs.writeFile(path.join(directory, filename), bytes); return filename; };
+      const diagnosticFiles = { upright: await save(refs.uprightInput, "upright.jpg"), crop: await save(refs.detectedCardCrop, "crop.jpg"), outline: await save(refs.outlineInput, "outline.jpg"), model: await save(refs.finalModelInput, "model.png"), ocr: [] };
+      for (const region of refs.ocrRegions || []) diagnosticFiles.ocr.push({ label: region.label, file: await save(region.imageRef, `ocr-${region.label}.jpg`) });
+      reading.diagnosticFiles = diagnosticFiles; delete reading.diagnostics?.imageRefs;
+      item.strategies[cropStrategy] = reading;
+    }
+    readings.push(guideCropComparison ? item : { fixture, ...item.strategies.auto });
   }
 } finally {
   runAdb("shell", "rm", "-rf", staging); try { runAdb("shell", "run-as", "com.packdex.app", "rm", "-rf", privateRoot); } catch {}
   await client.evaluate("globalThis.__PACKDEX_RELEASE_AI_SCANNER__?.()", true).catch(() => {}); client.socket.close(); try { runAdb("forward", "--remove", `tcp:${port}`); } catch {}
 }
 await fs.mkdir(outputRoot, { recursive: true }); await fs.writeFile(path.join(outputRoot, "diagnostics-with-embeddings.json"), `${JSON.stringify(readings, null, 2)}\n`);
-console.log(`Captured ${readings.length} authorized diagnostics with Android embeddings in ${outputRoot}`);
+console.log(`Captured ${readings.length} authorized ${guideCropComparison ? "guide-crop development" : "diagnostic"} scans with Android embeddings in ${outputRoot}`);

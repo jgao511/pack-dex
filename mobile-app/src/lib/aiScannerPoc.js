@@ -68,6 +68,47 @@ function canvasBase64(canvas) {
 
 const POKEMON_CARD_ASPECT_RATIO = 63 / 88;
 const CENTERED_FALLBACK_HEIGHT_FRACTION = 0.78;
+const OCR_BUDGET_MS = 3_000;
+
+function cropArea(boundary) {
+  if (Number.isFinite(boundary?.metrics?.areaFraction)) return boundary.metrics.areaFraction;
+  if (Number.isFinite(boundary?.crop?.retainedAreaFraction)) return boundary.crop.retainedAreaFraction;
+  return 1;
+}
+
+function measureCropQuality(canvas, boundary) {
+  const context = canvas.getContext("2d", { willReadFrequently: true });
+  const { data, width, height } = context.getImageData(0, 0, canvas.width, canvas.height);
+  let bright = 0; let topBright = 0; let samples = 0; let topSamples = 0; let lumaTotal = 0; let laplacian = 0; let laplacianSamples = 0;
+  const lumaAt = (x, y) => { const i = (y * width + x) * 4; return (data[i] * 0.2126) + (data[i + 1] * 0.7152) + (data[i + 2] * 0.0722); };
+  for (let y = 1; y < height - 1; y += 2) for (let x = 1; x < width - 1; x += 2) {
+    const i = (y * width + x) * 4; const r = data[i]; const g = data[i + 1]; const b = data[i + 2];
+    const maximum = Math.max(r, g, b); const minimum = Math.min(r, g, b); const isReflective = maximum >= 238 && (maximum - minimum) <= 72;
+    samples += 1; lumaTotal += (r * 0.2126) + (g * 0.7152) + (b * 0.0722); if (isReflective) bright += 1;
+    if (y < height * .3) { topSamples += 1; if (isReflective) topBright += 1; }
+    const center = lumaAt(x, y); laplacian += Math.abs((4 * center) - lumaAt(x - 1, y) - lumaAt(x + 1, y) - lumaAt(x, y - 1) - lumaAt(x, y + 1)); laplacianSamples += 1;
+  }
+  const glareFraction = bright / Math.max(1, samples); const topGlareFraction = topBright / Math.max(1, topSamples);
+  return {
+    cropAreaFraction: cropArea(boundary), sharpnessEstimate: laplacian / Math.max(1, laplacianSamples), meanLuminance: lumaTotal / Math.max(1, samples), glareFraction, topGlareFraction,
+    glareWarning: glareFraction >= .005 || topGlareFraction >= .004,
+  };
+}
+
+function dimReflectiveHighlights(source) {
+  const canvas = document.createElement("canvas"); canvas.width = source.width; canvas.height = source.height;
+  const context = canvas.getContext("2d"); context.filter = "brightness(.84) contrast(1.16) saturate(.92)";
+  context.drawImage(source, 0, 0); context.filter = "none";
+  return canvas;
+}
+
+function withinBudget(promise, milliseconds) {
+  let timeout;
+  return new Promise((resolve, reject) => {
+    timeout = setTimeout(() => reject(new Error("ocr-budget-exhausted")), milliseconds);
+    Promise.resolve(promise).then(resolve, reject);
+  }).finally(() => clearTimeout(timeout));
+}
 
 function centeredPokemonCardFallback(sourceCanvas) {
   const cropHeight = Math.round(sourceCanvas.height * CENTERED_FALLBACK_HEIGHT_FRACTION);
@@ -89,7 +130,7 @@ function centeredPokemonCardFallback(sourceCanvas) {
   };
 }
 
-async function prepareScanForAi(image) {
+async function prepareScanForAi(image, { foilMode = false } = {}) {
   const started = performance.now();
   const prepared = await prepareCardImage(image, {
     includePasses: false,
@@ -112,7 +153,9 @@ async function prepareScanForAi(image) {
       }
     },
   });
-  return { ...prepared, base64Image: canvasBase64(prepared.canvas), aiPreparationMs: performance.now() - started };
+  const quality = measureCropQuality(prepared.canvas, prepared.boundaryDiagnostics);
+  const canvas = foilMode === "dim-highlights" && quality.glareWarning ? dimReflectiveHighlights(prepared.canvas) : prepared.canvas;
+  return { ...prepared, canvas, scanQuality: quality, foilModeApplied: canvas !== prepared.canvas ? "dim-highlights" : null, base64Image: canvasBase64(canvas), aiPreparationMs: performance.now() - started };
 }
 
 async function recognizeEarlyOcr(canvas, options = {}) {
@@ -122,12 +165,16 @@ async function recognizeEarlyOcr(canvas, options = {}) {
   const passes = createOcrPasses(canvas, { labels });
   const results = [];
   let error = null;
+  let timedOut = false;
   for (const pass of passes) {
     const passStarted = performance.now();
     try {
-      const detected = options.ocrRecognizer
-        ? await options.ocrRecognizer({ ...pass })
-        : await CapacitorPluginMlKitTextRecognition.detectText({ base64Image: pass.base64Image, rotation: 0 });
+      const remaining = Math.max(0, (options.ocrBudgetMs ?? OCR_BUDGET_MS) - (performance.now() - started));
+      if (!remaining) { timedOut = true; break; }
+      const recognition = options.ocrRecognizer
+        ? options.ocrRecognizer({ ...pass })
+        : CapacitorPluginMlKitTextRecognition.detectText({ base64Image: pass.base64Image, rotation: 0 });
+      const detected = await withinBudget(recognition, remaining);
       results.push({
         label: pass.label,
         text: detected?.text || detected?.fullText || "",
@@ -136,6 +183,7 @@ async function recognizeEarlyOcr(canvas, options = {}) {
         processingMs: performance.now() - passStarted,
       });
     } catch (cause) {
+      if (String(cause?.message || cause) === "ocr-budget-exhausted") { timedOut = true; break; }
       error ||= cause?.message || String(cause);
       results.push({ label: pass.label, text: "", blocks: [], processingMs: performance.now() - passStarted, error: cause?.message || String(cause) });
     } finally {
@@ -150,7 +198,7 @@ async function recognizeEarlyOcr(canvas, options = {}) {
     passes: results,
     nameCandidates: extractNameCandidates(rawText, textBlocks),
     collectorNumbers: extractCollectorNumbers(rawText, textBlocks),
-    error,
+    error, timedOut,
     processingMs: performance.now() - started,
   };
 }
@@ -306,7 +354,7 @@ export async function runAiScannerPoc(image, options = {}) {
   const timing = { preparationMs: null, ocrMs: 0, candidateBuildMs: 0, modelInitMs: null, inferenceMs: null, candidateSearchMs: 0, fusionMs: 0, orbMs: 0 };
   try {
     runtime = await requirePreloadedRuntime(options);
-    prepared = options.preparedScan || await prepareScanForAi(image);
+    prepared = options.preparedScan || await prepareScanForAi(image, options);
     timing.preparationMs = prepared.aiPreparationMs;
 
     ocr = await recognizeEarlyOcr(prepared.canvas, options);
@@ -385,6 +433,7 @@ export async function runAiScannerPoc(image, options = {}) {
       nameCandidates: (ocr.nameCandidates || []).map(({ raw, normalized, sourcePass, reliable }) => ({ raw, normalized, sourcePass, reliable })),
       collectorNumbers: (ocr.collectorNumbers || []).map(({ raw, normalized, normalizedTotal, sourcePass, reliable }) => ({ raw, normalized, normalizedTotal, sourcePass, reliable })),
       error: ocr.error || null,
+      timedOut: Boolean(ocr.timedOut),
     },
     candidatePool: {
       mode: candidatePool.mode,
@@ -402,6 +451,13 @@ export async function runAiScannerPoc(image, options = {}) {
       candidates: orb.candidates || [],
     },
     result: fused,
+    scanQuality: {
+      ...prepared.scanQuality,
+      foilModeApplied: prepared.foilModeApplied,
+      glareAdvice: prepared.scanQuality?.glareWarning ? "Reflection may obscure the card name. Tilt the card or reduce overhead glare, then retake." : null,
+      progressiveResult: Boolean(ocr.timedOut),
+      userGuidance: ocr.timedOut ? "Scan budget reached; review the candidates or retake with less glare." : null,
+    },
     ...(options.includeDiagnostics ? {
       diagnostics: {
         uprightInput: prepared.originalPreviewUrl,
