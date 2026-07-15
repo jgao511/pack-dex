@@ -1,1 +1,0 @@
-import{t as e}from"./index-CA_OdS84.js";var t=class extends e{detectText(e){return Promise.reject(`Web Plugin Not implemented`)}};export{t as CapacitorPluginMlKitTextRecognitionWeb};

@@ -1764,6 +1764,7 @@ function CollectionScreen({
   returnLabel,
   priceMap,
   priceStatus,
+  valueScreenProps,
 }) {
   const [collectionTab, setCollectionTab] = useState("cards");
   const isSetDetailOpen = Boolean(selectedSetId);
@@ -1777,7 +1778,7 @@ function CollectionScreen({
     <section className="collection-screen-mobile">
       <div className="mobile-screen-title">
         <span>Collection</span>
-        <h1>{collectionTab === "cards" ? "Set Collection" : "My Binders"}</h1>
+        <h1>{collectionTab === "cards" ? "Set Collection" : collectionTab === "binders" ? "My Binders" : "Collection Value"}</h1>
       </div>
 
       <div className="collection-subtabs-mobile">
@@ -1796,8 +1797,11 @@ function CollectionScreen({
         >
           {isSetDetailOpen ? "All Sets" : "Set Collection"}
         </button>
-        <button className={collectionTab === "binders" ? "is-active" : ""} type="button" onClick={() => setCollectionTab("binders")}>
-          My Binders
+        <button className={collectionTab === "binders" ? "is-active" : ""} type="button" onClick={() => { onSelectSet(null); setCollectionTab("binders"); }}>
+          Binders
+        </button>
+        <button className={collectionTab === "value" ? "is-active" : ""} type="button" onClick={() => { onSelectSet(null); setCollectionTab("value"); }}>
+          Value
         </button>
       </div>
 
@@ -1821,8 +1825,10 @@ function CollectionScreen({
           priceMap={priceMap}
           priceStatus={priceStatus}
         />
-      ) : (
+      ) : collectionTab === "binders" ? (
         <CollectionBinders collection={collection} binders={binders} onImportMasterSet={onImportMasterSet} onCreateBinder={onCreateBinder} onInspectCard={onInspectCard} />
+      ) : (
+        <ValueScreen {...valueScreenProps} />
       )}
     </section>
   );
@@ -2567,6 +2573,24 @@ function MobileApp() {
 
     setActiveTab(nextTab);
     if (nextTab !== "open") returnToSets();
+    scrollScreenToTop();
+  }
+
+  async function addScannedCardToCollection(result) {
+    const set = sets.find((item) => item.id === result?.setId);
+    if (!set || !result?.card) return;
+    persistSessionCollection(markCardsCollected(collection, [result.card], set.id, Date.now()));
+  }
+
+  async function addScannedCardToWishlist(result) {
+    const set = sets.find((item) => item.id === result?.setId);
+    if (set && result?.card) await toggleWishlistCard(set, result.card);
+  }
+
+  function openScannerSearchInCollection() {
+    setSelectedCollectionSetId("");
+    setCollectionReturnSource("collection");
+    setActiveTab("collection");
     scrollScreenToTop();
   }
 
@@ -3811,9 +3835,10 @@ function MobileApp() {
               returnLabel={collectionReturnSource === "open" ? "Back to Open Packs" : collectionReturnSource === "wishlist" ? "Back to Wishlist" : "Back to Collection"}
               priceMap={selectedCollectionSetId ? fullSetPriceMapsBySet[selectedCollectionSetId] : null}
               priceStatus={selectedCollectionSetId ? fullSetPriceStatusBySet[selectedCollectionSetId] || "idle" : "idle"}
+              valueScreenProps={{ user, collection, priceMapsBySet, estimatedCollectionValue, isValueLoading, onInspectCard: inspectCard, onOpenLogin: () => openAuthProfile("login"), onOpenSignup: () => openAuthProfile("signup") }}
             />
           )}
-          {activeTab === "scanner" && <MobileScannerPage onInspectCard={inspectCard} />}
+          {activeTab === "scanner" && <MobileScannerPage onInspectCard={inspectCard} onAddToCollection={addScannedCardToCollection} onAddToWishlist={addScannedCardToWishlist} onSearchManually={openScannerSearchInCollection} />}
           {activeTab === "value" && (
             <ValueScreen
               user={user}

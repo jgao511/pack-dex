@@ -3961,3 +3961,32 @@ body.scanner-camera-active,
 .theme-light .scanner-beta-header p, .theme-light .scanner-beta-tips p, .theme-light .scanner-beta-state p, .theme-light .scanner-beta-results > p, .theme-light .scanner-beta-confirmed p, .theme-light .scanner-beta-candidate small { color: #53617b; }
 .theme-light .scanner-beta-tips, .theme-light .scanner-beta-state, .theme-light .scanner-beta-results, .theme-light .scanner-beta-confirmed { border-color: rgba(40, 52, 85, .12); background: rgba(255, 255, 255, .84); }
 @media (max-width: 360px) { .scanner-beta { padding-inline: 14px; } .scanner-beta-confirmed { grid-template-columns: 82px minmax(0, 1fr); } .scanner-beta-confirmed > img { width: 82px; } }
+/* Production Scanner: compact live-camera layout. */
+.collection-subtabs-mobile { grid-template-columns: repeat(3, minmax(0, 1fr)); border-radius: 16px; }
+.collection-subtabs-mobile button { min-width: 0; font-size: .76rem; }
+.scanner-beta { min-height: 0; padding: 0; color: #f7f7fb; }
+.scanner-beta-camera { height: calc(100dvh - var(--bottom-nav-height) - var(--bottom-nav-gap) - env(safe-area-inset-bottom) - 18px); min-height: 420px; max-height: 760px; display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 12px; padding: 10px 14px 8px; box-sizing: border-box; }
+.scanner-beta-camera-host { position: relative; min-height: 0; overflow: hidden; border-radius: 22px; background: #090c15; }
+.scanner-beta-camera-host video { width: 100%; height: 100%; object-fit: cover; background: #090c15; }
+.scanner-beta-camera-host .scanner-beta-frame { position: absolute; inset: 7% 9%; width: auto; height: auto; margin: 0; aspect-ratio: 2.5 / 3.5; max-width: none; border: 2px solid rgba(184, 159, 255, .9); border-radius: 20px; background: transparent; box-shadow: none; }
+.scanner-beta-camera-controls { display: grid; grid-template-columns: 1fr 72px 1fr; align-items: center; gap: 12px; min-height: 70px; }
+.scanner-beta-shutter { grid-column: 2; width: 64px; height: 64px; padding: 5px; border: 3px solid #f4f5ff; border-radius: 50%; background: #151a29; }
+.scanner-beta-shutter span { display: block; width: 100%; height: 100%; border-radius: 50%; background: #f4f5ff; }
+.scanner-beta-shutter:disabled { opacity: .5; }
+.scanner-beta-camera-action { grid-column: 1; justify-self: start; min-height: 42px; padding: 0 12px; border: 1px solid rgba(207, 215, 255, .35); border-radius: 999px; color: #e9ebfb; background: #161b2a; font-weight: 800; }
+.scanner-beta-help { grid-column: 3; justify-self: end; width: 42px; height: 42px; border: 1px solid rgba(207, 215, 255, .35); border-radius: 50%; color: #e9ebfb; background: #161b2a; font-size: 1rem; font-weight: 900; }
+.scanner-beta-tips-overlay { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 22px; background: rgba(3, 6, 13, .72); }
+.scanner-beta-tips-modal { position: relative; width: min(100%, 390px); padding: 24px; border: 1px solid rgba(191, 179, 255, .45); border-radius: 22px; color: #f7f7fb; background: #111727; box-shadow: 0 24px 60px rgba(0, 0, 0, .46); }
+.scanner-beta-tips-modal h2 { margin: 0 32px 12px 0; font-size: 1.3rem; }
+.scanner-beta-tips-modal ul { display: grid; gap: 9px; margin: 0 0 14px; padding-left: 20px; color: #d5dbef; line-height: 1.35; }
+.scanner-beta-tips-modal p { margin: 0 0 18px; color: #d5c8ff; font-weight: 750; line-height: 1.4; }
+.scanner-beta-tips-modal .primary-action, .scanner-beta-actions .primary-action { width: 100%; min-height: 48px; background: #7140ff; }
+.scanner-beta-tips-close { position: absolute; top: 10px; right: 12px; width: 36px; height: 36px; border: 0; border-radius: 50%; color: #d9dff3; background: transparent; font-size: 1.65rem; line-height: 1; }
+.scanner-beta-state, .scanner-beta-results, .scanner-beta-confirmed { margin: 16px; }
+@media (max-height: 700px) { .scanner-beta-camera { min-height: 0; height: calc(100dvh - var(--bottom-nav-height) - 12px); padding-top: 4px; } .scanner-beta-camera-host .scanner-beta-frame { inset: 5% 15%; } }
+.scanner-beta-camera { height: calc(100dvh - 150px - var(--bottom-nav-height) - var(--bottom-nav-gap) - env(safe-area-inset-bottom)); min-height: 0; }
+.scanner-camera-active .scanner-beta-camera-host, .scanner-camera-active .scanner-beta-camera-host .scanner-beta-frame { background: transparent !important; }
+.scanner-camera-active .scanner-beta-camera-host { isolation: isolate; }
+.scanner-beta-camera-host .scanner-beta-frame { z-index: 2; pointer-events: none; }
+.scanner-beta-camera-controls { position: relative; z-index: 3; }
+@media (max-height: 700px) { .scanner-beta-camera { height: calc(100dvh - 132px - var(--bottom-nav-height) - env(safe-area-inset-bottom)); } }
