@@ -4,9 +4,62 @@ import { runVisualMatching } from "../../../src/lib/cardScanner/localVisual/runV
 import { rankCardMatches } from "../../../src/lib/cardScanner/rankCardMatches.js";
 
 const MIN_CAPTURE_BYTES = 1024;
+const PICKER_FOCUS_DELAY_MS = 150;
 
 export class BrowserCaptureError extends Error {
   constructor(code, message) { super(message); this.name = "BrowserCaptureError"; this.code = code; }
+}
+
+// iOS Safari can omit `change` when a file picker is cancelled. Keep this
+// isolated from React so it can clean up every DOM listener deterministically.
+export function chooseBrowserFile(options, {
+  documentRef = document,
+  windowRef = window,
+  setTimeoutRef = setTimeout,
+  clearTimeoutRef = clearTimeout,
+} = {}) {
+  return new Promise((resolve) => {
+    const input = documentRef.createElement("input");
+    let settled = false;
+    let pickerBlurred = false;
+    let focusTimer = null;
+
+    const cleanup = () => {
+      if (focusTimer !== null) clearTimeoutRef(focusTimer);
+      input.removeEventListener("change", onChange);
+      input.removeEventListener("cancel", onCancel);
+      windowRef.removeEventListener("blur", onBlur);
+      windowRef.removeEventListener("focus", onFocus);
+      input.remove();
+    };
+    const finish = (file = null) => {
+      if (settled) return;
+      settled = true;
+      cleanup();
+      resolve(file);
+    };
+    const onChange = () => finish(input.files?.[0] || null);
+    const onCancel = () => finish(null);
+    const onBlur = () => { pickerBlurred = true; };
+    const onFocus = () => {
+      if (!pickerBlurred) return;
+      if (focusTimer !== null) clearTimeoutRef(focusTimer);
+      focusTimer = setTimeoutRef(() => finish(input.files?.[0] || null), PICKER_FOCUS_DELAY_MS);
+    };
+
+    input.type = "file";
+    input.accept = options.accept || "image/*";
+    if (options.capture) input.capture = options.capture;
+    input.tabIndex = -1;
+    input.setAttribute("aria-hidden", "true");
+    input.style.cssText = "position:fixed;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;";
+    input.addEventListener("change", onChange);
+    input.addEventListener("cancel", onCancel);
+    windowRef.addEventListener("blur", onBlur);
+    windowRef.addEventListener("focus", onFocus);
+    documentRef.body.append(input);
+    input.click();
+  });
 }
 
 async function decodeBrowserImage(blob) {

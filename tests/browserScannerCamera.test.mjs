@@ -1,8 +1,44 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { BrowserCaptureError, captureBrowserFrame, getBrowserCameraCapability, recognizeBrowserImage, startBrowserCamera, stopBrowserCamera } from "../mobile-app/src/lib/browserScannerCamera.js";
+import { BrowserCaptureError, captureBrowserFrame, chooseBrowserFile, getBrowserCameraCapability, recognizeBrowserImage, startBrowserCamera, stopBrowserCamera } from "../mobile-app/src/lib/browserScannerCamera.js";
 
 const secureEnvironment = (mediaDevices) => ({ isSecureContext: true, navigator: { mediaDevices } });
+
+function createPickerHarness() {
+  const listeners = new Map(); const windowListeners = new Map(); let input;
+  const add = (target, type, callback) => { if (!target.has(type)) target.set(type, new Set()); target.get(type).add(callback); };
+  const remove = (target, type, callback) => target.get(type)?.delete(callback);
+  const emit = (target, type) => [...(target.get(type) || [])].forEach((callback) => callback());
+  const documentRef = { body: { appended: [], append(node) { this.appended.push(node); } }, createElement() {
+    input = { files: [], style: {}, removed: false, attributes: {}, addEventListener: (type, callback) => add(listeners, type, callback), removeEventListener: (type, callback) => remove(listeners, type, callback), setAttribute(name, value) { this.attributes[name] = value; }, remove() { this.removed = true; }, click() { this.clicked = true; } };
+    return input;
+  } };
+  const windowRef = { addEventListener: (type, callback) => add(windowListeners, type, callback), removeEventListener: (type, callback) => remove(windowListeners, type, callback) };
+  return { documentRef, windowRef, get input() { return input; }, emitInput: (type) => emit(listeners, type), emitWindow: (type) => emit(windowListeners, type), listenerCount: () => [...listeners.values(), ...windowListeners.values()].reduce((count, set) => count + set.size, 0) };
+}
+
+test("browser picker resolves selected files once and removes its temporary input", async () => {
+  const harness = createPickerHarness(); const file = { type: "image/jpeg", size: 12 };
+  const pending = chooseBrowserFile({ accept: "image/*" }, { ...harness, setTimeoutRef: (callback) => callback(), clearTimeoutRef() {} });
+  assert.equal(harness.documentRef.body.appended[0], harness.input); assert.equal(harness.input.clicked, true);
+  harness.input.files = [file]; harness.emitInput("change"); harness.emitInput("cancel");
+  assert.equal(await pending, file); assert.equal(harness.input.removed, true); assert.equal(harness.listenerCount(), 0);
+});
+
+test("browser picker treats Safari focus return without a file as cancellation", async () => {
+  const harness = createPickerHarness(); let pendingTimer;
+  const pending = chooseBrowserFile({ accept: "image/*" }, { ...harness, setTimeoutRef: (callback) => { pendingTimer = callback; return 1; }, clearTimeoutRef() {} });
+  harness.emitWindow("blur"); harness.emitWindow("focus"); pendingTimer();
+  assert.equal(await pending, null); assert.equal(harness.input.removed, true); assert.equal(harness.listenerCount(), 0);
+});
+
+test("browser picker resolves explicit cancellation and can be opened again", async () => {
+  const first = createPickerHarness(); const firstPending = chooseBrowserFile({ accept: "image/*" }, { ...first, setTimeoutRef: () => 1, clearTimeoutRef() {} });
+  first.emitInput("cancel"); assert.equal(await firstPending, null);
+  const second = createPickerHarness(); const secondPending = chooseBrowserFile({ accept: "image/*" }, { ...second, setTimeoutRef: () => 1, clearTimeoutRef() {} });
+  const file = { type: "image/png", size: 20 }; second.input.files = [file]; second.emitInput("change");
+  assert.equal(await secondPending, file);
+});
 
 test("reports browser camera capability and unavailable states", () => {
   assert.equal(getBrowserCameraCapability(secureEnvironment({ getUserMedia() {} })).available, true);

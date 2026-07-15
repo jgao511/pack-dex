@@ -5,7 +5,7 @@ import { captureCardImage } from "../../src/lib/cardScanner/captureCardImage.js"
 import { fuseCardMatches } from "../../src/lib/cardScanner/fuseCardMatches.js";
 import { recognizeCardText } from "../../src/lib/cardScanner/recognizeCardText.js";
 import { confirmTrustedCandidate, releaseTemporaryImage } from "../../src/lib/cardScanner/scannerSession.js";
-import { captureBrowserFrame, getBrowserCameraCapability, recognizeBrowserImage, startBrowserCamera, stopBrowserCamera } from "./lib/browserScannerCamera.js";
+import { captureBrowserFrame, chooseBrowserFile, getBrowserCameraCapability, recognizeBrowserImage, startBrowserCamera, stopBrowserCamera } from "./lib/browserScannerCamera.js";
 
 const TIPS_STORAGE_KEY = "packdex.scannerTipsSeen.v1";
 const tips = ["Keep the entire card inside the frame.", "Move close enough for the card text to be readable.", "Avoid glare and harsh reflections.", "Hold your phone steady."];
@@ -13,14 +13,6 @@ const isNative = () => Capacitor.isNativePlatform();
 const scannerDebug = (event, data) => { if (import.meta.env.DEV) console.info(`[PackDex scanner] ${event}`, data); };
 function haveSeenTips() { try { return localStorage.getItem(TIPS_STORAGE_KEY) === "1"; } catch { return false; } }
 function markTipsSeen() { try { localStorage.setItem(TIPS_STORAGE_KEY, "1"); } catch {} }
-
-function chooseBrowserFile(options) {
-  return new Promise((resolve) => {
-    const input = document.createElement("input"); input.type = "file"; input.accept = options.accept;
-    if (options.capture) input.capture = options.capture;
-    input.addEventListener("change", () => resolve(input.files?.[0] || null), { once: true }); input.click();
-  });
-}
 
 function ScannerCandidate({ candidate, isSelected, onSelect }) {
   return <button className={`scanner-beta-candidate ${isSelected ? "is-selected" : ""}`} type="button" onClick={() => onSelect(candidate.cardId)}><img src={getCardImageUrl(candidate.card)} alt="" /><span><strong>{candidate.card?.name || "Unknown card"}</strong><small>{candidate.setName}</small>{candidate.card?.number && <small>#{candidate.card.number}</small>}</span></button>;
@@ -32,9 +24,9 @@ function ScannerTips({ onStart, onClose }) {
 
 export default function MobileScannerPage({ onInspectCard, onAddToCollection, onAddToWishlist, onSearchManually }) {
   const imageRef = useRef(null); const videoRef = useRef(null); const nativePreviewRef = useRef(null); const streamRef = useRef(null); const nativeAdapterRef = useRef(null); const nativeOcrRef = useRef(null);
-  const startingRef = useRef(null); const lifecycleRef = useRef(0); const mountedRef = useRef(true); const stageRef = useRef("camera"); const tipsRef = useRef(false); const analysisRef = useRef(0);
+  const startingRef = useRef(null); const lifecycleRef = useRef(0); const mountedRef = useRef(true); const stageRef = useRef("camera"); const tipsRef = useRef(false); const analysisRef = useRef(0); const captureRef = useRef(false); const saveRef = useRef(false);
   const [stage, setStage] = useState("camera"); const [match, setMatch] = useState(null); const [selectedCardId, setSelectedCardId] = useState(""); const [confirmed, setConfirmed] = useState(null); const [error, setError] = useState("");
-  const [showTips, setShowTips] = useState(() => !haveSeenTips()); const [previewReady, setPreviewReady] = useState(false); const [saving, setSaving] = useState(""); const [cameraEpoch, setCameraEpoch] = useState(0);
+  const [showTips, setShowTips] = useState(() => !haveSeenTips()); const [previewReady, setPreviewReady] = useState(false); const [saving, setSaving] = useState(""); const [captureBusy, setCaptureBusy] = useState(false); const [cameraEpoch, setCameraEpoch] = useState(0);
   stageRef.current = stage; tipsRef.current = showTips;
 
   const cameraShouldRun = () => mountedRef.current && stageRef.current === "camera" && !tipsRef.current && !document.hidden;
@@ -123,30 +115,37 @@ export default function MobileScannerPage({ onInspectCard, onAddToCollection, on
   }
 
   async function capture() {
+    if (captureRef.current) return;
+    captureRef.current = true; setCaptureBusy(true);
     setError("");
     try {
       const browser = !isNative(); const nextImage = browser ? await captureBrowserFrame(videoRef.current) : await nativeAdapterRef.current.capturePreview();
       scannerDebug("capture-valid", { source: browser ? "browser-live" : "native-preview", type: nextImage?.file?.constructor?.name || typeof nextImage?.imageUrl, mimeType: nextImage?.file?.type || "image/jpeg", bytes: nextImage?.file?.size || 0, dataUrlLength: nextImage?.imageUrl?.startsWith("data:") ? nextImage.imageUrl.length : 0, videoWidth: videoRef.current?.videoWidth || null, videoHeight: videoRef.current?.videoHeight || null });
       await stopCamera(); releaseTemporaryImage(imageRef.current); imageRef.current = nextImage; await analyze(nextImage, browser);
-    } catch (captureError) { setError(captureError?.message || "We couldn't capture that card. Please try again."); setStage("camera"); setCameraEpoch((value) => value + 1); }
+    } catch (captureError) { setError(captureError?.message || "We couldn't capture that card. Please try again."); setStage("camera"); setCameraEpoch((value) => value + 1); } finally { captureRef.current = false; if (mountedRef.current) setCaptureBusy(false); }
   }
 
   async function choosePhoto() {
+    if (captureRef.current) return;
+    captureRef.current = true; setCaptureBusy(true);
     setError("");
     try {
-      await stopCamera(); const adapter = isNative() ? await loadNative() : null;
+      const browser = !isNative();
+      if (!browser) await stopCamera();
+      const adapter = browser ? null : await loadNative();
       const nextImage = await captureCardImage({ source: "library", nativeAdapter: adapter, selectBrowserFile: chooseBrowserFile });
+      if (browser) await stopCamera();
       releaseTemporaryImage(imageRef.current); imageRef.current = nextImage; await analyze(nextImage, !isNative());
-    } catch (photoError) { if (photoError?.code !== "cancelled") setError(photoError?.message || "We couldn't open that photo."); setStage("camera"); setCameraEpoch((value) => value + 1); }
+    } catch (photoError) { if (photoError?.code !== "cancelled") setError(photoError?.message || "We couldn't open that photo."); setStage("camera"); setCameraEpoch((value) => value + 1); } finally { captureRef.current = false; if (mountedRef.current) setCaptureBusy(false); }
   }
 
   function resetCamera() { analysisRef.current += 1; releaseTemporaryImage(imageRef.current); imageRef.current = null; setMatch(null); setSelectedCardId(""); setConfirmed(null); setSaving(""); setError(""); setPreviewReady(false); setStage("camera"); setCameraEpoch((value) => value + 1); }
   function confirmSelection() { const selected = confirmTrustedCandidate(match, selectedCardId); if (!selected) { setError("Choose one of the suggested cards before confirming."); return; } setConfirmed(selected); setError(""); setStage("confirmed"); }
-  async function save(kind) { if (!confirmed) return; setSaving(kind); try { if (kind === "collection") await onAddToCollection?.(confirmed); else await onAddToWishlist?.(confirmed); } finally { setSaving(""); } }
+  async function save(kind) { if (!confirmed || saveRef.current) return; saveRef.current = true; setSaving(kind); try { if (kind === "collection") await onAddToCollection?.(confirmed); else await onAddToWishlist?.(confirmed); } finally { saveRef.current = false; if (mountedRef.current) setSaving(""); } }
 
   return <section className={`scanner-beta scanner-beta-${stage}`} aria-label="Card Scanner">
     {showTips && <ScannerTips onStart={beginScanning} onClose={closeTips} />}
-    {stage === "camera" && <section className="scanner-beta-camera" aria-label="Live card camera"><div className="scanner-beta-camera-host" ref={nativePreviewRef}>{!isNative() && <video ref={videoRef} muted playsInline autoPlay /> }<div className="scanner-beta-frame" aria-hidden="true"><span /></div></div><div className="scanner-beta-camera-controls"><button className="scanner-beta-camera-action" type="button" onClick={choosePhoto}>Choose Photo</button><button className="scanner-beta-shutter" type="button" aria-label="Capture card" disabled={!previewReady} onClick={capture}><span /></button><button className="scanner-beta-help" type="button" aria-label="Scanner tips" onClick={() => { void stopCamera(); setShowTips(true); }}>?</button></div></section>}
+    {stage === "camera" && <section className="scanner-beta-camera" aria-label="Live card camera"><div className="scanner-beta-camera-host" ref={nativePreviewRef}>{!isNative() && <video ref={videoRef} muted playsInline autoPlay /> }<div className="scanner-beta-frame" aria-hidden="true"><span /></div></div><div className="scanner-beta-camera-controls"><button className="scanner-beta-camera-action" type="button" disabled={captureBusy} onClick={choosePhoto}>Choose Photo</button><button className="scanner-beta-shutter" type="button" aria-label="Capture card" disabled={!previewReady || captureBusy} onClick={capture}><span /></button><button className="scanner-beta-help" type="button" disabled={captureBusy} aria-label="Scanner tips" onClick={() => { void stopCamera(); setShowTips(true); }}>?</button></div></section>}
     {stage === "analyzing" && <section className="scanner-beta-state" aria-live="polite"><span className="scanner-spinner" aria-hidden="true" /><h2>Reading your card</h2><p>Looking for the best matches now.</p></section>}
     {stage === "no-match" && <section className="scanner-beta-state"><h2>We couldn’t identify this card confidently.</h2><p>Keep the full card in view, reduce glare, and try again.</p><div className="scanner-beta-actions"><button className="primary-action" type="button" onClick={resetCamera}>Try Again</button><button className="secondary-action" type="button" onClick={choosePhoto}>Choose Photo</button><button className="secondary-action" type="button" onClick={onSearchManually}>Search Manually</button></div></section>}
     {stage === "processing-error" && <section className="scanner-beta-state"><h2>We couldn’t process that photo</h2><p>Please try again or choose a photo.</p><div className="scanner-beta-actions"><button className="primary-action" type="button" onClick={resetCamera}>Try Again</button><button className="secondary-action" type="button" onClick={choosePhoto}>Choose Photo</button><button className="secondary-action" type="button" onClick={onSearchManually}>Search Manually</button></div></section>}

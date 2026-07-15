@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { readFile } from "node:fs/promises";
-import { captureCardImage, CardCaptureError, createTemporaryImage, getBrowserFileInputOptions } from "../src/lib/cardScanner/captureCardImage.js";
+import { captureCardImage, CardCaptureError, createTemporaryImage, getBrowserFileInputOptions, validateBrowserImageFile } from "../src/lib/cardScanner/captureCardImage.js";
 import { normalizeOcrResult, recognizeCardText, CardRecognitionError } from "../src/lib/cardScanner/recognizeCardText.js";
 import { confirmTrustedCandidate, getScannerResultMode, releaseTemporaryImage } from "../src/lib/cardScanner/scannerSession.js";
 
@@ -30,10 +30,16 @@ test("treats native and browser cancellation as cancellation", async () => {
 
 test("uses browser image selection fallback and releases its temporary URL once", async () => {
   const calls = []; const urlApi = { createObjectURL: () => "blob:test", revokeObjectURL: (url) => calls.push(url) };
-  const file = { name: "card.jpg" };
+  const file = { name: "card.jpg", type: "image/jpeg", size: 2048 };
   const image = await captureCardImage({ source: "camera", selectBrowserFile: async (options) => { assert.deepEqual(options, { accept: "image/*", capture: "environment" }); return file; }, urlApi });
   assert.equal(image.imageUrl, "blob:test"); releaseTemporaryImage(image); releaseTemporaryImage(image); assert.deepEqual(calls, ["blob:test"]);
   assert.deepEqual(getBrowserFileInputOptions("library"), { accept: "image/*", capture: undefined });
+});
+
+test("rejects invalid browser files before creating an object URL", () => {
+  for (const [file, code] of [[{ type: "text/plain", size: 1 }, "unsupported-file"], [{ type: "image/jpeg", size: 0 }, "invalid-file"], [{ type: "image/jpeg", size: 26 * 1024 * 1024 }, "file-too-large"]]) {
+    assert.throws(() => validateBrowserImageFile(file), (error) => error instanceof CardCaptureError && error.code === code);
+  }
 });
 
 test("models high, medium, and low result displays without auto-confirming", () => {
