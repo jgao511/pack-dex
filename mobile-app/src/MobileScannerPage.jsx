@@ -8,7 +8,7 @@ import { confirmTrustedCandidate, releaseTemporaryImage } from "../../src/lib/ca
 import { captureBrowserFrame, chooseBrowserFile, getBrowserCameraCapability, recognizeBrowserImage, startBrowserCamera, stopBrowserCamera } from "./lib/browserScannerCamera.js";
 
 const TIPS_STORAGE_KEY = "packdex.scannerTipsSeen.v1";
-const tips = ["Keep the entire card inside the frame.", "Move close enough for the card text to be readable.", "Avoid glare and harsh reflections.", "Hold your phone steady."];
+const tips = ["Keep the full card inside the frame.", "Hold the phone steady and keep the card reasonably close.", "For foil cards, hold the card upright and avoid direct light or glare.", "Medium or slightly dim ambient light often works better than a bright overhead light."];
 const isNative = () => Capacitor.isNativePlatform();
 const scannerDebug = (event, data) => { if (import.meta.env.DEV) console.info(`[PackDex scanner] ${event}`, data); };
 function haveSeenTips() { try { return localStorage.getItem(TIPS_STORAGE_KEY) === "1"; } catch { return false; } }

@@ -3990,3 +3990,13 @@ body.scanner-camera-active,
 .scanner-beta-camera-host .scanner-beta-frame { z-index: 2; pointer-events: none; }
 .scanner-beta-camera-controls { position: relative; z-index: 3; }
 @media (max-height: 700px) { .scanner-beta-camera { height: calc(100dvh - 132px - var(--bottom-nav-height) - env(safe-area-inset-bottom)); } }
+/* Scanner confirmation is deliberately a single-column card on phones. The
+   former two-column grid left the text and actions with a sliver of width. */
+.scanner-beta-confirmed { display: flex; flex-direction: column; align-items: center; gap: 18px; max-width: 430px; padding: 22px 18px; text-align: center; }
+.scanner-beta-confirmed > img { display: block; width: min(72vw, 250px); max-width: 250px; max-height: none; aspect-ratio: 63 / 88; object-fit: contain; border-radius: 14px; background: #05070c; box-shadow: 0 12px 28px rgba(0, 0, 0, .28); }
+.scanner-beta-confirmed > div { width: 100%; min-width: 0; }
+.scanner-beta-confirmed h2 { margin: 0; font-size: clamp(1.45rem, 7vw, 2rem); line-height: 1.12; overflow-wrap: anywhere; }
+.scanner-beta-confirmed p { margin: 8px 0 0; }
+.scanner-beta-confirmed-label { margin: 0 0 8px; }
+.scanner-beta-confirmed .scanner-beta-actions { width: 100%; margin-top: 20px; }
+.scanner-beta-confirmed .scanner-beta-actions button { width: 100%; min-height: 50px; }
