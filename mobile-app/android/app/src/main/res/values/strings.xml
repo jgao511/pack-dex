@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">PackDex</string>
+    <string name="title_activity_main">PackDex</string>
+    <string name="package_name">com.packdex.app</string>
+    <string name="custom_url_scheme">com.packdex.app</string>
+</resources>

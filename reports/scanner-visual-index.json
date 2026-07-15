@@ -1,0 +1,16 @@
+{
+  "generatedAt": "2026-07-12T23:32:11.612Z",
+  "scannerTestOnly": true,
+  "trustedCatalogCardCount": 18747,
+  "requestedCardCount": 18747,
+  "indexedCardCount": 18747,
+  "missingOrUnreadableCount": 0,
+  "coverage": 1,
+  "rawBytes": 4675015,
+  "gzipBytes": 2313488,
+  "cacheHits": 18747,
+  "downloads": 0,
+  "durationMs": 27962.4893,
+  "outputPath": "src/lib/cardScanner/generated/scannerVisualIndex.json",
+  "failures": []
+}

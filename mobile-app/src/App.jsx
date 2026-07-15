@@ -2106,6 +2106,7 @@ function SettingsModal({
   onToggleSound,
   onToggleHaptics,
   onOpenLegal,
+  scannerTestEnabled = false,
 }) {
   if (!isOpen) return null;
 
@@ -2144,6 +2145,8 @@ function SettingsModal({
             <i className={hapticsEnabled ? "is-on" : ""} />
           </button>
         </section>
+
+        {__PACKDEX_SCANNER_TEST__ && scannerTestEnabled && <section className="settings-section"><span className="eyebrow">Development</span><button className="settings-link" type="button" onClick={() => window.location.assign("/?scanner-test=1")}>Scanner Test</button></section>}
 
         <section className="settings-section settings-contact-section">
           <span className="eyebrow">Support</span>
@@ -2355,6 +2358,7 @@ function ProfileScreen({
         onToggleSound={onToggleSound}
         onToggleHaptics={onToggleHaptics}
         onOpenLegal={onOpenLegal}
+        scannerTestEnabled={__PACKDEX_SCANNER_TEST__}
       />
     </section>
   );

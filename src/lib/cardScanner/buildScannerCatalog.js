@@ -28,7 +28,9 @@ export function buildScannerCatalog(sourceSets = sets) {
       return {
         cardId: String(card.id), apiCardId: card.apiCardId || card.pokemonTcgId || null,
         card, name: card.name, normalizedName: normalizeCardName(card.name), cardNumber: String(card.number), normalizedNumber,
-        printedSetTotal: String(set.printedTotal ?? totals[prefix] ?? ""), setId: set.id, setName: set.name,
+        // Card faces print the numbered base-set denominator (for example
+        // Evolutions 55/108), not the total after secret cards are included.
+        printedSetTotal: String(set.baseCards ?? set.printedTotal ?? totals[prefix] ?? ""), setId: set.id, setName: set.name,
         series: set.series || set.era || null, releaseYear: set.releaseDate ? Number(set.releaseDate.slice(0, 4)) : null,
         rarity: card.rarity || null, imageUrl: card.image || null, priceReferenceIds: [card.id, card.apiCardId].filter(Boolean),
       };
@@ -36,5 +38,25 @@ export function buildScannerCatalog(sourceSets = sets) {
   });
 }
 
-let cached;
-export function getScannerCatalog() { return cached ||= buildScannerCatalog(); }
+function addIndex(map, key, entry) {
+  if (key === null || key === undefined || key === "") return;
+  const values = map.get(String(key)) || [];
+  values.push(entry); map.set(String(key), values);
+}
+
+let cachedIndexes;
+export function getScannerCatalogIndexes() {
+  if (cachedIndexes) return cachedIndexes;
+  const entries = buildScannerCatalog();
+  const byCollectorNumber = new Map(); const byPrintedTotal = new Map(); const byNormalizedName = new Map(); const byNameToken = new Map(); const bySetId = new Map();
+  for (const entry of entries) {
+    addIndex(byCollectorNumber, entry.normalizedNumber, entry);
+    addIndex(byPrintedTotal, entry.printedSetTotal, entry);
+    addIndex(byNormalizedName, entry.normalizedName, entry);
+    for (const token of new Set(entry.normalizedName.split(" ").filter(Boolean))) addIndex(byNameToken, token, entry);
+    addIndex(bySetId, entry.setId, entry);
+  }
+  return cachedIndexes = { entries, byCollectorNumber, byPrintedTotal, byNormalizedName, byNameToken, bySetId };
+}
+
+export function getScannerCatalog() { return getScannerCatalogIndexes().entries; }

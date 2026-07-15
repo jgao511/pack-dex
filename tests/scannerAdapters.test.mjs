@@ -54,6 +54,7 @@ test("scanner page has no collection, wishlist, pack event, or Supabase write pa
 test("scanner route remains guarded by DEV and absent from mobile navigation", async () => {
   const main = await readFile(new URL("../mobile-app/src/main.jsx", import.meta.url), "utf8");
   const app = await readFile(new URL("../mobile-app/src/App.jsx", import.meta.url), "utf8");
-  assert.match(main, /import\.meta\.env\.DEV\s*&&\s*normalizedPath === "\/mobile-app\/dev\/card-scanner"/);
-  assert.doesNotMatch(app, /mobile-app\/dev\/card-scanner/);
+  assert.match(main, /import\.meta\.env\.DEV \|\| __PACKDEX_SCANNER_TEST__/);
+  assert.match(main, /scannerTestEnabled && \(normalizedPath === "\/mobile-app\/dev\/card-scanner"/);
+  assert.match(app, /scannerTestEnabled &&/);
 });

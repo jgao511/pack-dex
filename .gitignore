@@ -4,3 +4,4 @@ supabase/.temp/
 .env
 .env.*
 !.env.example
+tests/fixtures/scanner/local-pixel/
