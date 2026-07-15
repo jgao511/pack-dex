@@ -69,25 +69,24 @@ export async function captureBrowserFrame(video, { documentRef = document, FileC
   return createTemporaryImage(new FileCtor([blob], "card-scan.jpg", { type: blob.type }));
 }
 
-export async function recognizeBrowserImage(image) {
+export async function recognizeBrowserImage(image, { decodeImage = decodeBrowserImage, documentRef = document, TextDetector = globalThis.TextDetector, visualMatcher = runVisualMatching } = {}) {
   const blob = image?.file || await fetch(image?.imageUrl).then((response) => {
     if (!response.ok) throw new BrowserCaptureError("image-unreadable", "We couldn't process that photo. Please try again or choose a photo.");
     return response.blob();
   });
   if (!blob || blob.size < MIN_CAPTURE_BYTES) throw new BrowserCaptureError("invalid-capture", "We couldn't process that photo. Please try again or choose a photo.");
-  const decoded = await decodeBrowserImage(blob);
+  const decoded = await decodeImage(blob);
   try {
     if (!decoded.width || !decoded.height) throw new BrowserCaptureError("invalid-capture", "We couldn't process that photo. Please try again or choose a photo.");
-    const canvas = document.createElement("canvas"); canvas.width = decoded.width; canvas.height = decoded.height;
+    const canvas = documentRef.createElement("canvas"); canvas.width = decoded.width; canvas.height = decoded.height;
     const context = canvas.getContext("2d", { willReadFrequently: true });
     if (!context) throw new BrowserCaptureError("canvas-unavailable", "We couldn't process that photo. Please try again or choose a photo.");
     context.drawImage(decoded.source, 0, 0);
-    const TextDetector = globalThis.TextDetector;
     const detections = typeof TextDetector === "function" ? await new TextDetector().detect(decoded.source) : [];
     const blocks = detections.map((item) => ({ text: item.rawValue || "", boundingBox: item.boundingBox })).filter((item) => item.text);
     const text = blocks.map((item) => item.text).join("\n");
     const ocrMatch = rankCardMatches({ rawText: text, textBlocks: blocks, maxResults: 3 });
-    const visualMatch = await runVisualMatching(canvas, ocrMatch, { candidateLimit: 40, orbCandidateLimit: 20 });
+    const visualMatch = await visualMatcher(canvas, ocrMatch, { candidateLimit: 40, orbCandidateLimit: 20 });
     return { text, blocks, ocrMatch, visualMatch, fusedMatch: fuseCardMatches(ocrMatch, visualMatch) };
   } finally {
     decoded.close();

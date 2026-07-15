@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { BrowserCaptureError, captureBrowserFrame, getBrowserCameraCapability, startBrowserCamera, stopBrowserCamera } from "../mobile-app/src/lib/browserScannerCamera.js";
+import { BrowserCaptureError, captureBrowserFrame, getBrowserCameraCapability, recognizeBrowserImage, startBrowserCamera, stopBrowserCamera } from "../mobile-app/src/lib/browserScannerCamera.js";
 
 const secureEnvironment = (mediaDevices) => ({ isSecureContext: true, navigator: { mediaDevices } });
 
@@ -51,4 +51,15 @@ test("rejects a null, empty, or blank browser frame instead of treating it as no
   await assert.rejects(() => captureBrowserFrame({ videoWidth: 1, videoHeight: 1 }, { documentRef: { createElement: () => blankCanvas } }), (error) => error instanceof BrowserCaptureError && error.code === "blank-capture");
   const nullCanvas = { getContext: () => ({ drawImage() {} }), toBlob: (callback) => callback(null) };
   await assert.rejects(() => captureBrowserFrame({ videoWidth: 1, videoHeight: 1 }, { documentRef: { createElement: () => nullCanvas } }), (error) => error instanceof BrowserCaptureError && error.code === "invalid-capture");
+});
+
+test("a valid browser image awaits the production visual adapter and returns real candidates", async () => {
+  const targetId = "phantasmal-flames-13-mega-charizard-x-ex"; const calls = [];
+  const canvas = { width: 0, height: 0, getContext: () => ({ drawImage() {} }) };
+  const result = await recognizeBrowserImage({ file: new Blob([new Uint8Array(2048)], { type: "image/jpeg" }) }, {
+    decodeImage: async () => ({ source: {}, width: 720, height: 1000, close() {} }), documentRef: { createElement: () => canvas },
+    visualMatcher: async (_canvas, ocr, options) => { calls.push({ ocr, options }); return { lightweight: { candidates: [{ cardId: targetId, score: .95 }, { cardId: "ex9-5", score: .6 }] }, orb: { candidates: [{ cardId: targetId, score: .6, inliers: 30 }, { cardId: "ex9-5", score: .04, inliers: 1 }] } }; },
+  });
+  assert.equal(calls.length, 1); assert.deepEqual(calls[0].options, { candidateLimit: 40, orbCandidateLimit: 20 });
+  assert.equal(result.fusedMatch.results[0].cardId, targetId);
 });

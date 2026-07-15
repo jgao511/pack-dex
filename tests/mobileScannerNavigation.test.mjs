@@ -20,12 +20,17 @@ test("Collection preserves Set Collection, Binders, and Value destinations", asy
   assert.match(app, /collectionTab === "value"/);
 });
 
-test("production Scanner is a compact popup-gated camera flow without diagnostics", async () => {
+test("production Scanner persists tips and has a restartable camera flow without diagnostic UI", async () => {
   const scanner = await source("../mobile-app/src/MobileScannerPage.jsx");
   assert.match(scanner, /Tips for a better scan/);
   assert.match(scanner, /Start Scanning/);
-  assert.match(scanner, /sessionStorage\.getItem\(TIPS_SESSION_KEY\)/);
-  assert.match(scanner, /startPreview\(\)/);
+  assert.match(scanner, /packdex\.scannerTipsSeen\.v1/);
+  assert.match(scanner, /localStorage\.getItem\(TIPS_STORAGE_KEY\)/);
+  assert.match(scanner, /async function ensureCameraStarted\(\)/);
+  assert.match(scanner, /async function stopCamera\(\)/);
+  assert.match(scanner, /lifecycleRef\.current \+= 1/);
+  assert.match(scanner, /setCameraEpoch/);
+  assert.match(scanner, /processing-error/);
   assert.match(scanner, /captureBrowserFrame/);
   assert.match(scanner, /import\("\.\/lib\/nativeScannerAdapters\.js"\)/);
   assert.doesNotMatch(scanner, /import .*from "\.\/lib\/nativeScannerAdapters\.js"/);

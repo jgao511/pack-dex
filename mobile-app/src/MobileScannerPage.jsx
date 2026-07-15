@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Capacitor } from "@capacitor/core";
 import { getCardImageUrl } from "../../src/utils/assetUrls.js";
 import { captureCardImage } from "../../src/lib/cardScanner/captureCardImage.js";
 import { fuseCardMatches } from "../../src/lib/cardScanner/fuseCardMatches.js";
@@ -6,18 +7,18 @@ import { recognizeCardText } from "../../src/lib/cardScanner/recognizeCardText.j
 import { confirmTrustedCandidate, releaseTemporaryImage } from "../../src/lib/cardScanner/scannerSession.js";
 import { captureBrowserFrame, getBrowserCameraCapability, recognizeBrowserImage, startBrowserCamera, stopBrowserCamera } from "./lib/browserScannerCamera.js";
 
-const TIPS_SESSION_KEY = "packdex-scanner-tips-seen";
+const TIPS_STORAGE_KEY = "packdex.scannerTipsSeen.v1";
 const tips = ["Keep the entire card inside the frame.", "Move close enough for the card text to be readable.", "Avoid glare and harsh reflections.", "Hold your phone steady."];
-const isNative = () => Boolean(globalThis.Capacitor?.isNativePlatform?.());
+const isNative = () => Capacitor.isNativePlatform();
+const scannerDebug = (event, data) => { if (import.meta.env.DEV) console.info(`[PackDex scanner] ${event}`, data); };
+function haveSeenTips() { try { return localStorage.getItem(TIPS_STORAGE_KEY) === "1"; } catch { return false; } }
+function markTipsSeen() { try { localStorage.setItem(TIPS_STORAGE_KEY, "1"); } catch {} }
 
 function chooseBrowserFile(options) {
   return new Promise((resolve) => {
-    const input = document.createElement("input");
-    input.type = "file";
-    input.accept = options.accept;
+    const input = document.createElement("input"); input.type = "file"; input.accept = options.accept;
     if (options.capture) input.capture = options.capture;
-    input.addEventListener("change", () => resolve(input.files?.[0] || null), { once: true });
-    input.click();
+    input.addEventListener("change", () => resolve(input.files?.[0] || null), { once: true }); input.click();
   });
 }
 
@@ -30,21 +31,19 @@ function ScannerTips({ onStart, onClose }) {
 }
 
 export default function MobileScannerPage({ onInspectCard, onAddToCollection, onAddToWishlist, onSearchManually }) {
-  const imageRef = useRef(null); const videoRef = useRef(null); const nativePreviewRef = useRef(null); const streamRef = useRef(null); const nativeAdapterRef = useRef(null); const nativeOcrRef = useRef(null); const startingRef = useRef(false);
+  const imageRef = useRef(null); const videoRef = useRef(null); const nativePreviewRef = useRef(null); const streamRef = useRef(null); const nativeAdapterRef = useRef(null); const nativeOcrRef = useRef(null);
+  const startingRef = useRef(null); const lifecycleRef = useRef(0); const mountedRef = useRef(true); const stageRef = useRef("camera"); const tipsRef = useRef(false); const analysisRef = useRef(0);
   const [stage, setStage] = useState("camera"); const [match, setMatch] = useState(null); const [selectedCardId, setSelectedCardId] = useState(""); const [confirmed, setConfirmed] = useState(null); const [error, setError] = useState("");
-  const [showTips, setShowTips] = useState(() => { try { return sessionStorage.getItem(TIPS_SESSION_KEY) !== "1"; } catch { return true; } });
-  const [previewReady, setPreviewReady] = useState(false); const [saving, setSaving] = useState("");
+  const [showTips, setShowTips] = useState(() => !haveSeenTips()); const [previewReady, setPreviewReady] = useState(false); const [saving, setSaving] = useState(""); const [cameraEpoch, setCameraEpoch] = useState(0);
+  stageRef.current = stage; tipsRef.current = showTips;
 
-  async function stopPreview() {
+  const cameraShouldRun = () => mountedRef.current && stageRef.current === "camera" && !tipsRef.current && !document.hidden;
+  async function stopCamera() {
+    lifecycleRef.current += 1;
     stopBrowserCamera(videoRef.current, streamRef.current); streamRef.current = null;
-    await nativeAdapterRef.current?.stopPreview?.().catch(() => {}); setPreviewReady(false);
+    await nativeAdapterRef.current?.stopPreview?.().catch(() => {});
+    if (mountedRef.current) setPreviewReady(false);
   }
-
-  useEffect(() => () => { releaseTemporaryImage(imageRef.current); stopPreview(); }, []);
-  useEffect(() => {
-    const onVisibility = () => { if (document.hidden) stopPreview(); else if (!showTips && stage === "camera") startPreview(); };
-    document.addEventListener("visibilitychange", onVisibility); return () => document.removeEventListener("visibilitychange", onVisibility);
-  }, [showTips, stage]);
 
   async function loadNative() {
     if (!isNative()) return null;
@@ -55,37 +54,69 @@ export default function MobileScannerPage({ onInspectCard, onAddToCollection, on
     return nativeAdapterRef.current;
   }
 
-  async function startPreview() {
-    if (startingRef.current || previewReady || stage !== "camera") return;
-    startingRef.current = true; setError("");
-    try {
-      if (isNative()) {
-        const adapter = await loadNative(); let permission = await adapter.checkPermission?.();
-        if (permission !== "granted") permission = await adapter.requestPermission?.();
-        if (permission !== "granted") throw new Error(permission === "permanentlyDenied" ? "Camera access is blocked. Enable it in device settings, then try again." : "Camera access wasn’t available. Choose a photo instead.");
-        await adapter.stopPreview?.(); await adapter.startPreview(nativePreviewRef.current, { toBack: true });
-      } else {
-        const capability = getBrowserCameraCapability(); if (!capability.available) throw new Error(capability.reason);
-        streamRef.current = await startBrowserCamera(videoRef.current);
+  async function ensureCameraStarted() {
+    if (!cameraShouldRun() || startingRef.current) return startingRef.current;
+    const generation = lifecycleRef.current;
+    let operation;
+    operation = Promise.resolve().then(async () => {
+      try {
+        if (!cameraShouldRun()) return;
+        setError(""); scannerDebug("camera-start", { native: isNative(), stage: stageRef.current });
+        if (isNative()) {
+          if (!nativePreviewRef.current) return;
+          const adapter = await loadNative(); let permission = await adapter.checkPermission?.();
+          if (permission !== "granted") permission = await adapter.requestPermission?.();
+          if (permission !== "granted") throw new Error(permission === "permanentlyDenied" ? "Camera access is blocked. Enable it in device settings, then try again." : "Camera access wasn’t available. Choose a photo instead.");
+          await adapter.stopPreview?.(); await adapter.startPreview(nativePreviewRef.current, { toBack: true });
+        } else {
+          if (!videoRef.current) return;
+          const tracks = streamRef.current?.getTracks?.() || [];
+          if (tracks.some((track) => track.readyState === "live")) { setPreviewReady(true); return; }
+          stopBrowserCamera(videoRef.current, streamRef.current); streamRef.current = null;
+          const capability = getBrowserCameraCapability(); if (!capability.available) throw new Error(capability.reason);
+          const stream = await startBrowserCamera(videoRef.current);
+          if (generation !== lifecycleRef.current || !cameraShouldRun()) { stopBrowserCamera(videoRef.current, stream); return; }
+          streamRef.current = stream;
+        }
+        if (generation === lifecycleRef.current && cameraShouldRun()) setPreviewReady(true);
+      } catch (cameraError) {
+        if (generation === lifecycleRef.current) setError(cameraError?.message || "Camera access wasn’t available. Choose a photo instead.");
+      } finally {
+        if (startingRef.current === operation) startingRef.current = null;
+        if (generation !== lifecycleRef.current && cameraShouldRun()) window.setTimeout(ensureCameraStarted, 0);
       }
-      setPreviewReady(true);
-    } catch (cameraError) { setError(cameraError?.message || "Camera access wasn’t available. Choose a photo instead."); }
-    finally { startingRef.current = false; }
+    });
+    startingRef.current = operation; return operation;
   }
 
-  async function beginScanning() {
-    try { sessionStorage.setItem(TIPS_SESSION_KEY, "1"); } catch {}
-    setShowTips(false); await startPreview();
-  }
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => { mountedRef.current = false; analysisRef.current += 1; releaseTemporaryImage(imageRef.current); void stopCamera(); };
+  }, []);
+  useEffect(() => {
+    if (!cameraShouldRun()) { void stopCamera(); return undefined; }
+    const timer = window.setTimeout(() => { void ensureCameraStarted(); }, 0);
+    return () => window.clearTimeout(timer);
+  }, [stage, showTips, cameraEpoch]);
+  useEffect(() => {
+    const onVisibility = () => { if (document.hidden) void stopCamera(); else setCameraEpoch((value) => value + 1); };
+    document.addEventListener("visibilitychange", onVisibility); return () => document.removeEventListener("visibilitychange", onVisibility);
+  }, []);
+
+  function beginScanning() { markTipsSeen(); setShowTips(false); setCameraEpoch((value) => value + 1); }
+  function closeTips() { setShowTips(false); setCameraEpoch((value) => value + 1); }
 
   async function analyze(image, browser = false) {
-    setStage("analyzing"); setMatch(null); setSelectedCardId("");
+    const analysis = ++analysisRef.current; const started = performance.now(); setStage("analyzing"); setMatch(null); setSelectedCardId("");
     try {
       const recognized = browser ? await recognizeBrowserImage(image) : await recognizeCardText(image, { adapter: nativeOcrRef.current });
       const fused = recognized.fusedMatch || (recognized.visualMatch ? fuseCardMatches(recognized.ocrMatch, recognized.visualMatch) : recognized.ocrMatch);
+      scannerDebug("analysis-complete", { adapter: browser ? "browser-production-visual" : "nativeOcrAdapter", totalMs: performance.now() - started, rawOcrCandidates: recognized.ocrMatch?.results?.length || 0, rawVisualCandidates: recognized.visualMatch?.lightweight?.candidates?.length || 0, normalizedCandidates: fused?.results?.length || 0, scannerTiming: recognized.scannerTiming || null });
+      if (analysis !== analysisRef.current) return;
       if (!fused?.results?.length) { setStage("no-match"); return; }
       setMatch(fused); setSelectedCardId(fused.primaryMatch?.cardId || fused.results[0].cardId); setStage("candidates");
     } catch (scanError) {
+      if (analysis !== analysisRef.current) return;
       setError("We couldn't process that photo. Please try again or choose a photo."); setStage("processing-error");
       if (import.meta.env.DEV) console.error("[PackDex scanner] processing failed", scanError);
     }
@@ -95,29 +126,30 @@ export default function MobileScannerPage({ onInspectCard, onAddToCollection, on
     setError("");
     try {
       const browser = !isNative(); const nextImage = browser ? await captureBrowserFrame(videoRef.current) : await nativeAdapterRef.current.capturePreview();
-      await stopPreview(); releaseTemporaryImage(imageRef.current); imageRef.current = nextImage; await analyze(nextImage, browser);
-    } catch (captureError) { setError(captureError?.message || "We couldn't capture that card. Please try again."); setStage("camera"); }
+      scannerDebug("capture-valid", { source: browser ? "browser-live" : "native-preview", type: nextImage?.file?.constructor?.name || typeof nextImage?.imageUrl, mimeType: nextImage?.file?.type || "image/jpeg", bytes: nextImage?.file?.size || 0, dataUrlLength: nextImage?.imageUrl?.startsWith("data:") ? nextImage.imageUrl.length : 0, videoWidth: videoRef.current?.videoWidth || null, videoHeight: videoRef.current?.videoHeight || null });
+      await stopCamera(); releaseTemporaryImage(imageRef.current); imageRef.current = nextImage; await analyze(nextImage, browser);
+    } catch (captureError) { setError(captureError?.message || "We couldn't capture that card. Please try again."); setStage("camera"); setCameraEpoch((value) => value + 1); }
   }
 
   async function choosePhoto() {
     setError("");
     try {
-      await stopPreview(); const adapter = isNative() ? await loadNative() : null;
+      await stopCamera(); const adapter = isNative() ? await loadNative() : null;
       const nextImage = await captureCardImage({ source: "library", nativeAdapter: adapter, selectBrowserFile: chooseBrowserFile });
       releaseTemporaryImage(imageRef.current); imageRef.current = nextImage; await analyze(nextImage, !isNative());
-    } catch (photoError) { if (photoError?.code !== "cancelled") setError(photoError?.message || "We couldn't open that photo."); setStage("camera"); }
+    } catch (photoError) { if (photoError?.code !== "cancelled") setError(photoError?.message || "We couldn't open that photo."); setStage("camera"); setCameraEpoch((value) => value + 1); }
   }
 
-  function resetCamera() { releaseTemporaryImage(imageRef.current); imageRef.current = null; setMatch(null); setSelectedCardId(""); setConfirmed(null); setSaving(""); setError(""); setStage("camera"); setPreviewReady(false); window.setTimeout(startPreview, 0); }
+  function resetCamera() { analysisRef.current += 1; releaseTemporaryImage(imageRef.current); imageRef.current = null; setMatch(null); setSelectedCardId(""); setConfirmed(null); setSaving(""); setError(""); setPreviewReady(false); setStage("camera"); setCameraEpoch((value) => value + 1); }
   function confirmSelection() { const selected = confirmTrustedCandidate(match, selectedCardId); if (!selected) { setError("Choose one of the suggested cards before confirming."); return; } setConfirmed(selected); setError(""); setStage("confirmed"); }
   async function save(kind) { if (!confirmed) return; setSaving(kind); try { if (kind === "collection") await onAddToCollection?.(confirmed); else await onAddToWishlist?.(confirmed); } finally { setSaving(""); } }
 
   return <section className={`scanner-beta scanner-beta-${stage}`} aria-label="Card Scanner">
-    {showTips && <ScannerTips onStart={beginScanning} onClose={() => setShowTips(false)} />}
-    {stage === "camera" && <section className="scanner-beta-camera" aria-label="Live card camera"><div className="scanner-beta-camera-host" ref={nativePreviewRef}>{!isNative() && <video ref={videoRef} muted playsInline autoPlay /> }<div className="scanner-beta-frame" aria-hidden="true"><span /></div></div><div className="scanner-beta-camera-controls"><button className="scanner-beta-shutter" type="button" aria-label="Capture card" disabled={!previewReady} onClick={capture}><span /></button><button className="scanner-beta-camera-action" type="button" onClick={choosePhoto}>Choose Photo</button><button className="scanner-beta-help" type="button" aria-label="Scanner tips" onClick={() => { stopPreview(); setShowTips(true); }}>?</button></div></section>}
+    {showTips && <ScannerTips onStart={beginScanning} onClose={closeTips} />}
+    {stage === "camera" && <section className="scanner-beta-camera" aria-label="Live card camera"><div className="scanner-beta-camera-host" ref={nativePreviewRef}>{!isNative() && <video ref={videoRef} muted playsInline autoPlay /> }<div className="scanner-beta-frame" aria-hidden="true"><span /></div></div><div className="scanner-beta-camera-controls"><button className="scanner-beta-camera-action" type="button" onClick={choosePhoto}>Choose Photo</button><button className="scanner-beta-shutter" type="button" aria-label="Capture card" disabled={!previewReady} onClick={capture}><span /></button><button className="scanner-beta-help" type="button" aria-label="Scanner tips" onClick={() => { void stopCamera(); setShowTips(true); }}>?</button></div></section>}
     {stage === "analyzing" && <section className="scanner-beta-state" aria-live="polite"><span className="scanner-spinner" aria-hidden="true" /><h2>Reading your card</h2><p>Looking for the best matches now.</p></section>}
-    {stage === "no-match" && <section className="scanner-beta-state"><h2>No confident matches yet</h2><p>Keep the full card in view, reduce glare, and try again.</p><div className="scanner-beta-actions"><button className="primary-action" type="button" onClick={resetCamera}>Retake</button><button className="secondary-action" type="button" onClick={choosePhoto}>Choose Photo</button><button className="secondary-action" type="button" onClick={onSearchManually}>Search Manually</button></div></section>}
-    {stage === "processing-error" && <section className="scanner-beta-state"><h2>We couldnâ€™t process that photo</h2><p>Please try again or choose a photo.</p><div className="scanner-beta-actions"><button className="primary-action" type="button" onClick={resetCamera}>Retake</button><button className="secondary-action" type="button" onClick={choosePhoto}>Choose Photo</button></div></section>}
+    {stage === "no-match" && <section className="scanner-beta-state"><h2>We couldn’t identify this card confidently.</h2><p>Keep the full card in view, reduce glare, and try again.</p><div className="scanner-beta-actions"><button className="primary-action" type="button" onClick={resetCamera}>Try Again</button><button className="secondary-action" type="button" onClick={choosePhoto}>Choose Photo</button><button className="secondary-action" type="button" onClick={onSearchManually}>Search Manually</button></div></section>}
+    {stage === "processing-error" && <section className="scanner-beta-state"><h2>We couldn’t process that photo</h2><p>Please try again or choose a photo.</p><div className="scanner-beta-actions"><button className="primary-action" type="button" onClick={resetCamera}>Try Again</button><button className="secondary-action" type="button" onClick={choosePhoto}>Choose Photo</button><button className="secondary-action" type="button" onClick={onSearchManually}>Search Manually</button></div></section>}
     {stage === "candidates" && <section className="scanner-beta-results" aria-live="polite"><h2>Choose the matching card</h2><p>Review the suggestions before you confirm.</p><div className="scanner-beta-candidates">{match.results.slice(0, 3).map((candidate) => <ScannerCandidate key={candidate.cardId} candidate={candidate} isSelected={selectedCardId === candidate.cardId} onSelect={setSelectedCardId} />)}</div><div className="scanner-beta-actions"><button className="primary-action" type="button" onClick={confirmSelection}>Confirm selected card</button><button className="secondary-action" type="button" onClick={resetCamera}>Scan Another</button></div></section>}
     {stage === "confirmed" && confirmed && <section className="scanner-beta-confirmed"><img src={getCardImageUrl(confirmed.card)} alt="" /><div><span className="scanner-beta-confirmed-label">Match selected by you</span><h2>{confirmed.card?.name}</h2><p>{confirmed.setName}{confirmed.card?.number ? ` · #${confirmed.card.number}` : ""}</p><div className="scanner-beta-actions"><button className="primary-action" type="button" onClick={() => onInspectCard?.(confirmed.card, { id: confirmed.setId, name: confirmed.setName })}>View card details</button><button className="secondary-action" type="button" disabled={saving === "collection"} onClick={() => save("collection")}>{saving === "collection" ? "Adding..." : "Add to Collection"}</button><button className="secondary-action" type="button" disabled={saving === "wishlist"} onClick={() => save("wishlist")}>{saving === "wishlist" ? "Saving..." : "Add to Wishlist"}</button><button className="secondary-action" type="button" onClick={resetCamera}>Scan Another</button></div></div></section>}
     {error && <p className="scanner-beta-error" role="alert">{error}</p>}
