@@ -15,7 +15,8 @@ function haveSeenTips() { try { return localStorage.getItem(TIPS_STORAGE_KEY) ==
 function markTipsSeen() { try { localStorage.setItem(TIPS_STORAGE_KEY, "1"); } catch {} }
 
 function ScannerCandidate({ candidate, isSelected, onSelect }) {
-  return <button className={`scanner-beta-candidate ${isSelected ? "is-selected" : ""}`} type="button" onClick={() => onSelect(candidate.cardId)}><img src={getCardImageUrl(candidate.card)} alt="" /><span><strong>{candidate.card?.name || "Unknown card"}</strong><small>{candidate.setName}</small>{candidate.card?.number && <small>#{candidate.card.number}</small>}</span></button>;
+  const fallback = (event) => { event.currentTarget.onerror = null; event.currentTarget.src = "/card-back.png"; };
+  return <button className={`scanner-beta-candidate ${isSelected ? "is-selected" : ""}`} type="button" onClick={() => onSelect(candidate.cardId)}><img src={getCardImageUrl(candidate.card)} alt="" onError={fallback} /><span><strong>{candidate.card?.name || "Unknown card"}</strong><small>{candidate.setName}</small>{candidate.card?.number && <small>#{candidate.card.number}</small>}</span></button>;
 }
 
 function ScannerTips({ onStart, onClose }) {

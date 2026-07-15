@@ -128,6 +128,35 @@ function summarizeOcrPasses(results) {
   const ocrMatch = rankCardMatches({ rawText: text, textBlocks: blocks, maxResults: 3 });
   return { text, blocks, ocrMatch, matchProcessingMs: performance.now() - matchStarted };
 }
+function canvasToBase64(canvas) { return canvas.toDataURL("image/jpeg", .88).replace(/^data:image\/[^;]+;base64,/, ""); }
+
+function rotateCanvasQuarterTurns(source, rotationApplied) {
+  const turns = ((rotationApplied / 90) % 4 + 4) % 4; const swapped = turns % 2 === 1;
+  const canvas = document.createElement("canvas"); canvas.width = swapped ? source.height : source.width; canvas.height = swapped ? source.width : source.height;
+  const context = canvas.getContext("2d"); context.translate(canvas.width / 2, canvas.height / 2); context.rotate(turns * Math.PI / 2);
+  context.drawImage(source, -source.width / 2, -source.height / 2); return canvas;
+}
+function orientationTextScore(text) {
+  const value = String(text || ""); const letters = (value.match(/[A-Za-z]/g) || []).length; const words = (value.match(/[A-Za-z]{3,}/g) || []).length;
+  const collector = /\b(?:[A-Z]{1,3}\d{1,3}|\d{1,3})\s*\/\s*\d{1,3}\b/i.test(value) ? 30 : 0;
+  const layout = /\b(?:basic|stage|trainer|supporter|pokemon|hp|weakness|resistance|retreat)\b/i.test(value) ? 16 : 0;
+  return Math.min(120, letters) + words * 4 + collector + layout;
+}
+async function selectNativeLandscapeOrientation(canvas) {
+  if (!(canvas.width > canvas.height)) return null;
+  const candidates = [];
+  for (const rotationApplied of [90, 270]) {
+    const probe = rotateCanvasQuarterTurns(canvas, rotationApplied);
+    try {
+      const result = await CapacitorPluginMlKitTextRecognition.detectText({ base64Image: canvasToBase64(probe), rotation: 0 });
+      const text = result?.text || ""; candidates.push({ rotationApplied, score: orientationTextScore(text), textLength: text.length });
+    } catch { candidates.push({ rotationApplied, score: 0, textLength: 0 }); }
+    finally { probe.width = 1; probe.height = 1; }
+  }
+  candidates.sort((left, right) => right.score - left.score || right.textLength - left.textLength || left.rotationApplied - right.rotationApplied);
+  const selected = candidates[0];
+  return selected?.score >= 20 ? { canvas: rotateCanvasQuarterTurns(canvas, selected.rotationApplied), rotationApplied: selected.rotationApplied, diagnostics: { method: "landscape-ocr-layout", candidates } } : null;
+}
 
 let scannerPrewarmPromise;
 let scannerPrewarmResult;
@@ -216,7 +245,7 @@ export const nativeOcrAdapter = {
     let preparationFinished;
     let outputStarted;
     try {
-      const working = await prepareCardImage(image, { includePasses: false, rectify: async ({ fullCanvas, mappedCrop, originalWidth, originalHeight }) => {
+      const working = await prepareCardImage(image, { includePasses: false, normalizeOrientation: selectNativeLandscapeOrientation, rectify: async ({ fullCanvas, mappedCrop, originalWidth, originalHeight }) => {
         const outline = mappedCrop ? {
           x: mappedCrop.x * fullCanvas.width / originalWidth,
           y: mappedCrop.y * fullCanvas.height / originalHeight,
