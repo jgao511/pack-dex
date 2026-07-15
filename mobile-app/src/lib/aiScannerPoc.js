@@ -66,6 +66,29 @@ function canvasBase64(canvas) {
   return stripDataUrlPrefix(canvas.toDataURL("image/jpeg", 0.92));
 }
 
+const POKEMON_CARD_ASPECT_RATIO = 63 / 88;
+const CENTERED_FALLBACK_HEIGHT_FRACTION = 0.78;
+
+function centeredPokemonCardFallback(sourceCanvas) {
+  const cropHeight = Math.round(sourceCanvas.height * CENTERED_FALLBACK_HEIGHT_FRACTION);
+  const cropWidth = Math.round(cropHeight * POKEMON_CARD_ASPECT_RATIO);
+  if (!(cropWidth > 0 && cropHeight > 0 && cropWidth <= sourceCanvas.width && cropHeight <= sourceCanvas.height)) return null;
+  const x = Math.round((sourceCanvas.width - cropWidth) / 2);
+  const y = Math.round((sourceCanvas.height - cropHeight) / 2);
+  const canvas = document.createElement("canvas");
+  canvas.width = 500; canvas.height = 700;
+  canvas.getContext("2d").drawImage(sourceCanvas, x, y, cropWidth, cropHeight, 0, 0, canvas.width, canvas.height);
+  return {
+    canvas,
+    diagnostics: {
+      found: false,
+      fallback: "centered-pokemon-card-aspect",
+      source: "unchanged-full-frame",
+      crop: { x, y, width: cropWidth, height: cropHeight, retainedAreaFraction: (cropWidth * cropHeight) / (sourceCanvas.width * sourceCanvas.height) },
+    },
+  };
+}
+
 async function prepareScanForAi(image) {
   const started = performance.now();
   const prepared = await prepareCardImage(image, {
@@ -74,10 +97,16 @@ async function prepareScanForAi(image) {
     // A scanner File is already resident in this WebView. Android WebView
     // cannot reliably re-fetch its blob: URL, so retain that input locally.
     fetchImpl: (url) => scannerAiFetch(url, image.scannerInputBlob),
-    rectify: async ({ outlineCanvas }) => {
+    rectify: async ({ outlineCanvas, fullCanvas, mappedCrop }) => {
       try {
         const result = await rectifyCanvas(outlineCanvas, { output: { width: 500, height: 700 } });
-        return result?.canvas ? { canvas: result.canvas, diagnostics: result.diagnostics || result.detection || null } : null;
+        if (result?.detection?.found && result.canvas) return { canvas: result.canvas, diagnostics: result.detection };
+        // Only recover the demonstrated detector miss: no mapped camera outline
+        // and no actual rectified boundary crop (or an unchanged full frame).
+        const unchangedFullFrame = !result?.canvas || result.canvas === fullCanvas
+          || (result.canvas.width === fullCanvas.width && result.canvas.height === fullCanvas.height);
+        if (!mappedCrop && unchangedFullFrame) return centeredPokemonCardFallback(fullCanvas);
+        return null;
       } catch {
         return null;
       }
@@ -103,6 +132,7 @@ async function recognizeEarlyOcr(canvas, options = {}) {
         label: pass.label,
         text: detected?.text || detected?.fullText || "",
         blocks: detected?.blocks || detected?.textBlocks || [],
+        diagnosticImage: options.includeDiagnostics ? `data:image/jpeg;base64,${pass.base64Image}` : null,
         processingMs: performance.now() - passStarted,
       });
     } catch (cause) {
@@ -228,8 +258,8 @@ async function requirePreloadedRuntime(options) {
   throw new Error("Scanner-AI model and index were not preloaded when the Scanner opened.");
 }
 
-async function embedBase64(base64Image, embedder) {
-  const result = await embedder.embedImage({ base64Image });
+async function embedBase64(base64Image, embedder, { includeDiagnostics = false } = {}) {
+  const result = await embedder.embedImage({ base64Image, includeInputDiagnostics: includeDiagnostics });
   return {
     embedding: result?.embedding || null,
     diagnostics: {
@@ -238,6 +268,7 @@ async function embedBase64(base64Image, embedder) {
       dimensions: result?.dimensions ?? null,
       l2Norm: result?.l2Norm ?? null,
       modelFileSha256: result?.modelFileSha256 ?? null,
+      modelInputPngBase64: result?.modelInputPngBase64 ?? null,
     },
   };
 }
@@ -289,7 +320,7 @@ export async function runAiScannerPoc(image, options = {}) {
     });
     timing.candidateBuildMs = performance.now() - candidateStarted;
 
-    embeddingResult = await embedBase64(prepared.base64Image, runtime.embedder);
+    embeddingResult = await embedBase64(prepared.base64Image, runtime.embedder, options);
     timing.modelInitMs = embeddingResult.diagnostics.initMs;
     timing.inferenceMs = embeddingResult.diagnostics.inferenceMs;
     const searchStarted = performance.now();
@@ -371,6 +402,16 @@ export async function runAiScannerPoc(image, options = {}) {
       candidates: orb.candidates || [],
     },
     result: fused,
+    ...(options.includeDiagnostics ? {
+      diagnostics: {
+        uprightInput: prepared.originalPreviewUrl,
+        detectedCardCrop: prepared.previewUrl,
+        outlineInput: prepared.outlinePreviewUrl,
+        boundary: prepared.boundaryDiagnostics,
+        ocrRegions: ocr.passes.map(({ label, diagnosticImage, width, height }) => ({ label, image: diagnosticImage, width, height })),
+        finalModelInput: embeddingResult.diagnostics.modelInputPngBase64 ? `data:image/png;base64,${embeddingResult.diagnostics.modelInputPngBase64}` : null,
+      },
+    } : {}),
     ...(options.includeEmbedding ? { queryEmbedding: embeddingResult.embedding || [] } : {}),
     error: null,
     timing: { ...timing, totalMs: Math.round(performance.now() - startedAt) },

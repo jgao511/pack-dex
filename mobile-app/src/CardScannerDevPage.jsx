@@ -98,6 +98,14 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
   }, [activeOcrAdapter]);
   useEffect(() => {
     if (!aiPocEnabled) return undefined;
+    const diagnosticImages = new Map();
+    let diagnosticSequence = 0;
+    const storeDiagnosticImage = (image) => {
+      if (!image) return null;
+      const key = `scanner-ai-diagnostic-${++diagnosticSequence}`;
+      diagnosticImages.set(key, image);
+      return key;
+    };
     const aiModule = import("./lib/aiScannerPoc.js");
     globalThis.__PACKDEX_SCANNER_AI_PRELOAD__ = aiModule
       .then(({ preloadAiScannerPoc }) => preloadAiScannerPoc())
@@ -115,8 +123,27 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
       temporaryImage.scannerInputBlob = file;
       try {
         const { runAiScannerPoc } = await aiModule;
-        return runAiScannerPoc(temporaryImage, options);
+        const result = await runAiScannerPoc(temporaryImage, options);
+        if (options.includeDiagnostics && result?.diagnostics) {
+          const { uprightInput, detectedCardCrop, outlineInput, finalModelInput, ocrRegions = [], ...metadata } = result.diagnostics;
+          result.diagnostics = {
+            ...metadata,
+            imageRefs: {
+              uprightInput: storeDiagnosticImage(uprightInput),
+              detectedCardCrop: storeDiagnosticImage(detectedCardCrop),
+              outlineInput: storeDiagnosticImage(outlineInput),
+              finalModelInput: storeDiagnosticImage(finalModelInput),
+              ocrRegions: ocrRegions.map(({ image, ...region }) => ({ ...region, imageRef: storeDiagnosticImage(image) })),
+            },
+          };
+        }
+        return result;
       } finally { releaseTemporaryImage(temporaryImage); }
+    };
+    globalThis.__PACKDEX_READ_AI_SCANNER_DIAGNOSTIC_IMAGE__ = (key) => {
+      const image = diagnosticImages.get(key) || null;
+      diagnosticImages.delete(key);
+      return image;
     };
     globalThis.__PACKDEX_BUILD_AI_SMOKE_INDEX__ = async (cards) => {
       const { buildAiSmokeIndex } = await aiModule;
@@ -129,6 +156,8 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
       delete globalThis.__PACKDEX_BUILD_AI_SMOKE_INDEX__;
       delete globalThis.__PACKDEX_RELEASE_AI_SCANNER__;
       delete globalThis.__PACKDEX_SCANNER_AI_PRELOAD__;
+      delete globalThis.__PACKDEX_READ_AI_SCANNER_DIAGNOSTIC_IMAGE__;
+      diagnosticImages.clear();
     };
   }, [aiPocEnabled]);
   useEffect(() => {

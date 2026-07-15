@@ -17,6 +17,7 @@ const combinePaths = argument("--combine");
 const preflight = args.includes("--preflight");
 const identityOnly = args.includes("--identity-only");
 const continuation15 = args.includes("--continuation-15");
+const development15 = args.includes("--development-15");
 const outputPath = path.resolve(root, argument("--output", combinePaths
   ? "artifacts/scanner-ai/reports/holdout-comparison.json"
   : "artifacts/scanner-ai/reports/holdout-run.json"));
@@ -321,6 +322,7 @@ if (preflight) {
 
 const manifest = JSON.parse(await fs.readFile(manifestPath, "utf8"));
 if (!Array.isArray(manifest.items) || manifest.items.length !== 16) throw new Error("Locked benchmark requires the complete 16-photo manifest.");
+if (continuation15 && development15) throw new Error("Choose either --continuation-15 or --development-15, not both.");
 let continuationLedger = null;
 let runItems = manifest.items;
 if (continuation15) {
@@ -332,6 +334,10 @@ if (continuation15) {
   const completed = new Set(continuationLedger.completedItems.map(({ fixture }) => fixture));
   runItems = eligible.filter(({ fixture }) => !completed.has(fixture));
   if (!runItems.length && continuationLedger.completedItems.length !== 15) throw new Error("Continuation ledger has no pending fixtures but is not complete.");
+} else if (development15) {
+  if (system !== "trained-hybrid") throw new Error("The development 15-photo benchmark only permits the trained hybrid runtime.");
+  runItems = manifest.items.filter(({ fixture }) => fixture !== "IMG_6651.jpeg");
+  if (runItems.length !== 15) throw new Error("Development benchmark must exclude only the historically consumed IMG_6651.jpeg fixture.");
 }
 for (const item of runItems) {
   const bytes = await fs.readFile(path.join(fixtureRoot, item.fixture));
@@ -461,7 +467,7 @@ try {
       await writeJsonAtomically(completionPath, continuationLedger);
     }
     items.push(item);
-    console.log(`${items.length}/${continuation15 ? 15 : manifest.items.length} ${expected.fixture}: ${item.outcome} (${Math.round(item.timing.totalMs || 0)} ms)`);
+    console.log(`${items.length}/${continuation15 || development15 ? 15 : manifest.items.length} ${expected.fixture}: ${item.outcome} (${Math.round(item.timing.totalMs || 0)} ms)`);
   }
 } finally {
   activeFixture = null;
@@ -474,7 +480,7 @@ try {
 const report = {
   schemaVersion: 2,
   generatedAt: new Date().toISOString(),
-  mode: continuation15 ? "locked-holdout-continuation-15" : "locked-holdout",
+  mode: continuation15 ? "locked-holdout-continuation-15" : development15 ? "consumed-photo-development-15" : "locked-holdout",
   system,
   device: {
     model: runAdb("shell", "getprop", "ro.product.model").trim(),
@@ -483,13 +489,14 @@ const report = {
   installedApk: { path: installedApkPath, sha256: installedApkSha256 },
   ordinaryInputPath: "ADB run-as fixture -> DOM.setFileInputFiles -> browser File -> createTemporaryImage -> scanner runtime",
   expectedIdsInjectedIntoRecognition: false,
-  consumedFixtures: continuationLedger?.consumedFixtures || [],
+  consumedFixtures: continuationLedger?.consumedFixtures || (development15 ? ["IMG_6651.jpeg"] : []),
   completionLedger: continuationLedger ? path.relative(root, completionPath).replaceAll(path.sep, "/") : null,
   runtimeFreeze,
   summary: summarize(items),
   items,
 };
 if (continuation15 && items.length !== 15) throw new Error("15-photo continuation did not complete every untouched fixture.");
+if (development15 && items.length !== 15) throw new Error("Development 15-photo benchmark did not complete every authorized photo.");
 await writeReport(report);
 if (system !== "existing" && report.summary.externalScanRequests > 0) {
   throw new Error(`Hybrid scan issued ${report.summary.externalScanRequests} external request(s); see the report.`);

@@ -183,6 +183,16 @@ public class PackDexAiEmbedderPlugin extends Plugin {
         return input;
     }
 
+    private String modelInputPngBase64(Bitmap source) throws IOException {
+        Bitmap scaled = Bitmap.createScaledBitmap(source, inputWidth, inputHeight, true);
+        try (ByteArrayOutputStream output = new ByteArrayOutputStream()) {
+            if (!scaled.compress(Bitmap.CompressFormat.PNG, 100, output)) throw new IOException("Could not encode scanner-AI model input.");
+            return Base64.encodeToString(output.toByteArray(), Base64.NO_WRAP);
+        } finally {
+            if (scaled != source) scaled.recycle();
+        }
+    }
+
     @PluginMethod
     public void isAvailable(PluginCall call) {
         JSObject result = new JSObject();
@@ -241,6 +251,7 @@ public class PackDexAiEmbedderPlugin extends Plugin {
     @PluginMethod
     public void embedImage(PluginCall call) {
         final String base64Image = call.getString("base64Image", "");
+        final boolean includeInputDiagnostics = call.getBoolean("includeInputDiagnostics", false);
         executor.execute(() -> {
             Bitmap bitmap = null;
             try {
@@ -263,6 +274,7 @@ public class PackDexAiEmbedderPlugin extends Plugin {
                 response.put("l2Norm", 1.0);
                 response.put("modelFileSha256", activeModelSha256);
                 response.put("inputNormalization", inputNormalization);
+                if (includeInputDiagnostics) response.put("modelInputPngBase64", modelInputPngBase64(bitmap));
                 call.resolve(response);
             } catch (Exception error) {
                 call.reject("PackDex AI embedding failed: " + error.getMessage(), error);

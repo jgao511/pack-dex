@@ -334,3 +334,199 @@ No thresholds, calibration, model, index, or completed photo result was
 changed to bypass those failures. Per the gate rule, stop here. The final APK
 hash verification passed, but no commit was created because the broader
 focused test gate did not fully pass.
+
+## 2026-07-13 — consumed-photo preprocessing diagnosis (in progress)
+
+The user authorized the already-consumed Pixel photos for development-only
+diagnostics. No model, full catalog index, calibration, or threshold was
+changed and no embeddings were regenerated.
+
+Initial evidence eliminates EXIF orientation as the demonstrated root cause:
+all 16 JPEGs have stored dimensions `5712x4284` with EXIF orientation `6`, and
+an Android-WebView probe on consumed `IMG_6652.jpeg` produced upright
+`4284x5712` dimensions for both `createImageBitmap(...,
+{imageOrientation:"none"})` and `createImageBitmap(...,
+{imageOrientation:"from-image"})`. Thus the WebView already applies the EXIF
+orientation during decode. The temporary ADB staging used for this probe was
+removed.
+
+A scanner-AI/debug-only diagnostic capability has been added but not yet
+installed or benchmarked: an explicit `includeDiagnostics` option returns the
+upright decoded input, outline/rectified card crop, OCR crop images, boundary
+metadata, and the Android plugin's actual 224x224 PNG model input. The normal
+scanner path does not request or receive these diagnostics. Directly touched
+runtime tests passed and the diagnostic Android build succeeded with runtime
+source SHA-256 `027c1089c5ffbb70648f0bf1734d4d260f3401069b1d441c08ba4421e80b4593`.
+
+**Resumable next step:** add a development-only consumed-photo diagnostic
+runner that exports those images and per-photo OCR/retrieval metrics, freeze
+and install the diagnostic APK after verifying all model/index/policy bindings
+unchanged, then inspect boundary/rectification and Python-vs-Android input
+parity before making any scanner-only correction. Do not infer that EXIF is
+the cause and do not rerun a benchmark until the diagnostic output is captured.
+
+## 2026-07-13 — three-photo diagnostic APK: partial evidence, stopped
+
+The diagnostic APK was frozen as
+`artifacts/scanner-ai/reports/trained-float32-runtime-freeze-webdebug-diagnostics.json`
+and installed only after its protected model/index/calibration/policy bindings
+were verified equal to the filebridge freeze. Its APK SHA-256 is
+`6ee7e218dac3c219bb472d307bf98022cb4b04d65f4592b6dcf7620dea22a999`.
+
+The three authorized consumed photos (`IMG_6652.jpeg`, `IMG_6658.jpeg`, and
+`IMG_6663.jpeg`) were staged for a development-only diagnostic invocation.
+ADB staging was removed afterward. The DevTools response stalled while
+returning the large diagnostic payload for the third photo, so no new benchmark
+or correction was run.
+
+Before the stall, diagnostic images were exported under
+`artifacts/scanner-ai/reports/consumed-pixel-diagnostics/` for `IMG_6652` and
+`IMG_6658`: upright decode, outline, detected card crop, OCR regions, and the
+native 224x224 input. `IMG_6658` provides concrete evidence of a cropping /
+rectification failure: the upright full-frame JPEG, outline JPEG, and detected
+card-crop JPEG are byte-identical. The visible frame contains a centered
+Dudunsparce ex card surrounded by substantial tabletop background, but no
+rectification crop was returned. Its existing exact one-card OCR pool and
+very-low visual similarity (`0.476243`) are therefore consistent with the
+model embedding the uncropped camera frame.
+
+This demonstrates that card-boundary/rectification is a real failure mode; it
+does not yet prove which minimal boundary fallback is safe across all three
+diagnostic cases. Do not change thresholds, model, index, calibration, or OCR
+regions. Resume by making the diagnostic runner stream/write each photo's
+images without returning large data URLs over DevTools, capture boundary
+metadata and Android/Python embedding parity for all three, then select and
+test the smallest scanner-only rectification fallback before any 15-photo
+development rerun.
+
+## 2026-07-13 — diagnostic transport correction (ready to capture)
+
+The scanner-AI debug page now keeps diagnostic images in an in-memory map and
+returns only small image-reference keys with the recognition result. A
+development collector can read and delete one referenced image at a time and
+write it to disk immediately, avoiding the prior multi-megabyte DevTools
+response that stalled on `IMG_6663`. This transport is enabled only when the
+explicit `includeDiagnostics` option is supplied; normal scanner behavior is
+unchanged.
+
+`tests/scannerAiOfflineRuntime.test.mjs` passed and the scanner-AI diagnostic
+APK rebuilt with runtime-source SHA-256
+`b8effb5a480251344a67c60f475f17e063fefa90a92e7bbe8259d3dd1468adb4`.
+The APK currently installed on the Pixel is the local diagnostic-stream build
+`artifacts/scanner-ai/reports/trained-float32-hybrid-webdebug-diagnostics-stream.apk`.
+
+**Terminal pause:** this latest transport build has not yet been frozen and
+its bindings have not yet been compared with the trained-float32 freeze, so do
+not submit a diagnostic photo through it yet. Resume by freezing/verifying the
+APK first, then capture all three named consumed images incrementally, record
+boundary metadata plus Android/Python parity, and only then implement a
+conservative scanner-only fallback if the crop failure is confirmed across the
+diagnostic cases.
+
+## 2026-07-13 — diagnostic-stream capture complete: consistent boundary failure
+
+`trained-float32-hybrid-webdebug-diagnostics-stream.apk` was frozen as
+`artifacts/scanner-ai/reports/trained-float32-runtime-freeze-webdebug-diagnostics-stream.json`.
+Every protected trained-float32 binding matched the filebridge freeze before
+the three authorized consumed photos were staged.
+
+The incremental image-reference transport completed for `IMG_6652.jpeg`,
+`IMG_6658.jpeg`, and `IMG_6663.jpeg`; images and metadata were written under
+`artifacts/scanner-ai/reports/consumed-pixel-diagnostics-stream/` and each
+WebView image reference was deleted after read. For every one of the three,
+boundary metadata was `null` and upright, outline, and detected-card-crop
+outputs were the unchanged full camera frame. This consistently demonstrates
+the card-boundary/rectification failure, including the no-OCR/no-correct-rank
+case `IMG_6663`.
+
+Baseline diagnostic retrieval: `IMG_6652` correct top-1 at `0.688371` with
+margin `0.242867`; `IMG_6658` exact one-card OCR pool but `0.476243` visual
+similarity; `IMG_6663` top result `prismatic-evolutions-161-umbreon-ex` at
+`0.729615`, margin `0.012997`, with no OCR evidence. Native 224x224 inputs
+and OCR regions are exported for all three.
+
+**Next bounded step:** calculate Python-vs-Android parity from the exported
+native model-input PNGs, then implement only a conservative scanner-AI
+fallback: centered Pokémon card aspect-ratio crop when boundary detection
+returns no rectification, with no perspective transform unless valid geometry
+exists. Rerun only these three first. Thresholds, policy, calibration, model,
+and index remain frozen; do not run the 15-photo benchmark unless all three
+improve materially and consistently.
+
+## 2026-07-13 — Android/Python parity audit (no-photo, no-code-change)
+
+Parity could not be numerically calculated from the exported diagnostic set.
+`artifacts/scanner-ai/reports/consumed-pixel-diagnostics-stream/diagnostics.json`
+contains all three native `model.png` inputs, but it contains no
+`queryEmbedding` / Android embedding vector for `IMG_6652.jpeg`,
+`IMG_6658.jpeg`, or `IMG_6663.jpeg`. Therefore there is no Android vector to
+compare against the frozen Python/TFLite output; reporting a cosine, max
+absolute error, or pass status would be fabricated.
+
+No photo was staged, no APK was rebuilt, and no code/model/index/calibration/
+policy/threshold was changed during this audit.
+
+**Exact next command (when diagnostic capture is explicitly resumed):** rerun
+the incremental three-photo diagnostic collector with
+`includeEmbedding:true` in addition to `includeDiagnostics:true`, persist the
+returned 128-float `queryEmbedding` beside each existing `model.png`, then run
+the frozen float32 TFLite interpreter on each PNG in Python (RGB pixels / 255,
+no resize) and compare L2-normalized vectors by cosine and max absolute error.
+
+## 2026-07-14 — scanner-only centered fallback completed
+
+The three authorized consumed diagnostics were recaptured with
+`includeDiagnostics:true` and `includeEmbedding:true`. Android native LiteRT
+and Python's frozen float32 TFLite interpreter were compared on the exact
+exported native 224x224 PNG inputs. All three 128-dimensional normalized
+vectors had cosine `1.0`; maximum absolute errors were `2.98e-7`, `3.13e-7`,
+and `2.42e-7` for IMG_6652, IMG_6658, and IMG_6663 respectively. Embedding
+generation is therefore not the cause.
+
+The smallest scanner-AI-only preprocessing recovery was implemented in
+`mobile-app/src/lib/aiScannerPoc.js`: when the boundary worker returns no
+found boundary and the source remains the unoutlined full camera frame, it
+crops the centered 78% height region at the standard PokÃ©mon-card `63:88`
+portrait ratio and scales that crop to the existing 500x700 scanner canvas.
+Mapped camera outlines and every successful boundary perspective crop retain
+their prior behavior. No model, catalog index/vector, calibration report,
+threshold, ranking policy, or OCR policy changed.
+
+The rebuilt artifact and freeze are:
+
+- APK: `artifacts/scanner-ai/reports/trained-float32-hybrid-webdebug-centered-fallback.apk`
+  (65,849,277 bytes, SHA-256
+  `f643404ef7f0f0686ee3980a58d357985429464a494815252b9ed2baf08664d5`).
+- Freeze: `artifacts/scanner-ai/reports/trained-float32-runtime-freeze-webdebug-centered-fallback.json`
+  (runtime-source SHA-256
+  `71cc1e0f8e4ebfbc4d57a241be1ae46846c485fab3bdebc68f60b00fde2036a1`).
+
+Its protected config, calibration/policy, trained float32 model, index,
+vectors, catalog/card metadata, and query-artifact bindings were compared
+field-for-field with the diagnostic-stream freeze and matched exactly. The
+installed Pixel base APK SHA-256 matched this new freeze; 16 KB alignment
+passed.
+
+### Three-photo before/after gate
+
+Each fallback crop was `{x:173, y:198, width:1005, height:1404}` from the
+1350x1800 upright frame, retaining `58.0667%` of the frame while preserving
+the full centered card. IMG_6652 stayed correct top-1 and rose from `0.688371`
+to `0.803595`; its OCR gained the exact `124/149` reading. IMG_6658 stayed
+correct top-1 and rose from `0.476243` to `0.608046`; its OCR gained more name
+and collector evidence. IMG_6663 changed from no OCR and an absent expected
+candidate to name OCR and expected rank 2 at `0.666075`; the only higher result
+was the closely related `xy3-112-m_heracross-ex`. The diagnostic total latency
+changed `3746 -> 2711`, `2142 -> 1455`, and `2247 -> 1405` ms respectively.
+
+### Authorized 15-photo development rerun
+
+`IMG_6651.jpeg` remained excluded. The new development-only report is
+`artifacts/scanner-ai/reports/trained-float32-development-15-centered-fallback.json`.
+Compared with the completed pre-fallback 15-photo continuation, expected AI
+top-1 improved `4/15 -> 9/15`, top-3 `5/15 -> 10/15`, expected OCR top-1
+`1/15 -> 3/15`, and mean total latency `1667.40 -> 1409.53 ms`. All 15 remained
+safe no-results under the unchanged conservative confirmation policy, with
+zero wrong confirmations and zero external scan-time requests. One previously
+top-1 development image (IMG_6654) no longer ranked, so the fallback is ready
+for broader real-device debug testing but not a production-policy change.
