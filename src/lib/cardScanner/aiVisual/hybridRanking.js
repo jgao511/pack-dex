@@ -82,6 +82,9 @@ export function fuseHybridEvidence({
       setId: candidate.setId || catalogEntry?.setId || null,
       setName: candidate.setName || catalogEntry?.setName || null,
       collectorNumber: candidate.collectorNumber || candidate.cardNumber || catalogEntry?.cardNumber || null,
+      printedSetTotal: candidate.printedTotal || catalogEntry?.printedSetTotal || null,
+      rarity: candidate.rarity || catalogEntry?.rarity || null,
+      imageUrl: candidate.imageUrl || catalogEntry?.imageUrl || null,
     };
   }).filter(Boolean).sort((left, right) => right.score - left.score || right.evidenceScore - left.evidenceScore || left.cardId.localeCompare(right.cardId));
 

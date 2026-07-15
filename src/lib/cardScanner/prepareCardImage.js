@@ -34,7 +34,7 @@ export function createOcrPasses(canvas, { quality = .92, createCanvas, labels = 
   });
 }
 
-export async function prepareCardImage(image, { maxEdge = 1800, quality = .92, fetchImpl = fetch, createBitmap = createImageBitmap, createCanvas, rectify, includePasses = true } = {}) {
+export async function prepareCardImage(image, { maxEdge = 1800, quality = .92, fetchImpl = fetch, createBitmap = createImageBitmap, createCanvas, rectify, includePasses = true, normalizeOrientation } = {}) {
   if (!image?.imageUrl) throw new CardRecognitionError("empty-image", "We couldn’t open that photo.");
   const started = performance.now();
   const response = await fetchImpl(image.imageUrl); const blob = await response.blob();
@@ -51,17 +51,22 @@ export async function prepareCardImage(image, { maxEdge = 1800, quality = .92, f
   const fullSize = getProportionalSize(originalWidth, originalHeight, maxEdge);
   const fullCanvas = canvasFactory(fullSize.width, fullSize.height, createCanvas);
   fullCanvas.getContext("2d").drawImage(bitmap, 0, 0, originalWidth, originalHeight, 0, 0, fullSize.width, fullSize.height);
+  // EXIF has already been applied above. A scanner may additionally need a
+  // semantic quarter-turn for a sideways gallery capture; perform that before
+  // boundary detection, OCR, and embedding so downstream stages agree.
+  const orientation = !mappedCrop && normalizeOrientation ? await normalizeOrientation(fullCanvas) : null;
+  const orientedFullCanvas = orientation?.canvas || fullCanvas;
   const size = getProportionalSize(source.width, source.height, maxEdge);
-  const outlineCanvas = mappedCrop ? canvasFactory(size.width, size.height, createCanvas) : fullCanvas;
+  const outlineCanvas = mappedCrop ? canvasFactory(size.width, size.height, createCanvas) : orientedFullCanvas;
   if (mappedCrop) outlineCanvas.getContext("2d").drawImage(bitmap, source.x, source.y, source.width, source.height, 0, 0, size.width, size.height);
   const canvasesReady = performance.now();
   let rectification = null;
-  if (rectify) rectification = await rectify({ outlineCanvas, fullCanvas, mappedCrop, originalWidth, originalHeight });
+  if (rectify) rectification = await rectify({ outlineCanvas, fullCanvas: orientedFullCanvas, mappedCrop, originalWidth, originalHeight });
   const rectificationReady = performance.now();
-  const canvas = rectification?.canvas || (mappedCrop ? outlineCanvas : fullCanvas);
+  const canvas = rectification?.canvas || (mappedCrop ? outlineCanvas : orientedFullCanvas);
   const passes = includePasses ? createOcrPasses(canvas, { quality, createCanvas }) : [];
   if (includePasses && (mappedCrop || rectification?.canvas)) {
-    const fallbackPasses = createOcrPasses(fullCanvas, { quality, createCanvas }).filter((pass) => pass.label === "full-card" || pass.label === "collector-bottom-edge");
+    const fallbackPasses = createOcrPasses(orientedFullCanvas, { quality, createCanvas }).filter((pass) => pass.label === "full-card" || pass.label === "collector-bottom-edge");
     for (const pass of fallbackPasses) passes.push({ ...pass, label: pass.label === "full-card" ? "full-capture-fallback" : "full-capture-bottom-edge" });
   }
   bitmap.close?.();
@@ -75,7 +80,7 @@ export async function prepareCardImage(image, { maxEdge = 1800, quality = .92, f
     return encodedCanvases.get(target);
   };
   const previewUrl = encode(canvas);
-  const originalPreviewUrl = encode(fullCanvas);
+  const originalPreviewUrl = encode(orientedFullCanvas);
   const outlinePreviewUrl = encode(outlineCanvas);
   const finished = performance.now();
   return {
@@ -84,7 +89,8 @@ export async function prepareCardImage(image, { maxEdge = 1800, quality = .92, f
     bottomPreviewUrl: bottomPass ? `data:image/jpeg;base64,${bottomPass.base64Image}` : null,
     passes, originalWidth, originalHeight, width: canvas.width, height: canvas.height,
     mappedCrop, boundaryDiagnostics: rectification?.diagnostics || null,
-    detectedOrientation: canvas.height >= canvas.width ? "portrait" : "landscape", rotationApplied: 0,
+    detectedOrientation: canvas.height >= canvas.width ? "portrait" : "landscape", rotationApplied: orientation?.rotationApplied || 0,
+    orientationDiagnostics: orientation?.diagnostics || null,
     timing: {
       totalMs: finished - started,
       fetchBlobMs: blobReady - started,

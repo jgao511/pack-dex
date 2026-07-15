@@ -63,6 +63,16 @@ test("hybrid scanner returns safe no-result for weak full-catalog AI retrieval",
   assert.equal(result.confidence, "low");
 });
 
+test("hybrid results retain PackDex card metadata required by selectable candidate rendering", () => {
+  const result = fuseHybridEvidence({
+    candidatePool: { usedFullCatalogFallback: false, candidates: [{ ...candidate("kingdra", 20, ["name-exact"]), name: "Kingdra ex", setName: "Shrouded Fable", collectorNumber: "80", printedTotal: "64", rarity: "Ultra Rare", imageUrl: "https://assets.pack-dex.com/sets/shrouded-fable/cards/80_Kingdra_ex_Ultra_Rare.png" }] },
+    visualCandidates: [{ cardId: "kingdra", visualScore: .6 }],
+  });
+  assert.equal(result.results[0].imageUrl, "https://assets.pack-dex.com/sets/shrouded-fable/cards/80_Kingdra_ex_Ultra_Rare.png");
+  assert.equal(result.results[0].setName, "Shrouded Fable");
+  assert.equal(result.results[0].printedSetTotal, "64");
+});
+
 test("ORB is bounded to five only for a small ambiguous pool with close AI scores", () => {
   const pool = {
     usedFullCatalogFallback: false,

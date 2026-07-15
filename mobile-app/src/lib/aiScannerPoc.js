@@ -1,8 +1,7 @@
 import { Capacitor, CapacitorHttp } from "@capacitor/core";
 import { CapacitorPluginMlKitTextRecognition } from "@pantrist/capacitor-plugin-ml-kit-text-recognition";
 import { getScannerCatalog } from "../../../src/lib/cardScanner/buildScannerCatalog.js";
-import { extractCollectorNumbers } from "../../../src/lib/cardScanner/extractCollectorNumbers.js";
-import { extractNameCandidates } from "../../../src/lib/cardScanner/extractNameCandidates.js";
+import { extractStructuredCardText } from "../../../src/lib/cardScanner/extractStructuredCardText.js";
 import { createOcrPasses, prepareCardImage, stripDataUrlPrefix } from "../../../src/lib/cardScanner/prepareCardImage.js";
 import { rectifyCanvas, rerankWithOrb } from "../../../src/lib/cardScanner/localVisual/visualWorkerClient.js";
 import {
@@ -13,6 +12,7 @@ import {
 import { buildCatalogCandidates, createCatalogCandidateIndex } from "../../../src/lib/cardScanner/aiVisual/catalogCandidateIndex.js";
 import { fuseHybridEvidence, selectBoundedOrbCandidates } from "../../../src/lib/cardScanner/aiVisual/hybridRanking.js";
 import { SCANNER_AI_RUNTIME_CONFIG } from "../../../src/lib/cardScanner/aiVisual/scannerAiRuntimeConfig.js";
+import { measureAiCanvasQuality } from "./aiScannerQuality.js";
 
 const AI_POC_STATUS = "scanner-ai-poc";
 const INDEX_METADATA_PATH = "./scanner-ai/catalog-embeddings.meta.json";
@@ -69,29 +69,54 @@ function canvasBase64(canvas) {
 const POKEMON_CARD_ASPECT_RATIO = 63 / 88;
 const CENTERED_FALLBACK_HEIGHT_FRACTION = 0.78;
 const OCR_BUDGET_MS = 3_000;
+const ORIENTATION_OCR_BUDGET_MS = 650;
 
-function cropArea(boundary) {
-  if (Number.isFinite(boundary?.metrics?.areaFraction)) return boundary.metrics.areaFraction;
-  if (Number.isFinite(boundary?.crop?.retainedAreaFraction)) return boundary.crop.retainedAreaFraction;
-  return 1;
+function rotateCanvasQuarterTurns(source, rotationApplied, maxEdge = null) {
+  const turns = ((rotationApplied / 90) % 4 + 4) % 4;
+  const scale = maxEdge ? Math.min(1, maxEdge / Math.max(source.width, source.height)) : 1;
+  const sourceWidth = Math.max(1, Math.round(source.width * scale));
+  const sourceHeight = Math.max(1, Math.round(source.height * scale));
+  const swapped = turns % 2 === 1;
+  const canvas = document.createElement("canvas");
+  canvas.width = swapped ? sourceHeight : sourceWidth; canvas.height = swapped ? sourceWidth : sourceHeight;
+  const context = canvas.getContext("2d");
+  context.translate(canvas.width / 2, canvas.height / 2);
+  context.rotate((turns * Math.PI) / 2);
+  context.drawImage(source, 0, 0, source.width, source.height, -sourceWidth / 2, -sourceHeight / 2, sourceWidth, sourceHeight);
+  return canvas;
 }
 
-function measureCropQuality(canvas, boundary) {
-  const context = canvas.getContext("2d", { willReadFrequently: true });
-  const { data, width, height } = context.getImageData(0, 0, canvas.width, canvas.height);
-  let bright = 0; let topBright = 0; let samples = 0; let topSamples = 0; let lumaTotal = 0; let laplacian = 0; let laplacianSamples = 0;
-  const lumaAt = (x, y) => { const i = (y * width + x) * 4; return (data[i] * 0.2126) + (data[i + 1] * 0.7152) + (data[i + 2] * 0.0722); };
-  for (let y = 1; y < height - 1; y += 2) for (let x = 1; x < width - 1; x += 2) {
-    const i = (y * width + x) * 4; const r = data[i]; const g = data[i + 1]; const b = data[i + 2];
-    const maximum = Math.max(r, g, b); const minimum = Math.min(r, g, b); const isReflective = maximum >= 238 && (maximum - minimum) <= 72;
-    samples += 1; lumaTotal += (r * 0.2126) + (g * 0.7152) + (b * 0.0722); if (isReflective) bright += 1;
-    if (y < height * .3) { topSamples += 1; if (isReflective) topBright += 1; }
-    const center = lumaAt(x, y); laplacian += Math.abs((4 * center) - lumaAt(x - 1, y) - lumaAt(x + 1, y) - lumaAt(x, y - 1) - lumaAt(x, y + 1)); laplacianSamples += 1;
+function scoreOrientationText(text) {
+  const value = String(text || "");
+  const letters = (value.match(/[A-Za-z]/g) || []).length;
+  const words = (value.match(/[A-Za-z]{3,}/g) || []).length;
+  const collector = /\b(?:[A-Z]{1,3}\d{1,3}|\d{1,3})\s*\/\s*\d{1,3}\b/i.test(value) ? 30 : 0;
+  const cardLayout = /\b(?:basic|stage|trainer|supporter|pokemon|hp|weakness|resistance|retreat)\b/i.test(value) ? 16 : 0;
+  return Math.min(120, letters) + (words * 4) + collector + cardLayout;
+}
+
+async function selectLandscapeOrientation(canvas) {
+  if (!(canvas.width > canvas.height)) return null;
+  const candidates = [];
+  // A landscape capture can only become a portrait card at 90 or 270 degrees.
+  // Selection uses bounded OCR/card-layout evidence, never visual similarity.
+  for (const rotationApplied of [90, 270]) {
+    const probe = rotateCanvasQuarterTurns(canvas, rotationApplied, 520);
+    try {
+      const recognition = await withinBudget(CapacitorPluginMlKitTextRecognition.detectText({ base64Image: canvasBase64(probe), rotation: 0 }), ORIENTATION_OCR_BUDGET_MS);
+      const text = recognition?.text || recognition?.fullText || "";
+      candidates.push({ rotationApplied, score: scoreOrientationText(text), textLength: text.length });
+    } catch {
+      candidates.push({ rotationApplied, score: 0, textLength: 0 });
+    } finally { probe.width = 0; probe.height = 0; }
   }
-  const glareFraction = bright / Math.max(1, samples); const topGlareFraction = topBright / Math.max(1, topSamples);
+  candidates.sort((left, right) => right.score - left.score || right.textLength - left.textLength || left.rotationApplied - right.rotationApplied);
+  const selected = candidates[0];
+  if (!selected || selected.score < 20) return null;
   return {
-    cropAreaFraction: cropArea(boundary), sharpnessEstimate: laplacian / Math.max(1, laplacianSamples), meanLuminance: lumaTotal / Math.max(1, samples), glareFraction, topGlareFraction,
-    glareWarning: glareFraction >= .005 || topGlareFraction >= .004,
+    canvas: rotateCanvasQuarterTurns(canvas, selected.rotationApplied),
+    rotationApplied: selected.rotationApplied,
+    diagnostics: { method: "landscape-ocr-layout", candidates: candidates.map(({ rotationApplied, score }) => ({ rotationApplied, score })) },
   };
 }
 
@@ -138,6 +163,7 @@ async function prepareScanForAi(image, { foilMode = false } = {}) {
     // A scanner File is already resident in this WebView. Android WebView
     // cannot reliably re-fetch its blob: URL, so retain that input locally.
     fetchImpl: (url) => scannerAiFetch(url, image.scannerInputBlob),
+    normalizeOrientation: selectLandscapeOrientation,
     rectify: async ({ outlineCanvas, fullCanvas, mappedCrop }) => {
       try {
         const result = await rectifyCanvas(outlineCanvas, { output: { width: 500, height: 700 } });
@@ -153,7 +179,7 @@ async function prepareScanForAi(image, { foilMode = false } = {}) {
       }
     },
   });
-  const quality = measureCropQuality(prepared.canvas, prepared.boundaryDiagnostics);
+  const quality = measureAiCanvasQuality(prepared.canvas, prepared.boundaryDiagnostics);
   const canvas = foilMode === "dim-highlights" && quality.glareWarning ? dimReflectiveHighlights(prepared.canvas) : prepared.canvas;
   return { ...prepared, canvas, scanQuality: quality, foilModeApplied: canvas !== prepared.canvas ? "dim-highlights" : null, base64Image: canvasBase64(canvas), aiPreparationMs: performance.now() - started };
 }
@@ -192,12 +218,12 @@ async function recognizeEarlyOcr(canvas, options = {}) {
   }
   const rawText = results.map(({ text }) => text).filter(Boolean).join("\n");
   const textBlocks = results.flatMap((pass) => pass.blocks.map((block) => ({ ...block, sourcePass: pass.label })));
+  const structuredText = extractStructuredCardText(rawText, textBlocks);
   return {
     rawText,
     textBlocks,
     passes: results,
-    nameCandidates: extractNameCandidates(rawText, textBlocks),
-    collectorNumbers: extractCollectorNumbers(rawText, textBlocks),
+    ...structuredText,
     error, timedOut,
     processingMs: performance.now() - started,
   };
@@ -361,6 +387,8 @@ export async function runAiScannerPoc(image, options = {}) {
     timing.ocrMs = ocr.processingMs || 0;
     const candidateStarted = performance.now();
     candidatePool = options.candidatePool || buildCatalogCandidates(runtime.candidateIndex, {
+      // Only canonical name and collector/set-total are indexed in the frozen
+      // PackDex catalog. Other extracted fields remain diagnostic evidence.
       nameCandidates: ocr.nameCandidates,
       collectorNumbers: ocr.collectorNumbers,
       setId: options.setId,
@@ -432,6 +460,9 @@ export async function runAiScannerPoc(image, options = {}) {
       rawText: ocr.rawText || "",
       nameCandidates: (ocr.nameCandidates || []).map(({ raw, normalized, sourcePass, reliable }) => ({ raw, normalized, sourcePass, reliable })),
       collectorNumbers: (ocr.collectorNumbers || []).map(({ raw, normalized, normalizedTotal, sourcePass, reliable }) => ({ raw, normalized, normalizedTotal, sourcePass, reliable })),
+      structuredText: {
+        hp: ocr.hp || [], abilityNames: ocr.abilityNames || [], attackNames: ocr.attackNames || [], stageOrType: ocr.stageOrType || [], regulationMarks: ocr.regulationMarks || [], copyrightYears: ocr.copyrightYears || [],
+      },
       error: ocr.error || null,
       timedOut: Boolean(ocr.timedOut),
     },
@@ -466,6 +497,11 @@ export async function runAiScannerPoc(image, options = {}) {
         boundary: prepared.boundaryDiagnostics,
         ocrRegions: ocr.passes.map(({ label, diagnosticImage, width, height }) => ({ label, image: diagnosticImage, width, height })),
         finalModelInput: embeddingResult.diagnostics.modelInputPngBase64 ? `data:image/png;base64,${embeddingResult.diagnostics.modelInputPngBase64}` : null,
+        orientation: {
+          detected: prepared.detectedOrientation,
+          rotationApplied: prepared.rotationApplied || 0,
+          evidence: prepared.orientationDiagnostics,
+        },
       },
     } : {}),
     ...(options.includeEmbedding ? { queryEmbedding: embeddingResult.embedding || [] } : {}),

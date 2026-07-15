@@ -581,3 +581,287 @@ only changed runtime fingerprint is scanner UI/preprocessing source
    waiting 8–10 seconds.
 6. Export scanner diagnostics and verify crop area, sharpness, glare, OCR
    evidence, similarity/margin, and total latency are populated.
+
+## 2026-07-15 — glare specificity, structured OCR, and post-scan guidance wiring
+
+The former glare signal was a false-positive-prone bright-pixel fraction:
+any small area of near-neutral bright printed artwork could cross its `0.5%`
+threshold. It is replaced with a bounded scan-quality test that requires all
+of: all-channel clipping, a sufficiently large connected highlight, an
+interior (non-edge-touching) component, a sharp highlight boundary, and
+concentration in the top/name region. This specifically excludes edge-touching
+white printed artwork in the clean/reference fixture test. The new quality
+diagnostics record clipped fraction, largest highlight fraction, boundary
+contrast, and top highlight fraction alongside crop area, sharpness, and
+luminance.
+
+The prior absence of guidance on-device was a wiring issue: the normal camera
+shutter and normal library action still ran the legacy scanner result state,
+whereas quality guidance was rendered only in the scanner-AI `ai-result`
+state. In the scanner-test build, camera and library captures now enter that
+same scanner-AI post-scan state. Guidance is adjacent to ranked candidates and
+covers glare, move closer, hold steadier, improve lighting, and the OCR
+budget/progressive result. There is no live-preview quality claim or
+implementation; the debug UI explicitly says quality is evaluated after
+capture.
+
+Structured OCR now extracts name, collector number/set total, HP, ability
+labels, likely attack lines, stage/type text, regulation mark, and copyright
+year. The frozen PackDex scanner catalog only contains canonical name,
+collector number, printed set total, set/release year, and rarity; it has no
+HP, attack, ability, stage/type, or regulation-mark metadata. Therefore only
+canonical name plus collector/set-total are used to narrow the candidate pool
+before the unchanged frozen visual reranking. The other fields are retained as
+diagnostics, and shared attack text cannot confirm or auto-select a card.
+Exact name plus collector/set-total remains the strongest ranked
+user-confirmation candidate even with weak visual evidence; the conservative
+auto-confirmation policy was not lowered or changed.
+
+Automated coverage now includes clean white/reference-like artwork versus an
+interior sharp glare highlight, structured OCR extraction and narrowing,
+every visible post-scan guidance state, debug camera routing, and the
+scanner-test-only bundle. `node --test tests/scannerAi*.test.mjs` passed 48/48.
+No foil top-1/top-3 claim is made here: no labelled foil retrieval gate was
+run in this implementation pass, so improvement remains unmeasured.
+
+The rebuilt/installed APK is
+`artifacts/scanner-ai/reports/trained-float32-hybrid-webdebug-quality-guidance-wiring.apk`
+(65,852,385 bytes, SHA-256
+`92e893738711d8da9ff961ec599f366d2de217746762ad7e70f1fbcb03afa76d`).
+Freeze:
+`artifacts/scanner-ai/reports/trained-float32-runtime-freeze-webdebug-quality-guidance-wiring.json`.
+All protected model, index, embedding, catalog, calibration, policy, threshold,
+and query-artifact bindings matched the confirmation-UX freeze exactly.
+
+### Next manual scanner-test gate
+
+1. Use **Capture card** or **Choose Photo** in the scanner-AI debug build;
+   after capture, verify candidates and quality guidance are shown in the
+   scanner-AI result panel (not during preview).
+2. Scan the clean reference image and two clean physical cards. Verify no
+   glare warning appears; record diagnostics `clippedFraction`,
+   `largestHighlightFraction`, and `highlightBoundaryContrast`.
+3. Scan a foil card with a bright reflection over the name area and a sleeved
+   card with a reflection. Verify glare guidance and **Try Foil Scan** appear;
+   compare ordinary and foil-retry top-1/top-3, similarity, margin, OCR, and
+   latency for the same card.
+4. Use a distant card, an intentionally shaky/blurred capture, a dim capture,
+   and a deliberately slow OCR case. Verify respectively move-closer,
+   hold-steady, improve-lighting, and progressive-OCR guidance beside the
+   candidates.
+5. For an exact-name-plus-number foil OCR result with weak visual similarity,
+   verify it appears as a selectable candidate but does not auto-confirm. Do
+   not accept shared attack text as identification.
+
+## 2026-07-15 — selectable candidate images and Kingdra printing disambiguation
+
+The candidate-image failure was a presentation data-loss bug. The candidate
+index had already resolved each trusted image through `getCardImageUrl` to
+`https://assets.pack-dex.com`, but `fuseHybridEvidence` dropped `imageUrl`,
+printed total, and rarity when making the ranked result. The scanner-AI card
+component therefore had no image prop to render. Ranked candidates now retain
+that existing PackDex metadata; the debug result component resolves the URL
+with the existing resolver, renders the card image, name, set, collector/total,
+rank, confidence context, and falls back to an explicit **Card image
+unavailable** placeholder on a genuine missing/failed image. Image failure
+does not affect selection or offline recognition.
+
+The applicable current full-art Kingdra is
+`shrouded-fable-80-kingdra-ex` (Kingdra ex, `80/64`). Historical labelled
+`IMG_6662` is a different Kingdra (`xy10-122-kingdra-ex`, `122/124`): its
+OCR had no collector evidence, fell back to the complete catalog, and placed
+the expected card at AI rank 13 after centered fallback (similarity
+`0.608499`), so no exact-printing evidence was available to use. The manual
+full-art scan similarly showed name narrowing but no recorded collector/set
+evidence; without that evidence, its exact printing cannot be safely chosen
+from same-name results.
+
+Selectable-candidate ordering now prioritizes already-produced exact collector
+number plus printed-set-total evidence ahead of visual score **only in the
+user-confirmation presentation**. It does not alter fusion scores, calibration,
+thresholds, or auto-confirmation. A deterministic Shrouded Fable Kingdra
+fixture with OCR `Kingdra ex` + `80/64` demonstrates the expected printing
+moving from visual rank 4 to displayed user-selection rank 1. If same-name
+printings remain without exact collector/total evidence, the UI explicitly
+labels **Printing unresolved** and remains a safe no-result.
+
+`node --test tests/scannerAi*.test.mjs` passed 51/51, covering candidate image
+metadata, resolver/fallback rendering hooks, exact-printing ordering, and the
+unresolved label. The rebuilt and installed APK is
+`artifacts/scanner-ai/reports/trained-float32-hybrid-webdebug-candidate-printing.apk`
+(65,852,869 bytes, SHA-256
+`09a39739e181992a367affe418c5458f2fd0dfe2f2888cc6e2ef3e87bbc08ef4`).
+Freeze:
+`artifacts/scanner-ai/reports/trained-float32-runtime-freeze-webdebug-candidate-printing.json`.
+All protected bindings matched the quality/guidance freeze field-for-field.
+
+### Kingdra retest steps
+
+1. Scan the Shrouded Fable full-art **Kingdra ex 80/64** in the scanner-AI
+   debug flow. Verify all three selectable candidates show an image, name,
+   set, collector/total, rank, and confidence context.
+2. Open Scanner Diagnostics and check OCR collector evidence contains `80/64`
+   (or normalized `80` and total `64`), candidate-pool mode is
+   `number-name-intersection`, and the expected card ID is present.
+3. Verify `shrouded-fable-80-kingdra-ex` is the first displayed candidate when
+   the exact collector/total is present, even if another Kingdra has a higher
+   visual score. It must still require Select Card then Confirm Card.
+4. Cover or blur the collector number and rescan. Verify the result says
+   **Printing unresolved**, shows the best same-name candidates with images,
+   and does not auto-confirm.
+5. Temporarily use a network-blocked/debug image failure if available. Verify
+   the explicit image placeholder appears while Select Card still works.
+
+## 2026-07-15 — Pixel 6a primary development corpus and sideways-orientation gate
+
+Correction: the manually tested full-art Kingdra was **XY Fates Collide
+Kingdra-EX 122/124** (`xy10-122-kingdra-ex`), not Shrouded Fable Kingdra ex.
+The older Shrouded Fable statement above is superseded and must not be used as
+ground truth for future evaluation.
+
+The primary scanner development corpus is now the 39 original Pixel 6a camera
+files in `artifacts/scanner-ai/reports/manual-photos-20260715/input`. They are
+evaluation-only inputs; none were used for training, augmentation, catalog
+embedding generation, index rebuilding, calibration, or policy selection.
+`development-manifest.json` records 37 evidence-backed exact PackDex labels.
+The two McDonald's 2022 Flaaffy 9/15 captures remain review-required because
+that exact printing is absent from the frozen catalog; they were not guessed or
+counted in exact-printing accuracy.
+
+The first complete frozen run exposed a bounded scanner defect: sideways
+gallery captures reached boundary detection, OCR, and embedding sideways. The
+scanner now runs only for landscape gallery input two portrait quarter-turn
+probes (90 and 270 degrees), each bounded to 650 ms. It chooses with OCR text
+and card-layout evidence only—never embedding similarity—then sends the chosen
+upright pixels through the unchanged boundary-first / centered-fallback crop
+path. Portrait camera-preview behavior is unchanged. Orientation diagnostics
+now record the selected turn and probe scores along with the existing exported
+upright, crop, OCR, and 224×224 native model-input images.
+
+On the 37 labelled cards, exact top-1 rose from 18/37 (48.6%) to 19/37
+(51.4%) and exact top-3 from 20/37 (54.1%) to 23/37 (62.2%). Mean latency was
+1,108.3 ms versus 1,039.6 ms; worst latency improved from 2,467 ms to 2,330
+ms. This is a scanner-only gain without changing the frozen model, index,
+catalog, calibration, thresholds, or confirmation policy. The remaining
+failures are chiefly collector-number OCR loss on foil/full-art cards (18),
+with foil/full-art present in 10 failed cases and full-catalog visual ambiguity
+in 8 (categories overlap). The next evidence-bounded direction is a targeted
+bottom-right collector-number OCR pass on the already selected crop; do not
+change the model or safety policy unless that pass improves this corpus without
+normal-card regression.
+
+Final reports: `artifacts/scanner-ai/reports/manual-photos-20260715/development-benchmark-report.md`,
+`development-benchmark-report.json`, and `development-manifest.json`.
+The installed debug APK is
+`artifacts/scanner-ai/reports/trained-float32-hybrid-webdebug-orientation-corpus.apk`
+(SHA-256 `2b53fa99c9b5d8225f8e767e1f7cda5dd66f3ec0452eb3bf428f1bda67b6efcf`),
+with freeze `trained-float32-runtime-freeze-webdebug-orientation-corpus.json`.
+Every protected model/index/catalog/calibration/threshold/policy binding matched
+the candidate-printing freeze; only runtime source and APK hashes changed.
+
+## 2026-07-15 — OCR 2.0 collector-region preprocessing gate (rejected)
+
+Four independent collector-region treatments were evaluated on the 37 labelled
+Pixel development scans: local contrast, highlight suppression, shadow
+recovery, and saturation reduction. They were evaluation-only and applied only
+to the existing collector-bottom/edge OCR regions; name, HP, attack, stage,
+model, index, crop, fusion, and policy paths were untouched. No OCR confidence
+is emitted by the bundled ML Kit bridge, so recovered exact collector number,
+false reads, false narrowing, rank, and latency were measured from the scanner
+diagnostics instead.
+
+The frozen baseline recovered the exact collector number in 19/37 (51.4%),
+with top-1/top-3 19/37 and 23/37 at 1,108 ms mean latency. All variants
+regressed: local contrast 5/37 collector recovery and 13/37 top-1; highlight
+suppression 6/37 and 17/37; shadow recovery 9/37 and 16/37; saturation
+reduction 6/37 and 12/37. The foil/full-art subset was not materially improved
+(baseline 2/12 exact collector, 2/12 top-1, 4/12 top-3; best variant only
+3/12, 3/12, 5/12 while normal cards regressed). False collector reads increased
+or remained nonzero (baseline 7; variants 7–11) and false narrowing increased
+(baseline 6; variants 7–10). Therefore every experiment was removed; no OCR
+2.0 preprocessing change is retained.
+
+The dominant remaining limitation is not a missing global contrast filter. It
+is localized bottom-right collector text under foil texture/reflection and,
+in some cases, catalog absence (McDonald's 2022 Flaaffy 9/15). Future work
+should first validate a genuinely separate, tightly bounded collector-number
+region capture/recognizer that exposes confidence; do not reuse or stack the
+rejected canvas filters. The prior orientation APK was reinstalled unchanged
+(SHA-256 `2b53fa99c9b5d8225f8e767e1f7cda5dd66f3ec0452eb3bf428f1bda67b6efcf`).
+
+## 2026-07-15 — confidence-bearing collector recognizer feasibility gate (blocked safely)
+
+The requested separate bottom-right collector recognizer was investigated
+without changing the installed orientation build. The bundled Android stack is
+`com.google.mlkit:text-recognition:16.0.1` through
+`@pantrist/capacitor-plugin-ml-kit-text-recognition`. Its native bridge returns
+only text, bounds, corner points, and recognized language for blocks, lines,
+and elements. ML Kit's Latin text-recognition API and this bridge expose no
+per-result confidence value, so a confidence-bearing collector read cannot be
+implemented from the currently bundled dependency.
+
+The realistic alternatives are: (1) a new on-device OCR engine such as
+Tesseract with its own language/model assets and word confidences, (2) a
+cloud/document OCR service with confidence output, or (3) a custom text
+recognizer/detector model. Option 1 is a material new native dependency and
+requires a separate performance/privacy/accuracy gate; option 2 violates the
+offline scanner requirement and would send card imagery externally; option 3
+requires a model lifecycle outside the frozen scanner scope. None was silently
+added. A geometry/consensus heuristic over repeated ML Kit calls would be a
+derived score, not recognizer confidence, and was deliberately not presented
+as one.
+
+Accordingly this experiment stops before code changes. The installed APK
+remains the frozen orientation build (SHA-256
+`2b53fa99c9b5d8225f8e767e1f7cda5dd66f3ec0452eb3bf428f1bda67b6efcf`),
+with model/index/calibration/thresholds/confirmation policy and normal OCR
+unchanged. The next smallest safe decision is whether to authorize a separate
+on-device, confidence-reporting OCR dependency for a narrowly scoped
+collector-region prototype; until then the baseline ML Kit collector OCR is
+the only defensible path.
+
+## 2026-07-15 — region-level local-descriptor reranking gate (rejected)
+
+An isolated scanner-side experiment tested the existing local visual-descriptor
+cache only after an OCR-narrowed same-canonical-name candidate pool. It scored
+the already rectified camera crop against the existing catalog descriptors for
+title/header, artwork, lower body, and whole-card layout. The original frozen
+embedding score was retained. Region scores were presentation-only: fusion,
+thresholds, the confirmation decision, and `primaryMatch` were calculated
+first and could not be changed by this experiment. Top/artwork scores were
+suppressed when the existing glare signal identified a top-region reflection.
+
+The labelled 37-photo Pixel corpus was run twice on a temporary arm64 debug
+build. The corrected gate activated for seven narrowed same-name pools. It
+added 9.4–19.3 ms per activated scan (mean 13.9 ms), but changed **no**
+candidate order or exact-card rank. Overall exact top-1/top-3 remained
+19/37 and 23/37. The foil/full-art subset remained 2/12 top-1 and 4/12 top-3.
+Mean latency increased from 1,108.3 ms to 1,117.9 ms, and worst latency from
+2,330 ms to 2,428 ms (foil/full-art mean/worst: 1,259.1/1,558 ms to
+1,273.0/1,696 ms). There were no false reranking events only because no
+ranking changed; that is not a material benefit.
+
+The useful signal was the original global embedding score. Region hashes were
+not independently discriminative in the small eligible sample: whole-card
+layout and title/header agreed with existing correct winners, while isolated
+artwork and lower text were less stable; no glare-triggered corpus image
+opened the glare gate, so glare-region suppression remains unvalidated on this
+corpus. XY Fates Collide Kingdra-EX 122/124 is not among the 37 labelled Pixel
+photos, so its before/after rank is not measurable under this corpus-only
+protocol; it was not inferred from older fixtures.
+
+The experiment code and runner flag were removed. The Pixel 6a is restored to
+the frozen orientation APK
+`trained-float32-hybrid-webdebug-orientation-corpus.apk`, verified installed
+at SHA-256 `2b53fa99c9b5d8225f8e767e1f7cda5dd66f3ec0452eb3bf428f1bda67b6efcf`.
+The temporary freeze matched the orientation baseline for config, model,
+embedding index/vector/catalog, calibration report/query bindings, thresholds,
+and confirmation policy. All 52 scanner-AI tests pass. No model, embedding,
+catalog index, calibration, fusion weight, crop, orientation, OCR, or user UX
+behavior is retained from this rejected experiment.
+
+The dominant remaining bottleneck is still missing/incorrect collector-number
+evidence on foil/full-art scans. Region-level hashes cannot recover an exact
+printing when the correct card is absent from the narrowed pool; any next
+experiment must improve safe collector evidence rather than retune visual
+ranking.

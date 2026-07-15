@@ -29,15 +29,29 @@ test("scanner-AI screen preload skips the production OCR adapter network prewarm
 
 test("scanner-AI quality diagnostics and OCR budget preserve safe progressive results", async () => {
   const runtime = await readFile(new URL("../mobile-app/src/lib/aiScannerPoc.js", import.meta.url), "utf8");
-  assert.match(runtime, /cropAreaFraction/);
-  assert.match(runtime, /sharpnessEstimate/);
-  assert.match(runtime, /meanLuminance/);
-  assert.match(runtime, /glareFraction/);
-  assert.match(runtime, /topGlareFraction/);
+  const quality = await readFile(new URL("../mobile-app/src/lib/aiScannerQuality.js", import.meta.url), "utf8");
+  assert.match(runtime, /measureAiCanvasQuality/);
+  assert.match(quality, /cropAreaFraction/);
+  assert.match(quality, /sharpnessEstimate/);
+  assert.match(quality, /meanLuminance/);
+  assert.match(quality, /clippedFraction/);
+  assert.match(quality, /largestHighlightFraction/);
+  assert.match(quality, /highlightBoundaryContrast/);
   assert.match(runtime, /glareWarning/);
   assert.match(runtime, /OCR_BUDGET_MS = 3_000/);
   assert.match(runtime, /ocr-budget-exhausted/);
   assert.match(runtime, /progressiveResult: Boolean\(ocr\.timedOut\)/);
+});
+
+test("scanner-AI corrects sideways gallery scans with bounded OCR/layout evidence before crop and embedding", async () => {
+  const runtime = await readFile(new URL("../mobile-app/src/lib/aiScannerPoc.js", import.meta.url), "utf8");
+  const preparation = await readFile(new URL("../src/lib/cardScanner/prepareCardImage.js", import.meta.url), "utf8");
+  assert.match(runtime, /selectLandscapeOrientation/);
+  assert.match(runtime, /\[90, 270\]/);
+  assert.match(runtime, /ORIENTATION_OCR_BUDGET_MS = 650/);
+  assert.match(runtime, /Selection uses bounded OCR\/card-layout evidence, never visual similarity/);
+  assert.match(preparation, /normalizeOrientation/);
+  assert.ok(preparation.indexOf("normalizeOrientation(fullCanvas)") < preparation.indexOf("rectify({ outlineCanvas"));
 });
 
 test("scanner-AI native runtime uses the isolated raw LiteRT interpreter and public WebView index assets", async () => {

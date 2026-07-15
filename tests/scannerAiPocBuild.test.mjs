@@ -12,7 +12,8 @@ test("dedicated scanner AI POC bundle is scanner-test-only and excludes Pixel ho
   assert.ok(files.length > 0, "Build mobile-app with build:native:scanner:ai before running this test");
   const bundle = `${emittedFiles.join("\n")}\n${(await Promise.all(files.map((file) => readFile(new URL(file, assetsUrl), "utf8")))).join("\n")}`;
   assert.match(bundle, /\/mobile-app\/dev\/card-scanner/);
-  assert.match(bundle, /Run AI POC Status/);
+  assert.match(bundle, /Try Scanner-AI Photo/);
+  assert.match(bundle, /quality guidance is evaluated after capture/);
   assert.match(bundle, /scanner-ai-poc/);
   assert.match(bundle, /__PACKDEX_RUN_AI_SCANNER_FILE__/);
   assert.match(bundle, /catalog-embeddings\.meta\.json/);

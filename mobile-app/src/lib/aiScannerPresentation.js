@@ -1,17 +1,31 @@
 const MAX_USER_CANDIDATES = 3;
 
+function exactPrinting(candidate) { return Boolean(candidate?.evidence?.exactCollector && candidate?.evidence?.printedTotal); }
+function printingName(candidate) { return String(candidate?.name || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim(); }
+
+export function getAiUserCandidates(scan) {
+  return [...(scan?.result?.results || [])]
+    // This only changes the selectable presentation order. Fusion confidence,
+    // similarity, and automatic-confirmation policy remain frozen.
+    .sort((left, right) => Number(exactPrinting(right)) - Number(exactPrinting(left)) || right.score - left.score)
+    .slice(0, MAX_USER_CANDIDATES)
+    .map((candidate, index) => ({ ...candidate, displayRank: index + 1 }));
+}
+
 export function getAiScanPresentation(scan) {
-  const candidates = (scan?.result?.results || []).slice(0, MAX_USER_CANDIDATES).map((candidate, index) => ({
+  const candidates = getAiUserCandidates(scan).map((candidate, index) => ({
     ...candidate,
     margin: index === 0 ? (scan?.result?.diagnostics?.fusedGap ?? null) : null,
   }));
+  const sameNamePrintings = new Set(candidates.map(printingName)).size === 1 && candidates.length > 1;
+  const printingUnresolved = Boolean(scan?.result?.safeNoResult && sameNamePrintings && !candidates.some(exactPrinting));
   if (scan?.result?.confirmedCardId) {
-    return { kind: "high", title: "High-confidence match", candidates };
+    return { kind: "high", title: "High-confidence match", candidates, printingUnresolved };
   }
   if (candidates.length) {
-    return { kind: "possible", title: "Possible matches", candidates };
+    return { kind: "possible", title: "Possible matches", candidates, printingUnresolved };
   }
-  return { kind: "none", title: "No reliable match", candidates: [] };
+  return { kind: "none", title: "No reliable match", candidates: [], printingUnresolved: false };
 }
 
 export function getAiQualityGuidance(quality = {}) {
