@@ -1,7 +1,9 @@
 const viteEnv = import.meta.env || {};
 
 export const ASSET_BASE_URL = viteEnv.VITE_ASSET_BASE_URL || "https://assets.pack-dex.com";
-export const SET_ASSET_BASE_URL = viteEnv.VITE_SET_ASSET_BASE_URL || `${ASSET_BASE_URL}/assets/sets`;
+// The asset origin serves card art from /sets. /assets/sets is only the
+// mirrored path on the main site and returns 404 from assets.pack-dex.com.
+export const SET_ASSET_BASE_URL = viteEnv.VITE_SET_ASSET_BASE_URL || `${ASSET_BASE_URL}/sets`;
 
 function isAbsoluteUrl(path) {
   return /^https?:\/\//i.test(String(path || ""));
