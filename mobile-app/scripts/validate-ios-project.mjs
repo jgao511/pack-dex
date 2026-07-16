@@ -16,14 +16,27 @@ async function sha256(relative, root = repositoryRoot) {
   return createHash("sha256").update(await readFile(new URL(relative, root))).digest("hex");
 }
 
+function pngMetadata(buffer) {
+  assert.deepEqual([...buffer.subarray(0, 8)], [137, 80, 78, 71, 13, 10, 26, 10], "Invalid PNG signature");
+  assert.equal(buffer.toString("ascii", 12, 16), "IHDR", "PNG must begin with IHDR");
+  return {
+    width: buffer.readUInt32BE(16),
+    height: buffer.readUInt32BE(20),
+    colorType: buffer[25],
+  };
+}
+
 export async function validateIosProject() {
-  const [info, project, packageSwift, privacy, config, nativeIndex] = await Promise.all([
+  const [info, project, packageSwift, privacy, config, nativeIndex, appIconContents, appIcon, launchScreen] = await Promise.all([
     text("ios/App/App/Info.plist"),
     text("ios/App/App.xcodeproj/project.pbxproj"),
     text("ios/App/CapApp-SPM/Package.swift"),
     text("ios/App/App/PrivacyInfo.xcprivacy"),
     text("capacitor.config.json"),
     text("ios/App/App/public/index.html"),
+    text("ios/App/App/Assets.xcassets/AppIcon.appiconset/Contents.json"),
+    readFile(new URL("ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-512@2x.png", mobileRoot)),
+    text("ios/App/App/Base.lproj/LaunchScreen.storyboard"),
   ]);
 
   assert.match(info, /<key>CFBundleDisplayName<\/key>\s*<string>PackDex<\/string>/);
@@ -46,6 +59,12 @@ export async function validateIosProject() {
   assert.match(privacy, /<key>NSPrivacyTracking<\/key>\s*<false\/>/);
   assert.doesNotMatch(config, /localhost|127\.0\.0\.1|server\s*:/i);
   assert.doesNotMatch(nativeIndex, /https?:\/\/localhost|https?:\/\/127\.0\.0\.1/i);
+  assert.match(project, /ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;/);
+  assert.match(appIconContents, /AppIcon-512@2x\.png/);
+  assert.deepEqual(pngMetadata(appIcon), { width: 1024, height: 1024, colorType: 2 });
+  assert.match(launchScreen, /text="PackDex"/);
+  assert.doesNotMatch(launchScreen, /Capacitor|Splash|image name=/i);
+  await assert.rejects(access(new URL("ios/App/App/Assets.xcassets/Splash.imageset", mobileRoot)));
 
   assert.equal(await sha256("public/scanner-ai/frozen-a-62f2ff60.tflite"), modelHash);
   assert.equal(await sha256("public/scanner-ai/catalog-embeddings-a851d797.f16"), indexHash);

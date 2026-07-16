@@ -388,7 +388,7 @@ function LegalPage({ type }) {
 
   return (
     <section className="legal-screen">
-      <img className="site-logo" src="/packdex-small.png" alt="PackDex" />
+      <img className="site-logo" src="/packdex-icon-192.png" alt="PackDex" />
       <span className="set-mark">{isPrivacy ? "Privacy" : "Terms"}</span>
       <h1>{isPrivacy ? "Privacy Policy" : "Terms of Service"}</h1>
       <p className="legal-effective-date">Effective Date: June 1, 2026</p>
@@ -633,7 +633,7 @@ function ResetPasswordPage() {
 
   return (
     <section className="reset-password-screen">
-      <img className="site-logo" src="/packdex-small.png" alt="PackDex" />
+      <img className="site-logo" src="/packdex-icon-192.png" alt="PackDex" />
       <span className="set-mark">Account</span>
       <h1>Reset Password</h1>
       <p>Choose a new password for your PackDex account.</p>
@@ -746,7 +746,7 @@ function AuthCallbackPage() {
 
   return (
     <section className="auth-callback-screen">
-      <img className="site-logo" src="/packdex-small.png" alt="PackDex" />
+      <img className="site-logo" src="/packdex-icon-192.png" alt="PackDex" />
       <span className="set-mark">Account</span>
       <h1>Email Confirmation</h1>
       {status && <div className="auth-message">{status}</div>}
@@ -1943,7 +1943,7 @@ function SiteFooter() {
   return (
     <footer className="site-footer">
       <div className="site-footer__brand">
-        <img src="/packdex-small.png" alt="" />
+        <img src="/packdex-icon-192.png" alt="" />
         <span>PackDex</span>
       </div>
       <nav className="site-footer__social" aria-label="PackDex social links">
@@ -2961,7 +2961,7 @@ function App() {
     <main className={`app-shell ${isPackFlow ? "is-pack-flow" : ""}`.trim()}>
       <header className="site-header">
         <div className="site-brand">
-          <img className="site-brand__icon" src="/packdex-small.png" alt="" />
+          <img className="site-brand__icon" src="/packdex-icon-192.png" alt="" />
           <span>PackDex</span>
         </div>
         {!isPackFlow && (

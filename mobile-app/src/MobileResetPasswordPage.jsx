@@ -117,7 +117,7 @@ export default function MobileResetPasswordPage({ supabase }) {
       <section className="phone-shell" aria-label="Reset PackDex mobile password">
         <div className="screen-content auth-callback-mobile-screen">
           <header className="mobile-brand-header" aria-label="PackDex mobile app">
-            <img src="/packdex-small.png" alt="" />
+            <img src="/packdex-icon-192.png" alt="" />
             <span className="mobile-wordmark">
               <span>Pack</span>
               <span>Dex</span>

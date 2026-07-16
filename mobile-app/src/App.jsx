@@ -1114,7 +1114,7 @@ function TabIcon({ icon }) {
 function MobileBrandHeader() {
   return (
     <header className="mobile-brand-header" aria-label="PackDex mobile app">
-      <img src="/packdex-small.png" alt="" />
+      <img src="/packdex-icon-192.png" alt="" />
       <span className="mobile-wordmark">
         <span>Pack</span>
         <span>Dex</span>
@@ -3992,5 +3992,4 @@ function App() {
 }
 
 export default App;
-
 

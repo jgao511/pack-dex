@@ -72,13 +72,13 @@ Mac/device testing must verify signup, confirmation, login, logout, forgot-passw
 
 The existing mobile CSS already uses `env(safe-area-inset-top)` and `env(safe-area-inset-bottom)` for the shell, bottom navigation, scanner, modals, and fixed controls. No global Android/browser spacing was changed. The iOS launch screen is a dark, flat PackDex wordmark treatment without a gradient or stretched image.
 
-The generated AppIcon remains a Capacitor placeholder. The repository has branded images only up to 512×512, including pre-rounded/translucent assets, and does not contain a suitable final 1024×1024 opaque square App Store icon. Provide a brand-approved 1024×1024 source with no transparency, pre-rounded corners, gradient, or yellow treatment before TestFlight. It was not silently upscaled.
+The active AppIcon is the final PackDex 1024×1024 opaque master at `assets/branding/source/packdex-icon-master-1024.png`; the iOS marketing icon is an exact copy of that master. The generated Capacitor placeholder and unused splash asset catalog were removed. A Mac/Xcode build remains necessary to inspect the rendered icon under Apple’s system mask before TestFlight.
 
 ## App Store readiness priorities
 
 ### Must fix before TestFlight
 
-- Replace the placeholder AppIcon with the required brand-approved 1024×1024 opaque source.
+- On a Mac with a current supported Xcode, inspect the rendered PackDex AppIcon under Apple’s system mask before TestFlight.
 - On a Mac with a current supported Xcode, resolve Swift packages, select the owner’s Apple Developer team, build Debug and Release, and fix any Xcode warnings/errors.
 - Test the complete installed app on a physical iPhone, especially WebKit camera permission/getUserMedia, photo picker, WASM/worker loading, offline scanner startup, memory pressure, camera stop/restart, auth, keyboard, links, and safe areas.
 - Verify the production Vite environment is present before native sync and contains the intended Supabase/Turnstile/CDN public values.

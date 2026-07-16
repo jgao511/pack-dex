@@ -11,7 +11,7 @@ function ShareCardImage({ card, className = "" }) {
 }
 
 function ShareBrand() {
-  return <div className="public-share-brand"><img src="/packdex-small.png" alt="" /><strong><span>Pack</span>Dex</strong></div>;
+  return <div className="public-share-brand"><img src="/packdex-icon-192.png" alt="" /><strong><span>Pack</span>Dex</strong></div>;
 }
 
 export default function PublicPullSharePage({ shareCode }) {
