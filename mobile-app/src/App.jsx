@@ -3589,7 +3589,7 @@ function MobileApp() {
       return getCardDisplayPrice(card, priceMap, set.id);
     } catch (error) {
       console.warn("[PackDex prices] Unable to load scanner card prices", { setId: set.id, setName: set.name, error });
-      return null;
+      throw error;
     }
   }
 

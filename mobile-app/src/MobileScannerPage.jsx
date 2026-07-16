@@ -33,18 +33,21 @@ export function ScannerConfirmedResult({ confirmed, marketPrice, priceState, sav
     cardNumber: confirmed.card?.number,
   });
   const hasMarketPrice = priceState === "available" && Number(marketPrice?.marketPriceUsd) > 0;
+  const isPriceLoading = priceState === "loading";
+  const showPricePanel = isPriceLoading || hasMarketPrice || Boolean(tcgplayerCardUrl);
 
   return <section className="scanner-beta-confirmed" aria-live="polite" data-card-id={confirmed.cardId}>
     <img src={getCardImageUrl(confirmed.card)} alt={confirmed.card?.name || "Confirmed card"} />
     <div className="scanner-beta-confirmed-copy">
-      <span className="scanner-beta-confirmed-label">Match selected by you</span>
       <h2>{confirmed.card?.name}</h2>
       <p>{confirmed.setName}{confirmed.card?.number ? ` · #${confirmed.card.number}` : ""}</p>
-      {hasMarketPrice && <section className="scanner-beta-price" aria-label="Market price">
-        <span>Market Price</span>
-        <strong>{formatUsd(marketPrice.marketPriceUsd)}</strong>
+      {showPricePanel && <section className={`scanner-beta-price ${hasMarketPrice || isPriceLoading ? "" : "is-link-only"}`} aria-label={isPriceLoading ? "Market price loading" : hasMarketPrice ? "Market price" : "TCGplayer price link"} aria-busy={isPriceLoading || undefined} data-price-state={priceState}>
+        {(hasMarketPrice || isPriceLoading) && <>
+          <span className="scanner-beta-price-label">Market Price</span>
+          {isPriceLoading ? <span className="scanner-beta-price-loading"><span className="scanner-beta-price-spinner" aria-hidden="true" /><span>Loading price</span></span> : <strong>{formatUsd(marketPrice.marketPriceUsd)}</strong>}
+        </>}
+        {tcgplayerCardUrl && <a className="scanner-beta-tcgplayer-link" href={tcgplayerCardUrl} target="_blank" rel="noopener noreferrer">View on TCGplayer</a>}
       </section>}
-      {tcgplayerCardUrl && <a className="scanner-beta-tcgplayer-link" href={tcgplayerCardUrl} target="_blank" rel="noopener noreferrer">View on TCGplayer</a>}
       <div className="scanner-beta-actions">
         <button className="primary-action" type="button" disabled={saving === "collection"} onClick={() => onSave("collection")}>{saving === "collection" ? "Adding..." : "Add to Collection"}</button>
         <button className="secondary-action" type="button" disabled={saving === "wishlist"} onClick={() => onSave("wishlist")}>{saving === "wishlist" ? "Saving..." : "Add to Wishlist"}</button>
@@ -188,8 +191,8 @@ export default function MobileScannerPage({ onAddToCollection, onAddToWishlist, 
 
     setConfirmed(selected); setMarketPrice(null); setPriceState("loading"); setError(""); setStage("confirmed");
     void Promise.resolve(onLoadCardPrice?.(selected.card, { id: selected.setId, name: selected.setName }))
-      .then((nextPrice) => { if (mountedRef.current) { setMarketPrice(nextPrice || null); setPriceState(nextPrice ? "available" : "unavailable"); } })
-      .catch(() => { if (mountedRef.current) setPriceState("unavailable"); });
+      .then((nextPrice) => { if (mountedRef.current) { setMarketPrice(nextPrice || null); setPriceState(Number(nextPrice?.marketPriceUsd) > 0 ? "available" : "no-price"); } })
+      .catch(() => { if (mountedRef.current) { setMarketPrice(null); setPriceState("error"); } });
   }
   async function save(kind) { if (!confirmed || saveRef.current) return; saveRef.current = true; setSaving(kind); try { if (kind === "collection") await onAddToCollection?.(confirmed); else await onAddToWishlist?.(confirmed); } finally { saveRef.current = false; if (mountedRef.current) setSaving(""); } }
 
