@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { getCardImageUrl } from "../../src/utils/assetUrls.js";
 import { captureCardImage } from "../../src/lib/cardScanner/captureCardImage.js";
 import { selectScannerResult } from "../../src/lib/cardScanner/fuseCardMatches.js";
+import { decideScannerAcceptance, SCANNER_ACCEPTANCE_MODES } from "../../src/lib/cardScanner/scannerAcceptancePolicy.js";
 import { recognizeCardText } from "../../src/lib/cardScanner/recognizeCardText.js";
 import { confirmTrustedCandidate, releaseTemporaryImage } from "../../src/lib/cardScanner/scannerSession.js";
 import { formatUsd } from "../../src/lib/cardPrices.js";
@@ -31,7 +32,7 @@ function markTipsSeen() { try { localStorage.setItem(TIPS_STORAGE_KEY, "1"); } c
 
 function ScannerCandidate({ candidate, isSelected, onSelect }) {
   const fallback = (event) => { event.currentTarget.onerror = null; event.currentTarget.src = "/card-back.png"; };
-  return <button className={`scanner-beta-candidate ${isSelected ? "is-selected" : ""}`} type="button" onClick={() => onSelect(candidate.cardId)}><img src={getCardImageUrl(candidate.card)} alt="" onError={fallback} /><span><strong>{candidate.card?.name || "Unknown card"}</strong><small>{candidate.setName}</small>{candidate.card?.number && <small>#{candidate.card.number}</small>}</span></button>;
+  return <button className={`scanner-beta-candidate ${isSelected ? "is-selected" : ""}`} data-card-id={candidate.cardId} type="button" onClick={() => onSelect(candidate.cardId)}><img src={getCardImageUrl(candidate.card)} alt="" onError={fallback} /><span><strong>{candidate.card?.name || "Unknown card"}</strong><small>{candidate.setName}</small>{candidate.card?.number && <small>#{candidate.card.number}</small>}</span></button>;
 }
 
 function ScannerTips({ onStart, onClose }) {
@@ -214,11 +215,14 @@ export default function MobileScannerPage({ authState, authUserId, onRequireAuth
     try {
       const recognized = browser ? await recognizeBrowserImage(image) : await recognizeCardText(image, { adapter: nativeOcrRef.current });
       const fused = selectScannerResult(recognized);
-      scannerEvidenceDebug(recognized, fused);
-      scannerDebug("analysis-complete", { adapter: browser ? "browser-production-visual" : "nativeOcrAdapter", totalMs: performance.now() - started, rawOcrCandidates: recognized.ocrMatch?.results?.length || 0, rawVisualCandidates: recognized.visualMatch?.lightweight?.candidates?.length || 0, normalizedCandidates: fused?.results?.length || 0, scannerTiming: recognized.scannerTiming || null });
+      const policyStarted = performance.now();
+      const decision = decideScannerAcceptance(recognized, fused);
+      const policyMs = performance.now() - policyStarted;
+      scannerEvidenceDebug(recognized, decision.match);
+      scannerDebug("analysis-complete", { adapter: browser ? "browser-production-visual" : "nativeOcrAdapter", totalMs: performance.now() - started, policyMs, acceptanceMode: decision.mode, rawOcrCandidates: recognized.ocrMatch?.results?.length || 0, rawVisualCandidates: recognized.visualMatch?.lightweight?.candidates?.length || 0, normalizedCandidates: decision.match.results.length, scannerTiming: recognized.scannerTiming || null });
       if (analysis !== analysisRef.current) return;
-      if (!fused?.results?.length) { setStage("no-match"); return; }
-      setMatch(fused); setSelectedCardId(fused.primaryMatch?.cardId || fused.results[0].cardId); setStage("candidates");
+      if (decision.mode === SCANNER_ACCEPTANCE_MODES.NO_MATCH) { setStage("no-match"); return; }
+      setMatch(decision.match); setSelectedCardId(decision.match.results[0].cardId); setStage("candidates");
     } catch (scanError) {
       if (analysis !== analysisRef.current) return;
       setError("We couldn't process that photo. Please try again or choose a photo."); setStage("processing-error");
@@ -292,9 +296,9 @@ export default function MobileScannerPage({ authState, authUserId, onRequireAuth
     {showTips && <ScannerTips onStart={beginScanning} onClose={closeTips} />}
     {stage === "camera" && <section className="scanner-beta-camera" aria-label="Live card camera"><div className="scanner-beta-camera-host" ref={nativePreviewRef}>{!usesAndroidNativeScanner() && <video ref={videoRef} muted playsInline autoPlay /> }<div className="scanner-beta-frame" aria-hidden="true"><span /></div></div>{runtimeState === "loading" && <p className="scanner-beta-preparing" role="status">Preparing scanner…</p>}<div className="scanner-beta-camera-controls"><button className="scanner-beta-camera-action" type="button" disabled={captureBusy || runtimeState === "loading"} onClick={choosePhoto}>Choose Photo</button><button className="scanner-beta-shutter" type="button" aria-label="Capture card" disabled={!previewReady || captureBusy || runtimeState !== "ready"} onClick={capture}><span /></button><button className="scanner-beta-help" type="button" disabled={captureBusy} aria-label="Scanner tips" onClick={() => { void stopCamera(); setShowTips(true); }}>?</button></div></section>}
     {stage === "analyzing" && <section className="scanner-beta-state" aria-live="polite"><span className="scanner-spinner" aria-hidden="true" /><h2>Reading your card</h2><p>Looking for the best matches now.</p></section>}
-    {stage === "no-match" && <section className="scanner-beta-state"><h2>We couldn’t identify this card confidently.</h2><p>Keep the full card in view, reduce glare, and try again.</p><div className="scanner-beta-actions"><button className="primary-action" type="button" onClick={resetCamera}>Try Again</button><button className="secondary-action" type="button" onClick={choosePhoto}>Choose Photo</button><button className="secondary-action" type="button" onClick={onSearchManually}>Search Manually</button></div></section>}
+    {stage === "no-match" && <section className="scanner-beta-state"><h2>We couldn’t confidently identify your card.</h2><p>Make sure the front of one card fills the frame, reduce glare, and try again.</p><div className="scanner-beta-actions"><button className="primary-action" type="button" onClick={resetCamera}>Try Again</button><button className="secondary-action" type="button" onClick={choosePhoto}>Choose Photo</button><button className="secondary-action" type="button" onClick={onSearchManually}>Search Manually</button></div></section>}
     {stage === "processing-error" && <section className="scanner-beta-state"><h2>We couldn’t process that photo</h2><p>Please try again or choose a photo.</p><div className="scanner-beta-actions"><button className="primary-action" type="button" onClick={resetCamera}>Try Again</button><button className="secondary-action" type="button" onClick={choosePhoto}>Choose Photo</button><button className="secondary-action" type="button" onClick={onSearchManually}>Search Manually</button></div></section>}
-    {stage === "candidates" && <section className="scanner-beta-results" aria-live="polite"><h2>Choose the matching card</h2><p>Review the suggestions before you confirm.</p><div className="scanner-beta-candidates">{match.results.slice(0, 3).map((candidate) => <ScannerCandidate key={candidate.cardId} candidate={candidate} isSelected={selectedCardId === candidate.cardId} onSelect={setSelectedCardId} />)}</div><div className="scanner-beta-actions"><button className="primary-action" type="button" onClick={confirmSelection}>Confirm selected card</button><button className="secondary-action" type="button" onClick={resetCamera}>Scan Another</button></div></section>}
+    {stage === "candidates" && <section className="scanner-beta-results" aria-live="polite"><h2>{match.acceptanceMode === SCANNER_ACCEPTANCE_MODES.SINGLE ? "Card identified" : "Choose the matching card"}</h2><p>Review {match.results.length === 1 ? "the card" : "the suggestions"} before you confirm.</p><div className="scanner-beta-candidates">{match.results.slice(0, 3).map((candidate) => <ScannerCandidate key={candidate.cardId} candidate={candidate} isSelected={selectedCardId === candidate.cardId} onSelect={setSelectedCardId} />)}</div><div className="scanner-beta-actions"><button className="primary-action" type="button" onClick={confirmSelection}>Confirm selected card</button><button className="secondary-action" type="button" onClick={resetCamera}>Scan Another</button></div></section>}
     {stage === "confirmed" && confirmed && <ScannerConfirmedResult confirmed={confirmed} marketPrice={marketPrice} priceState={priceState} collectionActionState={collectionActionState} wishlistActionState={wishlistActionState} actionError={actionError} onCollectionAction={() => saveAction("collection")} onWishlistAction={() => saveAction("wishlist")} onScanAnother={resetCamera} />}
     {error && <p className="scanner-beta-error" role="alert">{error}</p>}
   </section>;

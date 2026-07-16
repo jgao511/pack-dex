@@ -105,3 +105,15 @@ test("scanner confirmation reuses the collection card-price lookup and TCGplayer
   assert.match(page, /getTcgplayerCardUrl\(/);
   assert.match(page, /exactUrl: marketPrice\?\.tcgplayerUrl/);
 });
+
+test("scanner acceptance modes render the safe no-match copy and still require confirmation", async () => {
+  const { page } = await readScannerPresentationSources();
+
+  assert.match(page, /We couldn’t confidently identify your card\./);
+  assert.match(page, /Make sure the front of one card fills the frame, reduce glare, and try again\./);
+  assert.match(page, /Card identified/);
+  assert.match(page, /Choose the matching card/);
+  assert.match(page, /data-card-id=\{candidate\.cardId\}/);
+  assert.match(page, /onClick=\{confirmSelection\}>Confirm selected card/);
+  assert.doesNotMatch(page, /decision\.mode[\s\S]{0,300}(?:saveAction|onCollectionAction|onWishlistAction)/);
+});

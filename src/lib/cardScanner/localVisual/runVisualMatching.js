@@ -182,6 +182,13 @@ export async function runVisualMatching(queryCanvas, ocrMatch, {
   try { orb = loaded.length ? await rerankWithOrb(queryCanvas, loaded) : { candidates: [], processingMs: 0 }; }
   finally { for (const item of loaded) item.release(); }
   const orbRoundTripMs = performance.now() - orbStarted;
+  const trustedCandidates = candidateIds.map((cardId) => byId.get(cardId)).filter(Boolean).map((entry) => ({
+    cardId: entry.cardId,
+    card: entry.card,
+    setId: entry.setId,
+    setName: entry.setName,
+    printedSetTotal: entry.printedSetTotal,
+  }));
   const sumTiming = (field) => candidateTimings.reduce((total, item) => total + (item[field] || 0), 0);
   return {
     runtime,
@@ -190,6 +197,7 @@ export async function runVisualMatching(queryCanvas, ocrMatch, {
     candidatePoolIds: shortlist.poolIds,
     candidatePool: shortlist.pool,
     candidateIds,
+    trustedCandidates,
     candidateImageFailures: failures,
     timing: {
       workerProbeMs,

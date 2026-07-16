@@ -201,7 +201,15 @@ export async function recognizeBrowserImage(image, { decodeImage = decodeBrowser
     const frozen = await frozenRecognizer(canvas, ocrMatch);
     let visualMatch;
     try { visualMatch = await visualMatcher(canvas, ocrMatch, { candidateLimit: 40, orbCandidateLimit: 20 }); } catch { visualMatch = null; }
-    return { text, blocks, ocrMatch, visualMatch, imageDiagnostics: prepared.boundaryDiagnostics || null, frozenA: frozen, fusedMatch: frozen.fusedMatch || fuseCardMatches(ocrMatch, visualMatch) };
+    return {
+      text, blocks, ocrMatch, visualMatch, frozenA: frozen,
+      fusedMatch: frozen.fusedMatch || fuseCardMatches(ocrMatch, visualMatch),
+      imageDiagnostics: {
+        preparedWidth: canvas.width,
+        preparedHeight: canvas.height,
+        boundary: prepared.boundaryDiagnostics || null,
+      },
+    };
   } finally {
     decoded.close();
   }
