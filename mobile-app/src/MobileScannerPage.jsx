@@ -25,7 +25,32 @@ function ScannerTips({ onStart, onClose }) {
   return <div className="scanner-beta-tips-overlay" role="presentation"><section className="scanner-beta-tips-modal" role="dialog" aria-modal="true" aria-labelledby="scanner-tips-title"><button className="scanner-beta-tips-close" type="button" aria-label="Close tips" onClick={onClose}>×</button><h2 id="scanner-tips-title">Tips for a better scan</h2><ul>{tips.map((tip) => <li key={tip}>{tip}</li>)}</ul><p>Foil and highly reflective cards may require another photo.</p><button className="primary-action" type="button" onClick={onStart}>Start Scanning</button></section></div>;
 }
 
-export function ScannerConfirmedResult({ confirmed, marketPrice, priceState, saving, onSave, onScanAnother }) {
+function scannerActionLabel(kind, state) {
+  const target = kind === "collection" ? "Collection" : "Wishlist";
+  if (state === "auth-required") return `Sign in to Add to ${target}`;
+  if (state === "saving") return "Adding…";
+  if (state === "success" || state === "already-added") return `Added to ${target}`;
+  return `Add to ${target}`;
+}
+
+function ScannerActionButton({ kind, state, onClick }) {
+  const isComplete = state === "success" || state === "already-added";
+  const isSaving = state === "saving";
+  return <button
+    className={`${kind === "collection" ? "primary-action" : "secondary-action"} ${isComplete ? "is-complete" : ""}`}
+    type="button"
+    disabled={isSaving || isComplete}
+    aria-busy={isSaving || undefined}
+    onClick={onClick}
+  >
+    <span className="scanner-beta-action-button-content">
+      {isSaving && <span className="scanner-beta-action-spinner" aria-hidden="true" />}
+      <span>{scannerActionLabel(kind, state)}</span>
+    </span>
+  </button>;
+}
+
+export function ScannerConfirmedResult({ confirmed, marketPrice, priceState, collectionActionState, wishlistActionState, actionError, onCollectionAction, onWishlistAction, onScanAnother }) {
   const tcgplayerCardUrl = getTcgplayerCardUrl({
     exactUrl: marketPrice?.tcgplayerUrl,
     cardName: confirmed.card?.name,
@@ -49,19 +74,22 @@ export function ScannerConfirmedResult({ confirmed, marketPrice, priceState, sav
         {tcgplayerCardUrl && <a className="scanner-beta-tcgplayer-link" href={tcgplayerCardUrl} target="_blank" rel="noopener noreferrer">View on TCGplayer</a>}
       </section>}
       <div className="scanner-beta-actions">
-        <button className="primary-action" type="button" disabled={saving === "collection"} onClick={() => onSave("collection")}>{saving === "collection" ? "Adding..." : "Add to Collection"}</button>
-        <button className="secondary-action" type="button" disabled={saving === "wishlist"} onClick={() => onSave("wishlist")}>{saving === "wishlist" ? "Saving..." : "Add to Wishlist"}</button>
-        <button className="text-action" type="button" onClick={onScanAnother}>Scan Another</button>
+        <ScannerActionButton kind="collection" state={collectionActionState} onClick={onCollectionAction} />
+        <ScannerActionButton kind="wishlist" state={wishlistActionState} onClick={onWishlistAction} />
+        {actionError && <p className="scanner-beta-action-error" role="alert">{actionError}</p>}
+        <button className="text-action" type="button" disabled={collectionActionState === "saving" || wishlistActionState === "saving"} onClick={onScanAnother}>Scan Another</button>
       </div>
     </div>
   </section>;
 }
 
-export default function MobileScannerPage({ onAddToCollection, onAddToWishlist, onSearchManually, onLoadCardPrice }) {
+export default function MobileScannerPage({ authState, authUserId, onRequireAuth, onAddToCollection, onAddToWishlist, onLoadActionState, onSearchManually, onLoadCardPrice }) {
   const imageRef = useRef(null); const videoRef = useRef(null); const nativePreviewRef = useRef(null); const streamRef = useRef(null); const nativeAdapterRef = useRef(null); const nativeOcrRef = useRef(null);
-  const startingRef = useRef(null); const lifecycleRef = useRef(0); const mountedRef = useRef(true); const stageRef = useRef("camera"); const tipsRef = useRef(false); const analysisRef = useRef(0); const captureRef = useRef(false); const saveRef = useRef(false); const runtimeAttemptRef = useRef(0);
+  const startingRef = useRef(null); const lifecycleRef = useRef(0); const mountedRef = useRef(true); const stageRef = useRef("camera"); const tipsRef = useRef(false); const analysisRef = useRef(0); const captureRef = useRef(false); const runtimeAttemptRef = useRef(0);
+  const actionStateLoadRef = useRef(0); const collectionOperationRef = useRef(0); const wishlistOperationRef = useRef(0); const actionPendingRef = useRef({ collection: false, wishlist: false });
   const [stage, setStage] = useState("camera"); const [match, setMatch] = useState(null); const [selectedCardId, setSelectedCardId] = useState(""); const [confirmed, setConfirmed] = useState(null); const [error, setError] = useState("");
-  const [showTips, setShowTips] = useState(() => !haveSeenTips()); const [previewReady, setPreviewReady] = useState(false); const [saving, setSaving] = useState(""); const [marketPrice, setMarketPrice] = useState(null); const [priceState, setPriceState] = useState("idle"); const [captureBusy, setCaptureBusy] = useState(false); const [runtimeState, setRuntimeState] = useState("idle"); const [cameraEpoch, setCameraEpoch] = useState(0);
+  const [showTips, setShowTips] = useState(() => !haveSeenTips()); const [previewReady, setPreviewReady] = useState(false); const [marketPrice, setMarketPrice] = useState(null); const [priceState, setPriceState] = useState("idle"); const [captureBusy, setCaptureBusy] = useState(false); const [runtimeState, setRuntimeState] = useState("idle"); const [cameraEpoch, setCameraEpoch] = useState(0);
+  const [collectionActionState, setCollectionActionState] = useState("auth-required"); const [wishlistActionState, setWishlistActionState] = useState("auth-required"); const [actionError, setActionError] = useState("");
   stageRef.current = stage; tipsRef.current = showTips;
 
   const cameraShouldRun = () => mountedRef.current && stageRef.current === "camera" && !tipsRef.current && !document.hidden;
@@ -139,6 +167,31 @@ export default function MobileScannerPage({ onAddToCollection, onAddToWishlist, 
     });
     return () => { runtimeAttemptRef.current += 1; };
   }, [showTips, stage]);
+  useEffect(() => {
+    const load = ++actionStateLoadRef.current;
+    collectionOperationRef.current += 1; wishlistOperationRef.current += 1;
+    actionPendingRef.current = { collection: false, wishlist: false };
+    setActionError("");
+    if (!confirmed) {
+      setCollectionActionState(authState === "authenticated" ? "idle" : "auth-required");
+      setWishlistActionState(authState === "authenticated" ? "idle" : "auth-required");
+      return undefined;
+    }
+    if (authState !== "authenticated" || !authUserId) {
+      setCollectionActionState("auth-required"); setWishlistActionState("auth-required");
+      return undefined;
+    }
+
+    setCollectionActionState("idle"); setWishlistActionState("idle");
+    void Promise.resolve(onLoadActionState?.(confirmed)).then((nextState) => {
+      if (!mountedRef.current || load !== actionStateLoadRef.current) return;
+      setCollectionActionState(nextState?.collectionAdded ? "already-added" : "idle");
+      setWishlistActionState(nextState?.wishlisted ? "already-added" : "idle");
+    }).catch((stateError) => {
+      if (import.meta.env.DEV) console.warn("[PackDex scanner] action state load failed", stateError);
+    });
+    return () => { actionStateLoadRef.current += 1; };
+  }, [confirmed?.cardId, confirmed?.setId, authState, authUserId]);
 
   function beginScanning() { markTipsSeen(); setShowTips(false); setCameraEpoch((value) => value + 1); }
   function closeTips() { setShowTips(false); setCameraEpoch((value) => value + 1); }
@@ -184,7 +237,7 @@ export default function MobileScannerPage({ onAddToCollection, onAddToWishlist, 
     } catch (photoError) { if (photoError?.code !== "cancelled") setError(photoError?.message || "We couldn't open that photo."); setStage("camera"); setCameraEpoch((value) => value + 1); } finally { captureRef.current = false; if (mountedRef.current) setCaptureBusy(false); }
   }
 
-  function resetCamera() { analysisRef.current += 1; releaseTemporaryImage(imageRef.current); imageRef.current = null; setMatch(null); setSelectedCardId(""); setConfirmed(null); setSaving(""); setMarketPrice(null); setPriceState("idle"); setError(""); setPreviewReady(false); setStage("camera"); setCameraEpoch((value) => value + 1); }
+  function resetCamera() { analysisRef.current += 1; actionStateLoadRef.current += 1; collectionOperationRef.current += 1; wishlistOperationRef.current += 1; actionPendingRef.current = { collection: false, wishlist: false }; releaseTemporaryImage(imageRef.current); imageRef.current = null; setMatch(null); setSelectedCardId(""); setConfirmed(null); setCollectionActionState(authState === "authenticated" ? "idle" : "auth-required"); setWishlistActionState(authState === "authenticated" ? "idle" : "auth-required"); setActionError(""); setMarketPrice(null); setPriceState("idle"); setError(""); setPreviewReady(false); setStage("camera"); setCameraEpoch((value) => value + 1); }
   function confirmSelection() {
     const selected = confirmTrustedCandidate(match, selectedCardId);
     if (!selected) { setError("Choose one of the suggested cards before confirming."); return; }
@@ -194,7 +247,32 @@ export default function MobileScannerPage({ onAddToCollection, onAddToWishlist, 
       .then((nextPrice) => { if (mountedRef.current) { setMarketPrice(nextPrice || null); setPriceState(Number(nextPrice?.marketPriceUsd) > 0 ? "available" : "no-price"); } })
       .catch(() => { if (mountedRef.current) { setMarketPrice(null); setPriceState("error"); } });
   }
-  async function save(kind) { if (!confirmed || saveRef.current) return; saveRef.current = true; setSaving(kind); try { if (kind === "collection") await onAddToCollection?.(confirmed); else await onAddToWishlist?.(confirmed); } finally { saveRef.current = false; if (mountedRef.current) setSaving(""); } }
+  async function saveAction(kind) {
+    if (!confirmed) return;
+    const setState = kind === "collection" ? setCollectionActionState : setWishlistActionState;
+    const currentState = kind === "collection" ? collectionActionState : wishlistActionState;
+    if (authState !== "authenticated" || !authUserId) {
+      setState("auth-required"); setActionError(""); onRequireAuth?.(); return;
+    }
+    if (actionPendingRef.current[kind] || ["saving", "success", "already-added"].includes(currentState)) return;
+
+    actionPendingRef.current[kind] = true;
+    const operationRef = kind === "collection" ? collectionOperationRef : wishlistOperationRef;
+    const operation = ++operationRef.current;
+    const cardId = confirmed.cardId;
+    setState("saving"); setActionError("");
+    try {
+      const outcome = kind === "collection" ? await onAddToCollection?.(confirmed) : await onAddToWishlist?.(confirmed);
+      if (!mountedRef.current || operation !== operationRef.current || confirmed.cardId !== cardId || authState !== "authenticated") return;
+      setState(outcome?.added === false || outcome?.alreadyAdded ? "already-added" : "success");
+    } catch (saveError) {
+      if (!mountedRef.current || operation !== operationRef.current) return;
+      setState("error");
+      setActionError(`We couldn’t add this card to your ${kind === "collection" ? "Collection" : "Wishlist"}. Please try again.`);
+    } finally {
+      if (operation === operationRef.current) actionPendingRef.current[kind] = false;
+    }
+  }
 
   return <section className={`scanner-beta scanner-beta-${stage}`} aria-label="Card Scanner">
     {showTips && <ScannerTips onStart={beginScanning} onClose={closeTips} />}
@@ -203,7 +281,7 @@ export default function MobileScannerPage({ onAddToCollection, onAddToWishlist, 
     {stage === "no-match" && <section className="scanner-beta-state"><h2>We couldn’t identify this card confidently.</h2><p>Keep the full card in view, reduce glare, and try again.</p><div className="scanner-beta-actions"><button className="primary-action" type="button" onClick={resetCamera}>Try Again</button><button className="secondary-action" type="button" onClick={choosePhoto}>Choose Photo</button><button className="secondary-action" type="button" onClick={onSearchManually}>Search Manually</button></div></section>}
     {stage === "processing-error" && <section className="scanner-beta-state"><h2>We couldn’t process that photo</h2><p>Please try again or choose a photo.</p><div className="scanner-beta-actions"><button className="primary-action" type="button" onClick={resetCamera}>Try Again</button><button className="secondary-action" type="button" onClick={choosePhoto}>Choose Photo</button><button className="secondary-action" type="button" onClick={onSearchManually}>Search Manually</button></div></section>}
     {stage === "candidates" && <section className="scanner-beta-results" aria-live="polite"><h2>Choose the matching card</h2><p>Review the suggestions before you confirm.</p><div className="scanner-beta-candidates">{match.results.slice(0, 3).map((candidate) => <ScannerCandidate key={candidate.cardId} candidate={candidate} isSelected={selectedCardId === candidate.cardId} onSelect={setSelectedCardId} />)}</div><div className="scanner-beta-actions"><button className="primary-action" type="button" onClick={confirmSelection}>Confirm selected card</button><button className="secondary-action" type="button" onClick={resetCamera}>Scan Another</button></div></section>}
-    {stage === "confirmed" && confirmed && <ScannerConfirmedResult confirmed={confirmed} marketPrice={marketPrice} priceState={priceState} saving={saving} onSave={save} onScanAnother={resetCamera} />}
+    {stage === "confirmed" && confirmed && <ScannerConfirmedResult confirmed={confirmed} marketPrice={marketPrice} priceState={priceState} collectionActionState={collectionActionState} wishlistActionState={wishlistActionState} actionError={actionError} onCollectionAction={() => saveAction("collection")} onWishlistAction={() => saveAction("wishlist")} onScanAnother={resetCamera} />}
     {error && <p className="scanner-beta-error" role="alert">{error}</p>}
   </section>;
 }

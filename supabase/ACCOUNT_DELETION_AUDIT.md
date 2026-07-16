@@ -8,6 +8,7 @@ This audit is based on the checked-in Supabase schema and Edge Functions as of 2
 auth.users
 ├─ user_collection
 ├─ user_collection_increment_events
+├─ user_scanner_card_additions
 ├─ user_welcome_rewards
 ├─ user_achievements
 ├─ user_binders
@@ -26,6 +27,7 @@ No user-profile table, storage-bucket definition, or user-generated-content tabl
 | --- | --- | --- |
 | `user_collection` | Delete | Account-owned virtual card collection. |
 | `user_collection_increment_events` | Delete | Account-owned collection idempotency receipts. |
+| `user_scanner_card_additions` | Delete | Account-owned one-time scanner-add receipts. |
 | `user_welcome_rewards` | Delete | Account-specific reward and claim state. |
 | `user_achievements` | Delete | Account-owned achievements and progress metadata. |
 | `user_binders` | Delete | Account-owned binder names, themes, and card placements. |

@@ -123,9 +123,10 @@ test("mobile deletion dialog resolves React from the mobile application", async 
 });
 
 test("server deletion binds data and auth deletion to the authenticated user only", async () => {
-  const [functionSource, migration] = await Promise.all([
+  const [functionSource, migration, scannerMigration] = await Promise.all([
     readFile(new URL("../supabase/functions/delete-account/index.ts", import.meta.url), "utf8"),
     readFile(new URL("../supabase/migrations/20260716120000_account_deletion.sql", import.meta.url), "utf8"),
+    readFile(new URL("../supabase/migrations/20260716150000_scanner_card_actions.sql", import.meta.url), "utf8"),
   ]);
 
   assert.match(functionSource, /getAuthenticatedUser\(req\)/);
@@ -134,5 +135,7 @@ test("server deletion binds data and auth deletion to the authenticated user onl
   assert.doesNotMatch(functionSource, /req\.json/);
   for (const table of ["user_wishlist", "user_achievements", "user_binders", "user_collection_increment_events", "user_pack_open_events", "user_welcome_rewards", "user_profile_stats", "user_collection"]) {
     assert.match(migration, new RegExp(`delete from public\\.${table} where user_id = target_user_id`));
+    assert.match(scannerMigration, new RegExp(`delete from public\\.${table} where user_id = target_user_id`));
   }
+  assert.match(scannerMigration, /delete from public\.user_scanner_card_additions where user_id = target_user_id/);
 });

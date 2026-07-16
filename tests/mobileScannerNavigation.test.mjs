@@ -8,7 +8,7 @@ test("mobile navigation has permanent Open, Collection, Scanner, and Profile tab
   const app = await source("../mobile-app/src/App.jsx");
   const tabOrder = [...app.matchAll(/\{ id: "([^"]+)", label: "([^"]+)"/g)].slice(0, 4).map((match) => `${match[1]}:${match[2]}`);
   assert.deepEqual(tabOrder, ["open:Open a Pack", "collection:Collection", "scanner:Scanner", "profile:Profile"]);
-  assert.match(app, /MobileScannerPage onAddToCollection=\{addScannedCardToCollection\} onAddToWishlist=\{addScannedCardToWishlist\} onSearchManually=\{openScannerSearchInCollection\} onLoadCardPrice=\{loadScannerCardPrice\}/);
+  assert.match(app, /MobileScannerPage authState=\{authValidationState\}[\s\S]*?onAddToCollection=\{addScannedCardToCollection\}[\s\S]*?onAddToWishlist=\{addScannedCardToWishlist\}[\s\S]*?onSearchManually=\{openScannerSearchInCollection\}[\s\S]*?onLoadCardPrice=\{loadScannerCardPrice\}/);
 });
 
 test("Collection preserves Set Collection, Binders, and Value destinations", async () => {

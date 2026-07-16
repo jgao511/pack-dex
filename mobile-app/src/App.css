@@ -4105,8 +4105,12 @@ body.scanner-camera-active,
 .scanner-beta-confirmed .scanner-beta-actions { width: 100%; margin-top: 10px; gap: 7px; }
 .scanner-beta-confirmed .scanner-beta-actions button { width: 100%; min-height: 44px; }
 .scanner-beta-confirmed .scanner-beta-actions .primary-action { border-color: transparent; color: #fff; background: #7140ff; font-weight: 850; }
+.scanner-beta-confirmed .scanner-beta-actions button.is-complete { border-color: rgba(141, 239, 188, .38); color: #a8f1ca; background: rgba(66, 177, 119, .16); }
+.scanner-beta-action-button-content { display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+.scanner-beta-action-spinner { width: 13px; height: 13px; flex: 0 0 13px; border: 2px solid rgba(255, 255, 255, .32); border-top-color: currentColor; border-radius: 50%; animation: scanner-price-spin .8s linear infinite; }
+.scanner-beta-action-error { margin: 1px 2px 0 !important; color: #ffb7c0 !important; font-size: .8rem; font-weight: 700; text-align: center; }
 .scanner-beta-confirmed .scanner-beta-actions .text-action { min-height: 36px; border: 0; color: #b7c0d7; background: transparent; font-weight: 800; }
 .theme-light .scanner-beta-price { background: rgba(113, 64, 255, .1); }
 .theme-light .scanner-beta-price-label, .theme-light .scanner-beta-confirmed .text-action { color: #53617b; }
 .theme-light .scanner-beta-price strong { color: #17223b; }
-@media (prefers-reduced-motion: reduce) { .scanner-beta-price-spinner { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .scanner-beta-price-spinner, .scanner-beta-action-spinner { animation: none; } }

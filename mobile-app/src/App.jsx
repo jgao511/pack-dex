@@ -7,6 +7,7 @@ import { sets } from "../../src/data/sets.js";
 import { getCardBackUrl, getCardImageUrl, getPokeballLoadingUrl, getSetLogoUrl } from "../../src/utils/assetUrls.js";
 import { generatePack, getDisplayCardName, getDisplayRarity, isHigherThanRare } from "../../src/utils/packGenerator.js";
 import {
+  getCardCollectionKey,
   getCardCount,
   getPullableCollectionCards,
   getSetCollectionProgress,
@@ -58,6 +59,7 @@ import {
 import { getRarityVisualClass, isRarePlusVisual } from "./utils/rarityPresentation.js";
 import { loadHapticsEnabled, saveHapticsEnabled, triggerRevealHaptic } from "./utils/mobileHaptics.js";
 import { addWishlistCard, getWishlistKey, loadWishlist, removeWishlistCard, resolveCatalogWishlistItem } from "./lib/wishlist.js";
+import { addScannedCardOnce, loadScannerCardActionState } from "./lib/scannerCardActions.js";
 
 const tabs = [
   { id: "open", label: "Open a Pack", title: "Open a Pack", icon: "open" },
@@ -2535,6 +2537,7 @@ function MobileApp() {
   const accountLoadedAtRef = useRef(new Map());
   const authRefreshPromiseRef = useRef(null);
   const authValidationAttemptRef = useRef(0);
+  const validatedScannerUserIdRef = useRef("");
   const [legalModalType, setLegalModalType] = useState("");
   const [priceMapsBySet, setPriceMapsBySet] = useState({});
   const [fullSetPriceMapsBySet, setFullSetPriceMapsBySet] = useState({});
@@ -2558,6 +2561,7 @@ function MobileApp() {
   const packImagePreloadIdRef = useRef(0);
   const skipRevealStartedRef = useRef(false);
   const screenContentRef = useRef(null);
+  validatedScannerUserIdRef.current = authValidationState === "authenticated" ? String(user?.id || "") : "";
   const setsCompleted = useMemo(
     () =>
       sets.filter((set) => {
@@ -2591,13 +2595,67 @@ function MobileApp() {
 
   async function addScannedCardToCollection(result) {
     const set = sets.find((item) => item.id === result?.setId);
-    if (!set || !result?.card) return;
-    persistSessionCollection(markCardsCollected(collection, [result.card], set.id, Date.now()));
+    const card = set?.cards?.find((item) => String(item.id) === String(result?.cardId || result?.card?.id));
+    const actionUserId = validatedScannerUserIdRef.current;
+    if (!actionUserId || !supabase) throw new Error("Sign in to add this card to your Collection.");
+    if (!set || !card) throw new Error("This card is unavailable in the PackDex catalog.");
+
+    const outcome = await addScannedCardOnce(supabase, { cardId: String(card.id), setId: set.id });
+    if (validatedScannerUserIdRef.current !== actionUserId) throw new Error("Your account session changed. Please try again.");
+    if (outcome.added) {
+      const timestamp = Date.now();
+      const key = getCardCollectionKey(card, set.id);
+      setCollection((current) => {
+        const setCollection = current[set.id] || {};
+        const existing = setCollection[key];
+        return {
+          ...current,
+          [set.id]: {
+            ...setCollection,
+            [key]: {
+              count: outcome.quantity,
+              firstCollectedAt: existing?.firstCollectedAt || timestamp,
+              lastCollectedAt: timestamp,
+            },
+          },
+        };
+      });
+      setStats((current) => ({ ...current, totalCardsPulled: Number(current.totalCardsPulled || 0) + 1 }));
+    }
+    return outcome;
   }
 
   async function addScannedCardToWishlist(result) {
     const set = sets.find((item) => item.id === result?.setId);
-    if (set && result?.card) await toggleWishlistCard(set, result.card);
+    const card = set?.cards?.find((item) => String(item.id) === String(result?.cardId || result?.card?.id));
+    const actionUserId = validatedScannerUserIdRef.current;
+    if (!actionUserId || !supabase) throw new Error("Sign in to add this card to your Wishlist.");
+    if (!set || !card) throw new Error("This card is unavailable in the PackDex catalog.");
+
+    const key = getWishlistKey(set.id, card.id);
+    if (wishlistEntries.some((entry) => getWishlistKey(entry.setId, entry.cardId) === key)) {
+      return { added: false, alreadyAdded: true };
+    }
+
+    setWishlistPendingKeys((current) => new Set(current).add(key));
+    try {
+      await addWishlistCard(supabase, actionUserId, set.id, card.id);
+      if (validatedScannerUserIdRef.current !== actionUserId) throw new Error("Your account session changed. Please try again.");
+      setWishlistEntries((current) => current.some((entry) => getWishlistKey(entry.setId, entry.cardId) === key)
+        ? current
+        : [...current, { setId: set.id, cardId: String(card.id), createdAt: new Date().toISOString() }]);
+      return { added: true, alreadyAdded: false };
+    } finally {
+      setWishlistPendingKeys((current) => { const next = new Set(current); next.delete(key); return next; });
+    }
+  }
+
+  async function loadScannedCardActionState(result) {
+    const actionUserId = validatedScannerUserIdRef.current;
+    if (!actionUserId || !supabase) return { collectionAdded: false, wishlisted: false };
+    const state = await loadScannerCardActionState(supabase, { cardId: result?.cardId, setId: result?.setId });
+    if (validatedScannerUserIdRef.current !== actionUserId) throw new Error("Your account session changed.");
+    return state;
   }
 
   function openScannerSearchInCollection() {
@@ -2685,6 +2743,11 @@ function MobileApp() {
     setIsAuthPanelOpen(true);
     setActiveTab("profile");
     scrollScreenToTop();
+  }
+
+  function openScannerAuth() {
+    setAuthModeClean("login");
+    setIsAuthPanelOpen(true);
   }
 
   function closeAuthProfile() {
@@ -3878,7 +3941,7 @@ function MobileApp() {
       <section className="phone-shell" aria-label="PackDex mobile app">
         <div className={`screen-content screen-${activeTab}`} ref={screenContentRef} onClick={handlePackScreenClick}>
           <MobileBrandHeader />
-          {authValidationState === "validating" ? (
+          {authValidationState === "validating" && activeTab !== "scanner" ? (
             <section className="mobile-auth-validation" role="status" aria-live="polite">
               <img src={POKEBALL_LOADING_SRC} alt="" />
               <strong>Checking your account...</strong>
@@ -3934,7 +3997,7 @@ function MobileApp() {
               valueScreenProps={{ user, collection, priceMapsBySet, estimatedCollectionValue, isValueLoading, onInspectCard: inspectCard, onOpenLogin: () => openAuthProfile("login"), onOpenSignup: () => openAuthProfile("signup") }}
             />
           )}
-          {activeTab === "scanner" && <MobileScannerPage onAddToCollection={addScannedCardToCollection} onAddToWishlist={addScannedCardToWishlist} onSearchManually={openScannerSearchInCollection} onLoadCardPrice={loadScannerCardPrice} />}
+          {activeTab === "scanner" && <MobileScannerPage authState={authValidationState} authUserId={authValidationState === "authenticated" ? user?.id || "" : ""} onRequireAuth={openScannerAuth} onLoadActionState={loadScannedCardActionState} onAddToCollection={addScannedCardToCollection} onAddToWishlist={addScannedCardToWishlist} onSearchManually={openScannerSearchInCollection} onLoadCardPrice={loadScannerCardPrice} />}
           {activeTab === "value" && (
             <ValueScreen
               user={user}
