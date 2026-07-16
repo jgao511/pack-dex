@@ -1,1 +1,0 @@
-import{_ as e}from"./index-Df-MnWfy.js";var t=class extends e{detectText(e){return Promise.reject(`Web Plugin Not implemented`)}};export{t as CapacitorPluginMlKitTextRecognitionWeb};

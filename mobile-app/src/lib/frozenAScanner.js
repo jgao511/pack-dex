@@ -1,5 +1,7 @@
 import { Capacitor } from "@capacitor/core";
 import { getScannerCatalog } from "../../../src/lib/cardScanner/buildScannerCatalog.js";
+import { isAndroidNative } from "./platform.js";
+import { resolveScannerAssetUrl } from "./scannerAssetUrl.js";
 
 export const FROZEN_A_MODEL_SHA256 = "62f2ff60cfdb09714a01fa74343e4dc1968601c2a43046979cbc548c28027c7c";
 export const FROZEN_A_INDEX_SHA256 = "a851d797aef5c140d8918bb2ffa7dcafa2315cb1f0cbdb6ca4abbd91c3d61edb";
@@ -9,9 +11,7 @@ const DIMENSIONS = 128;
 const CARD_COUNT = 18747;
 let runtimePromise;
 
-function assetUrl(path) {
-  return new URL(`scanner-ai/${path}`, new URL(import.meta.env.BASE_URL, globalThis.location?.origin || "https://pack-dex.local/")).href;
-}
+function assetUrl(path) { return resolveScannerAssetUrl(path, { baseUrl: import.meta.env.BASE_URL }); }
 
 async function sha256Hex(bytes) {
   if (!globalThis.crypto?.subtle) throw new Error("Scanner checksum verification is unavailable.");
@@ -113,7 +113,7 @@ async function createNativeEmbedder() {
 }
 
 export async function preloadFrozenAScanner({ fetchImpl = fetch } = {}) {
-  if (!runtimePromise) runtimePromise = Promise.all([loadIndex(fetchImpl), Capacitor.isNativePlatform() ? createNativeEmbedder() : createBrowserEmbedder()])
+  if (!runtimePromise) runtimePromise = Promise.all([loadIndex(fetchImpl), isAndroidNative(Capacitor) ? createNativeEmbedder() : createBrowserEmbedder()])
     .then(([index, embed]) => ({ index, embed }));
   return runtimePromise;
 }

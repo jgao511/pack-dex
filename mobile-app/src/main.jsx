@@ -5,10 +5,12 @@ import App from "./App.jsx";
 import MobileResetPasswordPage from "./MobileResetPasswordPage.jsx";
 import PublicPullSharePage from "./PublicPullSharePage.jsx";
 import { supabase } from "./lib/supabaseClient.js";
+import { installIosExternalLinkRouting } from "./lib/externalLinks.js";
 import "./App.css";
 
 const isNativePlatform = Capacitor.isNativePlatform();
 document.documentElement.classList.toggle("capacitor-native", isNativePlatform);
+installIosExternalLinkRouting();
 
 if (import.meta.env.DEV) {
   const viewport = window.visualViewport;

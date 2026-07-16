@@ -16,6 +16,7 @@
     "test:scanner-adapters": "node --test tests/scannerAdapters.test.mjs",
     "test:scanner-production-route": "node --test tests/scannerProductionRoute.test.mjs",
     "test:scanner-native-plugins": "node --test tests/scannerNativePlugins.test.mjs",
+    "test:ios": "node --test tests/iosCapacitor.test.mjs",
     "test:scanner-test-build": "node --test tests/scannerTestBuild.test.mjs",
     "test:scanner-visual-benchmark": "node scripts/scanner-visual-benchmark.mjs",
     "build:scanner-visual-index": "node scripts/build-scanner-visual-index.mjs",

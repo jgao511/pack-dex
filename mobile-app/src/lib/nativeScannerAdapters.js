@@ -16,6 +16,7 @@ import { rankFinalProposalRuns, rankProposalEvidence } from "../../../src/lib/ca
 import { rankCardMatches } from "../../../src/lib/cardScanner/rankCardMatches.js";
 import { runVisualMatching } from "../../../src/lib/cardScanner/localVisual/runVisualMatching.js";
 import { recognizeFrozenA } from "./frozenAScanner.js";
+import { isAndroidNative } from "./platform.js";
 
 function permissionStatus(value) { if (value === "granted" || value === "limited") return "granted"; if (value === "denied") return "permanentlyDenied"; return "denied"; }
 function photoToTemporaryImage(photo) {
@@ -44,7 +45,7 @@ const candidateImageCache = new Map();
 async function loadCandidateImageBlob(url) {
   if (candidateImageCache.has(url)) return candidateImageCache.get(url);
   const pending = (async () => {
-    if (!Capacitor.isNativePlatform()) { const response = await fetch(url); if (!response.ok) throw new Error(`Candidate image HTTP ${response.status}`); return response.blob(); }
+    if (!isAndroidNative()) { const response = await fetch(url); if (!response.ok) throw new Error(`Candidate image HTTP ${response.status}`); return response.blob(); }
     const response = await CapacitorHttp.get({ url, responseType: "blob", connectTimeout: 10_000, readTimeout: 15_000 });
     if (response.status < 200 || response.status >= 300 || typeof response.data !== "string") throw new Error(`Candidate image HTTP ${response.status}`);
     const binary = atob(response.data); const bytes = new Uint8Array(binary.length); for (let index = 0; index < binary.length; index += 1) bytes[index] = binary.charCodeAt(index);
@@ -56,7 +57,7 @@ async function loadCandidateImageBlob(url) {
 }
 
 export const nativeCameraAdapter = {
-  isAvailable: () => Capacitor.isNativePlatform(),
+  isAvailable: () => isAndroidNative(),
   async checkPermission() { return permissionStatus((await Camera.checkPermissions()).camera); },
   async requestPermission() { return permissionStatus((await Camera.requestPermissions({ permissions: ["camera"] })).camera); },
   async capture({ source }) {
@@ -162,7 +163,7 @@ let scannerPrewarmPromise;
 let scannerPrewarmResult;
 let candidateOriginPrewarmPromise;
 function prewarmCandidateOrigin() {
-  if (!Capacitor.isNativePlatform()) return Promise.resolve({ attempted: false });
+  if (!isAndroidNative()) return Promise.resolve({ attempted: false });
   if (!candidateOriginPrewarmPromise) {
     const started = performance.now();
     candidateOriginPrewarmPromise = CapacitorHttp.request({
