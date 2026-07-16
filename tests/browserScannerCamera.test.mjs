@@ -94,9 +94,9 @@ test("a valid browser image awaits the production visual adapter and returns rea
   const canvas = { width: 0, height: 0, getContext: () => ({ drawImage() {} }) };
   const result = await recognizeBrowserImage({ file: new Blob([new Uint8Array(2048)], { type: "image/jpeg" }) }, {
     decodeImage: async () => ({ source: {}, width: 720, height: 1000, close() {} }), documentRef: { createElement: () => canvas },
-    prepareImage: async () => ({ canvas, boundaryDiagnostics: { found: true } }),
+    prepareImage: async () => ({ canvas }),
     visualMatcher: async (_canvas, ocr, options) => { calls.push({ ocr, options }); return { lightweight: { candidates: [{ cardId: targetId, score: .95 }, { cardId: "ex9-5", score: .6 }] }, orb: { candidates: [{ cardId: targetId, score: .6, inliers: 30 }, { cardId: "ex9-5", score: .04, inliers: 1 }] } }; },
-    frozenRecognizer: async () => ({ candidates: [{ cardId: targetId, score: .95 }, { cardId: "ex9-5", score: .72 }], fusedMatch: { confidence: "low", results: [{ cardId: targetId, card: { id: targetId, name: "Mega Charizard X ex" }, visualEvidence: { frozenA: .95 } }, { cardId: "ex9-5", card: { id: "ex9-5", name: "Charizard" }, visualEvidence: { frozenA: .72 } }] } }),
+    frozenRecognizer: async () => ({ fusedMatch: { confidence: "low", results: [{ cardId: targetId }] } }),
   });
   assert.equal(calls.length, 1); assert.deepEqual(calls[0].options, { candidateLimit: 40, orbCandidateLimit: 20 });
   assert.equal(result.fusedMatch.results[0].cardId, targetId);

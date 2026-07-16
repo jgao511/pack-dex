@@ -4,7 +4,6 @@ import { runVisualMatching } from "../../../src/lib/cardScanner/localVisual/runV
 import { rectifyCanvas } from "../../../src/lib/cardScanner/localVisual/visualWorkerClient.js";
 import { rankCardMatches } from "../../../src/lib/cardScanner/rankCardMatches.js";
 import { prepareCardImage } from "../../../src/lib/cardScanner/prepareCardImage.js";
-import { applyFrozenAAcceptancePolicy } from "../../../src/lib/cardScanner/frozenAAcceptancePolicy.js";
 import { recognizeFrozenA } from "./frozenAScanner.js";
 
 const MIN_CAPTURE_BYTES = 1024;
@@ -202,9 +201,7 @@ export async function recognizeBrowserImage(image, { decodeImage = decodeBrowser
     const frozen = await frozenRecognizer(canvas, ocrMatch);
     let visualMatch;
     try { visualMatch = await visualMatcher(canvas, ocrMatch, { candidateLimit: 40, orbCandidateLimit: 20 }); } catch { visualMatch = null; }
-    const frozenMatch = frozen.fusedMatch || fuseCardMatches(ocrMatch, visualMatch);
-    const fusedMatch = applyFrozenAAcceptancePolicy({ frozenMatch, frozenCandidates: frozen.candidates, ocrMatch, geometry: { boundaryDiagnostics: prepared.boundaryDiagnostics }, diagnostics: Boolean(import.meta.env?.DEV) });
-    return { text, blocks, ocrMatch, visualMatch, frozenA: frozen, fusedMatch };
+    return { text, blocks, ocrMatch, visualMatch, imageDiagnostics: prepared.boundaryDiagnostics || null, frozenA: frozen, fusedMatch: frozen.fusedMatch || fuseCardMatches(ocrMatch, visualMatch) };
   } finally {
     decoded.close();
   }
