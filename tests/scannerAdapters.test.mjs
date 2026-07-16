@@ -52,6 +52,20 @@ test("models high, medium, and low result displays without auto-confirming", () 
   assert.equal(confirmTrustedCandidate({ results: [candidate] }, "ocr-invented"), null);
 });
 
+test("browser and Android normalize Frozen-A through the same acceptance policy", async () => {
+  const [browser, native, page] = await Promise.all([
+    readFile(new URL("../mobile-app/src/lib/browserScannerCamera.js", import.meta.url), "utf8"),
+    readFile(new URL("../mobile-app/src/lib/nativeScannerAdapters.js", import.meta.url), "utf8"),
+    readFile(new URL("../mobile-app/src/MobileScannerPage.jsx", import.meta.url), "utf8"),
+  ]);
+  for (const source of [browser, native]) {
+    assert.match(source, /applyFrozenAAcceptancePolicy/);
+    assert.match(source, /frozenCandidates:\s*frozen(?:A)?\.candidates/);
+  }
+  assert.match(page, /match\?\.mode === "high"/); assert.match(page, /match\?\.mode === "medium"/);
+  assert.doesNotMatch(page, /match\.results\.slice\(0, 3\)/);
+});
+
 test("scanner page has no collection, wishlist, pack event, or Supabase write path", async () => {
   const source = await readFile(new URL("../mobile-app/src/CardScannerDevPage.jsx", import.meta.url), "utf8");
   for (const forbidden of ["supabase", "increment_collection", "addWishlist", "recordPackOpen", "savePulledCards"]) assert.doesNotMatch(source, new RegExp(forbidden, "i"));

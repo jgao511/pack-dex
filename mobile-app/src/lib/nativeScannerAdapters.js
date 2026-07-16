@@ -15,6 +15,7 @@ import { fuseCardMatches } from "../../../src/lib/cardScanner/fuseCardMatches.js
 import { rankFinalProposalRuns, rankProposalEvidence } from "../../../src/lib/cardScanner/proposalEvidence.js";
 import { rankCardMatches } from "../../../src/lib/cardScanner/rankCardMatches.js";
 import { runVisualMatching } from "../../../src/lib/cardScanner/localVisual/runVisualMatching.js";
+import { applyFrozenAAcceptancePolicy } from "../../../src/lib/cardScanner/frozenAAcceptancePolicy.js";
 import { recognizeFrozenA } from "./frozenAScanner.js";
 import { isAndroidNative } from "./platform.js";
 
@@ -331,12 +332,16 @@ export const nativeOcrAdapter = {
       });
       const selectedBottom = selected.passes?.find((pass) => pass.label === "collector-bottom-edge")?.previewUrl || null;
       const frozenA = await recognizeFrozenA(selected.proposal.canvas, selected.ocrMatch);
+      const fusedMatch = applyFrozenAAcceptancePolicy({
+        frozenMatch: frozenA.fusedMatch, frozenCandidates: frozenA.candidates, ocrMatch: selected.ocrMatch,
+        geometry: { boundaryDiagnostics: working.boundaryDiagnostics, proposal: selected.proposal }, diagnostics: Boolean(import.meta.env?.DEV),
+      });
       const finished = performance.now();
       const completedRuns = [...completedById.values()];
       const allPasses = completedRuns.flatMap((run) => run.passes || []);
       return {
         text: selected.text || "", blocks: selected.blocks || [], passes: selected.passes || [],
-        ocrMatch: selected.ocrMatch, visualMatch: selected.visualMatch || null, frozenA, fusedMatch: frozenA.fusedMatch, visualError: selected.visualError || null,
+        ocrMatch: selected.ocrMatch, visualMatch: selected.visualMatch || null, frozenA, fusedMatch, visualError: selected.visualError || null,
         scannerTiming: {
           schemaVersion: 1,
           totalMs: finished - scanStarted,
