@@ -62,6 +62,13 @@ test("deletion UI is authenticated-only and requires deliberate DELETE confirmat
   assert.match(dialog, /Permanently Delete Account/);
 });
 
+test("mobile deletion dialog resolves React from the mobile application", async () => {
+  const mobileApp = await readFile(new URL("../mobile-app/src/App.jsx", import.meta.url), "utf8");
+
+  assert.match(mobileApp, /import DeleteAccountDialog from "\.\/components\/DeleteAccountDialog\.jsx"/);
+  assert.doesNotMatch(mobileApp, /\.\.\/\.\.\/src\/components\/DeleteAccountDialog/);
+});
+
 test("server deletion binds data and auth deletion to the authenticated user only", async () => {
   const [functionSource, migration] = await Promise.all([
     readFile(new URL("../supabase/functions/delete-account/index.ts", import.meta.url), "utf8"),
