@@ -4066,14 +4066,23 @@ body.scanner-camera-active,
 @media (max-height: 700px) { .scanner-beta-camera { height: calc(100dvh - 132px - var(--bottom-nav-height) - env(safe-area-inset-bottom)); } }
 /* Scanner confirmation is deliberately a single-column card on phones. The
    former two-column grid left the text and actions with a sliver of width. */
-.scanner-beta-confirmed { display: flex; flex-direction: column; align-items: center; gap: 18px; max-width: 430px; padding: 22px 18px; text-align: center; }
-.scanner-beta-confirmed > img { display: block; width: min(72vw, 250px); max-width: 250px; max-height: none; aspect-ratio: 63 / 88; object-fit: contain; border-radius: 14px; background: #05070c; box-shadow: 0 12px 28px rgba(0, 0, 0, .28); }
-.scanner-beta-confirmed > div { width: 100%; min-width: 0; }
-.scanner-beta-confirmed h2 { margin: 0; font-size: clamp(1.45rem, 7vw, 2rem); line-height: 1.12; overflow-wrap: anywhere; }
-.scanner-beta-confirmed p { margin: 8px 0 0; }
-.scanner-beta-confirmed-label { margin: 0 0 8px; }
-.scanner-beta-confirmed .scanner-beta-actions { width: 100%; margin-top: 20px; }
-.scanner-beta-confirmed .scanner-beta-actions button { width: 100%; min-height: 50px; }
-.scanner-beta-confirmed .scanner-beta-actions > .primary-action { display: none; }
-.scanner-beta-confirmed .scanner-beta-actions > .secondary-action:nth-child(2) { border-color: transparent; color: #fff; background: #7140ff; font-weight: 850; }
-.scanner-beta-confirmed .scanner-beta-actions > .secondary-action:nth-child(4) { border: 0; color: #b7c0d7; background: transparent; }
+.screen-scanner { overflow-x: hidden; overscroll-behavior-x: none; }
+.scanner-beta, .scanner-beta *, .scanner-beta *::before, .scanner-beta *::after { box-sizing: border-box; min-width: 0; }
+.scanner-beta-confirmed { display: flex; flex-direction: column; align-items: center; width: calc(100% - 24px); max-width: 430px; margin: 10px auto calc(var(--bottom-nav-height) + var(--bottom-nav-gap) + env(safe-area-inset-bottom) + 8px); padding: 12px 12px 8px; gap: 12px; overflow: hidden; border: 0; border-radius: 0; background: transparent; text-align: center; }
+.scanner-beta-confirmed > img { display: block; width: min(52vw, 196px); max-width: 196px; max-height: none; aspect-ratio: 63 / 88; object-fit: contain; border-radius: 12px; background: #05070c; box-shadow: 0 10px 24px rgba(0, 0, 0, .24); }
+.scanner-beta-confirmed-copy { width: 100%; }
+.scanner-beta-confirmed h2 { margin: 0; font-size: clamp(1.35rem, 6vw, 1.75rem); line-height: 1.1; overflow-wrap: anywhere; }
+.scanner-beta-confirmed p { margin: 6px 0 0; }
+.scanner-beta-confirmed-label { margin: 0 0 6px; }
+.scanner-beta-price { display: grid; gap: 2px; margin: 12px 0 0; padding: 10px 12px; border-radius: 12px; background: rgba(113, 64, 255, .12); }
+.scanner-beta-price span { color: #b7c0d7; font-size: .72rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+.scanner-beta-price strong { color: #ffffff; font-size: 1.08rem; }
+.scanner-beta-tcgplayer-link { display: inline-block; margin-top: 9px; color: #cdbfff; font-size: .9rem; font-weight: 800; text-decoration: none; }
+.scanner-beta-tcgplayer-link:hover { text-decoration: underline; }
+.scanner-beta-confirmed .scanner-beta-actions { width: 100%; margin-top: 14px; gap: 8px; }
+.scanner-beta-confirmed .scanner-beta-actions button { width: 100%; min-height: 46px; }
+.scanner-beta-confirmed .scanner-beta-actions .primary-action { border-color: transparent; color: #fff; background: #7140ff; font-weight: 850; }
+.scanner-beta-confirmed .scanner-beta-actions .text-action { min-height: 36px; border: 0; color: #b7c0d7; background: transparent; font-weight: 800; }
+.theme-light .scanner-beta-price { background: rgba(113, 64, 255, .1); }
+.theme-light .scanner-beta-price span, .theme-light .scanner-beta-confirmed .text-action { color: #53617b; }
+.theme-light .scanner-beta-price strong { color: #17223b; }

@@ -3546,6 +3546,26 @@ function MobileApp() {
     }
   }
 
+  async function loadScannerCardPrice(card, set) {
+    const cachedPriceMap = fullSetPriceMapsBySet[set?.id] || priceMapsBySet[set?.id];
+    const cachedPrice = getCardDisplayPrice(card, cachedPriceMap, set?.id);
+
+    if (cachedPrice || !supabase || !set?.id || SETS_WITHOUT_MARKET_PRICE_DATA.has(set.id)) return cachedPrice;
+
+    try {
+      const priceMap = await loadCardPricesForCards(supabase, set, [card]);
+      setPriceMapsBySet((current) => {
+        const merged = new Map(current[set.id] || []);
+        priceMap.forEach((value, key) => merged.set(key, value));
+        return { ...current, [set.id]: merged };
+      });
+      return getCardDisplayPrice(card, priceMap, set.id);
+    } catch (error) {
+      console.warn("[PackDex prices] Unable to load scanner card prices", { setId: set.id, setName: set.name, error });
+      return null;
+    }
+  }
+
   function createCustomBinder(name, theme = "midnight") {
     const nextBinder = createBinder({ name, tag: "Custom Binder", theme });
     const nextBinders = [nextBinder, ...binders];
@@ -3875,7 +3895,7 @@ function MobileApp() {
               valueScreenProps={{ user, collection, priceMapsBySet, estimatedCollectionValue, isValueLoading, onInspectCard: inspectCard, onOpenLogin: () => openAuthProfile("login"), onOpenSignup: () => openAuthProfile("signup") }}
             />
           )}
-          {activeTab === "scanner" && <MobileScannerPage onInspectCard={inspectCard} onAddToCollection={addScannedCardToCollection} onAddToWishlist={addScannedCardToWishlist} onSearchManually={openScannerSearchInCollection} />}
+          {activeTab === "scanner" && <MobileScannerPage onAddToCollection={addScannedCardToCollection} onAddToWishlist={addScannedCardToWishlist} onSearchManually={openScannerSearchInCollection} onLoadCardPrice={loadScannerCardPrice} />}
           {activeTab === "value" && (
             <ValueScreen
               user={user}

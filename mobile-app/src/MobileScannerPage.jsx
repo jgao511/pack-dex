@@ -4,6 +4,8 @@ import { captureCardImage } from "../../src/lib/cardScanner/captureCardImage.js"
 import { fuseCardMatches } from "../../src/lib/cardScanner/fuseCardMatches.js";
 import { recognizeCardText } from "../../src/lib/cardScanner/recognizeCardText.js";
 import { confirmTrustedCandidate, releaseTemporaryImage } from "../../src/lib/cardScanner/scannerSession.js";
+import { formatUsd } from "../../src/lib/cardPrices.js";
+import { getTcgplayerCardUrl } from "../../src/utils/tcgplayerSearch.js";
 import { captureBrowserFrame, chooseBrowserFile, getBrowserCameraCapability, recognizeBrowserImage, startBrowserCamera, stopBrowserCamera } from "./lib/browserScannerCamera.js";
 import { isAndroidNative } from "./lib/platform.js";
 
@@ -23,11 +25,11 @@ function ScannerTips({ onStart, onClose }) {
   return <div className="scanner-beta-tips-overlay" role="presentation"><section className="scanner-beta-tips-modal" role="dialog" aria-modal="true" aria-labelledby="scanner-tips-title"><button className="scanner-beta-tips-close" type="button" aria-label="Close tips" onClick={onClose}>×</button><h2 id="scanner-tips-title">Tips for a better scan</h2><ul>{tips.map((tip) => <li key={tip}>{tip}</li>)}</ul><p>Foil and highly reflective cards may require another photo.</p><button className="primary-action" type="button" onClick={onStart}>Start Scanning</button></section></div>;
 }
 
-export default function MobileScannerPage({ onInspectCard, onAddToCollection, onAddToWishlist, onSearchManually }) {
+export default function MobileScannerPage({ onAddToCollection, onAddToWishlist, onSearchManually, onLoadCardPrice }) {
   const imageRef = useRef(null); const videoRef = useRef(null); const nativePreviewRef = useRef(null); const streamRef = useRef(null); const nativeAdapterRef = useRef(null); const nativeOcrRef = useRef(null);
   const startingRef = useRef(null); const lifecycleRef = useRef(0); const mountedRef = useRef(true); const stageRef = useRef("camera"); const tipsRef = useRef(false); const analysisRef = useRef(0); const captureRef = useRef(false); const saveRef = useRef(false); const runtimeAttemptRef = useRef(0);
   const [stage, setStage] = useState("camera"); const [match, setMatch] = useState(null); const [selectedCardId, setSelectedCardId] = useState(""); const [confirmed, setConfirmed] = useState(null); const [error, setError] = useState("");
-  const [showTips, setShowTips] = useState(() => !haveSeenTips()); const [previewReady, setPreviewReady] = useState(false); const [saving, setSaving] = useState(""); const [captureBusy, setCaptureBusy] = useState(false); const [runtimeState, setRuntimeState] = useState("idle"); const [cameraEpoch, setCameraEpoch] = useState(0);
+  const [showTips, setShowTips] = useState(() => !haveSeenTips()); const [previewReady, setPreviewReady] = useState(false); const [saving, setSaving] = useState(""); const [marketPrice, setMarketPrice] = useState(null); const [priceState, setPriceState] = useState("idle"); const [captureBusy, setCaptureBusy] = useState(false); const [runtimeState, setRuntimeState] = useState("idle"); const [cameraEpoch, setCameraEpoch] = useState(0);
   stageRef.current = stage; tipsRef.current = showTips;
 
   const cameraShouldRun = () => mountedRef.current && stageRef.current === "camera" && !tipsRef.current && !document.hidden;
@@ -150,8 +152,16 @@ export default function MobileScannerPage({ onInspectCard, onAddToCollection, on
     } catch (photoError) { if (photoError?.code !== "cancelled") setError(photoError?.message || "We couldn't open that photo."); setStage("camera"); setCameraEpoch((value) => value + 1); } finally { captureRef.current = false; if (mountedRef.current) setCaptureBusy(false); }
   }
 
-  function resetCamera() { analysisRef.current += 1; releaseTemporaryImage(imageRef.current); imageRef.current = null; setMatch(null); setSelectedCardId(""); setConfirmed(null); setSaving(""); setError(""); setPreviewReady(false); setStage("camera"); setCameraEpoch((value) => value + 1); }
-  function confirmSelection() { const selected = confirmTrustedCandidate(match, selectedCardId); if (!selected) { setError("Choose one of the suggested cards before confirming."); return; } setConfirmed(selected); setError(""); setStage("confirmed"); }
+  function resetCamera() { analysisRef.current += 1; releaseTemporaryImage(imageRef.current); imageRef.current = null; setMatch(null); setSelectedCardId(""); setConfirmed(null); setSaving(""); setMarketPrice(null); setPriceState("idle"); setError(""); setPreviewReady(false); setStage("camera"); setCameraEpoch((value) => value + 1); }
+  function confirmSelection() {
+    const selected = confirmTrustedCandidate(match, selectedCardId);
+    if (!selected) { setError("Choose one of the suggested cards before confirming."); return; }
+
+    setConfirmed(selected); setMarketPrice(null); setPriceState("loading"); setError(""); setStage("confirmed");
+    void Promise.resolve(onLoadCardPrice?.(selected.card, { id: selected.setId, name: selected.setName }))
+      .then((nextPrice) => { if (mountedRef.current) { setMarketPrice(nextPrice || null); setPriceState(nextPrice ? "available" : "unavailable"); } })
+      .catch(() => { if (mountedRef.current) setPriceState("unavailable"); });
+  }
   async function save(kind) { if (!confirmed || saveRef.current) return; saveRef.current = true; setSaving(kind); try { if (kind === "collection") await onAddToCollection?.(confirmed); else await onAddToWishlist?.(confirmed); } finally { saveRef.current = false; if (mountedRef.current) setSaving(""); } }
 
   return <section className={`scanner-beta scanner-beta-${stage}`} aria-label="Card Scanner">
@@ -161,7 +171,29 @@ export default function MobileScannerPage({ onInspectCard, onAddToCollection, on
     {stage === "no-match" && <section className="scanner-beta-state"><h2>We couldn’t identify this card confidently.</h2><p>Keep the full card in view, reduce glare, and try again.</p><div className="scanner-beta-actions"><button className="primary-action" type="button" onClick={resetCamera}>Try Again</button><button className="secondary-action" type="button" onClick={choosePhoto}>Choose Photo</button><button className="secondary-action" type="button" onClick={onSearchManually}>Search Manually</button></div></section>}
     {stage === "processing-error" && <section className="scanner-beta-state"><h2>We couldn’t process that photo</h2><p>Please try again or choose a photo.</p><div className="scanner-beta-actions"><button className="primary-action" type="button" onClick={resetCamera}>Try Again</button><button className="secondary-action" type="button" onClick={choosePhoto}>Choose Photo</button><button className="secondary-action" type="button" onClick={onSearchManually}>Search Manually</button></div></section>}
     {stage === "candidates" && <section className="scanner-beta-results" aria-live="polite"><h2>Choose the matching card</h2><p>Review the suggestions before you confirm.</p><div className="scanner-beta-candidates">{match.results.slice(0, 3).map((candidate) => <ScannerCandidate key={candidate.cardId} candidate={candidate} isSelected={selectedCardId === candidate.cardId} onSelect={setSelectedCardId} />)}</div><div className="scanner-beta-actions"><button className="primary-action" type="button" onClick={confirmSelection}>Confirm selected card</button><button className="secondary-action" type="button" onClick={resetCamera}>Scan Another</button></div></section>}
-    {stage === "confirmed" && confirmed && <section className="scanner-beta-confirmed"><img src={getCardImageUrl(confirmed.card)} alt="" /><div><span className="scanner-beta-confirmed-label">Match selected by you</span><h2>{confirmed.card?.name}</h2><p>{confirmed.setName}{confirmed.card?.number ? ` · #${confirmed.card.number}` : ""}</p><div className="scanner-beta-actions"><button className="primary-action" type="button" onClick={() => onInspectCard?.(confirmed.card, { id: confirmed.setId, name: confirmed.setName })}>View card details</button><button className="secondary-action" type="button" disabled={saving === "collection"} onClick={() => save("collection")}>{saving === "collection" ? "Adding..." : "Add to Collection"}</button><button className="secondary-action" type="button" disabled={saving === "wishlist"} onClick={() => save("wishlist")}>{saving === "wishlist" ? "Saving..." : "Add to Wishlist"}</button><button className="secondary-action" type="button" onClick={resetCamera}>Scan Another</button></div></div></section>}
+    {stage === "confirmed" && confirmed && (() => {
+      const tcgplayerCardUrl = getTcgplayerCardUrl({ exactUrl: marketPrice?.tcgplayerUrl, cardName: confirmed.card?.name, setName: confirmed.setName, cardNumber: confirmed.card?.number });
+      const hasMarketPrice = Number(marketPrice?.marketPriceUsd) > 0;
+
+      return <section className="scanner-beta-confirmed" aria-live="polite">
+        <img src={getCardImageUrl(confirmed.card)} alt="" />
+        <div className="scanner-beta-confirmed-copy">
+          <span className="scanner-beta-confirmed-label">Match selected by you</span>
+          <h2>{confirmed.card?.name}</h2>
+          <p>{confirmed.setName}{confirmed.card?.number ? ` · #${confirmed.card.number}` : ""}</p>
+          <section className="scanner-beta-price" aria-label="Market price">
+            <span>Market Price</span>
+            <strong>{priceState === "loading" ? "Loading..." : hasMarketPrice ? formatUsd(marketPrice.marketPriceUsd) : "Price unavailable"}</strong>
+          </section>
+          {tcgplayerCardUrl && <a className="scanner-beta-tcgplayer-link" href={tcgplayerCardUrl} target="_blank" rel="noopener noreferrer">View on TCGplayer</a>}
+          <div className="scanner-beta-actions">
+            <button className="primary-action" type="button" disabled={saving === "collection"} onClick={() => save("collection")}>{saving === "collection" ? "Adding..." : "Add to Collection"}</button>
+            <button className="secondary-action" type="button" disabled={saving === "wishlist"} onClick={() => save("wishlist")}>{saving === "wishlist" ? "Saving..." : "Add to Wishlist"}</button>
+            <button className="text-action" type="button" onClick={resetCamera}>Scan Another</button>
+          </div>
+        </div>
+      </section>;
+    })()}
     {error && <p className="scanner-beta-error" role="alert">{error}</p>}
   </section>;
 }
