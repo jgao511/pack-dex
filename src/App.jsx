@@ -3,6 +3,7 @@ import { Mail } from "lucide-react";
 import PackOpening from "./components/PackOpening.jsx";
 import AccountSaveNotice from "./components/AccountSaveNotice.jsx";
 import AuthPanel, { AuthModal } from "./components/AuthPanel.jsx";
+import DeleteAccountDialog from "./components/DeleteAccountDialog.jsx";
 import CardReveal from "./components/CardReveal.jsx";
 import CardDetailModal from "./components/CardDetailModal.jsx";
 import CollectionPage from "./components/CollectionPage.jsx";
@@ -64,6 +65,7 @@ import { preloadImage, preloadImages } from "./utils/imageCache.js";
 import { compareCardsByRarity } from "./utils/rarityRank.js";
 import { cacheWelcomeRewardStatus, loadWelcomeRewardStatus } from "./lib/welcomeReward.js";
 import { claimWelcomeGodPack } from "./lib/securePackOpening.js";
+import { clearDeletedAccountLocalState, deleteCurrentAccount } from "./lib/accountDeletion.js";
 import { markPackGenerationComplete, markPackGenerationStart } from "./utils/imageDebug.js";
 import { markCardBackPreloadFinish, markCardBackPreloadStart } from "./utils/cardBackDebug.js";
 import {
@@ -2111,6 +2113,7 @@ function ProfilePage({
   welcomeRewardStatus,
   onOpenAuth,
   onOpenWelcomeReward,
+  onDeleteAccount,
 }) {
   const collectedCards = useMemo(() => getCollectedCards(collection), [collection]);
   const completedSets = sets.filter((set) => getSetCollectionProgress(collection, set).percent === 100).length;
@@ -2150,6 +2153,14 @@ function ProfilePage({
           <div className="profile-stats-note">
             Stats are tied to your signed-in PackDex account.
           </div>
+          <section className="profile-settings-section" aria-label="Account settings">
+            <span className="set-mark">Settings</span>
+            <h2>Account settings</h2>
+            <p>Manage the PackDex account signed in on this device.</p>
+            <button className="delete-account-button" type="button" onClick={onDeleteAccount}>
+              Delete Account
+            </button>
+          </section>
         </>
       ) : (
         <div className="empty-state">
@@ -2294,6 +2305,7 @@ function App() {
   const [authSession, setAuthSession] = useState(null);
   const [isAuthLoading, setIsAuthLoading] = useState(isSupabaseConfigured);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isDeleteAccountOpen, setIsDeleteAccountOpen] = useState(false);
   const [isAuthOpening, setIsAuthOpening] = useState(false);
   const [isOpeningPack, setIsOpeningPack] = useState(false);
   const [cloudWarning, setCloudWarning] = useState("");
@@ -2607,6 +2619,29 @@ function App() {
       setIsAuthOpening(false);
       setIsAuthModalOpen(true);
     }, AUTH_MODAL_LOADING_MS);
+  }
+
+  async function handleDeleteAccount() {
+    const deletedUserId = authUser?.id;
+
+    if (!deletedUserId || !supabase) {
+      throw new Error("You must be signed in to delete your PackDex account.");
+    }
+
+    await deleteCurrentAccount(supabase);
+    clearDeletedAccountLocalState(deletedUserId);
+    await supabase.auth.signOut({ scope: "local" }).catch(() => {});
+    setAuthSession(null);
+    setCollection({});
+    setBinders([]);
+    setProfileStats(emptyProfileStats());
+    setWelcomeRewardStatus(null);
+    setIsWelcomeRewardModalOpen(false);
+    setIsDeleteAccountOpen(false);
+    setActiveTab("open");
+    setScreen("home");
+    replaceAppHistory({ activeTab: "open", screen: "home" });
+    resetPageScroll();
   }
 
   function startPackOpening(set = selectedSet) {
@@ -3088,11 +3123,17 @@ function App() {
             setWelcomeRewardError("");
             setIsWelcomeRewardModalOpen(true);
           }}
+          onDeleteAccount={() => setIsDeleteAccountOpen(true)}
         />
       )}
 
       {!(activeTab === "open" && screen === "home") && <SiteFooter />}
       <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
+      <DeleteAccountDialog
+        isOpen={isDeleteAccountOpen}
+        onClose={() => setIsDeleteAccountOpen(false)}
+        onConfirm={handleDeleteAccount}
+      />
       <WelcomeBetaModal
         isOpen={isWelcomeBetaOpen}
         onDismiss={() => {

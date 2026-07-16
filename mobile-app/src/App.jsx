@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Turnstile } from "react-turnstile";
 import MobileResetPasswordPage from "./MobileResetPasswordPage.jsx";
 import MobileScannerPage from "./MobileScannerPage.jsx";
+import DeleteAccountDialog from "../../src/components/DeleteAccountDialog.jsx";
 import { sets } from "../../src/data/sets.js";
 import { getCardBackUrl, getCardImageUrl, getPokeballLoadingUrl, getSetLogoUrl } from "../../src/utils/assetUrls.js";
 import { generatePack, getDisplayCardName, getDisplayRarity, isHigherThanRare } from "../../src/utils/packGenerator.js";
@@ -44,6 +45,7 @@ import {
 } from "../../src/lib/cardPrices.js";
 import { countDevRequest } from "./utils/requestDiagnostics.js";
 import { clearCachedSupabaseUser } from "../../src/lib/sessionUserCache.js";
+import { clearDeletedAccountLocalState, deleteCurrentAccount } from "../../src/lib/accountDeletion.js";
 import {
   playAchievementUnlockSound,
   playDealSound,
@@ -2121,6 +2123,7 @@ function SettingsModal({
   hapticsEnabled,
   onClose,
   onLogout,
+  onDeleteAccount,
   onToggleSound,
   onToggleHaptics,
   onOpenLegal,
@@ -2145,6 +2148,9 @@ function SettingsModal({
             <p className="settings-email">{user.email}</p>
             <button className="settings-danger" type="button" onClick={onLogout}>
               Log Out
+            </button>
+            <button className="settings-danger settings-delete-account" type="button" onClick={onDeleteAccount}>
+              Delete Account
             </button>
           </section>
         )}
@@ -2194,6 +2200,7 @@ function ProfileScreen({
   onOpenLogin,
   onOpenSignup,
   onLogout,
+  onDeleteAccount,
   soundEnabled,
   onToggleSound,
   hapticsEnabled,
@@ -2373,6 +2380,10 @@ function ProfileScreen({
           setIsSettingsOpen(false);
           onLogout?.();
         }}
+        onDeleteAccount={() => {
+          setIsSettingsOpen(false);
+          onDeleteAccount?.();
+        }}
         onToggleSound={onToggleSound}
         onToggleHaptics={onToggleHaptics}
         onOpenLegal={onOpenLegal}
@@ -2501,6 +2512,7 @@ function MobileApp() {
   const [turnstileMessage, setTurnstileMessage] = useState("");
   const [authMessage, setAuthMessage] = useState("");
   const [isAuthPanelOpen, setIsAuthPanelOpen] = useState(false);
+  const [isDeleteAccountOpen, setIsDeleteAccountOpen] = useState(false);
   const [isSignupVerificationOpen, setIsSignupVerificationOpen] = useState(false);
   const [signupVerificationEmail, setSignupVerificationEmail] = useState("");
   const [isWelcomeDisclaimerOpen, setIsWelcomeDisclaimerOpen] = useState(false);
@@ -3782,6 +3794,25 @@ function MobileApp() {
     closeAuthProfile();
   }
 
+  async function handleDeleteAccount() {
+    const deletedUserId = user?.id;
+
+    if (!deletedUserId || !supabase) {
+      throw new Error("You must be signed in to delete your PackDex account.");
+    }
+
+    await deleteCurrentAccount(supabase);
+    clearDeletedAccountLocalState(deletedUserId);
+    await supabase.auth.signOut({ scope: "local" }).catch(() => {});
+    clearAccountScopedState();
+    setSoundEnabled(true);
+    setHapticsEnabled(true);
+    setCollectionEraFilter("All Eras");
+    setActiveTab("open");
+    returnToSets();
+    closeAuthProfile();
+  }
+
   if (isMobileAuthCallbackRoute) return <MobileAuthCallbackPage />;
 
   return (
@@ -3875,6 +3906,7 @@ function MobileApp() {
               onOpenLogin={() => openAuthProfile("login")}
               onOpenSignup={() => openAuthProfile("signup")}
               onLogout={handleLogout}
+              onDeleteAccount={() => setIsDeleteAccountOpen(true)}
               onToggleSound={() => setSoundEnabled((value) => !value)}
               onToggleHaptics={() => setHapticsEnabled((value) => !value)}
               wishlistCount={wishlistEntries.length}
@@ -3950,6 +3982,11 @@ function MobileApp() {
           onAuthSubmit={handleAuthSubmit}
           onOpenLegal={setLegalModalType}
         />
+        <DeleteAccountDialog
+          isOpen={isDeleteAccountOpen}
+          onClose={() => setIsDeleteAccountOpen(false)}
+          onConfirm={handleDeleteAccount}
+        />
         <SignupVerificationModal
           isOpen={isSignupVerificationOpen}
           email={signupVerificationEmail}
@@ -3992,4 +4029,3 @@ function App() {
 }
 
 export default App;
-

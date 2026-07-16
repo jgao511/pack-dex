@@ -1,0 +1,78 @@
+import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+import test from "node:test";
+import { clearDeletedAccountLocalState, deleteCurrentAccount } from "../src/lib/accountDeletion.js";
+
+function makeStorage(entries = {}) {
+  const values = new Map(Object.entries(entries));
+
+  return {
+    getItem(key) { return values.has(key) ? values.get(key) : null; },
+    setItem(key, value) { values.set(key, String(value)); },
+    removeItem(key) { values.delete(key); },
+  };
+}
+
+test("account deletion clears PackDex local state while preserving another account's queued pull", () => {
+  const storage = makeStorage({
+    "pokemon-pack-simulator-collection": "{}",
+    "packdex-binders": "{}",
+    "packdex-theme": "dark",
+    "packdex-pending-cloud-pulls": JSON.stringify([{ userId: "delete-me" }, { userId: "other-user" }]),
+    "packdex-mobile-pending-cloud-pulls": JSON.stringify([{ userId: "delete-me" }]),
+    "packdex_welcome_beta_seen_delete-me": "true",
+  });
+
+  clearDeletedAccountLocalState("delete-me", storage);
+
+  assert.equal(storage.getItem("pokemon-pack-simulator-collection"), null);
+  assert.equal(storage.getItem("packdex-binders"), null);
+  assert.equal(storage.getItem("packdex-theme"), null);
+  assert.equal(storage.getItem("packdex_welcome_beta_seen_delete-me"), null);
+  assert.deepEqual(JSON.parse(storage.getItem("packdex-pending-cloud-pulls")), [{ userId: "other-user" }]);
+  assert.equal(storage.getItem("packdex-mobile-pending-cloud-pulls"), null);
+});
+
+test("client uses only the authenticated Edge Function and does not send a target user", async () => {
+  const calls = [];
+  const client = {
+    functions: {
+      invoke: async (...args) => {
+        calls.push(args);
+        return { data: { deleted: true }, error: null };
+      },
+    },
+  };
+
+  await deleteCurrentAccount(client);
+
+  assert.deepEqual(calls, [["delete-account", { body: {} }]]);
+});
+
+test("deletion UI is authenticated-only and requires deliberate DELETE confirmation", async () => {
+  const [webApp, mobileApp, dialog] = await Promise.all([
+    readFile(new URL("../src/App.jsx", import.meta.url), "utf8"),
+    readFile(new URL("../mobile-app/src/App.jsx", import.meta.url), "utf8"),
+    readFile(new URL("../src/components/DeleteAccountDialog.jsx", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(webApp, /user \? \([\s\S]*?onDeleteAccount/);
+  assert.match(mobileApp, /\{user && \([\s\S]*?onDeleteAccount/);
+  assert.match(dialog, /confirmation !== "DELETE"/);
+  assert.match(dialog, /Permanently Delete Account/);
+});
+
+test("server deletion binds data and auth deletion to the authenticated user only", async () => {
+  const [functionSource, migration] = await Promise.all([
+    readFile(new URL("../supabase/functions/delete-account/index.ts", import.meta.url), "utf8"),
+    readFile(new URL("../supabase/migrations/20260716120000_account_deletion.sql", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(functionSource, /getAuthenticatedUser\(req\)/);
+  assert.match(functionSource, /target_user_id: user\.id/);
+  assert.match(functionSource, /deleteUser\(user\.id\)/);
+  assert.doesNotMatch(functionSource, /req\.json/);
+  for (const table of ["user_wishlist", "user_achievements", "user_binders", "user_collection_increment_events", "user_pack_open_events", "user_welcome_rewards", "user_profile_stats", "user_collection"]) {
+    assert.match(migration, new RegExp(`delete from public\\.${table} where user_id = target_user_id`));
+  }
+});

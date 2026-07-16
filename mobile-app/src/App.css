@@ -2040,6 +2040,80 @@ body.scanner-camera-active,
   font-weight: 900;
 }
 
+.settings-delete-account {
+  margin-top: 0.65rem;
+  color: #ffb4ae;
+}
+
+.delete-account-overlay {
+  position: fixed;
+  z-index: 200;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(3, 7, 18, 0.82);
+}
+
+.delete-account-dialog {
+  width: min(100%, 390px);
+  padding: 1.35rem;
+  border: 1px solid rgba(255, 125, 117, 0.45);
+  border-radius: 20px;
+  color: #f8fafc;
+  background: #161b2b;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+}
+
+.delete-account-dialog h2 {
+  margin: 0.3rem 0 0.75rem;
+}
+
+.delete-account-dialog > p,
+.delete-account-help {
+  color: #c9d0e0;
+  line-height: 1.5;
+}
+
+.delete-account-dialog label {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 1rem;
+  color: #f8fafc;
+  font-weight: 700;
+}
+
+.delete-account-dialog input {
+  min-height: 44px;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid #59637b;
+  border-radius: 10px;
+  color: #f8fafc;
+  background: #0d1322;
+  font: inherit;
+}
+
+.delete-account-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.65rem;
+  margin-top: 1.25rem;
+}
+
+.delete-account-button {
+  border: 0;
+  border-radius: 10px;
+  padding: 0.7rem 0.9rem;
+  color: #fff;
+  background: #bb3028;
+  font: inherit;
+  font-weight: 700;
+}
+
+.delete-account-button:disabled {
+  opacity: 0.55;
+}
+
 .settings-toggle {
   min-height: 58px;
   display: flex;
