@@ -2637,11 +2637,16 @@ function App() {
     setProfileStats(emptyProfileStats());
     setWelcomeRewardStatus(null);
     setIsWelcomeRewardModalOpen(false);
-    setIsDeleteAccountOpen(false);
     setActiveTab("open");
     setScreen("home");
     replaceAppHistory({ activeTab: "open", screen: "home" });
     resetPageScroll();
+  }
+
+  async function handleContinueAsGuest() {
+    await supabase?.auth.signOut({ scope: "local" }).catch(() => {});
+    setAuthSession(null);
+    setIsDeleteAccountOpen(false);
   }
 
   function startPackOpening(set = selectedSet) {
@@ -3133,6 +3138,7 @@ function App() {
         isOpen={isDeleteAccountOpen}
         onClose={() => setIsDeleteAccountOpen(false)}
         onConfirm={handleDeleteAccount}
+        onContinueAsGuest={handleContinueAsGuest}
       />
       <WelcomeBetaModal
         isOpen={isWelcomeBetaOpen}

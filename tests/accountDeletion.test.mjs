@@ -50,16 +50,69 @@ test("client uses only the authenticated Edge Function and does not send a targe
 });
 
 test("deletion UI is authenticated-only and requires deliberate DELETE confirmation", async () => {
-  const [webApp, mobileApp, dialog] = await Promise.all([
+  const [webApp, mobileApp, dialog, mobileDialog] = await Promise.all([
     readFile(new URL("../src/App.jsx", import.meta.url), "utf8"),
     readFile(new URL("../mobile-app/src/App.jsx", import.meta.url), "utf8"),
     readFile(new URL("../src/components/DeleteAccountDialog.jsx", import.meta.url), "utf8"),
+    readFile(new URL("../mobile-app/src/components/DeleteAccountDialog.jsx", import.meta.url), "utf8"),
   ]);
 
   assert.match(webApp, /user \? \([\s\S]*?onDeleteAccount/);
   assert.match(mobileApp, /\{user && \([\s\S]*?onDeleteAccount/);
   assert.match(dialog, /confirmation !== "DELETE"/);
   assert.match(dialog, /Permanently Delete Account/);
+  assert.match(mobileDialog, /confirmation !== "DELETE"/);
+  assert.match(mobileDialog, /Permanently Delete Account/);
+});
+
+test("successful deletion shows a persistent confirmation state on web and mobile", async () => {
+  const [webApp, mobileApp, dialog, mobileDialog] = await Promise.all([
+    readFile(new URL("../src/App.jsx", import.meta.url), "utf8"),
+    readFile(new URL("../mobile-app/src/App.jsx", import.meta.url), "utf8"),
+    readFile(new URL("../src/components/DeleteAccountDialog.jsx", import.meta.url), "utf8"),
+    readFile(new URL("../mobile-app/src/components/DeleteAccountDialog.jsx", import.meta.url), "utf8"),
+  ]);
+
+  for (const source of [dialog, mobileDialog]) {
+    assert.match(source, /useState\("idle"\)/);
+    assert.match(source, /setDeletionState\("confirming"\)/);
+    assert.match(source, /setDeletionState\("deleting"\)/);
+    assert.match(source, /setDeletionState\("success"\)/);
+    assert.match(source, /Account Deleted/);
+    assert.match(source, /Your PackDex account and saved account data have been permanently deleted\./);
+    assert.match(source, /Continue as Guest/);
+  }
+
+  for (const app of [webApp, mobileApp]) {
+    const deleteHandler = app.match(/async function handleDeleteAccount\(\) \{[\s\S]*?\n  \}\n\n  async function handleContinueAsGuest/ )?.[0] || "";
+    assert.notEqual(deleteHandler, "");
+    assert.doesNotMatch(deleteHandler, /setIsDeleteAccountOpen\(false\)/);
+    assert.match(app, /onContinueAsGuest=\{handleContinueAsGuest\}/);
+  }
+});
+
+test("deletion failure returns to a retryable error state", async () => {
+  const [dialog, mobileDialog] = await Promise.all([
+    readFile(new URL("../src/components/DeleteAccountDialog.jsx", import.meta.url), "utf8"),
+    readFile(new URL("../mobile-app/src/components/DeleteAccountDialog.jsx", import.meta.url), "utf8"),
+  ]);
+
+  for (const source of [dialog, mobileDialog]) {
+    assert.match(source, /setDeletionState\("error"\)/);
+    assert.match(source, /Account deletion could not be completed\. Please try again\./);
+    assert.match(source, /Try Deleting Again/);
+    assert.match(source, /if \(deletionState === "error"\) setDeletionState\("confirming"\)/);
+  }
+});
+
+test("success action clears the local session before returning to guest mode", async () => {
+  const [webApp, mobileApp] = await Promise.all([
+    readFile(new URL("../src/App.jsx", import.meta.url), "utf8"),
+    readFile(new URL("../mobile-app/src/App.jsx", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(webApp, /async function handleContinueAsGuest\(\) \{[\s\S]*?auth\.signOut\(\{ scope: "local" \}\)[\s\S]*?setAuthSession\(null\)[\s\S]*?setIsDeleteAccountOpen\(false\)/);
+  assert.match(mobileApp, /async function handleContinueAsGuest\(\) \{[\s\S]*?auth\.signOut\(\{ scope: "local" \}\)[\s\S]*?clearAccountScopedState\(\)[\s\S]*?setIsDeleteAccountOpen\(false\)/);
 });
 
 test("mobile deletion dialog resolves React from the mobile application", async () => {

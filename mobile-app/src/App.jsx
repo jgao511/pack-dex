@@ -3813,6 +3813,12 @@ function MobileApp() {
     closeAuthProfile();
   }
 
+  async function handleContinueAsGuest() {
+    await supabase?.auth.signOut({ scope: "local" }).catch(() => {});
+    clearAccountScopedState();
+    setIsDeleteAccountOpen(false);
+  }
+
   if (isMobileAuthCallbackRoute) return <MobileAuthCallbackPage />;
 
   return (
@@ -3986,6 +3992,7 @@ function MobileApp() {
           isOpen={isDeleteAccountOpen}
           onClose={() => setIsDeleteAccountOpen(false)}
           onConfirm={handleDeleteAccount}
+          onContinueAsGuest={handleContinueAsGuest}
         />
         <SignupVerificationModal
           isOpen={isSignupVerificationOpen}
