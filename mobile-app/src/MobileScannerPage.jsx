@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { getCardImageUrl } from "../../src/utils/assetUrls.js";
 import { captureCardImage } from "../../src/lib/cardScanner/captureCardImage.js";
-import { fuseCardMatches } from "../../src/lib/cardScanner/fuseCardMatches.js";
+import { selectScannerResult } from "../../src/lib/cardScanner/fuseCardMatches.js";
 import { recognizeCardText } from "../../src/lib/cardScanner/recognizeCardText.js";
 import { confirmTrustedCandidate, releaseTemporaryImage } from "../../src/lib/cardScanner/scannerSession.js";
 import { formatUsd } from "../../src/lib/cardPrices.js";
@@ -213,7 +213,7 @@ export default function MobileScannerPage({ authState, authUserId, onRequireAuth
     const analysis = ++analysisRef.current; const started = performance.now(); setStage("analyzing"); setMatch(null); setSelectedCardId("");
     try {
       const recognized = browser ? await recognizeBrowserImage(image) : await recognizeCardText(image, { adapter: nativeOcrRef.current });
-      const fused = recognized.fusedMatch || (recognized.visualMatch ? fuseCardMatches(recognized.ocrMatch, recognized.visualMatch) : recognized.ocrMatch);
+      const fused = selectScannerResult(recognized);
       scannerEvidenceDebug(recognized, fused);
       scannerDebug("analysis-complete", { adapter: browser ? "browser-production-visual" : "nativeOcrAdapter", totalMs: performance.now() - started, rawOcrCandidates: recognized.ocrMatch?.results?.length || 0, rawVisualCandidates: recognized.visualMatch?.lightweight?.candidates?.length || 0, normalizedCandidates: fused?.results?.length || 0, scannerTiming: recognized.scannerTiming || null });
       if (analysis !== analysisRef.current) return;

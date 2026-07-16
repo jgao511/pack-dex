@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { captureCardImage, CardCaptureError, createTemporaryImage } from "../../src/lib/cardScanner/captureCardImage.js";
 import { recognizeCardText } from "../../src/lib/cardScanner/recognizeCardText.js";
 import { rankCardMatches } from "../../src/lib/cardScanner/rankCardMatches.js";
-import { fuseCardMatches } from "../../src/lib/cardScanner/fuseCardMatches.js";
+import { selectScannerResult } from "../../src/lib/cardScanner/fuseCardMatches.js";
 import { confirmTrustedCandidate, getScannerResultMode, releaseTemporaryImage } from "../../src/lib/cardScanner/scannerSession.js";
 import { getCardImageUrl } from "../../src/utils/assetUrls.js";
 import { nativeCameraAdapter as defaultNativeCameraAdapter, nativeOcrAdapter as defaultOcrAdapter } from "./lib/nativeScannerAdapters.js";
@@ -56,7 +56,7 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
       try {
         const reading = await recognizeCardText(temporaryImage, { adapter: activeOcrAdapter });
         const ocrMatch = reading.ocrMatch || rankCardMatches({ rawText: reading.fullText, textBlocks: reading.blocks, maxResults: 3 });
-        const finalMatch = reading.visualMatch ? fuseCardMatches(ocrMatch, reading.visualMatch) : ocrMatch;
+        const finalMatch = selectScannerResult({ ...reading, ocrMatch });
         return {
           file: { name: file.name, size: file.size, type: file.type },
           rawText: reading.fullText,
@@ -182,7 +182,7 @@ export default function CardScannerDevPage({ nativeCameraAdapter, ocrAdapter } =
   }
   function finishReading(fullText, blocks = [], reading = {}) {
     const ocrMatch = reading.ocrMatch || rankCardMatches({ rawText: fullText, textBlocks: blocks, maxResults: 3 });
-    const nextMatch = reading.visualMatch ? fuseCardMatches(ocrMatch, reading.visualMatch) : ocrMatch;
+    const nextMatch = selectScannerResult({ ...reading, ocrMatch });
     setProposalPreviews(reading.proposalPreviews || []);
     const nextDiagnostics = { previewStart, image: reading.imageDiagnostics || null, timing: reading.scannerTiming || null, passes: reading.passes || [], visual: reading.visualMatch || null, visualError: reading.visualError || null, rawText: fullText, normalizedText: nextMatch.normalizedText, collectorNumbers: nextMatch.collectorNumbers, nameCandidates: nextMatch.nameCandidates, narrowedSetIds: nextMatch.narrowedSetIds, narrowedCardIds: nextMatch.narrowedCardIds, matches: nextMatch.results.map(({ cardId, score, confidence, reasons, setName, card }) => ({ cardId, name: card.name, setName, score, confidence, reasons })) };
     setDiagnostics(nextDiagnostics); globalThis.__PACKDEX_SCANNER_LAST_RESULT__ = nextDiagnostics;

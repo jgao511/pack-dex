@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { readFile } from "node:fs/promises";
 import { captureCardImage, CardCaptureError, createTemporaryImage, getBrowserFileInputOptions, validateBrowserImageFile } from "../src/lib/cardScanner/captureCardImage.js";
+import { selectScannerResult } from "../src/lib/cardScanner/fuseCardMatches.js";
 import { normalizeOcrResult, recognizeCardText, CardRecognitionError } from "../src/lib/cardScanner/recognizeCardText.js";
 import { confirmTrustedCandidate, getScannerResultMode, releaseTemporaryImage } from "../src/lib/cardScanner/scannerSession.js";
 
@@ -52,10 +53,44 @@ test("models high, medium, and low result displays without auto-confirming", () 
   assert.equal(confirmTrustedCandidate({ results: [candidate] }, "ocr-invented"), null);
 });
 
+test("preserves frozen-A and fused evidence without changing order or precision", () => {
+  const candidates = [
+    { cardId: "phantasmal-flames-13-mega-charizard-x-ex", score: .9410285024123456 },
+    { cardId: "unified-minds-99-salazzle", score: .7840736821987654 },
+  ];
+  const frozenA = { candidates, modelSha256: "model", indexSha256: "index" };
+  const fusedMatch = { confidence: "low", results: candidates.map((candidate) => ({ ...candidate })) };
+  const normalized = normalizeOcrResult({ text: "Mega Charizard X ex", frozenA, fusedMatch, futureOptionalField: { ignored: true } });
+  assert.equal(normalized.frozenA, frozenA);
+  assert.equal(normalized.fusedMatch, fusedMatch);
+  assert.deepEqual(normalized.frozenA.candidates.map(({ cardId }) => cardId), candidates.map(({ cardId }) => cardId));
+  assert.equal(normalized.frozenA.candidates[0].score, .9410285024123456);
+});
+
+test("selects existing fused evidence before legacy fusion and falls back only when absent", () => {
+  const fusedMatch = { confidence: "low", results: [{ cardId: "phantasmal-flames-13-mega-charizard-x-ex", score: 94.10285024123456 }] };
+  const unrelatedLegacy = { confidence: "low", results: [{ cardId: "bw7-20" }] };
+  assert.equal(selectScannerResult({ fusedMatch, ocrMatch: unrelatedLegacy, visualMatch: { lightweight: { candidates: [{ cardId: "bw7-20", score: .99 }] } } }), fusedMatch);
+  assert.equal(selectScannerResult({ ocrMatch: unrelatedLegacy }), unrelatedLegacy);
+});
+
+test("browser and normalized Android evidence select identical candidate IDs", () => {
+  const shared = { confidence: "low", results: [{ cardId: "card-1", score: 91.25 }, { cardId: "card-2", score: 87.75 }] };
+  const browserResult = { frozenA: { candidates: shared.results }, fusedMatch: shared };
+  const androidResult = normalizeOcrResult({ text: "Card", ...browserResult });
+  assert.deepEqual(selectScannerResult(androidResult).results.map(({ cardId }) => cardId), selectScannerResult(browserResult).results.map(({ cardId }) => cardId));
+});
+
 test("development scanner diagnostics observe existing Frozen-A evidence without changing candidates", async () => {
-  const page = await readFile(new URL("../mobile-app/src/MobileScannerPage.jsx", import.meta.url), "utf8");
+  const [page, devPage] = await Promise.all([
+    readFile(new URL("../mobile-app/src/MobileScannerPage.jsx", import.meta.url), "utf8"),
+    readFile(new URL("../mobile-app/src/CardScannerDevPage.jsx", import.meta.url), "utf8"),
+  ]);
   assert.match(page, /function scannerEvidenceDebug/); assert.match(page, /scannerEvidenceDebug\(recognized, fused\)/);
   assert.match(page, /finalTopThreeCardIds/); assert.match(page, /import\.meta\.env\.DEV/);
+  assert.match(page, /const fused = selectScannerResult\(recognized\)/);
+  assert.match(page, /if \(analysis !== analysisRef\.current\) return/);
+  assert.match(devPage, /selectScannerResult\(\{ \.\.\.reading, ocrMatch \}\)/);
 });
 
 test("scanner page has no collection, wishlist, pack event, or Supabase write path", async () => {

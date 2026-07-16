@@ -20,3 +20,15 @@ test("bundles the exact frozen-A model and full catalog index with their binding
   assert.equal(parsed.cardIds.length, 18747);
   assert.equal(new Set(parsed.cardIds).size, 18747);
 });
+
+test("browser and Android frozen-A inputs share NHWC RGB zero-to-one tensor semantics", async () => {
+  const [browser, android] = await Promise.all([
+    readFile(new URL("../mobile-app/src/lib/frozenAScanner.js", import.meta.url), "utf8"),
+    readFile(new URL("../mobile-app/android/app/src/main/java/com/packdex/app/PackDexAiEmbedderPlugin.java", import.meta.url), "utf8"),
+  ]);
+  assert.match(browser, /model\.inputs\?\.\[0\]\?\.shape\?\.join\(","\) !== "1,224,224,3"/);
+  assert.match(browser, /input\[target\+\+\] = pixels\[source\] \/ 255; input\[target\+\+\] = pixels\[source \+ 1\] \/ 255; input\[target\+\+\] = pixels\[source \+ 2\] \/ 255/);
+  assert.match(android, /float32 NHWC \[1,H,W,3\]/);
+  assert.match(android, /float red = \(pixel >> 16\) & 0xff;\s*float green = \(pixel >> 8\) & 0xff;\s*float blue = pixel & 0xff;/);
+  assert.match(android, /input\.putFloat\(red \/ 255f\); input\.putFloat\(green \/ 255f\); input\.putFloat\(blue \/ 255f\);/);
+});

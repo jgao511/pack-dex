@@ -39,3 +39,8 @@ export function fuseCardMatches(ocrMatch, visualMatch, catalog = getScannerCatal
   const results = defensible.map((item, index) => ({ cardId: item.entry.cardId, card: item.entry.card, setId: item.entry.setId, setName: item.entry.setName, printedSetTotal: item.entry.printedSetTotal, score: Math.round(item.score * 100), confidence: index === 0 ? confidence : "low", reasons: item.reasons, visualEvidence: { lightweight: item.light?.score || 0, orb: item.orb?.score || 0, inliers: item.orb?.inliers || 0 } }));
   return { ...ocrMatch, confidence, scoreGap: Math.round(gap * 100), primaryMatch: confidence === "high" ? results[0] : null, results, visualMatch: { topLightweightId: visualTopId || null, topOcrId: ocrTopId || null, agreement, lightGap, orbGap } };
 }
+
+export function selectScannerResult(recognized) {
+  if (recognized?.fusedMatch) return recognized.fusedMatch;
+  return recognized?.visualMatch ? fuseCardMatches(recognized.ocrMatch, recognized.visualMatch) : recognized?.ocrMatch;
+}
