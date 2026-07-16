@@ -66,6 +66,8 @@ import { compareCardsByRarity } from "./utils/rarityRank.js";
 import { cacheWelcomeRewardStatus, loadWelcomeRewardStatus } from "./lib/welcomeReward.js";
 import { claimWelcomeGodPack } from "./lib/securePackOpening.js";
 import { clearDeletedAccountLocalState, deleteCurrentAccount } from "./lib/accountDeletion.js";
+import { isSupabaseAuthStorageKey, validateSupabaseIdentity } from "./lib/authIdentityValidation.js";
+import { clearCachedSupabaseUser } from "./lib/sessionUserCache.js";
 import { markPackGenerationComplete, markPackGenerationStart } from "./utils/imageDebug.js";
 import { markCardBackPreloadFinish, markCardBackPreloadStart } from "./utils/cardBackDebug.js";
 import {
@@ -2323,8 +2325,10 @@ function App() {
   const returnTokenRef = useRef(0);
   const tabLoadTokenRef = useRef(0);
   const shownWelcomeRewardUserRef = useRef("");
+  const authRefreshPromiseRef = useRef(null);
+  const authValidationAttemptRef = useRef(0);
   const isPackFlow = activeTab === "open" && ["opening", "reveal", "summary"].includes(screen);
-  const authUser = authSession?.user || null;
+  const authUser = isAuthLoading ? null : authSession?.user || null;
 
   useEffect(() => {
     removeLegacyProfileStatsStorage();
@@ -2377,20 +2381,84 @@ function App() {
 
     let isMounted = true;
 
-    supabase.auth.getSession().then(({ data }) => {
-      if (!isMounted) return;
+    function refreshValidatedAuth() {
+      if (authRefreshPromiseRef.current) return authRefreshPromiseRef.current;
 
-      setAuthSession(data.session || null);
-      setIsAuthLoading(false);
-    });
+      const validationAttempt = ++authValidationAttemptRef.current;
+      setIsAuthLoading(true);
+      clearCachedSupabaseUser(supabase);
+      setIsWelcomeRewardModalOpen(false);
+      setWelcomeRewardStatus(null);
+      setWelcomeRewardError("");
+
+      const promise = (async () => {
+        try {
+          const { data, error } = await supabase.auth.getSession();
+          if (error) throw error;
+          if (!data.session) {
+            if (isMounted && validationAttempt === authValidationAttemptRef.current) setAuthSession(null);
+            return null;
+          }
+
+          const validation = await validateSupabaseIdentity(supabase, data.session);
+          if (!isMounted || validationAttempt !== authValidationAttemptRef.current) return null;
+          setAuthSession(validation.session);
+          return validation.user;
+        } catch (error) {
+          console.warn("Unable to validate PackDex auth session", error);
+          if (isMounted && validationAttempt === authValidationAttemptRef.current) setAuthSession(null);
+          return null;
+        } finally {
+          if (isMounted && validationAttempt === authValidationAttemptRef.current) setIsAuthLoading(false);
+        }
+      })().finally(() => {
+        authRefreshPromiseRef.current = null;
+      });
+
+      authRefreshPromiseRef.current = promise;
+      return promise;
+    }
+
+    function refreshIfActive() {
+      if (!isMounted || document.visibilityState === "hidden") return;
+      refreshValidatedAuth();
+    }
+
+    refreshValidatedAuth();
 
     const { data } = supabase.auth.onAuthStateChange((_event, session) => {
-      setAuthSession(session || null);
-      setIsAuthLoading(false);
+      if (!session?.user) {
+        authValidationAttemptRef.current += 1;
+        clearCachedSupabaseUser(supabase);
+        setAuthSession(null);
+        setIsAuthLoading(false);
+        setIsWelcomeRewardModalOpen(false);
+        setWelcomeRewardStatus(null);
+        return;
+      }
+
+      setIsAuthLoading(true);
+      clearCachedSupabaseUser(supabase);
+      setIsWelcomeRewardModalOpen(false);
+      setWelcomeRewardStatus(null);
+      window.setTimeout(refreshValidatedAuth, 0);
     });
+
+    function handleAuthStorage(event) {
+      if (event.key !== null && !isSupabaseAuthStorageKey(supabase, event.key)) return;
+      refreshIfActive();
+    }
+
+    window.addEventListener("focus", refreshIfActive);
+    window.addEventListener("storage", handleAuthStorage);
+    document.addEventListener("visibilitychange", refreshIfActive);
 
     return () => {
       isMounted = false;
+      authValidationAttemptRef.current += 1;
+      window.removeEventListener("focus", refreshIfActive);
+      window.removeEventListener("storage", handleAuthStorage);
+      document.removeEventListener("visibilitychange", refreshIfActive);
       data.subscription.unsubscribe();
     };
   }, []);
@@ -2631,7 +2699,9 @@ function App() {
     await deleteCurrentAccount(supabase);
     clearDeletedAccountLocalState(deletedUserId);
     await supabase.auth.signOut({ scope: "local" }).catch(() => {});
+    authValidationAttemptRef.current += 1;
     setAuthSession(null);
+    setIsAuthLoading(false);
     setCollection({});
     setBinders([]);
     setProfileStats(emptyProfileStats());
@@ -2645,7 +2715,9 @@ function App() {
 
   async function handleContinueAsGuest() {
     await supabase?.auth.signOut({ scope: "local" }).catch(() => {});
+    authValidationAttemptRef.current += 1;
     setAuthSession(null);
+    setIsAuthLoading(false);
     setIsDeleteAccountOpen(false);
   }
 

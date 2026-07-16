@@ -19,7 +19,6 @@ import { loadCloudProfileStats } from "./lib/cloudProfileStats.js";
 import { ensurePackOpenClientEventId, recordPackOpenEvent } from "../../src/lib/packOpenEvents.js";
 import { cacheWelcomeRewardStatus, loadWelcomeRewardStatus } from "../../src/lib/welcomeReward.js";
 import {
-  getCurrentUser,
   loadCloudCollection,
   savePulledCardsToCloud,
   enqueuePendingCloudPull,
@@ -45,6 +44,7 @@ import {
 } from "../../src/lib/cardPrices.js";
 import { countDevRequest } from "./utils/requestDiagnostics.js";
 import { clearCachedSupabaseUser } from "../../src/lib/sessionUserCache.js";
+import { isSupabaseAuthStorageKey, validateSupabaseIdentity } from "../../src/lib/authIdentityValidation.js";
 import { clearDeletedAccountLocalState, deleteCurrentAccount } from "../../src/lib/accountDeletion.js";
 import {
   playAchievementUnlockSound,
@@ -2483,6 +2483,7 @@ function MobileApp() {
   const [collection, setCollection] = useState({});
   const [binders, setBinders] = useState([]);
   const [user, setUser] = useState(null);
+  const [authValidationState, setAuthValidationState] = useState(isSupabaseConfigured ? "validating" : "guest");
   const [stats, setStats] = useState(EMPTY_STATS);
   const [loadingMessage, setLoadingMessage] = useState("Loading account...");
   const [selectedSet, setSelectedSet] = useState(null);
@@ -2533,7 +2534,7 @@ function MobileApp() {
   const accountLoadPromisesRef = useRef(new Map());
   const accountLoadedAtRef = useRef(new Map());
   const authRefreshPromiseRef = useRef(null);
-  const lastSessionCheckAtRef = useRef(0);
+  const authValidationAttemptRef = useRef(0);
   const [legalModalType, setLegalModalType] = useState("");
   const [priceMapsBySet, setPriceMapsBySet] = useState({});
   const [fullSetPriceMapsBySet, setFullSetPriceMapsBySet] = useState({});
@@ -3136,36 +3137,58 @@ function MobileApp() {
     if (authRefreshPromiseRef.current) return authRefreshPromiseRef.current;
     if (!supabase) {
       clearAccountScopedState();
+      setAuthValidationState("guest");
       setLoadingMessage("");
       return null;
     }
 
     countDevRequest("refreshAuthSession");
+    const validationAttempt = ++authValidationAttemptRef.current;
+    setAuthValidationState("validating");
+    clearCachedSupabaseUser(supabase);
+    setIsWelcomeRewardModalOpen(false);
+    setWelcomeRewardStatus(null);
+    setWelcomeRewardError("");
     if (showLoading) setLoadingMessage("Loading account...");
 
     const promise = (async () => {
       try {
         const { data, error } = await supabase.auth.getSession();
         if (error) throw error;
-        lastSessionCheckAtRef.current = Date.now();
-
-        const sessionUser = data.session?.user || null;
-
-        if (!sessionUser) {
+        const session = data.session || null;
+        if (!session) {
+          if (validationAttempt !== authValidationAttemptRef.current) return null;
           clearAccountScopedState();
+          setAuthValidationState("guest");
           return null;
         }
 
+        const validation = await validateSupabaseIdentity(supabase, session);
+        if (validationAttempt !== authValidationAttemptRef.current) return null;
+        if (!validation.user) {
+          clearAccountScopedState();
+          setAuthValidationState("guest");
+          return null;
+        }
+
+        const sessionUser = validation.user;
         setIsSignupVerificationOpen(false);
         setSignupVerificationEmail("");
         await loadAccountScopedState(sessionUser);
+        if (validationAttempt !== authValidationAttemptRef.current) return null;
         await refreshWelcomeRewardStatus(sessionUser, { autoOpen: autoOpenWelcomeReward });
+        if (validationAttempt !== authValidationAttemptRef.current) return null;
+        setAuthValidationState("authenticated");
         return sessionUser;
       } catch (error) {
         console.warn("Unable to refresh mobile PackDex auth session", error);
+        if (validationAttempt === authValidationAttemptRef.current) {
+          clearAccountScopedState();
+          setAuthValidationState("guest");
+        }
         return null;
       } finally {
-        setLoadingMessage("");
+        if (validationAttempt === authValidationAttemptRef.current) setLoadingMessage("");
       }
     })().finally(() => {
       authRefreshPromiseRef.current = null;
@@ -3240,8 +3263,7 @@ function MobileApp() {
 
     function refreshIfActive() {
       if (!mounted || document.visibilityState === "hidden") return;
-      if (Date.now() - lastSessionCheckAtRef.current < ACCOUNT_STATE_FRESH_MS) return;
-      refreshAuthSession({ autoOpenWelcomeReward: true });
+      refreshAuthSession({ showLoading: true, autoOpenWelcomeReward: true });
     }
 
     const { data } = supabase.auth.onAuthStateChange((event, session) => {
@@ -3252,31 +3274,36 @@ function MobileApp() {
         setSignupVerificationEmail("");
       }
       if (!nextUser) {
+        authValidationAttemptRef.current += 1;
         clearAccountScopedState();
+        setAuthValidationState("guest");
         setLoadingMessage("");
         return;
       }
 
-      const accountIsStale = Date.now() - (accountLoadedAtRef.current.get(nextUser.id) || 0) >= ACCOUNT_STATE_FRESH_MS;
-      const identityChanged = lastAccountScopedUserIdRef.current !== nextUser.id;
-      if (event === "SIGNED_IN" || event === "USER_UPDATED" || (event === "TOKEN_REFRESHED" && (identityChanged || accountIsStale))) {
-        loadAccountScopedState(nextUser)
-          .then(() => refreshWelcomeRewardStatus(nextUser, { autoOpen: true }))
-          .catch((error) => {
-            console.warn("Unable to reload mobile account data after auth change", error);
-          })
-          .finally(() => {
-            setLoadingMessage("");
-          });
-      }
+      setAuthValidationState("validating");
+      clearCachedSupabaseUser(supabase);
+      setIsWelcomeRewardModalOpen(false);
+      setWelcomeRewardStatus(null);
+      setLoadingMessage("Loading account...");
+      window.setTimeout(() => {
+        refreshAuthSession({ showLoading: true, autoOpenWelcomeReward: true });
+      }, 0);
     });
 
+    function handleAuthStorage(event) {
+      if (event.key !== null && !isSupabaseAuthStorageKey(supabase, event.key)) return;
+      refreshIfActive();
+    }
+
     window.addEventListener("focus", refreshIfActive);
+    window.addEventListener("storage", handleAuthStorage);
     document.addEventListener("visibilitychange", refreshIfActive);
 
     return () => {
       mounted = false;
       window.removeEventListener("focus", refreshIfActive);
+      window.removeEventListener("storage", handleAuthStorage);
       document.removeEventListener("visibilitychange", refreshIfActive);
       data.subscription.unsubscribe();
     };
@@ -3789,14 +3816,13 @@ function MobileApp() {
         return;
       }
 
-      const nextUser = data.session?.user || data.user || (await getCurrentUser());
-
-      setUser(nextUser);
+      const nextUser = await refreshAuthSession({ showLoading: false, autoOpenWelcomeReward: true });
       setAuthMessage(isCreateMode ? "Account created! You're now signed in." : "Logged in.");
 
       if (nextUser) {
         setIsAuthPanelOpen(false);
-        await loadAccountScopedState(nextUser);
+      } else {
+        throw new Error("The account session could not be validated.");
       }
     } catch (error) {
       console.warn("Unable to load account data after mobile auth", error);
@@ -3810,7 +3836,9 @@ function MobileApp() {
   async function handleLogout() {
     if (supabase) await supabase.auth.signOut();
 
+    authValidationAttemptRef.current += 1;
     clearAccountScopedState();
+    setAuthValidationState("guest");
     closeAuthProfile();
   }
 
@@ -3824,7 +3852,9 @@ function MobileApp() {
     await deleteCurrentAccount(supabase);
     clearDeletedAccountLocalState(deletedUserId);
     await supabase.auth.signOut({ scope: "local" }).catch(() => {});
+    authValidationAttemptRef.current += 1;
     clearAccountScopedState();
+    setAuthValidationState("guest");
     setSoundEnabled(true);
     setHapticsEnabled(true);
     setCollectionEraFilter("All Eras");
@@ -3835,7 +3865,9 @@ function MobileApp() {
 
   async function handleContinueAsGuest() {
     await supabase?.auth.signOut({ scope: "local" }).catch(() => {});
+    authValidationAttemptRef.current += 1;
     clearAccountScopedState();
+    setAuthValidationState("guest");
     setIsDeleteAccountOpen(false);
   }
 
@@ -3846,6 +3878,13 @@ function MobileApp() {
       <section className="phone-shell" aria-label="PackDex mobile app">
         <div className={`screen-content screen-${activeTab}`} ref={screenContentRef} onClick={handlePackScreenClick}>
           <MobileBrandHeader />
+          {authValidationState === "validating" ? (
+            <section className="mobile-auth-validation" role="status" aria-live="polite">
+              <img src={POKEBALL_LOADING_SRC} alt="" />
+              <strong>Checking your account...</strong>
+              <span>Verifying this session securely.</span>
+            </section>
+          ) : <>
           {activeTab === "open" &&
             (packStage === "sets" ? (
               <OpenSetSelector collection={collection} onOpenPack={openPack} />
@@ -3952,6 +3991,7 @@ function MobileApp() {
               onOpenLegal={setLegalModalType}
             />
           )}
+          </>}
         </div>
 
         <nav className={`bottom-tabs ${isPackOpening ? "is-pack-locked" : ""}`} aria-label="Mobile app sections">
@@ -3974,9 +4014,9 @@ function MobileApp() {
           })}
         </nav>
 
-        <AchievementUnlockToast toast={activeAchievementToast} />
+        {authValidationState !== "validating" && <AchievementUnlockToast toast={activeAchievementToast} />}
 
-        <CardInspectModal
+        {authValidationState !== "validating" && <CardInspectModal
           item={inspectedCard}
           collection={collection}
           user={user}
@@ -3987,9 +4027,9 @@ function MobileApp() {
           onLogin={() => openAuthProfile("login")}
           priceMap={inspectedCard?.set ? fullSetPriceMapsBySet[inspectedCard.set.id] || priceMapsBySet[inspectedCard.set.id] : null}
           onClose={() => setInspectedCard(null)}
-        />
+        />}
         <MobileAuthModal
-          isOpen={isAuthPanelOpen && !user}
+          isOpen={authValidationState !== "validating" && isAuthPanelOpen && !user}
           authMode={authMode}
           authEmail={authEmail}
           authPassword={authPassword}
@@ -4020,7 +4060,7 @@ function MobileApp() {
           onClose={() => setIsSignupVerificationOpen(false)}
         />
         <WelcomeRewardModal
-          isOpen={isWelcomeRewardModalOpen}
+          isOpen={authValidationState !== "validating" && isWelcomeRewardModalOpen}
           rewardStatus={welcomeRewardStatus}
           selectedSetId={selectedWelcomeRewardSetId}
           isClaiming={isClaimingWelcomeReward}
