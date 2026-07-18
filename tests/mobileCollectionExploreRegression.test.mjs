@@ -74,6 +74,10 @@ test("Surprise Me selects a detail card and Daily Fact lives in Spotlight", asyn
   assert.match(spotlight, /featureLabel="Featured Pokémon"/);
   assert.match(spotlight, /featureLabel="Featured Set"/);
   assert.match(spotlight, /featureLabel="Featured Era"/);
+
+  const styles = await read("../mobile-app/src/explore/ExploreScreen.css");
+  assert.match(styles, /\.explore-spotlights \.explore-tile-copy \{[^}]*align-items: flex-start;[^}]*text-align: left;/);
+  assert.match(styles, /\.explore-spotlights \.explore-types \{ justify-content: flex-start; \}/);
 });
 
 test("Pokémon price highlight remains mounted through loading and failure", async () => {
