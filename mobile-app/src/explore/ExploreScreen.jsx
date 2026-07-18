@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { getCardCount, getSetCollectionProgress } from "../../../src/utils/collectionStorage.js";
-import { getCardImageUrl, getSetLogoUrl, getSetPackArtUrl } from "../../../src/utils/assetUrls.js";
+import { getCardImageUrl, getSetLogoUrl } from "../../../src/utils/assetUrls.js";
 import { compareCardsByRarity } from "../../../src/utils/rarityRank.js";
 import { getCardDisplayPrice } from "../../../src/lib/cardPrices.js";
 import { supabase } from "../lib/supabaseClient.js";
@@ -325,7 +325,7 @@ function SetDetail({ id, collection, wishlistKeys, navigate, goBack, onInspectCa
   const wishlistCount = cardEntries.filter((entry) => wishlistKeys.has(`${set.id}:${entry.card.id}`)).length;
   const inspectSetCard = (card, cardSet) => onInspectCard(card, cardSet, { origin: "set-detail", setId: set.id });
   return <section className="explore-screen"><PageHeader title={set.name} onBack={goBack} />
-    <section className="set-detail-hero"><div className="set-detail-logo"><SafeImage src={getSetLogoUrl(set)} alt={`${set.name} logo`} /></div><SafeImage src={getSetPackArtUrl(set)} alt={`${set.name} pack artwork`} /><div><span>{guide.custom ? "PackDex-created preview" : set.era}</span><strong>{set.releaseDate ? new Date(`${set.releaseDate}T00:00:00`).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" }) : "Release date unavailable"}</strong><em>{cardEntries.length} supported cards</em></div></section>
+    <section className="set-detail-hero"><div className="set-detail-logo"><SafeImage src={getSetLogoUrl(set)} alt={`${set.name} logo`} /></div><div><span>{guide.custom ? "PackDex-created preview" : set.era}</span><strong>{set.releaseDate ? new Date(`${set.releaseDate}T00:00:00`).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" }) : "Release date unavailable"}</strong><em>{cardEntries.length} supported cards</em></div></section>
     {guide.summary && <section className="explore-detail-section"><span className="eyebrow">About This Set</span><p className="explore-description">{guide.summary}</p></section>}
     {guide.themes?.length > 0 && <section className="explore-detail-section"><span className="eyebrow">Themes</span><div className="mechanic-list">{guide.themes.map((item) => <span key={item}>{item}</span>)}</div></section>}
     {guide.mechanics?.length > 0 && <section className="explore-detail-section"><span className="eyebrow">Verified Mechanics</span><div className="mechanic-list">{guide.mechanics.map((item) => <span key={item}>{item}</span>)}</div></section>}
