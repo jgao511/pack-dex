@@ -4,6 +4,8 @@
     "build": "vite build && npm run build:mobile && node scripts/copy-mobile-build.mjs && node scripts/verify-production-routes.mjs",
     "build:mobile:deps": "npm --prefix mobile-app ci",
     "build:mobile": "npm run build:mobile:deps && npm --prefix mobile-app run build",
+    "generate:explore-data": "node scripts/generate-explore-data.mjs --force",
+    "generate:explore-editorial": "node scripts/generate-explore-editorial.mjs",
     "generate:branding": "node scripts/generate-brand-assets.mjs",
     "test:branding": "node --test tests/brandingAssets.test.mjs",
     "verify:production-routes": "node scripts/verify-production-routes.mjs",

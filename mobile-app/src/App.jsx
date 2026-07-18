@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { Turnstile } from "react-turnstile";
 import MobileResetPasswordPage from "./MobileResetPasswordPage.jsx";
-import MobileScannerPage from "./MobileScannerPage.jsx";
 import DeleteAccountDialog from "./components/DeleteAccountDialog.jsx";
+import { buildExplorePath } from "./explore/exploreRouting.js";
 import { sets } from "../../src/data/sets.js";
 import { getCardBackUrl, getCardImageUrl, getPokeballLoadingUrl, getSetLogoUrl } from "../../src/utils/assetUrls.js";
 import { generatePack, getDisplayCardName, getDisplayRarity, isHigherThanRare } from "../../src/utils/packGenerator.js";
@@ -61,10 +61,15 @@ import { loadHapticsEnabled, saveHapticsEnabled, triggerRevealHaptic } from "./u
 import { addWishlistCard, getWishlistKey, loadWishlist, removeWishlistCard, resolveCatalogWishlistItem } from "./lib/wishlist.js";
 import { addScannedCardOnce, loadScannerCardActionState } from "./lib/scannerCardActions.js";
 
+const ExploreScreen = lazy(() => import("./explore/ExploreScreen.jsx"));
+const MobileScannerPage = __PACKDEX_SCANNER_TEST__ ? lazy(() => import("./MobileScannerPage.jsx")) : null;
+
 const tabs = [
-  { id: "open", label: "Open a Pack", title: "Open a Pack", icon: "open" },
+  { id: "open", label: "Open", title: "Open a Pack", icon: "open" },
   { id: "collection", label: "Collection", title: "Collection", icon: "collection" },
-  { id: "scanner", label: "Scanner", title: "Scanner", icon: "scanner" },
+  __PACKDEX_SCANNER_TEST__
+    ? { id: "scanner", label: "Scanner", title: "Scanner", icon: "scanner" }
+    : { id: "explore", label: "Explore", title: "Explore", icon: "explore" },
   { id: "profile", label: "Profile", title: "Profile", icon: "profile" },
 ];
 
@@ -1093,6 +1098,16 @@ function TabIcon({ icon }) {
     );
   }
 
+  if (icon === "explore") {
+    return (
+      <span className="mobile-icon mobile-icon-explore" aria-hidden="true">
+        <i />
+        <i />
+        <i />
+      </span>
+    );
+  }
+
   if (icon === "value") {
     return (
       <span className="mobile-icon mobile-icon-chart" aria-hidden="true">
@@ -1365,6 +1380,9 @@ function CollectionCards({
   const orderedSets = useMemo(() => sortSetsByEra(sets), []);
   const selectedSet = orderedSets.find((set) => set.id === selectedSetId) || null;
   const [isPickingSet, setIsPickingSet] = useState(!selectedSet);
+  const [catalogQuery, setCatalogQuery] = useState("");
+  const [catalogResults, setCatalogResults] = useState([]);
+  const [catalogSearchStatus, setCatalogSearchStatus] = useState("idle");
   const eras = useMemo(() => ["All Eras", ...new Set(orderedSets.map((set) => set.era).filter(Boolean))], [orderedSets]);
   const visibleSets = orderedSets.filter((set) => {
     const matchesEra = eraFilter === "All Eras" || set.era === eraFilter;
@@ -1382,6 +1400,34 @@ function CollectionCards({
     if (!selectedSet) setIsPickingSet(true);
   }, [selectedSet]);
 
+  useEffect(() => {
+    const query = catalogQuery.trim();
+    if (!query) {
+      setCatalogResults([]);
+      setCatalogSearchStatus("idle");
+      return undefined;
+    }
+    let current = true;
+    setCatalogSearchStatus("loading");
+    const timer = window.setTimeout(() => {
+      import("./explore/exploreData.js")
+        .then(({ searchCollectionCatalog }) => {
+          if (!current) return;
+          setCatalogResults(searchCollectionCatalog(query));
+          setCatalogSearchStatus("ready");
+        })
+        .catch(() => {
+          if (!current) return;
+          setCatalogResults([]);
+          setCatalogSearchStatus("error");
+        });
+    }, 120);
+    return () => {
+      current = false;
+      window.clearTimeout(timer);
+    };
+  }, [catalogQuery]);
+
   if (isPickingSet) {
     return (
       <section className="set-progress-mobile">
@@ -1394,6 +1440,54 @@ function CollectionCards({
               </button>
             )}
           </div>
+          <section className="collection-catalog-search" aria-labelledby="collection-catalog-search-title">
+            <div>
+              <span className="eyebrow">Complete Card Catalog</span>
+              <h3 id="collection-catalog-search-title">Find any card</h3>
+              <p>Search Pokémon, Trainers, Items, Stadiums, Tools, and Energy across every set.</p>
+            </div>
+            <label className="mobile-search collection-card-search">
+              <span>Search all cards</span>
+              <input
+                value={catalogQuery}
+                type="search"
+                placeholder="Name, set, number, rarity, or category"
+                onChange={(event) => setCatalogQuery(event.target.value)}
+                aria-describedby="collection-search-status"
+              />
+            </label>
+            <div id="collection-search-status" className="collection-search-status" role="status" aria-live="polite">
+              {catalogSearchStatus === "loading" && "Searching the catalog…"}
+              {catalogSearchStatus === "error" && "Catalog search is temporarily unavailable."}
+              {catalogSearchStatus === "ready" && `${catalogResults.length}${catalogResults.length === 80 ? "+" : ""} result${catalogResults.length === 1 ? "" : "s"}`}
+            </div>
+            {catalogSearchStatus === "ready" && catalogResults.length === 0 && (
+              <div className="collection-search-empty"><strong>No matching cards</strong><span>Try a shorter name or remove punctuation.</span></div>
+            )}
+            {catalogResults.length > 0 && (
+              <div className="collection-catalog-results">
+                {catalogResults.map((entry) => {
+                  const owned = getCardCount(collection, entry.card, entry.set.id);
+                  return (
+                    <button
+                      className={`collection-catalog-result ${owned ? "is-owned" : "is-missing"}`}
+                      type="button"
+                      key={`${entry.set.id}:${entry.card.id}`}
+                      onClick={() => onInspectCard?.(entry.card, entry.set)}
+                      aria-label={`${entry.card.name}, ${entry.set.name}, ${owned ? `owned quantity ${owned}` : "missing"}`}
+                    >
+                      <CardImage card={entry.card} set={entry.set} ownedShimmer={owned > 0} />
+                      <span>
+                        <strong>{getDisplayCardName(entry.card, entry.set)}</strong>
+                        <small>{entry.set.name} · #{entry.card.number || getSetNumber(entry.card)}</small>
+                        <em>{entry.category} · {entry.card.rarity || "Rarity unavailable"} · {owned ? `Owned ×${owned}` : "Missing"}</em>
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </section>
           <label className="mobile-filter-pill set-picker-era">
             <span>Era</span>
             <select value={eraFilter} onChange={(event) => onEraFilter(event.target.value)}>
@@ -1838,12 +1932,23 @@ function CollectionScreen({
   );
 }
 
-function CardInspectModal({ item, collection, user, wishlistKeys, wishlistPendingKeys, wishlistMessage, onToggleWishlist, onLogin, onClose, priceMap }) {
+function CardInspectModal({ item, collection, user, wishlistKeys, wishlistPendingKeys, wishlistMessage, onToggleWishlist, onLogin, onClose, priceMap, onLoadSpecies, onViewPokemon, onViewSet, onViewEra }) {
   const [tiltStyle, setTiltStyle] = useState({});
   const [isInspectTilting, setIsInspectTilting] = useState(false);
+  const [linkedSpecies, setLinkedSpecies] = useState([]);
   const activeInspectPointerRef = useRef(null);
   const pendingInspectTiltRef = useRef(null);
   const inspectTiltRafRef = useRef(null);
+
+  useEffect(() => {
+    let current = true;
+    if (!item?.card || !item?.set || !onLoadSpecies) {
+      setLinkedSpecies([]);
+      return undefined;
+    }
+    onLoadSpecies(item.card, item.set).then((species) => { if (current) setLinkedSpecies(species || []); }).catch(() => { if (current) setLinkedSpecies([]); });
+    return () => { current = false; };
+  }, [item?.card, item?.set, onLoadSpecies]);
 
   if (!item?.card || !item?.set) return null;
 
@@ -1969,6 +2074,11 @@ function CardInspectModal({ item, collection, user, wishlistKeys, wishlistPendin
               View on TCGplayer
             </a>
           )}
+          <div className="inspect-explore-links">
+            {linkedSpecies.map((species) => <button key={species.id} className="secondary-action" type="button" onClick={() => onViewPokemon?.(species.id)}>View {linkedSpecies.length > 1 ? species.displayName : "Pokémon"}</button>)}
+            <button className="secondary-action" type="button" onClick={() => onViewSet?.(set.id)}>View Set</button>
+            {set.era && <button className="secondary-action" type="button" onClick={() => onViewEra?.(set.era)}>View Era</button>}
+          </div>
         </div>
       </section>
     </div>
@@ -2474,7 +2584,7 @@ function MobileAuthCallbackPage() {
 }
 
 function MobileApp() {
-  const [activeTab, setActiveTab] = useState("open");
+  const [activeTab, setActiveTab] = useState(() => typeof window !== "undefined" && window.location.pathname.includes("/explore") ? "explore" : "open");
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [hapticsEnabled, setHapticsEnabled] = useState(loadHapticsEnabled);
   const [wishlistEntries, setWishlistEntries] = useState([]);
@@ -2589,8 +2699,29 @@ function MobileApp() {
     }
 
     setActiveTab(nextTab);
+    if (nextTab === "explore") {
+      window.history.replaceState({}, "", buildExplorePath({ kind: "home" }, window.location.pathname));
+      window.dispatchEvent(new PopStateEvent("popstate"));
+    } else if (window.location.pathname.includes("/explore")) {
+      window.history.replaceState({}, "", window.location.pathname.startsWith("/mobile-app") ? "/mobile-app/" : "/");
+    }
     if (nextTab !== "open") returnToSets();
     scrollScreenToTop();
+  }
+
+  function openExploreRoute(route) {
+    setInspectedCard(null);
+    setActiveTab("explore");
+    window.history.pushState({ packdexExplore: true }, "", buildExplorePath(route, window.location.pathname));
+    window.dispatchEvent(new PopStateEvent("popstate"));
+    returnToSets();
+    scrollScreenToTop();
+  }
+
+  async function loadExploreSpeciesForCard(card, set) {
+    const { catalogCards, speciesById } = await import("./explore/exploreData.js");
+    const entry = catalogCards.find((candidate) => candidate.set.id === set?.id && String(candidate.card.id) === String(card?.id));
+    return (entry?.speciesIds || []).map((id) => speciesById.get(id)).filter(Boolean);
   }
 
   async function addScannedCardToCollection(result) {
@@ -3997,7 +4128,8 @@ function MobileApp() {
               valueScreenProps={{ user, collection, priceMapsBySet, estimatedCollectionValue, isValueLoading, onInspectCard: inspectCard, onOpenLogin: () => openAuthProfile("login"), onOpenSignup: () => openAuthProfile("signup") }}
             />
           )}
-          {activeTab === "scanner" && <MobileScannerPage authState={authValidationState} authUserId={authValidationState === "authenticated" ? user?.id || "" : ""} onRequireAuth={openScannerAuth} onLoadActionState={loadScannedCardActionState} onAddToCollection={addScannedCardToCollection} onAddToWishlist={addScannedCardToWishlist} onSearchManually={openScannerSearchInCollection} onLoadCardPrice={loadScannerCardPrice} />}
+          {activeTab === "explore" && <Suspense fallback={<section className="mobile-auth-validation" role="status"><img src={POKEBALL_LOADING_SRC} alt="" /><strong>Loading Explore...</strong></section>}><ExploreScreen collection={collection} wishlistEntries={wishlistEntries} priceMapsBySet={{ ...priceMapsBySet, ...fullSetPriceMapsBySet }} onInspectCard={inspectCard} onOpenPack={(set) => { setActiveTab("open"); window.history.replaceState({}, "", window.location.pathname.startsWith("/mobile-app") ? "/mobile-app/" : "/"); openPack(set); }} onViewSetCollection={(set) => { selectCollectionSet(set, "collection"); setActiveTab("collection"); window.history.replaceState({}, "", window.location.pathname.startsWith("/mobile-app") ? "/mobile-app/" : "/"); }} /></Suspense>}
+          {__PACKDEX_SCANNER_TEST__ && activeTab === "scanner" && MobileScannerPage && <Suspense fallback={null}><MobileScannerPage authState={authValidationState} authUserId={authValidationState === "authenticated" ? user?.id || "" : ""} onRequireAuth={openScannerAuth} onLoadActionState={loadScannedCardActionState} onAddToCollection={addScannedCardToCollection} onAddToWishlist={addScannedCardToWishlist} onSearchManually={openScannerSearchInCollection} onLoadCardPrice={loadScannerCardPrice} /></Suspense>}
           {activeTab === "value" && (
             <ValueScreen
               user={user}
@@ -4089,6 +4221,10 @@ function MobileApp() {
           onToggleWishlist={toggleWishlistCard}
           onLogin={() => openAuthProfile("login")}
           priceMap={inspectedCard?.set ? fullSetPriceMapsBySet[inspectedCard.set.id] || priceMapsBySet[inspectedCard.set.id] : null}
+          onLoadSpecies={loadExploreSpeciesForCard}
+          onViewPokemon={(id) => openExploreRoute({ kind: "pokemon", id })}
+          onViewSet={(id) => openExploreRoute({ kind: "set", id })}
+          onViewEra={(name) => import("./explore/exploreData.js").then(({ exploreEras }) => { const era = exploreEras.find((item) => item.name === name); if (era) openExploreRoute({ kind: "era", id: era.id }); })}
           onClose={() => setInspectedCard(null)}
         />}
         <MobileAuthModal

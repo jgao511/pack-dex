@@ -4,10 +4,13 @@ import { readFile } from "node:fs/promises";
 
 const source = (path) => readFile(new URL(path, import.meta.url), "utf8");
 
-test("mobile navigation has permanent Open, Collection, Scanner, and Profile tabs", async () => {
+test("normal mobile navigation has Open, Collection, Explore, and Profile while Scanner stays test-build-only", async () => {
   const app = await source("../mobile-app/src/App.jsx");
-  const tabOrder = [...app.matchAll(/\{ id: "([^"]+)", label: "([^"]+)"/g)].slice(0, 4).map((match) => `${match[1]}:${match[2]}`);
-  assert.deepEqual(tabOrder, ["open:Open a Pack", "collection:Collection", "scanner:Scanner", "profile:Profile"]);
+  assert.match(app, /\{ id: "open", label: "Open"[\s\S]*\{ id: "collection", label: "Collection"/);
+  assert.match(app, /__PACKDEX_SCANNER_TEST__[\s\S]*\? \{ id: "scanner"[\s\S]*: \{ id: "explore"/);
+  assert.match(app, /\{ id: "profile", label: "Profile"/);
+  assert.match(app, /const MobileScannerPage = __PACKDEX_SCANNER_TEST__ \? lazy/);
+  assert.match(app, /__PACKDEX_SCANNER_TEST__ && activeTab === "scanner"/);
   assert.match(app, /MobileScannerPage authState=\{authValidationState\}[\s\S]*?onAddToCollection=\{addScannedCardToCollection\}[\s\S]*?onAddToWishlist=\{addScannedCardToWishlist\}[\s\S]*?onSearchManually=\{openScannerSearchInCollection\}[\s\S]*?onLoadCardPrice=\{loadScannerCardPrice\}/);
 });
 
@@ -20,7 +23,7 @@ test("Collection preserves Set Collection, Binders, and Value destinations", asy
   assert.match(app, /collectionTab === "value"/);
 });
 
-test("production Scanner persists tips and has a restartable camera flow without diagnostic UI", async () => {
+test("preserved scanner implementation keeps tips and restartable camera flow without diagnostic UI", async () => {
   const scanner = await source("../mobile-app/src/MobileScannerPage.jsx");
   assert.match(scanner, /Tips for a better scan/);
   assert.match(scanner, /Start Scanning/);

@@ -29,7 +29,8 @@ test("local photo manifest contains all 16 attached cards and trusted catalog ID
     assert.equal(catalog.setName, item.set);
     assert.ok(item.collectorNumber.startsWith(String(catalog.card.number).padStart(item.collectorNumber.split("/")[0].length, "0")));
     const imageUrl = getCardImageUrl(catalog.card);
-    assert.match(imageUrl, /^https:\/\/assets\.pack-dex\.com\/assets\/sets\//);
+    // assetUrls.test.mjs verifies that catalog /assets/sets inputs intentionally resolve at the CDN's /sets root.
+    assert.match(imageUrl, /^https:\/\/assets\.pack-dex\.com\/sets\//);
     assert.doesNotMatch(imageUrl, /^https:\/\/pack-dex\.com\/assets\//);
   }
 });

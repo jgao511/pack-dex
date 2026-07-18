@@ -1,0 +1,2719 @@
+{
+  "generatedAt": "2026-07-18T15:24:22.947Z",
+  "policy": {
+    "runtimeSourceNotesExcluded": true,
+    "uncertainClaims": "Omitted rather than inferred from card names or algorithmic frequency.",
+    "officialExpansionSource": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions",
+    "structuredCatalogSource": "https://github.com/PokemonTCG/pokemon-tcg-data"
+  },
+  "eras": [
+    {
+      "era": "Pokemon 30th Anniversary",
+      "sources": [
+        "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions",
+        "https://github.com/PokemonTCG/pokemon-tcg-data",
+        "src/data/sets.js"
+      ],
+      "custom": true
+    },
+    {
+      "era": "Wizards Vintage",
+      "sources": [
+        "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions",
+        "https://github.com/PokemonTCG/pokemon-tcg-data",
+        "src/data/sets.js"
+      ],
+      "custom": false
+    },
+    {
+      "era": "Neo",
+      "sources": [
+        "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions",
+        "https://github.com/PokemonTCG/pokemon-tcg-data",
+        "src/data/sets.js"
+      ],
+      "custom": false
+    },
+    {
+      "era": "e-Card / Late WOTC",
+      "sources": [
+        "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions",
+        "https://github.com/PokemonTCG/pokemon-tcg-data",
+        "src/data/sets.js"
+      ],
+      "custom": false
+    },
+    {
+      "era": "EX",
+      "sources": [
+        "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions",
+        "https://github.com/PokemonTCG/pokemon-tcg-data",
+        "src/data/sets.js"
+      ],
+      "custom": false
+    },
+    {
+      "era": "Diamond & Pearl",
+      "sources": [
+        "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions",
+        "https://github.com/PokemonTCG/pokemon-tcg-data",
+        "src/data/sets.js"
+      ],
+      "custom": false
+    },
+    {
+      "era": "Platinum",
+      "sources": [
+        "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions",
+        "https://github.com/PokemonTCG/pokemon-tcg-data",
+        "src/data/sets.js"
+      ],
+      "custom": false
+    },
+    {
+      "era": "HeartGold & SoulSilver",
+      "sources": [
+        "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions",
+        "https://github.com/PokemonTCG/pokemon-tcg-data",
+        "src/data/sets.js"
+      ],
+      "custom": false
+    },
+    {
+      "era": "Black & White",
+      "sources": [
+        "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions",
+        "https://github.com/PokemonTCG/pokemon-tcg-data",
+        "src/data/sets.js"
+      ],
+      "custom": false
+    },
+    {
+      "era": "XY",
+      "sources": [
+        "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions",
+        "https://github.com/PokemonTCG/pokemon-tcg-data",
+        "src/data/sets.js"
+      ],
+      "custom": false
+    },
+    {
+      "era": "Sun & Moon",
+      "sources": [
+        "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions",
+        "https://github.com/PokemonTCG/pokemon-tcg-data",
+        "src/data/sets.js"
+      ],
+      "custom": false
+    },
+    {
+      "era": "Sword & Shield",
+      "sources": [
+        "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions",
+        "https://github.com/PokemonTCG/pokemon-tcg-data",
+        "src/data/sets.js"
+      ],
+      "custom": false
+    },
+    {
+      "era": "Scarlet & Violet",
+      "sources": [
+        "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions",
+        "https://github.com/PokemonTCG/pokemon-tcg-data",
+        "src/data/sets.js"
+      ],
+      "custom": false
+    },
+    {
+      "era": "Mega Evolution",
+      "sources": [
+        "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions",
+        "https://github.com/PokemonTCG/pokemon-tcg-data",
+        "src/data/sets.js"
+      ],
+      "custom": false
+    }
+  ],
+  "sets": [
+    {
+      "setId": "30th-anniversary",
+      "status": "curated",
+      "custom": true,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "src/data/special-sets/30th-anniversary/30thAnniversarySet.js"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "base-set",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/base1"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "jungle",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/base2"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "fossil",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/base3"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "base-set-2",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/base4"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "team-rocket",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/base5"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "gym-heroes",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/gym1"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "gym-challenge",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/gym2"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "neo-genesis",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/neo1"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "neo-discovery",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/neo2"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "neo-revelation",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/neo3"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "neo-destiny",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/neo4"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "legendary-collection",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/base6"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "expedition-base-set",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/ecard1"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "aquapolis",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/ecard2"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "skyridge",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/ecard3"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "ex-ruby-sapphire",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/ex1"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "ex-sandstorm",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/ex2"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "ex-dragon",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/ex3"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "ex-team-magma-vs-team-aqua",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/ex4"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "ex-hidden-legends",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/ex5"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "ex-firered-leafgreen",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/ex6"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "ex-team-rocket-returns",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/ex7"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "ex-deoxys",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/ex8"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "ex-emerald",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/ex9"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "ex-unseen-forces",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/ex10"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "ex-delta-species",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/ex11"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "ex-legend-maker",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/ex12"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "ex-holon-phantoms",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/ex13"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "ex-crystal-guardians",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/ex14"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "ex-dragon-frontiers",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/ex15"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "ex-power-keepers",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/ex16"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "diamond-pearl",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/dp1"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "diamond-pearl-mysterious-treasures",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/dp2"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "diamond-pearl-secret-wonders",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/dp3"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "diamond-pearl-great-encounters",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/dp4"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "diamond-pearl-majestic-dawn",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/dp5"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "diamond-pearl-legends-awakened",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/dp6"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "diamond-pearl-stormfront",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/dp7"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "platinum",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/pl1"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "platinum-rising-rivals",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/pl2"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "platinum-supreme-victors",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/pl3"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "platinum-arceus",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/pl4"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "heartgold-soulsilver",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/hgss1"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "hs-unleashed",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/hgss2"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "hs-undaunted",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/hgss3"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "hs-triumphant",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/hgss4"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "call-of-legends",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/col1"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "black-white",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/bw1"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "black-white-emerging-powers",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/bw2"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "black-white-noble-victories",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/bw3"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "black-white-next-destinies",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/bw4"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "black-white-dark-explorers",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/bw5"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "black-white-dragons-exalted",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/bw6"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "dragon-vault",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/dv1"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "black-white-boundaries-crossed",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/bw7"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "black-white-plasma-storm",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/bw8"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "black-white-plasma-freeze",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/bw9"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "black-white-plasma-blast",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/bw10"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "black-white-legendary-treasures",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/bw11"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "xy0",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "xy1",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "xy2",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "xy3",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "xy4",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "xy5",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "dc1",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "xy6",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "xy7",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "xy8",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "xy9",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "g1",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "xy10",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "xy11",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "xy12",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "sun-moon",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "guardians-rising",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "burning-shadows",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "shining-legends",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "crimson-invasion",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "ultra-prism",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "forbidden-light",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "celestial-storm",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "dragon-majesty",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "lost-thunder",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "team-up",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "detective-pikachu",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "unbroken-bonds",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "unified-minds",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "hidden-fates",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "cosmic-eclipse",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "sword-shield",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "rebel-clash",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "darkness-ablaze",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "champions-path",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "vivid-voltage",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "shining-fates",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "battle-styles",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "chilling-reign",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "evolving-skies",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "celebrations",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "fusion-strike",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "brilliant-stars",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "astral-radiance",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "pokemon-go",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "lost-origin",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "silver-tempest",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "crown-zenith",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "scarlet-violet",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "paldea-evolved",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "obsidian-flames",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "151",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "paradox-rift",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "paldean-fates",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "temporal-forces",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "twilight-masquerade",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "shrouded-fable",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "stellar-crown",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "surging-sparks",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "prismatic-evolutions",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "journey-together",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "destined-rivals",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "black-bolt",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "white-flare",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "mega-evolution",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "phantasmal-flames",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "ascended-heroes",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "perfect-order",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "chaos-rising",
+      "status": "limited",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    }
+  ]
+}

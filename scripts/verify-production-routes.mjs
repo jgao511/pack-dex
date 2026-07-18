@@ -84,6 +84,11 @@ const routeCases = [
   ["/mobile-app/share/INVALID_SHARE_CODE", mobileEntry],
   ["/mobile-app/reset-password", path.join(dist, "mobile-app", "reset-password", "index.html")],
   ["/mobile-app/auth/callback", mobileEntry],
+  ["/mobile-app/explore", mobileEntry],
+  ["/mobile-app/explore/search", mobileEntry],
+  ["/mobile-app/explore/pokemon/94", mobileEntry],
+  ["/mobile-app/explore/sets/base-set", mobileEntry],
+  ["/mobile-app/explore/eras/sword-shield", mobileEntry],
 ];
 
 for (const [pathname, expected] of routeCases) {
