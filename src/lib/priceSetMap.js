@@ -128,6 +128,7 @@ export const PRICE_SET_MAP = {
   "ascended-heroes": null,
   "perfect-order": null,
   "chaos-rising": null,
+  "pitch-black": null,
 };
 
 export function getPokemonTcgApiSetId(packDexSetId) {

@@ -3,7 +3,7 @@ import { createServer } from "vite";
 const DEFAULT_PACKS = 10000;
 const DEEP_PACKS = 100000;
 const GOD_PACK_SET_IDS = new Set(["151", "prismatic-evolutions", "black-bolt", "white-flare", "ascended-heroes"]);
-const MODERN_SV_ART_CATEGORIES = new Set(["illustrationRare", "specialIllustrationRare"]);
+const ART_SLOT_CATEGORIES = new Set(["illustrationRare", "specialIllustrationRare"]);
 const NORMAL_SLOT_CATEGORIES = new Set(["common", "uncommon", "rare"]);
 const FINAL_SLOT_CATEGORIES = new Set([
   "rare",
@@ -70,14 +70,14 @@ function getExpectedPackSize(set, api) {
   return profile.packSize || ([...["detective-pikachu", "celebrations"]].includes(api.getNormalizedSetId(set)) ? 4 : 10);
 }
 
-function isModernSvArtSlotCard(card, set, api) {
-  return api.isModernSVSet(set) && MODERN_SV_ART_CATEGORIES.has(categoryOf(card, set, api));
+function isDedicatedArtSlotCard(card, set, api) {
+  return (api.isModernSVSet(set) || api.isMegaSet(set)) && ART_SLOT_CATEGORIES.has(categoryOf(card, set, api));
 }
 
 function isFinalSlotCard(card, set, api) {
   const category = categoryOf(card, set, api);
 
-  return FINAL_SLOT_CATEGORIES.has(category) && !isModernSvArtSlotCard(card, set, api);
+  return FINAL_SLOT_CATEGORIES.has(category) && !isDedicatedArtSlotCard(card, set, api);
 }
 
 function isNormalSlotCard(card, set, api) {
@@ -85,7 +85,7 @@ function isNormalSlotCard(card, set, api) {
 }
 
 function isSubsetOrSpecialSlotCard(card, set, api) {
-  return isNormalSlotCard(card, set, api) || api.isSubsetCard(card, set) || isModernSvArtSlotCard(card, set, api);
+  return isNormalSlotCard(card, set, api) || api.isSubsetCard(card, set) || isDedicatedArtSlotCard(card, set, api);
 }
 
 function isValidSlot(card, set, index, api) {
@@ -133,7 +133,7 @@ function isValidSlot(card, set, index, api) {
   if (index <= 6) return categoryOf(card, set, api) === "uncommon";
   if (index === 7) return isNormalSlotCard(card, set, api);
   if (index === 8) return isSubsetOrSpecialSlotCard(card, set, api);
-  if (index === 9) return isFinalSlotCard(card, set, api) || (!api.isModernSVSet(set) && FINAL_SLOT_CATEGORIES.has(categoryOf(card, set, api)));
+  if (index === 9) return isFinalSlotCard(card, set, api);
 
   return true;
 }
@@ -142,11 +142,11 @@ function getSlotValidationError(card, set, index, api) {
   const category = categoryOf(card, set, api);
   const displaySlot = index + 1;
 
-  if (api.isModernSVSet(set) && MODERN_SV_ART_CATEGORIES.has(category) && index !== 8) {
+  if ((api.isModernSVSet(set) || api.isMegaSet(set)) && ART_SLOT_CATEGORIES.has(category) && index !== 8) {
     return `FAIL: ${set.name} produced ${category} in slot ${displaySlot}. Expected slot 9 only.`;
   }
 
-  if (api.isModernSVSet(set) && index === 9 && MODERN_SV_ART_CATEGORIES.has(category)) {
+  if ((api.isModernSVSet(set) || api.isMegaSet(set)) && index === 9 && ART_SLOT_CATEGORIES.has(category)) {
     return `FAIL: ${set.name} produced ${category} in final slot 10. Expected slot 9 only.`;
   }
 
@@ -297,7 +297,7 @@ async function main() {
           }
 
           if (slotIndex === pack.length - 1) increment(finalCounts, category);
-          if (api.isSubsetCard(card, set) || isModernSvArtSlotCard(card, set, api) || (api.isXYBreakSet(set) && api.isBreakCard(card))) {
+          if (api.isSubsetCard(card, set) || isDedicatedArtSlotCard(card, set, api) || (api.isXYBreakSet(set) && api.isBreakCard(card))) {
             if (slotIndex !== pack.length - 1) increment(subsetCounts, category);
           }
 

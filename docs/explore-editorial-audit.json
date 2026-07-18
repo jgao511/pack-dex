@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-18T15:24:22.947Z",
+  "generatedAt": "2026-07-18T16:36:38.625Z",
   "policy": {
     "runtimeSourceNotesExcluded": true,
     "uncertainClaims": "Omitted rather than inferred from card names or algorithmic frequency.",
@@ -2714,6 +2714,26 @@
         }
       ],
       "limitedReason": "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete."
+    },
+    {
+      "setId": "pitch-black",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "identity, release date, era, supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/me5"
+        },
+        {
+          "field": "editorial mechanics and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
     }
   ]
 }

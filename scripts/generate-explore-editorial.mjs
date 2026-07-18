@@ -120,6 +120,7 @@ const THEMES = {
   celebrations: ["Pokémon 25th anniversary"], "battle-styles": ["Single Strike and Rapid Strike"], 151: ["Original 151 Pokémon"],
   "paldean-fates": ["Shiny Pokémon"], "prismatic-evolutions": ["Eevee and its Evolutions"], "journey-together": ["Trainer's Pokémon"],
   "destined-rivals": ["Trainer's Pokémon", "Team Rocket"], "black-bolt": ["Unova", "Black-themed counterpart"], "white-flare": ["Unova", "White-themed counterpart"],
+  "pitch-black": ["Mega Darkrai ex", "Mega Evolution Pokémon ex"],
   "30th-anniversary": ["PackDex preview", "30th-anniversary selection"],
 };
 
@@ -132,7 +133,12 @@ const FACTS = {
   "temporal-forces": ["ACE SPEC cards returned to English expansions in Temporal Forces."],
   "black-bolt": ["Black Bolt and White Flare share the same English release date and split their Unova focus across two sets."],
   "white-flare": ["White Flare and Black Bolt share the same English release date and split their Unova focus across two sets."],
+  "pitch-black": ["Pitch Black's supported catalog contains 120 cards, including Mega Darkrai ex as its Mega Hyper Rare."],
   "30th-anniversary": ["PackDex labels this as a preview compilation, not an official standalone expansion."],
+};
+
+const FEATURED_POKEMON_IDS = {
+  "pitch-black": [491, 609, 807],
 };
 
 const MECHANIC_SET_IDS = {
@@ -173,6 +179,7 @@ function guideFor(set) {
       : `${set.name} is a PackDex-supported ${set.era} expansion released on ${formatDate(set.releaseDate)}. The local catalog currently tracks ${total} supported cards.`,
     themes: THEMES[set.id] || [],
     mechanics: mechanicsFor(set),
+    ...(FEATURED_POKEMON_IDS[set.id] ? { featuredPokemonIds: FEATURED_POKEMON_IDS[set.id] } : {}),
     funFacts: FACTS[set.id] || [],
     custom: isCustom,
     contentStatus: (THEMES[set.id]?.length || FACTS[set.id]?.length) ? "curated" : "limited",

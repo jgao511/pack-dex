@@ -3092,6 +3092,13 @@ function App() {
         )}
       </header>
 
+      {!isPackFlow && (
+        <aside className="mobile-experience-notice" aria-label="PackDex mobile experience">
+          <span>PackDex has moved to the mobile experience. Visit the mobile app for the latest sets, features, and full PackDex experience.</span>
+          <a href="/mobile-app/">Open mobile PackDex</a>
+        </aside>
+      )}
+
       {cloudWarning && (
         <div className="cloud-warning" role="status">
           {cloudWarning}

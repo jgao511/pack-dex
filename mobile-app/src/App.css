@@ -427,6 +427,19 @@ button {
   font-size: 1rem;
 }
 
+.mobile-set-new-badge {
+  width: max-content;
+  border: 1px solid rgba(255, 203, 69, 0.34);
+  border-radius: 999px;
+  padding: 2px 7px;
+  color: #ffd86b;
+  background: rgba(255, 203, 69, 0.1);
+  font-size: 0.66rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 .mobile-set-main span {
   color: #aab4d5;
   font-size: 0.8rem;

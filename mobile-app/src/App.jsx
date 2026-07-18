@@ -87,7 +87,7 @@ const POKEBALL_LOADING_SRC = getPokeballLoadingUrl();
 const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY;
 const SUPPORT_EMAIL = "packdexsupport@gmail.com";
 const MOBILE_DISCLAIMER_SEEN_KEY = "packdex-mobile-intro-seen";
-const SETS_WITHOUT_MARKET_PRICE_DATA = new Set(["ascended-heroes", "perfect-order", "chaos-rising"]);
+const SETS_WITHOUT_MARKET_PRICE_DATA = new Set(["ascended-heroes", "perfect-order", "chaos-rising", "pitch-black"]);
 const PRELOAD_SET_LIMIT = 3;
 const PRELOAD_CARD_LIMIT_PER_SET = 45;
 const ACHIEVEMENT_TOAST_AUTO_DISMISS_MS = 3400;
@@ -1182,6 +1182,7 @@ function OpenSetSelector({ collection, onOpenPack }) {
                       <SetLogo set={set} className="mobile-set-row-logo" />
                       <div>
                         <strong>{set.name}</strong>
+                        {set.isNew && <small className="mobile-set-new-badge">New</small>}
                         <span>
                           {progress.collected} / {progress.total} collected
                         </span>
@@ -1517,6 +1518,7 @@ function CollectionCards({
                   <SetLogo set={set} className="set-picker-logo" />
                   <span>
                     <strong>{set.name}</strong>
+                    {set.isNew && <small className="mobile-set-new-badge">New</small>}
                     <em>
                       {setProgress.collected} / {setProgress.total} collected
                     </em>

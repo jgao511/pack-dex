@@ -194,4 +194,13 @@ export const hardcodedPullRates = {
   "ascended-heroes": { source: "TCGplayer", sourceUrl: "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Ascended-Heroes-Pull-Rates/60143d94-88a7-42ce-8e73-babd7b3fabd6/", notes: "Ultra Rare around 5%.", packSize: 10, finalSlot: { rare: 68, doubleRare: 15, megaDoubleRare: 8, ultraRare: 5, illustrationRare: 2.5, specialIllustrationRare: 1.4, megaHyperRare: 0.1 }, subsetSlot: null },
   "perfect-order": { source: "TCGplayer", sourceUrl: "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Perfect-Order-Pull-Rates/73148119-ebcb-40b7-84b6-52b3a6d0c631/", notes: "MHR very rare.", packSize: 10, finalSlot: { rare: 64, doubleRare: 16, megaDoubleRare: 10, ultraRare: 6, illustrationRare: 2.5, specialIllustrationRare: 1.4, megaHyperRare: 0.1 }, subsetSlot: null },
   "chaos-rising": { source: "fallback estimate", sourceUrl: "", notes: "Use Perfect Order / Phantasmal Flames style estimate until exact data is provided.", packSize: 10, finalSlot: { rare: 64, doubleRare: 16, megaDoubleRare: 10, ultraRare: 6, illustrationRare: 2.5, specialIllustrationRare: 1.4, megaHyperRare: 0.1 }, subsetSlot: null },
+  "pitch-black": {
+    source: "fallback estimate",
+    sourceUrl: "",
+    notes: "Product-design fallback pending dependable Pitch Black pull data. Mega foil slot and Rare slot are independent. The 20.5% Double Rare rate is split across 4 standard and 6 Mega cards: 8.2% / 12.3%.",
+    packSize: 10,
+    secondFoilSlot: { normal: 87.89, illustrationRare: 11, specialIllustrationRare: 1.11 },
+    rareSlot: { rare: 71.144, doubleRare: 8.2, megaDoubleRare: 12.3, ultraRare: 8.3, megaHyperRare: 0.056 },
+    subsetSlot: null,
+  },
 };

@@ -200,6 +200,44 @@ button {
   padding-inline: 16px;
 }
 
+.mobile-experience-notice {
+  width: min(100%, 1040px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border: 1px solid rgba(18, 24, 39, 0.08);
+  border-radius: 14px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.72);
+  color: #44506a;
+  font-size: 0.88rem;
+}
+
+.mobile-experience-notice a {
+  flex: 0 0 auto;
+  color: #315fd6;
+  font-weight: 800;
+}
+
+:root[data-theme="dark"] .mobile-experience-notice {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(15, 22, 38, 0.76);
+  color: #b8c3d9;
+}
+
+:root[data-theme="dark"] .mobile-experience-notice a {
+  color: #8eacff;
+}
+
+@media (max-width: 700px) {
+  .mobile-experience-notice {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+}
+
 .site-brand {
   min-width: 0;
   display: inline-flex;

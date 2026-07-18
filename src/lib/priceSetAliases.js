@@ -19,6 +19,9 @@ export const PRICE_SET_ALIASES = {
     pokemonTcgApiSetId: "me4",
     tcgplayerSetSlug: "me04-chaos-rising",
   },
+  "pitch-black": {
+    pokemonTcgApiSetId: "me5",
+  },
 };
 
 export function getPriceSetAlias(packDexSetId) {

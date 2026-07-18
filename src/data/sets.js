@@ -52,6 +52,7 @@ import phantasmalFlamesCards from "./phantasmal-flames.json" with { type: "json"
 import ascendedHeroesCards from "./ascended-heroes.json" with { type: "json" };
 import perfectOrderCards from "./perfect-order.json" with { type: "json" };
 import chaosRisingCards from "./chaos-rising.json" with { type: "json" };
+import pitchBlackCards from "./pitch-black.json" with { type: "json" };
 import xy0Cards from "./xy0.json" with { type: "json" };
 import xy1Cards from "./xy1.json" with { type: "json" };
 import xy2Cards from "./xy2.json" with { type: "json" };
@@ -141,6 +142,7 @@ const pullRateProfilesBySet = {
   "ascended-heroes": "megaEvolutionStandard",
   "perfect-order": "megaEvolutionStandard",
   "chaos-rising": "megaEvolutionStandard",
+  "pitch-black": "megaEvolutionStandard",
   "30th-anniversary": "thirtiethAnniversaryPreview",
 };
 
@@ -199,12 +201,13 @@ const releaseDatesBySet = {
   "ascended-heroes": "2026-01-30",
   "perfect-order": "2026-03-13",
   "chaos-rising": "2026-05-15",
+  "pitch-black": "2026-07-17",
   "30th-anniversary": "2026-06-14",
 };
 
 function getEraForSet(id, metadata = {}) {
   if (metadata.era) return metadata.era;
-  if (id.startsWith("mega-") || ["phantasmal-flames", "ascended-heroes", "perfect-order", "chaos-rising"].includes(id)) {
+  if (id.startsWith("mega-") || ["phantasmal-flames", "ascended-heroes", "perfect-order", "chaos-rising", "pitch-black"].includes(id)) {
     return "Mega Evolution";
   }
   if (
@@ -270,13 +273,15 @@ function createSet(id, name, cards, metadata = {}) {
     setFolder,
     era: getEraForSet(id, metadata),
     releaseDate: metadata.releaseDate || releaseDatesBySet[id],
-    isNew: metadata.isNew ?? id === "chaos-rising",
+    isNew: id === NEWEST_SET_ID,
     pullRateProfile: pullRateProfilesBySet[id],
     logoPath: metadata.logoPath || `${setFolder}/logo.png`,
     packArtPath: metadata.packArtPath || `${setFolder}/pack.png`,
     cards,
   };
 }
+
+export const NEWEST_SET_ID = "pitch-black";
 
 export const sets = [
   // Special Preview Sets
@@ -368,5 +373,10 @@ export const sets = [
   createSet("ascended-heroes", "Ascended Heroes", ascendedHeroesCards),
   createSet("perfect-order", "Perfect Order", perfectOrderCards),
   createSet("chaos-rising", "Chaos Rising", chaosRisingCards),
+  createSet("pitch-black", "Pitch Black", pitchBlackCards, {
+    printedTotal: 84,
+    total: 120,
+    pokemonTcgApiSetId: "me5",
+  }),
 ];
 

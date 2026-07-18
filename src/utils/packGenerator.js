@@ -26,6 +26,7 @@ const MEGA_SET_IDS = new Set([
   "ascended-heroes",
   "perfect-order",
   "chaos-rising",
+  "pitch-black",
 ]);
 
 const SPECIAL_PREVIEW_SET_IDS = new Set([THIRTIETH_ANNIVERSARY_PACK_CONFIG.setId]);
@@ -742,6 +743,7 @@ const PROFILE_BY_SET = {
   "ascended-heroes": "megaEvolutionStandard",
   "perfect-order": "megaEvolutionStandard",
   "chaos-rising": "megaEvolutionStandard",
+  "pitch-black": "megaEvolutionStandard",
   "30th-anniversary": "thirtiethAnniversaryPreview",
 };
 
@@ -1045,6 +1047,10 @@ export function getRarityCategory(card, set = {}) {
 
   if (rarity === "black white rare") return "blackWhiteRare";
   if (isSpecialIllustrationRare(card)) return "specialIllustrationRare";
+  // Prefer the card's explicit Illustration Rare classification before broad
+  // cross-field phrase checks (for example, "Rare" followed by "Goldeen"
+  // must not be read as the phrase "rare gold").
+  if (isIllustrationRare(card)) return "illustrationRare";
   if (rarity === "classic collection" || subset === "classic collection") return "classicCollection";
   if (rarity === "trainer gallery" || rarity === "tg" || subset === "trainer gallery") return "trainerGallery";
   if (rarity === "galarian gallery" || rarity === "gg" || subset === "galarian gallery") return "galarianGallery";
@@ -1071,7 +1077,6 @@ export function getRarityCategory(card, set = {}) {
     return "rainbowRare";
   }
   if (combined.includes("secret rare") || rarity === "rare secret") return "secretRare";
-  if (isIllustrationRare(card)) return "illustrationRare";
   if (isBreakCard(card)) return "breakRare";
   if (
     combined.includes("mega ultra rare") ||
@@ -1360,8 +1365,12 @@ function isModernSVPreRareCategory(category) {
   return MODERN_SV_PRE_RARE_CATEGORIES.has(category);
 }
 
+function usesDedicatedArtSlot(set = {}) {
+  return isModernSVSet(set) || isMegaSet(set);
+}
+
 function getFinalRareSlotPool(pools, set = {}) {
-  if (!isModernSVSet(set)) return pools.finalSlotPool;
+  if (!usesDedicatedArtSlot(set)) return pools.finalSlotPool;
 
   return pools.finalSlotPool.filter(
     (card) => !isModernSVPreRareCategory(card.rarityCategory || getRarityCategory(card, set))
@@ -1390,6 +1399,77 @@ function pickModernSVPreRareSlot(pools, set = {}, usedIds = new Set()) {
   }
 
   return pickRegularOrSubsetSlot(pools, set, usedIds);
+}
+
+export function getMegaSecondFoilSlotWeights(set = {}) {
+  const profile = getPullRateProfile(set);
+
+  if (profile.secondFoilSlot) return profile.secondFoilSlot;
+
+  const finalWeights = getFinalSlotWeights(profile, set);
+  const illustrationRare = Number(finalWeights.illustrationRare) || 0;
+  const specialIllustrationRare = Number(finalWeights.specialIllustrationRare) || 0;
+
+  return {
+    normal: Math.max(0, 100 - illustrationRare - specialIllustrationRare),
+    illustrationRare,
+    specialIllustrationRare,
+  };
+}
+
+export function getMegaRareSlotWeights(set = {}) {
+  const profile = getPullRateProfile(set);
+
+  if (profile.rareSlot) return profile.rareSlot;
+
+  const finalWeights = getFinalSlotWeights(profile, set);
+  const doubleRare = Number(finalWeights.doubleRare) || 0;
+  const megaDoubleRare = Number(finalWeights.megaDoubleRare) || 0;
+  const ultraRare = Number(finalWeights.ultraRare) || 0;
+  const megaHyperRare = Number(finalWeights.megaHyperRare) || 0;
+
+  return {
+    rare: Math.max(0, 100 - doubleRare - megaDoubleRare - ultraRare - megaHyperRare),
+    doubleRare,
+    megaDoubleRare,
+    ultraRare,
+    megaHyperRare,
+  };
+}
+
+function pickMegaSecondFoilSlot(pools, set = {}, usedIds = new Set()) {
+  const weights = getMegaSecondFoilSlotWeights(set);
+  const chosenCategory = weightedRandomCategory([
+    ["normal", Number(weights.normal) || 0],
+    ["illustrationRare", Number(weights.illustrationRare) || 0],
+    ["specialIllustrationRare", Number(weights.specialIllustrationRare) || 0],
+  ]);
+
+  if (chosenCategory && chosenCategory !== "normal") {
+    const artPool = pools.finalSlotPool.filter(
+      (card) => (card.rarityCategory || getRarityCategory(card, set)) === chosenCategory
+    );
+    const selected = pickRandom(artPool, 1, usedIds)[0];
+
+    if (selected) return selected;
+  }
+
+  return pickRandom(pools.reverseSlotPool, 1, usedIds)[0];
+}
+
+function pickMegaRareSlotCard(finalSlotPool, set = {}, usedIds = new Set()) {
+  const weights = getMegaRareSlotWeights(set);
+  const cardsByCategory = groupCardsByCategory(finalSlotPool, usedIds, set);
+  const weightedCategories = Object.entries(weights).filter(
+    ([category, weight]) => weight > 0 && cardsByCategory[category]?.length > 0
+  );
+  const chosenCategory = weightedRandomCategory(weightedCategories);
+  const selected = chosenCategory ? pickRandom(cardsByCategory[chosenCategory], 1, usedIds)[0] : undefined;
+
+  if (selected) return selected;
+
+  const fallbackPool = finalSlotPool.filter((card) => !usedIds.has(card.id));
+  return pickRandom(fallbackPool.length > 0 ? fallbackPool : finalSlotPool, 1, usedIds)[0];
 }
 
 export function buildXYFinalRareBuckets(setCards, set = {}) {
@@ -1450,19 +1530,22 @@ export function drawXYReverseSlotCard({ setPool, allowBreak, set = {}, usedIds =
 
 export function getFinalSlotCategoryDiagnostics(finalSlotPool, set = {}) {
   const profile = getPullRateProfile(set);
-  const weights = getFinalSlotWeights(profile, set);
-  const cardsByCategory = groupCardsByCategory(finalSlotPool, new Set(), set);
+  const weights = isMegaSet(set) ? getMegaRareSlotWeights(set) : getFinalSlotWeights(profile, set);
+  const eligibleFinalSlotPool = isMegaSet(set)
+    ? finalSlotPool.filter((card) => !isModernSVPreRareCategory(card.rarityCategory || getRarityCategory(card, set)))
+    : finalSlotPool;
+  const cardsByCategory = groupCardsByCategory(eligibleFinalSlotPool, new Set(), set);
   const availableCategories = new Set(Object.keys(cardsByCategory));
   const poolCounts = Object.fromEntries(
     Object.entries(cardsByCategory).map(([category, cards]) => [category, cards.length])
   );
   const activeWeights = Object.fromEntries(
     Object.keys(cardsByCategory)
-      .map((category) => [category, getProfileWeightForCategory(category, profile, set, availableCategories)])
+      .map((category) => [category, isMegaSet(set) ? weights[category] || 0 : getProfileWeightForCategory(category, profile, set, availableCategories)])
       .filter(([, weight]) => weight > 0)
   );
   const categoriesWithoutWeight = Object.keys(cardsByCategory).filter(
-    (category) => getProfileWeightForCategory(category, profile, set, availableCategories) <= 0
+    (category) => (isMegaSet(set) ? weights[category] || 0 : getProfileWeightForCategory(category, profile, set, availableCategories)) <= 0
   );
   const profileWeightsWithoutCards = Object.keys(weights).filter(
     (category) => (weights[category] || 0) > 0 && !cardsByCategory[category]
@@ -1867,14 +1950,14 @@ function isSubsetOrPreRareSlotCard(card, set = {}) {
   return (
     isRegularSlotCategory(category) ||
     getSubsetSlotWeight(card, set) > 0 ||
-    (isModernSVSet(set) && isModernSVPreRareCategory(category))
+    (usesDedicatedArtSlot(set) && isModernSVPreRareCategory(category))
   );
 }
 
 function isFinalRareSlotCard(card, set = {}) {
   const category = card?.rarityCategory || getRarityCategory(card, set);
 
-  return FINAL_SLOT_CATEGORIES.has(category) && !(isModernSVSet(set) && isModernSVPreRareCategory(category));
+  return FINAL_SLOT_CATEGORIES.has(category) && !(usesDedicatedArtSlot(set) && isModernSVPreRareCategory(category));
 }
 
 function getSpecialPreviewPackConfig(set = {}) {
@@ -2589,8 +2672,13 @@ function generateNormalPack(set, pools, profile, usedIds) {
   const regularSlot = pickRandom(pools.reverseSlotPool, PACK_SLOTS.regular, usedIds);
   const regularOrSubsetCard = isModernSVSet(set)
     ? pickModernSVPreRareSlot(pools, set, usedIds)
+    : isMegaSet(set)
+      ? pickMegaSecondFoilSlot(pools, set, usedIds)
     : pickRegularOrSubsetSlot(pools, set, usedIds);
-  const finalCard = pickFinalSlotCard(getFinalRareSlotPool(pools, set), set, usedIds);
+  const finalRareSlotPool = getFinalRareSlotPool(pools, set);
+  const finalCard = isMegaSet(set)
+    ? pickMegaRareSlotCard(finalRareSlotPool, set, usedIds)
+    : pickFinalSlotCard(finalRareSlotPool, set, usedIds);
   const pack = [
     ...commons,
     ...uncommons,

@@ -4,6 +4,8 @@ import {
   getFinalSlotCategoryDiagnostics,
   getFinalSlotWeights,
   getFoilClass,
+  getMegaRareSlotWeights,
+  getMegaSecondFoilSlotWeights,
   getNormalizedSetId,
   getPackPools,
   getPullRateProfile,
@@ -11,6 +13,7 @@ import {
   getSubsetSlotConfig,
   getSubsetType,
   isHigherThanRare,
+  isMegaSet,
   isSubsetCard,
   normalizeRarity,
   subsetSlotRules,
@@ -119,7 +122,12 @@ function hasExpectedSubsetRule(set) {
 
 export function getPackRaritySummary(pack, set) {
   const finalCard = pack.at(-1);
-  const subsetHits = pack.filter((card, index) => index !== pack.length - 1 && isSubsetCard(card, set));
+  const subsetHits = pack.filter((card, index) => {
+    if (index === pack.length - 1) return false;
+    if (isSubsetCard(card, set)) return true;
+
+    return isMegaSet(set) && index === 8 && ["illustrationRare", "specialIllustrationRare"].includes(getRarityCategory(card, set));
+  });
 
   return {
     packSize: pack.length,
@@ -155,12 +163,15 @@ export function testPullRates(set, packCount = 10000) {
 
   const profile = getPullRateProfile(set);
   const profileName = getProfileName(set);
-  const finalSlotWeights = getFinalSlotWeights(profile, set);
+  const finalSlotWeights = isMegaSet(set) ? getMegaRareSlotWeights(set) : getFinalSlotWeights(profile, set);
   const subsetSlotConfig = getSubsetSlotConfig(set);
+  const megaSecondFoilSlotWeights = isMegaSet(set) ? getMegaSecondFoilSlotWeights(set) : null;
   const pools = getPackPools(set);
   const finalSlotDiagnostics = getFinalSlotCategoryDiagnostics(pools.finalSlotPool, set);
   const expectedPercentages = getExpectedActivePercentages(finalSlotDiagnostics.activeWeights);
-  const subsetExpectedPercentages = getSubsetExpectedPercentages(subsetSlotConfig);
+  const subsetExpectedPercentages = megaSecondFoilSlotWeights
+    ? getSubsetExpectedPercentages({ rates: megaSecondFoilSlotWeights })
+    : getSubsetExpectedPercentages(subsetSlotConfig);
   const finalCategoryCounts = new Map();
   const finalRarityCounts = new Map();
   const subsetTypeCounts = new Map();
@@ -203,7 +214,10 @@ export function testPullRates(set, packCount = 10000) {
     for (let slotIndex = 0; slotIndex < pack.length - 1; slotIndex += 1) {
       const card = pack[slotIndex];
 
-      if (isSubsetCard(card, set)) {
+      if (
+        isSubsetCard(card, set) ||
+        (isMegaSet(set) && slotIndex === 8 && ["illustrationRare", "specialIllustrationRare"].includes(getRarityCategory(card, set)))
+      ) {
         subsetHitCount += 1;
         increment(subsetTypeCounts, getRarityCategory(card, set) || getSubsetType(card, set) || card.subset || "subset");
       }
@@ -277,6 +291,7 @@ export function testPullRates(set, packCount = 10000) {
     sourceUrl: profile.sourceUrl || "",
     notes: profile.notes || "",
     finalSlotWeights,
+    megaSecondFoilSlotWeights,
     subsetSlotConfig,
     subsetExpectedPercentages,
     poolSizes: getPoolSizes(set),
@@ -440,6 +455,12 @@ export function printHardcodedRateTable() {
     "Final Slot Rates": Object.entries(config.finalSlot || {})
       .map(([category, weight]) => `${category}: ${weight}`)
       .join(", "),
+    "Mega Slot 9 Rates": Object.entries(config.secondFoilSlot || {})
+      .map(([category, weight]) => `${category}: ${weight}`)
+      .join(", ") || "N/A",
+    "Mega Slot 10 Rates": Object.entries(config.rareSlot || {})
+      .map(([category, weight]) => `${category}: ${weight}`)
+      .join(", ") || "N/A",
     "Subset Slot Rates": config.subsetSlot
       ? Object.entries(config.subsetSlot.rates || {})
           .map(([category, weight]) => `${category}: ${weight}`)
@@ -461,7 +482,7 @@ export function validateHardcodedPullRates(sets) {
     const config = hardcodedPullRates[setId];
     const pools = getPackPools(set);
     const diagnostics = getFinalSlotCategoryDiagnostics(pools.finalSlotPool, set);
-    const finalWeights = config?.finalSlot || {};
+    const finalWeights = isMegaSet(set) ? config?.rareSlot || getMegaRareSlotWeights(set) : config?.finalSlot || {};
     const subsetConfig = getSubsetSlotConfig(set);
     const seriousWarnings = [];
     const notes = [];

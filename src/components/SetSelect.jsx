@@ -80,7 +80,7 @@ function groupSetsByEra(sets) {
 }
 
 function isNewSet(set) {
-  return set.isNew || set.id === "chaos-rising" || set.name === "Chaos Rising";
+  return Boolean(set.isNew);
 }
 
 function getEraLogo(era, sets) {

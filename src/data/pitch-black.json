@@ -1,0 +1,842 @@
+[
+  {
+    "id": "pitch-black-1-tropius",
+    "name": "Tropius",
+    "rarity": "Common",
+    "number": "1",
+    "image": "/assets/sets/pitch-black/cards/1_Tropius_Common.png"
+  },
+  {
+    "id": "pitch-black-2-grubbin",
+    "name": "Grubbin",
+    "rarity": "Common",
+    "number": "2",
+    "image": "/assets/sets/pitch-black/cards/2_Grubbin_Common.png"
+  },
+  {
+    "id": "pitch-black-3-fomantis",
+    "name": "Fomantis",
+    "rarity": "Common",
+    "number": "3",
+    "image": "/assets/sets/pitch-black/cards/3_Fomantis_Common.png"
+  },
+  {
+    "id": "pitch-black-4-lurantis-ex",
+    "name": "Lurantis ex",
+    "rarity": "Double Rare",
+    "number": "4",
+    "image": "/assets/sets/pitch-black/cards/4_Lurantis_ex_Double_Rare.png"
+  },
+  {
+    "id": "pitch-black-5-poltchageist",
+    "name": "Poltchageist",
+    "rarity": "Common",
+    "number": "5",
+    "image": "/assets/sets/pitch-black/cards/5_Poltchageist_Common.png"
+  },
+  {
+    "id": "pitch-black-6-sinistcha",
+    "name": "Sinistcha",
+    "rarity": "Uncommon",
+    "number": "6",
+    "image": "/assets/sets/pitch-black/cards/6_Sinistcha_Uncommon.png"
+  },
+  {
+    "id": "pitch-black-7-heatran",
+    "name": "Heatran",
+    "rarity": "Uncommon",
+    "number": "7",
+    "image": "/assets/sets/pitch-black/cards/7_Heatran_Uncommon.png"
+  },
+  {
+    "id": "pitch-black-8-mega-delphox-ex",
+    "name": "Mega Delphox ex",
+    "rarity": "Double Rare",
+    "number": "8",
+    "image": "/assets/sets/pitch-black/cards/8_Mega_Delphox_ex_Double_Rare.png"
+  },
+  {
+    "id": "pitch-black-9-sizzlipede",
+    "name": "Sizzlipede",
+    "rarity": "Common",
+    "number": "9",
+    "image": "/assets/sets/pitch-black/cards/9_Sizzlipede_Common.png"
+  },
+  {
+    "id": "pitch-black-10-centiskorch",
+    "name": "Centiskorch",
+    "rarity": "Common",
+    "number": "10",
+    "image": "/assets/sets/pitch-black/cards/10_Centiskorch_Common.png"
+  },
+  {
+    "id": "pitch-black-11-charcadet",
+    "name": "Charcadet",
+    "rarity": "Common",
+    "number": "11",
+    "image": "/assets/sets/pitch-black/cards/11_Charcadet_Common.png"
+  },
+  {
+    "id": "pitch-black-12-armarouge",
+    "name": "Armarouge",
+    "rarity": "Rare",
+    "number": "12",
+    "image": "/assets/sets/pitch-black/cards/12_Armarouge_Rare.png"
+  },
+  {
+    "id": "pitch-black-13-goldeen",
+    "name": "Goldeen",
+    "rarity": "Common",
+    "number": "13",
+    "image": "/assets/sets/pitch-black/cards/13_Goldeen_Common.png"
+  },
+  {
+    "id": "pitch-black-14-seaking",
+    "name": "Seaking",
+    "rarity": "Uncommon",
+    "number": "14",
+    "image": "/assets/sets/pitch-black/cards/14_Seaking_Uncommon.png"
+  },
+  {
+    "id": "pitch-black-15-wailmer",
+    "name": "Wailmer",
+    "rarity": "Common",
+    "number": "15",
+    "image": "/assets/sets/pitch-black/cards/15_Wailmer_Common.png"
+  },
+  {
+    "id": "pitch-black-16-wailord-ex",
+    "name": "Wailord ex",
+    "rarity": "Double Rare",
+    "number": "16",
+    "image": "/assets/sets/pitch-black/cards/16_Wailord_ex_Double_Rare.png"
+  },
+  {
+    "id": "pitch-black-17-relicanth",
+    "name": "Relicanth",
+    "rarity": "Uncommon",
+    "number": "17",
+    "image": "/assets/sets/pitch-black/cards/17_Relicanth_Uncommon.png"
+  },
+  {
+    "id": "pitch-black-18-popplio",
+    "name": "Popplio",
+    "rarity": "Common",
+    "number": "18",
+    "image": "/assets/sets/pitch-black/cards/18_Popplio_Common.png"
+  },
+  {
+    "id": "pitch-black-19-brionne",
+    "name": "Brionne",
+    "rarity": "Common",
+    "number": "19",
+    "image": "/assets/sets/pitch-black/cards/19_Brionne_Common.png"
+  },
+  {
+    "id": "pitch-black-20-primarina",
+    "name": "Primarina",
+    "rarity": "Rare",
+    "number": "20",
+    "image": "/assets/sets/pitch-black/cards/20_Primarina_Rare.png"
+  },
+  {
+    "id": "pitch-black-21-finizen",
+    "name": "Finizen",
+    "rarity": "Common",
+    "number": "21",
+    "image": "/assets/sets/pitch-black/cards/21_Finizen_Common.png"
+  },
+  {
+    "id": "pitch-black-22-palafin",
+    "name": "Palafin",
+    "rarity": "Uncommon",
+    "number": "22",
+    "image": "/assets/sets/pitch-black/cards/22_Palafin_Uncommon.png"
+  },
+  {
+    "id": "pitch-black-23-electrike",
+    "name": "Electrike",
+    "rarity": "Common",
+    "number": "23",
+    "image": "/assets/sets/pitch-black/cards/23_Electrike_Common.png"
+  },
+  {
+    "id": "pitch-black-24-manectric",
+    "name": "Manectric",
+    "rarity": "Uncommon",
+    "number": "24",
+    "image": "/assets/sets/pitch-black/cards/24_Manectric_Uncommon.png"
+  },
+  {
+    "id": "pitch-black-25-charjabug",
+    "name": "Charjabug",
+    "rarity": "Common",
+    "number": "25",
+    "image": "/assets/sets/pitch-black/cards/25_Charjabug_Common.png"
+  },
+  {
+    "id": "pitch-black-26-vikavolt",
+    "name": "Vikavolt",
+    "rarity": "Uncommon",
+    "number": "26",
+    "image": "/assets/sets/pitch-black/cards/26_Vikavolt_Uncommon.png"
+  },
+  {
+    "id": "pitch-black-27-mega-zeraora-ex",
+    "name": "Mega Zeraora ex",
+    "rarity": "Double Rare",
+    "number": "27",
+    "image": "/assets/sets/pitch-black/cards/27_Mega_Zeraora_ex_Double_Rare.png"
+  },
+  {
+    "id": "pitch-black-28-miraidon",
+    "name": "Miraidon",
+    "rarity": "Rare",
+    "number": "28",
+    "image": "/assets/sets/pitch-black/cards/28_Miraidon_Rare.png"
+  },
+  {
+    "id": "pitch-black-29-slowpoke",
+    "name": "Slowpoke",
+    "rarity": "Common",
+    "number": "29",
+    "image": "/assets/sets/pitch-black/cards/29_Slowpoke_Common.png"
+  },
+  {
+    "id": "pitch-black-30-slowbro",
+    "name": "Slowbro",
+    "rarity": "Uncommon",
+    "number": "30",
+    "image": "/assets/sets/pitch-black/cards/30_Slowbro_Uncommon.png"
+  },
+  {
+    "id": "pitch-black-31-mega-slowbro-ex",
+    "name": "Mega Slowbro ex",
+    "rarity": "Double Rare",
+    "number": "31",
+    "image": "/assets/sets/pitch-black/cards/31_Mega_Slowbro_ex_Double_Rare.png"
+  },
+  {
+    "id": "pitch-black-32-jynx",
+    "name": "Jynx",
+    "rarity": "Common",
+    "number": "32",
+    "image": "/assets/sets/pitch-black/cards/32_Jynx_Common.png"
+  },
+  {
+    "id": "pitch-black-33-shuppet",
+    "name": "Shuppet",
+    "rarity": "Common",
+    "number": "33",
+    "image": "/assets/sets/pitch-black/cards/33_Shuppet_Common.png"
+  },
+  {
+    "id": "pitch-black-34-banette",
+    "name": "Banette",
+    "rarity": "Uncommon",
+    "number": "34",
+    "image": "/assets/sets/pitch-black/cards/34_Banette_Uncommon.png"
+  },
+  {
+    "id": "pitch-black-35-spiritomb",
+    "name": "Spiritomb",
+    "rarity": "Rare",
+    "number": "35",
+    "image": "/assets/sets/pitch-black/cards/35_Spiritomb_Rare.png"
+  },
+  {
+    "id": "pitch-black-36-litwick",
+    "name": "Litwick",
+    "rarity": "Common",
+    "number": "36",
+    "image": "/assets/sets/pitch-black/cards/36_Litwick_Common.png"
+  },
+  {
+    "id": "pitch-black-37-lampent",
+    "name": "Lampent",
+    "rarity": "Uncommon",
+    "number": "37",
+    "image": "/assets/sets/pitch-black/cards/37_Lampent_Uncommon.png"
+  },
+  {
+    "id": "pitch-black-38-mega-chandelure-ex",
+    "name": "Mega Chandelure ex",
+    "rarity": "Double Rare",
+    "number": "38",
+    "image": "/assets/sets/pitch-black/cards/38_Mega_Chandelure_ex_Double_Rare.png"
+  },
+  {
+    "id": "pitch-black-39-dhelmise",
+    "name": "Dhelmise",
+    "rarity": "Uncommon",
+    "number": "39",
+    "image": "/assets/sets/pitch-black/cards/39_Dhelmise_Uncommon.png"
+  },
+  {
+    "id": "pitch-black-40-marshadow",
+    "name": "Marshadow",
+    "rarity": "Uncommon",
+    "number": "40",
+    "image": "/assets/sets/pitch-black/cards/40_Marshadow_Uncommon.png"
+  },
+  {
+    "id": "pitch-black-41-annihilape",
+    "name": "Annihilape",
+    "rarity": "Uncommon",
+    "number": "41",
+    "image": "/assets/sets/pitch-black/cards/41_Annihilape_Uncommon.png"
+  },
+  {
+    "id": "pitch-black-42-mankey",
+    "name": "Mankey",
+    "rarity": "Common",
+    "number": "42",
+    "image": "/assets/sets/pitch-black/cards/42_Mankey_Common.png"
+  },
+  {
+    "id": "pitch-black-43-primeape",
+    "name": "Primeape",
+    "rarity": "Common",
+    "number": "43",
+    "image": "/assets/sets/pitch-black/cards/43_Primeape_Common.png"
+  },
+  {
+    "id": "pitch-black-44-cranidos",
+    "name": "Cranidos",
+    "rarity": "Common",
+    "number": "44",
+    "image": "/assets/sets/pitch-black/cards/44_Cranidos_Common.png"
+  },
+  {
+    "id": "pitch-black-45-rampardos-ex",
+    "name": "Rampardos ex",
+    "rarity": "Double Rare",
+    "number": "45",
+    "image": "/assets/sets/pitch-black/cards/45_Rampardos_ex_Double_Rare.png"
+  },
+  {
+    "id": "pitch-black-46-drilbur",
+    "name": "Drilbur",
+    "rarity": "Common",
+    "number": "46",
+    "image": "/assets/sets/pitch-black/cards/46_Drilbur_Common.png"
+  },
+  {
+    "id": "pitch-black-47-koraidon",
+    "name": "Koraidon",
+    "rarity": "Rare",
+    "number": "47",
+    "image": "/assets/sets/pitch-black/cards/47_Koraidon_Rare.png"
+  },
+  {
+    "id": "pitch-black-48-mega-darkrai-ex",
+    "name": "Mega Darkrai ex",
+    "rarity": "Double Rare",
+    "number": "48",
+    "image": "/assets/sets/pitch-black/cards/48_Mega_Darkrai_ex_Double_Rare.png"
+  },
+  {
+    "id": "pitch-black-49-vullaby",
+    "name": "Vullaby",
+    "rarity": "Common",
+    "number": "49",
+    "image": "/assets/sets/pitch-black/cards/49_Vullaby_Common.png"
+  },
+  {
+    "id": "pitch-black-50-mandibuzz",
+    "name": "Mandibuzz",
+    "rarity": "Common",
+    "number": "50",
+    "image": "/assets/sets/pitch-black/cards/50_Mandibuzz_Common.png"
+  },
+  {
+    "id": "pitch-black-51-inkay",
+    "name": "Inkay",
+    "rarity": "Common",
+    "number": "51",
+    "image": "/assets/sets/pitch-black/cards/51_Inkay_Common.png"
+  },
+  {
+    "id": "pitch-black-52-malamar",
+    "name": "Malamar",
+    "rarity": "Uncommon",
+    "number": "52",
+    "image": "/assets/sets/pitch-black/cards/52_Malamar_Uncommon.png"
+  },
+  {
+    "id": "pitch-black-53-nickit",
+    "name": "Nickit",
+    "rarity": "Common",
+    "number": "53",
+    "image": "/assets/sets/pitch-black/cards/53_Nickit_Common.png"
+  },
+  {
+    "id": "pitch-black-54-thievul",
+    "name": "Thievul",
+    "rarity": "Uncommon",
+    "number": "54",
+    "image": "/assets/sets/pitch-black/cards/54_Thievul_Uncommon.png"
+  },
+  {
+    "id": "pitch-black-55-morpeko-ex",
+    "name": "Morpeko ex",
+    "rarity": "Double Rare",
+    "number": "55",
+    "image": "/assets/sets/pitch-black/cards/55_Morpeko_ex_Double_Rare.png"
+  },
+  {
+    "id": "pitch-black-56-zarude",
+    "name": "Zarude",
+    "rarity": "Rare",
+    "number": "56",
+    "image": "/assets/sets/pitch-black/cards/56_Zarude_Rare.png"
+  },
+  {
+    "id": "pitch-black-57-maschiff",
+    "name": "Maschiff",
+    "rarity": "Common",
+    "number": "57",
+    "image": "/assets/sets/pitch-black/cards/57_Maschiff_Common.png"
+  },
+  {
+    "id": "pitch-black-58-mabosstiff",
+    "name": "Mabosstiff",
+    "rarity": "Common",
+    "number": "58",
+    "image": "/assets/sets/pitch-black/cards/58_Mabosstiff_Common.png"
+  },
+  {
+    "id": "pitch-black-59-chi-yu",
+    "name": "Chi-Yu",
+    "rarity": "Rare",
+    "number": "59",
+    "image": "/assets/sets/pitch-black/cards/59_Chi-Yu_Rare.png"
+  },
+  {
+    "id": "pitch-black-60-skarmory",
+    "name": "Skarmory",
+    "rarity": "Common",
+    "number": "60",
+    "image": "/assets/sets/pitch-black/cards/60_Skarmory_Common.png"
+  },
+  {
+    "id": "pitch-black-61-shieldon",
+    "name": "Shieldon",
+    "rarity": "Common",
+    "number": "61",
+    "image": "/assets/sets/pitch-black/cards/61_Shieldon_Common.png"
+  },
+  {
+    "id": "pitch-black-62-bastiodon",
+    "name": "Bastiodon",
+    "rarity": "Rare",
+    "number": "62",
+    "image": "/assets/sets/pitch-black/cards/62_Bastiodon_Rare.png"
+  },
+  {
+    "id": "pitch-black-63-bronzor",
+    "name": "Bronzor",
+    "rarity": "Common",
+    "number": "63",
+    "image": "/assets/sets/pitch-black/cards/63_Bronzor_Common.png"
+  },
+  {
+    "id": "pitch-black-64-bronzong",
+    "name": "Bronzong",
+    "rarity": "Uncommon",
+    "number": "64",
+    "image": "/assets/sets/pitch-black/cards/64_Bronzong_Uncommon.png"
+  },
+  {
+    "id": "pitch-black-65-mega-excadrill-ex",
+    "name": "Mega Excadrill ex",
+    "rarity": "Double Rare",
+    "number": "65",
+    "image": "/assets/sets/pitch-black/cards/65_Mega_Excadrill_ex_Double_Rare.png"
+  },
+  {
+    "id": "pitch-black-66-pikipek",
+    "name": "Pikipek",
+    "rarity": "Common",
+    "number": "66",
+    "image": "/assets/sets/pitch-black/cards/66_Pikipek_Common.png"
+  },
+  {
+    "id": "pitch-black-67-trumbeak",
+    "name": "Trumbeak",
+    "rarity": "Common",
+    "number": "67",
+    "image": "/assets/sets/pitch-black/cards/67_Trumbeak_Common.png"
+  },
+  {
+    "id": "pitch-black-68-toucannon",
+    "name": "Toucannon",
+    "rarity": "Uncommon",
+    "number": "68",
+    "image": "/assets/sets/pitch-black/cards/68_Toucannon_Uncommon.png"
+  },
+  {
+    "id": "pitch-black-69-type-null",
+    "name": "Type: Null",
+    "rarity": "Common",
+    "number": "69",
+    "image": "/assets/sets/pitch-black/cards/69_Type-_Null_Common.png"
+  },
+  {
+    "id": "pitch-black-70-silvally",
+    "name": "Silvally",
+    "rarity": "Rare",
+    "number": "70",
+    "image": "/assets/sets/pitch-black/cards/70_Silvally_Rare.png"
+  },
+  {
+    "id": "pitch-black-71-bombirdier",
+    "name": "Bombirdier",
+    "rarity": "Common",
+    "number": "71",
+    "image": "/assets/sets/pitch-black/cards/71_Bombirdier_Common.png"
+  },
+  {
+    "id": "pitch-black-72-antique-armor-fossil",
+    "name": "Antique Armor Fossil",
+    "rarity": "Common",
+    "number": "72",
+    "image": "/assets/sets/pitch-black/cards/72_Antique_Armor_Fossil_Common.png"
+  },
+  {
+    "id": "pitch-black-73-antique-skull-fossil",
+    "name": "Antique Skull Fossil",
+    "rarity": "Common",
+    "number": "73",
+    "image": "/assets/sets/pitch-black/cards/73_Antique_Skull_Fossil_Common.png"
+  },
+  {
+    "id": "pitch-black-74-backtrack-badge",
+    "name": "Backtrack Badge",
+    "rarity": "Uncommon",
+    "number": "74",
+    "image": "/assets/sets/pitch-black/cards/74_Backtrack_Badge_Uncommon.png"
+  },
+  {
+    "id": "pitch-black-75-dark-bell",
+    "name": "Dark Bell",
+    "rarity": "Uncommon",
+    "number": "75",
+    "image": "/assets/sets/pitch-black/cards/75_Dark_Bell_Uncommon.png"
+  },
+  {
+    "id": "pitch-black-76-fossil-quarry",
+    "name": "Fossil Quarry",
+    "rarity": "Uncommon",
+    "number": "76",
+    "image": "/assets/sets/pitch-black/cards/76_Fossil_Quarry_Uncommon.png"
+  },
+  {
+    "id": "pitch-black-77-gladions-final-battle",
+    "name": "Gladion's Final Battle",
+    "rarity": "Uncommon",
+    "number": "77",
+    "image": "/assets/sets/pitch-black/cards/77_Gladion's_Final_Battle_Uncommon.png"
+  },
+  {
+    "id": "pitch-black-78-gwynn",
+    "name": "Gwynn",
+    "rarity": "Uncommon",
+    "number": "78",
+    "image": "/assets/sets/pitch-black/cards/78_Gwynn_Uncommon.png"
+  },
+  {
+    "id": "pitch-black-79-jett",
+    "name": "Jett",
+    "rarity": "Uncommon",
+    "number": "79",
+    "image": "/assets/sets/pitch-black/cards/79_Jett_Uncommon.png"
+  },
+  {
+    "id": "pitch-black-80-mistys-vitality",
+    "name": "Misty's Vitality",
+    "rarity": "Uncommon",
+    "number": "80",
+    "image": "/assets/sets/pitch-black/cards/80_Misty's_Vitality_Uncommon.png"
+  },
+  {
+    "id": "pitch-black-81-rust-syndicate-grunt",
+    "name": "Rust Syndicate Grunt",
+    "rarity": "Uncommon",
+    "number": "81",
+    "image": "/assets/sets/pitch-black/cards/81_Rust_Syndicate_Grunt_Uncommon.png"
+  },
+  {
+    "id": "pitch-black-82-tremendous-bomb",
+    "name": "Tremendous Bomb",
+    "rarity": "Uncommon",
+    "number": "82",
+    "image": "/assets/sets/pitch-black/cards/82_Tremendous_Bomb_Uncommon.png"
+  },
+  {
+    "id": "pitch-black-83-shadowy-darkness-energy",
+    "name": "Shadowy Darkness Energy",
+    "rarity": "Rare",
+    "number": "83",
+    "image": "/assets/sets/pitch-black/cards/83_Shadowy_Darkness_Energy_Rare.png"
+  },
+  {
+    "id": "pitch-black-84-voltaic-lightning-energy",
+    "name": "Voltaic Lightning Energy",
+    "rarity": "Rare",
+    "number": "84",
+    "image": "/assets/sets/pitch-black/cards/84_Voltaic_Lightning_Energy_Rare.png"
+  },
+  {
+    "id": "pitch-black-85-fomantis",
+    "name": "Fomantis",
+    "rarity": "Illustration Rare",
+    "number": "85",
+    "image": "/assets/sets/pitch-black/cards/85_Fomantis_Illustration_Rare.png"
+  },
+  {
+    "id": "pitch-black-86-armarouge",
+    "name": "Armarouge",
+    "rarity": "Illustration Rare",
+    "number": "86",
+    "image": "/assets/sets/pitch-black/cards/86_Armarouge_Illustration_Rare.png"
+  },
+  {
+    "id": "pitch-black-87-goldeen",
+    "name": "Goldeen",
+    "rarity": "Illustration Rare",
+    "number": "87",
+    "image": "/assets/sets/pitch-black/cards/87_Goldeen_Illustration_Rare.png"
+  },
+  {
+    "id": "pitch-black-88-primarina",
+    "name": "Primarina",
+    "rarity": "Illustration Rare",
+    "number": "88",
+    "image": "/assets/sets/pitch-black/cards/88_Primarina_Illustration_Rare.png"
+  },
+  {
+    "id": "pitch-black-89-manectric",
+    "name": "Manectric",
+    "rarity": "Illustration Rare",
+    "number": "89",
+    "image": "/assets/sets/pitch-black/cards/89_Manectric_Illustration_Rare.png"
+  },
+  {
+    "id": "pitch-black-90-slowbro",
+    "name": "Slowbro",
+    "rarity": "Illustration Rare",
+    "number": "90",
+    "image": "/assets/sets/pitch-black/cards/90_Slowbro_Illustration_Rare.png"
+  },
+  {
+    "id": "pitch-black-91-dhelmise",
+    "name": "Dhelmise",
+    "rarity": "Illustration Rare",
+    "number": "91",
+    "image": "/assets/sets/pitch-black/cards/91_Dhelmise_Illustration_Rare.png"
+  },
+  {
+    "id": "pitch-black-92-thievul",
+    "name": "Thievul",
+    "rarity": "Illustration Rare",
+    "number": "92",
+    "image": "/assets/sets/pitch-black/cards/92_Thievul_Illustration_Rare.png"
+  },
+  {
+    "id": "pitch-black-93-bastiodon",
+    "name": "Bastiodon",
+    "rarity": "Illustration Rare",
+    "number": "93",
+    "image": "/assets/sets/pitch-black/cards/93_Bastiodon_Illustration_Rare.png"
+  },
+  {
+    "id": "pitch-black-94-toucannon",
+    "name": "Toucannon",
+    "rarity": "Illustration Rare",
+    "number": "94",
+    "image": "/assets/sets/pitch-black/cards/94_Toucannon_Illustration_Rare.png"
+  },
+  {
+    "id": "pitch-black-95-silvally",
+    "name": "Silvally",
+    "rarity": "Illustration Rare",
+    "number": "95",
+    "image": "/assets/sets/pitch-black/cards/95_Silvally_Illustration_Rare.png"
+  },
+  {
+    "id": "pitch-black-96-lurantis-ex",
+    "name": "Lurantis ex",
+    "rarity": "Ultra Rare",
+    "number": "96",
+    "image": "/assets/sets/pitch-black/cards/96_Lurantis_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "pitch-black-97-wailord-ex",
+    "name": "Wailord ex",
+    "rarity": "Ultra Rare",
+    "number": "97",
+    "image": "/assets/sets/pitch-black/cards/97_Wailord_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "pitch-black-98-mega-zeraora-ex",
+    "name": "Mega Zeraora ex",
+    "rarity": "Ultra Rare",
+    "number": "98",
+    "image": "/assets/sets/pitch-black/cards/98_Mega_Zeraora_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "pitch-black-99-mega-chandelure-ex",
+    "name": "Mega Chandelure ex",
+    "rarity": "Ultra Rare",
+    "number": "99",
+    "image": "/assets/sets/pitch-black/cards/99_Mega_Chandelure_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "pitch-black-100-rampardos-ex",
+    "name": "Rampardos ex",
+    "rarity": "Ultra Rare",
+    "number": "100",
+    "image": "/assets/sets/pitch-black/cards/100_Rampardos_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "pitch-black-101-mega-darkrai-ex",
+    "name": "Mega Darkrai ex",
+    "rarity": "Ultra Rare",
+    "number": "101",
+    "image": "/assets/sets/pitch-black/cards/101_Mega_Darkrai_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "pitch-black-102-morpeko-ex",
+    "name": "Morpeko ex",
+    "rarity": "Ultra Rare",
+    "number": "102",
+    "image": "/assets/sets/pitch-black/cards/102_Morpeko_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "pitch-black-103-mega-excadrill-ex",
+    "name": "Mega Excadrill ex",
+    "rarity": "Ultra Rare",
+    "number": "103",
+    "image": "/assets/sets/pitch-black/cards/103_Mega_Excadrill_ex_Ultra_Rare.png"
+  },
+  {
+    "id": "pitch-black-104-brave-bangle",
+    "name": "Brave Bangle",
+    "rarity": "Ultra Rare",
+    "number": "104",
+    "image": "/assets/sets/pitch-black/cards/104_Brave_Bangle_Ultra_Rare.png"
+  },
+  {
+    "id": "pitch-black-105-crushing-hammer",
+    "name": "Crushing Hammer",
+    "rarity": "Ultra Rare",
+    "number": "105",
+    "image": "/assets/sets/pitch-black/cards/105_Crushing_Hammer_Ultra_Rare.png"
+  },
+  {
+    "id": "pitch-black-106-dark-bell",
+    "name": "Dark Bell",
+    "rarity": "Ultra Rare",
+    "number": "106",
+    "image": "/assets/sets/pitch-black/cards/106_Dark_Bell_Ultra_Rare.png"
+  },
+  {
+    "id": "pitch-black-107-energy-switch",
+    "name": "Energy Switch",
+    "rarity": "Ultra Rare",
+    "number": "107",
+    "image": "/assets/sets/pitch-black/cards/107_Energy_Switch_Ultra_Rare.png"
+  },
+  {
+    "id": "pitch-black-108-gladions-final-battle",
+    "name": "Gladion's Final Battle",
+    "rarity": "Ultra Rare",
+    "number": "108",
+    "image": "/assets/sets/pitch-black/cards/108_Gladion's_Final_Battle_Ultra_Rare.png"
+  },
+  {
+    "id": "pitch-black-109-gwynn",
+    "name": "Gwynn",
+    "rarity": "Ultra Rare",
+    "number": "109",
+    "image": "/assets/sets/pitch-black/cards/109_Gwynn_Ultra_Rare.png"
+  },
+  {
+    "id": "pitch-black-110-iron-defender",
+    "name": "Iron Defender",
+    "rarity": "Ultra Rare",
+    "number": "110",
+    "image": "/assets/sets/pitch-black/cards/110_Iron_Defender_Ultra_Rare.png"
+  },
+  {
+    "id": "pitch-black-111-mistys-vitality",
+    "name": "Misty's Vitality",
+    "rarity": "Ultra Rare",
+    "number": "111",
+    "image": "/assets/sets/pitch-black/cards/111_Misty's_Vitality_Ultra_Rare.png"
+  },
+  {
+    "id": "pitch-black-112-rust-syndicate-grunt",
+    "name": "Rust Syndicate Grunt",
+    "rarity": "Ultra Rare",
+    "number": "112",
+    "image": "/assets/sets/pitch-black/cards/112_Rust_Syndicate_Grunt_Ultra_Rare.png"
+  },
+  {
+    "id": "pitch-black-113-tremendous-bomb",
+    "name": "Tremendous Bomb",
+    "rarity": "Ultra Rare",
+    "number": "113",
+    "image": "/assets/sets/pitch-black/cards/113_Tremendous_Bomb_Ultra_Rare.png"
+  },
+  {
+    "id": "pitch-black-114-mega-zeraora-ex",
+    "name": "Mega Zeraora ex",
+    "rarity": "Special Illustration Rare",
+    "number": "114",
+    "image": "/assets/sets/pitch-black/cards/114_Mega_Zeraora_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "pitch-black-115-mega-chandelure-ex",
+    "name": "Mega Chandelure ex",
+    "rarity": "Special Illustration Rare",
+    "number": "115",
+    "image": "/assets/sets/pitch-black/cards/115_Mega_Chandelure_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "pitch-black-116-mega-darkrai-ex",
+    "name": "Mega Darkrai ex",
+    "rarity": "Special Illustration Rare",
+    "number": "116",
+    "image": "/assets/sets/pitch-black/cards/116_Mega_Darkrai_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "pitch-black-117-morpeko-ex",
+    "name": "Morpeko ex",
+    "rarity": "Special Illustration Rare",
+    "number": "117",
+    "image": "/assets/sets/pitch-black/cards/117_Morpeko_ex_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "pitch-black-118-gladions-final-battle",
+    "name": "Gladion's Final Battle",
+    "rarity": "Special Illustration Rare",
+    "number": "118",
+    "image": "/assets/sets/pitch-black/cards/118_Gladion's_Final_Battle_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "pitch-black-119-gwynn",
+    "name": "Gwynn",
+    "rarity": "Special Illustration Rare",
+    "number": "119",
+    "image": "/assets/sets/pitch-black/cards/119_Gwynn_Special_Illustration_Rare.png"
+  },
+  {
+    "id": "pitch-black-120-mega-darkrai-ex",
+    "name": "Mega Darkrai ex",
+    "rarity": "Mega Hyper Rare",
+    "number": "120",
+    "image": "/assets/sets/pitch-black/cards/120_Mega_Darkrai_ex_Mega_Hyper_Rare.png"
+  }
+]
