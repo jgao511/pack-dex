@@ -45,6 +45,7 @@ import {
   loadCardPricesForSet,
 } from "../../src/lib/cardPrices.js";
 import { countDevRequest } from "./utils/requestDiagnostics.js";
+import { getCardActionLayoutClass, getCardDetailActionVisibility } from "./utils/cardDetailActions.js";
 import { clearCachedSupabaseUser } from "../../src/lib/sessionUserCache.js";
 import { isSupabaseAuthStorageKey, validateSupabaseIdentity } from "../../src/lib/authIdentityValidation.js";
 import { clearDeletedAccountLocalState, deleteCurrentAccount } from "../../src/lib/accountDeletion.js";
@@ -1969,7 +1970,17 @@ function CardInspectModal({ item, collection, user, wishlistKeys, wishlistPendin
   const wishlistKey = getWishlistKey(set.id, card.id);
   const isWishlisted = wishlistKeys.has(wishlistKey);
   const isWishlistPending = wishlistPendingKeys.has(wishlistKey);
-  const isCollectionOrigin = item.origin === "collection";
+  const inspectOrigin = item.context?.origin || item.origin || "direct";
+  const actionVisibility = getCardDetailActionVisibility(inspectOrigin, {
+    hasPokemon: linkedSpecies.length > 0,
+    hasSet: Boolean(set.id),
+    hasEra: Boolean(set.era),
+  });
+  const contextualActions = [
+    ...(actionVisibility.pokemon ? linkedSpecies.map((species) => <button key={`pokemon:${species.id}`} className="secondary-action" type="button" onClick={() => onViewPokemon?.(species.id)}>View {linkedSpecies.length > 1 ? species.displayName : "Pokémon"}</button>) : []),
+    actionVisibility.set ? <button key="set" className="secondary-action" type="button" onClick={() => onViewSet?.(set.id)}>View Set</button> : null,
+    actionVisibility.era ? <button key="era" className="secondary-action" type="button" onClick={() => onViewEra?.(set.era)}>View Era</button> : null,
+  ].filter(Boolean);
 
   function getInspectTilt(event, target) {
     const rect = target.getBoundingClientRect();
@@ -2079,11 +2090,7 @@ function CardInspectModal({ item, collection, user, wishlistKeys, wishlistPendin
               View on TCGplayer
             </a>
           )}
-          <div className={`inspect-explore-links ${isCollectionOrigin ? "is-collection-origin" : ""}`}>
-            {linkedSpecies.map((species) => <button key={species.id} className="secondary-action" type="button" onClick={() => onViewPokemon?.(species.id)}>View {linkedSpecies.length > 1 ? species.displayName : "Pokémon"}</button>)}
-            {!isCollectionOrigin && <button className="secondary-action" type="button" onClick={() => onViewSet?.(set.id)}>View Set</button>}
-            {!isCollectionOrigin && set.era && <button className="secondary-action" type="button" onClick={() => onViewEra?.(set.era)}>View Era</button>}
-          </div>
+          {contextualActions.length > 0 && <div className={`inspect-explore-links ${getCardActionLayoutClass(contextualActions.length)}`}>{contextualActions}</div>}
         </div>
       </section>
     </div>
@@ -2622,7 +2629,7 @@ function MobileApp() {
   const [hasSavedCurrentPack, setHasSavedCurrentPack] = useState(false);
   const savedPackKeyRef = useRef("");
   const [inspectedCard, setInspectedCard] = useState(null);
-  const [collectionPokemonOverlay, setCollectionPokemonOverlay] = useState(false);
+  const [cardDestinationOverlay, setCardDestinationOverlay] = useState(false);
   const [authMode, setAuthMode] = useState("login");
   const [isAuthSubmitting, setIsAuthSubmitting] = useState(false);
   const [authEmail, setAuthEmail] = useState("");
@@ -2725,23 +2732,27 @@ function MobileApp() {
     scrollScreenToTop();
   }
 
-  function openPokemonFromInspect(id) {
-    if (inspectedCard?.origin !== "collection") {
-      openExploreRoute({ kind: "pokemon", id });
+  function openCardDestination(route) {
+    if (!inspectedCard) {
+      openExploreRoute(route);
       return;
     }
-    window.history.pushState({ packdexExplore: true, packdexCardReturn: true }, "", buildExplorePath({ kind: "pokemon", id }, window.location.pathname));
-    setCollectionPokemonOverlay(true);
+    window.history.pushState({ packdexExplore: true, packdexCardReturn: true, packdexCardDestination: true }, "", buildExplorePath(route, window.location.pathname));
+    setCardDestinationOverlay(true);
+  }
+
+  function openPokemonFromInspect(id) {
+    openCardDestination({ kind: "pokemon", id });
   }
 
   useEffect(() => {
-    if (!collectionPokemonOverlay) return undefined;
+    if (!cardDestinationOverlay) return undefined;
     const handleCardReturn = () => {
-      if (!window.location.pathname.includes("/explore")) setCollectionPokemonOverlay(false);
+      if (!window.history.state?.packdexCardDestination) setCardDestinationOverlay(false);
     };
     window.addEventListener("popstate", handleCardReturn);
     return () => window.removeEventListener("popstate", handleCardReturn);
-  }, [collectionPokemonOverlay]);
+  }, [cardDestinationOverlay]);
 
   async function loadExploreSpeciesForCard(card, set) {
     const { catalogCards, speciesById } = await import("./explore/exploreData.js");
@@ -3760,9 +3771,10 @@ function MobileApp() {
     scrollScreenToTop();
   }
 
-  function inspectCard(card, set) {
+  function inspectCard(card, set, context = {}) {
     setWishlistMessage(null);
-    setInspectedCard({ card, set, origin: activeTab });
+    const origin = context.origin || activeTab;
+    setInspectedCard({ card, set, origin, context: { ...context, origin, returnScroll: Number(screenContentRef.current?.scrollTop || 0) } });
 
     if (
       supabase &&
@@ -4214,8 +4226,8 @@ function MobileApp() {
           </>}
         </div>
 
-        {collectionPokemonOverlay && (
-          <div className="collection-pokemon-overlay" aria-label="Pokémon detail from Collection">
+        {cardDestinationOverlay && (
+          <div className="card-destination-overlay" aria-label="Card detail destination">
             <Suspense fallback={<section className="mobile-auth-validation" role="status"><img src={POKEBALL_LOADING_SRC} alt="" /><strong>Loading Pokémon...</strong></section>}>
               <ExploreScreen
                 collection={collection}
@@ -4251,7 +4263,7 @@ function MobileApp() {
 
         {authValidationState !== "validating" && <AchievementUnlockToast toast={activeAchievementToast} />}
 
-        {authValidationState !== "validating" && !collectionPokemonOverlay && <CardInspectModal
+        {authValidationState !== "validating" && !cardDestinationOverlay && <CardInspectModal
           item={inspectedCard}
           collection={collection}
           user={user}
@@ -4263,8 +4275,8 @@ function MobileApp() {
           priceMap={inspectedCard?.set ? fullSetPriceMapsBySet[inspectedCard.set.id] || priceMapsBySet[inspectedCard.set.id] : null}
           onLoadSpecies={loadExploreSpeciesForCard}
           onViewPokemon={openPokemonFromInspect}
-          onViewSet={(id) => openExploreRoute({ kind: "set", id })}
-          onViewEra={(name) => import("./explore/exploreData.js").then(({ exploreEras }) => { const era = exploreEras.find((item) => item.name === name); if (era) openExploreRoute({ kind: "era", id: era.id }); })}
+          onViewSet={(id) => openCardDestination({ kind: "set", id })}
+          onViewEra={(name) => import("./explore/exploreData.js").then(({ exploreEras }) => { const era = exploreEras.find((item) => item.name === name); if (era) openCardDestination({ kind: "era", id: era.id }); })}
           onClose={() => setInspectedCard(null)}
         />}
         <MobileAuthModal

@@ -73,10 +73,52 @@ test("refresh marks cooldown before one invocation and returns indexed rows", as
 test("failed refresh keeps the cooldown and does not loop", async () => {
   const storage = memoryStorage();
   const client = { functions: { invoke: async () => ({ data: null, error: new Error("offline") }) } };
-  await assert.rejects(refreshPokemonPrices({ speciesId: 25, cards: [entry("pikachu")], supabaseClient: client, storage }), /offline/);
+  const failed = await refreshPokemonPrices({ speciesId: 25, cards: [entry("pikachu")], supabaseClient: client, storage });
+  assert.equal(failed.status, "failure");
+  assert.deepEqual(failed.priceMapsBySet, {});
   const retry = await refreshPokemonPrices({ speciesId: 25, cards: [entry("pikachu")], supabaseClient: client, storage });
   assert.equal(retry.attempted, false);
   assert.equal(JSON.parse(storage.getItem(POKEMON_PRICE_REFRESH_STORAGE_KEY))["25"].status, "failure");
+});
+
+test("partial response rows merge directly without a second database fetch", async () => {
+  const storage = memoryStorage();
+  const cards = [entry("cached"), entry("updated")];
+  let reads = 0;
+  let invokes = 0;
+  const stale = new Date(Date.now() - POKEMON_PRICE_REFRESH_MS - 5_000).toISOString();
+  const client = {
+    from: () => ({
+      select() { return this; },
+      in: async () => {
+        reads += 1;
+        return { data: [{ card_id: "cached", set_id: "set-cached", card_number: "cached", name: "cached", market_price_usd: 9, synced_at: stale }], error: null };
+      },
+    }),
+    functions: { invoke: async () => {
+      invokes += 1;
+      return { data: { status: "partial_success", updatedCount: 1, failedSetCount: 1, updatedPrices: [{ card_id: "updated", set_id: "set-updated", market_price_usd: 22, synced_at: new Date().toISOString() }] }, error: null };
+    } },
+  };
+  const result = await refreshPokemonPrices({ speciesId: 492, cards, supabaseClient: client, storage });
+  assert.equal(reads, 1);
+  assert.equal(invokes, 1);
+  assert.equal(result.status, "partial_success");
+  assert.equal(result.priceMapsBySet["set-cached"].get("cached").marketPriceUsd, 9);
+  assert.equal(result.priceMapsBySet["set-updated"].get("updated").marketPriceUsd, 22);
+});
+
+test("total function failure still returns bounded cached values and clears the active attempt", async () => {
+  const storage = memoryStorage();
+  const cards = [entry("cached-on-failure")];
+  const client = {
+    from: () => ({ select() { return this; }, in: async () => ({ data: [{ card_id: "cached-on-failure", set_id: "set-cached-on-failure", card_number: "cached-on-failure", name: "cached-on-failure", market_price_usd: 7, synced_at: new Date(Date.now() - POKEMON_PRICE_REFRESH_MS - 1).toISOString() }], error: null }) }),
+    functions: { invoke: async () => ({ data: { status: "total_failure", updatedPrices: [], failedSetCount: 1 }, error: null }) },
+  };
+  const result = await refreshPokemonPrices({ speciesId: 718, cards, supabaseClient: client, storage });
+  assert.equal(result.status, "failure");
+  assert.equal(result.priceMapsBySet["set-cached-on-failure"].get("cached-on-failure").marketPriceUsd, 7);
+  assert.equal(JSON.parse(storage.getItem(POKEMON_PRICE_REFRESH_STORAGE_KEY))["718"].status, "failure");
 });
 
 test("one bounded cache read suppresses the upstream refresh when every row is fresh", async () => {
@@ -99,4 +141,18 @@ test("one bounded cache read suppresses the upstream refresh when every row is f
   assert.equal(invokes, 0);
   assert.equal(result.attempted, false);
   assert.equal(result.priceMapsBySet["set-fresh-from-db"].get("fresh-from-db").marketPriceUsd, 4);
+});
+
+test("simultaneous renders share one in-flight species refresh", async () => {
+  const storage = memoryStorage();
+  let invokes = 0;
+  let release;
+  const gate = new Promise((resolve) => { release = resolve; });
+  const client = { functions: { invoke: async () => { invokes += 1; await gate; return { data: { status: "full_success", updatedPrices: [] }, error: null }; } } };
+  const first = refreshPokemonPrices({ speciesId: 151, cards: [entry("mew")], supabaseClient: client, storage });
+  const second = refreshPokemonPrices({ speciesId: 151, cards: [entry("mew")], supabaseClient: client, storage });
+  assert.equal(first, second);
+  release();
+  await Promise.all([first, second]);
+  assert.equal(invokes, 1);
 });

@@ -40,7 +40,9 @@ test("Explore routes round-trip for browser and native-style paths", () => {
 test("Explore presentation supports guest, collection, missing metadata, and lazy images", async () => {
   const source = await readFile(new URL("../mobile-app/src/explore/ExploreScreen.jsx", import.meta.url), "utf8");
   assert.match(source, /collection = \{\}/);
-  assert.match(source, /Continue Exploring/);
+  assert.doesNotMatch(source, /Continue Exploring/);
+  assert.match(source, /Recently Viewed/);
+  assert.match(source, /RecentExploreSearch/);
   assert.match(source, /No supported PackDex cards yet/);
   assert.match(source, /loading="lazy"/);
   assert.match(source, /const \[homeQuery, setHomeQuery\] = useState\(""\)/);

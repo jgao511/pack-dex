@@ -31,10 +31,15 @@
 .explore-set-art img, .explore-era-art img { width: 100%; height: 100%; object-fit: contain; }
 .explore-era-art img { transform: none; }
 .explore-tile-copy { min-width: 0; display: flex; flex: 1; flex-direction: column; align-items: flex-start; }
+.explore-feature-label { margin-bottom: 5px; color: #aeb9cc; font-size: .6rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 .explore-tile-copy small { color: #7f8ba0; font-size: .65rem; line-height: 1.25; text-transform: uppercase; letter-spacing: .06em; }
 .explore-tile-copy strong { margin-top: 2px; width: 100%; overflow: hidden; font-size: .96rem; text-overflow: ellipsis; white-space: nowrap; }
 .explore-tile-copy em { margin-top: 5px; color: #98a3b5; font-size: .7rem; font-style: normal; line-height: 1.25; }
 .explore-tile-context { display: -webkit-box; margin-top: 6px; overflow: hidden; color: #aeb8c8; font-size: .68rem; line-height: 1.35; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.explore-spotlights .explore-pokemon-tile, .explore-spotlights .explore-set-tile, .explore-spotlights .explore-era-tile { min-height: 150px; display: grid; grid-template-columns: 84px minmax(0, 1fr); align-items: center; }
+.explore-spotlights .explore-pokemon-tile.is-compact > img, .explore-spotlights .explore-pokemon-tile.is-compact > .explore-image-fallback, .explore-spotlights .explore-set-art, .explore-spotlights .explore-era-art { width: 84px; height: 84px; flex-basis: 84px; }
+.explore-spotlights .explore-tile-copy { height: 100%; align-items: center; justify-content: center; text-align: center; }
+.explore-spotlights .explore-types { justify-content: center; }
 .explore-pokemon-grid.is-set-featured .explore-pokemon-tile { min-height: 148px; justify-content: center; text-align: center; }
 .explore-pokemon-grid.is-set-featured .explore-tile-copy { align-items: center; }
 .explore-types { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
@@ -81,9 +86,14 @@
 .progress-summary { display: grid; grid-template-columns: auto 1fr; column-gap: 12px; align-items: center; }
 .progress-summary > strong { grid-row: 1 / 3; font-size: 1.9rem; letter-spacing: -.05em; }.progress-summary span { font-size: .78rem; font-weight: 700; }.progress-summary em { color: #8792a4; font-size: .68rem; font-style: normal; }
 .highlight-grid { display: grid; gap: 8px; }
-.highlight-grid button { padding: 12px; border: 1px solid #283342; border-radius: 13px; background: #171f2a; color: #f5f7fa; text-align: left; display: flex; flex-direction: column; }
+.highlight-grid button, .highlight-grid > div { min-height: 92px; padding: 12px; border: 1px solid #283342; border-radius: 13px; background: #171f2a; color: #f5f7fa; text-align: left; display: flex; flex-direction: column; box-sizing: border-box; }
 .highlight-grid small { color: #8995a7; font-size: .6rem; text-transform: uppercase; }.highlight-grid strong { margin-top: 3px; font-size: .78rem; }.highlight-grid span { margin-top: 2px; color: #9ca7b8; font-size: .67rem; }
-.price-refresh-status { display: block; margin: 5px 0 9px; color: #8f9bad; font-size: .66rem; }
+.price-highlight-card b { margin-top: 4px; color: #f7f9fc; font-size: .82rem; }
+.price-highlight-card .price-highlight-status { margin-top: 5px; color: #aeb9ca; font-size: .64rem; font-style: normal; }
+.price-highlight-card.is-empty { justify-content: center; }
+.price-highlight-placeholder { width: 46%; height: 7px; margin-top: 9px !important; border-radius: 99px; background: #2a3442; }
+.price-highlight-card.is-loading .price-highlight-placeholder { animation: price-line-pulse 1.4s ease-in-out infinite; }
+@keyframes price-line-pulse { 50% { opacity: .42; } }
 .explore-horizontal { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x proximity; padding-bottom: 5px; }
 .explore-horizontal > * { width: 260px; flex: 0 0 260px; scroll-snap-align: start; }
 .set-detail-hero { padding: 16px; border: 1px solid #273140; border-radius: 21px; background: #151d27; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: center; }
@@ -101,9 +111,20 @@
 .recommendation-switcher { display: flex; gap: 7px; overflow-x: auto; padding-bottom: 2px; }.recommendation-switcher button { flex: 0 0 auto; min-height: 36px; padding: 0 11px; border: 1px solid #344052; border-radius: 999px; background: #151d27; color: #bac4d2; font-size: .66rem; }.recommendation-switcher button.is-active { border-color: #9aa9c0; background: #dbe3ee; color: #121821; }
 .recommendation-disclaimer { margin: 0; color: #7f8b9e; font-size: .65rem; line-height: 1.45; }
 .daily-fact-card { width: 100%; padding: 16px; border: 1px solid #2c394a; border-radius: 18px; background: #141d28; color: #f4f6fa; text-align: left; display: flex; flex-direction: column; }.daily-fact-card span { color: #8694a8; font-size: .62rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }.daily-fact-card strong { margin-top: 7px; font-size: .82rem; line-height: 1.5; }.daily-fact-card em { margin-top: 10px; color: #b8c4d5; font-size: .68rem; font-style: normal; }
-.continue-ref-list { display: grid; gap: 8px; }.continue-ref-list button { width: 100%; padding: 12px 13px; border: 1px solid #293545; border-radius: 14px; background: #141c26; color: #f4f6fa; text-align: left; display: grid; grid-template-columns: 1fr auto; }.continue-ref-list span { grid-column: 1 / -1; color: #8190a5; font-size: .58rem; text-transform: uppercase; }.continue-ref-list strong { margin-top: 3px; font-size: .8rem; }.continue-ref-list em { align-self: end; color: #a7b3c4; font-size: .66rem; font-style: normal; }
+.search-empty-content { display: grid; gap: 18px; }
+.search-empty-content > p { margin: 0; color: #aeb8c8; font-size: .78rem; text-align: center; }
+.search-recent-section { display: grid; gap: 10px; }
+.search-recent-list { display: grid; gap: 8px; }
+.search-recent-list button { width: 100%; min-height: 68px; padding: 9px 12px; border: 1px solid #293545; border-radius: 14px; background: #141c26; color: #f4f6fa; display: grid; grid-template-columns: 50px minmax(0, 1fr) auto; gap: 11px; align-items: center; text-align: left; }
+.search-recent-art { width: 50px; height: 50px; display: grid; place-items: center; }
+.search-recent-art img, .search-recent-art .explore-image-fallback { width: 100%; height: 100%; object-fit: contain; }
+.search-recent-copy { min-width: 0; display: flex; flex-direction: column; }
+.search-recent-copy small { color: #8190a5; font-size: .58rem; letter-spacing: .06em; text-transform: uppercase; }
+.search-recent-copy strong { margin-top: 3px; overflow: hidden; font-size: .8rem; text-overflow: ellipsis; white-space: nowrap; }
+.search-recent-list em { color: #a7b3c4; font-size: 1.2rem; font-style: normal; }
+.explore-empty.is-compact { min-height: 112px; padding: 18px; }
 .era-detail-hero { min-height: 180px; padding: 16px; border: 1px solid #273140; border-radius: 21px; background: #151d27; display: grid; grid-template-columns: 120px minmax(0,1fr); gap: 14px; align-items: center; overflow: hidden; }.era-detail-hero img, .era-detail-hero .explore-image-fallback { width: 120px; height: 155px; object-fit: contain; }.era-detail-hero div { min-width: 0; display: flex; flex-direction: column; }.era-detail-hero span { color: #8491a5; font-size: .61rem; text-transform: uppercase; letter-spacing: .06em; }.era-detail-hero strong { margin-top: 5px; font-size: 1.1rem; }.era-detail-hero em { margin-top: 8px; color: #aeb8c8; font-size: .7rem; font-style: normal; line-height: 1.45; }
 .explore-fact-list { margin: 0; padding-left: 20px; color: #c7d0dd; font-size: .8rem; line-height: 1.55; }.explore-fact-list li + li { margin-top: 7px; }
 .sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 @media (min-width: 560px) { .explore-screen { max-width: 620px; margin: 0 auto; } .explore-pokemon-grid { grid-template-columns: repeat(3,minmax(0,1fr)); } .explore-card-grid { grid-template-columns: repeat(3,minmax(0,1fr)); } }
-@media (prefers-reduced-motion: reduce) { .explore-screen *, .explore-screen *::before, .explore-screen *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } }
+@media (prefers-reduced-motion: reduce) { .explore-screen *, .explore-screen *::before, .explore-screen *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }.price-highlight-card.is-loading .price-highlight-placeholder { animation: none; opacity: .7; } }

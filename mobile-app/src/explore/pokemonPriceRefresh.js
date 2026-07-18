@@ -114,9 +114,14 @@ export function indexPokemonPriceRefreshRows(rows = []) {
   return Object.fromEntries(Object.entries(rowsBySet).map(([setId, setRows]) => [setId, indexPriceRows(setRows)]));
 }
 
-function mergePriceMaps(base = {}, incoming = {}) {
+export function mergePokemonPriceMaps(base = {}, incoming = {}) {
   const setIds = new Set([...Object.keys(base), ...Object.keys(incoming)]);
   return Object.fromEntries([...setIds].map((setId) => [setId, new Map([...(base[setId] || []), ...(incoming[setId] || [])])]));
+}
+
+function logRefreshTiming(summary) {
+  if (!import.meta.env?.DEV) return;
+  console.info("[PackDex prices] Pokémon refresh timing", summary);
 }
 
 export function refreshPokemonPrices({
@@ -134,8 +139,9 @@ export function refreshPokemonPrices({
   }
   if (inFlightRefreshes.has(key)) return inFlightRefreshes.get(key);
 
-  let attemptMarked = false;
   const promise = (async () => {
+    const startedAt = Date.now();
+    const cacheStartedAt = Date.now();
     let cachedPriceMaps = {};
     if (typeof supabaseClient.from === "function" && cards.length > 0) {
       try {
@@ -145,31 +151,57 @@ export function refreshPokemonPrices({
         console.warn("[PackDex prices] bounded Pokémon cache read failed", error);
       }
     }
-    const availablePriceMaps = mergePriceMaps(priceMapsBySet, cachedPriceMaps);
+    const cacheReadMs = Date.now() - cacheStartedAt;
+    const availablePriceMaps = mergePokemonPriceMaps(priceMapsBySet, cachedPriceMaps);
     if (!supabaseClient?.functions || !canAttemptPokemonPriceRefresh(key, storage, now)) {
-      return { attempted: false, priceMapsBySet: availablePriceMaps };
+      return { attempted: false, status: "cooldown", priceMapsBySet: availablePriceMaps, timings: { cacheReadMs, totalMs: Date.now() - startedAt } };
     }
 
     const selectedCards = selectPokemonPriceRefreshCards(cards, collection, availablePriceMaps, now);
-    if (selectedCards.length === 0) return { attempted: false, priceMapsBySet: availablePriceMaps };
+    if (selectedCards.length === 0) {
+      return { attempted: false, status: "fresh", priceMapsBySet: availablePriceMaps, timings: { cacheReadMs, totalMs: Date.now() - startedAt } };
+    }
 
     markPokemonPriceRefreshAttempt(key, storage, now);
-    attemptMarked = true;
-    const { data, error } = await supabaseClient.functions.invoke("refresh-pokemon-prices", { body: { speciesId: key, cards: selectedCards } });
+    const edgeStartedAt = Date.now();
+    try {
+      const { data, error } = await supabaseClient.functions.invoke("refresh-pokemon-prices", { body: { speciesId: key, cards: selectedCards } });
       if (error) throw error;
-      markPokemonPriceRefreshResult(key, "success", storage);
-      return {
+      const status = String(data?.status || (data?.partial ? "partial_success" : "full_success"));
+      const rows = Array.isArray(data?.updatedPrices) ? data.updatedPrices : Array.isArray(data?.rows) ? data.rows : [];
+      const priceMaps = mergePokemonPriceMaps(availablePriceMaps, indexPokemonPriceRefreshRows(rows));
+      const resultStatus = status === "total_failure" ? "failure" : status;
+      markPokemonPriceRefreshResult(key, resultStatus === "failure" ? "failure" : "success", storage);
+      const result = {
         attempted: true,
+        status: resultStatus,
+        partial: status === "partial_success",
         requested: selectedCards.length,
-        updated: Number(data?.updated || 0),
-        priceMapsBySet: mergePriceMaps(availablePriceMaps, indexPokemonPriceRefreshRows(Array.isArray(data?.rows) ? data.rows : [])),
+        updated: Number(data?.updatedCount ?? data?.updated ?? 0),
+        serverFresh: Number(data?.serverFreshCount || 0),
+        failedSetCount: Number(data?.failedSetCount || 0),
+        priceMapsBySet: priceMaps,
+        timings: { cacheReadMs, edgeMs: Date.now() - edgeStartedAt, totalMs: Date.now() - startedAt },
       };
-    })()
-    .catch((error) => {
-      if (attemptMarked) markPokemonPriceRefreshResult(key, "failure", storage);
-      throw error;
-    })
-    .finally(() => inFlightRefreshes.delete(key));
+      logRefreshTiming({ requestedCount: result.requested, updatedCount: result.updated, serverFreshCount: result.serverFresh, failedSetCount: result.failedSetCount, status: result.status, ...result.timings });
+      return result;
+    } catch (error) {
+      markPokemonPriceRefreshResult(key, "failure", storage);
+      const result = {
+        attempted: true,
+        status: "failure",
+        partial: false,
+        requested: selectedCards.length,
+        updated: 0,
+        failedSetCount: 0,
+        priceMapsBySet: availablePriceMaps,
+        error: true,
+        timings: { cacheReadMs, edgeMs: Date.now() - edgeStartedAt, totalMs: Date.now() - startedAt },
+      };
+      logRefreshTiming({ requestedCount: result.requested, updatedCount: 0, status: result.status, ...result.timings });
+      return result;
+    }
+  })().finally(() => inFlightRefreshes.delete(key));
 
   inFlightRefreshes.set(key, promise);
   return promise;

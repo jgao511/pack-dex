@@ -22,13 +22,13 @@ test("Collection Value loads from its current parent tab and always renders nume
   assert.deepEqual(calculateValueCoverage([{ count: 1, price: 2 }, { count: 4 }], (item) => item.price), { totalValue: 2, pricedCards: 1, totalCards: 2, isComplete: false });
 });
 
-test("Collection-origin card details hide set and era links only", async () => {
+test("Card details derive contextual actions and count-based centering", async () => {
   const [app, css] = await Promise.all([read("../mobile-app/src/App.jsx"), read("../mobile-app/src/App.css")]);
-  assert.match(app, /const isCollectionOrigin = item\.origin === "collection"/);
-  assert.match(app, /linkedSpecies\.map[\s\S]*!isCollectionOrigin && <button[\s\S]*View Set/);
-  assert.match(app, /!isCollectionOrigin && set\.era && <button[\s\S]*View Era/);
-  assert.match(app, /isCollectionOrigin \? "is-collection-origin"/);
-  assert.match(css, /\.inspect-explore-links\.is-collection-origin \{[^}]*justify-content:\s*center/);
+  assert.match(app, /getCardDetailActionVisibility\(inspectOrigin/);
+  assert.match(app, /contextualActions\.length > 0/);
+  assert.match(app, /getCardActionLayoutClass\(contextualActions\.length\)/);
+  assert.match(css, /\.inspect-explore-links\.has-1-actions \{[^}]*justify-content:\s*center/);
+  assert.match(css, /\.inspect-explore-links\.has-3-actions > :last-child/);
 });
 
 test("Binder naming uses an iOS-safe input size", async () => {
@@ -38,10 +38,10 @@ test("Binder naming uses an iOS-safe input size", async () => {
 
 test("Collection card to Pokémon keeps the card modal mounted for one-step Back", async () => {
   const app = await read("../mobile-app/src/App.jsx");
-  assert.match(app, /function openPokemonFromInspect\(id\)[\s\S]*packdexCardReturn:\s*true[\s\S]*setCollectionPokemonOverlay\(true\)/);
-  assert.match(app, /collectionPokemonOverlay && \([\s\S]*<ExploreScreen/);
-  assert.match(app, /!collectionPokemonOverlay && <CardInspectModal/);
-  assert.match(app, /if \(!window\.location\.pathname\.includes\("\/explore"\)\) setCollectionPokemonOverlay\(false\)/);
+  assert.match(app, /function openCardDestination\(route\)[\s\S]*packdexCardReturn:\s*true[\s\S]*packdexCardDestination:\s*true[\s\S]*setCardDestinationOverlay\(true\)/);
+  assert.match(app, /cardDestinationOverlay && \([\s\S]*<ExploreScreen/);
+  assert.match(app, /!cardDestinationOverlay && <CardInspectModal/);
+  assert.match(app, /if \(!window\.history\.state\?\.packdexCardDestination\) setCardDestinationOverlay\(false\)/);
 });
 
 test("Explore search has one scroll surface, clear and back controls, and no offline helper copy", async () => {
@@ -71,4 +71,19 @@ test("Surprise Me selects a detail card and Daily Fact lives in Spotlight", asyn
   assert.match(spotlight, /PokemonTile[\s\S]*contextLine=/);
   assert.match(spotlight, /SetTile[\s\S]*contextLine=/);
   assert.match(spotlight, /EraTile[\s\S]*contextLine=/);
+  assert.match(spotlight, /featureLabel="Featured Pokémon"/);
+  assert.match(spotlight, /featureLabel="Featured Set"/);
+  assert.match(spotlight, /featureLabel="Featured Era"/);
+});
+
+test("Pokémon price highlight remains mounted through loading and failure", async () => {
+  const [screen, css] = await Promise.all([read("../mobile-app/src/explore/ExploreScreen.jsx"), read("../mobile-app/src/explore/ExploreScreen.css")]);
+  assert.match(screen, /function PriceHighlight/);
+  assert.match(screen, /Checking card prices…/);
+  assert.match(screen, /Checking latest price…/);
+  assert.match(screen, /Some prices could not be checked\./);
+  assert.match(screen, /Couldn’t check the latest prices\./);
+  assert.doesNotMatch(screen.match(/function PriceHighlight[\s\S]*?function PokemonDetail/)?.[0] || "", /\$0\.00|NaN|undefined/);
+  assert.match(css, /\.price-highlight-card\.is-loading/);
+  assert.match(css, /prefers-reduced-motion[\s\S]*price-highlight-card\.is-loading/);
 });
