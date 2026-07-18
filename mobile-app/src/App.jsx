@@ -1387,10 +1387,7 @@ function CollectionCards({
   const eras = useMemo(() => ["All Eras", ...new Set(orderedSets.map((set) => set.era).filter(Boolean))], [orderedSets]);
   const visibleSets = orderedSets.filter((set) => {
     const matchesEra = eraFilter === "All Eras" || set.era === eraFilter;
-    const search = normalizeText(setSearch);
-    const matchesSearch = !search || normalizeText(set.name).includes(search) || normalizeText(set.era).includes(search);
-
-    return matchesEra && matchesSearch;
+    return matchesEra;
   });
   const progress = selectedSet ? getSetCollectionProgress(collection, selectedSet) : { collected: 0, total: 0, percent: 0 };
   const setCards = selectedSet ? getPullableCollectionCards(selectedSet).sort((a, b) => getSetNumber(a) - getSetNumber(b)) : [];
@@ -1443,16 +1440,15 @@ function CollectionCards({
           </div>
           <section className="collection-catalog-search" aria-labelledby="collection-catalog-search-title">
             <div>
-              <span className="eyebrow">Complete Card Catalog</span>
-              <h3 id="collection-catalog-search-title">Find any card</h3>
-              <p>Search Pokémon, Trainers, Items, Stadiums, Tools, and Energy across every set.</p>
+              <h3 id="collection-catalog-search-title" className="sr-only">Search the card catalog</h3>
             </div>
             <label className="mobile-search collection-card-search">
-              <span>Search all cards</span>
+              <span className="sr-only">Search cards</span>
               <input
                 value={catalogQuery}
                 type="search"
-                placeholder="Name, set, number, rarity, or category"
+                placeholder="Search cards, sets, or collector numbers"
+                inputMode="search"
                 onChange={(event) => setCatalogQuery(event.target.value)}
                 aria-describedby="collection-search-status"
               />
@@ -1497,10 +1493,7 @@ function CollectionCards({
               ))}
             </select>
           </label>
-          <label className="mobile-search">
-            <span>Search Sets</span>
-            <input value={setSearch} type="search" placeholder="Type a set name" onChange={(event) => onSetSearch(event.target.value)} />
-          </label>
+          <div className="section-heading collection-latest-heading"><h2>Latest Sets</h2></div>
           <div className="set-picker-list set-picker-list-full">
             {visibleSets.map((set) => {
               const setProgress = getSetCollectionProgress(collection, set);
@@ -1640,19 +1633,26 @@ function BinderPageView({ binder, collection, onBack, onInspectCard }) {
         </button>
       </div>
       <div className="binder-page-preview binder-page-reader">
+        {slots.length === 0 && (
+          <div className="binder-reader-empty" role="status">
+            <strong>This binder has no available cards.</strong>
+            <span>{binder.setId ? "The linked set is unavailable. Return to My Binders and choose another set." : "Add cards to this binder, or import a master set."}</span>
+          </div>
+        )}
         {Array.from({ length: 9 }).map((_, index) => {
           const item = pageSlots[index];
-          const collected = item?.set && item?.card ? getCardCount(collection, item.card, item.set.id) > 0 : false;
+          const quantity = item?.set && item?.card ? getCardCount(collection, item.card, item.set.id) : 0;
+          const collected = quantity > 0;
 
           return (
             <button
               className={`binder-pocket ${item?.card && collected ? "is-filled" : ""}`}
               type="button"
               key={index}
-              onClick={() => item?.card && collected && onInspectCard?.(item.card, item.set)}
-              disabled={!item?.card || !collected}
+              onClick={() => item?.card && onInspectCard?.(item.card, item.set)}
+              disabled={!item?.card}
             >
-              {item?.card && collected ? <CardImage card={item.card} set={item.set} ownedShimmer /> : <span>{item?.card ? "Missing" : "+"}</span>}
+              {item?.card && collected ? <><CardImage card={item.card} set={item.set} ownedShimmer /><span className="binder-pocket-quantity">×{quantity}</span></> : <span>{item?.card ? "Missing" : "+"}</span>}
             </button>
           );
         })}
@@ -1796,7 +1796,7 @@ function CollectionBinders({ collection, binders, onImportMasterSet, onCreateBin
                   </div>
                   <strong>{binder.name}</strong>
                   <em>{binder.tag}</em>
-                  <small>{set ? progress.owned + "/" + progress.total + " cards" : (binder.cards?.length || 0) + " cards"}</small>
+                  <small>{set ? progress.collected + "/" + progress.total + " cards" : (binder.cards?.length || 0) + " cards"}</small>
                   <button className="secondary-action" type="button" onClick={() => setOpenBinderId(binder.id)}>
                     Open Binder
                   </button>
@@ -1806,8 +1806,6 @@ function CollectionBinders({ collection, binders, onImportMasterSet, onCreateBin
           })}
         </section>
       )}
-      {ownedShimmer && isRarePlusVisual(card, set) && <span className="owned-card-shimmer" aria-hidden="true" />}
-
       {activeModal === "create" && (
         <div className="mobile-auth-overlay binder-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="create-binder-title" onClick={() => setActiveModal("")}>
           <section className="mobile-auth-modal binder-sheet" onClick={(event) => event.stopPropagation()}>
@@ -1967,6 +1965,7 @@ function CardInspectModal({ item, collection, user, wishlistKeys, wishlistPendin
   const wishlistKey = getWishlistKey(set.id, card.id);
   const isWishlisted = wishlistKeys.has(wishlistKey);
   const isWishlistPending = wishlistPendingKeys.has(wishlistKey);
+  const isCollectionOrigin = item.origin === "collection";
 
   function getInspectTilt(event, target) {
     const rect = target.getBoundingClientRect();
@@ -2078,8 +2077,8 @@ function CardInspectModal({ item, collection, user, wishlistKeys, wishlistPendin
           )}
           <div className="inspect-explore-links">
             {linkedSpecies.map((species) => <button key={species.id} className="secondary-action" type="button" onClick={() => onViewPokemon?.(species.id)}>View {linkedSpecies.length > 1 ? species.displayName : "Pokémon"}</button>)}
-            <button className="secondary-action" type="button" onClick={() => onViewSet?.(set.id)}>View Set</button>
-            {set.era && <button className="secondary-action" type="button" onClick={() => onViewEra?.(set.era)}>View Era</button>}
+            {!isCollectionOrigin && <button className="secondary-action" type="button" onClick={() => onViewSet?.(set.id)}>View Set</button>}
+            {!isCollectionOrigin && set.era && <button className="secondary-action" type="button" onClick={() => onViewEra?.(set.era)}>View Era</button>}
           </div>
         </div>
       </section>
@@ -2143,7 +2142,8 @@ function ValueScreen({
       </div>
       <section className="value-hero">
         <span className="eyebrow">{valueCoverage.isComplete ? "Estimated Virtual Collection Value" : "Known Value"}</span>
-        {isValueLoading ? <strong>Loading...</strong> : valueCoverage.pricedCards > 0 && <strong>{formatUsd(valueCoverage.totalValue)}</strong>}
+        {isValueLoading ? <strong>Loading...</strong> : <strong>{formatUsd(valueCoverage.totalValue)}</strong>}
+        {!isValueLoading && valueCoverage.totalCards === 0 && <p>No owned cards yet.</p>}
         {!isValueLoading && valueCoverage.totalCards > 0 && <p>Based on {valueCoverage.pricedCards} of {valueCoverage.totalCards} priced cards.</p>}
         {valueCoverage.pricedCards > 0 && <TcgplayerSourceBadge />}
       </section>
@@ -3170,7 +3170,7 @@ function MobileApp() {
       return undefined;
     }
 
-    if (activeTab !== "value" && activeTab !== "profile") return undefined;
+    if (activeTab !== "collection" && activeTab !== "value" && activeTab !== "profile") return undefined;
     let cancelled = false;
 
     async function loadCollectionValue() {
@@ -3739,7 +3739,7 @@ function MobileApp() {
 
   function inspectCard(card, set) {
     setWishlistMessage(null);
-    setInspectedCard({ card, set });
+    setInspectedCard({ card, set, origin: activeTab });
 
     if (
       supabase &&

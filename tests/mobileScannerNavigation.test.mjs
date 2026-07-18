@@ -17,8 +17,8 @@ test("normal mobile navigation has Open, Collection, Explore, and Profile while 
 test("Collection preserves Set Collection, Binders, and Value destinations", async () => {
   const app = await source("../mobile-app/src/App.jsx");
   assert.match(app, /Set Collection/);
-  assert.match(app, /\n\s*Binders\n/);
-  assert.match(app, /\n\s*Value\n/);
+  assert.match(app, /\r?\n\s*Binders\r?\n/);
+  assert.match(app, /\r?\n\s*Value\r?\n/);
   assert.match(app, /<ValueScreen \{\.\.\.valueScreenProps\} \/>/);
   assert.match(app, /collectionTab === "value"/);
 });

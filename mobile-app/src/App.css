@@ -1365,6 +1365,7 @@ body.scanner-camera-active,
   padding: 0 14px;
   color: inherit;
   background: rgba(5, 8, 18, 0.42);
+  font-size: 16px;
 }
 
 .theme-light .mobile-search input,
@@ -2076,10 +2077,7 @@ body.scanner-camera-active,
 .collection-catalog-search {
   display: grid;
   gap: 10px;
-  padding: 16px;
-  border: 1px solid rgba(151, 158, 255, 0.22);
-  border-radius: 20px;
-  background: linear-gradient(145deg, rgba(76, 71, 165, 0.22), rgba(19, 19, 47, 0.72));
+  padding: 0;
 }
 
 .collection-catalog-search h3,
@@ -2107,11 +2105,14 @@ body.scanner-camera-active,
 .collection-catalog-results {
   display: grid;
   gap: 8px;
-  max-height: min(52vh, 470px);
   padding-right: 2px;
-  overflow-y: auto;
-  overscroll-behavior: contain;
 }
+
+.collection-latest-heading { margin-top: 2px; }
+
+.binder-reader-empty { grid-column: 1 / -1; min-height: 150px; padding: 18px; display: grid; place-content: center; gap: 6px; color: rgba(230, 232, 248, .76); text-align: center; }
+.binder-reader-empty span { font-size: .78rem; line-height: 1.45; }
+.binder-pocket-quantity { position: absolute; right: 4px; bottom: 4px; min-width: 20px; padding: 2px 5px; border-radius: 999px; color: #fff; background: rgba(7, 9, 20, .82); font-size: .62rem; font-weight: 900; }
 
 .collection-catalog-result {
   display: grid;
@@ -4128,10 +4129,10 @@ body.scanner-camera-active,
 .mobile-icon-scanner i:nth-child(2) { right: 0; top: 0; border-width: 2px 2px 0 0; border-radius: 0 4px 0 0; }
 .mobile-icon-scanner i:nth-child(3) { left: 0; bottom: 0; border-width: 0 0 2px 2px; border-radius: 0 0 0 4px; }
 .mobile-icon-scanner i:nth-child(4) { right: 0; bottom: 0; border-width: 0 2px 2px 0; border-radius: 0 0 4px 0; }
-.mobile-icon-explore { position: relative; width: 22px; height: 22px; border: 1.8px solid currentColor; border-radius: 50%; }
-.mobile-icon-explore i:first-child { position: absolute; width: 7px; height: 7px; left: 5.7px; top: 5.7px; border: 1.5px solid currentColor; border-radius: 50%; }
-.mobile-icon-explore i:nth-child(2), .mobile-icon-explore i:nth-child(3) { position: absolute; left: 9.7px; top: 1px; width: 1px; height: 18px; background: currentColor; opacity: .55; }
-.mobile-icon-explore i:nth-child(3) { transform: rotate(90deg); }
+.mobile-icon-explore { position: relative; box-sizing: border-box; width: 22px; height: 22px; border: 1.8px solid currentColor; border-radius: 50%; }
+.mobile-icon-explore i:first-child { position: absolute; box-sizing: border-box; width: 8px; height: 8px; left: 50%; top: 50%; border: 1.5px solid currentColor; border-radius: 50%; transform: translate(-50%, -50%); }
+.mobile-icon-explore i:nth-child(2), .mobile-icon-explore i:nth-child(3) { position: absolute; left: 50%; top: 2px; width: 1px; height: 18px; background: currentColor; opacity: .55; transform: translateX(-50%); }
+.mobile-icon-explore i:nth-child(3) { left: 2px; top: 50%; width: 18px; height: 1px; transform: translateY(-50%); }
 
 .inspect-explore-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 12px; }
 .inspect-explore-links .secondary-action { min-height: 44px; padding: 8px 10px; font-size: .72rem; }

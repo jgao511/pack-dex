@@ -32,7 +32,9 @@ test("Collection results expose accurate owned quantity and missing state withou
 
 test("Collection search UI is global, compact, and remains mounted behind card detail", async () => {
   const source = await readFile(new URL("../mobile-app/src/App.jsx", import.meta.url), "utf8");
-  assert.match(source, /Complete Card Catalog[\s\S]*Find any card[\s\S]*Search all cards/);
+  assert.match(source, /placeholder="Search cards, sets, or collector numbers"/);
+  assert.doesNotMatch(source, /Complete Card Catalog|Find any card|Search all cards|Search Sets/);
+  assert.match(source, /<span>Era<\/span>[\s\S]*Latest Sets/);
   assert.match(source, /import\("\.\/explore\/exploreData\.js"\)[\s\S]*searchCollectionCatalog/);
   assert.match(source, /onClick=\{\(\) => onInspectCard\?\.\(entry\.card, entry\.set\)\}/);
   assert.doesNotMatch(source.match(/function CollectionCards\([\s\S]*?\n\}/)?.[0] || "", /markCardsCollected|persistSessionCollection/);

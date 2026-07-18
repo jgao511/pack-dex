@@ -30,6 +30,16 @@ const TYPE_OPTIONS = [...new Set(explorePokemon.flatMap((species) => species.typ
 const GENERATION_NAMES = ["", "Kanto", "Johto", "Hoenn", "Sinnoh", "Unova", "Kalos", "Alola", "Galar", "Paldea"];
 const RECENT_EXPLORE_KEY = "packdex:explore:recent:v1";
 
+function getEraRepresentativeSet(era) {
+  return [...(era?.sets || [])]
+    .filter((set) => getSetLogoUrl(set))
+    .sort((a, b) => String(a.releaseDate || "9999").localeCompare(String(b.releaseDate || "9999")))[0] || era?.sets?.[0] || null;
+}
+
+function getExploreScroller() {
+  return document.querySelector(".screen-content.screen-explore");
+}
+
 function loadRecentExploreRefs() {
   try {
     const parsed = JSON.parse(window.localStorage.getItem(RECENT_EXPLORE_KEY) || "[]");
@@ -82,9 +92,9 @@ function SetTile({ set, collection, onOpen, compact = false }) {
 
 function EraTile({ era, collection, onOpen, compact = false }) {
   const progress = getEraProgress(era, collection);
-  const representative = era.sets.at(-1);
+  const representative = getEraRepresentativeSet(era);
   return <button className={`explore-era-tile ${compact ? "is-compact" : ""}`} type="button" onClick={() => onOpen(era)} aria-label={`View ${era.name}, ${era.sets.length} sets`}>
-    <span className="explore-era-art"><SafeImage src={representative ? getSetPackArtUrl(representative) : ""} alt={`${era.name} representative pack`} /></span>
+    <span className="explore-era-art"><SafeImage src={representative ? getSetLogoUrl(representative) : ""} alt={`${era.name} representative set logo`} /></span>
     <span className="explore-tile-copy"><small>{era.dateRange || "PackDex era"}</small><strong>{era.name}</strong><em>{era.sets.length} sets · {progress.percent}% collected</em><ProgressBar value={progress.percent} label={`${era.name} collection completion`} /></span>
   </button>;
 }
@@ -98,10 +108,11 @@ function CardTile({ entry, collection, wishlistKeys, onOpen }) {
   </button>;
 }
 
-function SearchField({ value, onChange, onSubmit, autoFocus = false }) {
+function SearchField({ value, onChange, onSubmit, onFocus, autoFocus = false }) {
   return <form className="explore-search" role="search" onSubmit={(event) => { event.preventDefault(); onSubmit?.(value); }}>
     <label className="sr-only" htmlFor="explore-search-input">Search Pokémon, sets, eras, or cards</label>
-    <input id="explore-search-input" type="search" value={value} autoFocus={autoFocus} placeholder="Search Pokémon, sets, eras, or cards" onChange={(event) => onChange(event.target.value)} />
+    <input id="explore-search-input" type="search" inputMode="search" enterKeyHint="search" value={value} autoFocus={autoFocus} placeholder="Search Pokémon, sets, eras, or cards" onFocus={onFocus} onChange={(event) => onChange(event.target.value)} />
+    {value && <button className="explore-search-clear" type="button" aria-label="Clear search" onClick={() => onChange("")}>×</button>}
     <button type="submit" aria-label="Search">⌕</button>
   </form>;
 }
@@ -109,7 +120,7 @@ function SearchField({ value, onChange, onSubmit, autoFocus = false }) {
 function SearchGroups({ query, collection, wishlistKeys, navigate, onInspectCard }) {
   const results = useMemo(() => groupedExploreSearch(query), [query]);
   const total = Object.values(results).reduce((sum, items) => sum + items.length, 0);
-  if (!normalizeExploreText(query)) return <div className="explore-empty"><strong>Start with a name, set, era, or collector number.</strong><span>Results are searched locally, even when account data is offline.</span></div>;
+  if (!normalizeExploreText(query)) return <div className="explore-empty"><strong>Start with a name, set, era, or collector number.</strong></div>;
   if (!total) return <div className="explore-empty"><strong>No Explore results</strong><span>Try a shorter name or remove punctuation.</span></div>;
   return <div className="explore-search-groups">
     {results.pokemon.length > 0 && <section><h2>Pokémon <span>{results.pokemon.length}</span></h2><div className="explore-list">{results.pokemon.map((species) => <PokemonTile key={species.id} species={species} collection={collection} compact onOpen={(item) => navigate({ kind: "pokemon", id: item.id })} />)}</div></section>}
@@ -123,7 +134,7 @@ function RecommendationCard({ item, onOpenPack, onViewSet }) {
   const set = item ? setById.get(item.setId) : null;
   if (!item || !set) return null;
   return <article className="open-recommendation-card">
-    <div className="open-recommendation-art"><SafeImage src={getSetPackArtUrl(set)} alt={`${set.name} pack artwork`} /></div>
+    <div className="open-recommendation-art"><SafeImage src={getSetLogoUrl(set)} alt={`${set.name} logo`} /></div>
     <div className="open-recommendation-copy"><span>{item.title}</span><h3>{set.name}</h3><p>{item.reason}</p>{item.signals?.total > 0 && <small>{item.signals.owned} of {item.signals.total} unique cards discovered</small>}</div>
     <div className="explore-actions"><button type="button" onClick={() => onOpenPack(set)}>Open This Pack</button><button type="button" onClick={() => onViewSet(set)}>View Set</button></div>
   </article>;
@@ -131,11 +142,12 @@ function RecommendationCard({ item, onOpenPack, onViewSet }) {
 
 function ExploreHome({ collection, wishlistEntries, recentRefs, query, onQueryChange, navigate, onInspectCard, onOpenPack }) {
   const [recommendationIndex, setRecommendationIndex] = useState(0);
+  const [surpriseRecommendation, setSurpriseRecommendation] = useState(null);
   const spotlights = useMemo(() => getDailySpotlights(), []);
   const dailyFact = useMemo(() => getDailyFact(), []);
   const recommendations = useMemo(() => buildOpenRecommendations({ sets: exploreSets, collection, wishlistEntries }), [collection, wishlistEntries]);
   const recommendationItems = recommendations.recommendations;
-  const selectedRecommendation = recommendationItems[recommendationIndex % Math.max(1, recommendationItems.length)] || recommendations.primary;
+  const selectedRecommendation = surpriseRecommendation || recommendationItems[recommendationIndex % Math.max(1, recommendationItems.length)] || recommendations.primary;
   const recent = useMemo(() => catalogCards
     .map((entry) => ({ ...entry, timestamp: Number(collection?.[entry.set.id]?.[entry.card.id]?.lastCollectedAt || 0) }))
     .filter((entry) => entry.timestamp && entry.speciesIds.length)
@@ -145,14 +157,15 @@ function ExploreHome({ collection, wishlistEntries, recentRefs, query, onQueryCh
     .map((entry) => speciesById.get(entry.speciesIds[0])), [collection]);
   return <section className="explore-screen">
     <PageHeader title="Explore"><p>Discover Pokémon, sets, and TCG history.</p></PageHeader>
-    <SearchField value={query} onChange={onQueryChange} onSubmit={(value) => navigate({ kind: "search", query: value })} />
+    <SearchField value={query} onChange={onQueryChange} onFocus={() => navigate({ kind: "search", query })} onSubmit={(value) => navigate({ kind: "search", query: value })} />
     {query.trim() ? <div className="explore-live-results"><SearchGroups query={query} collection={collection} wishlistKeys={new Set()} navigate={navigate} onInspectCard={onInspectCard} /></div> : <>
       <section className="explore-section"><div className="explore-section-heading"><span>Today in PackDex</span><h2>Spotlight</h2></div><div className="explore-spotlights">
         <PokemonTile species={spotlights.pokemon} collection={collection} compact onOpen={(species) => navigate({ kind: "pokemon", id: species.id })} />
         <SetTile set={spotlights.set} collection={collection} compact onOpen={(set) => navigate({ kind: "set", id: set.id })} />
         <EraTile era={spotlights.era} collection={collection} compact onOpen={(era) => navigate({ kind: "era", id: era.id })} />
+        {dailyFact && <button className="daily-fact-card" type="button" onClick={() => navigate({ kind: dailyFact.kind, id: dailyFact.id })}><span>Verified daily fact</span><strong>{dailyFact.text}</strong><em>Explore this {dailyFact.kind} ›</em></button>}
       </div></section>
-      {selectedRecommendation && <section className="explore-section"><div className="explore-section-heading"><span>Personalized from your PackDex activity</span><h2>What Should I Open?</h2></div><RecommendationCard item={selectedRecommendation} onOpenPack={onOpenPack} onViewSet={(set) => navigate({ kind: "set", id: set.id })} /><div className="recommendation-switcher" aria-label="Recommendation categories">{recommendationItems.map((item, index) => <button className={index === recommendationIndex ? "is-active" : ""} type="button" key={`${item.category}:${item.setId}`} onClick={() => setRecommendationIndex(index)}>{item.title}</button>)}{recommendations.surprise && <button type="button" onClick={() => { const index = recommendationItems.findIndex((item) => item.setId === recommendations.surprise.setId); if (index >= 0) setRecommendationIndex(index); else onOpenPack(setById.get(recommendations.surprise.setId)); }}>Surprise Me</button>}</div><p className="recommendation-disclaimer">Recommendations use your PackDex collection and wishlist—not real-world pull odds, value forecasts, or guarantees.</p></section>}
+      {selectedRecommendation && <section className="explore-section"><div className="explore-section-heading"><span>Personalized from your PackDex activity</span><h2>What Should I Open?</h2></div><RecommendationCard item={selectedRecommendation} onOpenPack={onOpenPack} onViewSet={(set) => navigate({ kind: "set", id: set.id })} /><div className="recommendation-switcher" aria-label="Recommendation categories">{recommendationItems.map((item, index) => <button className={!surpriseRecommendation && index === recommendationIndex ? "is-active" : ""} type="button" key={`${item.category}:${item.setId}`} onClick={() => { setSurpriseRecommendation(null); setRecommendationIndex(index); }}>{item.title}</button>)}{recommendations.surprise && <button className={surpriseRecommendation ? "is-active" : ""} type="button" onClick={() => setSurpriseRecommendation(recommendations.surprise)}>Surprise Me</button>}</div><p className="recommendation-disclaimer">Recommendations use your PackDex collection and wishlist—not real-world pull odds, value forecasts, or guarantees.</p></section>}
       <section className="explore-section"><div className="explore-section-heading"><span>Encyclopedia</span><h2>Browse</h2></div><div className="explore-category-grid">
         <button type="button" onClick={() => navigate({ kind: "pokemonBrowse" })}><span>001–1025</span><strong>Pokémon</strong><em>Species, evolutions, and your cards</em></button>
         <button type="button" onClick={() => navigate({ kind: "setBrowse" })}><span>{exploreSets.length} sets</span><strong>Sets</strong><em>Browse the complete PackDex catalog</em></button>
@@ -160,7 +173,6 @@ function ExploreHome({ collection, wishlistEntries, recentRefs, query, onQueryCh
       </div></section>
       {recentRefs.length > 0 && <section className="explore-section"><div className="explore-section-heading"><span>Recently viewed on this device</span><h2>Continue Exploring</h2></div><div className="continue-ref-list">{recentRefs.map((item) => { const label = item.kind === "pokemon" ? speciesById.get(Number(item.id))?.displayName : item.kind === "set" ? setById.get(item.id)?.name : eraById.get(item.id)?.name; return label ? <button type="button" key={`${item.kind}:${item.id}`} onClick={() => navigate(item)}><span>{item.kind === "pokemon" ? "Pokémon" : item.kind === "set" ? "Set" : "Era"}</span><strong>{label}</strong><em>Continue ›</em></button> : null; })}</div></section>}
       {recent.length > 0 && <section className="explore-section"><div className="explore-section-heading"><span>Your recent pulls</span><h2>Pokémon to Revisit</h2></div><div className="explore-pokemon-grid is-small">{recent.map((species) => <PokemonTile key={species.id} species={species} collection={collection} onOpen={(item) => navigate({ kind: "pokemon", id: item.id })} />)}</div></section>}
-      {dailyFact && <section className="explore-section"><button className="daily-fact-card" type="button" onClick={() => navigate({ kind: dailyFact.kind, id: dailyFact.id })}><span>Verified daily fact</span><strong>{dailyFact.text}</strong><em>Explore this {dailyFact.kind} ›</em></button></section>}
     </>}
   </section>;
 }
@@ -168,7 +180,7 @@ function ExploreHome({ collection, wishlistEntries, recentRefs, query, onQueryCh
 function SearchPage({ initialQuery, collection, wishlistKeys, navigate, goBack, onInspectCard }) {
   const [query, setQuery] = useState(initialQuery || "");
   useEffect(() => setQuery(initialQuery || ""), [initialQuery]);
-  return <section className="explore-screen"><PageHeader title="Search" onBack={goBack} /><SearchField value={query} onChange={setQuery} autoFocus onSubmit={(value) => navigate({ kind: "search", query: value }, true)} /><SearchGroups query={query} collection={collection} wishlistKeys={wishlistKeys} navigate={navigate} onInspectCard={onInspectCard} /></section>;
+  return <section className="explore-screen is-search-mode"><PageHeader title="Search" onBack={goBack} /><SearchField value={query} onChange={(value) => { setQuery(value); navigate({ kind: "search", query: value }, true, { preserveScroll: true }); }} autoFocus onSubmit={(value) => navigate({ kind: "search", query: value }, true, { preserveScroll: true })} /><SearchGroups query={query} collection={collection} wishlistKeys={wishlistKeys} navigate={navigate} onInspectCard={onInspectCard} /></section>;
 }
 
 function PokemonBrowse({ collection, navigate, goBack }) {
@@ -264,9 +276,9 @@ function EraDetail({ id, collection, wishlistKeys, navigate, goBack, onInspectCa
   const species = [...cardsBySpeciesId.entries()].map(([speciesId, cards]) => ({ species: speciesById.get(speciesId), count: cards.filter((entry) => entry.set.era === era.name).length })).filter((entry) => entry.count).sort((a, b) => b.count - a.count || a.species.id - b.species.id).slice(0, 8);
   const eraCards = catalogCards.filter((entry) => entry.set.era === era.name);
   const featuredCards = [...eraCards].sort((a, b) => compareCardsByRarity(a.card, b.card, a.set, b.set)).slice(0, 6);
-  const representative = era.sets.at(-1);
+  const representative = getEraRepresentativeSet(era);
   return <section className="explore-screen"><PageHeader title={era.name} onBack={goBack}><p>{era.dateRange} · {era.sets.length} sets</p></PageHeader>
-    {representative && <section className="era-detail-hero"><SafeImage src={getSetPackArtUrl(representative)} alt={`${era.name} representative PackDex pack`} /><div><span>{era.custom ? "PackDex-created preview era" : "PackDex TCG era"}</span><strong>{era.dateRange}</strong><em>{era.identity || `${era.sets.length} supported sets`}</em></div></section>}
+    {representative && <section className="era-detail-hero"><SafeImage src={getSetLogoUrl(representative)} alt={`${era.name} representative set logo`} /><div><span>{era.custom ? "PackDex-created preview era" : "PackDex TCG era"}</span><strong>{era.dateRange}</strong><em>{era.identity || `${era.sets.length} supported sets`}</em></div></section>}
     {era.summary && <section className="explore-detail-section"><span className="eyebrow">About This Era</span><p className="explore-description">{era.summary}</p></section>}
     {era.changeNote && <section className="explore-detail-section"><span className="eyebrow">From the Prior Era</span><p className="explore-description">{era.changeNote}</p></section>}
     <section className="explore-detail-section"><span className="eyebrow">Era Collection Progress</span><div className="progress-summary"><strong>{progress.percent}%</strong><span>{progress.owned} of {progress.total} unique cards</span><em>{era.sets.filter((set) => getSetCollectionProgress(collection, set).collected > 0).length} sets explored</em></div><ProgressBar value={progress.percent} label={`${era.name} collection completion`} /></section>
@@ -287,14 +299,22 @@ export default function ExploreScreen({ collection = {}, wishlistEntries = [], p
   const [recentRefs, setRecentRefs] = useState(loadRecentExploreRefs);
   const wishlistKeys = useMemo(() => new Set(wishlistEntries.map((entry) => `${entry.setId}:${entry.cardId}`)), [wishlistEntries]);
   useEffect(() => {
-    const onPopState = () => setRoute(parseExploreRoute(window.location));
+    const onPopState = () => {
+      setRoute(parseExploreRoute(window.location));
+      const restoreTop = Number(window.history.state?.exploreScrollTop || 0);
+      window.requestAnimationFrame(() => window.requestAnimationFrame(() => getExploreScroller()?.scrollTo({ top: restoreTop, behavior: "auto" })));
+    };
     window.addEventListener("popstate", onPopState);
     return () => window.removeEventListener("popstate", onPopState);
   }, []);
-  function navigate(nextRoute, replace = false) {
+  function navigate(nextRoute, replace = false, { preserveScroll = false } = {}) {
     const path = buildExplorePath(nextRoute, window.location.pathname);
-    window.history[replace ? "replaceState" : "pushState"]({ packdexExplore: true }, "", path);
+    const scroller = getExploreScroller();
+    const currentTop = Number(scroller?.scrollTop || 0);
+    if (!replace) window.history.replaceState({ ...(window.history.state || {}), packdexExplore: true, exploreScrollTop: currentTop }, "", window.location.href);
+    window.history[replace ? "replaceState" : "pushState"]({ ...(replace ? window.history.state : {}), packdexExplore: true, exploreScrollTop: replace && preserveScroll ? currentTop : 0 }, "", path);
     setRoute(nextRoute);
+    if (!preserveScroll) window.requestAnimationFrame(() => scroller?.scrollTo({ top: 0, behavior: "auto" }));
     if (["pokemon", "set", "era"].includes(nextRoute.kind) && nextRoute.id != null) {
       const nextRecent = [{ kind: nextRoute.kind, id: nextRoute.id }, ...recentRefs.filter((item) => item.kind !== nextRoute.kind || String(item.id) !== String(nextRoute.id))].slice(0, 8);
       setRecentRefs(nextRecent);

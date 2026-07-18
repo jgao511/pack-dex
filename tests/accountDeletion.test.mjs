@@ -84,7 +84,7 @@ test("successful deletion shows a persistent confirmation state on web and mobil
   }
 
   for (const app of [webApp, mobileApp]) {
-    const deleteHandler = app.match(/async function handleDeleteAccount\(\) \{[\s\S]*?\n  \}\n\n  async function handleContinueAsGuest/ )?.[0] || "";
+    const deleteHandler = app.match(/async function handleDeleteAccount\(\) \{[\s\S]*?\r?\n  \}\r?\n\r?\n  async function handleContinueAsGuest/ )?.[0] || "";
     assert.notEqual(deleteHandler, "");
     assert.doesNotMatch(deleteHandler, /setIsDeleteAccountOpen\(false\)/);
     assert.match(app, /onContinueAsGuest=\{handleContinueAsGuest\}/);
