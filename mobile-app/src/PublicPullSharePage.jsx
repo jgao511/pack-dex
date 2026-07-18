@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { sets } from "../../src/data/sets.js";
 import { getCardImageUrl } from "../../src/utils/assetUrls.js";
 import { getPublicPullShare } from "../../src/lib/publicPullShares.js";
+import { selectFeaturedPull } from "../../src/utils/rarityRank.js";
 import "./PublicPullSharePage.css";
 
 function ShareCardImage({ card, className = "" }) {
@@ -55,7 +56,7 @@ export default function PublicPullSharePage({ shareCode }) {
     link.href = `${window.location.origin}/mobile-app/share/${encodeURIComponent(shareCode)}`;
   }, [state.share, shareCode]);
 
-  const bestPullIndex = Number.isInteger(state.share?.bestPullIndex) ? state.share.bestPullIndex : (state.share?.cards?.length || 1) - 1;
+  const bestPullIndex = state.share?.cards?.length ? selectFeaturedPull(state.share.cards, sets.find((candidate) => candidate.id === (state.share.set_id || state.share.setId)))?.index ?? state.share.cards.length - 1 : -1;
   const bestPull = state.share?.cards?.[bestPullIndex];
   const others = useMemo(() => state.share?.cards?.filter((_, index) => index !== bestPullIndex) || [], [bestPullIndex, state.share]);
 

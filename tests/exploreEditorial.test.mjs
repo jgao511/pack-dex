@@ -24,7 +24,11 @@ test("editorial references resolve and custom preview content is labeled", () =>
     const guide = setGuides[set.id];
     assert.equal(guide.setId, set.id);
     assert.ok(guide.summary);
-    assert.ok(["curated", "limited"].includes(guide.contentStatus));
+    assert.equal(guide.contentStatus, "curated");
+    if (set.id !== "30th-anniversary") {
+      assert.doesNotMatch(guide.summary, /PackDex-supported|local catalog currently tracks/i, set.id);
+      assert.match(guide.summary, new RegExp(`^${set.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")} spotlights `), set.id);
+    }
   }
   assert.equal(setGuides["30th-anniversary"].custom, true);
   assert.match(setGuides["30th-anniversary"].summary, /PackDex-created preview/);

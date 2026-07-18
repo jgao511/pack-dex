@@ -128,8 +128,8 @@ test("Explore places Pitch Black in Mega Evolution with editorial and Pokemon re
   assert.ok(groupedExploreSearch("Mega Darkrai ex", 20).cards.some((entry) => entry.set.id === "pitch-black"));
 
   const guide = getSetGuide("pitch-black");
-  assert.match(guide.summary, /released on July 17, 2026/);
-  assert.match(guide.summary, /120 supported cards/);
+  assert.match(guide.summary, /Mega Darkrai ex/);
+  assert.match(guide.summary, /Darkness-focused Mega Evolution roster/);
   assert.deepEqual(guide.featuredPokemonIds, [491, 609, 807]);
   assert.equal(guide.contentStatus, "curated");
 

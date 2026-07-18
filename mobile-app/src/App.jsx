@@ -6,6 +6,7 @@ import { buildExplorePath } from "./explore/exploreRouting.js";
 import { sets } from "../../src/data/sets.js";
 import { getCardBackUrl, getCardImageUrl, getPokeballLoadingUrl, getSetLogoUrl } from "../../src/utils/assetUrls.js";
 import { generatePack, getDisplayCardName, getDisplayRarity, isHigherThanRare } from "../../src/utils/packGenerator.js";
+import { selectFeaturedPull } from "../../src/utils/rarityRank.js";
 import {
   getCardCollectionKey,
   getCardCount,
@@ -1232,6 +1233,7 @@ function PackScreen({
         priceMap
       )
     : null;
+  const featuredPull = isSummary ? selectFeaturedPull(pack, selectedSet) : null;
   return (
     <section className={`pack-stage is-${stage}`}>
       {isReady ? (
@@ -1271,6 +1273,7 @@ function PackScreen({
             </section>
           )}
           {selectedSet.id === "30th-anniversary" && <p className="anniversary-catalog-note is-summary-note">This preview includes currently confirmed cards. More cards will be added as they are announced.</p>}
+          {featuredPull?.card && <p className="pack-featured-pull"><span>Featured Pull</span><strong>{getDisplayCardName(featuredPull.card)} · {getDisplayRarity(featuredPull.card)}</strong></p>}
           <div className="pack-actions">
             <button className="secondary-action" type="button" onClick={onBack}>
               Back to Sets
@@ -1302,12 +1305,13 @@ function PackScreen({
           {pack.map((card, index) => {
             const isVisible = index < visibleCount;
             const isFinal = index === pack.length - 1;
+            const isFeatured = isSummary && index === featuredPull?.index;
             const isHit = isFoilHit(card, selectedSet);
             const isNewPull = isSummary && newPullKeys?.has(getCardKey(card, selectedSet.id));
 
             return (
               <button
-                className={`reveal-card ${getRarityVisualClass(card, selectedSet)} ${isVisible ? "is-revealed" : ""} ${isFinal ? "is-final" : ""} ${
+                className={`reveal-card ${getRarityVisualClass(card, selectedSet)} ${isVisible ? "is-revealed" : ""} ${isFinal ? "is-final" : ""} ${isFeatured ? "is-featured" : ""} ${
                   isVisible && isHit ? "is-hit" : ""
                 }`}
                 type="button"
@@ -2075,7 +2079,7 @@ function CardInspectModal({ item, collection, user, wishlistKeys, wishlistPendin
               View on TCGplayer
             </a>
           )}
-          <div className="inspect-explore-links">
+          <div className={`inspect-explore-links ${isCollectionOrigin ? "is-collection-origin" : ""}`}>
             {linkedSpecies.map((species) => <button key={species.id} className="secondary-action" type="button" onClick={() => onViewPokemon?.(species.id)}>View {linkedSpecies.length > 1 ? species.displayName : "Pokémon"}</button>)}
             {!isCollectionOrigin && <button className="secondary-action" type="button" onClick={() => onViewSet?.(set.id)}>View Set</button>}
             {!isCollectionOrigin && set.era && <button className="secondary-action" type="button" onClick={() => onViewEra?.(set.era)}>View Era</button>}
@@ -2618,6 +2622,7 @@ function MobileApp() {
   const [hasSavedCurrentPack, setHasSavedCurrentPack] = useState(false);
   const savedPackKeyRef = useRef("");
   const [inspectedCard, setInspectedCard] = useState(null);
+  const [collectionPokemonOverlay, setCollectionPokemonOverlay] = useState(false);
   const [authMode, setAuthMode] = useState("login");
   const [isAuthSubmitting, setIsAuthSubmitting] = useState(false);
   const [authEmail, setAuthEmail] = useState("");
@@ -2719,6 +2724,24 @@ function MobileApp() {
     returnToSets();
     scrollScreenToTop();
   }
+
+  function openPokemonFromInspect(id) {
+    if (inspectedCard?.origin !== "collection") {
+      openExploreRoute({ kind: "pokemon", id });
+      return;
+    }
+    window.history.pushState({ packdexExplore: true, packdexCardReturn: true }, "", buildExplorePath({ kind: "pokemon", id }, window.location.pathname));
+    setCollectionPokemonOverlay(true);
+  }
+
+  useEffect(() => {
+    if (!collectionPokemonOverlay) return undefined;
+    const handleCardReturn = () => {
+      if (!window.location.pathname.includes("/explore")) setCollectionPokemonOverlay(false);
+    };
+    window.addEventListener("popstate", handleCardReturn);
+    return () => window.removeEventListener("popstate", handleCardReturn);
+  }, [collectionPokemonOverlay]);
 
   async function loadExploreSpeciesForCard(card, set) {
     const { catalogCards, speciesById } = await import("./explore/exploreData.js");
@@ -4191,6 +4214,21 @@ function MobileApp() {
           </>}
         </div>
 
+        {collectionPokemonOverlay && (
+          <div className="collection-pokemon-overlay" aria-label="Pokémon detail from Collection">
+            <Suspense fallback={<section className="mobile-auth-validation" role="status"><img src={POKEBALL_LOADING_SRC} alt="" /><strong>Loading Pokémon...</strong></section>}>
+              <ExploreScreen
+                collection={collection}
+                wishlistEntries={wishlistEntries}
+                priceMapsBySet={{ ...priceMapsBySet, ...fullSetPriceMapsBySet }}
+                onInspectCard={inspectCard}
+                onOpenPack={() => {}}
+                onViewSetCollection={() => {}}
+              />
+            </Suspense>
+          </div>
+        )}
+
         <nav className={`bottom-tabs ${isPackOpening ? "is-pack-locked" : ""}`} aria-label="Mobile app sections">
           {tabs.map((tab) => {
             const isNavigationLocked = isPackOpening && tab.id !== "open";
@@ -4213,7 +4251,7 @@ function MobileApp() {
 
         {authValidationState !== "validating" && <AchievementUnlockToast toast={activeAchievementToast} />}
 
-        {authValidationState !== "validating" && <CardInspectModal
+        {authValidationState !== "validating" && !collectionPokemonOverlay && <CardInspectModal
           item={inspectedCard}
           collection={collection}
           user={user}
@@ -4224,7 +4262,7 @@ function MobileApp() {
           onLogin={() => openAuthProfile("login")}
           priceMap={inspectedCard?.set ? fullSetPriceMapsBySet[inspectedCard.set.id] || priceMapsBySet[inspectedCard.set.id] : null}
           onLoadSpecies={loadExploreSpeciesForCard}
-          onViewPokemon={(id) => openExploreRoute({ kind: "pokemon", id })}
+          onViewPokemon={openPokemonFromInspect}
           onViewSet={(id) => openExploreRoute({ kind: "set", id })}
           onViewEra={(name) => import("./explore/exploreData.js").then(({ exploreEras }) => { const era = exploreEras.find((item) => item.name === name); if (era) openExploreRoute({ kind: "era", id: era.id }); })}
           onClose={() => setInspectedCard(null)}

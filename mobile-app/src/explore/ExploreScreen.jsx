@@ -3,6 +3,7 @@ import { getCardCount, getSetCollectionProgress } from "../../../src/utils/colle
 import { getCardImageUrl, getSetLogoUrl, getSetPackArtUrl } from "../../../src/utils/assetUrls.js";
 import { compareCardsByRarity } from "../../../src/utils/rarityRank.js";
 import { getCardDisplayPrice } from "../../../src/lib/cardPrices.js";
+import { supabase } from "../lib/supabaseClient.js";
 import {
   cardsBySpeciesId,
   catalogCards,
@@ -24,6 +25,7 @@ import {
 import { buildEvolutionTree, normalizeExploreText } from "./exploreNormalization.js";
 import { buildExplorePath, parseExploreRoute } from "./exploreRouting.js";
 import { buildOpenRecommendations } from "./recommendations.js";
+import { refreshPokemonPrices } from "./pokemonPriceRefresh.js";
 import "./ExploreScreen.css";
 
 const TYPE_OPTIONS = [...new Set(explorePokemon.flatMap((species) => species.types))].sort();
@@ -65,7 +67,7 @@ function ProgressBar({ value, label }) {
 
 function PageHeader({ eyebrow = "Explore", title, onBack, children }) {
   return <header className="explore-page-header">
-    {onBack && <button className="explore-back" type="button" onClick={onBack} aria-label="Back">‹</button>}
+    {onBack && <button className="explore-back" type="button" onClick={onBack} aria-label="Back" />}
     <div><span>{eyebrow}</span><h1>{title}</h1>{children}</div>
   </header>;
 }
@@ -74,28 +76,28 @@ function TypeBadges({ types = [] }) {
   return <div className="explore-types" aria-label={`Types: ${types.join(", ")}`}>{types.map((type) => <span key={type} className={`type-${type}`}>{type}</span>)}</div>;
 }
 
-function PokemonTile({ species, collection, onOpen, compact = false }) {
+function PokemonTile({ species, collection, onOpen, compact = false, contextLine = "", showProgress = true }) {
   const progress = getSpeciesProgress(species.id, collection);
-  return <button className={`explore-pokemon-tile ${compact ? "is-compact" : ""}`} type="button" onClick={() => onOpen(species)} aria-label={`View ${species.displayName}, ${progress.owned} of ${progress.total} cards discovered`}>
+  return <button className={`explore-pokemon-tile ${compact ? "is-compact" : ""}`} type="button" onClick={() => onOpen(species)} aria-label={showProgress ? `View ${species.displayName}, ${progress.owned} of ${progress.total} cards discovered` : `View ${species.displayName}`}>
     <SafeImage src={species.artworkUrl} alt={`${species.displayName} official artwork`} />
-    <span className="explore-tile-copy"><small>#{String(species.id).padStart(4, "0")}</small><strong>{species.displayName}</strong><TypeBadges types={species.types} /><em>{progress.owned} of {progress.total} discovered</em></span>
+    <span className="explore-tile-copy"><small>#{String(species.id).padStart(4, "0")}</small><strong>{species.displayName}</strong><TypeBadges types={species.types} />{contextLine && <span className="explore-tile-context">{contextLine}</span>}{showProgress && <em>{progress.owned} of {progress.total} discovered</em>}</span>
   </button>;
 }
 
-function SetTile({ set, collection, onOpen, compact = false }) {
+function SetTile({ set, collection, onOpen, compact = false, contextLine = "" }) {
   const progress = getSetCollectionProgress(collection, set);
   return <button className={`explore-set-tile ${compact ? "is-compact" : ""}`} type="button" onClick={() => onOpen(set)} aria-label={`View ${set.name}, ${progress.percent}% complete`}>
     <span className="explore-set-art"><SafeImage src={getSetLogoUrl(set)} alt={`${set.name} logo`} /></span>
-    <span className="explore-tile-copy"><small>{set.era}</small><strong>{set.name}</strong><em>{set.releaseDate ? new Date(`${set.releaseDate}T00:00:00`).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }) : `${set.cards?.length || 0} cards`}</em><ProgressBar value={progress.percent} label={`${set.name} collection completion`} /></span>
+    <span className="explore-tile-copy"><small>{set.era}</small><strong>{set.name}</strong><em>{set.releaseDate ? new Date(`${set.releaseDate}T00:00:00`).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }) : `${set.cards?.length || 0} cards`}</em>{contextLine && <span className="explore-tile-context">{contextLine}</span>}<ProgressBar value={progress.percent} label={`${set.name} collection completion`} /></span>
   </button>;
 }
 
-function EraTile({ era, collection, onOpen, compact = false }) {
+function EraTile({ era, collection, onOpen, compact = false, contextLine = "" }) {
   const progress = getEraProgress(era, collection);
   const representative = getEraRepresentativeSet(era);
   return <button className={`explore-era-tile ${compact ? "is-compact" : ""}`} type="button" onClick={() => onOpen(era)} aria-label={`View ${era.name}, ${era.sets.length} sets`}>
     <span className="explore-era-art"><SafeImage src={representative ? getSetLogoUrl(representative) : ""} alt={`${era.name} representative set logo`} /></span>
-    <span className="explore-tile-copy"><small>{era.dateRange || "PackDex era"}</small><strong>{era.name}</strong><em>{era.sets.length} sets · {progress.percent}% collected</em><ProgressBar value={progress.percent} label={`${era.name} collection completion`} /></span>
+    <span className="explore-tile-copy"><small>{era.dateRange || "PackDex era"}</small><strong>{era.name}</strong><em>{era.sets.length} sets · {progress.percent}% collected</em>{contextLine && <span className="explore-tile-context">{contextLine}</span>}<ProgressBar value={progress.percent} label={`${era.name} collection completion`} /></span>
   </button>;
 }
 
@@ -160,10 +162,10 @@ function ExploreHome({ collection, wishlistEntries, recentRefs, query, onQueryCh
     <SearchField value={query} onChange={onQueryChange} onFocus={() => navigate({ kind: "search", query })} onSubmit={(value) => navigate({ kind: "search", query: value })} />
     {query.trim() ? <div className="explore-live-results"><SearchGroups query={query} collection={collection} wishlistKeys={new Set()} navigate={navigate} onInspectCard={onInspectCard} /></div> : <>
       <section className="explore-section"><div className="explore-section-heading"><span>Today in PackDex</span><h2>Spotlight</h2></div><div className="explore-spotlights">
-        <PokemonTile species={spotlights.pokemon} collection={collection} compact onOpen={(species) => navigate({ kind: "pokemon", id: species.id })} />
-        <SetTile set={spotlights.set} collection={collection} compact onOpen={(set) => navigate({ kind: "set", id: set.id })} />
-        <EraTile era={spotlights.era} collection={collection} compact onOpen={(era) => navigate({ kind: "era", id: era.id })} />
-        {dailyFact && <button className="daily-fact-card" type="button" onClick={() => navigate({ kind: dailyFact.kind, id: dailyFact.id })}><span>Verified daily fact</span><strong>{dailyFact.text}</strong><em>Explore this {dailyFact.kind} ›</em></button>}
+        <PokemonTile species={spotlights.pokemon} collection={collection} compact contextLine={`A ${spotlights.pokemon.types.join("/")}-type Pokémon introduced in Generation ${spotlights.pokemon.generation}.`} onOpen={(species) => navigate({ kind: "pokemon", id: species.id })} />
+        <SetTile set={spotlights.set} collection={collection} compact contextLine={getSetGuide(spotlights.set.id)?.summary || ""} onOpen={(set) => navigate({ kind: "set", id: set.id })} />
+        <EraTile era={spotlights.era} collection={collection} compact contextLine={spotlights.era.identity || spotlights.era.summary || ""} onOpen={(era) => navigate({ kind: "era", id: era.id })} />
+        {dailyFact && <button className="daily-fact-card" type="button" onClick={() => navigate({ kind: dailyFact.kind, id: dailyFact.id })}><span>Fun Fact</span><strong>{dailyFact.text}</strong><em>Explore this {dailyFact.kind} ›</em></button>}
       </div></section>
       {selectedRecommendation && <section className="explore-section"><div className="explore-section-heading"><span>Personalized from your PackDex activity</span><h2>What Should I Open?</h2></div><RecommendationCard item={selectedRecommendation} onOpenPack={onOpenPack} onViewSet={(set) => navigate({ kind: "set", id: set.id })} /><div className="recommendation-switcher" aria-label="Recommendation categories">{recommendationItems.map((item, index) => <button className={!surpriseRecommendation && index === recommendationIndex ? "is-active" : ""} type="button" key={`${item.category}:${item.setId}`} onClick={() => { setSurpriseRecommendation(null); setRecommendationIndex(index); }}>{item.title}</button>)}{recommendations.surprise && <button className={surpriseRecommendation ? "is-active" : ""} type="button" onClick={() => setSurpriseRecommendation(recommendations.surprise)}>Surprise Me</button>}</div><p className="recommendation-disclaimer">Recommendations use your PackDex collection and wishlist—not real-world pull odds, value forecasts, or guarantees.</p></section>}
       <section className="explore-section"><div className="explore-section-heading"><span>Encyclopedia</span><h2>Browse</h2></div><div className="explore-category-grid">
@@ -211,14 +213,39 @@ function PokemonDetail({ id, collection, wishlistKeys, priceMapsBySet, navigate,
   const species = speciesById.get(Number(id));
   const [statusFilter, setStatusFilter] = useState("all");
   const [setFilter, setSetFilter] = useState("all");
+  const [refreshedPriceMaps, setRefreshedPriceMaps] = useState({});
+  const [refreshingPrices, setRefreshingPrices] = useState(false);
+  const cards = species ? [...getSpeciesCards(species.id)].sort((a, b) => String(a.set.releaseDate || "").localeCompare(String(b.set.releaseDate || "")) || String(a.card.number).localeCompare(String(b.card.number), undefined, { numeric: true }) || String(a.card.id).localeCompare(String(b.card.id))) : [];
+  const effectivePriceMaps = useMemo(() => {
+    const setIds = new Set([...Object.keys(priceMapsBySet || {}), ...Object.keys(refreshedPriceMaps)]);
+    return Object.fromEntries([...setIds].map((setId) => [setId, new Map([...(priceMapsBySet?.[setId] || []), ...(refreshedPriceMaps[setId] || [])])]));
+  }, [priceMapsBySet, refreshedPriceMaps]);
+  useEffect(() => {
+    if (!species || !supabase || cards.length === 0) return undefined;
+    let active = true;
+    setRefreshingPrices(true);
+    refreshPokemonPrices({ speciesId: species.id, cards, collection, priceMapsBySet: effectivePriceMaps, supabaseClient: supabase })
+      .then((result) => {
+        if (!active || Object.keys(result.priceMapsBySet || {}).length === 0) return;
+        setRefreshedPriceMaps((current) => {
+          const next = { ...current };
+          Object.entries(result.priceMapsBySet).forEach(([setId, priceMap]) => {
+            next[setId] = new Map([...(current[setId] || []), ...priceMap]);
+          });
+          return next;
+        });
+      })
+      .catch((error) => console.warn("[PackDex prices] bounded Pokémon refresh failed", error))
+      .finally(() => { if (active) setRefreshingPrices(false); });
+    return () => { active = false; };
+  }, [species?.id]);
   if (!species) return <NotFound title="Pokémon unavailable" goBack={goBack} />;
-  const cards = [...getSpeciesCards(species.id)].sort((a, b) => String(a.set.releaseDate || "").localeCompare(String(b.set.releaseDate || "")) || String(a.card.number).localeCompare(String(b.card.number), undefined, { numeric: true }) || String(a.card.id).localeCompare(String(b.card.id)));
   const progress = getSpeciesProgress(species.id, collection);
   const appearances = [...new Map(cards.map((entry) => [entry.set.id, entry.set])).values()].sort((a, b) => String(a.releaseDate || "").localeCompare(String(b.releaseDate || "")));
   const filteredCards = cards.filter((entry) => (setFilter === "all" || entry.set.id === setFilter) && (statusFilter === "all" || (statusFilter === "owned") === (getCardCount(collection, entry.card, entry.set.id) > 0)));
   const chain = buildEvolutionTree(evolutionChainById.get(species.evolutionChainId), speciesById);
   const dated = cards.filter((entry) => entry.set.releaseDate).sort((a, b) => a.set.releaseDate.localeCompare(b.set.releaseDate));
-  const priced = cards.map((entry) => ({ ...entry, price: Number(getCardDisplayPrice(entry.card, priceMapsBySet?.[entry.set.id], entry.set.id)?.marketPriceUsd || 0) })).filter((entry) => entry.price > 0).sort((a, b) => b.price - a.price);
+  const priced = cards.map((entry) => ({ ...entry, price: Number(getCardDisplayPrice(entry.card, effectivePriceMaps?.[entry.set.id], entry.set.id)?.marketPriceUsd || 0) })).filter((entry) => entry.price > 0).sort((a, b) => b.price - a.price);
   const notableOwned = [...priced, ...cards].find((entry, index, all) => all.findIndex((candidate) => candidate.set.id === entry.set.id && candidate.card.id === entry.card.id) === index && getCardCount(collection, entry.card, entry.set.id) > 0);
   return <section className="explore-screen"><PageHeader title={species.displayName} onBack={goBack} />
     <section className="pokemon-hero"><div><span>National Pokédex</span><strong>#{String(species.id).padStart(4, "0")}</strong><TypeBadges types={species.types} /><em>Generation {species.generation} · {GENERATION_NAMES[species.generation]}</em></div><SafeImage src={species.artworkUrl} alt={`${species.displayName} official artwork`} /></section>
@@ -227,7 +254,7 @@ function PokemonDetail({ id, collection, wishlistKeys, priceMapsBySet, navigate,
     <section className="explore-detail-section"><span className="eyebrow">Evolution Family</span>{chain.length > 1 || chain[0]?.children.length > 0 ? <ul className="evolution-tree">{chain.map((node) => <EvolutionNode key={node.species?.id} node={node} navigate={navigate} />)}</ul> : <p className="explore-description">No evolution is listed for this Pokémon.</p>}</section>
     {species.forms?.length > 0 && <section className="explore-detail-section"><span className="eyebrow">Known Forms</span><div className="mechanic-list">{species.forms.map((form) => <span key={form}>{form}</span>)}</div></section>}
     <section className="explore-detail-section"><span className="eyebrow">PackDex Card Progress</span><div className="progress-summary"><strong>{progress.percent}%</strong><span>{progress.owned} of {progress.total} unique cards discovered</span><em>{progress.missing} missing</em></div><ProgressBar value={progress.percent} label={`${species.displayName} card completion`} /></section>
-    {(dated.length > 0 || priced.length > 0) && <section className="explore-detail-section"><span className="eyebrow">Collection Highlights</span><div className="highlight-grid">{dated[0] && <button type="button" onClick={() => onInspectCard(dated[0].card, dated[0].set)}><small>Oldest supported</small><strong>{dated[0].card.name}</strong><span>{dated[0].set.name}</span></button>}{dated.at(-1) && <button type="button" onClick={() => onInspectCard(dated.at(-1).card, dated.at(-1).set)}><small>Newest supported</small><strong>{dated.at(-1).card.name}</strong><span>{dated.at(-1).set.name}</span></button>}{priced[0] && <button type="button" onClick={() => onInspectCard(priced[0].card, priced[0].set)}><small>Highest current listed market value</small><strong>{priced[0].card.name}</strong><span>${priced[0].price.toFixed(2)}</span></button>}{notableOwned && <button type="button" onClick={() => onInspectCard(notableOwned.card, notableOwned.set)}><small>Notable card you own</small><strong>{notableOwned.card.name}</strong><span>{notableOwned.set.name}</span></button>}</div></section>}
+    {(dated.length > 0 || priced.length > 0) && <section className="explore-detail-section"><span className="eyebrow">Collection Highlights</span>{refreshingPrices && <span className="price-refresh-status" role="status">Updating prices…</span>}<div className="highlight-grid">{dated[0] && <button type="button" onClick={() => onInspectCard(dated[0].card, dated[0].set)}><small>Oldest supported</small><strong>{dated[0].card.name}</strong><span>{dated[0].set.name}</span></button>}{dated.at(-1) && <button type="button" onClick={() => onInspectCard(dated.at(-1).card, dated.at(-1).set)}><small>Newest supported</small><strong>{dated.at(-1).card.name}</strong><span>{dated.at(-1).set.name}</span></button>}{priced[0] && <button type="button" onClick={() => onInspectCard(priced[0].card, priced[0].set)}><small>Highest current listed market value</small><strong>{priced[0].card.name}</strong><span>${priced[0].price.toFixed(2)}</span></button>}{notableOwned && <button type="button" onClick={() => onInspectCard(notableOwned.card, notableOwned.set)}><small>Notable card you own</small><strong>{notableOwned.card.name}</strong><span>{notableOwned.set.name}</span></button>}</div></section>}
     <section className="explore-detail-section"><div className="explore-section-heading"><span>PackDex Catalog</span><h2>Cards Featuring {species.displayName}</h2></div>{cards.length ? <><div className="explore-filters"><label>Status<select value={statusFilter} onChange={(event) => setStatusFilter(event.target.value)}><option value="all">All</option><option value="owned">Owned</option><option value="missing">Missing</option></select></label><label>Set<select value={setFilter} onChange={(event) => setSetFilter(event.target.value)}><option value="all">All sets</option>{appearances.map((set) => <option key={set.id} value={set.id}>{set.name}</option>)}</select></label></div><div className="explore-card-grid">{filteredCards.map((entry) => <CardTile key={`${entry.set.id}:${entry.card.id}`} entry={entry} collection={collection} wishlistKeys={wishlistKeys} onOpen={onInspectCard} />)}</div>{!filteredCards.length && <div className="explore-empty"><strong>No cards in this view</strong><span>Change the filters to see more.</span></div>}</> : <div className="explore-empty"><strong>No supported PackDex cards yet</strong><span>The encyclopedia information is still available.</span></div>}</section>
     {appearances.length > 0 && <section className="explore-detail-section"><div className="explore-section-heading"><span>Catalog</span><h2>Appears In</h2></div><div className="explore-horizontal">{appearances.map((set) => <SetTile key={set.id} set={set} collection={collection} compact onOpen={(item) => navigate({ kind: "set", id: item.id })} />)}</div></section>}
   </section>;
@@ -256,7 +283,7 @@ function SetDetail({ id, collection, wishlistKeys, navigate, goBack, onInspectCa
     {guide.summary && <section className="explore-detail-section"><span className="eyebrow">About This Set</span><p className="explore-description">{guide.summary}</p></section>}
     {guide.themes?.length > 0 && <section className="explore-detail-section"><span className="eyebrow">Themes</span><div className="mechanic-list">{guide.themes.map((item) => <span key={item}>{item}</span>)}</div></section>}
     {guide.mechanics?.length > 0 && <section className="explore-detail-section"><span className="eyebrow">Verified Mechanics</span><div className="mechanic-list">{guide.mechanics.map((item) => <span key={item}>{item}</span>)}</div></section>}
-    {species.length > 0 && <section className="explore-detail-section"><div className="explore-section-heading"><span>Calculated from Pokémon-card coverage</span><h2>Featured Pokémon</h2></div><div className="explore-pokemon-grid is-small">{species.map((entry) => <PokemonTile key={entry.species.id} species={entry.species} collection={collection} onOpen={(item) => navigate({ kind: "pokemon", id: item.id })} />)}</div></section>}
+    {species.length > 0 && <section className="explore-detail-section"><div className="explore-section-heading"><span>Pokémon represented in this set</span><h2>Featured Pokémon</h2></div><div className="explore-pokemon-grid is-small is-set-featured">{species.map((entry) => <PokemonTile key={entry.species.id} species={entry.species} collection={collection} showProgress={false} onOpen={(item) => navigate({ kind: "pokemon", id: item.id })} />)}</div></section>}
     {featured.length > 0 && <section className="explore-detail-section"><div className="explore-section-heading"><span>Selected high-rarity cards</span><h2>Featured Cards</h2></div><div className="explore-card-grid">{featured.map((entry) => <CardTile key={entry.card.id} entry={entry} collection={collection} wishlistKeys={wishlistKeys} onOpen={onInspectCard} />)}</div></section>}
     {guide.funFacts?.length > 0 && <section className="explore-detail-section"><span className="eyebrow">Fun Facts</span><ul className="explore-fact-list">{guide.funFacts.map((fact) => <li key={fact}>{fact}</li>)}</ul></section>}
     <section className="explore-detail-section"><span className="eyebrow">Your Collection</span><div className="progress-summary"><strong>{progress.percent}%</strong><span>{progress.collected} of {progress.total} unique cards</span><em>{wishlistCount} wishlisted</em></div><ProgressBar value={progress.percent} label={`${set.name} collection completion`} /><div className="explore-actions"><button type="button" onClick={() => onOpenPack(set)}>Open This Pack</button><button type="button" onClick={() => onViewSetCollection(set)}>View Set Collection</button></div></section>
@@ -284,7 +311,7 @@ function EraDetail({ id, collection, wishlistKeys, navigate, goBack, onInspectCa
     <section className="explore-detail-section"><span className="eyebrow">Era Collection Progress</span><div className="progress-summary"><strong>{progress.percent}%</strong><span>{progress.owned} of {progress.total} unique cards</span><em>{era.sets.filter((set) => getSetCollectionProgress(collection, set).collected > 0).length} sets explored</em></div><ProgressBar value={progress.percent} label={`${era.name} collection completion`} /></section>
     {era.mechanics?.length > 0 && <section className="explore-detail-section"><span className="eyebrow">Prominent Mechanics</span><div className="mechanic-list">{era.mechanics.map((item) => <span key={item}>{item}</span>)}</div></section>}
     <section className="explore-detail-section"><div className="explore-section-heading"><span>Chronological</span><h2>Sets in This Era</h2></div><div className="explore-list">{era.sets.map((set) => <SetTile key={set.id} set={set} collection={collection} onOpen={(item) => navigate({ kind: "set", id: item.id })} />)}</div></section>
-    {species.length > 0 && <section className="explore-detail-section"><div className="explore-section-heading"><span>Calculated from Pokémon-card coverage</span><h2>Featured Pokémon</h2></div><div className="explore-pokemon-grid is-small">{species.map((entry) => <PokemonTile key={entry.species.id} species={entry.species} collection={collection} onOpen={(item) => navigate({ kind: "pokemon", id: item.id })} />)}</div></section>}
+    {species.length > 0 && <section className="explore-detail-section"><div className="explore-section-heading"><span>Pokémon represented in this era</span><h2>Featured Pokémon</h2></div><div className="explore-pokemon-grid is-small is-set-featured">{species.map((entry) => <PokemonTile key={entry.species.id} species={entry.species} collection={collection} showProgress={false} onOpen={(item) => navigate({ kind: "pokemon", id: item.id })} />)}</div></section>}
     {featuredCards.length > 0 && <section className="explore-detail-section"><div className="explore-section-heading"><span>Selected high-rarity cards</span><h2>Featured Cards</h2></div><div className="explore-card-grid">{featuredCards.map((entry) => <CardTile key={`${entry.set.id}:${entry.card.id}`} entry={entry} collection={collection} wishlistKeys={wishlistKeys} onOpen={onInspectCard} />)}</div></section>}
   </section>;
 }
