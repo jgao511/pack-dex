@@ -9,7 +9,14 @@ import CardDetailModal from "./components/CardDetailModal.jsx";
 import CollectionPage from "./components/CollectionPage.jsx";
 import FoilCard from "./components/FoilCard.jsx";
 import PullSummary from "./components/PullSummary.jsx";
+import PrivacyChoicesDialog from "./components/PrivacyChoicesDialog.jsx";
 import SetSelect from "./components/SetSelect.jsx";
+import {
+  LEGAL_DOCUMENTS,
+  LEGAL_LAST_UPDATED,
+  LEGAL_ROUTES,
+  PACKDEX_SUPPORT_EMAIL,
+} from "./content/legalDocuments.js";
 import { sets } from "./data/sets.js";
 import {
   enqueuePendingCloudPull,
@@ -68,6 +75,7 @@ import { claimWelcomeGodPack } from "./lib/securePackOpening.js";
 import { clearDeletedAccountLocalState, deleteCurrentAccount } from "./lib/accountDeletion.js";
 import { isSupabaseAuthStorageKey, validateSupabaseIdentity } from "./lib/authIdentityValidation.js";
 import { clearCachedSupabaseUser } from "./lib/sessionUserCache.js";
+import { openPrivacyChoices } from "./lib/privacyChoices.js";
 import { markPackGenerationComplete, markPackGenerationStart } from "./utils/imageDebug.js";
 import { markCardBackPreloadFinish, markCardBackPreloadStart } from "./utils/cardBackDebug.js";
 import {
@@ -82,7 +90,7 @@ const AUTH_MODAL_LOADING_MS = 380;
 const MIN_RETURN_LOADING_MS = 450;
 const RETURN_LOADING_RENDER_DELAY_MS = 100;
 const POKEBALL_LOADING_SRC = getPokeballLoadingUrl();
-const SUPPORT_EMAIL = "packdexsupport@gmail.com";
+const SUPPORT_EMAIL = PACKDEX_SUPPORT_EMAIL;
 const GUEST_WELCOME_BETA_SEEN_KEY = "packdex_guest_welcome_beta_seen";
 const USER_WELCOME_BETA_SEEN_KEY_PREFIX = "packdex_welcome_beta_seen_";
 const LEGACY_PROFILE_STATS_STORAGE_KEYS = ["packdex-profile-stats"];
@@ -388,133 +396,52 @@ function AuthSaveNotice({ onOpenAuth }) {
 }
 
 function LegalPage({ type }) {
-  const isPrivacy = type === "privacy";
+  const legalDocument = LEGAL_DOCUMENTS[type];
+
+  useEffect(() => {
+    if (!legalDocument) return undefined;
+
+    document.title = legalDocument.pageTitle;
+    let description = document.head.querySelector('meta[name="description"]');
+    if (!description) {
+      description = document.createElement("meta");
+      description.name = "description";
+      document.head.appendChild(description);
+    }
+    description.content = legalDocument.metaDescription;
+    return undefined;
+  }, [legalDocument]);
+
+  if (!legalDocument) return null;
 
   return (
-    <section className="legal-screen">
+    <article className="legal-screen">
       <img className="site-logo" src="/packdex-icon-192.png" alt="PackDex" />
-      <span className="set-mark">{isPrivacy ? "Privacy" : "Terms"}</span>
-      <h1>{isPrivacy ? "Privacy Policy" : "Terms of Service"}</h1>
-      <p className="legal-effective-date">Effective Date: June 1, 2026</p>
-      {isPrivacy ? (
-        <div className="legal-copy">
-          <p>This Privacy Policy explains how PackDex handles information when you use the site.</p>
-          <h2>1. Information We Collect</h2>
-          <p>
-            If you create an account, PackDex may collect and store your email address through Supabase authentication.
-            PackDex may also store collection-related data linked to your account, including card IDs, set IDs,
-            quantities, card names, card numbers, rarity, and image URLs.
-          </p>
-          <h2>2. How We Use Information</h2>
-          <p>
-            PackDex uses account and collection information to let users log in, save account collections, and use
-            account-based features.
-          </p>
-          <h2>3. Authentication</h2>
-          <p>
-            PackDex uses Supabase to provide account authentication. Supabase may process login-related information
-            such as your email address and authentication tokens according to Supabase's own terms and privacy
-            practices.
-          </p>
-          <h2>4. Local Storage</h2>
-          <p>
-            PackDex may use browser localStorage to save guest collection data, preferences, or other local site data
-            on your device. Guest data may remain on your device unless you clear your browser storage.
-          </p>
-          <h2>5. Cloud Collection Saving</h2>
-          <p>
-            When you are signed in, PackDex may save your collection data to Supabase so your collection can load again
-            when you log back in.
-          </p>
-          <h2>6. What We Do Not Collect</h2>
-          <p>
-            PackDex does not intentionally collect sensitive personal information. Do not enter sensitive personal
-            information into PackDex.
-          </p>
-          <h2>7. Sharing of Information</h2>
-          <p>
-            PackDex does not sell user data. Information may be processed by service providers used to operate the
-            site, such as Supabase for authentication and database features.
-          </p>
-          <h2>8. Data Security</h2>
-          <p>
-            PackDex uses reasonable technical measures such as Supabase authentication and database access rules to help
-            protect account-linked data. However, no online service can guarantee perfect security.
-          </p>
-          <h2>9. Children's Privacy</h2>
-          <p>
-            PackDex is intended for general audiences and entertainment purposes. Users should only create accounts if
-            they are allowed to do so under the rules that apply to them.
-          </p>
-          <h2>10. Changes to This Policy</h2>
-          <p>
-            This Privacy Policy may be updated from time to time. Continued use of PackDex after changes means you
-            accept the updated policy.
-          </p>
-          <h2>11. Contact</h2>
-          <p>
-            For questions about this Privacy Policy, contact PackDex support at{" "}
-            <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
-          </p>
-        </div>
-      ) : (
-        <div className="legal-copy">
-          <p>Welcome to PackDex. By using PackDex, you agree to these Terms of Service.</p>
-          <h2>1. About PackDex</h2>
-          <p>
-            PackDex is a fan-made Pokemon TCG pack-opening simulator and collection tracker for virtual collections.
-            Pack openings are simulated and do not award physical cards, money, prizes, or redeemable items.
-            PackDex is not affiliated with Nintendo, Creatures, Game Freak, or The Pokemon Company.
-          </p>
-          <h2>2. Use of the Site</h2>
-          <p>
-            You may use PackDex for personal, non-commercial entertainment purposes. You agree not to abuse the service,
-            interfere with the site's operation, attempt to access another user's account or data, or use automated
-            tools to overload the site.
-          </p>
-          <h2>3. Accounts</h2>
-          <p>
-            You may create an account to save your collection and related account features. You are responsible for
-            keeping your login information secure. PackDex uses Supabase to provide authentication services.
-          </p>
-          <h2>4. Saved Collection Data</h2>
-          <p>
-            When you are signed in, PackDex may save collection data connected to your account, including card IDs, set
-            IDs, quantities, rarity, card names, card numbers, and image URLs. This data is used to provide
-            virtual collection-saving features inside PackDex.
-          </p>
-          <h2>5. Intellectual Property</h2>
-          <p>
-            Pokemon names, card artwork, logos, and related trademarks belong to their respective owners. PackDex does
-            not claim ownership of Pokemon intellectual property. PackDex's original site design, layout, and code
-            belong to the PackDex project unless otherwise noted.
-          </p>
-          <h2>6. Availability</h2>
-          <p>
-            PackDex is provided as-is. The site may change, experience downtime, or have features removed or updated at
-            any time.
-          </p>
-          <h2>7. Limitation of Liability</h2>
-          <p>
-            PackDex is provided for entertainment purposes. To the fullest extent permitted by law, PackDex is not
-            responsible for losses, damages, or issues that may result from using the site.
-          </p>
-          <h2>8. Changes to These Terms</h2>
-          <p>
-            These Terms may be updated from time to time. Continued use of PackDex after changes means you accept the
-            updated Terms.
-          </p>
-          <h2>9. Contact</h2>
-          <p>
-            For questions about these Terms, contact PackDex support at{" "}
-            <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
-          </p>
-        </div>
-      )}
+      <span className="set-mark">{legalDocument.label}</span>
+      <h1>{legalDocument.title}</h1>
+      <p className="legal-effective-date">Last updated: {LEGAL_LAST_UPDATED}</p>
+      <div className="legal-copy">
+        {legalDocument.introduction.map((paragraph) => (
+          <p key={paragraph}>{paragraph}</p>
+        ))}
+        {legalDocument.sections.map((section, index) => (
+          <section key={section.title}>
+            <h2>{index + 1}. {section.title}</h2>
+            {section.paragraphs?.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+            {section.items && <ul>{section.items.map((item) => <li key={item}>{item}</li>)}</ul>}
+            {section.contact && (
+              <p>
+                {section.contact}{" "}
+                <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
+              </p>
+            )}
+          </section>
+        ))}
+      </div>
       <a className="primary-button" href="/">
         Back to PackDex
       </a>
-    </section>
+    </article>
   );
 }
 
@@ -1946,6 +1873,7 @@ function SiteFooter() {
 
   return (
     <footer className="site-footer">
+      <PrivacyChoicesDialog />
       <div className="site-footer__brand">
         <img src="/packdex-icon-192.png" alt="" />
         <span>PackDex</span>
@@ -1961,6 +1889,14 @@ function SiteFooter() {
         <Mail size={17} aria-hidden="true" />
         <span>{SUPPORT_EMAIL}</span>
       </a>
+      <nav className="site-footer__legal" aria-label="Legal and privacy links">
+        <a href={LEGAL_ROUTES.privacy}>Privacy</a>
+        <a href={LEGAL_ROUTES.terms}>Terms</a>
+        <button type="button" onClick={(event) => openPrivacyChoices(event.currentTarget)}>
+          Privacy Choices
+        </button>
+        <a href={`mailto:${SUPPORT_EMAIL}`}>Support</a>
+      </nav>
       <p>
         Fan-made Pokemon TCG pack-opening simulator. Not affiliated with Nintendo, Creatures, Game Freak, or The
         Pokemon Company. Pack openings are simulated for fun and do not award physical cards, money, prizes, or

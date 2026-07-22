@@ -8,6 +8,7 @@
     "generate:explore-editorial": "node scripts/generate-explore-editorial.mjs",
     "generate:branding": "node scripts/generate-brand-assets.mjs",
     "test:branding": "node --test tests/brandingAssets.test.mjs",
+    "test:legal": "node --test tests/legalPolicy.test.mjs",
     "verify:production-routes": "node scripts/verify-production-routes.mjs",
     "preview": "vite preview",
     "verify:set-logos": "node scripts/verify-set-logos.mjs",

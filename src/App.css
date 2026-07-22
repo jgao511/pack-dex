@@ -2887,9 +2887,14 @@ button {
 
 .legal-copy {
   display: grid;
-  gap: 10px;
+  gap: 16px;
   width: 100%;
   text-align: left;
+}
+
+.legal-copy section {
+  display: grid;
+  gap: 10px;
 }
 
 .legal-copy h2 {
@@ -2946,6 +2951,16 @@ button {
   font-weight: 800;
   text-align: center;
   box-shadow: 0 12px 28px rgba(18, 24, 39, 0.08);
+}
+
+.legal-copy ul {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding-left: 1.35rem;
+  color: #475467;
+  font-size: 1.02rem;
+  line-height: 1.65;
 }
 
 .profile-settings-section {
@@ -4883,6 +4898,33 @@ button {
   text-decoration: underline;
 }
 
+.site-footer__legal {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
+.site-footer__legal a,
+.site-footer__legal button {
+  border: 0;
+  padding: 0;
+  color: #1f5aa6;
+  background: transparent;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 850;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.site-footer__legal a:hover,
+.site-footer__legal button:hover,
+.site-footer__legal a:focus-visible,
+.site-footer__legal button:focus-visible {
+  text-decoration: underline;
+}
+
 .site-footer p {
   max-width: 920px;
   margin: 0;
@@ -5106,6 +5148,10 @@ button {
   color: #c7d5ff;
 }
 
+:root[data-theme="dark"] .legal-copy ul {
+  color: #aeb9cc;
+}
+
 :root[data-theme="dark"] .legal-copy a {
   color: #9fb7ff;
 }
@@ -5203,6 +5249,8 @@ button {
 }
 
 :root[data-theme="dark"] .site-footer__support,
+:root[data-theme="dark"] .site-footer__legal a,
+:root[data-theme="dark"] .site-footer__legal button,
 :root[data-theme="dark"] .welcome-beta-copy a {
   color: #8bbcff;
 }
@@ -6685,7 +6733,8 @@ button {
   }
 
   .site-footer__brand,
-  .site-footer__bottom {
+  .site-footer__bottom,
+  .site-footer__legal {
     justify-content: center;
   }
 

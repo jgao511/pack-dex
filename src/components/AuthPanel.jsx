@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Turnstile } from "react-turnstile";
 import { LogOut, Mail, X } from "lucide-react";
+import { LEGAL_ROUTES } from "../content/legalDocuments.js";
 import { isSupabaseConfigured, supabase } from "../lib/supabaseClient.js";
 import { getAuthCallbackUrl, getResetPasswordUrl } from "../utils/authRedirects.js";
 import { getPokeballLoadingUrl } from "../utils/assetUrls.js";
@@ -267,11 +268,11 @@ function AuthForm({ onAuthenticated }) {
         {isCreateMode && (
           <p className="auth-legal-copy">
             By creating an account, you agree to PackDex's{" "}
-            <a href="/terms" target="_blank" rel="noopener noreferrer">
+            <a href={LEGAL_ROUTES.terms} target="_blank" rel="noopener noreferrer">
               Terms of Service
             </a>{" "}
             and{" "}
-            <a href="/privacy" target="_blank" rel="noopener noreferrer">
+            <a href={LEGAL_ROUTES.privacy} target="_blank" rel="noopener noreferrer">
               Privacy Policy
             </a>
             . Authentication is powered by Supabase.

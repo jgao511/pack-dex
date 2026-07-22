@@ -2,6 +2,8 @@ import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { Turnstile } from "react-turnstile";
 import MobileResetPasswordPage from "./MobileResetPasswordPage.jsx";
 import DeleteAccountDialog from "./components/DeleteAccountDialog.jsx";
+import PrivacyChoicesDialog from "../../src/components/PrivacyChoicesDialog.jsx";
+import { LEGAL_ROUTES, PACKDEX_SUPPORT_EMAIL } from "../../src/content/legalDocuments.js";
 import { buildExplorePath } from "./explore/exploreRouting.js";
 import { sets } from "../../src/data/sets.js";
 import { getCardBackUrl, getCardImageUrl, getPokeballLoadingUrl, getSetLogoUrl } from "../../src/utils/assetUrls.js";
@@ -49,6 +51,7 @@ import { getCardActionLayoutClass, getCardDetailActionVisibility } from "./utils
 import { clearCachedSupabaseUser } from "../../src/lib/sessionUserCache.js";
 import { isSupabaseAuthStorageKey, validateSupabaseIdentity } from "../../src/lib/authIdentityValidation.js";
 import { clearDeletedAccountLocalState, deleteCurrentAccount } from "../../src/lib/accountDeletion.js";
+import { openPrivacyChoices } from "../../src/lib/privacyChoices.js";
 import {
   playAchievementUnlockSound,
   playDealSound,
@@ -87,7 +90,7 @@ const CARD_FLIP_ANIMATION_MS = 620;
 const SUMMARY_AFTER_LAST_CARD_MS = 250;
 const POKEBALL_LOADING_SRC = getPokeballLoadingUrl();
 const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY;
-const SUPPORT_EMAIL = "packdexsupport@gmail.com";
+const SUPPORT_EMAIL = PACKDEX_SUPPORT_EMAIL;
 const MOBILE_DISCLAIMER_SEEN_KEY = "packdex-mobile-intro-seen";
 const SETS_WITHOUT_MARKET_PRICE_DATA = new Set(["ascended-heroes", "perfect-order", "chaos-rising", "pitch-black"]);
 const PRELOAD_SET_LIMIT = 3;
@@ -338,8 +341,8 @@ const WELCOME_REWARD_CHOICES = [
   { setId: "151", title: "151", description: "A starter evolution line demi-god pack." },
 ];
 const LEGAL_URLS = {
-  terms: `${getSiteOrigin()}/terms`,
-  privacy: `${getSiteOrigin()}/privacy`,
+  terms: `${getSiteOrigin()}${LEGAL_ROUTES.terms}`,
+  privacy: `${getSiteOrigin()}${LEGAL_ROUTES.privacy}`,
 };
 
 function getMobileAuthCallbackUrl() {
@@ -2265,6 +2268,9 @@ function SettingsModal({
           <a className="settings-link" href={LEGAL_URLS.privacy}>
             Privacy Policy
           </a>
+          <button className="settings-link" type="button" onClick={(event) => openPrivacyChoices(event.currentTarget)}>
+            Privacy Choices
+          </button>
         </section>
       </section>
     </div>
@@ -4276,6 +4282,7 @@ function MobileApp() {
           isOpen={isWelcomeDisclaimerOpen}
           onDismiss={() => setIsWelcomeDisclaimerOpen(false)}
         />
+        <PrivacyChoicesDialog />
         {loadingMessage && <PokeballLoadingOverlay message={loadingMessage} />}
       </section>
     </main>

@@ -10,6 +10,9 @@ export default defineConfig(({ command, mode }) => ({
     __PACKDEX_SCANNER_TEST__: JSON.stringify(mode === "native-scanner"),
   },
   plugins: [react()],
+  resolve: {
+    dedupe: ["react", "react-dom"],
+  },
   envDir: mobileAppDir,
   publicDir: "../public",
   server: {

@@ -72,12 +72,16 @@ function assertEntryMarker(entry, expectedMarker) {
 
 const redirects = parseRedirects(read(redirectsPath));
 assert.deepEqual(redirects, [
+  { from: "/privacy", to: "/index.html", status: "200" },
+  { from: "/terms", to: "/index.html", status: "200" },
   { from: "/mobile-app/share/*", to: "/mobile-app/index.html", status: "200" },
   { from: "/mobile-app/*", to: "/mobile-app/index.html", status: "200" },
 ]);
 assert.ok(!fs.existsSync(path.join(dist, "mobile-app", "_redirects")), "Nested mobile _redirects must not be deployed");
 
 const routeCases = [
+  ["/privacy", desktopEntry],
+  ["/terms", desktopEntry],
   ["/mobile-app", mobileEntry],
   ["/mobile-app/", mobileEntry],
   ["/mobile-app/share/VALID_SHARE_CODE", mobileEntry],

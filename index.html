@@ -28,6 +28,7 @@
         const path = window.location.pathname || "/";
         const lowerPath = path.toLowerCase();
         const isMobileRoute = lowerPath.startsWith("/mobile-app");
+        const isPublicLegalRoute = lowerPath === "/privacy" || lowerPath === "/terms";
         const isAssetRoute =
           lowerPath.startsWith("/api/") ||
           lowerPath.startsWith("/assets/") ||
@@ -50,7 +51,7 @@
         const isMobileUserAgent = /Android|iPhone|iPod|IEMobile|Opera Mini/i.test(navigator.userAgent || "");
         const isPhoneWidth = window.matchMedia("(max-width: 760px) and (pointer: coarse)").matches;
 
-        if (!isMobileRoute && !isAssetRoute && !isAuthRoute && (isMobileUserAgent || isPhoneWidth)) {
+        if (!isMobileRoute && !isPublicLegalRoute && !isAssetRoute && !isAuthRoute && (isMobileUserAgent || isPhoneWidth)) {
           window.location.replace(`/mobile-app/${window.location.search}${window.location.hash}`);
         }
       })();
