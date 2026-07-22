@@ -1983,24 +1983,10 @@ body.scanner-camera-active,
   background: rgba(25, 20, 46, 0.08);
 }
 
-.legal-overlay {
-  z-index: 110;
-}
-
-.legal-modal,
 .settings-modal {
   align-content: start;
 }
 
-.legal-copy {
-  max-height: min(52dvh, 430px);
-  display: grid;
-  gap: 12px;
-  overflow-y: auto;
-  padding-right: 4px;
-}
-
-.legal-copy p,
 .auth-legal-copy {
   margin: 0;
   color: #c4cbe0;
@@ -2008,22 +1994,17 @@ body.scanner-camera-active,
   line-height: 1.45;
 }
 
-.theme-light .legal-copy p,
 .theme-light .auth-legal-copy {
   color: #4f5870;
 }
 
-.auth-legal-copy button {
-  border: 0;
-  padding: 0;
+.auth-legal-copy a {
   color: #bba7ff;
-  background: transparent;
-  font: inherit;
   font-weight: 850;
   text-decoration: underline;
 }
 
-.theme-light .auth-legal-copy button {
+.theme-light .auth-legal-copy a {
   color: #5838d7;
 }
 
@@ -3815,7 +3796,6 @@ body.scanner-camera-active,
 .theme-light .settings-toggle em,
 .theme-light .achievement-row-mobile em,
 .theme-light .mobile-auth-heading p,
-.theme-light .legal-copy p,
 .theme-light .auth-legal-copy {
   color: #4f5870;
 }
@@ -4040,7 +4020,7 @@ body.scanner-camera-active,
 .theme-light .inline-auth-link,
 .theme-light .auth-switch-link,
 .theme-light .account-notice button,
-.theme-light .auth-legal-copy button,
+.theme-light .auth-legal-copy a,
 .theme-light .tcgplayer-card-link {
   color: #4d35cf;
 }

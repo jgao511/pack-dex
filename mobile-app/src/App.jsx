@@ -337,27 +337,9 @@ const WELCOME_REWARD_CHOICES = [
   { setId: "ascended-heroes", title: "Ascended Heroes", description: "Mega Attack Rares and Special Illustration Rares." },
   { setId: "151", title: "151", description: "A starter evolution line demi-god pack." },
 ];
-const LEGAL_COPY = {
-  terms: {
-    title: "Terms of Service",
-    body: [
-      "PackDex is a fan-made Pokemon TCG pack-opening simulator and virtual collection tracker made for collectors and fan enjoyment.",
-      "Pack openings are simulated. PackDex does not award physical cards, money, prizes, redeemable items, or real-world value.",
-      "Your PackDex account can save virtual collection progress, binders, and app stats. You are responsible for keeping your account credentials secure.",
-      "PackDex may change, reset, or remove beta features while the app is being tested and improved.",
-      "PackDex is not affiliated with Nintendo, Creatures, Game Freak, or The Pokemon Company. Card names, artwork, set names, and related trademarks belong to their respective owners.",
-    ],
-  },
-  privacy: {
-    title: "Privacy Policy",
-    body: [
-      "PackDex uses Supabase authentication to create and manage accounts. Your email address is used for account access and support.",
-      "PackDex stores virtual collection data, binders, profile stats, and app preferences needed to run the mobile app experience.",
-      "PackDex does not sell your personal information. Cached card price data is used only to estimate virtual collection values.",
-      "Local app preferences may be stored on your device. Supabase session storage is used to keep you signed in.",
-      `For privacy or support questions, contact ${SUPPORT_EMAIL}.`,
-    ],
-  },
+const LEGAL_URLS = {
+  terms: `${getSiteOrigin()}/terms`,
+  privacy: `${getSiteOrigin()}/privacy`,
 };
 
 function getMobileAuthCallbackUrl() {
@@ -758,32 +740,6 @@ function AchievementUnlockToast({ toast }) {
   );
 }
 
-function LegalModal({ type, onClose }) {
-  if (!type) return null;
-
-  const content = LEGAL_COPY[type];
-  if (!content) return null;
-
-  return (
-    <div className="mobile-auth-overlay legal-overlay" role="dialog" aria-modal="true" aria-labelledby="mobile-legal-title" onClick={onClose}>
-      <section className="mobile-auth-modal legal-modal" onClick={(event) => event.stopPropagation()}>
-        <button className="mobile-auth-close" type="button" onClick={onClose} aria-label="Close legal information">
-          <CloseIcon />
-        </button>
-        <div className="mobile-auth-heading">
-          <span className="eyebrow">PackDex</span>
-          <h2 id="mobile-legal-title">{content.title}</h2>
-        </div>
-        <div className="legal-copy">
-          {content.body.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
-        </div>
-      </section>
-    </div>
-  );
-}
-
 function SignupVerificationModal({ isOpen, email, onClose }) {
   if (!isOpen) return null;
 
@@ -870,7 +826,6 @@ function MobileAuthModal({
   onTurnstileToken,
   onTurnstileMessage,
   onAuthSubmit,
-  onOpenLegal,
 }) {
   const isCreateMode = authMode === "signup";
   const isResetMode = authMode === "forgot";
@@ -1048,13 +1003,13 @@ function MobileAuthModal({
           {isCreateMode && (
             <p className="auth-legal-copy">
               By creating an account, you agree to the{" "}
-              <button type="button" onClick={() => onOpenLegal?.("terms")}>
+              <a href={LEGAL_URLS.terms}>
                 Terms of Service
-              </button>{" "}
+              </a>{" "}
               and{" "}
-              <button type="button" onClick={() => onOpenLegal?.("privacy")}>
+              <a href={LEGAL_URLS.privacy}>
                 Privacy Policy
-              </button>
+              </a>
               .
             </p>
           )}
@@ -2251,7 +2206,6 @@ function SettingsModal({
   onDeleteAccount,
   onToggleSound,
   onToggleHaptics,
-  onOpenLegal,
   scannerTestEnabled = false,
 }) {
   if (!isOpen) return null;
@@ -2305,12 +2259,12 @@ function SettingsModal({
 
         <section className="settings-section">
           <span className="eyebrow">Legal</span>
-          <button className="settings-link" type="button" onClick={() => onOpenLegal?.("terms")}>
+          <a className="settings-link" href={LEGAL_URLS.terms}>
             Terms of Service
-          </button>
-          <button className="settings-link" type="button" onClick={() => onOpenLegal?.("privacy")}>
+          </a>
+          <a className="settings-link" href={LEGAL_URLS.privacy}>
             Privacy Policy
-          </button>
+          </a>
         </section>
       </section>
     </div>
@@ -2340,7 +2294,6 @@ function ProfileScreen({
   welcomeRewardStatus,
   onOpenWelcomeReward,
   onLoadAchievementProgress,
-  onOpenLegal,
 }) {
   const isLoggedIn = Boolean(user);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -2511,7 +2464,6 @@ function ProfileScreen({
         }}
         onToggleSound={onToggleSound}
         onToggleHaptics={onToggleHaptics}
-        onOpenLegal={onOpenLegal}
         scannerTestEnabled={__PACKDEX_SCANNER_TEST__}
       />
     </section>
@@ -2662,7 +2614,6 @@ function MobileApp() {
   const authRefreshPromiseRef = useRef(null);
   const authValidationAttemptRef = useRef(0);
   const validatedScannerUserIdRef = useRef("");
-  const [legalModalType, setLegalModalType] = useState("");
   const [priceMapsBySet, setPriceMapsBySet] = useState({});
   const [fullSetPriceMapsBySet, setFullSetPriceMapsBySet] = useState({});
   const [fullSetPriceStatusBySet, setFullSetPriceStatusBySet] = useState({});
@@ -4220,7 +4171,6 @@ function MobileApp() {
                 setSelectedWelcomeRewardSetId(WELCOME_REWARD_CHOICES[0]?.setId || "");
                 setIsWelcomeRewardModalOpen(true);
               }}
-              onOpenLegal={setLegalModalType}
             />
           )}
           </>}
@@ -4297,7 +4247,6 @@ function MobileApp() {
           onTurnstileToken={setTurnstileToken}
           onTurnstileMessage={setTurnstileMessage}
           onAuthSubmit={handleAuthSubmit}
-          onOpenLegal={setLegalModalType}
         />
         <DeleteAccountDialog
           isOpen={isDeleteAccountOpen}
@@ -4323,7 +4272,6 @@ function MobileApp() {
           onClaim={handleClaimWelcomeReward}
           onClose={() => setIsWelcomeRewardModalOpen(false)}
         />
-        <LegalModal type={legalModalType} onClose={() => setLegalModalType("")} />
         <WelcomeDisclaimerModal
           isOpen={isWelcomeDisclaimerOpen}
           onDismiss={() => setIsWelcomeDisclaimerOpen(false)}
