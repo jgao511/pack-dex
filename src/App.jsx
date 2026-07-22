@@ -2190,7 +2190,8 @@ function DevGodPackAnimationPreview() {
 
 function App() {
   const pagePath = typeof window === "undefined" ? "/" : window.location.pathname;
-  const legalPageType = pagePath === "/terms" ? "terms" : pagePath === "/privacy" ? "privacy" : "";
+  const legalPagePath = pagePath.length > 1 ? pagePath.replace(/\/+$/, "") : pagePath;
+  const legalPageType = legalPagePath === "/terms" ? "terms" : legalPagePath === "/privacy" ? "privacy" : "";
 
   if (pagePath === "/auth/callback") {
     return (

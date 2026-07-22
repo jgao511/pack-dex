@@ -38,7 +38,10 @@ function resolveEntry(pathname, rules) {
   if (fs.existsSync(directoryEntry)) return directoryEntry;
 
   const rule = rules.find((candidate) => matches(candidate.from, pathname));
-  assert.ok(rule, `No Cloudflare fallback matches ${pathname}`);
+  if (!rule) {
+    assert.ok(!fs.existsSync(path.join(dist, "404.html")), `No Cloudflare fallback matches ${pathname}`);
+    return desktopEntry;
+  }
   assert.equal(rule.status, "200", `Fallback for ${pathname} must be an internal rewrite`);
   return path.join(dist, rule.to.replace(/^\/+/, ""));
 }
@@ -72,8 +75,6 @@ function assertEntryMarker(entry, expectedMarker) {
 
 const redirects = parseRedirects(read(redirectsPath));
 assert.deepEqual(redirects, [
-  { from: "/privacy", to: "/index.html", status: "200" },
-  { from: "/terms", to: "/index.html", status: "200" },
   { from: "/mobile-app/share/*", to: "/mobile-app/index.html", status: "200" },
   { from: "/mobile-app/*", to: "/mobile-app/index.html", status: "200" },
 ]);
@@ -81,7 +82,9 @@ assert.ok(!fs.existsSync(path.join(dist, "mobile-app", "_redirects")), "Nested m
 
 const routeCases = [
   ["/privacy", desktopEntry],
+  ["/privacy/", desktopEntry],
   ["/terms", desktopEntry],
+  ["/terms/", desktopEntry],
   ["/mobile-app", mobileEntry],
   ["/mobile-app/", mobileEntry],
   ["/mobile-app/share/VALID_SHARE_CODE", mobileEntry],

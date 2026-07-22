@@ -43,7 +43,7 @@ test("sharing is absent from the legacy desktop entry and abandoned redirects", 
   const redirects = fs.readFileSync("public/_redirects", "utf8");
   assert.equal(
     redirects.replace(/\r\n/g, "\n").trim(),
-    "/privacy /index.html 200\n/terms /index.html 200\n/mobile-app/share/* /mobile-app/index.html 200\n/mobile-app/* /mobile-app/index.html 200"
+    "/mobile-app/share/* /mobile-app/index.html 200\n/mobile-app/* /mobile-app/index.html 200"
   );
 });
 

@@ -27,8 +27,9 @@
       (() => {
         const path = window.location.pathname || "/";
         const lowerPath = path.toLowerCase();
+        const normalizedPath = lowerPath.length > 1 ? lowerPath.replace(/\/+$/, "") : lowerPath;
         const isMobileRoute = lowerPath.startsWith("/mobile-app");
-        const isPublicLegalRoute = lowerPath === "/privacy" || lowerPath === "/terms";
+        const isPublicLegalRoute = normalizedPath === "/privacy" || normalizedPath === "/terms";
         const isAssetRoute =
           lowerPath.startsWith("/api/") ||
           lowerPath.startsWith("/assets/") ||

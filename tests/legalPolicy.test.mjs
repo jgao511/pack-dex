@@ -44,7 +44,9 @@ test("website and mobile surfaces use canonical legal links and Privacy Choices"
   assert.match(mobileApp, /terms: `\$\{getSiteOrigin\(\)\}\$\{LEGAL_ROUTES\.terms\}`/);
   assert.match(mobileApp, /privacy: `\$\{getSiteOrigin\(\)\}\$\{LEGAL_ROUTES\.privacy\}`/);
   assert.match(mobileApp, />\s*Privacy Choices\s*<\/button>/);
+  assert.match(app, /pagePath\.replace\(\/\\\/\+\$\/, ""\)/);
   assert.match(index, /isPublicLegalRoute/);
+  assert.match(index, /lowerPath\.replace\(\/\\\/\+\$\/, ""\)/);
   assert.match(index, /!isPublicLegalRoute/);
 });
 
