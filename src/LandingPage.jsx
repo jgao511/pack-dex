@@ -326,7 +326,6 @@ function LandingFooter() {
           <strong>Follow</strong>
           <a href="https://www.youtube.com/@pack-dex" target="_blank" rel="noopener noreferrer">YouTube</a>
           <a href="https://www.instagram.com/pack.dex/" target="_blank" rel="noopener noreferrer">Instagram</a>
-          <a href="https://www.tiktok.com/@packdex" target="_blank" rel="noopener noreferrer">TikTok</a>
         </nav>
       </div>
 

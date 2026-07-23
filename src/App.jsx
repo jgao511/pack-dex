@@ -1855,17 +1855,9 @@ function SocialIcon({ type }) {
     );
   }
 
-  if (type === "instagram") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        <path d="M7.1 2h9.8A5.1 5.1 0 0 1 22 7.1v9.8a5.1 5.1 0 0 1-5.1 5.1H7.1A5.1 5.1 0 0 1 2 16.9V7.1A5.1 5.1 0 0 1 7.1 2Zm0 2A3.1 3.1 0 0 0 4 7.1v9.8A3.1 3.1 0 0 0 7.1 20h9.8a3.1 3.1 0 0 0 3.1-3.1V7.1A3.1 3.1 0 0 0 16.9 4H7.1Zm10.4 1.7a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4ZM12 7.2A4.8 4.8 0 1 1 12 16.8 4.8 4.8 0 0 1 12 7.2Zm0 2A2.8 2.8 0 1 0 12 14.8 2.8 2.8 0 0 0 12 9.2Z" />
-      </svg>
-    );
-  }
-
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <path d="M16.6 2c.4 3 2.1 4.8 5.1 5v3.4a8.4 8.4 0 0 1-5-1.6v6.8c0 4.3-2.7 6.4-6.1 6.4-3.8 0-6.3-2.7-6.3-5.9 0-3.6 2.8-6.1 6.8-6.1.4 0 .7 0 1 .1v3.6c-.3-.1-.7-.2-1.1-.2-1.7 0-2.8 1-2.8 2.5 0 1.4 1 2.4 2.4 2.4 1.5 0 2.5-.8 2.5-2.8V2h3.5Z" />
+      <path d="M7.1 2h9.8A5.1 5.1 0 0 1 22 7.1v9.8a5.1 5.1 0 0 1-5.1 5.1H7.1A5.1 5.1 0 0 1 2 16.9V7.1A5.1 5.1 0 0 1 7.1 2Zm0 2A3.1 3.1 0 0 0 4 7.1v9.8A3.1 3.1 0 0 0 7.1 20h9.8a3.1 3.1 0 0 0 3.1-3.1V7.1A3.1 3.1 0 0 0 16.9 4H7.1Zm10.4 1.7a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4ZM12 7.2A4.8 4.8 0 1 1 12 16.8 4.8 4.8 0 0 1 12 7.2Zm0 2A2.8 2.8 0 1 0 12 14.8 2.8 2.8 0 0 0 12 9.2Z" />
     </svg>
   );
 }
@@ -1874,7 +1866,6 @@ function SiteFooter() {
   const socialLinks = [
     { label: "PackDex YouTube", href: "https://www.youtube.com/@pack-dex", type: "youtube" },
     { label: "PackDex Instagram", href: "https://www.instagram.com/pack.dex/", type: "instagram" },
-    { label: "PackDex TikTok", href: "https://www.tiktok.com/@packdex", type: "tiktok" },
   ];
 
   return (
