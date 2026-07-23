@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Mail } from "lucide-react";
+import { Mail, X } from "lucide-react";
+import "./App.css";
 import PackOpening from "./components/PackOpening.jsx";
 import AccountSaveNotice from "./components/AccountSaveNotice.jsx";
 import AuthPanel, { AuthModal } from "./components/AuthPanel.jsx";
@@ -37,6 +38,11 @@ import {
 } from "./lib/cloudProfileStats.js";
 import { ensurePackOpenClientEventId, recordPackOpenEvent } from "./lib/packOpenEvents.js";
 import { isSupabaseConfigured, supabase } from "./lib/supabaseClient.js";
+import {
+  DESKTOP_MOBILE_NOTICE_DISMISSED_KEY,
+  dismissDesktopMobileNotice,
+  readStorageFlag,
+} from "./welcomeEntry.js";
 import {
   canGeneratePack,
   generateForcedGodPack,
@@ -1890,6 +1896,7 @@ function SiteFooter() {
         <span>{SUPPORT_EMAIL}</span>
       </a>
       <nav className="site-footer__legal" aria-label="Legal and privacy links">
+        <a href="/welcome">About PackDex</a>
         <a href={LEGAL_ROUTES.privacy}>Privacy</a>
         <a href={LEGAL_ROUTES.terms}>Terms</a>
         <button type="button" onClick={(event) => openPrivacyChoices(event.currentTarget)}>
@@ -2259,6 +2266,9 @@ function App() {
   const [isReturningToSet, setIsReturningToSet] = useState(false);
   const [collectionDashboardSubtabRequest, setCollectionDashboardSubtabRequest] = useState("");
   const [binderOpenRequestId, setBinderOpenRequestId] = useState("");
+  const [showDesktopMobileNotice, setShowDesktopMobileNotice] = useState(
+    () => !readStorageFlag(DESKTOP_MOBILE_NOTICE_DISMISSED_KEY, window)
+  );
   const returnTokenRef = useRef(0);
   const tabLoadTokenRef = useRef(0);
   const shownWelcomeRewardUserRef = useRef("");
@@ -3029,10 +3039,25 @@ function App() {
         )}
       </header>
 
-      {!isPackFlow && (
+      {!isPackFlow && showDesktopMobileNotice && (
         <aside className="mobile-experience-notice" aria-label="PackDex mobile experience">
-          <span>PackDex has moved to the mobile experience. Visit the mobile app for the latest sets, features, and full PackDex experience.</span>
-          <a href="/mobile-app/">Open mobile PackDex</a>
+          <span>
+            PackDex is fully playable on desktop. For the newest features and most actively updated experience, try the
+            mobile app.
+          </span>
+          <div className="mobile-experience-notice__actions">
+            <a href="/mobile-app/">Open mobile PackDex</a>
+            <button
+              type="button"
+              onClick={() => {
+                dismissDesktopMobileNotice(window);
+                setShowDesktopMobileNotice(false);
+              }}
+              aria-label="Dismiss mobile app notice"
+            >
+              <X size={17} aria-hidden="true" />
+            </button>
+          </div>
         </aside>
       )}
 

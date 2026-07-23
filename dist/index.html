@@ -2,62 +2,43 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="packdex-entry" content="legacy-desktop" />
+    <meta name="packdex-entry" content="welcome-controller" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="application-name" content="PackDex" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4828542760410446"
+     crossorigin="anonymous"></script>
     <meta
       name="description"
-      content="Open simulated Pokemon TCG packs, track a virtual collection, and explore sets in a fan-made collector tool. Not affiliated with Nintendo, Creatures, Game Freak, or The Pokemon Company."
+      content="PackDex is a free, fan-made Pokémon TCG experience for opening virtual packs from every English set, chasing favorite cards, and tracking your collection."
     />
-    <meta property="og:title" content="PackDex: Fan-Made Pokemon TCG Pack Opening Simulator" />
+    <link rel="canonical" href="https://www.pack-dex.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PackDex" />
+    <meta property="og:title" content="PackDex — Open Packs. Build Your Collection." />
     <meta
       property="og:description"
-      content="Open simulated Pokemon TCG packs, track a virtual collection, and explore sets in a fan-made collector tool. Not affiliated with Nintendo, Creatures, Game Freak, or The Pokemon Company."
+      content="A free, fan-made Pokémon TCG experience for opening virtual packs from every English set and tracking your collection."
     />
-    <meta property="og:type" content="website" />
-    <meta name="theme-color" content="#0d1224" />
+    <meta property="og:url" content="https://www.pack-dex.com/" />
+    <meta property="og:image" content="https://www.pack-dex.com/packdex-icon-192.png" />
+    <meta property="og:image:alt" content="PackDex app icon" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="PackDex — Open Packs. Build Your Collection." />
+    <meta
+      name="twitter:description"
+      content="A free, fan-made Pokémon TCG experience for opening virtual packs from every English set and tracking your collection."
+    />
+    <meta name="twitter:image" content="https://www.pack-dex.com/packdex-icon-192.png" />
+    <meta name="twitter:image:alt" content="PackDex app icon" />
+    <meta name="theme-color" content="#090d19" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="preload" as="image" href="/card-back.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <title>PackDex: Fan-Made Pokemon TCG Pack Opening Simulator</title>
-    <script>
-      (() => {
-        const path = window.location.pathname || "/";
-        const lowerPath = path.toLowerCase();
-        const isMobileRoute = lowerPath.startsWith("/mobile-app");
-        const isPublicLegalRoute = lowerPath === "/privacy" || lowerPath === "/terms";
-        const isAssetRoute =
-          lowerPath.startsWith("/api/") ||
-          lowerPath.startsWith("/assets/") ||
-          lowerPath.startsWith("/set-logos/") ||
-          lowerPath.endsWith(".png") ||
-          lowerPath.endsWith(".jpg") ||
-          lowerPath.endsWith(".jpeg") ||
-          lowerPath.endsWith(".webp") ||
-          lowerPath.endsWith(".svg") ||
-          lowerPath.endsWith(".ico") ||
-          lowerPath.endsWith(".json") ||
-          lowerPath.endsWith(".webmanifest") ||
-          lowerPath.endsWith(".css") ||
-          lowerPath.endsWith(".js");
-        const isAuthRoute =
-          lowerPath.startsWith("/auth") ||
-          lowerPath.includes("callback") ||
-          window.location.search.includes("code=") ||
-          window.location.hash.includes("access_token");
-        const isMobileUserAgent = /Android|iPhone|iPod|IEMobile|Opera Mini/i.test(navigator.userAgent || "");
-        const isPhoneWidth = window.matchMedia("(max-width: 760px) and (pointer: coarse)").matches;
-
-        if (!isMobileRoute && !isPublicLegalRoute && !isAssetRoute && !isAuthRoute && (isMobileUserAgent || isPhoneWidth)) {
-          window.location.replace(`/mobile-app/${window.location.search}${window.location.hash}`);
-        }
-      })();
-    </script>
-    <script type="module" crossorigin src="/assets/index-EbWxU0oO.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-B7hfdqqj.css">
+    <title>PackDex — Free Pokémon TCG Pack Opening &amp; Collection</title>
+    <script type="module" crossorigin src="/assets/index-B3sQIV2t.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DW2V1_KW.css">
   </head>
   <body>
     <div id="root"></div>

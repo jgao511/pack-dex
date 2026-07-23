@@ -1,0 +1,17 @@
+:root {
+  color: #f7f9fc;
+  background: #090d19;
+  color-scheme: dark;
+  font-family: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  background: #090d19;
+}

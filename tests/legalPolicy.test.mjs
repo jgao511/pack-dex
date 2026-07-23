@@ -29,25 +29,33 @@ test("canonical legal documents use the required routes, date, and pre-advertisi
 });
 
 test("website and mobile surfaces use canonical legal links and Privacy Choices", async () => {
-  const [app, authPanel, mobileApp, index] = await Promise.all([
+  const [app, landingPage, authPanel, mobileApp, main, pageLoaders, index] = await Promise.all([
     read("../src/App.jsx"),
+    read("../src/LandingPage.jsx"),
     read("../src/components/AuthPanel.jsx"),
     read("../mobile-app/src/App.jsx"),
+    read("../src/main.jsx"),
+    read("../src/pageLoaders.js"),
     read("../index.html"),
   ]);
 
   assert.match(app, /href=\{LEGAL_ROUTES\.privacy\}/);
   assert.match(app, /href=\{LEGAL_ROUTES\.terms\}/);
   assert.match(app, /openPrivacyChoices\(event\.currentTarget\)/);
+  assert.match(landingPage, /href=\{LEGAL_ROUTES\.privacy\}/);
+  assert.match(landingPage, /href=\{LEGAL_ROUTES\.terms\}/);
+  assert.match(landingPage, /openPrivacyChoices\(event\.currentTarget\)/);
   assert.match(authPanel, /href=\{LEGAL_ROUTES\.privacy\}/);
   assert.match(authPanel, /href=\{LEGAL_ROUTES\.terms\}/);
   assert.match(mobileApp, /terms: `\$\{getSiteOrigin\(\)\}\$\{LEGAL_ROUTES\.terms\}`/);
   assert.match(mobileApp, /privacy: `\$\{getSiteOrigin\(\)\}\$\{LEGAL_ROUTES\.privacy\}`/);
   assert.match(mobileApp, />\s*Privacy Choices\s*<\/button>/);
   assert.match(app, /pagePath\.replace\(\/\\\/\+\$\/, ""\)/);
-  assert.match(index, /isPublicLegalRoute/);
-  assert.match(index, /lowerPath\.replace\(\/\\\/\+\$\/, ""\)/);
-  assert.match(index, /!isPublicLegalRoute/);
+  assert.match(main, /entryDecision === "mobile-app"/);
+  assert.match(main, /entryDecision === "welcome"/);
+  assert.match(pageLoaders, /import\("\.\/LandingPage\.jsx"\)/);
+  assert.match(pageLoaders, /import\("\.\/App\.jsx"\)/);
+  assert.doesNotMatch(index, /window\.location\.replace/);
 });
 
 test("Privacy Choices stays informational and includes modal keyboard and focus handling", async () => {

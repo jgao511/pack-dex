@@ -2,27 +2,23 @@
 
 PackDex is a fan-made Pokémon card pack opening and collection app built for collectors who want a fun, clean way to open packs, chase rare cards, and track their collection.
 
-PackDex has two experiences:
+PackDex has three connected surfaces:
 
-* **Main Website** — the full desktop collection and pack-opening experience
-* **PackDex Mobile** — a phone-friendly app experience designed for quick openings, collection tracking, and home-screen access
+* **Welcome Website** — the responsive product introduction shown once at `/` and always available at `/welcome`
+* **PackDex Desktop** — the existing fully playable desktop app loaded at `/` after the welcome
+* **PackDex Mobile** — the primary, most actively updated product at `/mobile-app/`
 
 ## Main Website
 
-The main PackDex website is built for collectors who want the full experience on a larger screen.
+The main PackDex website introduces the product, then sends collectors into the existing desktop app or the mobile app. The local `packdex_welcome_seen_v1` preference prevents a returning visit to `/` from flashing the welcome again. The desktop app's mobile-feature notice uses the separate `packdex_desktop_mobile_notice_dismissed_v1` preference.
 
 ### Features
 
-* Open simulated Pokémon card packs from many different eras and sets
-* Chase rare cards, special illustration rares, secret rares, and god packs
-* View full set collections
-* Track collected cards across your account
-* Browse binder-style collection pages
-* See collection progress by set
-* View estimated collection value
-* Search and explore sets
-* Use guest mode or sign in to save progress
-* Clean desktop layout for opening packs and managing collections
+* Responsive product overview for desktop, tablet, and mobile browsers
+* Direct access to both desktop and mobile PackDex
+* Product feature, collection, and set highlights
+* A permanent `/welcome` route for reopening the product overview
+* Canonical privacy, terms, support, social, and attribution links
 
 ## PackDex Mobile
 

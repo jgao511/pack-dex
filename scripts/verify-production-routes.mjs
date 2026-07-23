@@ -81,6 +81,8 @@ assert.deepEqual(redirects, [
 assert.ok(!fs.existsSync(path.join(dist, "mobile-app", "_redirects")), "Nested mobile _redirects must not be deployed");
 
 const routeCases = [
+  ["/", desktopEntry],
+  ["/welcome", desktopEntry],
   ["/privacy", desktopEntry],
   ["/privacy/", desktopEntry],
   ["/terms", desktopEntry],
@@ -105,7 +107,7 @@ for (const [pathname, expected] of routeCases) {
 assertEntryAssets(desktopEntry, "/assets/");
 assertEntryAssets(mobileEntry, "/mobile-app/assets/");
 assertEntryAssets(path.join(dist, "mobile-app", "reset-password", "index.html"), "/mobile-app/assets/");
-assertEntryMarker(desktopEntry, "legacy-desktop");
+assertEntryMarker(desktopEntry, "welcome-controller");
 assertEntryMarker(mobileEntry, "mobile-app");
 assertEntryMarker(path.join(dist, "mobile-app", "reset-password", "index.html"), "mobile-app");
 
