@@ -1,5 +1,7 @@
 -- A single append-only aggregate keeps the public welcome-page statistic fast
 -- and prevents collection or account deletion from reducing lifetime activity.
+begin;
+
 create table if not exists public.packdex_public_stats (
   singleton boolean primary key default true,
   cards_pulled bigint not null default 0 check (cards_pulled >= 0),
@@ -270,3 +272,5 @@ $$;
 
 revoke all on function public.get_public_packdex_stats() from public;
 grant execute on function public.get_public_packdex_stats() to anon, authenticated;
+
+commit;
