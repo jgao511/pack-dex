@@ -42,3 +42,21 @@ test("welcome styling has responsive, paused, and reduced-motion states without 
   assert.match(index, /name="twitter:card" content="summary"/);
   assert.doesNotMatch(index, /summary_large_image/);
 });
+
+test("welcome page renders the cached public activity counter without blocking the hero", async () => {
+  const [page, stats, css] = await Promise.all([
+    read("../src/LandingPage.jsx"),
+    read("../src/lib/publicPackDexStats.js"),
+    read("../src/landing.css"),
+  ]);
+
+  assert.match(page, /cards pulled on PackDex/);
+  assert.match(page, /across \{formatPublicStat\(stats\.packsOpened\)\} packs/);
+  assert.match(page, /IntersectionObserver/);
+  assert.match(page, /reducedMotion/);
+  assert.match(stats, /PUBLIC_STATS_CACHE_TTL_MS = 10 \* 60 \* 1000/);
+  assert.match(stats, /\.rpc\("get_public_packdex_stats"\)/);
+  assert.doesNotMatch(stats, /\.from\("user_/);
+  assert.match(css, /\.landing-activity__skeleton/);
+  assert.match(css, /font-variant-numeric: tabular-nums/);
+});

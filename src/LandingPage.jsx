@@ -3,6 +3,11 @@ import { ArrowRight, BookOpen, Layers3, Mail, PackageOpen, Search, Sparkles } fr
 import PrivacyChoicesDialog from "./components/PrivacyChoicesDialog.jsx";
 import { LEGAL_ROUTES, PACKDEX_SUPPORT_EMAIL } from "./content/legalDocuments.js";
 import { openPrivacyChoices } from "./lib/privacyChoices.js";
+import {
+  formatPublicStat,
+  getPublicPackDexStats,
+  readCachedPublicPackDexStats,
+} from "./lib/publicPackDexStats.js";
 import { getSetAssetUrl } from "./utils/assetUrls.js";
 import { markWelcomeSeen } from "./welcomeEntry.js";
 
@@ -107,7 +112,9 @@ const featuredSets = [
 ];
 
 function useReducedMotion() {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(
+    () => window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches || false
+  );
 
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -145,6 +152,121 @@ function EntryButton({ mobile, compact = false }) {
       <span className="landing-button__short-label">{mobile ? "Open app" : "Play"}</span>
       <ArrowRight size={compact ? 17 : 18} aria-hidden="true" />
     </a>
+  );
+}
+
+function useAnimatedCount(target, { enabled, reducedMotion }) {
+  const [value, setValue] = useState(reducedMotion ? target : 0);
+  const hasAnimatedRef = useRef(false);
+
+  useEffect(() => {
+    if (!enabled || hasAnimatedRef.current) return undefined;
+
+    hasAnimatedRef.current = true;
+    if (reducedMotion) {
+      setValue(target);
+      return undefined;
+    }
+
+    const duration = 1100;
+    const startedAt = performance.now();
+    let frameId = 0;
+
+    const tick = (now) => {
+      const progress = Math.min((now - startedAt) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setValue(Math.round(target * eased));
+
+      if (progress < 1) frameId = window.requestAnimationFrame(tick);
+    };
+
+    frameId = window.requestAnimationFrame(tick);
+    return () => window.cancelAnimationFrame(frameId);
+  }, [enabled, reducedMotion, target]);
+
+  return reducedMotion ? target : value;
+}
+
+function PublicActivityCounter({ reducedMotion }) {
+  const [stats, setStats] = useState(
+    () => readCachedPublicPackDexStats()?.stats || null
+  );
+  const [isLoading, setIsLoading] = useState(!stats);
+  const [hasEnteredViewport, setHasEnteredViewport] = useState(false);
+  const counterRef = useRef(null);
+  const displayedCards = useAnimatedCount(stats?.cardsPulled || 0, {
+    enabled: Boolean(stats && hasEnteredViewport),
+    reducedMotion,
+  });
+
+  useEffect(() => {
+    let isCurrent = true;
+
+    getPublicPackDexStats()
+      .then((nextStats) => {
+        if (!isCurrent) return;
+        setStats(nextStats);
+        setIsLoading(false);
+      })
+      .catch(() => {
+        if (!isCurrent) return;
+        setStats((current) => current || null);
+        setIsLoading(false);
+      });
+
+    return () => {
+      isCurrent = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    const node = counterRef.current;
+    if (!node) return undefined;
+    if (reducedMotion || !("IntersectionObserver" in window)) {
+      setHasEnteredViewport(true);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        setHasEnteredViewport(true);
+        observer.disconnect();
+      },
+      { threshold: 0.35 }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [reducedMotion]);
+
+  if (!stats && !isLoading) return null;
+
+  return (
+    <aside
+      className={`landing-activity${stats ? " is-ready" : " is-loading"}`}
+      ref={counterRef}
+      aria-label="PackDex community activity"
+      aria-busy={isLoading}
+    >
+      {stats ? (
+        <>
+          <strong className="landing-activity__number">
+            {formatPublicStat(displayedCards)}
+          </strong>
+          <span className="landing-activity__label">cards pulled on PackDex</span>
+          {stats.packsOpened != null && (
+            <small>across {formatPublicStat(stats.packsOpened)} packs</small>
+          )}
+        </>
+      ) : (
+        <div className="landing-activity__skeleton" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+        </div>
+      )}
+    </aside>
   );
 }
 
@@ -381,6 +503,7 @@ export default function LandingPage({ isMobileVisitor = false }) {
                   </a>
                 )}
               </div>
+              <PublicActivityCounter reducedMotion={reducedMotion} />
             </div>
 
             <HeroShowcase reducedMotion={reducedMotion} />
