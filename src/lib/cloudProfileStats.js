@@ -9,7 +9,6 @@ const EMPTY_PROFILE_STATS = {
 export function emptyProfileStats() {
   return { ...EMPTY_PROFILE_STATS };
 }
-
 function fromCloudStats(row) {
   if (!row) return emptyProfileStats();
 
@@ -34,14 +33,4 @@ export async function loadCloudProfileStats(userId) {
   }
 
   return fromCloudStats(data);
-}
-
-export async function incrementCloudProfileStats(userId, { packsOpened = 0, totalCardsPulled = 0 } = {}) {
-  console.warn("Browser profile stat increments are disabled; use recordPackOpenEvent instead.", {
-    userId,
-    packsOpened,
-    totalCardsPulled,
-  });
-
-  return loadCloudProfileStats(userId);
 }

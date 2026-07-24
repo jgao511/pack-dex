@@ -75,25 +75,25 @@ export function emptyUserAchievements() {
 }
 
 export function normalizeUserAchievementRow(row = {}) {
-  const awardedAt = row.awarded_at || null;
-  const createdAt = row.created_at || null;
-  const updatedAt = row.updated_at || null;
+  const awardedAt = row.awardedAt || row.awarded_at || null;
+  const createdAt = row.createdAt || row.created_at || null;
+  const updatedAt = row.updatedAt || row.updated_at || null;
 
   return {
     id: String(row.id || ""),
-    userId: String(row.user_id || ""),
-    achievementId: String(row.achievement_id || ""),
-    scopeType: String(row.scope_type || "global"),
-    scopeKey: String(row.scope_key || "global"),
-    awardKey: String(row.award_key || ""),
+    userId: String(row.userId || row.user_id || ""),
+    achievementId: String(row.achievementId || row.achievement_id || ""),
+    scopeType: String(row.scopeType || row.scope_type || "global"),
+    scopeKey: String(row.scopeKey || row.scope_key || "global"),
+    awardKey: String(row.awardKey || row.award_key || ""),
     metadata: isPlainObject(row.metadata) ? row.metadata : {},
     source: String(row.source || ""),
     awardedAt,
-    awardedAtMs: parseTimestamp(awardedAt),
+    awardedAtMs: row.awardedAtMs ?? parseTimestamp(awardedAt),
     createdAt,
-    createdAtMs: parseTimestamp(createdAt),
+    createdAtMs: row.createdAtMs ?? parseTimestamp(createdAt),
     updatedAt,
-    updatedAtMs: parseTimestamp(updatedAt),
+    updatedAtMs: row.updatedAtMs ?? parseTimestamp(updatedAt),
   };
 }
 
@@ -153,7 +153,23 @@ function normalizeAchievementList(rows = []) {
   return Array.isArray(rows) ? rows.map(normalizeUserAchievementRow).filter((achievement) => achievement.achievementId) : [];
 }
 
-export async function checkServerAchievements(expectedUserId = "") {
+export function mergeUserAchievementRows(existingRows = [], awardedRows = []) {
+  const mergedByKey = new Map();
+
+  [...normalizeAchievementList(existingRows), ...normalizeAchievementList(awardedRows)].forEach((achievement) => {
+    const key = achievement.awardKey || achievement.id || achievement.achievementId;
+    if (key) mergedByKey.set(key, achievement);
+  });
+
+  return [...mergedByKey.values()].sort((left, right) =>
+    Number(right.awardedAtMs || right.createdAtMs || 0) - Number(left.awardedAtMs || left.createdAtMs || 0)
+  );
+}
+
+export async function requestServerAchievementAward(expectedUserId = "") {
+  // This intentionally does not accept achievement ids, award keys, card data, or
+  // metadata from the browser. The Edge Function decides what can be awarded from
+  // trusted persisted account data and writes with the service role server-side.
   if (!supabase) {
     return {
       awarded: [],
@@ -200,14 +216,7 @@ export async function checkServerAchievements(expectedUserId = "") {
 
   return {
     awarded: normalizeAchievementList(data?.awarded),
-    alreadyEarned: normalizeAchievementList(data?.alreadyEarned),
-    skipped: Array.isArray(data?.skipped) ? data.skipped : [],
+    alreadyEarned: [],
+    skipped: [],
   };
-}
-
-export async function requestServerAchievementAward(expectedUserId = "") {
-  // This intentionally does not accept achievement ids, award keys, card data, or
-  // metadata from the browser. The Edge Function decides what can be awarded from
-  // trusted persisted account data and writes with the service role server-side.
-  return checkServerAchievements(expectedUserId);
 }

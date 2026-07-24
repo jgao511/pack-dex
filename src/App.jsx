@@ -2319,15 +2319,17 @@ function App() {
 
     let isMounted = true;
 
-    function refreshValidatedAuth() {
+    function refreshValidatedAuth({ showLoading = true } = {}) {
       if (authRefreshPromiseRef.current) return authRefreshPromiseRef.current;
 
       const validationAttempt = ++authValidationAttemptRef.current;
-      setIsAuthLoading(true);
+      if (showLoading) setIsAuthLoading(true);
       clearCachedSupabaseUser(supabase);
-      setIsWelcomeRewardModalOpen(false);
-      setWelcomeRewardStatus(null);
-      setWelcomeRewardError("");
+      if (showLoading) {
+        setIsWelcomeRewardModalOpen(false);
+        setWelcomeRewardStatus(null);
+        setWelcomeRewardError("");
+      }
 
       const promise = (async () => {
         try {
@@ -2347,7 +2349,9 @@ function App() {
           if (isMounted && validationAttempt === authValidationAttemptRef.current) setAuthSession(null);
           return null;
         } finally {
-          if (isMounted && validationAttempt === authValidationAttemptRef.current) setIsAuthLoading(false);
+          if (showLoading && isMounted && validationAttempt === authValidationAttemptRef.current) {
+            setIsAuthLoading(false);
+          }
         }
       })().finally(() => {
         authRefreshPromiseRef.current = null;
@@ -2359,7 +2363,7 @@ function App() {
 
     function refreshIfActive() {
       if (!isMounted || document.visibilityState === "hidden") return;
-      refreshValidatedAuth();
+      refreshValidatedAuth({ showLoading: false });
     }
 
     refreshValidatedAuth();

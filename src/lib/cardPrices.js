@@ -145,46 +145,6 @@ export function loadCardPricesForSet(supabaseOrSetId, maybeSetId) {
   return promise;
 }
 
-export async function loadAllCardPrices(supabaseClient = defaultSupabase) {
-  if (!supabaseClient) return { priceMapsBySet: {}, setTotalsBySet: {}, rows: [] };
-
-  const rows = [];
-  const pageSize = 1000;
-  let from = 0;
-
-  while (true) {
-    const { data, error } = await supabaseClient
-      .from("card_prices")
-      .select(PRICE_SELECT_COLUMNS)
-      .range(from, from + pageSize - 1);
-
-    if (error) {
-      console.error("[PackDex prices] all card_prices query failed", { from, to: from + pageSize - 1, error });
-      throw error;
-    }
-
-    rows.push(...(data || []));
-
-    if (!data || data.length < pageSize) break;
-    from += pageSize;
-  }
-
-  const rowsBySet = {};
-  rows.forEach((row) => {
-    if (!row.set_id) return;
-    rowsBySet[row.set_id] = [...(rowsBySet[row.set_id] || []), row];
-  });
-
-  const priceMapsBySet = Object.fromEntries(
-    Object.entries(rowsBySet).map(([setId, setRows]) => [setId, indexPriceRows(setRows)])
-  );
-  const setTotalsBySet = Object.fromEntries(
-    Object.entries(priceMapsBySet).map(([setId, priceMap]) => [setId, getPriceMapEstimatedValue(priceMap)])
-  );
-
-  return { priceMapsBySet, setTotalsBySet, rows };
-}
-
 function getCollectionPriceKeys(collectionCards = []) {
   const cardIds = new Set();
   const keysBySet = new Map();

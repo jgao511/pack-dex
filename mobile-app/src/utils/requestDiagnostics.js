@@ -6,7 +6,3 @@ export function countDevRequest(name) {
   counters.set(name, next);
   console.info(`[PackDex request count] ${name}: ${next}`);
 }
-
-export function getDevRequestCounts() {
-  return Object.fromEntries(counters);
-}

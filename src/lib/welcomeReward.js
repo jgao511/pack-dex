@@ -8,7 +8,6 @@ const rewardStatusPromisesByUserId = new Map();
 function isEligibleUser(user) {
   return Boolean(user?.id);
 }
-
 function logWelcomeRewardDebug(stage, { error, user, rowMissing, isEligible } = {}) {
   console.warn("Welcome reward debug", {
     stage,
@@ -99,8 +98,4 @@ export async function loadWelcomeRewardStatus(userOverride, { force = false } = 
 
   rewardStatusPromisesByUserId.set(userId, promise);
   return promise;
-}
-
-export async function claimWelcomeReward(setId, userOverride) {
-  throw new Error("Welcome rewards must be claimed through the secure backend function.");
 }

@@ -7,6 +7,7 @@ import {
   isSupabaseAuthStorageKey,
   validateSupabaseIdentity,
 } from "../src/lib/authIdentityValidation.js";
+import { getCachedSupabaseUser } from "../src/lib/sessionUserCache.js";
 
 function makeStorage(entries = {}) {
   const values = new Map(Object.entries(entries));
@@ -52,6 +53,7 @@ test("a server-validated existing user remains authenticated", async () => {
   assert.equal(result.status, "authenticated");
   assert.equal(result.user, user);
   assert.equal(result.session.user, user);
+  assert.equal(await getCachedSupabaseUser(client), user);
   assert.deepEqual(client.calls, ["getUser"]);
 });
 

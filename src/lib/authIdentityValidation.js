@@ -1,4 +1,4 @@
-import { clearCachedSupabaseUser } from "./sessionUserCache.js";
+import { clearCachedSupabaseUser, getCachedSupabaseUser } from "./sessionUserCache.js";
 
 const REJECTED_AUTH_CODES = new Set([
   "auth_session_missing",
@@ -74,10 +74,7 @@ export async function validateSupabaseIdentity(client, session, { storage = getD
 
   clearCachedSupabaseUser(client);
   try {
-    const { data, error } = await client.auth.getUser();
-    if (error) throw error;
-
-    const user = data?.user || null;
+    const user = await getCachedSupabaseUser(client, { force: true });
     if (!user?.id || (session.user?.id && session.user.id !== user.id)) {
       const missingUserError = Object.assign(new Error("Authenticated user was not found."), {
         code: "user_not_found",

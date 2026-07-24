@@ -85,7 +85,7 @@ Deno.serve(async (req) => {
     const awardKeys = candidates.map((item) => item.award_key);
     const { data: existingRows, error: existingError } = await admin
       .from("user_achievements")
-      .select("id,user_id,achievement_id,scope_type,scope_key,award_key,metadata,source,awarded_at,created_at,updated_at")
+      .select("award_key")
       .eq("user_id", user.id)
       .in("award_key", awardKeys);
     if (existingError) throw existingError;
@@ -106,15 +106,7 @@ Deno.serve(async (req) => {
       awarded = data || [];
     }
 
-    return jsonResponse({
-      awarded,
-      alreadyEarned: existingRows || [],
-      skipped: [
-        { category: "value", reason: "deferred_to_price_reconciliation" },
-        { category: "set_mastery", reason: "deferred_to_collection_reconciliation" },
-        { category: "rare_pulls", reason: "requires_trusted_catalog_reconciliation" },
-      ],
-    });
+    return jsonResponse({ awarded });
   } catch (error) {
     const formattedError = formatErrorForResponse(error);
     console.error("check-achievements failed", { step: debugStep, error: formattedError });

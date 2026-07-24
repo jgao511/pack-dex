@@ -10,7 +10,6 @@ const EMPTY_PROFILE_STATS = {
 export function emptyProfileStats() {
   return { ...EMPTY_PROFILE_STATS };
 }
-
 function fromCloudStats(row) {
   if (!row) return emptyProfileStats();
 
@@ -41,31 +40,4 @@ export async function loadCloudProfileStats(userId, { totalCardsPulled = null } 
       ? Number(totalCardsPulled)
       : Number(storedStats.totalCardsPulled || 0),
   };
-}
-
-export async function loadStoredCloudProfileStats(userId) {
-  if (!supabase || !userId) return emptyProfileStats();
-
-  const { data, error } = await supabase
-    .from(USER_PROFILE_STATS_TABLE)
-    .select("packs_opened,total_cards_pulled")
-    .eq("user_id", userId)
-    .maybeSingle();
-
-  if (error) {
-    console.warn("Unable to load mobile stored cloud profile stats", { userId, error });
-    throw error;
-  }
-
-  return fromCloudStats(data);
-}
-
-export async function incrementCloudProfileStats(userId, { packsOpened = 0, totalCardsPulled = 0 } = {}) {
-  console.warn("Browser profile stat increments are disabled; use recordPackOpenEvent instead.", {
-    userId,
-    packsOpened,
-    totalCardsPulled,
-  });
-
-  return loadCloudProfileStats(userId);
 }

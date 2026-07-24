@@ -37,6 +37,7 @@ import SharePullButton from "./components/SharePullButton.jsx";
 import {
   loadCurrentUserAchievementProgress,
   loadCurrentUserAchievements,
+  mergeUserAchievementRows,
   requestServerAchievementAward,
 } from "../../src/lib/userAchievements.js";
 import { getSiteOrigin } from "../../src/utils/authRedirects.js";
@@ -3035,6 +3036,22 @@ function MobileApp() {
     }
   }
 
+  function mergeAwardedAchievements(currentUser, awardedRows = []) {
+    if (!currentUser?.id || awardedRows.length === 0) return;
+
+    const hasCompleteCache =
+      lastAchievementsLoadedUserIdRef.current === currentUser.id &&
+      achievementCacheByUserIdRef.current.has(currentUser.id);
+    if (!hasCompleteCache) return;
+
+    const mergedAchievements = mergeUserAchievementRows(
+      achievementCacheByUserIdRef.current.get(currentUser.id),
+      awardedRows
+    );
+    achievementCacheByUserIdRef.current.set(currentUser.id, mergedAchievements);
+    setAchievements(mergedAchievements);
+  }
+
   async function runPostPackAchievementFlow({ currentUser = user, set, cards, openedAt = "", recordPackEvent = true } = {}) {
     if (!currentUser?.id || !set?.id || !cards?.length) return null;
 
@@ -3049,11 +3066,9 @@ function MobileApp() {
 
     if (result?.stats) setStats(result.stats);
 
-    achievementCacheByUserIdRef.current.delete(currentUser.id);
-    lastAchievementsLoadedUserIdRef.current = "";
     const achievementResult = await requestServerAchievementAward(currentUser.id);
     enqueueAchievementUnlocks(achievementResult?.awarded);
-    await loadUserAchievements(currentUser);
+    mergeAwardedAchievements(currentUser, achievementResult?.awarded);
 
     return { packEvent: result, achievements: achievementResult };
   }
@@ -3601,7 +3616,7 @@ function MobileApp() {
           const achievementResult = await requestServerAchievementAward(user.id);
           if (!active) return;
           enqueueAchievementUnlocks(achievementResult?.awarded);
-          await loadUserAchievements(user);
+          mergeAwardedAchievements(user, achievementResult?.awarded);
         } catch (error) {
           console.warn("Unable to refresh achievements after pending pull sync", {
             userId: user.id,
