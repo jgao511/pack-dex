@@ -223,7 +223,7 @@ begin
       insert into public.user_collection as target(user_id, set_id, card_id, quantity)
       select v_user_id, new_card.grouped_set_id, new_card.grouped_card_id, new_card.grouped_quantity
       from new_cards as new_card
-      on conflict (user_id, set_id, card_id) do update
+      on conflict on constraint user_collection_user_id_set_id_card_id_key do update
         set quantity = target.quantity + excluded.quantity,
             updated_at = now()
       returning target.set_id, target.card_id, target.quantity
