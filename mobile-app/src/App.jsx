@@ -14,7 +14,9 @@ import {
   getCardCount,
   getPullableCollectionCards,
   getSetCollectionProgress,
+  loadCollection,
   markCardsCollected,
+  saveCollection,
 } from "../../src/utils/collectionStorage.js";
 import { createBinder, createMasterSetBinder, loadBinders, saveBinders } from "../../src/utils/binderStorage.js";
 import { getFoilProfile } from "../../src/utils/foil.js";
@@ -24,8 +26,9 @@ import { ensurePackOpenClientEventId, recordPackOpenEvent } from "../../src/lib/
 import { cacheWelcomeRewardStatus, loadWelcomeRewardStatus } from "../../src/lib/welcomeReward.js";
 import {
   loadCloudCollection,
-  savePulledCardsToCloud,
   enqueuePendingCloudPull,
+  getPendingCloudPullCount,
+  getPendingCloudPulls,
   mergePendingCloudPullsIntoCollection,
   syncPendingCloudPulls,
 } from "./lib/cloudCollection.js";
@@ -2563,7 +2566,7 @@ function MobileApp() {
   const [wishlistError, setWishlistError] = useState("");
   const [wishlistPendingKeys, setWishlistPendingKeys] = useState(() => new Set());
   const [wishlistMessage, setWishlistMessage] = useState(null);
-  const [collection, setCollection] = useState({});
+  const [collection, setCollection] = useState(loadCollection);
   const [binders, setBinders] = useState([]);
   const [user, setUser] = useState(null);
   const [authValidationState, setAuthValidationState] = useState(isSupabaseConfigured ? "validating" : "guest");
@@ -2893,7 +2896,7 @@ function MobileApp() {
     clearCachedSupabaseUser(supabase);
     accountLoadedAtRef.current.clear();
     setUser(null);
-    setCollection({});
+    setCollection(loadCollection());
     setStats(EMPTY_STATS);
     setBinders([]);
     setSelectedCollectionSetId("");
@@ -3070,14 +3073,88 @@ function MobileApp() {
     }
     lastAccountScopedUserIdRef.current = currentUser.id;
 
-    await syncPendingCloudPulls(currentUser.id);
-    const cloudCollection = await loadCloudCollection();
-    const mergedCollection = mergePendingCloudPullsIntoCollection(cloudCollection, currentUser.id);
+    const localPendingCollection = mergePendingCloudPullsIntoCollection({}, currentUser.id);
+    setUser(currentUser);
+    setCollection(localPendingCollection);
+
+    let pendingSyncResult = null;
+    try {
+      pendingSyncResult = await syncPendingCloudPulls(currentUser.id);
+    } catch (error) {
+      console.warn("Pending mobile collection pulls remain queued for retry", {
+        userId: currentUser.id,
+        error,
+      });
+    }
+
+    let mergedCollection = localPendingCollection;
+    try {
+      const cloudCollection = await loadCloudCollection();
+      mergedCollection = mergePendingCloudPullsIntoCollection(cloudCollection, currentUser.id);
+    } catch (error) {
+      console.warn("Unable to load mobile cloud collection; showing durable pending pulls", {
+        userId: currentUser.id,
+        error,
+      });
+    }
+
     const mergedCardCount = Object.values(mergedCollection).reduce(
       (total, setCollection) => total + Object.values(setCollection || {}).reduce((setTotal, entry) => setTotal + Number(entry?.count || 0), 0),
       0
     );
-    const cloudStats = await loadCloudProfileStats(currentUser.id, { totalCardsPulled: mergedCardCount });
+    const pendingPulls = getPendingCloudPulls(currentUser.id);
+    const legacyPendingPackCount = pendingPulls.filter(
+      (pull) =>
+        pull?.expectedPacksOpened === null ||
+        pull?.expectedPacksOpened === undefined ||
+        !Number.isFinite(Number(pull.expectedPacksOpened))
+    ).length;
+    const expectedPendingPackCount = pendingPulls.reduce(
+      (maximum, pull) =>
+        pull?.expectedPacksOpened !== null &&
+        pull?.expectedPacksOpened !== undefined &&
+        Number.isFinite(Number(pull.expectedPacksOpened))
+          ? Math.max(maximum, Number(pull.expectedPacksOpened))
+          : maximum,
+      0
+    );
+    let cloudStats = {
+      packsOpened: Math.max(
+        Number(pendingSyncResult?.stats?.packsOpened || 0),
+        expectedPendingPackCount,
+        legacyPendingPackCount
+      ),
+      totalCardsPulled: mergedCardCount,
+    };
+    try {
+      const storedStats = await loadCloudProfileStats(currentUser.id, { totalCardsPulled: mergedCardCount });
+      cloudStats = {
+        ...storedStats,
+        packsOpened: Math.max(
+          Number(storedStats?.packsOpened || 0) + legacyPendingPackCount,
+          expectedPendingPackCount,
+          Number(pendingSyncResult?.stats?.packsOpened || 0)
+        ),
+      };
+    } catch (error) {
+      console.warn("Unable to load mobile cloud stats; using durable local totals", {
+        userId: currentUser.id,
+        error,
+      });
+    }
+
+    if (pendingSyncResult?.saved > 0) {
+      try {
+        const achievementResult = await requestServerAchievementAward(currentUser.id);
+        enqueueAchievementUnlocks(achievementResult?.awarded);
+      } catch (error) {
+        console.warn("Unable to refresh achievements after pending pull recovery", {
+          userId: currentUser.id,
+          error,
+        });
+      }
+    }
+
     const cachedAchievements = achievementCacheByUserIdRef.current.get(currentUser.id);
     const shouldLoadAchievements = lastAchievementsLoadedUserIdRef.current !== currentUser.id || !cachedAchievements;
 
@@ -3497,6 +3574,79 @@ function MobileApp() {
   }, []);
 
   useEffect(() => {
+    if (!user?.id || authValidationState !== "authenticated") return undefined;
+
+    let active = true;
+    let nativeAppStateListener = null;
+
+    async function retryPendingPulls() {
+      if (!active || getPendingCloudPullCount(user.id) === 0) return;
+
+      try {
+        const syncResult = await syncPendingCloudPulls(user.id);
+        if (!active || syncResult.saved === 0) return;
+
+        if (syncResult.stats) setStats(syncResult.stats);
+
+        try {
+          const refreshedCollection = await loadCloudCollection();
+          if (active) {
+            setCollection(mergePendingCloudPullsIntoCollection(refreshedCollection, user.id));
+          }
+        } catch (error) {
+          console.warn("Unable to refresh mobile collection after pending pull sync", error);
+        }
+
+        try {
+          const achievementResult = await requestServerAchievementAward(user.id);
+          if (!active) return;
+          enqueueAchievementUnlocks(achievementResult?.awarded);
+          await loadUserAchievements(user);
+        } catch (error) {
+          console.warn("Unable to refresh achievements after pending pull sync", {
+            userId: user.id,
+            error,
+          });
+        }
+      } catch (error) {
+        console.warn("Pending mobile collection retry will remain queued", {
+          userId: user.id,
+          error,
+        });
+      }
+    }
+
+    function retryIfVisible() {
+      if (document.visibilityState !== "hidden") retryPendingPulls();
+    }
+
+    window.addEventListener("online", retryPendingPulls);
+    window.addEventListener("focus", retryIfVisible);
+    document.addEventListener("visibilitychange", retryIfVisible);
+
+    import("@capacitor/app")
+      .then(({ App }) => App.addListener("appStateChange", ({ isActive }) => {
+        if (isActive) retryPendingPulls();
+      }))
+      .then((listener) => {
+        if (!active) {
+          listener.remove();
+          return;
+        }
+        nativeAppStateListener = listener;
+      })
+      .catch(() => {});
+
+    return () => {
+      active = false;
+      window.removeEventListener("online", retryPendingPulls);
+      window.removeEventListener("focus", retryIfVisible);
+      document.removeEventListener("visibilitychange", retryIfVisible);
+      nativeAppStateListener?.remove();
+    };
+  }, [authValidationState, user?.id]);
+
+  useEffect(() => {
     if (packStage !== "revealing" || pack.length === 0) return undefined;
 
     clearRevealTimers();
@@ -3556,6 +3706,7 @@ function MobileApp() {
   }, [pack, packStage, selectedSet]);
 
   function persistSessionCollection(nextCollection) {
+    if (!user) saveCollection(nextCollection);
     setCollection(nextCollection);
   }
 
@@ -3630,34 +3781,43 @@ function MobileApp() {
 
     setNewPullKeys(nextNewPullKeys);
     persistSessionCollection(nextCollection);
+    setStats(nextStats);
 
     if (user) {
       const clientEventId = ensurePackOpenClientEventId(cards, set.id);
+      enqueuePendingCloudPull(cards, set.id, user.id, clientEventId, {
+        createdAt: timestamp,
+        expectedPacksOpened: nextStats.packsOpened,
+      });
+
+      let syncResult = null;
       try {
-        await savePulledCardsToCloud(cards, set.id, { userId: user.id, clientEventId });
+        syncResult = await syncPendingCloudPulls(user.id);
       } catch (error) {
-        console.warn("Mobile PackDex cloud save failed; keeping local fallback", {
+        console.warn("Mobile PackDex cloud save failed; durable pull remains queued", {
           setId: set.id,
           cardCount: cards.length,
           error,
         });
-        enqueuePendingCloudPull(cards, set.id, user.id, clientEventId);
-        setStats(nextStats);
         return;
       }
 
+      setStats(syncResult?.stats || nextStats);
+
       try {
-        await runPostPackAchievementFlow({ currentUser: user, set, cards });
+        await runPostPackAchievementFlow({
+          currentUser: user,
+          set,
+          cards,
+          recordPackEvent: false,
+        });
       } catch (error) {
-        console.warn("Mobile PackDex pack-open event failed; keeping local stats fallback", {
+        console.warn("Mobile PackDex achievement refresh failed after durable pack sync", {
           setId: set.id,
           cardCount: cards.length,
           error,
         });
-        setStats(nextStats);
       }
-    } else {
-      setStats(nextStats);
     }
   }
 

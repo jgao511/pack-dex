@@ -1,6 +1,6 @@
 import { isActualEnergyCard } from "./packGenerator.js";
 
-const COLLECTION_STORAGE_KEY = "pokemon-pack-simulator-collection";
+export const COLLECTION_STORAGE_KEY = "pokemon-pack-simulator-collection";
 
 function normalizeText(value) {
   return String(value || "").toLowerCase().trim();
@@ -28,16 +28,22 @@ export function getCardCollectionKey(card, setId) {
   return `${setId}-${card?.number || "unknown"}-${card?.name || "card"}`;
 }
 
-export function loadCollection() {
-  if (typeof window === "undefined") return {};
-
-  return safeParseCollection(window.localStorage.getItem(COLLECTION_STORAGE_KEY));
+function getDefaultStorage() {
+  return typeof window === "undefined" ? null : window.localStorage;
 }
 
-export function saveCollection(collection) {
-  if (typeof window === "undefined") return;
+export function loadCollection(storage = getDefaultStorage()) {
+  if (!storage) return {};
 
-  window.localStorage.setItem(COLLECTION_STORAGE_KEY, JSON.stringify(collection));
+  return safeParseCollection(storage.getItem(COLLECTION_STORAGE_KEY));
+}
+
+export function saveCollection(collection, storage = getDefaultStorage()) {
+  if (!storage) return collection || {};
+
+  const persistedCollection = collection || {};
+  storage.setItem(COLLECTION_STORAGE_KEY, JSON.stringify(persistedCollection));
+  return persistedCollection;
 }
 
 export function markCardCollected(collection, card, setId, timestamp = Date.now()) {

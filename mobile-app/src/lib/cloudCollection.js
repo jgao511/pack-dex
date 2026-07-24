@@ -5,8 +5,11 @@ import { countDevRequest } from "../utils/requestDiagnostics.js";
 import { getCachedSupabaseUser } from "../../../src/lib/sessionUserCache.js";
 
 const USER_COLLECTION_TABLE = "user_collection";
-const PENDING_CLOUD_PULLS_KEY = "packdex-mobile-pending-cloud-pulls";
-let pendingSyncPromise = null;
+export const PENDING_CLOUD_PULLS_KEY = "packdex-mobile-pending-cloud-pulls";
+const MAX_BATCHES_PER_REQUEST = 50;
+const MAX_CARD_ROWS_PER_REQUEST = 500;
+const CLOUD_SYNC_REQUEST_TIMEOUT_MS = 15_000;
+const pendingSyncPromisesByUserId = new Map();
 
 function findSet(setId) {
   return sets.find((set) => set.id === setId);
@@ -29,6 +32,16 @@ function assertValidSetId(setId, context = "mobile cloud collection save") {
   return setId.trim();
 }
 
+function assertStableClientEventId(clientEventId) {
+  const eventId = typeof clientEventId === "string" ? clientEventId.trim() : "";
+
+  if (!eventId) {
+    throw new TypeError("PackDex cloud pull save requires a stable client event id.");
+  }
+
+  return eventId;
+}
+
 function safeParsePendingPulls(value) {
   if (!value) return [];
 
@@ -41,16 +54,34 @@ function safeParsePendingPulls(value) {
   }
 }
 
-function loadPendingCloudPulls() {
-  if (typeof window === "undefined") return [];
-
-  return safeParsePendingPulls(window.localStorage.getItem(PENDING_CLOUD_PULLS_KEY));
+function getDefaultStorage() {
+  return typeof window === "undefined" ? null : window.localStorage;
 }
 
-function savePendingCloudPulls(pulls) {
-  if (typeof window === "undefined") return;
+function loadPendingCloudPulls(storage = getDefaultStorage()) {
+  if (!storage) return [];
 
-  window.localStorage.setItem(PENDING_CLOUD_PULLS_KEY, JSON.stringify(pulls));
+  return safeParsePendingPulls(storage.getItem(PENDING_CLOUD_PULLS_KEY));
+}
+
+function savePendingCloudPulls(pulls, storage = getDefaultStorage()) {
+  if (!storage) return;
+
+  storage.setItem(PENDING_CLOUD_PULLS_KEY, JSON.stringify(pulls));
+}
+
+export function getPendingCloudPulls(userId, storage = getDefaultStorage()) {
+  const normalizedUserId = String(userId || "");
+
+  if (!normalizedUserId) return [];
+
+  return loadPendingCloudPulls(storage).filter(
+    (pull) => String(pull?.userId || "") === normalizedUserId
+  );
+}
+
+export function getPendingCloudPullCount(userId, storage = getDefaultStorage()) {
+  return getPendingCloudPulls(userId, storage).length;
 }
 
 function compactPendingCard(card) {
@@ -99,10 +130,10 @@ function mergeCollectionCounts(baseCollection, overlayCollection) {
   return merged;
 }
 
-export async function getCurrentUser() {
-  if (!supabase) return null;
+export async function getCurrentUser(client = supabase) {
+  if (!client) return null;
   try {
-    return await getCachedSupabaseUser(supabase);
+    return await getCachedSupabaseUser(client);
   } catch (error) {
     console.warn("Unable to read mobile Supabase user", error);
     return null;
@@ -136,34 +167,72 @@ function compactCardRow(card, setId, quantity = 1) {
   };
 }
 
-export function enqueuePendingCloudPull(cards, setId, userId, clientEventId = "") {
+export function enqueuePendingCloudPull(
+  cards,
+  setId,
+  userId,
+  clientEventId,
+  {
+    storage = getDefaultStorage(),
+    createdAt = Date.now(),
+    expectedPacksOpened = null,
+  } = {}
+) {
   const validSetId = assertValidSetId(setId, "pending cloud pull queue");
+  const normalizedUserId = String(userId || "");
+  const eventId = assertStableClientEventId(clientEventId);
 
-  if (!userId || !Array.isArray(cards) || cards.length === 0) {
+  if (!normalizedUserId || !Array.isArray(cards) || cards.length === 0) {
     return [];
   }
 
-  const pendingPulls = loadPendingCloudPulls();
-  const nextPendingPulls = [
-    ...pendingPulls,
-    {
-      id: clientEventId || `${userId}:${validSetId}:${Date.now()}:${Math.random().toString(36).slice(2)}`,
-      userId,
-      setId: validSetId,
-      cards: cards.map(compactPendingCard),
-      createdAt: Date.now(),
-    },
-  ];
+  const pendingPulls = loadPendingCloudPulls(storage);
+  const alreadyQueued = pendingPulls.some(
+    (pull) =>
+      String(pull?.userId || "") === normalizedUserId &&
+      String(pull?.id || "") === eventId
+  );
+  const nextPendingPulls = alreadyQueued
+    ? pendingPulls
+    : [
+        ...pendingPulls,
+        {
+          id: eventId,
+          userId: normalizedUserId,
+          setId: validSetId,
+          cards: cards.map(compactPendingCard),
+          createdAt,
+          expectedPacksOpened:
+            expectedPacksOpened !== null &&
+            expectedPacksOpened !== "" &&
+            Number.isFinite(Number(expectedPacksOpened))
+            ? Number(expectedPacksOpened)
+            : null,
+          collectionConfirmedAt: null,
+          packEventConfirmedAt: null,
+        },
+      ];
 
-  savePendingCloudPulls(nextPendingPulls);
-  return nextPendingPulls.filter((pull) => pull.userId === userId);
+  if (!alreadyQueued) savePendingCloudPulls(nextPendingPulls, storage);
+  return nextPendingPulls.filter(
+    (pull) => String(pull?.userId || "") === normalizedUserId
+  );
 }
 
-export function mergePendingCloudPullsIntoCollection(collection, userId) {
+export function mergePendingCloudPullsIntoCollection(
+  collection,
+  userId,
+  storage = getDefaultStorage()
+) {
   if (!userId) return collection || {};
 
-  const pendingCollection = loadPendingCloudPulls()
-    .filter((pull) => pull.userId === userId && typeof pull.setId === "string" && Array.isArray(pull.cards))
+  const pendingCollection = getPendingCloudPulls(userId, storage)
+    .filter(
+      (pull) =>
+        !pull.collectionConfirmedAt &&
+        typeof pull.setId === "string" &&
+        Array.isArray(pull.cards)
+    )
     .reduce((nextCollection, pull) => {
       const set = findSet(pull.setId);
 
@@ -175,49 +244,15 @@ export function mergePendingCloudPullsIntoCollection(collection, userId) {
         return nextCollection;
       }
 
-      return markCardsCollected(nextCollection, pull.cards, pull.setId, pull.createdAt || Date.now());
+      return markCardsCollected(
+        nextCollection,
+        pull.cards,
+        pull.setId,
+        pull.createdAt || Date.now()
+      );
     }, {});
 
   return mergeCollectionCounts(collection, pendingCollection);
-}
-
-async function performPendingCloudPullSync(userId) {
-  if (!userId) return { attempted: 0, saved: 0, failed: 0 };
-
-  const pendingPulls = loadPendingCloudPulls();
-  const pullsForOtherUsers = pendingPulls.filter((pull) => pull.userId !== userId);
-  const pullsForUser = pendingPulls.filter((pull) => pull.userId === userId);
-  if (pullsForUser.length === 0) return { attempted: 0, saved: 0, failed: 0 };
-
-  const batches = pullsForUser.map((pull) => makeCollectionBatch(pull.cards, pull.setId, pull.id));
-  const { data, error } = await supabase.rpc("increment_collection_cards", { batches });
-
-  if (error) throw error;
-
-  const confirmedIds = new Set((data || []).map((row) => String(row.client_event_id || "")));
-  const failedPulls = pullsForUser.filter((pull) => !confirmedIds.has(String(pull.id)));
-  savePendingCloudPulls([...pullsForOtherUsers, ...failedPulls]);
-
-  return {
-    attempted: pullsForUser.length,
-    saved: pullsForUser.length - failedPulls.length,
-    failed: failedPulls.length,
-  };
-}
-
-export function syncPendingCloudPulls(userId) {
-  if (!userId) return Promise.resolve({ attempted: 0, saved: 0, failed: 0 });
-  if (pendingSyncPromise) return pendingSyncPromise;
-
-  pendingSyncPromise = performPendingCloudPullSync(userId)
-    .catch((error) => {
-      console.warn("Pending PackDex mobile cloud pull sync failed", { userId, error });
-      throw error;
-    })
-    .finally(() => {
-      pendingSyncPromise = null;
-    });
-  return pendingSyncPromise;
 }
 
 function makeCollectionBatch(cards, setId, clientEventId) {
@@ -232,10 +267,7 @@ function makeCollectionBatch(cards, setId, clientEventId) {
     throw new Error(`Unknown PackDex set id: ${validSetId}`);
   }
 
-  if (!clientEventId || typeof clientEventId !== "string") {
-    throw new TypeError("PackDex cloud pull save requires a stable client event id.");
-  }
-
+  const eventId = assertStableClientEventId(clientEventId);
   const grouped = new Map();
 
   for (const card of cards) {
@@ -248,21 +280,262 @@ function makeCollectionBatch(cards, setId, clientEventId) {
     });
   }
 
-  return { client_event_id: clientEventId, cards: [...grouped.values()] };
+  return { client_event_id: eventId, cards: [...grouped.values()] };
 }
 
-export async function savePulledCardsToCloud(cards, setId, { userId = "", clientEventId = "" } = {}) {
-  if (!supabase || !userId || !Array.isArray(cards) || cards.length === 0) return [];
+function makeRequestChunks(pulls) {
+  const chunks = [];
+  let currentChunk = [];
+  let currentCardRows = 0;
 
-  const batch = makeCollectionBatch(cards, setId, clientEventId);
-  const { data, error } = await supabase.rpc("increment_collection_cards", { batches: [batch] });
+  pulls.forEach((pull) => {
+    const batch = makeCollectionBatch(pull.cards, pull.setId, pull.id);
+    const wouldOverflow =
+      currentChunk.length >= MAX_BATCHES_PER_REQUEST ||
+      currentCardRows + batch.cards.length > MAX_CARD_ROWS_PER_REQUEST;
 
-  if (error) {
-    console.warn("Unable to increment mobile cloud cards", { setId, cardCount: cards.length, error });
-    throw error;
+    if (wouldOverflow && currentChunk.length > 0) {
+      chunks.push(currentChunk);
+      currentChunk = [];
+      currentCardRows = 0;
+    }
+
+    currentChunk.push(batch);
+    currentCardRows += batch.cards.length;
+  });
+
+  if (currentChunk.length > 0) chunks.push(currentChunk);
+  return chunks;
+}
+
+function updatePendingPullsForUser(userId, update, storage) {
+  const normalizedUserId = String(userId || "");
+  const current = loadPendingCloudPulls(storage);
+  const next = current.map((pull) =>
+    String(pull?.userId || "") === normalizedUserId ? update(pull) : pull
+  );
+  savePendingCloudPulls(next, storage);
+  return next;
+}
+
+function markCollectionConfirmed(userId, confirmedIds, storage) {
+  const confirmedAt = Date.now();
+
+  updatePendingPullsForUser(
+    userId,
+    (pull) =>
+      confirmedIds.has(String(pull?.id || ""))
+        ? { ...pull, collectionConfirmedAt: pull.collectionConfirmedAt || confirmedAt }
+        : pull,
+    storage
+  );
+}
+
+function markPackEventConfirmed(userId, eventId, storage) {
+  const confirmedAt = Date.now();
+
+  updatePendingPullsForUser(
+    userId,
+    (pull) =>
+      String(pull?.id || "") === String(eventId)
+        ? { ...pull, packEventConfirmedAt: pull.packEventConfirmedAt || confirmedAt }
+        : pull,
+    storage
+  );
+}
+
+function removeFullyConfirmedPulls(userId, storage) {
+  const normalizedUserId = String(userId || "");
+  const current = loadPendingCloudPulls(storage);
+  const removed = current.filter(
+    (pull) =>
+      String(pull?.userId || "") === normalizedUserId &&
+      pull.collectionConfirmedAt &&
+      pull.packEventConfirmedAt
+  );
+  const remaining = current.filter(
+    (pull) =>
+      String(pull?.userId || "") !== normalizedUserId ||
+      !pull.collectionConfirmedAt ||
+      !pull.packEventConfirmedAt
+  );
+
+  if (removed.length > 0) savePendingCloudPulls(remaining, storage);
+  return removed;
+}
+
+async function assertCurrentSyncUser(userId, client, validateUser) {
+  if (!validateUser) return;
+
+  const currentUser = await getCurrentUser(client);
+
+  if (String(currentUser?.id || "") !== String(userId || "")) {
+    throw new Error("PackDex pending pull sync stopped because the signed-in user changed.");
+  }
+}
+
+function normalizePackEventStats(data) {
+  const row = Array.isArray(data) ? data[0] : data;
+
+  if (!row) return null;
+
+  return {
+    packsOpened: Number(row.packsOpened || row.packs_opened || 0),
+    totalCardsPulled: Number(row.totalCardsPulled || row.total_cards_pulled || 0),
+  };
+}
+
+async function callRpcWithTimeout(client, name, payload, timeoutMs) {
+  if (!timeoutMs) return client.rpc(name, payload);
+
+  let timeoutId = null;
+  const timeout = new Promise((_, reject) => {
+    timeoutId = setTimeout(() => {
+      reject(new Error(`PackDex ${name} request timed out; the pull remains queued.`));
+    }, timeoutMs);
+  });
+
+  try {
+    return await Promise.race([client.rpc(name, payload), timeout]);
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
+async function performPendingCloudPullSync(
+  userId,
+  {
+    client = supabase,
+    storage = getDefaultStorage(),
+    validateUser = client === supabase,
+    requestTimeoutMs = CLOUD_SYNC_REQUEST_TIMEOUT_MS,
+  } = {}
+) {
+  const normalizedUserId = String(userId || "");
+
+  if (!normalizedUserId || !client || !storage) {
+    return { attempted: 0, saved: 0, failed: 0, stats: null };
   }
 
-  return data || [];
+  const initialPulls = getPendingCloudPulls(normalizedUserId, storage);
+  if (initialPulls.length === 0) {
+    return { attempted: 0, saved: 0, failed: 0, stats: null };
+  }
+
+  const unconfirmedCollectionPulls = initialPulls.filter(
+    (pull) => !pull.collectionConfirmedAt
+  );
+
+  for (const batches of makeRequestChunks(unconfirmedCollectionPulls)) {
+    await assertCurrentSyncUser(normalizedUserId, client, validateUser);
+    const { data, error } = await callRpcWithTimeout(
+      client,
+      "increment_collection_cards",
+      { batches },
+      requestTimeoutMs
+    );
+
+    if (error) throw error;
+
+    const confirmedIds = new Set(
+      (data || [])
+        .map((row) => String(row?.client_event_id || ""))
+        .filter(Boolean)
+    );
+
+    if (confirmedIds.size > 0) {
+      markCollectionConfirmed(normalizedUserId, confirmedIds, storage);
+    }
+  }
+
+  let latestStats = null;
+  const collectionConfirmedPulls = getPendingCloudPulls(normalizedUserId, storage).filter(
+    (pull) => pull.collectionConfirmedAt && !pull.packEventConfirmedAt
+  );
+
+  for (const pull of collectionConfirmedPulls) {
+    await assertCurrentSyncUser(normalizedUserId, client, validateUser);
+    const openedAt = Number.isFinite(Number(pull.createdAt))
+      ? new Date(Number(pull.createdAt)).toISOString()
+      : new Date().toISOString();
+    const { data, error } = await callRpcWithTimeout(
+      client,
+      "record_pack_open_event",
+      {
+        p_client_event_id: pull.id,
+        p_set_id: pull.setId,
+        p_opened_at: openedAt,
+      },
+      requestTimeoutMs
+    );
+
+    if (error) throw error;
+
+    latestStats = normalizePackEventStats(data) || latestStats;
+    markPackEventConfirmed(normalizedUserId, pull.id, storage);
+  }
+
+  const savedPulls = removeFullyConfirmedPulls(normalizedUserId, storage);
+  const failed = getPendingCloudPullCount(normalizedUserId, storage);
+
+  return {
+    attempted: initialPulls.length,
+    saved: savedPulls.length,
+    failed,
+    stats: latestStats,
+  };
+}
+
+export function syncPendingCloudPulls(userId, options = {}) {
+  const normalizedUserId = String(userId || "");
+
+  if (!normalizedUserId) {
+    return Promise.resolve({ attempted: 0, saved: 0, failed: 0, stats: null });
+  }
+
+  const existing = pendingSyncPromisesByUserId.get(normalizedUserId);
+  if (existing) return existing;
+
+  const promise = performPendingCloudPullSync(normalizedUserId, options)
+    .catch((error) => {
+      console.warn("Pending PackDex mobile cloud pull sync failed", {
+        userId: normalizedUserId,
+        error,
+      });
+      throw error;
+    })
+    .finally(() => {
+      if (pendingSyncPromisesByUserId.get(normalizedUserId) === promise) {
+        pendingSyncPromisesByUserId.delete(normalizedUserId);
+      }
+    });
+  pendingSyncPromisesByUserId.set(normalizedUserId, promise);
+  return promise;
+}
+
+export async function savePulledCardsToCloud(
+  cards,
+  setId,
+  {
+    userId = "",
+    clientEventId = "",
+    client = supabase,
+    storage = getDefaultStorage(),
+    validateUser = client === supabase,
+    requestTimeoutMs = CLOUD_SYNC_REQUEST_TIMEOUT_MS,
+  } = {}
+) {
+  if (!client || !userId || !Array.isArray(cards) || cards.length === 0) {
+    return { attempted: 0, saved: 0, failed: 0, stats: null };
+  }
+
+  enqueuePendingCloudPull(cards, setId, userId, clientEventId, { storage });
+  return syncPendingCloudPulls(userId, {
+    client,
+    storage,
+    validateUser,
+    requestTimeoutMs,
+  });
 }
 
 export function cloudRowsToCollection(rows) {
