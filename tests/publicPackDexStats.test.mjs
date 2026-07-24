@@ -119,7 +119,7 @@ test("migration exposes one aggregate RPC without anonymous table access", async
 
   assert.match(migration, /create table if not exists public\.packdex_public_stats/);
   assert.match(migration, /add column if not exists cards_added integer not null default 0/);
-  assert.match(migration, /on conflict \(user_id, client_event_id\) do nothing/);
+  assert.match(migration, /on conflict on constraint user_collection_increment_events_pkey do nothing/);
   assert.match(migration, /after insert on public\.user_collection_increment_events/);
   assert.match(migration, /after update of welcome_reward_cards_saved_at on public\.user_welcome_rewards/);
   assert.match(migration, /after insert on public\.user_pack_open_events/);

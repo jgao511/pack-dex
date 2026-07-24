@@ -197,7 +197,7 @@ begin
       cards_added
     )
     values (v_user_id, v_event_id, v_total_quantity)
-    on conflict (user_id, client_event_id) do nothing
+    on conflict on constraint user_collection_increment_events_pkey do nothing
     returning event_row.client_event_id into v_inserted_event_id;
 
     if v_inserted_event_id is null then
