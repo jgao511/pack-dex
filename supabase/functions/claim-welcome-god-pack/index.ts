@@ -1,14 +1,12 @@
-import { generateForcedGodPack } from "../../../src/utils/packGenerator.js";
+import { getAuthenticatedUser } from "../_shared/auth.ts";
+import { corsHeaders, formatErrorForResponse, jsonResponse } from "../_shared/http.ts";
 import {
-  compactPackCardForResponse,
-  corsHeaders,
-  findSet,
-  formatErrorForResponse,
-  getAuthenticatedUser,
-  incrementProfileStatsForUser,
-  jsonResponse,
-  upsertCardsForUser,
-} from "../_shared/packdex.ts";
+  compactWelcomeRewardCard,
+  findWelcomeRewardSet,
+  generateWelcomeRewardGodPack,
+  incrementWelcomeRewardStats,
+  upsertWelcomeRewardCards,
+} from "../_shared/welcomeRewardPackdex.ts";
 
 const WELCOME_REWARD_SET_IDS = new Set([
   "prismatic-evolutions",
@@ -54,7 +52,7 @@ Deno.serve(async (req) => {
     const setId = String(body?.set_id || body?.setId || "");
     const forcedFormat = body?.forcedFormat ? String(body.forcedFormat) : undefined;
     debugStep = "find_set";
-    const set = findSet(setId);
+    const set = findWelcomeRewardSet(setId);
 
     if (!set || !WELCOME_REWARD_SET_IDS.has(setId)) {
       return jsonResponse({ error: "Unknown welcome reward set." }, 400);
@@ -111,7 +109,7 @@ Deno.serve(async (req) => {
       Array.isArray(existingReward.welcome_reward_cards)
     ) {
       debugStep = "retry_save_claimed_reward";
-      const retrySet = findSet(String(existingReward.welcome_god_pack_set || ""));
+      const retrySet = findWelcomeRewardSet(String(existingReward.welcome_god_pack_set || ""));
 
       if (!retrySet) {
         return jsonResponse({ error: "Claimed welcome reward set is unavailable." }, 400);
@@ -121,12 +119,12 @@ Deno.serve(async (req) => {
       const retryClaimId = String(existingReward.welcome_reward_claim_id || existingReward.welcome_reward_claimed_at || "legacy-claim");
       const retryOpenedAt = String(existingReward.welcome_reward_claimed_at || new Date().toISOString());
 
-      await upsertCardsForUser(admin, user.id, retryCards, retrySet);
+      await upsertWelcomeRewardCards(admin, user.id, retryCards, retrySet);
       const savedAt = new Date().toISOString();
       debugStep = "record_retry_pack_open_event";
       await recordWelcomePackOpenEvent(admin, user.id, retrySet.id, retryClaimId, retryOpenedAt);
       debugStep = "save_retry_profile_stats";
-      const stats = await incrementProfileStatsForUser(admin, user.id, {
+      const stats = await incrementWelcomeRewardStats(admin, user.id, {
         packsOpened: 1,
         totalCardsPulled: retryCards.length,
       });
@@ -166,7 +164,7 @@ Deno.serve(async (req) => {
     }
 
     debugStep = "generate_pack";
-    const cards = generateForcedGodPack(set, set, forcedFormat);
+    const cards = generateWelcomeRewardGodPack(set, forcedFormat);
 
     if (!cards?.length || !cards.isGodPack) {
       return jsonResponse({ error: "This welcome reward pack is unavailable." }, 400);
@@ -174,7 +172,7 @@ Deno.serve(async (req) => {
 
     const claimedAt = new Date().toISOString();
     const claimId = crypto.randomUUID();
-    const responseCards = cards.map((card, index) => compactPackCardForResponse(card, set, index));
+    const responseCards = cards.map((card, index) => compactWelcomeRewardCard(card, set, index));
 
     debugStep = "claim_reward";
     const { data: rewardRow, error: claimError } = await admin
@@ -201,12 +199,12 @@ Deno.serve(async (req) => {
     }
 
     debugStep = "save_collection";
-    await upsertCardsForUser(admin, user.id, cards, set);
+    await upsertWelcomeRewardCards(admin, user.id, cards, set);
     const savedAt = new Date().toISOString();
     debugStep = "record_pack_open_event";
     await recordWelcomePackOpenEvent(admin, user.id, set.id, claimId, claimedAt);
     debugStep = "save_profile_stats";
-    const stats = await incrementProfileStatsForUser(admin, user.id, {
+    const stats = await incrementWelcomeRewardStats(admin, user.id, {
       packsOpened: 1,
       totalCardsPulled: cards.length,
     });
