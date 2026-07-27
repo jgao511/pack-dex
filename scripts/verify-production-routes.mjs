@@ -92,7 +92,7 @@ const routeCases = [
   ["/mobile-app/share/VALID_SHARE_CODE", mobileEntry],
   ["/mobile-app/share/INVALID_SHARE_CODE", mobileEntry],
   ["/mobile-app/reset-password", path.join(dist, "mobile-app", "reset-password", "index.html")],
-  ["/mobile-app/auth/callback", mobileEntry],
+  ["/mobile-app/auth/callback", path.join(dist, "mobile-app", "auth", "callback", "index.html")],
   ["/mobile-app/explore", mobileEntry],
   ["/mobile-app/explore/search", mobileEntry],
   ["/mobile-app/explore/pokemon/94", mobileEntry],
@@ -107,8 +107,10 @@ for (const [pathname, expected] of routeCases) {
 assertEntryAssets(desktopEntry, "/assets/");
 assertEntryAssets(mobileEntry, "/mobile-app/assets/");
 assertEntryAssets(path.join(dist, "mobile-app", "reset-password", "index.html"), "/mobile-app/assets/");
+assertEntryAssets(path.join(dist, "mobile-app", "auth", "callback", "index.html"), "/mobile-app/assets/");
 assertEntryMarker(desktopEntry, "welcome-controller");
 assertEntryMarker(mobileEntry, "mobile-app");
 assertEntryMarker(path.join(dist, "mobile-app", "reset-password", "index.html"), "mobile-app");
+assertEntryMarker(path.join(dist, "mobile-app", "auth", "callback", "index.html"), "mobile-app");
 
 console.log(`Verified ${routeCases.length} production routes and all generated entry assets.`);

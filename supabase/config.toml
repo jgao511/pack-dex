@@ -9,3 +9,6 @@ verify_jwt = false
 
 [functions.delete-account]
 verify_jwt = true
+
+[functions.complete-mobile-onboarding]
+verify_jwt = false

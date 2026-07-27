@@ -1,12 +1,22 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+import { loadWelcomeRewardStatus } from "../src/lib/welcomeReward.js";
 
 const claimSourceUrl = new URL(
   "../supabase/functions/claim-welcome-god-pack/index.ts",
   import.meta.url
 );
 const mobileAppUrl = new URL("../mobile-app/src/App.jsx", import.meta.url);
+
+test("guest reward status is ineligible without making account data available", async () => {
+  assert.deepEqual(await loadWelcomeRewardStatus(null), {
+    isEligible: false,
+    isClaimed: true,
+    setId: "",
+    claimedAt: "",
+  });
+});
 
 test("welcome reward eligibility is counted and enforced by the authenticated server", async () => {
   const source = await readFile(claimSourceUrl, "utf8");
@@ -28,6 +38,8 @@ test("49 remains locked, 50 is the first ready count, and duplicate claim events
 
   assert.match(claimSource, /eligiblePackCount \|\| 0\) < 50/);
   assert.match(rewardSource, /isReady: eligiblePacks >= 50/);
+  assert.match(rewardSource, /\.from\("user_pack_open_events"\)/);
+  assert.match(rewardSource, /\.not\("client_event_id", "like", "welcome-god-pack:%"\)/);
   assert.match(claimSource, /client_event_id: `welcome-god-pack:\$\{claimId\}`/);
   assert.match(claimSource, /error\.code !== "23505"/);
   assert.match(claimSource, /welcome_reward_cards_saved_at/);

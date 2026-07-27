@@ -42,7 +42,11 @@ import {
   mergeUserAchievementRows,
   requestServerAchievementAward,
 } from "../../src/lib/userAchievements.js";
-import { getSiteOrigin } from "../../src/utils/authRedirects.js";
+import {
+  getMobileAuthCallbackUrl,
+  getMobileResetPasswordUrl,
+  getSiteOrigin,
+} from "../../src/utils/authRedirects.js";
 import { getTcgplayerCardUrl } from "../../src/utils/tcgplayerSearch.js";
 import {
   formatUsd,
@@ -68,9 +72,12 @@ import { loadHapticsEnabled, saveHapticsEnabled, triggerRevealHaptic } from "./u
 import { addWishlistCard, getWishlistKey, loadWishlist, removeWishlistCard, resolveCatalogWishlistItem } from "./lib/wishlist.js";
 import { addScannedCardOnce, loadScannerCardActionState } from "./lib/scannerCardActions.js";
 import {
+  claimPackPersistence,
+  isPackSkipReady,
+  runPackSkipTransition,
+} from "./lib/packRevealLifecycle.js";
+import {
   MOBILE_ONBOARDING_VERSION,
-  completeAccountMobileOnboarding,
-  clearGuestTutorialPack,
   createTutorialPack,
   getDevRewardState,
   getOnboardingDeviceId,
@@ -83,13 +90,25 @@ import {
   isOnboardingTestMode,
   loadAccountOnboardingVersion,
   markMobileOnboardingComplete,
+  readPendingMobileOnboarding,
   readGuestTutorialPack,
   readMobileOnboardingState,
   resetMobileOnboarding,
   restoreTutorialPack,
   saveGuestTutorialPack,
+  savePendingMobileOnboarding,
   writeMobileOnboardingState,
 } from "./lib/mobileOnboarding.js";
+import {
+  finalizeMobileOnboarding,
+  getMobileOnboardingErrorPresentation,
+} from "./lib/mobileOnboardingFinalizer.js";
+import { establishMobileAuthCallbackSession } from "./lib/mobileAuthCallback.js";
+import {
+  consumeOnboardingCompleteParam,
+  getInitialMobileTab,
+  getMobileTabPath,
+} from "./lib/mobileRouting.js";
 
 const ExploreScreen = lazy(() => import("./explore/ExploreScreen.jsx"));
 const MobileScannerPage = __PACKDEX_SCANNER_TEST__ ? lazy(() => import("./MobileScannerPage.jsx")) : null;
@@ -369,14 +388,6 @@ const LEGAL_URLS = {
   terms: `${getSiteOrigin()}${LEGAL_ROUTES.terms}`,
   privacy: `${getSiteOrigin()}${LEGAL_ROUTES.privacy}`,
 };
-
-function getMobileAuthCallbackUrl() {
-  return `${getSiteOrigin()}/mobile-app/auth/callback`;
-}
-
-function getMobileResetPasswordUrl() {
-  return `${getSiteOrigin()}/mobile-app/reset-password`;
-}
 
 function getWelcomeRewardChoices() {
   return WELCOME_REWARD_CHOICES.map((choice) => {
@@ -1245,7 +1256,15 @@ function PackScreen({
               <button className="secondary-action" type="button" onClick={() => onViewCollection?.(selectedSet)}>
                 View Collection
               </button>
-              <button className="primary-action" type="button" onClick={onStartReveal} disabled={isPreloading}>
+              <button
+                className="primary-action"
+                type="button"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onStartReveal?.();
+                }}
+                disabled={isPreloading}
+              >
                 Click to Open
               </button>
             </div>
@@ -2394,6 +2413,8 @@ function ProfileScreen({
   isAchievementsLoading = false,
   welcomeRewardStatus,
   onOpenWelcomeReward,
+  onboardingSyncError,
+  onRetryOnboarding,
   onLoadAchievementProgress,
   onReplayOnboarding,
 }) {
@@ -2439,6 +2460,16 @@ function ProfileScreen({
             </button>{" "}
             to save simulated pulls, collection progress, binders, and future app stats.
           </p>
+        </section>
+      )}
+
+      {isLoggedIn && onboardingSyncError && (
+        <section className="welcome-reward-profile-card-mobile">
+          <span className="eyebrow">First Pack</span>
+          <h2>Your account is ready, but we could not save your first pack yet.</h2>
+          <button className="primary-action compact-auth-submit" type="button" onClick={onRetryOnboarding}>
+            Retry Saving First Pack
+          </button>
         </section>
       )}
 
@@ -2580,58 +2611,53 @@ function ProfileScreen({
 
 function MobileAuthCallbackPage() {
   const [status, setStatus] = useState("Confirming your PackDex account...");
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
+  const isSessionEstablishedRef = useRef(false);
+  const isCallbackRunningRef = useRef(false);
+
+  async function finishCallback() {
+    if (isCallbackRunningRef.current) return;
+    isCallbackRunningRef.current = true;
+    setError(null);
+    setStatus("Confirming your PackDex account...");
+
+    try {
+      if (!isSessionEstablishedRef.current) {
+        const callback = await establishMobileAuthCallbackSession(supabase, window.location);
+        isSessionEstablishedRef.current = true;
+        if (callback.code) {
+          window.history.replaceState({}, document.title, "/mobile-app/auth/callback");
+        }
+      }
+
+      setStatus("Saving your first pack...");
+      await finalizeMobileOnboarding({
+        client: supabase,
+        allowNoPending: true,
+        refreshData: async (currentUser) => {
+          await Promise.all([
+            loadCloudCollection(),
+            loadCloudProfileStats(currentUser.id),
+            loadWelcomeRewardStatus(currentUser, { force: true }),
+          ]);
+        },
+        navigate: () => {
+          setStatus("Opening your profile...");
+          window.location.replace("/mobile-app/?tab=profile&onboardingComplete=1");
+        },
+      });
+    } catch (callbackError) {
+      const presentation = getMobileOnboardingErrorPresentation(callbackError);
+      setStatus("");
+      setError(presentation);
+      window.history.replaceState({}, document.title, "/mobile-app/auth/callback");
+    } finally {
+      isCallbackRunningRef.current = false;
+    }
+  }
 
   useEffect(() => {
-    let mounted = true;
-
-    async function finishCallback() {
-      if (!supabase) {
-        setStatus("");
-        setError("Supabase is not configured for this mobile app.");
-        return;
-      }
-
-      const searchParams = new URLSearchParams(window.location.search);
-      const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ""));
-      const authError = searchParams.get("error_description") || hashParams.get("error_description");
-      const code = searchParams.get("code");
-
-      if (authError) {
-        if (!mounted) return;
-        setStatus("");
-        setError(authError);
-        window.history.replaceState({}, document.title, "/mobile-app/auth/callback");
-        return;
-      }
-
-      try {
-        if (code) {
-          const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
-          if (exchangeError) throw exchangeError;
-        } else {
-          const { data, error: sessionError } = await supabase.auth.getSession();
-          if (sessionError) throw sessionError;
-          if (!data.session) throw new Error("Confirmation link is missing or has expired.");
-        }
-
-        if (!mounted) return;
-
-        window.history.replaceState({}, document.title, "/mobile-app/");
-        setStatus("Account confirmed. Open the installed PackDex app again to continue.");
-      } catch (callbackError) {
-        if (!mounted) return;
-        window.history.replaceState({}, document.title, "/mobile-app/auth/callback");
-        setStatus("");
-        setError(callbackError.message || "Unable to confirm your account. Please request a new email.");
-      }
-    }
-
     finishCallback();
-
-    return () => {
-      mounted = false;
-    };
   }, []);
 
   return (
@@ -2644,11 +2670,13 @@ function MobileAuthCallbackPage() {
               <span className="eyebrow">Account</span>
               <h1>Email verification</h1>
               {status && <p>{status}</p>}
-              {error && <p className="auth-message is-error">{error}</p>}
+              {error && <p className="auth-message is-error">{error.message}</p>}
             </div>
-            <a className="primary-action compact-auth-submit" href="/mobile-app/">
-              Open PackDex Mobile
-            </a>
+            {error?.retryable && (
+              <button className="primary-action compact-auth-submit" type="button" onClick={finishCallback}>
+                Retry Saving First Pack
+              </button>
+            )}
           </section>
         </div>
       </section>
@@ -2683,7 +2711,7 @@ function MobileApp() {
     };
   }, [onboardingDevStartStep, tutorialSets]);
   const restoredTutorial = useMemo(() => restoreTutorialPack(initialOnboardingState), [initialOnboardingState]);
-  const [activeTab, setActiveTab] = useState(() => typeof window !== "undefined" && window.location.pathname.includes("/explore") ? "explore" : "open");
+  const [activeTab, setActiveTab] = useState(() => getInitialMobileTab());
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [hapticsEnabled, setHapticsEnabled] = useState(loadHapticsEnabled);
   const [wishlistEntries, setWishlistEntries] = useState([]);
@@ -2707,6 +2735,7 @@ function MobileApp() {
   const [onboardingStats, setOnboardingStats] = useState(null);
   const [isOnboardingStatsLoading, setIsOnboardingStatsLoading] = useState(false);
   const [onboardingError, setOnboardingError] = useState("");
+  const [onboardingSyncError, setOnboardingSyncError] = useState(null);
   const [isFinishingOnboarding, setIsFinishingOnboarding] = useState(false);
   const [onboardingAuthIntent, setOnboardingAuthIntent] = useState(false);
   const [selectedSet, setSelectedSet] = useState(restoredTutorial.set);
@@ -2745,7 +2774,6 @@ function MobileApp() {
   const [welcomeRewardStatus, setWelcomeRewardStatus] = useState(null);
   const [selectedWelcomeRewardSetId, setSelectedWelcomeRewardSetId] = useState(WELCOME_REWARD_CHOICES[0]?.setId || "");
   const [isWelcomeRewardModalOpen, setIsWelcomeRewardModalOpen] = useState(false);
-  const isMobileAuthCallbackRoute = typeof window !== "undefined" && window.location.pathname === "/mobile-app/auth/callback";
   const [isClaimingWelcomeReward, setIsClaimingWelcomeReward] = useState(false);
   const [welcomeRewardError, setWelcomeRewardError] = useState("");
   const [achievements, setAchievements] = useState([]);
@@ -2759,6 +2787,7 @@ function MobileApp() {
   const accountLoadPromisesRef = useRef(new Map());
   const accountLoadedAtRef = useRef(new Map());
   const authRefreshPromiseRef = useRef(null);
+  const onboardingFinalizePromiseRef = useRef(null);
   const authValidationAttemptRef = useRef(0);
   const validatedScannerUserIdRef = useRef("");
   const [priceMapsBySet, setPriceMapsBySet] = useState({});
@@ -2842,8 +2871,8 @@ function MobileApp() {
     if (nextTab === "explore") {
       window.history.replaceState({}, "", buildExplorePath({ kind: "home" }, window.location.pathname));
       window.dispatchEvent(new PopStateEvent("popstate"));
-    } else if (window.location.pathname.includes("/explore")) {
-      window.history.replaceState({}, "", window.location.pathname.startsWith("/mobile-app") ? "/mobile-app/" : "/");
+    } else {
+      window.history.replaceState({}, "", getMobileTabPath(nextTab));
     }
     if (nextTab !== "open") returnToSets();
     scrollScreenToTop();
@@ -2888,13 +2917,17 @@ function MobileApp() {
     if (isFinishingOnboarding || onboardingStep === "pack") return;
     setIsFinishingOnboarding(true);
     setOnboardingError("");
-    markMobileOnboardingComplete();
-    manualOnboardingReplayRef.current = false;
-    resetOnboardingScroll();
-    setOnboardingStep("");
-    clearTutorialPackState();
     try {
-      if (user?.id) await completeAccountMobileOnboarding({ skipped: true });
+      if (user?.id) {
+        savePendingMobileOnboarding({ skipped: true });
+        await runMobileOnboardingFinalizer();
+      } else {
+        markMobileOnboardingComplete();
+        manualOnboardingReplayRef.current = false;
+        resetOnboardingScroll();
+        setOnboardingStep("");
+        clearTutorialPackState();
+      }
     } catch (error) {
       console.warn("Unable to sync skipped mobile onboarding", error);
     } finally {
@@ -2918,6 +2951,7 @@ function MobileApp() {
     setSkipRevealEligible(false);
     setPackStage("revealing");
     startRevealCycle(cards, set);
+    savePendingMobileOnboarding({ setId: set.id, cards });
     persistOnboarding("pack", { setId: set.id, cardIds: cards.map((card) => String(card.id || "")) });
   }
 
@@ -2960,35 +2994,83 @@ function MobileApp() {
     setIsFinishingOnboarding(false);
   }
 
-  async function finishAccountOnboarding(currentUser = user) {
-    if (isFinishingOnboarding || !currentUser?.id || !selectedSet || pack.length === 0) return;
-    setIsFinishingOnboarding(true);
-    setOnboardingError("");
+  async function refreshAfterMobileOnboarding(currentUser, result) {
+    if (result?.stats) setStats(result.stats);
+    await loadAccountScopedState(currentUser, { force: true });
+    await refreshWelcomeRewardStatus(currentUser, { autoOpen: false, force: true });
+
     try {
-      const result = await completeAccountMobileOnboarding({ setId: selectedSet.id, cards: pack });
-      clearGuestTutorialPack();
-      if (result?.stats) setStats(result.stats);
-      const refreshedCollection = await loadCloudCollection();
-      setCollection(mergePendingCloudPullsIntoCollection(refreshedCollection, currentUser.id));
-      try {
-        const achievementResult = await requestServerAchievementAward(currentUser.id);
-        enqueueAchievementUnlocks(achievementResult?.awarded);
-        mergeAwardedAchievements(currentUser, achievementResult?.awarded);
-      } catch (error) {
-        console.warn("Unable to refresh achievements after onboarding", {
-          userId: currentUser.id,
-          error,
-        });
-      }
-      markMobileOnboardingComplete();
-      manualOnboardingReplayRef.current = false;
-      resetOnboardingScroll();
-      setOnboardingStep("");
-      clearTutorialPackState();
-      await refreshWelcomeRewardStatus(currentUser, { autoOpen: false, force: true });
+      const achievementResult = await requestServerAchievementAward(currentUser.id);
+      enqueueAchievementUnlocks(achievementResult?.awarded);
+      mergeAwardedAchievements(currentUser, achievementResult?.awarded);
     } catch (error) {
-      console.warn("Unable to finish account onboarding", error);
-      setOnboardingError(error?.message || "Your progress could not be saved. Please try again.");
+      console.warn("Unable to refresh achievements after onboarding", {
+        userId: currentUser.id,
+        error,
+      });
+    }
+  }
+
+  function runMobileOnboardingFinalizer({ allowNoPending = false } = {}) {
+    if (onboardingFinalizePromiseRef.current) return onboardingFinalizePromiseRef.current;
+
+    setOnboardingError("");
+    setOnboardingSyncError(null);
+    const promise = finalizeMobileOnboarding({
+      client: supabase,
+      allowNoPending,
+      refreshData: refreshAfterMobileOnboarding,
+      onLocalComplete: () => {
+        manualOnboardingReplayRef.current = false;
+        resetOnboardingScroll();
+        setOnboardingStep("");
+        clearTutorialPackState();
+        setActiveTab("profile");
+      },
+      navigate: () => {
+        window.location.replace("/mobile-app/?tab=profile&onboardingComplete=1");
+      },
+    }).catch((error) => {
+      const presentation = getMobileOnboardingErrorPresentation(error);
+      console.warn("Unable to finish account onboarding", presentation);
+      setOnboardingError(presentation.message);
+      setOnboardingSyncError(presentation);
+      throw error;
+    }).finally(() => {
+      onboardingFinalizePromiseRef.current = null;
+    });
+
+    onboardingFinalizePromiseRef.current = promise;
+    return promise;
+  }
+
+  function resumePendingMobileOnboarding(currentUser) {
+    const savedOnboarding = readMobileOnboardingState();
+    const isReadyToFinalize =
+      savedOnboarding?.step === "community" ||
+      hasCompletedMobileOnboarding();
+    if (
+      !currentUser?.id ||
+      manualOnboardingReplayRef.current ||
+      !isReadyToFinalize ||
+      !readPendingMobileOnboarding()
+    ) {
+      return Promise.resolve(null);
+    }
+
+    setIsFinishingOnboarding(true);
+    return runMobileOnboardingFinalizer()
+      .catch(() => null)
+      .finally(() => setIsFinishingOnboarding(false));
+  }
+
+  async function finishAccountOnboarding(currentUser = user) {
+    if (isFinishingOnboarding || !currentUser?.id) return;
+    setIsFinishingOnboarding(true);
+    try {
+      await runMobileOnboardingFinalizer();
+    } catch {
+      // The authenticated session and stable pending payload stay available for retry.
     } finally {
       setIsFinishingOnboarding(false);
     }
@@ -3826,6 +3908,7 @@ function MobileApp() {
     if (showLoading) setLoadingMessage("Loading account...");
 
     const promise = (async () => {
+      let authenticatedUser = null;
       try {
         const { data, error } = await supabase.auth.getSession();
         if (error) throw error;
@@ -3848,40 +3931,14 @@ function MobileApp() {
         }
 
         const sessionUser = validation.user;
+        authenticatedUser = sessionUser;
+        setUser(sessionUser);
+        setAuthValidationState("authenticated");
         setIsSignupVerificationOpen(false);
         setSignupVerificationEmail("");
         await loadAccountScopedState(sessionUser);
         if (validationAttempt !== authValidationAttemptRef.current) return null;
-        let accountOnboardingVersion = await loadAccountOnboardingVersion(sessionUser.id).catch(() => 0);
-        const pendingGuestTutorial = readGuestTutorialPack();
-        if (
-          !manualOnboardingReplayRef.current &&
-          accountOnboardingVersion < MOBILE_ONBOARDING_VERSION &&
-          pendingGuestTutorial.set &&
-          pendingGuestTutorial.cards.length === 10
-        ) {
-          try {
-            await completeAccountMobileOnboarding({
-              setId: pendingGuestTutorial.set.id,
-              cards: pendingGuestTutorial.cards,
-            });
-            clearGuestTutorialPack();
-            accountOnboardingVersion = MOBILE_ONBOARDING_VERSION;
-            await loadAccountScopedState(sessionUser, { force: true });
-            try {
-              const achievementResult = await requestServerAchievementAward(sessionUser.id);
-              enqueueAchievementUnlocks(achievementResult?.awarded);
-              mergeAwardedAchievements(sessionUser, achievementResult?.awarded);
-            } catch (error) {
-              console.warn("Unable to refresh achievements after tutorial migration", {
-                userId: sessionUser.id,
-                error,
-              });
-            }
-          } catch (error) {
-            console.warn("Guest tutorial pack will remain available for account migration retry", error);
-          }
-        }
+        const accountOnboardingVersion = await loadAccountOnboardingVersion(sessionUser.id).catch(() => 0);
         if (!manualOnboardingReplayRef.current && accountOnboardingVersion >= MOBILE_ONBOARDING_VERSION) {
           markMobileOnboardingComplete();
           setOnboardingStep("");
@@ -3895,6 +3952,11 @@ function MobileApp() {
       } catch (error) {
         console.warn("Unable to refresh mobile PackDex auth session", error);
         if (validationAttempt === authValidationAttemptRef.current) {
+          if (authenticatedUser?.id) {
+            setUser(authenticatedUser);
+            setAuthValidationState("authenticated");
+            return authenticatedUser;
+          }
           clearAccountScopedState();
           setAuthValidationState("guest");
         }
@@ -3910,21 +3972,12 @@ function MobileApp() {
   }
 
   useEffect(() => {
-    if (!onboardingStep) maybeShowWelcomeDisclaimer();
-  }, [onboardingStep]);
+    consumeOnboardingCompleteParam();
+  }, []);
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-
-    if (searchParams.get("password_reset") !== "success") return;
-
-    window.history.replaceState({}, document.title, "/mobile-app/");
-    setAuthMode("login");
-    setAuthMessage("Password updated. Please sign in.");
-    setIsAuthPanelOpen(true);
-    setActiveTab("profile");
-    setLoadingMessage("");
-  }, []);
+    if (!onboardingStep) maybeShowWelcomeDisclaimer();
+  }, [onboardingStep]);
 
   useEffect(() => {
     soundEnabledRef.current = soundEnabled;
@@ -3967,9 +4020,11 @@ function MobileApp() {
   useEffect(() => {
     let mounted = true;
 
-    refreshAuthSession({ showLoading: true }).finally(() => {
-      if (!mounted) return;
-    });
+    refreshAuthSession({ showLoading: true })
+      .then((currentUser) => mounted && resumePendingMobileOnboarding(currentUser))
+      .finally(() => {
+        if (!mounted) return;
+      });
 
     if (!supabase) {
       return () => {
@@ -3979,7 +4034,8 @@ function MobileApp() {
 
     function refreshIfActive() {
       if (!mounted || document.visibilityState === "hidden") return;
-      refreshAuthSession({ showLoading: true, autoOpenWelcomeReward: false });
+      refreshAuthSession({ showLoading: true, autoOpenWelcomeReward: false })
+        .then((currentUser) => mounted && resumePendingMobileOnboarding(currentUser));
     }
 
     const { data } = supabase.auth.onAuthStateChange((event, session) => {
@@ -4003,7 +4059,8 @@ function MobileApp() {
       setWelcomeRewardStatus(null);
       setLoadingMessage("Loading account...");
       window.setTimeout(() => {
-        refreshAuthSession({ showLoading: true, autoOpenWelcomeReward: false });
+        refreshAuthSession({ showLoading: true, autoOpenWelcomeReward: false })
+          .then((currentUser) => mounted && resumePendingMobileOnboarding(currentUser));
       }, 0);
     });
 
@@ -4108,16 +4165,16 @@ function MobileApp() {
     const dealCompleteDelay = Math.max(0, (pack.length - 1) * CARD_DEAL_STAGGER_MS) + CARD_DEAL_ANIMATION_MS;
     const revealStartDelay = dealCompleteDelay + WAIT_AFTER_DEAL_MS;
 
-    // A visible skip affordance and its handler become active in the same timer
-    // tick. Tutorial packs deliberately never opt into this normal-pack control.
-    skipRevealEligibleRef.current = false;
-    setSkipRevealEligible(false);
-    if (onboardingStep !== "pack") {
-      scheduleRevealTimer(cycle, () => {
-        skipRevealEligibleRef.current = true;
-        setSkipRevealEligible(true);
-      }, revealStartDelay);
-    }
+    // Asset readiness, not the flip schedule, controls Skip. Updating the ref
+    // and rendered state together keeps the first visible frame interactive.
+    const nextSkipReady = isPackSkipReady({
+      stage: packStage,
+      assetsReady: packImagesReady,
+      tutorialMode: onboardingStep === "pack",
+      skipStarted: skipRevealStartedRef.current,
+    });
+    skipRevealEligibleRef.current = nextSkipReady;
+    setSkipRevealEligible(nextSkipReady);
 
     pack.forEach((card, index) => {
       const revealDelay = revealStartDelay + getMobileRevealDelay(index, pack.length);
@@ -4226,10 +4283,11 @@ function MobileApp() {
 
   async function saveRevealedPack(cards, set) {
     const saveKey = getPackSaveKey(cards, set);
+    const persistence = claimPackPersistence(savedPackKeyRef.current, saveKey);
 
-    if (savedPackKeyRef.current === saveKey) return;
+    if (!persistence.shouldPersist) return;
 
-    savedPackKeyRef.current = saveKey;
+    savedPackKeyRef.current = persistence.saveKey;
     setHasSavedCurrentPack(true);
 
     const timestamp = Date.now();
@@ -4301,26 +4359,41 @@ function MobileApp() {
     beginReveal(pack, selectedSet);
   }
 
-  function beginReveal(cards, set) {
+  function beginReveal(cards, set, { assetsReady = packImagesReady } = {}) {
     startRevealCycle(cards, set);
     skipRevealStartedRef.current = false;
-    skipRevealEligibleRef.current = false;
-    setSkipRevealEligible(false);
+    const nextSkipReady = isPackSkipReady({
+      stage: "revealing",
+      assetsReady,
+      tutorialMode: onboardingStep === "pack",
+      skipStarted: false,
+    });
+    skipRevealEligibleRef.current = nextSkipReady;
+    setSkipRevealEligible(nextSkipReady);
     setRevealedCount(0);
     setPackStage("revealing");
     saveRevealedPack(cards, set);
   }
 
   function skipPackReveal() {
-    if (packStage !== "revealing" || !packImagesReady || !skipRevealEligibleRef.current || skipRevealStartedRef.current) return;
+    const canSkip = skipRevealEligibleRef.current && isPackSkipReady({
+      stage: packStage,
+      assetsReady: packImagesReady,
+      tutorialMode: onboardingStep === "pack",
+      skipStarted: skipRevealStartedRef.current,
+    });
+    if (!canSkip) return;
 
     skipRevealStartedRef.current = true;
     skipRevealEligibleRef.current = false;
     setSkipRevealEligible(false);
-    clearRevealTimers();
-    finishActiveRevealCycle();
-    setRevealedCount(pack.length);
-    setPackStage("summary");
+    runPackSkipTransition({
+      canSkip,
+      clearTimers: clearRevealTimers,
+      finishCycle: finishActiveRevealCycle,
+      revealAll: () => setRevealedCount(pack.length),
+      showSummary: () => setPackStage("summary"),
+    });
   }
 
   function handlePackScreenClick(event) {
@@ -4362,7 +4435,7 @@ function MobileApp() {
     setNewPullKeys(new Set());
     setHasSavedCurrentPack(false);
     savedPackKeyRef.current = "";
-    beginReveal(nextPack, selectedSet);
+    beginReveal(nextPack, selectedSet, { assetsReady: false });
     scrollScreenToTop();
   }
 
@@ -4589,6 +4662,9 @@ function MobileApp() {
 
     setIsAuthSubmitting(true);
     setLoadingMessage(authMode === "login" ? "Logging in..." : "Creating account...");
+    if (onboardingStep === "community" && selectedSet && pack.length === 10) {
+      savePendingMobileOnboarding({ setId: selectedSet.id, cards: pack });
+    }
 
     try {
       const credentials = {
@@ -4647,16 +4723,32 @@ function MobileApp() {
 
       if (nextUser) {
         setIsAuthPanelOpen(false);
-        if (onboardingStep === "community" && onboardingAuthIntent) {
-          await finishAccountOnboarding(nextUser);
+        if (!readPendingMobileOnboarding()) {
+          const guestTutorial = readGuestTutorialPack();
+          if (guestTutorial.set && guestTutorial.cards.length === 10) {
+            savePendingMobileOnboarding({
+              setId: guestTutorial.set.id,
+              cards: guestTutorial.cards,
+            });
+          }
+        }
+        if (onboardingAuthIntent || readPendingMobileOnboarding()) {
           setOnboardingAuthIntent(false);
+          setIsFinishingOnboarding(true);
+          try {
+            await runMobileOnboardingFinalizer();
+          } catch {
+            // Authentication succeeded; the tutorial migration remains retryable.
+          } finally {
+            setIsFinishingOnboarding(false);
+          }
         }
       } else {
         throw new Error("The account session could not be validated.");
       }
     } catch (error) {
       console.warn("Unable to load account data after mobile auth", error);
-      setAuthMessage("Unable to finish account loading. Please try again.");
+      setAuthMessage("Unable to sign in. Please check your connection and try again.");
     } finally {
       setIsAuthSubmitting(false);
       setLoadingMessage("");
@@ -4700,8 +4792,6 @@ function MobileApp() {
     setAuthValidationState("guest");
     setIsDeleteAccountOpen(false);
   }
-
-  if (isMobileAuthCallbackRoute) return <MobileAuthCallbackPage />;
 
   return (
     <main className="mobile-app theme-dark">
@@ -4821,6 +4911,8 @@ function MobileApp() {
               isAchievementsLoading={isAchievementsLoading}
               onLoadAchievementProgress={() => loadUserAchievementProgress(user)}
               welcomeRewardStatus={displayedWelcomeRewardStatus}
+              onboardingSyncError={onboardingSyncError}
+              onRetryOnboarding={() => finishAccountOnboarding(user)}
               onReplayOnboarding={mobileOnboardingEligible ? replayOnboarding : null}
               onOpenWelcomeReward={() => {
                 setWelcomeRewardError("");
@@ -5023,9 +5115,13 @@ function App() {
   const normalizedPath = typeof window === "undefined" ? "" : window.location.pathname.replace(/\/+$/, "");
   const isResetPasswordRoute =
     normalizedPath === "/mobile-app/reset-password" || normalizedPath === "/reset-password";
+  const isMobileAuthCallbackRoute = normalizedPath === "/mobile-app/auth/callback";
 
   if (isResetPasswordRoute) {
     return <MobileResetPasswordPage supabase={supabase} />;
+  }
+  if (isMobileAuthCallbackRoute) {
+    return <MobileAuthCallbackPage />;
   }
 
   return <MobileApp />;

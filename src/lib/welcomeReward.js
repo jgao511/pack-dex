@@ -83,17 +83,17 @@ export async function loadWelcomeRewardStatus(userOverride, { force = false } = 
   if (rewardStatusPromisesByUserId.has(userId)) return rewardStatusPromisesByUserId.get(userId);
 
   const promise = (async () => {
-    const [rewardResult, statsResult] = await Promise.all([
+    const [rewardResult, eligiblePackResult] = await Promise.all([
       supabase
         .from(WELCOME_REWARD_TABLE)
         .select("user_id,welcome_god_pack_claimed,welcome_god_pack_set,welcome_reward_claimed_at")
         .eq("user_id", userId)
         .maybeSingle(),
       supabase
-        .from("user_profile_stats")
-        .select("packs_opened")
+        .from("user_pack_open_events")
+        .select("id", { count: "exact", head: true })
         .eq("user_id", userId)
-        .maybeSingle(),
+        .not("client_event_id", "like", "welcome-god-pack:%"),
     ]);
     const { data, error } = rewardResult;
 
@@ -102,8 +102,8 @@ export async function loadWelcomeRewardStatus(userOverride, { force = false } = 
       throw error;
     }
 
-    if (statsResult.error) throw statsResult.error;
-    const status = normalizeRewardRow(data, user, statsResult.data?.packs_opened);
+    if (eligiblePackResult.error) throw eligiblePackResult.error;
+    const status = normalizeRewardRow(data, user, eligiblePackResult.count);
 
     if (status.rowMissing) {
       logWelcomeRewardDebug("missing-row", { user, rowMissing: true, isEligible: status.isEligible });

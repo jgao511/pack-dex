@@ -9,9 +9,16 @@ import { supabase } from "./supabaseClient.js";
 export const MOBILE_ONBOARDING_VERSION = 1;
 export const MOBILE_ONBOARDING_VERSION_KEY = "packdex_mobile_onboarding_version";
 export const MOBILE_ONBOARDING_STATE_KEY = "packdex_mobile_onboarding_state_v1";
+export const MOBILE_ONBOARDING_PENDING_KEY = "packdex_mobile_onboarding_pending_v1";
 export const MOBILE_ONBOARDING_DEVICE_KEY = "packdex_mobile_onboarding_device_id";
 export const MOBILE_ONBOARDING_GUEST_PACK_KEY = "packdex_mobile_onboarding_guest_pack_v1";
 export const MOBILE_ONBOARDING_GUEST_APPLIED_KEY = "packdex_mobile_onboarding_guest_applied_v1";
+export const MOBILE_ONBOARDING_COMPLETION_ID = "mobile-onboarding:v1";
+export const MOBILE_ONBOARDING_TUTORIAL_EVENT_ID = "mobile-onboarding:v1";
+export const MOBILE_ONBOARDING_DESTINATION = "/mobile-app/?tab=profile";
+export const MOBILE_ONBOARDING_PENDING_MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000;
+
+const PENDING_MIGRATION_STATUSES = new Set(["pending", "syncing", "failed"]);
 
 export const TUTORIAL_HIT_POOLS = {
   "151": ["151-166-bulbasaur", "151-175-psyduck", "151-181-dragonair"],
@@ -111,6 +118,107 @@ export function markMobileOnboardingComplete(storage = getStorage()) {
   if (!storage) return;
   storage.setItem(MOBILE_ONBOARDING_VERSION_KEY, String(MOBILE_ONBOARDING_VERSION));
   storage.removeItem(MOBILE_ONBOARDING_STATE_KEY);
+}
+
+function getCardIds(cardsOrIds = []) {
+  return cardsOrIds.map((card) => String(card?.id ?? card ?? "").trim()).filter(Boolean);
+}
+
+export function inspectPendingMobileOnboarding(
+  storage = getStorage(),
+  now = Date.now()
+) {
+  if (!storage) return { payload: null, reason: "missing" };
+
+  const serialized = storage.getItem(MOBILE_ONBOARDING_PENDING_KEY);
+  if (!serialized) return { payload: null, reason: "missing" };
+
+  try {
+    const value = JSON.parse(serialized);
+    const createdAt = Date.parse(String(value?.createdAt || ""));
+    const cardIds = getCardIds(Array.isArray(value?.cardIds) ? value.cardIds : []);
+    const isSkipped = value?.skipped === true;
+    const isValid =
+      value?.version === MOBILE_ONBOARDING_VERSION &&
+      value?.completionId === MOBILE_ONBOARDING_COMPLETION_ID &&
+      value?.tutorialPackEventId === MOBILE_ONBOARDING_TUTORIAL_EVENT_ID &&
+      value?.destination === MOBILE_ONBOARDING_DESTINATION &&
+      PENDING_MIGRATION_STATUSES.has(value?.migrationStatus) &&
+      Number.isFinite(createdAt) &&
+      typeof value?.setId === "string" &&
+      (isSkipped || cardIds.length === 10);
+
+    if (!isValid) return { payload: null, reason: "malformed" };
+    if (now - createdAt > MOBILE_ONBOARDING_PENDING_MAX_AGE_MS) {
+      return { payload: null, reason: "expired" };
+    }
+
+    return {
+      payload: {
+        version: MOBILE_ONBOARDING_VERSION,
+        completionId: MOBILE_ONBOARDING_COMPLETION_ID,
+        setId: value.setId.trim(),
+        cardIds,
+        tutorialPackEventId: MOBILE_ONBOARDING_TUTORIAL_EVENT_ID,
+        createdAt: new Date(createdAt).toISOString(),
+        destination: MOBILE_ONBOARDING_DESTINATION,
+        migrationStatus: value.migrationStatus,
+        skipped: isSkipped,
+      },
+      reason: "",
+    };
+  } catch {
+    return { payload: null, reason: "malformed" };
+  }
+}
+
+export function readPendingMobileOnboarding(storage = getStorage(), now = Date.now()) {
+  return inspectPendingMobileOnboarding(storage, now).payload;
+}
+
+export function savePendingMobileOnboarding(
+  { setId = "", cards = [], cardIds = [], skipped = false } = {},
+  storage = getStorage(),
+  now = Date.now()
+) {
+  if (!storage) return null;
+
+  const normalizedCardIds = getCardIds(cardIds.length ? cardIds : cards);
+  if (!skipped && (!String(setId).trim() || normalizedCardIds.length !== 10)) return null;
+
+  const existing = readPendingMobileOnboarding(storage, now);
+  if (existing) return existing;
+  const payload = {
+    version: MOBILE_ONBOARDING_VERSION,
+    completionId: MOBILE_ONBOARDING_COMPLETION_ID,
+    setId: skipped ? "" : String(setId).trim(),
+    cardIds: skipped ? [] : normalizedCardIds,
+    tutorialPackEventId: MOBILE_ONBOARDING_TUTORIAL_EVENT_ID,
+    createdAt: new Date(now).toISOString(),
+    destination: MOBILE_ONBOARDING_DESTINATION,
+    migrationStatus: "pending",
+    skipped,
+  };
+
+  storage.setItem(MOBILE_ONBOARDING_PENDING_KEY, JSON.stringify(payload));
+  return payload;
+}
+
+export function updatePendingMobileOnboardingStatus(
+  migrationStatus,
+  storage = getStorage()
+) {
+  if (!PENDING_MIGRATION_STATUSES.has(migrationStatus) || !storage) return null;
+  const pending = readPendingMobileOnboarding(storage);
+  if (!pending) return null;
+
+  const updated = { ...pending, migrationStatus };
+  storage.setItem(MOBILE_ONBOARDING_PENDING_KEY, JSON.stringify(updated));
+  return updated;
+}
+
+export function clearPendingMobileOnboarding(storage = getStorage()) {
+  storage?.removeItem(MOBILE_ONBOARDING_PENDING_KEY);
 }
 
 export function resetMobileOnboarding(storage = getStorage()) {
@@ -274,18 +382,4 @@ export async function loadAccountOnboardingVersion(userId) {
     throw error;
   }
   return Number(data?.version || 0);
-}
-
-export async function completeAccountMobileOnboarding({ setId = "", cards = [], skipped = false } = {}) {
-  if (!supabase) throw new Error("PackDex account services are unavailable.");
-  const { data, error } = await supabase.functions.invoke("complete-mobile-onboarding", {
-    body: {
-      version: MOBILE_ONBOARDING_VERSION,
-      set_id: setId,
-      card_ids: cards.map((card) => String(card.id || "")),
-      skipped,
-    },
-  });
-  if (error) throw new Error(error.message || "Unable to save onboarding progress.");
-  return data;
 }

@@ -6,8 +6,10 @@ import MobileResetPasswordPage from "./MobileResetPasswordPage.jsx";
 import PublicPullSharePage from "./PublicPullSharePage.jsx";
 import { supabase } from "./lib/supabaseClient.js";
 import { installIosExternalLinkRouting } from "./lib/externalLinks.js";
+import { normalizeCanonicalProductionLocation } from "../../src/utils/authRedirects.js";
 import "./App.css";
 
+const isCanonicalRedirecting = normalizeCanonicalProductionLocation();
 const isNativePlatform = Capacitor.isNativePlatform();
 document.documentElement.classList.toggle("capacitor-native", isNativePlatform);
 installIosExternalLinkRouting();
@@ -35,8 +37,10 @@ const scannerTestEnabled = import.meta.env.DEV || __PACKDEX_SCANNER_TEST__;
 const isScannerDevRoute = scannerTestEnabled && (normalizedPath === "/mobile-app/dev/card-scanner" || new URLSearchParams(window.location.search).get("scanner-test") === "1");
 const CardScannerDevPage = scannerTestEnabled ? React.lazy(() => import("./CardScannerDevPage.jsx")) : null;
 
-createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    {isScannerDevRoute && CardScannerDevPage ? <React.Suspense fallback={null}><CardScannerDevPage /></React.Suspense> : shareRouteMatch ? <PublicPullSharePage shareCode={shareRouteMatch[1]} /> : isResetPasswordRoute ? <MobileResetPasswordPage supabase={supabase} /> : <App />}
-  </React.StrictMode>
-);
+if (!isCanonicalRedirecting) {
+  createRoot(document.getElementById("root")).render(
+    <React.StrictMode>
+      {isScannerDevRoute && CardScannerDevPage ? <React.Suspense fallback={null}><CardScannerDevPage /></React.Suspense> : shareRouteMatch ? <PublicPullSharePage shareCode={shareRouteMatch[1]} /> : isResetPasswordRoute ? <MobileResetPasswordPage supabase={supabase} /> : <App />}
+    </React.StrictMode>
+  );
+}

@@ -100,11 +100,10 @@ export default function MobileResetPasswordPage({ supabase }) {
       setNewPassword("");
       setConfirmPassword("");
       setIsReady(false);
-      setStatus("Password updated. Please sign in.");
-      await supabase.auth.signOut({ scope: "local" });
+      setStatus("Password updated. Opening your profile...");
       redirectTimerRef.current = window.setTimeout(() => {
-        window.location.assign(`${MOBILE_HOME_PATH}?password_reset=success`);
-      }, 1100);
+        window.location.replace(`${MOBILE_HOME_PATH}?tab=profile`);
+      }, 700);
     } catch {
       setError("Unable to update your password. Please check your connection and try again.");
     } finally {

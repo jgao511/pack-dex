@@ -46,9 +46,9 @@ test("the final conveyor resolves exactly the documented, non-duplicated catalog
 test("normal skip is rendered only when its same-frame eligibility guard is active", async () => {
   const source = await readFile(appUrl, "utf8");
   assert.ok(source.includes('!tutorialMode && skipRevealEligible && <p className="pack-skip-hint">Tap anywhere to skip</p>'));
-  assert.match(source, /skipRevealEligibleRef\.current = true;\s*setSkipRevealEligible\(true\);/);
-  assert.match(source, /!skipRevealEligibleRef\.current \|\| skipRevealStartedRef\.current/);
-  assert.match(source, /if \(onboardingStep !== "pack"\)/);
+  assert.match(source, /skipRevealEligibleRef\.current = nextSkipReady;\s*setSkipRevealEligible\(nextSkipReady\);/);
+  assert.match(source, /const canSkip = skipRevealEligibleRef\.current && isPackSkipReady\(/);
+  assert.match(source, /tutorialMode: onboardingStep === "pack"/);
 });
 
 test("onboarding uses the shared Explore search, a three-step real-page tour, and shared public counters", async () => {

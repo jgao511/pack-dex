@@ -455,7 +455,9 @@ function CommunityStep({ stats, isStatsLoading, user, isFinishing, error, onSign
         <p>New members can unlock a free God Pack after opening 50 packs.</p>
         {error && <p className="onboarding-error">{error}</p>}
         {user ? (
-          <button className="primary-action" type="button" disabled={isFinishing} onClick={onFinishAccount}>{isFinishing ? "Saving…" : "Save & Finish"}</button>
+          <button className="primary-action" type="button" disabled={isFinishing} onClick={onFinishAccount}>
+            {isFinishing ? "Saving…" : error ? "Retry Saving First Pack" : "Save & Finish"}
+          </button>
         ) : (
           <>
             <button className="primary-action" type="button" disabled={isFinishing} onClick={onSignup}>Create Account</button>
