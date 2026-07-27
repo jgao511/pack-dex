@@ -1,6 +1,6 @@
 import { supabase } from "./supabaseClient.js";
 
-export const PUBLIC_STATS_CACHE_KEY = "packdex_public_stats_v1";
+export const PUBLIC_STATS_CACHE_KEY = "packdex_public_stats_v2";
 export const PUBLIC_STATS_CACHE_TTL_MS = 10 * 60 * 1000;
 
 function getDefaultStorage() {
@@ -13,18 +13,29 @@ function getDefaultStorage() {
 
 export function normalizePublicPackDexStats(value) {
   const row = Array.isArray(value) ? value[0] : value;
-  const cardsPulled = Number(row?.cards_pulled ?? row?.cardsPulled);
-  const rawPacksOpened = row?.packs_opened ?? row?.packsOpened;
+  if (!row || typeof row !== "object") return null;
+
+  const normalized = { updatedAt: row.updated_at || row.updatedAt || null };
+  const rawCardsPulled = row.cards_pulled ?? row.cardsPulled;
+  const rawPacksOpened = row.packs_opened ?? row.packsOpened;
+  const cardsPulled = rawCardsPulled == null ? null : Number(rawCardsPulled);
   const packsOpened = rawPacksOpened == null ? null : Number(rawPacksOpened);
 
-  if (!Number.isFinite(cardsPulled) || cardsPulled < 0) return null;
-  if (packsOpened != null && (!Number.isFinite(packsOpened) || packsOpened < 0)) return null;
+  if (Number.isFinite(cardsPulled) && cardsPulled >= 0) {
+    normalized.cardsPulled = Math.trunc(cardsPulled);
+  }
+  if (Number.isFinite(packsOpened) && packsOpened >= 0) {
+    normalized.packsOpened = Math.trunc(packsOpened);
+  }
 
-  return {
-    cardsPulled: Math.trunc(cardsPulled),
-    packsOpened: packsOpened == null ? null : Math.trunc(packsOpened),
-    updatedAt: row?.updated_at || row?.updatedAt || null,
-  };
+  const popularSetId = row?.popular_set_id ?? row?.popularSetId;
+  const popularSetWeekStart = row?.popular_set_week_start ?? row?.popularSetWeekStart;
+  if (popularSetId != null && String(popularSetId).trim()) normalized.popularSetId = String(popularSetId).trim();
+  if (popularSetWeekStart != null) normalized.popularSetWeekStart = popularSetWeekStart;
+
+  return normalized.cardsPulled != null || normalized.packsOpened != null || normalized.popularSetId
+    ? normalized
+    : null;
 }
 
 export function formatPublicStat(value, locale) {

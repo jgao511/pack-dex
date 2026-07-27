@@ -2083,6 +2083,47 @@ function validatePackSlotPlacement(pack, set = {}) {
   return pack;
 }
 
+export function isCardAllowedInPackSlot(card, index, set = {}) {
+  const profileName = getConfiguredProfileName(set);
+
+  if (profileName === "xyKalosStarter") return isCommonSlotCard(card, set);
+  if (profileName === "xyDoubleCrisis") {
+    return index < 3
+      ? isCommonSlotCard(card, set)
+      : index < 5
+        ? isUncommonSlotCard(card, set)
+        : index === 5
+          ? isRegularSlotCard(card, set)
+          : index === 6 && isFinalRareSlotCard(card, set);
+  }
+  if (isSpecialPreviewSet(set)) {
+    return index < 4
+      ? isSpecialPreviewNormalSlotCard(card, set)
+      : index === 4 && isSpecialPreviewFinalSlotCard(card, set);
+  }
+  if (getPackSize(set) === 4) {
+    if (index < 2) return isRegularSlotCard(card, set);
+    if (index === 2) {
+      return normalizeSetId(set) === "celebrations"
+        ? isSubsetOrPreRareSlotCard(card, set)
+        : isRegularSlotCard(card, set);
+    }
+    return index === 3 && isFinalRareSlotCard(card, set);
+  }
+  if (isXYSet(set)) {
+    if (index < 5) return isCommonSlotCard(card, set);
+    if (index < 8) return isUncommonSlotCard(card, set);
+    if (index === 8) return isRegularSlotCard(card, set) || (isXYBreakSet(set) && isBreakCard(card));
+    return index === 9 && isFinalRareSlotCard(card, set);
+  }
+
+  if (index < 4) return isCommonSlotCard(card, set);
+  if (index < 7) return isUncommonSlotCard(card, set);
+  if (index === 7) return isRegularSlotCard(card, set);
+  if (index === 8) return isSubsetOrPreRareSlotCard(card, set);
+  return index === 9 && isFinalRareSlotCard(card, set);
+}
+
 function finalizeNormalPack(pack, pools, set) {
   return validatePackSlotPlacement(removeEnergyFromPack(pack, pools, set), set);
 }
@@ -2709,6 +2750,13 @@ export function generatePack(cardsOrSet, maybeSet) {
     return generateGodPack(set, pools, profile, godPackConfig);
   }
 
+  return withPackMetadata(generateNormalPack(set, pools, profile, new Set()), { isGodPack: false });
+}
+
+export function generateNormalPackOnly(cardsOrSet, maybeSet) {
+  const { cards, set } = getCardsAndSet(cardsOrSet, maybeSet);
+  const pools = buildPools(cards, set);
+  const profile = getPullRateProfile(set);
   return withPackMetadata(generateNormalPack(set, pools, profile, new Set()), { isGodPack: false });
 }
 

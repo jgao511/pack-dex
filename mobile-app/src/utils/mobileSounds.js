@@ -1,135 +1,77 @@
-import { getSoundUrl } from "../../../src/utils/assetUrls.js";
-import { getHitSoundType } from "../../../src/utils/foil.js";
 import achievementUnlockSoundUrl from "../assets/sounds/achievement-badge-pop-sound.mp3";
 
-const SOUND_PATHS = {
-  hit: getSoundUrl("hit.mp3"),
-  bigHit: getSoundUrl("big-hit.mp3"),
-  achievementUnlock: achievementUnlockSoundUrl,
-};
-
 const audioCache = new Map();
-const lastPlayedAt = new Map();
-let audioContext = null;
+const activePlaybackHandles = new Set();
+let lastAchievementPlayedAt = 0;
 
-function canPlay(key, minGapMs = 70) {
-  const now = Date.now();
-  const previous = lastPlayedAt.get(key) || 0;
-
-  if (now - previous < minGapMs) return false;
-
-  lastPlayedAt.set(key, now);
-  return true;
-}
-
-function getAudio(type) {
-  if (typeof Audio === "undefined" || !SOUND_PATHS[type]) return null;
-
-  if (!audioCache.has(type)) {
-    const audio = new Audio(SOUND_PATHS[type]);
-
+function getAchievementAudio() {
+  if (typeof Audio === "undefined") return null;
+  if (!audioCache.has("achievementUnlock")) {
+    const audio = new Audio(achievementUnlockSoundUrl);
     audio.preload = "auto";
-    audioCache.set(type, audio);
+    audioCache.set("achievementUnlock", audio);
   }
-
-  return audioCache.get(type);
+  return audioCache.get("achievementUnlock");
 }
 
-function playAudio(type) {
-  const audio = getAudio(type);
-
-  if (!audio || !canPlay(type, 180)) return;
+function playAchievementAudio() {
+  const cachedAudio = getAchievementAudio();
+  const now = Date.now();
+  if (!cachedAudio || now - lastAchievementPlayedAt < 180) return null;
+  lastAchievementPlayedAt = now;
 
   try {
-    audio.pause();
+    const audio = cachedAudio.cloneNode?.(true) || new Audio(achievementUnlockSoundUrl);
+    let state = "starting";
+    let resolveFinished = null;
+    const finished = new Promise((resolve) => { resolveFinished = resolve; });
+    const finish = (nextState) => {
+      if (["ended", "stopped", "failed"].includes(state)) return;
+      state = nextState;
+      activePlaybackHandles.delete(handle);
+      resolveFinished?.(nextState);
+    };
+    const handle = {
+      get state() {
+        return state;
+      },
+      finished,
+      stop() {
+        if (["ended", "stopped", "failed"].includes(state)) return false;
+        audio.pause();
+        audio.currentTime = 0;
+        finish("stopped");
+        return true;
+      },
+    };
+
+    activePlaybackHandles.add(handle);
+    audio.preload = "auto";
     audio.currentTime = 0;
+    audio.addEventListener?.("ended", () => finish("ended"), { once: true });
     const result = audio.play();
-
-    if (result?.catch) result.catch(() => {});
+    if (result?.then) {
+      result.then(() => {
+        if (state === "starting") state = "playing";
+      }).catch(() => finish("failed"));
+    } else {
+      state = "playing";
+    }
+    return handle;
   } catch {
-    // Mobile browsers can block audio; visuals should continue.
-  }
-}
-
-function getAudioContext() {
-  const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-
-  if (!AudioContextClass) return null;
-  if (!audioContext) audioContext = new AudioContextClass();
-
-  return audioContext;
-}
-
-function playTone(key, frequency, durationMs, gainValue = 0.035, type = "sine") {
-  if (typeof window === "undefined" || !canPlay(key)) return;
-
-  try {
-    const context = getAudioContext();
-
-    if (!context) return;
-
-    const oscillator = context.createOscillator();
-    const gain = context.createGain();
-    const now = context.currentTime;
-
-    oscillator.type = type;
-    oscillator.frequency.setValueAtTime(frequency, now);
-    gain.gain.setValueAtTime(0.0001, now);
-    gain.gain.exponentialRampToValueAtTime(gainValue, now + 0.012);
-    gain.gain.exponentialRampToValueAtTime(0.0001, now + durationMs / 1000);
-    oscillator.connect(gain);
-    gain.connect(context.destination);
-    oscillator.start(now);
-    oscillator.stop(now + durationMs / 1000 + 0.02);
-  } catch {
-    // Sound is a bonus layer; never interrupt the pack flow.
+    return null;
   }
 }
 
 export function preloadMobileSounds() {
-  getAudio("hit");
-  getAudio("bigHit");
-  getAudio("achievementUnlock");
+  getAchievementAudio();
 }
 
-export function playPackOpenSound(enabled = true) {
-  if (!enabled) return;
-
-  playTone("pack-open", 196, 120, 0.045, "triangle");
-}
-
-export function playDealSound(enabled = true) {
-  if (!enabled) return;
-
-  playTone("deal", 260, 42, 0.022, "square");
-}
-
-export function playFlipSound(enabled = true) {
-  if (!enabled) return;
-
-  playTone("flip", 430, 58, 0.025, "triangle");
-}
-
-export function playFinalRevealSound(enabled = true) {
-  if (!enabled) return;
-
-  playTone("final", 520, 120, 0.04, "sine");
-}
-
-export function playHitRevealSound(card, set, enabled = true) {
-  if (!enabled) return;
-
-  const soundType = getHitSoundType(card, set);
-
-  if (soundType === "bigHit") {
-    playAudio("bigHit");
-  } else if (soundType === "hit") {
-    playAudio("hit");
-  }
+export function stopAllMobileSounds() {
+  [...activePlaybackHandles].forEach((handle) => handle.stop?.());
 }
 
 export function playAchievementUnlockSound(enabled = true) {
-  if (!enabled) return;
-
-  playAudio("achievementUnlock");
+  if (!enabled) return null;
+  return playAchievementAudio();
 }

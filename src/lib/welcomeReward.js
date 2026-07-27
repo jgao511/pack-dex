@@ -22,10 +22,14 @@ function logWelcomeRewardDebug(stage, { error, user, rowMissing, isEligible } = 
   });
 }
 
-function normalizeRewardRow(row, user) {
+function normalizeRewardRow(row, user, packsOpened = 0) {
+  const eligiblePacks = Math.max(0, Math.trunc(Number(packsOpened) || 0));
   if (!row) {
     return {
       isEligible: isEligibleUser(user),
+      isReady: eligiblePacks >= 50,
+      eligiblePacks,
+      targetPacks: 50,
       isClaimed: !isEligibleUser(user),
       setId: "",
       claimedAt: "",
@@ -35,6 +39,9 @@ function normalizeRewardRow(row, user) {
 
   return {
     isEligible: true,
+    isReady: eligiblePacks >= 50,
+    eligiblePacks,
+    targetPacks: 50,
     isClaimed: Boolean(row.welcome_god_pack_claimed),
     setId: row.welcome_god_pack_set || "",
     claimedAt: row.welcome_reward_claimed_at || "",
@@ -76,18 +83,27 @@ export async function loadWelcomeRewardStatus(userOverride, { force = false } = 
   if (rewardStatusPromisesByUserId.has(userId)) return rewardStatusPromisesByUserId.get(userId);
 
   const promise = (async () => {
-    const { data, error } = await supabase
-      .from(WELCOME_REWARD_TABLE)
-      .select("user_id,welcome_god_pack_claimed,welcome_god_pack_set,welcome_reward_claimed_at")
-      .eq("user_id", userId)
-      .maybeSingle();
+    const [rewardResult, statsResult] = await Promise.all([
+      supabase
+        .from(WELCOME_REWARD_TABLE)
+        .select("user_id,welcome_god_pack_claimed,welcome_god_pack_set,welcome_reward_claimed_at")
+        .eq("user_id", userId)
+        .maybeSingle(),
+      supabase
+        .from("user_profile_stats")
+        .select("packs_opened")
+        .eq("user_id", userId)
+        .maybeSingle(),
+    ]);
+    const { data, error } = rewardResult;
 
     if (error) {
       logWelcomeRewardDebug("select", { error, user, rowMissing: undefined, isEligible: isEligibleUser(user) });
       throw error;
     }
 
-    const status = normalizeRewardRow(data, user);
+    if (statsResult.error) throw statsResult.error;
+    const status = normalizeRewardRow(data, user, statsResult.data?.packs_opened);
 
     if (status.rowMissing) {
       logWelcomeRewardDebug("missing-row", { user, rowMissing: true, isEligible: status.isEligible });

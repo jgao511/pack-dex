@@ -8,7 +8,7 @@ import {
   getMegaSecondFoilSlotWeights,
   getRarityCategory,
 } from "../src/utils/packGenerator.js";
-import { getFoilProfile, getHitSoundType } from "../src/utils/foil.js";
+import { getFoilProfile } from "../src/utils/foil.js";
 import { getRarityVisualLevel } from "../mobile-app/src/utils/rarityPresentation.js";
 
 const ORDINARY_CATEGORIES = new Set(["common", "uncommon", "rare"]);
@@ -196,12 +196,10 @@ test("IR and SIR keep penultimate presentation classifications without becoming 
   assert.equal(getDisplayRarity(ir.pack[8], ir.set), "Illustration Rare");
   assert.equal(getRarityVisualLevel(ir.pack[8], ir.set), "illustration");
   assert.equal(getFoilProfile(ir.pack[8], ir.set), "illustrationRare");
-  assert.equal(getHitSoundType(ir.pack[8], ir.set), "bigHit");
   assert.equal(sir.categories[8], "specialIllustrationRare");
   assert.equal(getDisplayRarity(sir.pack[8], sir.set), "Special Illustration Rare");
   assert.equal(getRarityVisualLevel(sir.pack[8], sir.set), "major");
   assert.equal(getFoilProfile(sir.pack[8], sir.set), "specialIllustrationRare");
-  assert.equal(getHitSoundType(sir.pack[8], sir.set), "bigHit");
 });
 
 test("mobile reveal follows pack order, classifies slot 9 normally, and slows only slot 10", async () => {

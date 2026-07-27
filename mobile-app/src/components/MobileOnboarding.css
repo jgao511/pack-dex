@@ -1,0 +1,277 @@
+.onboarding-layer{position:absolute;inset:0;z-index:70;min-height:100%;overflow:hidden;background:#090a0f;color:#f7f8fb}.onboarding-layer .onboarding-page{width:100%;min-height:100dvh;max-height:100dvh;overflow:auto;box-sizing:border-box;padding:max(18px,env(safe-area-inset-top)) 18px max(22px,env(safe-area-inset-bottom));scrollbar-width:none}.onboarding-layer .onboarding-page::-webkit-scrollbar{display:none}.onboarding-header{min-height:42px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:3}.onboarding-header>button,.onboarding-text-button,.onboarding-guest-link{border:0;background:transparent;color:#9299a7;font:inherit}.onboarding-header>button{min-width:48px;min-height:42px;font-size:.82rem}.onboarding-brand{display:flex;align-items:center;gap:8px}.onboarding-brand img{width:30px;height:30px}.onboarding-brand strong{font:800 1.1rem/1 "Space Grotesk",sans-serif;letter-spacing:-.04em}.onboarding-brand strong span{color:#a98aff}.onboarding-title{padding:clamp(22px,4dvh,38px) 2px 18px}.onboarding-title h1,.onboarding-copy h1,.onboarding-community-copy h1{margin:8px 0 10px;font:750 clamp(2rem,8vw,2.8rem)/.98 "Space Grotesk",sans-serif;letter-spacing:-.055em}.onboarding-title p,.onboarding-copy p,.onboarding-community-copy>p{margin:0;color:#9fa5b1;font-size:.92rem;line-height:1.5}.onboarding-layer .primary-action,.onboarding-layer .secondary-action{width:100%;min-height:52px;border-radius:14px}.onboarding-card-showcase{min-height:min(48dvh,410px);display:grid;align-content:center;justify-items:center;position:relative}.onboarding-card-fan{width:min(88vw,360px);height:min(38dvh,320px);position:relative;animation:onboarding-arrive .65s cubic-bezier(.2,.8,.2,1) both}.onboarding-card-fan img{width:clamp(128px,38vw,165px);aspect-ratio:734/1024;position:absolute;left:50%;top:50%;object-fit:contain;filter:drop-shadow(0 18px 22px rgba(0,0,0,.42))}.onboarding-card-fan .card-1{transform:translate(-90%,-48%) rotate(-10deg)}.onboarding-card-fan .card-2{z-index:2;transform:translate(-50%,-55%)}.onboarding-card-fan .card-3{transform:translate(-10%,-48%) rotate(10deg)}.onboarding-featured-logo{width:124px;height:44px;object-fit:contain;margin-top:-14px}.onboarding-dots{display:flex;gap:6px;margin-top:14px}.onboarding-dots i{width:5px;height:5px;border-radius:99px;background:#414550;transition:width .25s ease,background .25s ease}.onboarding-dots i.is-active{width:18px;background:#a98aff}.onboarding-copy{text-align:center;padding:0 2px}.onboarding-copy .primary-action{margin-top:22px}.onboarding-copy .onboarding-text-button{min-height:42px;margin-top:5px;font-size:.8rem}.onboarding-pack-options{display:grid;gap:10px;padding-bottom:82px}.onboarding-pack-options>button{min-height:112px;display:grid;grid-template-columns:82px 1fr 18px;align-items:center;gap:13px;padding:10px 14px 10px 8px;border:1px solid #282b34;border-radius:18px;background:#111219;color:#f5f6f8;text-align:left;transition:border-color .2s ease,background .2s ease,transform .2s ease}.onboarding-pack-options>button.is-selected{border-color:#a98aff;background:#17141f;transform:translateY(-1px)}.onboarding-pack-art{height:90px;display:grid;place-items:center}.onboarding-pack-art img{max-width:76px;max-height:90px;object-fit:contain;filter:drop-shadow(0 9px 10px rgba(0,0,0,.35))}.onboarding-pack-options span:nth-child(2){display:grid;gap:4px}.onboarding-pack-options em{color:#a98aff;font-size:.63rem;font-style:normal;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.onboarding-pack-options strong{font-size:1rem;line-height:1.1}.onboarding-pack-options small{color:#858b97;font-size:.7rem}.onboarding-pack-options button>i{width:14px;height:14px;border:2px solid #464b57;border-radius:50%}.onboarding-pack-options button.is-selected>i{border:4px solid #a98aff}.onboarding-sticky-action{position:sticky;bottom:max(0px,env(safe-area-inset-bottom));box-shadow:0 -12px 24px #090a0f}.onboarding-collection-card{padding:16px;border:1px solid #272b34;border-radius:20px;background:#11131a}.onboarding-collection-card header{display:grid;grid-template-columns:68px 1fr auto;align-items:center;gap:10px}.onboarding-collection-card header img{width:68px;height:42px;object-fit:contain}.onboarding-collection-card header span{display:grid;gap:3px}.onboarding-collection-card header small{color:#8b919e}.onboarding-collection-card header b{color:#bca8f6}.onboarding-progress{height:7px;margin:14px 0 16px;overflow:hidden;border-radius:99px;background:#292c35}.onboarding-progress i{display:block;height:100%;border-radius:inherit;background:#a98aff;animation:onboarding-progress 1s ease both}.onboarding-pull-row{display:flex;gap:8px;overflow-x:auto;padding:2px 1px 8px;scroll-snap-type:x proximity}.onboarding-pull-row img{width:78px;flex:0 0 auto;border-radius:7px;scroll-snap-align:start;animation:onboarding-card-in .4s ease both}.onboarding-collection .onboarding-sticky-action{margin-top:24px}.onboarding-pokemon-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.onboarding-pokemon-grid button{min-width:0;min-height:230px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:10px 7px 16px;border:1px solid #282c35;border-radius:20px;background:#12141b;color:#f6f7f9;overflow:hidden}.onboarding-pokemon-grid img{width:120%;height:145px;object-fit:contain;margin-bottom:auto;filter:drop-shadow(0 12px 14px rgba(0,0,0,.35))}.onboarding-pokemon-grid strong{font-size:.9rem}.onboarding-pokemon-grid span{margin-top:4px;color:#969ca8;font-size:.62rem}.onboarding-page.onboarding-explore{padding:0;overflow:hidden}.onboarding-real-explore{height:100dvh;overflow:auto;padding-top:calc(max(16px,env(safe-area-inset-top)) + 78px)}.onboarding-real-explore .explore-screen{padding-bottom:28px}.onboarding-explore-callout{position:absolute;top:max(12px,env(safe-area-inset-top));left:12px;right:12px;z-index:5;min-height:62px;display:flex;align-items:center;gap:10px;padding:9px 10px 9px 13px;border:1px solid #3a344c;border-radius:16px;background:#17141f;box-shadow:0 10px 28px rgba(0,0,0,.38)}.onboarding-explore-callout span{min-width:0;display:grid;gap:2px}.onboarding-explore-callout small{color:#b3acbf;font-size:.66rem;line-height:1.25}.onboarding-explore-callout button{min-height:38px;padding:0 13px;border:0;border-radius:11px;background:#f5f3fa;color:#17131e;font-weight:800}.onboarding-community .onboarding-card-showcase{min-height:min(34dvh,275px);transform:scale(.78);margin:-28px 0}.onboarding-community-copy{text-align:center}.onboarding-community-copy h1{font-size:clamp(1.8rem,7vw,2.45rem)}.onboarding-community-copy h2{margin:24px 0 7px;font-size:1.05rem}.onboarding-stat{min-height:84px;display:grid;align-content:center;justify-items:center;margin:15px 0 2px}.onboarding-stat em{color:#85739f;font-size:.56rem;font-style:normal;font-weight:800;letter-spacing:.1em;text-transform:uppercase}.onboarding-stat strong{max-width:100%;font-size:clamp(1.9rem,8.5vw,2.8rem);line-height:1.05;letter-spacing:-.05em;overflow-wrap:anywhere}.onboarding-stat span{margin-top:3px;color:#9da3ae;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}.onboarding-community-copy .primary-action{margin-top:18px}.onboarding-community-copy .secondary-action{margin-top:9px}.onboarding-guest-link{min-height:44px;margin-top:4px;font-size:.76rem;text-decoration:underline;text-underline-offset:3px}.onboarding-error{color:#ff9a9f!important}.pack-stage.is-onboarding-tutorial .pack-skip-hint{color:#aeb2bd}.pack-stage.is-onboarding-tutorial .pack-actions{grid-template-columns:1fr}@keyframes onboarding-arrive{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}@keyframes onboarding-card-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}@keyframes onboarding-progress{from{width:0}}@media(max-height:700px){.onboarding-card-showcase{min-height:300px}.onboarding-title{padding-top:15px}.onboarding-pokemon-grid button{min-height:190px}.onboarding-pokemon-grid img{height:115px}.onboarding-community .onboarding-card-showcase{min-height:210px}}@media(prefers-reduced-motion:reduce){.onboarding-card-fan,.onboarding-pull-row img,.onboarding-progress i{animation:none}.onboarding-pack-options>button,.onboarding-dots i{transition:none}}
+/* Tutorial-only locks keep the real pack summary free of normal exit actions. */
+.pack-stage.is-onboarding-tutorial .pack-actions.is-tutorial-hidden{display:none}
+.onboarding-tutorial-pack{padding-bottom:max(22px,env(safe-area-inset-bottom))!important}
+.onboarding-tutorial-pack .pack-stage{padding-bottom:0}
+.onboarding-pack-art{position:relative}
+.onboarding-pack-art .onboarding-pack-logo-fallback{width:70px;height:48px;object-fit:contain;filter:none}
+.onboarding-pack-art .onboarding-pack-image{position:absolute;inset:0;margin:auto}
+
+/* Refinement pass: premium entrances, curated set art, Explore tour, and final conveyor. */
+.onboarding-enter{animation:onboarding-premium-enter .42s cubic-bezier(.2,.75,.25,1) both}
+.enter-brand{animation-delay:.03s}
+.enter-cards{animation-delay:.11s}
+.enter-set-meta{animation-delay:.2s}
+.enter-eyebrow{animation-delay:.25s}
+.enter-headline{animation-delay:.31s}
+.enter-support{animation-delay:.37s}
+.enter-action{animation-delay:.43s}
+@keyframes onboarding-premium-enter{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+
+.onboarding-option-enter{animation:onboarding-option-enter .42s cubic-bezier(.2,.75,.25,1) both}
+.onboarding-option-enter.option-1{animation-delay:.08s}
+.onboarding-option-enter.option-2{animation-delay:.15s}
+.onboarding-option-enter.option-3{animation-delay:.22s}
+@keyframes onboarding-option-enter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+.onboarding-pack-options>button{grid-template-columns:70px minmax(78px,1fr) 72px 16px;min-height:118px;padding-right:11px}
+.onboarding-pack-label{position:relative;z-index:2}
+.onboarding-set-showcase{position:relative;width:72px;height:94px;display:block;pointer-events:none}
+.onboarding-set-showcase img{position:absolute;left:17px;top:8px;width:47px;height:66px;object-fit:contain;border-radius:4px;filter:drop-shadow(0 7px 6px rgba(0,0,0,.4));opacity:0;animation:onboarding-showcase-cycle 9s ease-in-out infinite}
+.onboarding-set-showcase img:nth-child(2){animation-delay:3s;transform:translate(-8px,8px) rotate(-6deg)}
+.onboarding-set-showcase img:nth-child(3){animation-delay:6s;transform:translate(8px,8px) rotate(6deg)}
+@keyframes onboarding-showcase-cycle{0%,28%{opacity:1;z-index:2}35%,93%{opacity:.16;z-index:1}100%{opacity:1}}
+.onboarding-set-showcase.is-static img{animation:none;opacity:1;width:38px;height:54px;left:17px;top:20px}
+.onboarding-set-showcase.is-static img:first-child{transform:translate(-11px,1px) rotate(-7deg)}
+.onboarding-set-showcase.is-static img:nth-child(2){transform:none;z-index:2}
+.onboarding-set-showcase.is-static img:nth-child(3){transform:translate(11px,1px) rotate(7deg)}
+
+.onboarding-pokemon{padding-bottom:max(110px,calc(env(safe-area-inset-bottom) + 24px))!important}
+.onboarding-pokemon .onboarding-title{padding-top:18px}
+.onboarding-pokemon-search{position:relative;margin-top:24px;padding-bottom:env(safe-area-inset-bottom)}
+.onboarding-pokemon-search>label{display:block;margin:0 0 9px;color:#c8cbd2;font-size:.82rem;font-weight:700}
+.onboarding-pokemon-search>input{width:100%;min-height:49px;box-sizing:border-box;border:1px solid #343844;border-radius:14px;background:#12141b;color:#f7f8fb;padding:0 15px;font:inherit;outline:none}
+.onboarding-pokemon-search>input:focus{border-color:#a98aff;box-shadow:0 0 0 3px rgba(169,138,255,.15)}
+.onboarding-pokemon-results{position:relative;z-index:3;display:grid;gap:5px;margin-top:8px;padding:6px;border:1px solid #30343e;border-radius:15px;background:#12141b;box-shadow:0 15px 28px rgba(0,0,0,.35)}
+.onboarding-pokemon-results button{min-height:52px;display:flex;align-items:center;gap:11px;padding:5px 9px;border:0;border-radius:11px;background:transparent;color:#f7f8fb;text-align:left}
+.onboarding-pokemon-results button:focus-visible,.onboarding-pokemon-results button:hover{background:#1c1e27;outline:2px solid #a98aff;outline-offset:-2px}
+.onboarding-pokemon-results img{width:42px;height:42px;object-fit:contain}
+.onboarding-pokemon-results span{display:flex;align-items:baseline;gap:8px}
+.onboarding-pokemon-results small{color:#8e95a2}
+.onboarding-pokemon-results p{margin:10px;color:#969ca8}
+
+.onboarding-real-explore{position:relative;padding-top:0}
+.onboarding-explore .onboarding-real-explore .explore-screen{padding-bottom:calc(190px + env(safe-area-inset-bottom))}
+.onboarding-real-explore [data-onboarding-anchor]{position:relative;transition:filter .25s ease,box-shadow .25s ease}
+.onboarding-real-explore .is-onboarding-spotlight{z-index:4;outline:2px solid #b396ff;outline-offset:2px;box-shadow:0 0 0 3px #b396ff,0 18px 48px rgba(0,0,0,.5);border-radius:18px}
+.onboarding-tour-dimmer{position:absolute;inset:0;z-index:3;background:rgba(4,5,9,.64);pointer-events:none}
+.onboarding-explore-callout{top:auto;bottom:max(14px,calc(env(safe-area-inset-bottom) + 8px));z-index:6;display:block;padding:15px 16px;background:#17141f}
+.onboarding-explore-callout .onboarding-tour-count{display:block;color:#a98aff;font-size:.64rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.onboarding-explore-callout>strong{display:block;margin-top:5px;font-size:1rem}
+.onboarding-explore-callout>p{margin:4px 0 14px;color:#b5b1bd;font-size:.78rem;line-height:1.4}
+.onboarding-explore-callout>div{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.onboarding-explore-callout .onboarding-tour-skip{background:transparent;color:#aaa4b2;font-weight:600}
+
+.onboarding-conveyor{width:calc(100% + 36px);margin:16px -18px 8px;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+.onboarding-conveyor-track{display:flex;width:max-content;gap:12px;padding:8px 0;animation:onboarding-conveyor-move 48s linear infinite;will-change:transform}
+.onboarding-conveyor.is-paused .onboarding-conveyor-track{animation-play-state:paused}
+.onboarding-conveyor img{width:92px;height:128px;flex:0 0 auto;object-fit:contain;border-radius:7px;filter:drop-shadow(0 10px 12px rgba(0,0,0,.42))}
+.onboarding-conveyor.is-static{overflow-x:auto;mask-image:none;scrollbar-width:none}
+.onboarding-conveyor.is-static::-webkit-scrollbar{display:none}
+.onboarding-conveyor.is-static .onboarding-conveyor-track{animation:none;width:max-content;padding-inline:18px}
+@keyframes onboarding-conveyor-move{to{transform:translateX(calc(-50% - 6px))}}
+.onboarding-community-copy h1{margin-top:6px}
+.onboarding-stat-value{display:grid;justify-items:center}
+.onboarding-stat-value.is-text{animation:onboarding-text-stat .28s ease both}
+@keyframes onboarding-text-stat{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+.is-reduced-motion .onboarding-enter,.is-reduced-motion .onboarding-option-enter{animation:onboarding-reduced-fade .12s linear both;animation-delay:0s}
+.is-reduced-motion .onboarding-card-fan,.is-reduced-motion .onboarding-pull-row img,.is-reduced-motion .onboarding-progress i{animation:none}
+.is-reduced-motion .onboarding-set-showcase img,.is-reduced-motion .onboarding-conveyor-track,.is-reduced-motion .onboarding-stat-value{animation:none}
+@keyframes onboarding-reduced-fade{from{opacity:0}to{opacity:1}}
+
+@media(max-width:360px){
+  .onboarding-pack-options>button{grid-template-columns:58px minmax(74px,1fr) 62px 14px;gap:8px}
+  .onboarding-set-showcase{width:62px}
+  .onboarding-set-showcase img{left:12px}
+  .onboarding-pokemon-grid button{min-height:205px}
+}
+@media(prefers-reduced-motion:reduce){
+  .onboarding-enter,.onboarding-option-enter{animation:onboarding-reduced-fade .12s linear both;animation-delay:0s}
+  .onboarding-set-showcase img,.onboarding-conveyor-track,.onboarding-stat-value{animation:none}
+}
+
+/* Tutorial pulls use a tap-friendly conveyor, never a native scrollbar. */
+.onboarding-tutorial-conveyor{width:calc(100% + 2px);margin:0 -1px;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.onboarding-tutorial-conveyor-track{display:flex;width:max-content;gap:9px;padding:2px 8px 5px;animation:onboarding-tutorial-conveyor-move 56s linear infinite;will-change:transform}
+.onboarding-tutorial-conveyor.is-paused .onboarding-tutorial-conveyor-track{animation-play-state:paused}
+.onboarding-tutorial-conveyor-card{flex:0 0 auto;width:94px;padding:0;border:0;border-radius:8px;background:transparent;cursor:zoom-in}
+.onboarding-tutorial-conveyor-card img{display:block;width:94px;aspect-ratio:734/1024;object-fit:contain;border-radius:7px;filter:drop-shadow(0 7px 9px rgba(0,0,0,.35))}
+.onboarding-tutorial-conveyor-card:focus-visible{outline:2px solid #b396ff;outline-offset:3px}
+.onboarding-tutorial-conveyor.is-static{overflow-x:auto;mask-image:none;scrollbar-width:none}
+.onboarding-tutorial-conveyor.is-static::-webkit-scrollbar{display:none}
+.onboarding-tutorial-conveyor.is-static .onboarding-tutorial-conveyor-track{animation:none;padding-inline:1px}
+@keyframes onboarding-tutorial-conveyor-move{to{transform:translateX(calc(-50% - 4.5px))}}
+
+/* One shared entrance timeline keeps the search behind the featured choices. */
+.onboarding-pokemon .onboarding-pokemon-enter,.onboarding-pokemon .onboarding-header{opacity:0;transform:translateY(9px)}
+.onboarding-pokemon.is-entered .onboarding-pokemon-enter,.onboarding-pokemon.is-entered .onboarding-header{animation:onboarding-pokemon-immediate-enter .38s cubic-bezier(.2,.75,.25,1) both}
+.onboarding-pokemon.is-entered .onboarding-header{animation-delay:0s}
+.onboarding-pokemon.is-entered .enter-pokemon-eyebrow{animation-delay:0s}
+.onboarding-pokemon.is-entered .enter-pokemon-heading{animation-delay:.06s}
+.onboarding-pokemon.is-entered .enter-pokemon-support{animation-delay:.12s}
+.onboarding-pokemon.is-entered .enter-pokemon-card-1{animation-delay:.22s}
+.onboarding-pokemon.is-entered .enter-pokemon-card-2{animation-delay:.28s}
+.onboarding-pokemon.is-entered .enter-pokemon-card-3{animation-delay:.34s}
+.onboarding-pokemon.is-entered .enter-pokemon-search{animation-delay:.41s}
+.onboarding-pokemon:not(.is-entered) .onboarding-pokemon-search{pointer-events:none}
+.onboarding-pokemon.is-reduced-motion .onboarding-pokemon-enter,.onboarding-pokemon.is-reduced-motion .onboarding-header{opacity:1;transform:none;animation:none}
+.onboarding-pokemon-grid button.is-loading{justify-content:flex-end}
+.onboarding-pokemon-grid button.is-loading img{background:linear-gradient(120deg,#171923,#26212f,#171923);opacity:.35}
+.onboarding-pokemon-grid button strong>i{display:block;width:64px;height:10px;border-radius:99px;background:#2b2d37}
+.onboarding-pokemon-grid img{transition:opacity .28s ease}
+.onboarding-pokemon-grid img.is-image-pending{opacity:.25}
+.onboarding-pokemon-grid img.is-image-ready{opacity:1}
+@keyframes onboarding-pokemon-immediate-enter{from{opacity:.16;transform:translateY(7px)}to{opacity:1;transform:none}}
+
+/* The final screen deliberately fits a standard mobile viewport before scrolling. */
+.onboarding-community{display:flex;min-height:100dvh!important;max-height:100dvh!important;flex-direction:column;overflow:auto!important;padding-bottom:max(14px,env(safe-area-inset-bottom))!important}
+.onboarding-community .onboarding-header{min-height:34px}
+.onboarding-community .onboarding-brand img{width:26px;height:26px}
+.onboarding-community .onboarding-brand strong{font-size:1rem}
+.onboarding-community .onboarding-conveyor{margin:5px -18px 2px;min-height:91px}
+.onboarding-community .onboarding-conveyor-track{gap:9px;padding:2px 0}
+.onboarding-community .onboarding-conveyor img{width:66px;height:91px}
+.onboarding-community-copy{display:flex;min-height:0;flex:1;flex-direction:column;align-items:stretch}
+.onboarding-community-copy h1{margin:4px 0 2px;font-size:clamp(1.72rem,6.6vw,2.2rem);line-height:1}
+.onboarding-community .onboarding-stat{min-height:67px;margin:5px 0 0}
+.onboarding-community .onboarding-stat strong{font-size:clamp(1.75rem,7.4vw,2.35rem)}
+.onboarding-community-copy h2{margin:8px 0 4px;font-size:1rem}
+.onboarding-community-copy>p{font-size:.86rem;line-height:1.4}
+.onboarding-community-copy .primary-action{margin-top:12px}
+.onboarding-community-copy .secondary-action{margin-top:7px}
+.onboarding-community .onboarding-guest-link{min-height:36px;margin-top:1px}
+.onboarding-stat.is-loading{min-height:67px}
+.onboarding-stat-skeleton{width:94px;height:31px;border-radius:8px;background:linear-gradient(90deg,#25212d,#3a344a,#25212d);background-size:200% 100%;animation:onboarding-stat-skeleton 1.1s ease-in-out infinite}
+@keyframes onboarding-stat-skeleton{to{background-position:-200% 0}}
+@media(max-height:700px){.onboarding-community .onboarding-conveyor{min-height:75px}.onboarding-community .onboarding-conveyor img{width:55px;height:76px}.onboarding-community-copy h1{font-size:clamp(1.5rem,6.1vw,1.9rem)}.onboarding-community .onboarding-stat{min-height:55px}.onboarding-community-copy h2{margin-top:5px}.onboarding-community-copy .primary-action{margin-top:8px}.onboarding-community .onboarding-guest-link{min-height:32px}}
+@media(prefers-reduced-motion:reduce){.onboarding-tutorial-conveyor-track,.onboarding-stat-skeleton{animation:none}}
+
+/* Final correction pass */
+.onboarding-set-meta{width:100%;display:grid;justify-self:stretch;justify-items:center}
+.onboarding-dots{display:grid;grid-auto-flow:column;grid-auto-columns:18px;align-items:center;justify-content:center;gap:4px}
+.onboarding-dots i{justify-self:center}
+
+.onboarding-explore .onboarding-real-explore .explore-screen{padding-bottom:calc(190px + env(safe-area-inset-bottom))}
+.onboarding-explore[data-tour-step="3"] .onboarding-explore-callout{bottom:max(14px,calc(env(safe-area-inset-bottom) + 8px))}
+
+.onboarding-tutorial-conveyor-track{gap:10px;animation-duration:64s}
+.onboarding-tutorial-conveyor-card,.onboarding-tutorial-conveyor-card img{width:100px}
+@media(hover:hover) and (pointer:fine){
+  .onboarding-tutorial-conveyor:hover .onboarding-tutorial-conveyor-track{animation-play-state:paused}
+}
+
+.onboarding-conveyor-track{gap:0;padding:3px 0;animation-duration:58s}
+.onboarding-conveyor-set{display:flex;align-items:center;gap:11px;padding-right:11px}
+.onboarding-conveyor img{border:1px solid rgba(255,255,255,.16);background:#11131a;box-shadow:0 8px 20px rgba(0,0,0,.3)}
+.onboarding-conveyor .card-composition-2,.onboarding-conveyor .card-composition-5{transform:translateY(3px)}
+.onboarding-conveyor .card-composition-3{transform:translateY(-2px)}
+@keyframes onboarding-conveyor-move{to{transform:translateX(-50%)}}
+.onboarding-conveyor.is-static .onboarding-conveyor-set{padding-inline:18px 7px}
+
+.onboarding-community{
+  display:flex!important;
+  min-height:100dvh!important;
+  max-height:100dvh!important;
+  flex-direction:column;
+  overflow:hidden!important;
+  padding-top:max(18px,env(safe-area-inset-top))!important;
+  padding-bottom:max(14px,env(safe-area-inset-bottom))!important;
+  background:#090a0f;
+}
+.onboarding-community .onboarding-header{min-height:42px}
+.onboarding-community .onboarding-brand img{width:30px;height:30px}
+.onboarding-community .onboarding-brand strong{font-size:1.1rem}
+.onboarding-community .onboarding-conveyor{
+  width:min(84vw,346px);
+  min-height:clamp(282px,36.5dvh,340px);
+  flex:0 0 clamp(282px,36.5dvh,340px);
+  align-self:center;
+  margin:2px auto 5px;
+  display:flex;
+  align-items:center;
+  mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+}
+.onboarding-community .onboarding-conveyor img{
+  width:clamp(108px,28.5vw,118px);
+  height:auto;
+  aspect-ratio:734/1024;
+  object-fit:contain;
+  border-radius:8px;
+  transition:opacity .3s ease;
+}
+.onboarding-community .onboarding-conveyor img.is-image-pending{
+  opacity:.24;
+  background:linear-gradient(120deg,#171923,#252031,#171923);
+}
+.onboarding-community .onboarding-conveyor img.is-image-ready{
+  opacity:1;
+}
+.onboarding-community-copy{
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  text-align:center;
+}
+.onboarding-community-intro{display:grid;justify-items:center}
+.onboarding-community-copy h1{
+  margin:7px 0 0;
+  font-size:clamp(2rem,8vw,2.55rem);
+  line-height:.98;
+  letter-spacing:-.055em;
+}
+.onboarding-community .onboarding-stat{
+  min-height:84px;
+  max-height:84px;
+  margin:8px 0 4px;
+  padding:0;
+  border:0;
+  background:none;
+}
+.onboarding-community .onboarding-stat strong{font-size:clamp(2rem,8.5vw,2.8rem)}
+.onboarding-community-account{
+  display:grid;
+  gap:7px;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:none;
+  box-shadow:none;
+}
+.onboarding-community-account h2{margin:0;font-size:1rem}
+.onboarding-community-account>p{margin:0;color:#9fa5b1;font-size:.88rem;line-height:1.45}
+.onboarding-community-account .primary-action,
+.onboarding-community-account .secondary-action,
+.onboarding-community-account .onboarding-guest-link{margin:0}
+.onboarding-community-account .primary-action{margin-top:11px}
+.onboarding-community-account .secondary-action{margin-top:2px}
+.onboarding-community-account .primary-action,.onboarding-community-account .secondary-action{min-height:52px}
+.onboarding-community-account .onboarding-guest-link{min-height:44px}
+
+@media(max-height:760px){
+  .onboarding-community .onboarding-header{min-height:34px}
+  .onboarding-community .onboarding-brand img{width:27px;height:27px}
+  .onboarding-community .onboarding-brand strong{font-size:1rem}
+  .onboarding-community .onboarding-conveyor{min-height:170px;flex-basis:170px;margin-block:0 3px}
+  .onboarding-community .onboarding-conveyor img{width:clamp(78px,24vw,94px)}
+  .onboarding-community-copy h1{font-size:clamp(1.65rem,6.7vw,2rem)}
+  .onboarding-community .onboarding-stat{min-height:66px;max-height:66px;margin:5px 0 2px}
+  .onboarding-community-account{gap:5px}
+  .onboarding-community-account>p{font-size:.82rem;line-height:1.35}
+  .onboarding-community-account .primary-action{margin-top:7px}
+  .onboarding-community-account .primary-action,.onboarding-community-account .secondary-action{min-height:46px}
+  .onboarding-community-account .onboarding-guest-link{min-height:36px}
+}
+@media(max-height:680px){
+  .onboarding-community{max-height:none!important;overflow:auto!important}
+}
+.onboarding-community.is-dev-short-viewport{
+  min-height:640px!important;
+  height:640px!important;
+  max-height:640px!important;
+  overflow:auto!important;
+}
+@media(prefers-reduced-motion:reduce){
+  .onboarding-conveyor .card-composition-2,.onboarding-conveyor .card-composition-3,.onboarding-conveyor .card-composition-5{transform:none}
+}

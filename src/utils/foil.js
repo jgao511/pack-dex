@@ -63,7 +63,6 @@ const PREMIUM_CATEGORIES = new Set([
 ]);
 
 const STANDARD_HIT_CATEGORIES = new Set(["holoRare", "doubleRare", "gx", "pokemonV", "vmaxOrVstar"]);
-const NO_SOUND_CATEGORIES = new Set(["common", "uncommon", "rare", "holoRare"]);
 
 export function normalizeText(value) {
   return normalizeRarity(value);
@@ -271,126 +270,6 @@ export function getFoilProfile(card, set = {}) {
 
   if (isPremiumHit(card, set)) return "fullArt";
   if (isAnyHit(card, set)) return STANDARD_HIT_CATEGORIES.has(category) ? "ultraRare" : "fullArt";
-
-  return "none";
-}
-
-export function getHitSoundType(card, set = {}) {
-  if (!card) return "none";
-
-  const rarity = normalizeText(card.rarity);
-  const variant = normalizeText(card.variant);
-  const text = getCardSearchText(card);
-  const category = getRarityCategory(card, set);
-
-  if (card.isReverseHolo || variant === "reverseholo" || variant === "reverse holo") {
-    return "none";
-  }
-
-  if (
-    [
-      "fullArt",
-      "secretRare",
-      "hyperRare",
-      "rainbowRare",
-      "illustrationRare",
-      "specialIllustrationRare",
-      "trainerGallery",
-      "galarianGallery",
-      "classicCollection",
-      "shinyRare",
-      "shinyUltraRare",
-      "blackWhiteRare",
-      "victiniRare",
-      "megaHyperRare",
-      "breakRare",
-      "alternateArt",
-      "goldRare",
-    ].includes(category)
-  ) {
-    return "bigHit";
-  }
-
-  if (
-    ["doubleRare", "gx", "pokemonV", "vmaxOrVstar", "megaDoubleRare", "ultraRare", "radiantRare", "aceSpecRare"].includes(
-      category
-    )
-  ) {
-    return "hit";
-  }
-
-  if (NO_SOUND_CATEGORIES.has(category)) {
-    return "none";
-  }
-
-  if (
-    rarity === "common" ||
-    rarity === "uncommon" ||
-    rarity === "rare" ||
-    rarity === "rare holo" ||
-    rarity === "holo rare" ||
-    rarity === "rare holofoil" ||
-    (rarity.includes("rare holo") &&
-      !rarity.includes("ex") &&
-      !rarity.includes("gx") &&
-      !rarity.includes(" v") &&
-      !rarity.includes("vmax") &&
-      !rarity.includes("vstar"))
-  ) {
-    return "none";
-  }
-
-  if (
-    [
-      "fullArt",
-      "secretRare",
-      "hyperRare",
-      "rainbowRare",
-      "illustrationRare",
-      "specialIllustrationRare",
-      "trainerGallery",
-      "galarianGallery",
-      "classicCollection",
-      "shinyRare",
-      "shinyUltraRare",
-      "blackWhiteRare",
-      "victiniRare",
-      "megaHyperRare",
-      "breakRare",
-      "alternateArt",
-      "goldRare",
-    ].includes(category) ||
-    text.includes("secret rare") ||
-    text.includes("rare secret") ||
-    text.includes("hyper rare") ||
-    text.includes("gold rare") ||
-    text.includes("rainbow rare") ||
-    text.includes("full art") ||
-    text.includes("rare ultra") ||
-    text.includes("illustration rare") ||
-    text.includes("special illustration rare") ||
-    text.includes("trainer gallery") ||
-    text.includes("galarian gallery") ||
-    text.includes("shiny vault") ||
-    /\bbreak\b/u.test(text)
-  ) {
-    return "bigHit";
-  }
-
-  if (
-    ["doubleRare", "gx", "pokemonV", "vmaxOrVstar", "megaDoubleRare", "ultraRare", "radiantRare", "aceSpecRare"].includes(
-      category
-    ) ||
-    /\bex\b/u.test(text) ||
-    /\bgx\b/u.test(text) ||
-    /\bv\b/u.test(text) ||
-    text.includes("vmax") ||
-    text.includes("vstar") ||
-    text.includes("ultra rare") ||
-    text.includes("double rare")
-  ) {
-    return "hit";
-  }
 
   return "none";
 }

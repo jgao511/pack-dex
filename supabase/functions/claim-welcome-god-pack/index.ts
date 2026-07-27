@@ -10,6 +10,14 @@ import {
   upsertCardsForUser,
 } from "../_shared/packdex.ts";
 
+const WELCOME_REWARD_SET_IDS = new Set([
+  "prismatic-evolutions",
+  "black-bolt",
+  "white-flare",
+  "ascended-heroes",
+  "151",
+]);
+
 async function recordWelcomePackOpenEvent(
   admin: any,
   userId: string,
@@ -48,8 +56,28 @@ Deno.serve(async (req) => {
     debugStep = "find_set";
     const set = findSet(setId);
 
-    if (!set) {
+    if (!set || !WELCOME_REWARD_SET_IDS.has(setId)) {
       return jsonResponse({ error: "Unknown welcome reward set." }, 400);
+    }
+
+    debugStep = "verify_pack_requirement";
+    const { count: eligiblePackCount, error: eligiblePackError } = await admin
+      .from("user_pack_open_events")
+      .select("id", { count: "exact", head: true })
+      .eq("user_id", user.id)
+      .not("client_event_id", "like", "welcome-god-pack:%");
+    if (eligiblePackError) throw eligiblePackError;
+    if (Number(eligiblePackCount || 0) < 50) {
+      return jsonResponse({
+        error: "Open 50 eligible packs before claiming this reward.",
+        rewardStatus: {
+          isEligible: true,
+          isReady: false,
+          isClaimed: false,
+          eligiblePacks: Number(eligiblePackCount || 0),
+          targetPacks: 50,
+        },
+      }, 403);
     }
 
     debugStep = "load_reward";
@@ -67,7 +95,10 @@ Deno.serve(async (req) => {
         error: "This welcome reward has already been claimed.",
         rewardStatus: {
           isEligible: true,
+          isReady: true,
           isClaimed: true,
+          eligiblePacks: Number(eligiblePackCount || 0),
+          targetPacks: 50,
           setId: existingReward.welcome_god_pack_set || "",
           claimedAt: existingReward.welcome_reward_claimed_at || "",
         },
@@ -115,7 +146,10 @@ Deno.serve(async (req) => {
         stats,
         rewardStatus: {
           isEligible: true,
+          isReady: true,
           isClaimed: true,
+          eligiblePacks: Number(eligiblePackCount || 0),
+          targetPacks: 50,
           setId: retrySet.id,
           claimedAt: existingReward.welcome_reward_claimed_at || savedAt,
         },
@@ -193,7 +227,10 @@ Deno.serve(async (req) => {
       stats,
       rewardStatus: {
         isEligible: true,
+        isReady: true,
         isClaimed: true,
+        eligiblePacks: Number(eligiblePackCount || 0),
+        targetPacks: 50,
         setId: set.id,
         claimedAt,
       },

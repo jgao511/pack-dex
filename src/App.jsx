@@ -1964,7 +1964,7 @@ function WelcomeRewardModal({
 }) {
   const choices = useMemo(() => getWelcomeRewardChoices(), []);
 
-  if (!isOpen || !rewardStatus?.isEligible || rewardStatus?.isClaimed) return null;
+  if (!isOpen || !rewardStatus?.isEligible || !rewardStatus?.isReady || rewardStatus?.isClaimed) return null;
 
   const selectedChoice = choices.find((choice) => choice.setId === selectedSetId) || choices[0];
 
@@ -2021,7 +2021,7 @@ function WelcomeRewardModal({
 }
 
 function WelcomeRewardProfileCard({ rewardStatus, onClaim }) {
-  if (!rewardStatus?.isEligible) return null;
+  if (!rewardStatus?.isEligible || !rewardStatus?.isReady) return null;
 
   if (!rewardStatus.isClaimed) {
     return (
@@ -2528,7 +2528,7 @@ function App() {
 
         setWelcomeRewardStatus(status);
         setIsWelcomeRewardLoading(false);
-        if (status.isEligible && !status.isClaimed && shownWelcomeRewardUserRef.current !== authUser.id) {
+        if (status.isEligible && status.isReady && !status.isClaimed && shownWelcomeRewardUserRef.current !== authUser.id) {
           shownWelcomeRewardUserRef.current = authUser.id;
           setSelectedWelcomeRewardSetId(WELCOME_REWARD_CHOICES[0]?.setId || "");
           setWelcomeRewardError("");

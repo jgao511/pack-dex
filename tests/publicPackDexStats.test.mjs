@@ -46,6 +46,20 @@ test("public stats normalization accepts the one-row Supabase RPC response", () 
     }
   );
   assert.equal(normalizePublicPackDexStats([{ cards_pulled: -1 }]), null);
+  assert.deepEqual(
+    normalizePublicPackDexStats([{
+      cards_pulled: "invalid",
+      packs_opened: "128611",
+      popular_set_id: "prismatic-evolutions",
+      popular_set_week_start: "2026-07-27",
+    }]),
+    {
+      packsOpened: 128_611,
+      updatedAt: null,
+      popularSetId: "prismatic-evolutions",
+      popularSetWeekStart: "2026-07-27",
+    }
+  );
 });
 
 test("a fresh ten-minute cache prevents another public RPC request", async () => {

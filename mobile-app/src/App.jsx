@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { Turnstile } from "react-turnstile";
 import MobileResetPasswordPage from "./MobileResetPasswordPage.jsx";
 import DeleteAccountDialog from "./components/DeleteAccountDialog.jsx";
+import MobileOnboarding from "./components/MobileOnboarding.jsx";
 import PrivacyChoicesDialog from "../../src/components/PrivacyChoicesDialog.jsx";
 import { LEGAL_ROUTES, PACKDEX_SUPPORT_EMAIL } from "../../src/content/legalDocuments.js";
 import { buildExplorePath } from "./explore/exploreRouting.js";
@@ -24,6 +25,7 @@ import { supabase, isSupabaseConfigured, missingSupabaseEnv } from "./lib/supaba
 import { loadCloudProfileStats } from "./lib/cloudProfileStats.js";
 import { ensurePackOpenClientEventId, recordPackOpenEvent } from "../../src/lib/packOpenEvents.js";
 import { cacheWelcomeRewardStatus, loadWelcomeRewardStatus } from "../../src/lib/welcomeReward.js";
+import { getPublicPackDexStats } from "../../src/lib/publicPackDexStats.js";
 import {
   loadCloudCollection,
   enqueuePendingCloudPull,
@@ -58,17 +60,36 @@ import { clearDeletedAccountLocalState, deleteCurrentAccount } from "../../src/l
 import { openPrivacyChoices } from "../../src/lib/privacyChoices.js";
 import {
   playAchievementUnlockSound,
-  playDealSound,
-  playFinalRevealSound,
-  playFlipSound,
-  playHitRevealSound,
-  playPackOpenSound,
   preloadMobileSounds,
+  stopAllMobileSounds,
 } from "./utils/mobileSounds.js";
 import { getRarityVisualClass, isRarePlusVisual } from "./utils/rarityPresentation.js";
 import { loadHapticsEnabled, saveHapticsEnabled, triggerRevealHaptic } from "./utils/mobileHaptics.js";
 import { addWishlistCard, getWishlistKey, loadWishlist, removeWishlistCard, resolveCatalogWishlistItem } from "./lib/wishlist.js";
 import { addScannedCardOnce, loadScannerCardActionState } from "./lib/scannerCardActions.js";
+import {
+  MOBILE_ONBOARDING_VERSION,
+  completeAccountMobileOnboarding,
+  clearGuestTutorialPack,
+  createTutorialPack,
+  getDevRewardState,
+  getOnboardingDeviceId,
+  getOnboardingDevScenario,
+  getOnboardingDevStartStep,
+  getTutorialSets,
+  hasGuestTutorialBeenApplied,
+  hasCompletedMobileOnboarding,
+  isMobileOnboardingEligible,
+  isOnboardingTestMode,
+  loadAccountOnboardingVersion,
+  markMobileOnboardingComplete,
+  readGuestTutorialPack,
+  readMobileOnboardingState,
+  resetMobileOnboarding,
+  restoreTutorialPack,
+  saveGuestTutorialPack,
+  writeMobileOnboardingState,
+} from "./lib/mobileOnboarding.js";
 
 const ExploreScreen = lazy(() => import("./explore/ExploreScreen.jsx"));
 const MobileScannerPage = __PACKDEX_SCANNER_TEST__ ? lazy(() => import("./MobileScannerPage.jsx")) : null;
@@ -548,6 +569,7 @@ function CardImage({
   set,
   className = "",
   withEffects = false,
+  celebrateReveal = false,
   isFinal = false,
   loading = "lazy",
   fetchPriority = "auto",
@@ -560,7 +582,7 @@ function CardImage({
   return (
     <span
       className={`mobile-card-image-shell foil-profile-${foilProfile} ${getRarityVisualClass(card, set)} ${showEffects ? "has-foil" : ""} ${ownedShimmer && isRarePlusVisual(card, set) ? "has-owned-shimmer" : ""} ${
-        isFinal && showEffects ? "is-final-hit" : ""
+        isFinal && showEffects && celebrateReveal ? "is-final-hit" : ""
       } ${className}`.trim()}
       onContextMenu={preventCardImageBrowserAction}
       onDragStart={preventCardImageBrowserAction}
@@ -774,7 +796,7 @@ function SignupVerificationModal({ isOpen, email, onClose }) {
 function WelcomeRewardModal({ isOpen, rewardStatus, selectedSetId, isClaiming, error, onSelect, onClaim, onClose }) {
   const choices = useMemo(() => getWelcomeRewardChoices(), []);
 
-  if (!isOpen || !rewardStatus?.isEligible || rewardStatus?.isClaimed) return null;
+  if (!isOpen || !rewardStatus?.isEligible || !rewardStatus?.isReady || rewardStatus?.isClaimed) return null;
 
   const selectedChoice = choices.find((choice) => choice.setId === selectedSetId) || choices[0];
 
@@ -787,7 +809,7 @@ function WelcomeRewardModal({ isOpen, rewardStatus, selectedSetId, isClaiming, e
         <div className="mobile-auth-heading">
           <span className="eyebrow">Welcome Pack</span>
           <h2 id="welcome-reward-title">Choose a welcome God Pack</h2>
-          <p>Thanks for signing up! Here’s a free God Pack on us to get your collection started.</p>
+          <p>Choose your set and open the original PackDex God Pack experience.</p>
         </div>
         <div className="welcome-reward-mobile-grid">
           {choices.map((choice) => (
@@ -1182,6 +1204,9 @@ function PackScreen({
   soundEnabled,
   newPullKeys,
   priceMap,
+  tutorialMode = false,
+  skipRevealEligible = false,
+  onTutorialContinue,
 }) {
   if (!selectedSet || (!pack?.length && stage !== "ready" && stage !== "preloading")) return null;
 
@@ -1198,7 +1223,7 @@ function PackScreen({
     : null;
   const featuredPull = isSummary ? selectFeaturedPull(pack, selectedSet) : null;
   return (
-    <section className={`pack-stage is-${stage}`}>
+    <section className={`pack-stage is-${stage} ${tutorialMode ? "is-onboarding-tutorial" : ""}`}>
       {isReady ? (
         <>
           <div className="pack-ready-artwork">
@@ -1237,7 +1262,7 @@ function PackScreen({
           )}
           {selectedSet.id === "30th-anniversary" && <p className="anniversary-catalog-note is-summary-note">This preview includes currently confirmed cards. More cards will be added as they are announced.</p>}
           {featuredPull?.card && <p className="pack-featured-pull"><span>Featured Pull</span><strong>{getDisplayCardName(featuredPull.card)} · {getDisplayRarity(featuredPull.card)}</strong></p>}
-          <div className="pack-actions">
+          <div className={`pack-actions ${tutorialMode ? "is-tutorial-hidden" : ""}`}>
             <button className="secondary-action" type="button" onClick={onBack}>
               Back to Sets
             </button>
@@ -1258,7 +1283,7 @@ function PackScreen({
         <SetLogo set={selectedSet} className="pack-logo pack-logo-compact" />
       )}
 
-      {isRevealing && packImagesReady && <p className="pack-skip-hint">Tap anywhere to skip</p>}
+      {isRevealing && packImagesReady && !tutorialMode && skipRevealEligible && <p className="pack-skip-hint">Tap anywhere to skip</p>}
 
       {(isRevealing || isSummary) && (
         <div
@@ -1276,6 +1301,8 @@ function PackScreen({
               <button
                 className={`reveal-card ${getRarityVisualClass(card, selectedSet)} ${isVisible ? "is-revealed" : ""} ${isFinal ? "is-final" : ""} ${isFeatured ? "is-featured" : ""} ${
                   isVisible && isHit ? "is-hit" : ""
+                } ${
+                  isRevealing && isVisible && isHit ? "is-reveal-celebration" : ""
                 }`}
                 type="button"
                 key={`${packInstanceId}-${card.id || card.name}-${index}`}
@@ -1284,12 +1311,12 @@ function PackScreen({
                   "--deal-delay": `${index * CARD_DEAL_STAGGER_MS}ms`,
                   "--reveal-delay": `${getMobileRevealDelay(index, pack.length)}ms`,
                 }}
-                disabled={!isVisible && !isRevealing}
+                disabled={tutorialMode ? !isVisible : (!isVisible && !isRevealing)}
                 onClick={(event) => {
                   event.stopPropagation();
 
                   if (isRevealing) {
-                    onSkipReveal?.();
+                    if (!tutorialMode) onSkipReveal?.();
                     return;
                   }
 
@@ -1306,6 +1333,7 @@ function PackScreen({
                       card={card}
                       set={selectedSet}
                       withEffects={isVisible && isFoilHit(card, selectedSet)}
+                      celebrateReveal={isRevealing && isVisible && isHit}
                       isFinal={isFinal}
                       loading="eager"
                       fetchPriority="high"
@@ -1318,7 +1346,10 @@ function PackScreen({
         </div>
       )}
 
-      {isSummary && <AccountNotice user={user} onLogin={onLogin} onCreateAccount={onCreateAccount} />}
+      {isSummary && tutorialMode && (
+        <button className="primary-action" type="button" onClick={onTutorialContinue}>See Your Collection</button>
+      )}
+      {isSummary && !tutorialMode && <AccountNotice user={user} onLogin={onLogin} onCreateAccount={onCreateAccount} />}
     </section>
   );
 }
@@ -1899,6 +1930,10 @@ function CollectionScreen({
   );
 }
 
+function isOnboardingCardPreview(item) {
+  return ["onboarding-summary", "onboarding-collection"].includes(item?.context?.origin || item?.origin || "");
+}
+
 function CardInspectModal({ item, collection, user, wishlistKeys, wishlistPendingKeys, wishlistMessage, onToggleWishlist, onLogin, onClose, priceMap, onLoadSpecies, onViewPokemon, onViewSet, onViewEra }) {
   const [tiltStyle, setTiltStyle] = useState({});
   const [isInspectTilting, setIsInspectTilting] = useState(false);
@@ -1906,16 +1941,63 @@ function CardInspectModal({ item, collection, user, wishlistKeys, wishlistPendin
   const activeInspectPointerRef = useRef(null);
   const pendingInspectTiltRef = useRef(null);
   const inspectTiltRafRef = useRef(null);
+  const minimalPreview = isOnboardingCardPreview(item);
+
+  function requestClose() {
+    onClose();
+    if (minimalPreview && window.history.state?.packdexCardPreview) {
+      window.history.replaceState(
+        {
+          ...(window.history.state || {}),
+          packdexCardPreview: false,
+        },
+        "",
+        window.location.href,
+      );
+    }
+  }
 
   useEffect(() => {
     let current = true;
-    if (!item?.card || !item?.set || !onLoadSpecies) {
+    if (!item?.card || !item?.set || !onLoadSpecies || minimalPreview) {
       setLinkedSpecies([]);
       return undefined;
     }
     onLoadSpecies(item.card, item.set).then((species) => { if (current) setLinkedSpecies(species || []); }).catch(() => { if (current) setLinkedSpecies([]); });
     return () => { current = false; };
-  }, [item?.card, item?.set, onLoadSpecies]);
+  }, [item?.card, item?.set, minimalPreview, onLoadSpecies]);
+
+  useEffect(() => {
+    if (!item?.card || !item?.set) return undefined;
+    if (minimalPreview && !window.history.state?.packdexCardPreview) {
+      window.history.pushState(
+        {
+          ...(window.history.state || {}),
+          packdexCardPreview: true,
+        },
+        "",
+        window.location.href,
+      );
+    }
+    const bodyOverflow = document.body.style.overflow;
+    const rootOverflow = document.documentElement.style.overflow;
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") requestClose();
+    };
+    const closeOnBack = () => onClose();
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    document.body.classList.add("card-inspect-open");
+    window.addEventListener("keydown", closeOnEscape);
+    window.addEventListener("popstate", closeOnBack);
+    return () => {
+      document.body.style.overflow = bodyOverflow;
+      document.documentElement.style.overflow = rootOverflow;
+      document.body.classList.remove("card-inspect-open");
+      window.removeEventListener("keydown", closeOnEscape);
+      window.removeEventListener("popstate", closeOnBack);
+    };
+  }, [item?.card, item?.set, minimalPreview, onClose]);
 
   if (!item?.card || !item?.set) return null;
 
@@ -2009,9 +2091,9 @@ function CardInspectModal({ item, collection, user, wishlistKeys, wishlistPendin
   }
 
   return (
-    <div className="inspect-backdrop" role="presentation" onClick={onClose}>
-      <section className="inspect-modal" role="dialog" aria-modal="true" aria-label={getDisplayCardName(card, set)} onClick={(event) => event.stopPropagation()}>
-        <button className="inspect-close" type="button" onClick={onClose} aria-label="Close card details">
+    <div className="inspect-backdrop" role="presentation" onClick={requestClose}>
+      <section className={`inspect-modal ${minimalPreview ? "is-minimal-preview" : ""}`} role="dialog" aria-modal="true" aria-label={getDisplayCardName(card, set)} onClick={(event) => event.stopPropagation()}>
+        <button className="inspect-close" type="button" onClick={requestClose} aria-label="Close card details">
           <CloseIcon />
         </button>
         <div
@@ -2025,14 +2107,14 @@ function CardInspectModal({ item, collection, user, wishlistKeys, wishlistPendin
           onPointerLeave={resetTilt}
           onLostPointerCapture={resetTilt}
         >
-          <CardImage card={card} set={set} className="inspect-card-image" withEffects={isFoilHit(card, set)} isFinal />
+          <CardImage card={card} set={set} className="inspect-card-image" withEffects={!minimalPreview && isFoilHit(card, set)} isFinal />
         </div>
         <div className="inspect-card-copy">
-          <span>{set.name}</span>
           <h2>{getDisplayCardName(card, set)}</h2>
-          <p>{getDisplayRarity(card, set)}</p>
-          <p>{ownedCount > 0 ? `Owned in PackDex x${ownedCount}` : "Not owned in your PackDex collection"}</p>
-          {ownedCount === 0 && (
+          {!minimalPreview && <span>{set.name}</span>}
+          {!minimalPreview && <p>{getDisplayRarity(card, set)}</p>}
+          {!minimalPreview && <p>{ownedCount > 0 ? `Owned in PackDex x${ownedCount}` : "Not owned in your PackDex collection"}</p>}
+          {!minimalPreview && ownedCount === 0 && (
             <button
               className="secondary-action inspect-wishlist-action"
               type="button"
@@ -2042,17 +2124,17 @@ function CardInspectModal({ item, collection, user, wishlistKeys, wishlistPendin
               {isWishlistPending ? "Saving..." : isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
             </button>
           )}
-          {ownedCount === 0 && wishlistMessage?.key === wishlistKey && <p className={`wishlist-inline-message ${wishlistMessage.isError ? "is-error" : ""}`}>{wishlistMessage.text}</p>}
-          {hasMarketPrice && <p className="market-price-line">
+          {!minimalPreview && ownedCount === 0 && wishlistMessage?.key === wishlistKey && <p className={`wishlist-inline-message ${wishlistMessage.isError ? "is-error" : ""}`}>{wishlistMessage.text}</p>}
+          {!minimalPreview && hasMarketPrice && <p className="market-price-line">
             Estimated Market Value: <strong>{formatUsd(marketPrice.marketPriceUsd)}</strong>
             <TcgplayerSourceBadge compact />
           </p>}
-          {tcgplayerCardUrl && (
+          {!minimalPreview && tcgplayerCardUrl && (
             <a className="tcgplayer-card-link" href={tcgplayerCardUrl} target="_blank" rel="noopener noreferrer">
               View on TCGplayer
             </a>
           )}
-          {contextualActions.length > 0 && <div className={`inspect-explore-links ${getCardActionLayoutClass(contextualActions.length)}`}>{contextualActions}</div>}
+          {!minimalPreview && contextualActions.length > 0 && <div className={`inspect-explore-links ${getCardActionLayoutClass(contextualActions.length)}`}>{contextualActions}</div>}
         </div>
       </section>
     </div>
@@ -2214,6 +2296,7 @@ function SettingsModal({
   onToggleSound,
   onToggleHaptics,
   scannerTestEnabled = false,
+  onReplayOnboarding,
 }) {
   if (!isOpen) return null;
 
@@ -2276,6 +2359,14 @@ function SettingsModal({
             Privacy Choices
           </button>
         </section>
+
+        {onReplayOnboarding && (
+          <section className="settings-section">
+            <span className="eyebrow">Tutorial</span>
+            <button className="settings-link" type="button" onClick={onReplayOnboarding}>Replay Onboarding</button>
+            {import.meta.env.DEV && <small className="settings-support-label">Development route: /mobile-app/dev/onboarding</small>}
+          </section>
+        )}
       </section>
     </div>
   );
@@ -2304,6 +2395,7 @@ function ProfileScreen({
   welcomeRewardStatus,
   onOpenWelcomeReward,
   onLoadAchievementProgress,
+  onReplayOnboarding,
 }) {
   const isLoggedIn = Boolean(user);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -2352,12 +2444,14 @@ function ProfileScreen({
 
       {isLoggedIn && welcomeRewardStatus?.isEligible && !welcomeRewardStatus?.isClaimed && (
         <section className="welcome-reward-profile-card-mobile">
-          <span className="eyebrow">Welcome Pack Available</span>
-          <h2>Claim your welcome God Pack</h2>
-          <p>Thanks for signing up! Here’s a free God Pack on us to get your collection started.</p>
-          <button className="primary-action compact-auth-submit" type="button" onClick={onOpenWelcomeReward}>
-            Claim Welcome Pack
-          </button>
+          <span className="eyebrow">Welcome Reward</span>
+          <h2>{welcomeRewardStatus.isReady ? "Your free God Pack is ready" : "Open 50 packs to unlock your free God Pack"}</h2>
+          <p>{welcomeRewardStatus.isReady ? "Choose your set and open the original PackDex God Pack experience." : "Only signed-in, normally opened packs count toward this one-time reward."}</p>
+          {!welcomeRewardStatus.isReady && <>
+            <p>{Math.min(welcomeRewardStatus.eligiblePacks || 0, 50)} / 50 packs</p>
+            <div className="onboarding-progress"><i style={{ width: `${Math.min(100, ((welcomeRewardStatus.eligiblePacks || 0) / 50) * 100)}%` }} /></div>
+          </>}
+          {welcomeRewardStatus.isReady && <button className="primary-action compact-auth-submit" type="button" onClick={onOpenWelcomeReward}>Claim God Pack</button>}
         </section>
       )}
 
@@ -2475,6 +2569,10 @@ function ProfileScreen({
         onToggleSound={onToggleSound}
         onToggleHaptics={onToggleHaptics}
         scannerTestEnabled={__PACKDEX_SCANNER_TEST__}
+        onReplayOnboarding={onReplayOnboarding ? () => {
+          setIsSettingsOpen(false);
+          onReplayOnboarding?.();
+        } : null}
       />
     </section>
   );
@@ -2559,6 +2657,32 @@ function MobileAuthCallbackPage() {
 }
 
 function MobileApp() {
+  const onboardingTestMode = useMemo(() => isOnboardingTestMode(), []);
+  const mobileOnboardingEligible = useMemo(() => isMobileOnboardingEligible(), []);
+  const tutorialSets = useMemo(() => getTutorialSets(), []);
+  const onboardingDevRequestedStep = useMemo(() => getOnboardingDevStartStep(), []);
+  const onboardingDevStartStep = onboardingDevRequestedStep === "summary"
+    ? "pack"
+    : onboardingDevRequestedStep === "final"
+      ? "community"
+      : onboardingDevRequestedStep;
+  const onboardingDevSummary = onboardingDevRequestedStep === "summary";
+  const onboardingDevScenario = useMemo(() => getOnboardingDevScenario(), []);
+  const initialOnboardingState = useMemo(() => {
+    const saved = readMobileOnboardingState();
+    if (!onboardingDevStartStep) return saved;
+    const set = tutorialSets[0];
+    const needsPack = ["pack", "collection", "pokemon", "explore", "community"].includes(onboardingDevStartStep);
+    const cards = needsPack && set ? createTutorialPack(set, "development-preview") : [];
+    return {
+      version: MOBILE_ONBOARDING_VERSION,
+      step: onboardingDevStartStep,
+      setId: set?.id || "",
+      cardIds: cards.map((card) => String(card.id || "")),
+      pokemon: onboardingDevStartStep === "explore" ? { id: 6, name: "charizard", displayName: "Charizard" } : null,
+    };
+  }, [onboardingDevStartStep, tutorialSets]);
+  const restoredTutorial = useMemo(() => restoreTutorialPack(initialOnboardingState), [initialOnboardingState]);
   const [activeTab, setActiveTab] = useState(() => typeof window !== "undefined" && window.location.pathname.includes("/explore") ? "explore" : "open");
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [hapticsEnabled, setHapticsEnabled] = useState(loadHapticsEnabled);
@@ -2573,7 +2697,19 @@ function MobileApp() {
   const [authValidationState, setAuthValidationState] = useState(isSupabaseConfigured ? "validating" : "guest");
   const [stats, setStats] = useState(EMPTY_STATS);
   const [loadingMessage, setLoadingMessage] = useState("Loading account...");
-  const [selectedSet, setSelectedSet] = useState(null);
+  const [onboardingStep, setOnboardingStep] = useState(() => {
+    if (!mobileOnboardingEligible && !onboardingTestMode) return "";
+    if (!onboardingTestMode && hasCompletedMobileOnboarding()) return "";
+    return initialOnboardingState?.step || "welcome";
+  });
+  const [onboardingSelectedSetId, setOnboardingSelectedSetId] = useState(initialOnboardingState?.setId || tutorialSets[0]?.id || "");
+  const [onboardingPokemon, setOnboardingPokemon] = useState(initialOnboardingState?.pokemon || null);
+  const [onboardingStats, setOnboardingStats] = useState(null);
+  const [isOnboardingStatsLoading, setIsOnboardingStatsLoading] = useState(false);
+  const [onboardingError, setOnboardingError] = useState("");
+  const [isFinishingOnboarding, setIsFinishingOnboarding] = useState(false);
+  const [onboardingAuthIntent, setOnboardingAuthIntent] = useState(false);
+  const [selectedSet, setSelectedSet] = useState(restoredTutorial.set);
   const [selectedCollectionSetId, setSelectedCollectionSetId] = useState("");
   const [collectionReturnSource, setCollectionReturnSource] = useState("collection");
   const [collectionEraFilter, setCollectionEraFilter] = useState(() => {
@@ -2582,10 +2718,11 @@ function MobileApp() {
     return window.localStorage.getItem(COLLECTION_ERA_FILTER_KEY) || "All Eras";
   });
   const [collectionSetSearch, setCollectionSetSearch] = useState("");
-  const [pack, setPack] = useState([]);
-  const [packStage, setPackStage] = useState("sets");
+  const [pack, setPack] = useState(restoredTutorial.cards);
+  const [packStage, setPackStage] = useState(() => initialOnboardingState?.step === "pack" && restoredTutorial.cards.length ? (onboardingDevSummary ? "summary" : "revealing") : "sets");
   const [revealedCount, setRevealedCount] = useState(0);
   const [packImagesReady, setPackImagesReady] = useState(false);
+  const [skipRevealEligible, setSkipRevealEligible] = useState(false);
   const [packInstanceId, setPackInstanceId] = useState(0);
   const [newPullKeys, setNewPullKeys] = useState(() => new Set());
   const [hasSavedCurrentPack, setHasSavedCurrentPack] = useState(false);
@@ -2635,16 +2772,17 @@ function MobileApp() {
   const completePriceSetIdsRef = useRef(new Set());
   const preloadedAssetUrlsRef = useRef(new Set());
   const shownWelcomeRewardUserRef = useRef("");
+  const manualOnboardingReplayRef = useRef(onboardingTestMode);
   const soundEnabledRef = useRef(soundEnabled);
   const hapticsEnabledRef = useRef(hapticsEnabled);
   const wishlistScrollRef = useRef(0);
-  const playedRevealSoundKeysRef = useRef(new Set());
-  const playedRevealHapticKeysRef = useRef(new Set());
-  const activeRevealSoundSessionRef = useRef("");
-  const revealSoundSessionCounterRef = useRef(0);
+  const revealCycleRef = useRef(null);
+  const revealCycleCounterRef = useRef(0);
   const revealTimersRef = useRef([]);
+  const onboardingCardPreviewOpenedRef = useRef(false);
   const packImagePreloadIdRef = useRef(0);
   const skipRevealStartedRef = useRef(false);
+  const skipRevealEligibleRef = useRef(false);
   const screenContentRef = useRef(null);
   validatedScannerUserIdRef.current = authValidationState === "authenticated" ? String(user?.id || "") : "";
   const setsCompleted = useMemo(
@@ -2658,11 +2796,38 @@ function MobileApp() {
   );
   const ownedCards = useMemo(() => getOwnedCards(collection), [collection]);
   const isPackOpening = activeTab === "open" && (packStage === "revealing" || packStage === "preloading");
+  const isOnboardingActive = Boolean(onboardingStep) && authValidationState !== "validating";
+  const displayedWelcomeRewardStatus = useMemo(() => {
+    const devState = getDevRewardState();
+    if (!devState) return welcomeRewardStatus;
+    if (devState === "claimed") return { isEligible: true, isReady: true, isClaimed: true, eligiblePacks: 50, targetPacks: 50 };
+    const eligiblePacks = devState === "49" ? 49 : devState === "50" ? 50 : 0;
+    return { isEligible: true, isReady: eligiblePacks >= 50, isClaimed: false, eligiblePacks, targetPacks: 50 };
+  }, [welcomeRewardStatus]);
 
   function scrollScreenToTop(behavior = "auto") {
     window.requestAnimationFrame(() => {
       screenContentRef.current?.scrollTo({ top: 0, left: 0, behavior });
     });
+  }
+
+  function resetOnboardingScroll() {
+    const reset = () => {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      screenContentRef.current?.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      document.querySelectorAll(".onboarding-page, .onboarding-real-explore, .onboarding-layer, .card-destination-overlay, .mobile-auth-modal").forEach((element) => {
+        element.scrollTo?.({ top: 0, left: 0, behavior: "auto" });
+      });
+    };
+
+    // The Explore tour never owns a lock outside its mounted screen. Clear a
+    // stale native/browser lock before the next onboarding route is painted.
+    document.body.classList.remove("onboarding-tour-active");
+    document.documentElement.classList.remove("onboarding-tour-active");
+    document.body.style.overflow = "";
+    document.documentElement.style.overflow = "";
+    reset();
+    window.requestAnimationFrame(() => window.requestAnimationFrame(reset));
   }
 
   function switchMobileTab(nextTab) {
@@ -2691,6 +2856,142 @@ function MobileApp() {
     window.dispatchEvent(new PopStateEvent("popstate"));
     returnToSets();
     scrollScreenToTop();
+  }
+
+  function persistOnboarding(step, patch = {}) {
+    const next = {
+      step,
+      setId: patch.setId ?? onboardingSelectedSetId,
+      cardIds: patch.cardIds ?? pack.map((card) => String(card.id || "")),
+      pokemon: patch.pokemon ?? onboardingPokemon,
+    };
+    resetOnboardingScroll();
+    setOnboardingStep(step);
+    writeMobileOnboardingState(next);
+  }
+
+  function clearTutorialPackState() {
+    packImagePreloadIdRef.current += 1;
+    clearRevealTimers();
+    setPackImagesReady(false);
+    setPackStage("sets");
+    setSelectedSet(null);
+    setPack([]);
+    setRevealedCount(0);
+    skipRevealEligibleRef.current = false;
+    setSkipRevealEligible(false);
+    setNewPullKeys(new Set());
+    savedPackKeyRef.current = "";
+  }
+
+  async function skipOnboarding() {
+    if (isFinishingOnboarding || onboardingStep === "pack") return;
+    setIsFinishingOnboarding(true);
+    setOnboardingError("");
+    markMobileOnboardingComplete();
+    manualOnboardingReplayRef.current = false;
+    resetOnboardingScroll();
+    setOnboardingStep("");
+    clearTutorialPackState();
+    try {
+      if (user?.id) await completeAccountMobileOnboarding({ skipped: true });
+    } catch (error) {
+      console.warn("Unable to sync skipped mobile onboarding", error);
+    } finally {
+      setIsFinishingOnboarding(false);
+    }
+  }
+
+  function startTutorialPack() {
+    const set = tutorialSets.find((candidate) => candidate.id === onboardingSelectedSetId);
+    if (!set) return;
+    const cards = createTutorialPack(set, getOnboardingDeviceId());
+    preparePackImages(cards, set);
+    setActiveTab("open");
+    setSelectedSet(set);
+    setPack(cards);
+    setPackInstanceId((current) => current + 1);
+    setRevealedCount(0);
+    setNewPullKeys(new Set(cards.map((card) => getCardKey(card, set.id))));
+    setHasSavedCurrentPack(true);
+    skipRevealEligibleRef.current = false;
+    setSkipRevealEligible(false);
+    setPackStage("revealing");
+    startRevealCycle(cards, set);
+    persistOnboarding("pack", { setId: set.id, cardIds: cards.map((card) => String(card.id || "")) });
+  }
+
+  function chooseOnboardingPokemon(pokemon) {
+    setOnboardingPokemon(pokemon);
+    window.history.replaceState({ packdexExplore: true }, "", buildExplorePath({ kind: "pokemon", id: pokemon.id }, "/mobile-app/"));
+    persistOnboarding("explore", { pokemon });
+  }
+
+  function finishExploreTutorial() {
+    window.history.replaceState({}, "", "/mobile-app/");
+    persistOnboarding("community");
+  }
+
+  function replayOnboarding() {
+    if (!mobileOnboardingEligible && !onboardingTestMode) return;
+    manualOnboardingReplayRef.current = true;
+    resetMobileOnboarding();
+    clearTutorialPackState();
+    setOnboardingSelectedSetId(tutorialSets[0]?.id || "");
+    setOnboardingPokemon(null);
+    setOnboardingError("");
+    persistOnboarding("welcome", { setId: tutorialSets[0]?.id || "", cardIds: [], pokemon: null });
+  }
+
+  async function finishGuestOnboarding() {
+    if (isFinishingOnboarding || !selectedSet || pack.length === 0) return;
+    setIsFinishingOnboarding(true);
+    if (!hasGuestTutorialBeenApplied()) {
+      const nextCollection = markCardsCollected(collection, pack, selectedSet.id, Date.now());
+      saveCollection(nextCollection);
+      saveGuestTutorialPack(selectedSet.id, pack);
+      setCollection(nextCollection);
+    }
+    markMobileOnboardingComplete();
+    manualOnboardingReplayRef.current = false;
+    resetOnboardingScroll();
+    setOnboardingStep("");
+    clearTutorialPackState();
+    setIsFinishingOnboarding(false);
+  }
+
+  async function finishAccountOnboarding(currentUser = user) {
+    if (isFinishingOnboarding || !currentUser?.id || !selectedSet || pack.length === 0) return;
+    setIsFinishingOnboarding(true);
+    setOnboardingError("");
+    try {
+      const result = await completeAccountMobileOnboarding({ setId: selectedSet.id, cards: pack });
+      clearGuestTutorialPack();
+      if (result?.stats) setStats(result.stats);
+      const refreshedCollection = await loadCloudCollection();
+      setCollection(mergePendingCloudPullsIntoCollection(refreshedCollection, currentUser.id));
+      try {
+        const achievementResult = await requestServerAchievementAward(currentUser.id);
+        enqueueAchievementUnlocks(achievementResult?.awarded);
+        mergeAwardedAchievements(currentUser, achievementResult?.awarded);
+      } catch (error) {
+        console.warn("Unable to refresh achievements after onboarding", {
+          userId: currentUser.id,
+          error,
+        });
+      }
+      markMobileOnboardingComplete();
+      manualOnboardingReplayRef.current = false;
+      resetOnboardingScroll();
+      setOnboardingStep("");
+      clearTutorialPackState();
+      await refreshWelcomeRewardStatus(currentUser, { autoOpen: false, force: true });
+    } catch (error) {
+      console.warn("Unable to finish account onboarding", error);
+      setOnboardingError(error?.message || "Your progress could not be saved. Please try again.");
+    } finally {
+      setIsFinishingOnboarding(false);
+    }
   }
 
   function openCardDestination(route) {
@@ -2867,6 +3168,7 @@ function MobileApp() {
   }
 
   function openAuthProfile(nextMode = "login") {
+    if (onboardingStep) resetOnboardingScroll();
     setAuthModeClean(nextMode);
     setIsAuthPanelOpen(true);
     setActiveTab("profile");
@@ -2920,7 +3222,9 @@ function MobileApp() {
     achievementCacheByUserIdRef.current.clear();
     lastAchievementsLoadedUserIdRef.current = "";
     lastAccountScopedUserIdRef.current = "";
-    setInspectedCard(null);
+    if (!(onboardingTestMode && onboardingDevScenario.cardPreview)) {
+      setInspectedCard(null);
+    }
   }
 
   async function refreshWishlist(currentUser = user) {
@@ -3222,7 +3526,98 @@ function MobileApp() {
 
   useEffect(() => {
     preloadMobileSounds();
+    return () => {
+      clearRevealTimers();
+      finishActiveRevealCycle();
+      stopAllMobileSounds();
+    };
   }, []);
+
+  useEffect(() => {
+    if (!restoredTutorial.set || restoredTutorial.cards.length === 0) return;
+    if (!["pack", "collection", "pokemon", "explore", "community"].includes(initialOnboardingState?.step)) return;
+    preparePackImages(restoredTutorial.cards, restoredTutorial.set);
+    if (initialOnboardingState?.step === "pack") {
+      setActiveTab("open");
+      if (onboardingDevSummary) {
+        finishActiveRevealCycle();
+        setPackStage("summary");
+        setRevealedCount(restoredTutorial.cards.length);
+      } else {
+        setPackStage("revealing");
+        setRevealedCount(0);
+        startRevealCycle(restoredTutorial.cards, restoredTutorial.set);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (onboardingStep !== "explore" || !onboardingPokemon?.id) return;
+    const destination = buildExplorePath({ kind: "pokemon", id: onboardingPokemon.id }, window.location.pathname);
+    if (window.location.pathname === destination) return;
+    window.history.replaceState({ packdexExplore: true }, "", `${destination}${window.location.search}`);
+    window.dispatchEvent(new PopStateEvent("popstate"));
+  }, [onboardingPokemon?.id, onboardingStep]);
+
+  useEffect(() => {
+    if (onboardingStep) resetOnboardingScroll();
+  }, [onboardingStep]);
+
+  useEffect(() => {
+    if (onboardingStep !== "community") return undefined;
+    let active = true;
+    const params = new URLSearchParams(window.location.search);
+    const forceFailedStats = ["empty", "failure"].includes(onboardingDevScenario.stats);
+    const forceLoadingStats = onboardingDevScenario.stats === "loading";
+    const useDevPreview = import.meta.env.DEV && !forceFailedStats && !forceLoadingStats && params.get("statsPreview") === "1";
+    if (forceFailedStats) {
+      setOnboardingStats(null);
+      setIsOnboardingStatsLoading(false);
+      return () => { active = false; };
+    }
+    if (forceLoadingStats) {
+      setOnboardingStats(null);
+      setIsOnboardingStatsLoading(true);
+      return () => { active = false; };
+    }
+    setIsOnboardingStatsLoading(true);
+    setOnboardingStats(null);
+    if (useDevPreview) {
+      setOnboardingStats({
+        packsOpened: 1284,
+        cardsPulled: 12840,
+        popularSetName: tutorialSets[0]?.name || "Pitch Black",
+      });
+      setIsOnboardingStatsLoading(false);
+      return () => { active = false; };
+    }
+    getPublicPackDexStats()
+      .then((nextStats) => {
+        if (!active) return;
+        const popularSetName = sets.find((set) => set.id === nextStats?.popularSetId)?.name || "";
+        setOnboardingStats(nextStats ? { ...nextStats, popularSetName } : null);
+        setIsOnboardingStatsLoading(false);
+      })
+      .catch(() => {
+        if (!active) return;
+        setOnboardingStats(null);
+        setIsOnboardingStatsLoading(false);
+      });
+    return () => { active = false; };
+  }, [onboardingDevScenario.stats, onboardingStep, tutorialSets]);
+
+  useEffect(() => {
+    if (!onboardingDevScenario.cardPreview || onboardingCardPreviewOpenedRef.current) return;
+    if (authValidationState === "validating") return;
+    if (onboardingDevRequestedStep === "summary" && onboardingStep !== "pack") return;
+    if (onboardingDevRequestedStep === "collection" && onboardingStep !== "collection") return;
+    if (!["collection", "pack"].includes(onboardingStep) || !selectedSet || !pack[0]) return;
+    if (onboardingStep === "pack" && packStage !== "summary") return;
+    onboardingCardPreviewOpenedRef.current = true;
+    inspectCard(pack[0], selectedSet, {
+      origin: onboardingStep === "pack" ? "onboarding-summary" : "onboarding-collection",
+    });
+  }, [authValidationState, onboardingDevRequestedStep, onboardingDevScenario.cardPreview, onboardingStep, pack, packStage, selectedSet]);
 
 
   useEffect(() => {
@@ -3391,7 +3786,7 @@ function MobileApp() {
     return () => cancelIdleTask(idleHandle);
   }, [activeTab, isAuthSubmitting, isValueLoading, loadingMessage, packStage, selectedCollectionSetId, selectedSet?.id]);
 
-  async function refreshWelcomeRewardStatus(currentUser, { autoOpen = true } = {}) {
+  async function refreshWelcomeRewardStatus(currentUser, { autoOpen = false, force = false } = {}) {
     if (!currentUser?.id) {
       setWelcomeRewardStatus(null);
       setIsWelcomeRewardModalOpen(false);
@@ -3399,10 +3794,10 @@ function MobileApp() {
       return null;
     }
 
-    const status = await loadWelcomeRewardStatus(currentUser);
+    const status = await loadWelcomeRewardStatus(currentUser, { force });
 
     setWelcomeRewardStatus(status);
-    if (autoOpen && status.isEligible && !status.isClaimed && shownWelcomeRewardUserRef.current !== currentUser.id) {
+    if (autoOpen && status.isEligible && status.isReady && !status.isClaimed && shownWelcomeRewardUserRef.current !== currentUser.id) {
       shownWelcomeRewardUserRef.current = currentUser.id;
       setSelectedWelcomeRewardSetId(WELCOME_REWARD_CHOICES[0]?.setId || "");
       setWelcomeRewardError("");
@@ -3412,7 +3807,7 @@ function MobileApp() {
     return status;
   }
 
-  async function refreshAuthSession({ showLoading = false, autoOpenWelcomeReward = true } = {}) {
+  async function refreshAuthSession({ showLoading = false, autoOpenWelcomeReward = false } = {}) {
     if (authRefreshPromiseRef.current) return authRefreshPromiseRef.current;
     if (!supabase) {
       clearAccountScopedState();
@@ -3439,6 +3834,8 @@ function MobileApp() {
           if (validationAttempt !== authValidationAttemptRef.current) return null;
           clearAccountScopedState();
           setAuthValidationState("guest");
+          if (!manualOnboardingReplayRef.current && hasCompletedMobileOnboarding()) setOnboardingStep("");
+          else if (mobileOnboardingEligible && !onboardingStep) setOnboardingStep(initialOnboardingState?.step || "welcome");
           return null;
         }
 
@@ -3455,6 +3852,42 @@ function MobileApp() {
         setSignupVerificationEmail("");
         await loadAccountScopedState(sessionUser);
         if (validationAttempt !== authValidationAttemptRef.current) return null;
+        let accountOnboardingVersion = await loadAccountOnboardingVersion(sessionUser.id).catch(() => 0);
+        const pendingGuestTutorial = readGuestTutorialPack();
+        if (
+          !manualOnboardingReplayRef.current &&
+          accountOnboardingVersion < MOBILE_ONBOARDING_VERSION &&
+          pendingGuestTutorial.set &&
+          pendingGuestTutorial.cards.length === 10
+        ) {
+          try {
+            await completeAccountMobileOnboarding({
+              setId: pendingGuestTutorial.set.id,
+              cards: pendingGuestTutorial.cards,
+            });
+            clearGuestTutorialPack();
+            accountOnboardingVersion = MOBILE_ONBOARDING_VERSION;
+            await loadAccountScopedState(sessionUser, { force: true });
+            try {
+              const achievementResult = await requestServerAchievementAward(sessionUser.id);
+              enqueueAchievementUnlocks(achievementResult?.awarded);
+              mergeAwardedAchievements(sessionUser, achievementResult?.awarded);
+            } catch (error) {
+              console.warn("Unable to refresh achievements after tutorial migration", {
+                userId: sessionUser.id,
+                error,
+              });
+            }
+          } catch (error) {
+            console.warn("Guest tutorial pack will remain available for account migration retry", error);
+          }
+        }
+        if (!manualOnboardingReplayRef.current && accountOnboardingVersion >= MOBILE_ONBOARDING_VERSION) {
+          markMobileOnboardingComplete();
+          setOnboardingStep("");
+        } else if (mobileOnboardingEligible && !manualOnboardingReplayRef.current && !hasCompletedMobileOnboarding() && !onboardingStep) {
+          setOnboardingStep(initialOnboardingState?.step || "welcome");
+        }
         await refreshWelcomeRewardStatus(sessionUser, { autoOpen: autoOpenWelcomeReward });
         if (validationAttempt !== authValidationAttemptRef.current) return null;
         setAuthValidationState("authenticated");
@@ -3477,8 +3910,8 @@ function MobileApp() {
   }
 
   useEffect(() => {
-    maybeShowWelcomeDisclaimer();
-  }, []);
+    if (!onboardingStep) maybeShowWelcomeDisclaimer();
+  }, [onboardingStep]);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -3495,6 +3928,7 @@ function MobileApp() {
 
   useEffect(() => {
     soundEnabledRef.current = soundEnabled;
+    if (!soundEnabled) stopAllMobileSounds();
   }, [soundEnabled]);
 
   useEffect(() => {
@@ -3519,7 +3953,10 @@ function MobileApp() {
   useEffect(() => {
     if (!activeAchievementToast) return undefined;
 
-    playAchievementUnlockSound(soundEnabledRef.current);
+    const packSurfaceIsQuiet = packStage === "summary" || Boolean(inspectedCard);
+    if (soundEnabledRef.current && !packSurfaceIsQuiet) {
+      playAchievementUnlockSound(soundEnabledRef.current);
+    }
     const timer = window.setTimeout(() => {
       setActiveAchievementToast(null);
     }, ACHIEVEMENT_TOAST_AUTO_DISMISS_MS);
@@ -3542,7 +3979,7 @@ function MobileApp() {
 
     function refreshIfActive() {
       if (!mounted || document.visibilityState === "hidden") return;
-      refreshAuthSession({ showLoading: true, autoOpenWelcomeReward: true });
+      refreshAuthSession({ showLoading: true, autoOpenWelcomeReward: false });
     }
 
     const { data } = supabase.auth.onAuthStateChange((event, session) => {
@@ -3566,7 +4003,7 @@ function MobileApp() {
       setWelcomeRewardStatus(null);
       setLoadingMessage("Loading account...");
       window.setTimeout(() => {
-        refreshAuthSession({ showLoading: true, autoOpenWelcomeReward: true });
+        refreshAuthSession({ showLoading: true, autoOpenWelcomeReward: false });
       }, 0);
     });
 
@@ -3662,63 +4099,47 @@ function MobileApp() {
   }, [authValidationState, user?.id]);
 
   useEffect(() => {
-    if (packStage !== "revealing" || pack.length === 0) return undefined;
+    if (packStage !== "revealing" || pack.length === 0 || !packImagesReady) return undefined;
+
+    const cycle = revealCycleRef.current;
+    if (!cycle || cycle.phase !== "revealing") return undefined;
 
     clearRevealTimers();
-    const timers = [];
-    revealTimersRef.current = timers;
     const dealCompleteDelay = Math.max(0, (pack.length - 1) * CARD_DEAL_STAGGER_MS) + CARD_DEAL_ANIMATION_MS;
     const revealStartDelay = dealCompleteDelay + WAIT_AFTER_DEAL_MS;
 
-    pack.forEach((_card, index) => {
-      const dealDelay = index * CARD_DEAL_STAGGER_MS;
+    // A visible skip affordance and its handler become active in the same timer
+    // tick. Tutorial packs deliberately never opt into this normal-pack control.
+    skipRevealEligibleRef.current = false;
+    setSkipRevealEligible(false);
+    if (onboardingStep !== "pack") {
+      scheduleRevealTimer(cycle, () => {
+        skipRevealEligibleRef.current = true;
+        setSkipRevealEligible(true);
+      }, revealStartDelay);
+    }
+
+    pack.forEach((card, index) => {
       const revealDelay = revealStartDelay + getMobileRevealDelay(index, pack.length);
 
-      timers.push(window.setTimeout(() => playDealSound(soundEnabledRef.current), dealDelay));
-      timers.push(
-        window.setTimeout(() => {
-          setRevealedCount(index + 1);
-          playFlipSound(soundEnabledRef.current);
-
-          const card = pack[index];
-          const revealKey = `${activeRevealSoundSessionRef.current}:${index}:${card?.id || card?.name || "card"}`;
-          if (card && !playedRevealHapticKeysRef.current.has(revealKey)) {
-            playedRevealHapticKeysRef.current.add(revealKey);
-            triggerRevealHaptic(card, selectedSet, hapticsEnabledRef.current);
-          }
-
-          if (index === pack.length - 1) {
-            if (!pack.isGodPack) playFinalRevealSound(soundEnabledRef.current);
-          }
-
-          if (card && isFoilHit(card, selectedSet)) {
-            const soundSessionKey = activeRevealSoundSessionRef.current || [packInstanceId, getPackSaveKey(pack, selectedSet)].join(":");
-            const hitSoundKey = pack.isGodPack
-              ? `${soundSessionKey}:god-pack-hit`
-              : `${soundSessionKey}:${index}:${card.id || card.name || "card"}`;
-
-            if (!playedRevealSoundKeysRef.current.has(hitSoundKey)) {
-              playedRevealSoundKeysRef.current.add(hitSoundKey);
-              playHitRevealSound(card, selectedSet, soundEnabledRef.current);
-            }
-          }
-        }, revealDelay)
-      );
+      scheduleRevealTimer(cycle, () => {
+        setRevealedCount(index + 1);
+        runCardRevealHaptic(card, index, cycle);
+      }, revealDelay);
     });
 
     const totalDelay = revealStartDelay + getMobileRevealDelay(pack.length - 1, pack.length) + CARD_FLIP_ANIMATION_MS;
 
-    timers.push(
-      window.setTimeout(() => {
-        setPackStage("summary");
-      }, totalDelay + SUMMARY_AFTER_LAST_CARD_MS)
-    );
+    scheduleRevealTimer(cycle, () => {
+      clearRevealTimers();
+      finishActiveRevealCycle();
+      setPackStage("summary");
+    }, totalDelay + SUMMARY_AFTER_LAST_CARD_MS);
 
     return () => {
-      timers.forEach((timer) => window.clearTimeout(timer));
-      if (revealTimersRef.current === timers) revealTimersRef.current = [];
+      clearRevealTimers();
     };
-  }, [pack, packStage, selectedSet]);
+  }, [onboardingStep, pack, packImagesReady, packStage, selectedSet]);
 
   function persistSessionCollection(nextCollection) {
     if (!user) saveCollection(nextCollection);
@@ -3736,6 +4157,8 @@ function MobileApp() {
     setPackInstanceId((current) => current + 1);
     setPackStage("ready");
     setRevealedCount(0);
+    skipRevealEligibleRef.current = false;
+    setSkipRevealEligible(false);
     setNewPullKeys(new Set());
     setHasSavedCurrentPack(false);
     savedPackKeyRef.current = "";
@@ -3746,11 +4169,38 @@ function MobileApp() {
     return `${set.id}:${cards.map((card) => card.id || card.number || card.name).join("|")}`;
   }
 
-  function startRevealSoundSession(cards, set) {
-    revealSoundSessionCounterRef.current += 1;
-    activeRevealSoundSessionRef.current = [revealSoundSessionCounterRef.current, getPackSaveKey(cards, set)].join(":");
-    playedRevealSoundKeysRef.current = new Set();
-    playedRevealHapticKeysRef.current = new Set();
+  function startRevealCycle(cards, set) {
+    clearRevealTimers();
+    finishActiveRevealCycle();
+    revealCycleCounterRef.current += 1;
+    revealCycleRef.current = {
+      id: [revealCycleCounterRef.current, getPackSaveKey(cards, set)].join(":"),
+      phase: "revealing",
+      hapticKeys: new Set(),
+    };
+  }
+
+  function finishActiveRevealCycle() {
+    if (revealCycleRef.current) revealCycleRef.current.phase = "closed";
+  }
+
+  function runCardRevealHaptic(card, index, cycle = revealCycleRef.current) {
+    if (!card || !selectedSet || cycle !== revealCycleRef.current || cycle?.phase !== "revealing") return;
+    const cardKey = `${index}:${card.id || card.name || "card"}`;
+    if (cycle.hapticKeys.has(cardKey)) return;
+    cycle.hapticKeys.add(cardKey);
+    triggerRevealHaptic(card, selectedSet, hapticsEnabledRef.current);
+  }
+
+  function scheduleRevealTimer(cycle, callback, delay) {
+    if (!cycle || cycle.phase !== "revealing") return null;
+    const timerId = window.setTimeout(() => {
+      revealTimersRef.current = revealTimersRef.current.filter((timer) => timer !== timerId);
+      if (revealCycleRef.current !== cycle || cycle.phase !== "revealing") return;
+      callback();
+    }, delay);
+    revealTimersRef.current.push(timerId);
+    return timerId;
   }
 
   async function preloadPackAssets(cards, set) {
@@ -3818,6 +4268,15 @@ function MobileApp() {
       }
 
       setStats(syncResult?.stats || nextStats);
+      if (syncResult?.stats) {
+        const eligiblePacks = Number(syncResult.stats.packsOpened || 0);
+        setWelcomeRewardStatus((current) => current ? {
+          ...current,
+          eligiblePacks,
+          targetPacks: 50,
+          isReady: eligiblePacks >= 50,
+        } : current);
+      }
 
       try {
         await runPostPackAchievementFlow({
@@ -3839,29 +4298,34 @@ function MobileApp() {
   function startReveal() {
     if (!selectedSet || pack.length === 0 || packStage !== "ready") return;
 
-    playPackOpenSound(soundEnabled);
     beginReveal(pack, selectedSet);
   }
 
   function beginReveal(cards, set) {
-    startRevealSoundSession(cards, set);
+    startRevealCycle(cards, set);
     skipRevealStartedRef.current = false;
+    skipRevealEligibleRef.current = false;
+    setSkipRevealEligible(false);
     setRevealedCount(0);
     setPackStage("revealing");
     saveRevealedPack(cards, set);
   }
 
   function skipPackReveal() {
-    if (packStage !== "revealing" || !packImagesReady || skipRevealStartedRef.current) return;
+    if (packStage !== "revealing" || !packImagesReady || !skipRevealEligibleRef.current || skipRevealStartedRef.current) return;
 
     skipRevealStartedRef.current = true;
+    skipRevealEligibleRef.current = false;
+    setSkipRevealEligible(false);
     clearRevealTimers();
+    finishActiveRevealCycle();
     setRevealedCount(pack.length);
     setPackStage("summary");
   }
 
   function handlePackScreenClick(event) {
     if (activeTab !== "open" || packStage !== "revealing" || !packImagesReady) return;
+    if (onboardingStep === "pack") return;
     if (event.target.closest("button, a, input, select, textarea, [role='button']")) return;
 
     skipPackReveal();
@@ -3898,7 +4362,6 @@ function MobileApp() {
     setNewPullKeys(new Set());
     setHasSavedCurrentPack(false);
     savedPackKeyRef.current = "";
-    playPackOpenSound(soundEnabled);
     beginReveal(nextPack, selectedSet);
     scrollScreenToTop();
   }
@@ -3909,6 +4372,7 @@ function MobileApp() {
     setInspectedCard({ card, set, origin, context: { ...context, origin, returnScroll: Number(screenContentRef.current?.scrollTop || 0) } });
 
     if (
+      !isOnboardingCardPreview({ origin, context: { ...context, origin } }) &&
       supabase &&
       set?.id &&
       !SETS_WITHOUT_MARKET_PRICE_DATA.has(set.id) &&
@@ -4039,9 +4503,8 @@ function MobileApp() {
       setNewPullKeys(new Set(rewardPack.map((card) => getCardKey(card, choice.set.id))));
       setHasSavedCurrentPack(true);
       savedPackKeyRef.current = getPackSaveKey(rewardPack, choice.set);
-      startRevealSoundSession(rewardPack, choice.set);
+      startRevealCycle(rewardPack, choice.set);
       setPackStage("revealing");
-      playPackOpenSound(soundEnabled);
       scrollScreenToTop();
     } catch (error) {
       console.warn("Mobile welcome reward claim failed", error);
@@ -4179,11 +4642,15 @@ function MobileApp() {
         return;
       }
 
-      const nextUser = await refreshAuthSession({ showLoading: false, autoOpenWelcomeReward: true });
+      const nextUser = await refreshAuthSession({ showLoading: false, autoOpenWelcomeReward: false });
       setAuthMessage(isCreateMode ? "Account created! You're now signed in." : "Logged in.");
 
       if (nextUser) {
         setIsAuthPanelOpen(false);
+        if (onboardingStep === "community" && onboardingAuthIntent) {
+          await finishAccountOnboarding(nextUser);
+          setOnboardingAuthIntent(false);
+        }
       } else {
         throw new Error("The account session could not be validated.");
       }
@@ -4239,7 +4706,13 @@ function MobileApp() {
   return (
     <main className="mobile-app theme-dark">
       <section className="phone-shell" aria-label="PackDex mobile app">
-        <div className={`screen-content screen-${activeTab}`} ref={screenContentRef} onClick={handlePackScreenClick}>
+        <div
+          className={`screen-content screen-${activeTab}`}
+          ref={screenContentRef}
+          onClick={handlePackScreenClick}
+          aria-hidden={isOnboardingActive || undefined}
+          inert={isOnboardingActive}
+        >
           <MobileBrandHeader />
           {authValidationState === "validating" && activeTab !== "scanner" ? (
             <section className="mobile-auth-validation" role="status" aria-live="polite">
@@ -4271,6 +4744,7 @@ function MobileApp() {
                 soundEnabled={soundEnabled}
                 newPullKeys={newPullKeys}
                 priceMap={selectedSet ? fullSetPriceMapsBySet[selectedSet.id] || priceMapsBySet[selectedSet.id] : null}
+                skipRevealEligible={skipRevealEligible}
               />
             ))}
           {activeTab === "collection" && (
@@ -4346,7 +4820,8 @@ function MobileApp() {
               achievementProgress={achievementProgress}
               isAchievementsLoading={isAchievementsLoading}
               onLoadAchievementProgress={() => loadUserAchievementProgress(user)}
-              welcomeRewardStatus={welcomeRewardStatus}
+              welcomeRewardStatus={displayedWelcomeRewardStatus}
+              onReplayOnboarding={mobileOnboardingEligible ? replayOnboarding : null}
               onOpenWelcomeReward={() => {
                 setWelcomeRewardError("");
                 setSelectedWelcomeRewardSetId(WELCOME_REWARD_CHOICES[0]?.setId || "");
@@ -4356,6 +4831,83 @@ function MobileApp() {
           )}
           </>}
         </div>
+
+        {isOnboardingActive && (
+          <div className="onboarding-layer" aria-label="PackDex onboarding">
+            {onboardingStep === "pack" ? (
+              <div className="onboarding-page onboarding-tutorial-pack">
+                <PackScreen
+                  user={user}
+                  pack={pack}
+                  packInstanceId={packInstanceId}
+                  selectedSet={selectedSet}
+                  stage={packStage}
+                  revealedCount={revealedCount}
+                  packImagesReady={packImagesReady}
+                  onInspectCard={(card, set) => inspectCard(card, set, { origin: "onboarding-summary" })}
+                  soundEnabled={soundEnabled}
+                  newPullKeys={newPullKeys}
+                  priceMap={null}
+                  tutorialMode
+                  onTutorialContinue={() => persistOnboarding("collection")}
+                />
+              </div>
+            ) : (
+              <MobileOnboarding
+                step={onboardingStep}
+                tutorialSets={tutorialSets}
+                selectedSetId={onboardingSelectedSetId}
+                set={selectedSet}
+                cards={pack}
+                pokemon={onboardingPokemon}
+                stats={onboardingStats}
+                isStatsLoading={isOnboardingStatsLoading}
+                user={user}
+                devScenario={onboardingDevScenario}
+                onInspectCard={inspectCard}
+                isCardDetailOpen={Boolean(inspectedCard)}
+                isFinishing={isFinishingOnboarding}
+                error={onboardingError}
+                onStart={() => persistOnboarding("choose-set")}
+                onSkip={skipOnboarding}
+                onSelect={(setId) => {
+                  setOnboardingSelectedSetId(setId);
+                  writeMobileOnboardingState({ step: "choose-set", setId, cardIds: [], pokemon: null });
+                }}
+                onOpen={startTutorialPack}
+                onContinue={() => persistOnboarding("pokemon")}
+                onSelectPokemon={chooseOnboardingPokemon}
+                onExploreContinue={finishExploreTutorial}
+                onSignup={() => {
+                  setOnboardingAuthIntent(true);
+                  openAuthProfile("signup");
+                }}
+                onLogin={() => {
+                  setOnboardingAuthIntent(true);
+                  openAuthProfile("login");
+                }}
+                onGuest={finishGuestOnboarding}
+                onFinishAccount={() => finishAccountOnboarding(user)}
+              >
+                {onboardingStep === "explore" && (
+                  <Suspense fallback={<section className="mobile-auth-validation"><img src={POKEBALL_LOADING_SRC} alt="" /><strong>Loading Explore…</strong></section>}>
+                    <ExploreScreen
+                      key={`onboarding-pokemon-${onboardingPokemon?.id || ""}`}
+                      collection={collection}
+                      wishlistEntries={wishlistEntries}
+                      priceMapsBySet={{ ...priceMapsBySet, ...fullSetPriceMapsBySet }}
+                      onboardingPriceScenario={onboardingDevScenario.prices}
+                      onboardingMode
+                      onInspectCard={inspectCard}
+                      onOpenPack={() => {}}
+                      onViewSetCollection={() => {}}
+                    />
+                  </Suspense>
+                )}
+              </MobileOnboarding>
+            )}
+          </div>
+        )}
 
         {cardDestinationOverlay && (
           <div className="card-destination-overlay" aria-label="Card detail destination">
@@ -4372,7 +4924,7 @@ function MobileApp() {
           </div>
         )}
 
-        <nav className={`bottom-tabs ${isPackOpening ? "is-pack-locked" : ""}`} aria-label="Mobile app sections">
+        {!isOnboardingActive && <nav className={`bottom-tabs ${isPackOpening ? "is-pack-locked" : ""}`} aria-label="Mobile app sections">
           {tabs.map((tab) => {
             const isNavigationLocked = isPackOpening && tab.id !== "open";
 
@@ -4390,7 +4942,7 @@ function MobileApp() {
               </button>
             );
           })}
-        </nav>
+        </nav>}
 
         {authValidationState !== "validating" && <AchievementUnlockToast toast={activeAchievementToast} />}
 
@@ -4408,7 +4960,10 @@ function MobileApp() {
           onViewPokemon={openPokemonFromInspect}
           onViewSet={(id) => openCardDestination({ kind: "set", id })}
           onViewEra={(name) => import("./explore/exploreData.js").then(({ exploreEras }) => { const era = exploreEras.find((item) => item.name === name); if (era) openCardDestination({ kind: "era", id: era.id }); })}
-          onClose={() => setInspectedCard(null)}
+          onClose={() => {
+            onboardingCardPreviewOpenedRef.current = true;
+            setInspectedCard(null);
+          }}
         />}
         <MobileAuthModal
           isOpen={authValidationState !== "validating" && isAuthPanelOpen && !user}
@@ -4442,7 +4997,7 @@ function MobileApp() {
         />
         <WelcomeRewardModal
           isOpen={authValidationState !== "validating" && isWelcomeRewardModalOpen}
-          rewardStatus={welcomeRewardStatus}
+          rewardStatus={displayedWelcomeRewardStatus}
           selectedSetId={selectedWelcomeRewardSetId}
           isClaiming={isClaimingWelcomeReward}
           error={welcomeRewardError}
@@ -4458,7 +5013,7 @@ function MobileApp() {
           onDismiss={() => setIsWelcomeDisclaimerOpen(false)}
         />
         <PrivacyChoicesDialog />
-        {loadingMessage && <PokeballLoadingOverlay message={loadingMessage} />}
+        {loadingMessage && !onboardingStep && <PokeballLoadingOverlay message={loadingMessage} />}
       </section>
     </main>
   );

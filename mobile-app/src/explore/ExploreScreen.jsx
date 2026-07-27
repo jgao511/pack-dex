@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { getCardCount, getSetCollectionProgress } from "../../../src/utils/collectionStorage.js";
 import { getCardImageUrl, getSetLogoUrl } from "../../../src/utils/assetUrls.js";
 import { compareCardsByRarity } from "../../../src/utils/rarityRank.js";
@@ -132,6 +132,27 @@ function SearchGroups({ query, collection, wishlistKeys, navigate, onInspectCard
   </div>;
 }
 
+function AppearsInConveyor({ sets, collection, onOpen }) {
+  const scrollerRef = useRef(null);
+
+  return (
+    <div
+      className="appears-in-conveyor"
+      ref={scrollerRef}
+      role="region"
+      aria-label="Sets featuring this Pokémon"
+      tabIndex={0}
+      onKeyDown={(event) => {
+        if (!["ArrowLeft", "ArrowRight"].includes(event.key)) return;
+        event.preventDefault();
+        scrollerRef.current?.scrollBy({ left: event.key === "ArrowRight" ? 160 : -160, behavior: "smooth" });
+      }}
+    >
+      {sets.map((set) => <SetTile key={set.id} set={set} collection={collection} compact onOpen={onOpen} />)}
+    </div>
+  );
+}
+
 function RecentExploreSearch({ recentRefs, onOpen }) {
   const items = recentRefs.map((item) => {
     if (item.kind === "pokemon") {
@@ -244,10 +265,10 @@ function PriceHighlight({ entry, refreshState, onOpen }) {
   if (entry) {
     return <button className="price-highlight-card" type="button" onClick={() => onOpen(entry.card, entry.set)}><small>Highest current listed market value</small><strong>{entry.card.name}</strong><span>{entry.set.name}</span><b>${entry.price.toFixed(2)}</b>{statusText && <em className="price-highlight-status" role="status" aria-live="polite">{statusText}</em>}</button>;
   }
-  return <div className={`price-highlight-card is-empty ${isChecking ? "is-loading" : ""}`}><small>Highest current listed market value</small><strong role="status" aria-live="polite">{isChecking ? "Checking card prices…" : refreshState === "failure" ? "Couldn’t check the latest prices." : "No current market price available."}</strong><span className="price-highlight-placeholder" aria-hidden="true" /></div>;
+  return null;
 }
 
-function PokemonDetail({ id, collection, wishlistKeys, priceMapsBySet, navigate, goBack, onInspectCard }) {
+function PokemonDetail({ id, collection, wishlistKeys, priceMapsBySet, navigate, goBack, onInspectCard, onboardingPriceScenario = "", onboardingMode = false }) {
   const species = speciesById.get(Number(id));
   const [statusFilter, setStatusFilter] = useState("all");
   const [setFilter, setSetFilter] = useState("all");
@@ -260,13 +281,33 @@ function PokemonDetail({ id, collection, wishlistKeys, priceMapsBySet, navigate,
   }, [priceMapsBySet, refreshedPriceMaps]);
   useEffect(() => {
     if (!species || cards.length === 0) return undefined;
+    if (onboardingPriceScenario === "empty") {
+      setPriceRefreshState("idle");
+      return undefined;
+    }
+    if (onboardingPriceScenario === "populated") {
+      const firstCard = cards.find((entry) => entry?.card && entry?.set);
+      if (firstCard) {
+        setRefreshedPriceMaps({
+          [firstCard.set.id]: new Map([[String(firstCard.card.id), {
+            setId: firstCard.set.id,
+            cardId: firstCard.card.id,
+            marketPriceUsd: 42.5,
+            syncedAt: new Date().toISOString(),
+          }]]),
+        });
+      }
+      setPriceRefreshState("idle");
+      return undefined;
+    }
     if (!supabase) {
       setPriceRefreshState("idle");
       return undefined;
     }
     let active = true;
     setPriceRefreshState("checking");
-    refreshPokemonPrices({ speciesId: species.id, cards, collection, priceMapsBySet: effectivePriceMaps, supabaseClient: supabase })
+    const delay = onboardingPriceScenario === "slow" ? 1250 : 0;
+    const refreshTimer = window.setTimeout(() => refreshPokemonPrices({ speciesId: species.id, cards, collection, priceMapsBySet: effectivePriceMaps, supabaseClient: supabase })
       .then((result) => {
         if (!active) return;
         if (Object.keys(result.priceMapsBySet || {}).length > 0) {
@@ -280,9 +321,10 @@ function PokemonDetail({ id, collection, wishlistKeys, priceMapsBySet, navigate,
         }
         setPriceRefreshState(result.status === "partial_success" ? "partial" : result.status === "failure" ? "failure" : "idle");
       })
-      .catch((error) => { if (active) setPriceRefreshState("failure"); console.warn("[PackDex prices] bounded Pokémon refresh failed", error); });
-    return () => { active = false; };
-  }, [species?.id]);
+      .catch((error) => { if (active) setPriceRefreshState("failure"); console.warn("[PackDex prices] bounded Pokémon refresh failed", error); })
+    , delay);
+    return () => { active = false; window.clearTimeout(refreshTimer); };
+  }, [onboardingPriceScenario, species?.id]);
   if (!species) return <NotFound title="Pokémon unavailable" goBack={goBack} />;
   const progress = getSpeciesProgress(species.id, collection);
   const appearances = [...new Map(cards.map((entry) => [entry.set.id, entry.set])).values()].sort((a, b) => String(a.releaseDate || "").localeCompare(String(b.releaseDate || "")));
@@ -293,15 +335,17 @@ function PokemonDetail({ id, collection, wishlistKeys, priceMapsBySet, navigate,
   const notableOwned = [...priced, ...cards].find((entry, index, all) => all.findIndex((candidate) => candidate.set.id === entry.set.id && candidate.card.id === entry.card.id) === index && getCardCount(collection, entry.card, entry.set.id) > 0);
   const inspectPokemonCard = (card, set) => onInspectCard(card, set, { origin: "pokemon-detail", pokemonId: species.id });
   return <section className="explore-screen"><PageHeader title={species.displayName} onBack={goBack} />
-    <section className="pokemon-hero"><div><span>National Pokédex</span><strong>#{String(species.id).padStart(4, "0")}</strong><TypeBadges types={species.types} /><em>Generation {species.generation} · {GENERATION_NAMES[species.generation]}</em></div><SafeImage src={species.artworkUrl} alt={`${species.displayName} official artwork`} /></section>
-    {species.flavorText && <section className="explore-detail-section"><span className="eyebrow">About</span><p className="explore-description">{species.flavorText}</p></section>}
-    <section className="explore-detail-section"><span className="eyebrow">Quick Facts</span><div className="quick-facts"><div><small>Category</small><strong>{species.genus || "Unknown"}</strong></div><div><small>Height</small><strong>{species.heightDm ? `${(species.heightDm / 10).toFixed(1)} m · ${Math.floor(species.heightDm * 3.937 / 12)}′ ${Math.round((species.heightDm * 3.937) % 12)}″` : "Unknown"}</strong></div><div><small>Weight</small><strong>{species.weightHg ? `${(species.weightHg / 10).toFixed(1)} kg · ${(species.weightHg * 0.220462).toFixed(1)} lb` : "Unknown"}</strong></div><div><small>Abilities</small><strong>{species.abilities.map((ability) => `${ability.name}${ability.hidden ? " (Hidden)" : ""}`).join(", ") || "Unknown"}</strong></div></div></section>
+    <div className="pokemon-info-overview" data-onboarding-anchor="summary">
+      <section className="pokemon-hero"><div><span>National Pokédex</span><strong>#{String(species.id).padStart(4, "0")}</strong><TypeBadges types={species.types} /><em>Generation {species.generation} · {GENERATION_NAMES[species.generation]}</em></div><SafeImage src={species.artworkUrl} alt={`${species.displayName} official artwork`} /></section>
+      {species.flavorText && <section className="explore-detail-section"><span className="eyebrow">About</span><p className="explore-description">{species.flavorText}</p></section>}
+      <section className="explore-detail-section"><span className="eyebrow">Quick Facts</span><div className="quick-facts"><div><small>Category</small><strong>{species.genus || "Unknown"}</strong></div><div><small>Height</small><strong>{species.heightDm ? `${(species.heightDm / 10).toFixed(1)} m · ${Math.floor(species.heightDm * 3.937 / 12)}′ ${Math.round((species.heightDm * 3.937) % 12)}″` : "Unknown"}</strong></div><div><small>Weight</small><strong>{species.weightHg ? `${(species.weightHg / 10).toFixed(1)} kg · ${(species.weightHg * 0.220462).toFixed(1)} lb` : "Unknown"}</strong></div><div><small>Abilities</small><strong>{species.abilities.map((ability) => `${ability.name}${ability.hidden ? " (Hidden)" : ""}`).join(", ") || "Unknown"}</strong></div></div></section>
+    </div>
     <section className="explore-detail-section"><span className="eyebrow">Evolution Family</span>{chain.length > 1 || chain[0]?.children.length > 0 ? <ul className="evolution-tree">{chain.map((node) => <EvolutionNode key={node.species?.id} node={node} navigate={navigate} />)}</ul> : <p className="explore-description">No evolution is listed for this Pokémon.</p>}</section>
     {species.forms?.length > 0 && <section className="explore-detail-section"><span className="eyebrow">Known Forms</span><div className="mechanic-list">{species.forms.map((form) => <span key={form}>{form}</span>)}</div></section>}
     <section className="explore-detail-section"><span className="eyebrow">PackDex Card Progress</span><div className="progress-summary"><strong>{progress.percent}%</strong><span>{progress.owned} of {progress.total} unique cards discovered</span><em>{progress.missing} missing</em></div><ProgressBar value={progress.percent} label={`${species.displayName} card completion`} /></section>
-    {cards.length > 0 && <section className="explore-detail-section"><span className="eyebrow">Collection Highlights</span><div className="highlight-grid">{dated[0] && <button type="button" onClick={() => inspectPokemonCard(dated[0].card, dated[0].set)}><small>Oldest supported</small><strong>{dated[0].card.name}</strong><span>{dated[0].set.name}</span></button>}{dated.at(-1) && <button type="button" onClick={() => inspectPokemonCard(dated.at(-1).card, dated.at(-1).set)}><small>Newest supported</small><strong>{dated.at(-1).card.name}</strong><span>{dated.at(-1).set.name}</span></button>}<PriceHighlight entry={priced[0]} refreshState={priceRefreshState} onOpen={inspectPokemonCard} />{notableOwned && <button type="button" onClick={() => inspectPokemonCard(notableOwned.card, notableOwned.set)}><small>Notable card you own</small><strong>{notableOwned.card.name}</strong><span>{notableOwned.set.name}</span></button>}</div></section>}
-    <section className="explore-detail-section"><div className="explore-section-heading"><span>PackDex Catalog</span><h2>Cards Featuring {species.displayName}</h2></div>{cards.length ? <><div className="explore-filters"><label>Status<select value={statusFilter} onChange={(event) => setStatusFilter(event.target.value)}><option value="all">All</option><option value="owned">Owned</option><option value="missing">Missing</option></select></label><label>Set<select value={setFilter} onChange={(event) => setSetFilter(event.target.value)}><option value="all">All sets</option>{appearances.map((set) => <option key={set.id} value={set.id}>{set.name}</option>)}</select></label></div><div className="explore-card-grid">{filteredCards.map((entry) => <CardTile key={`${entry.set.id}:${entry.card.id}`} entry={entry} collection={collection} wishlistKeys={wishlistKeys} onOpen={inspectPokemonCard} />)}</div>{!filteredCards.length && <div className="explore-empty"><strong>No cards in this view</strong><span>Change the filters to see more.</span></div>}</> : <div className="explore-empty"><strong>No supported PackDex cards yet</strong><span>The encyclopedia information is still available.</span></div>}</section>
-    {appearances.length > 0 && <section className="explore-detail-section"><div className="explore-section-heading"><span>Catalog</span><h2>Appears In</h2></div><div className="explore-horizontal">{appearances.map((set) => <SetTile key={set.id} set={set} collection={collection} compact onOpen={(item) => navigate({ kind: "set", id: item.id })} />)}</div></section>}
+    {cards.length > 0 && <section className="explore-detail-section"><span className="eyebrow">Collection Highlights</span><div className="highlight-grid">{dated[0] && <button type="button" onClick={() => inspectPokemonCard(dated[0].card, dated[0].set)}><small>Oldest supported</small><strong>{dated[0].card.name}</strong><span>{dated[0].set.name}</span></button>}{dated.at(-1) && <button type="button" onClick={() => inspectPokemonCard(dated.at(-1).card, dated.at(-1).set)}><small>Newest supported</small><strong>{dated.at(-1).card.name}</strong><span>{dated.at(-1).set.name}</span></button>}{priced[0] && <PriceHighlight entry={priced[0]} refreshState={priceRefreshState} onOpen={inspectPokemonCard} />}{notableOwned && <button type="button" onClick={() => inspectPokemonCard(notableOwned.card, notableOwned.set)}><small>Notable card you own</small><strong>{notableOwned.card.name}</strong><span>{notableOwned.set.name}</span></button>}</div></section>}
+    <section className="explore-detail-section" data-onboarding-anchor="cards"><div className="explore-section-heading"><span>PackDex Catalog</span><h2>Cards Featuring {species.displayName}</h2></div>{cards.length ? <><div className="explore-filters"><label>Status<select value={statusFilter} onChange={(event) => setStatusFilter(event.target.value)}><option value="all">All</option><option value="owned">Owned</option><option value="missing">Missing</option></select></label><label>Set<select value={setFilter} onChange={(event) => setSetFilter(event.target.value)}><option value="all">All sets</option>{appearances.map((set) => <option key={set.id} value={set.id}>{set.name}</option>)}</select></label></div><div className="explore-card-grid">{filteredCards.map((entry) => <CardTile key={`${entry.set.id}:${entry.card.id}`} entry={entry} collection={collection} wishlistKeys={wishlistKeys} onOpen={inspectPokemonCard} />)}</div>{!filteredCards.length && <div className="explore-empty"><strong>No cards in this view</strong><span>Change the filters to see more.</span></div>}</> : <div className="explore-empty"><strong>No supported PackDex cards yet</strong><span>The encyclopedia information is still available.</span></div>}</section>
+    {appearances.length > 0 && <section className="explore-detail-section appears-in-section" data-onboarding-anchor="sets"><div className="explore-section-heading"><span>Catalog</span><h2>Appears In</h2></div><AppearsInConveyor sets={appearances} collection={collection} onOpen={(item) => navigate({ kind: "set", id: item.id })} /></section>}
   </section>;
 }
 
@@ -367,7 +411,7 @@ function NotFound({ title, goBack }) {
   return <section className="explore-screen"><PageHeader title={title} onBack={goBack} /><div className="explore-empty"><strong>This Explore page is unavailable.</strong><span>The local catalog may not contain this item.</span></div></section>;
 }
 
-export default function ExploreScreen({ collection = {}, wishlistEntries = [], priceMapsBySet = {}, onInspectCard, onOpenPack, onViewSetCollection }) {
+export default function ExploreScreen({ collection = {}, wishlistEntries = [], priceMapsBySet = {}, onInspectCard, onOpenPack, onViewSetCollection, onboardingPriceScenario = "", onboardingMode = false }) {
   const [route, setRoute] = useState(() => parseExploreRoute(window.location));
   const [homeQuery, setHomeQuery] = useState("");
   const [recentRefs, setRecentRefs] = useState(loadRecentExploreRefs);
@@ -406,7 +450,7 @@ export default function ExploreScreen({ collection = {}, wishlistEntries = [], p
   const shared = { collection, wishlistKeys, priceMapsBySet, recentRefs, navigate, goBack, onInspectCard };
   if (route.kind === "search") return <SearchPage {...shared} initialQuery={route.query} />;
   if (route.kind === "pokemonBrowse") return <PokemonBrowse {...shared} />;
-  if (route.kind === "pokemon") return <PokemonDetail {...shared} id={route.id} />;
+  if (route.kind === "pokemon") return <PokemonDetail {...shared} id={route.id} onboardingPriceScenario={onboardingPriceScenario} onboardingMode={onboardingMode} />;
   if (route.kind === "setBrowse") return <SetBrowse {...shared} />;
   if (route.kind === "set") return <SetDetail {...shared} id={route.id} onOpenPack={onOpenPack} onViewSetCollection={onViewSetCollection} />;
   if (route.kind === "eraBrowse") return <EraBrowse {...shared} />;

@@ -23,7 +23,7 @@ function storageHost(initial = {}) {
 test("first and returning root visits choose the expected welcome destination", () => {
   const firstVisit = storageHost();
   assert.equal(getWelcomeEntryDecision({ pathname: "/", storageHost: firstVisit }), "welcome");
-  assert.equal(getWelcomeEntryDecision({ pathname: "/", isMobile: true, storageHost: firstVisit }), "welcome");
+  assert.equal(getWelcomeEntryDecision({ pathname: "/", isMobile: true, storageHost: firstVisit }), "mobile-app");
 
   const returning = storageHost({ [WELCOME_SEEN_KEY]: "1" });
   assert.equal(getWelcomeEntryDecision({ pathname: "/", storageHost: returning }), "desktop-app");
@@ -36,6 +36,7 @@ test("welcome is always available and non-root desktop routes are never intercep
   assert.equal(getWelcomeEntryDecision({ pathname: "/terms", isMobile: true, storageHost: returning }), "desktop-app");
   assert.equal(getWelcomeEntryDecision({ pathname: "/auth/callback", storageHost: returning }), "desktop-app");
   assert.equal(getWelcomeEntryDecision({ pathname: "/", search: "?desktop=1", storageHost: storageHost() }), "desktop-app");
+  assert.equal(getWelcomeEntryDecision({ pathname: "/", search: "?desktop=1", isMobile: true, storageHost: storageHost() }), "desktop-app");
 });
 
 test("storage failures fail safely without blocking an explicit desktop entry", () => {

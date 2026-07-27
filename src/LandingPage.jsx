@@ -8,6 +8,7 @@ import {
   getPublicPackDexStats,
   readCachedPublicPackDexStats,
 } from "./lib/publicPackDexStats.js";
+import { useAnimatedCount } from "./hooks/useAnimatedCount.js";
 import { getSetAssetUrl } from "./utils/assetUrls.js";
 import { markWelcomeSeen } from "./welcomeEntry.js";
 
@@ -153,38 +154,6 @@ function EntryButton({ mobile, compact = false }) {
       <ArrowRight size={compact ? 17 : 18} aria-hidden="true" />
     </a>
   );
-}
-
-function useAnimatedCount(target, { enabled, reducedMotion }) {
-  const [value, setValue] = useState(reducedMotion ? target : 0);
-  const hasAnimatedRef = useRef(false);
-
-  useEffect(() => {
-    if (!enabled || hasAnimatedRef.current) return undefined;
-
-    hasAnimatedRef.current = true;
-    if (reducedMotion) {
-      setValue(target);
-      return undefined;
-    }
-
-    const duration = 1100;
-    const startedAt = performance.now();
-    let frameId = 0;
-
-    const tick = (now) => {
-      const progress = Math.min((now - startedAt) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setValue(Math.round(target * eased));
-
-      if (progress < 1) frameId = window.requestAnimationFrame(tick);
-    };
-
-    frameId = window.requestAnimationFrame(tick);
-    return () => window.cancelAnimationFrame(frameId);
-  }, [enabled, reducedMotion, target]);
-
-  return reducedMotion ? target : value;
 }
 
 function PublicActivityCounter({ reducedMotion }) {

@@ -1006,7 +1006,7 @@ body.scanner-camera-active,
     0 14px 30px rgba(0, 0, 0, 0.32);
 }
 
-.reveal-card.is-final.is-hit .mobile-card-image-shell {
+.reveal-card.is-reveal-celebration.is-final.is-hit .mobile-card-image-shell {
   animation: mobileFinalHitLift 900ms ease-out both;
 }
 
@@ -2733,7 +2733,8 @@ body.scanner-camera-active,
 .inspect-backdrop {
   position: absolute;
   inset: 0;
-  z-index: 60;
+  /* The same shared card-detail sheet must remain above onboarding screens. */
+  z-index: 90;
   display: grid;
   place-items: center;
   padding: 22px;
@@ -2856,6 +2857,38 @@ body.scanner-camera-active,
   margin: 0;
   font-size: 1.25rem;
   line-height: 1;
+}
+
+.inspect-modal.is-minimal-preview {
+  width: min(100%, 390px);
+  max-height: calc(100dvh - 28px);
+  gap: 12px;
+  padding: 18px 14px 16px;
+  overflow: hidden;
+  background: rgba(12, 13, 21, .98);
+}
+
+.inspect-modal.is-minimal-preview .inspect-tilt-frame {
+  width: min(84vw, 315px);
+  max-height: calc(100dvh - 105px);
+}
+
+.inspect-modal.is-minimal-preview .inspect-card-image {
+  max-height: calc(100dvh - 105px);
+}
+
+.inspect-modal.is-minimal-preview .inspect-card-copy {
+  min-height: 28px;
+  align-content: center;
+}
+
+.inspect-modal.is-minimal-preview .inspect-card-copy h2 {
+  font-size: 1.08rem;
+  line-height: 1.15;
+}
+
+.card-inspect-open .screen-content {
+  overflow: hidden;
 }
 
 @keyframes packFloat {
