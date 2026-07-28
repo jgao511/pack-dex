@@ -319,6 +319,14 @@
   width: min(100%, 1180px);
 }
 
+@media (min-width: 1181px) {
+  :root[data-theme] .desktop-screen-cache {
+    /* Four 238px cards plus three 18px gaps. */
+    width: min(100%, 1006px);
+    margin-inline: auto;
+  }
+}
+
 :root[data-theme] .set-select-screen,
 :root[data-theme] .opening-screen,
 :root[data-theme] .reveal-screen,

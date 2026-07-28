@@ -32,11 +32,16 @@ test("the Open Packs grid stays mounted between pack screens", () => {
   assert.doesNotMatch(appSource, /\{screen === "home" && \([\s\S]*?<SetSelect/);
 });
 
-test("the cached Open Packs screen retains the full four-column width", () => {
+test("the cached Open Packs screen centers one four-column content block on wide desktops", () => {
   const desktopTheme = fs.readFileSync(new URL("../src/DesktopTheme.css", import.meta.url), "utf8");
 
   assert.match(desktopTheme, /\.desktop-screen-cache\s*\{[\s\S]*?width:\s*min\(100%,\s*1180px\)/);
+  assert.match(
+    desktopTheme,
+    /@media \(min-width:\s*1181px\)\s*\{[\s\S]*?\.desktop-screen-cache\s*\{[\s\S]*?width:\s*min\(100%,\s*1006px\)[\s\S]*?margin-inline:\s*auto/
+  );
   assert.match(desktopTheme, /\.set-grid\s*\{[\s\S]*?grid-template-columns:\s*repeat\(auto-fill,\s*minmax\(0,\s*238px\)\)/);
+  assert.match(desktopTheme, /\.set-grid\s*\{[\s\S]*?justify-content:\s*start/);
 });
 
 test("desktop tab navigation has no artificial loading delay", () => {
