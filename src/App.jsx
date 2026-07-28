@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Mail, X } from "lucide-react";
 import "./App.css";
+import "./DesktopTheme.css";
 import PackOpening from "./components/PackOpening.jsx";
 import AccountSaveNotice from "./components/AccountSaveNotice.jsx";
 import AuthPanel, { AuthModal } from "./components/AuthPanel.jsx";

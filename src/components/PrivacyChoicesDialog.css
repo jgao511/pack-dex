@@ -79,6 +79,6 @@
 }
 
 .privacy-choices-close:focus-visible {
-  outline: 3px solid #ffcb45;
+  outline: 3px solid #a98cff;
   outline-offset: 3px;
 }
