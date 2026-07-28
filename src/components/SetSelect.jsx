@@ -1,4 +1,4 @@
-import { Library, Sparkles } from "lucide-react";
+import { Library } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { getRemoteSetLogoUrl, getSetLogoUrl } from "../utils/assetUrls.js";
 import { canGeneratePack } from "../utils/packGenerator.js";
@@ -228,29 +228,35 @@ function SetSelect({ sets, collection, onSelectSet, onViewCollection, footer = n
     const progress = collectionProgress.get(set.id) || { collected: 0, total: 0 };
 
     return (
-      <article className="set-tile" key={set.id}>
+      <article className={`set-tile ${isReady ? "" : "is-disabled"}`} key={set.id}>
         <button
-          className={`set-tile-button ${isReady ? "" : "is-disabled"}`}
+          aria-label={isReady ? `Open ${set.name} pack` : `${set.name} pack unavailable`}
+          className="set-card-primary-action"
           onClick={() => isReady && onSelectSet(set)}
           disabled={!isReady}
-        >
-          {isNewSet(set) && <span className="set-card__badge-new">New</span>}
-          <div className="set-logo-box">
-            <SetLogo set={set} />
-          </div>
-          <div className="set-tile-info">
-            <h2>{set.name}</h2>
-            <span>{isReady ? `${progress.collected} / ${progress.total} cards collected` : "Pack rules unavailable"}</span>
-          </div>
-          <span className="set-open-pill">
-            <Sparkles size={18} aria-hidden="true" />
-            {isReady ? "Open Pack" : "Unavailable"}
-          </span>
-        </button>
+          type="button"
+        />
+        {isNewSet(set) && <span className="set-card__badge-new">New</span>}
+        <div className="set-logo-box">
+          <SetLogo set={set} />
+        </div>
+        <div className="set-tile-info">
+          <h2>{set.name}</h2>
+          <span>{isReady ? `${progress.collected} / ${progress.total} cards collected` : "Pack rules unavailable"}</span>
+        </div>
         {isReady && (
-          <button className="set-collection-button" onClick={() => onViewCollection(set)} type="button">
+          <button
+            aria-label={`View ${set.name} collection`}
+            className="set-collection-button"
+            onClick={(event) => {
+              event.stopPropagation();
+              onViewCollection(set);
+            }}
+            type="button"
+          >
             <Library size={17} aria-hidden="true" />
-            Collection
+            <span>View collection</span>
+            <span aria-hidden="true">→</span>
           </button>
         )}
       </article>
