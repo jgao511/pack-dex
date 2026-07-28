@@ -1874,7 +1874,10 @@ function SiteFooter() {
       <PrivacyChoicesDialog />
       <div className="site-footer__brand">
         <img src="/packdex-icon-192.png" alt="" />
-        <span>PackDex</span>
+        <span className="site-wordmark site-footer__wordmark">
+          <span>Pack</span>
+          <span>Dex</span>
+        </span>
       </div>
       <nav className="site-footer__social" aria-label="PackDex social links">
         {socialLinks.map((link) => (
@@ -3017,7 +3020,10 @@ function App() {
       <header className="site-header">
         <div className="site-brand">
           <img className="site-brand__icon" src="/packdex-icon-192.png" alt="" />
-          <span>PackDex</span>
+          <span className="site-wordmark">
+            <span>Pack</span>
+            <span>Dex</span>
+          </span>
         </div>
         {!isPackFlow && (
           <nav className="main-tabs" aria-label="Main navigation">
@@ -3034,6 +3040,14 @@ function App() {
           </nav>
         )}
       </header>
+
+      {!isPackFlow && activeTab === "open" && screen === "home" && !authUser && (
+        <AccountSaveNotice
+          className="account-save-notice--shell"
+          onOpenAuth={openAuthModal}
+          message="to save your collection and binders across devices."
+        />
+      )}
 
       {!isPackFlow && showDesktopMobileNotice && (
         <aside className="mobile-experience-notice" aria-label="PackDex mobile experience">
@@ -3071,8 +3085,6 @@ function App() {
               collection={collection}
               onSelectSet={startPackOpening}
               onViewCollection={viewCollection}
-              user={authUser}
-              onOpenAuth={openAuthModal}
               footer={<SiteFooter />}
             />
           )}

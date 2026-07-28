@@ -1,6 +1,5 @@
 import { Library, Sparkles } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
-import AccountSaveNotice from "./AccountSaveNotice.jsx";
 import { getRemoteSetLogoUrl, getSetLogoUrl } from "../utils/assetUrls.js";
 import { canGeneratePack } from "../utils/packGenerator.js";
 import { getSetCollectionProgress } from "../utils/collectionStorage.js";
@@ -141,7 +140,7 @@ function SetLogo({ set }) {
   return <SetLogoImage set={set} fallback={<span className="set-logo-fallback">{set.name}</span>} />;
 }
 
-function SetSelect({ sets, collection, onSelectSet, onViewCollection, user = null, onOpenAuth, footer = null }) {
+function SetSelect({ sets, collection, onSelectSet, onViewCollection, footer = null }) {
   const [selectedEra, setSelectedEra] = useState(ALL_ERAS);
   const [activeEraBgClass, setActiveEraBgClass] = useState("era-bg-default");
   const pageRef = useRef(null);
@@ -261,9 +260,10 @@ function SetSelect({ sets, collection, onSelectSet, onViewCollection, user = nul
   return (
     <section className={`set-select-screen open-pack-page ${openPackBgClass}`} ref={pageRef}>
       <div className="set-select-heading">
-        <h1 className="brand-title simulator-title">Pokémon TCG Pack Opening Simulator</h1>
-        <h2 className="brand-title section-title">Open a Pack</h2>
-        {!user && <AccountSaveNotice onOpenAuth={onOpenAuth} message="to save your collection and binders across devices." />}
+        <div className="set-select-heading__copy">
+          <span className="set-mark">Open a Pack</span>
+          <h1>Choose a set</h1>
+        </div>
         <label className="era-filter">
           <span>Era</span>
           <select value={selectedEra} onChange={(event) => setSelectedEra(event.target.value)}>
