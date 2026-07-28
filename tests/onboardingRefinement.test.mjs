@@ -134,7 +134,7 @@ test("welcome keeps one accessible Skip and centers pagination without active-wi
   ]);
   const welcome = onboarding.slice(onboarding.indexOf("function WelcomeStep"), onboarding.indexOf("function SetCardShowcase"));
   assert.doesNotMatch(welcome, /<OnboardingHeader allowSkip/);
-  assert.equal((welcome.match(/>Skip<\/button>/g) || []).length, 1);
+  assert.equal((welcome.match(/<OnboardingSkipButton/g) || []).length, 1);
   assert.match(onboardingCss, /\.onboarding-dots\{display:grid;grid-auto-flow:column;grid-auto-columns:18px/);
   assert.match(onboardingCss, /justify-content:center/);
 });

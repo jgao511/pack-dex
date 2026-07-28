@@ -103,6 +103,7 @@ import {
   finalizeMobileOnboarding,
   getMobileOnboardingErrorPresentation,
 } from "./lib/mobileOnboardingFinalizer.js";
+import { runMobileOnboardingSkip } from "./lib/mobileOnboardingSkip.js";
 import { establishMobileAuthCallbackSession } from "./lib/mobileAuthCallback.js";
 import {
   consumeOnboardingCompleteParam,
@@ -2788,6 +2789,8 @@ function MobileApp() {
   const accountLoadedAtRef = useRef(new Map());
   const authRefreshPromiseRef = useRef(null);
   const onboardingFinalizePromiseRef = useRef(null);
+  const skipOnboardingInProgressRef = useRef(false);
+  const onboardingStepRef = useRef(onboardingStep);
   const authValidationAttemptRef = useRef(0);
   const validatedScannerUserIdRef = useRef("");
   const [priceMapsBySet, setPriceMapsBySet] = useState({});
@@ -2813,6 +2816,7 @@ function MobileApp() {
   const skipRevealStartedRef = useRef(false);
   const skipRevealEligibleRef = useRef(false);
   const screenContentRef = useRef(null);
+  onboardingStepRef.current = onboardingStep;
   validatedScannerUserIdRef.current = authValidationState === "authenticated" ? String(user?.id || "") : "";
   const setsCompleted = useMemo(
     () =>
@@ -2914,24 +2918,28 @@ function MobileApp() {
   }
 
   async function skipOnboarding() {
-    if (isFinishingOnboarding || onboardingStep === "pack") return;
-    setIsFinishingOnboarding(true);
-    setOnboardingError("");
     try {
-      if (user?.id) {
-        savePendingMobileOnboarding({ skipped: true });
-        await runMobileOnboardingFinalizer();
-      } else {
-        markMobileOnboardingComplete();
-        manualOnboardingReplayRef.current = false;
-        resetOnboardingScroll();
-        setOnboardingStep("");
-        clearTutorialPackState();
-      }
+      await runMobileOnboardingSkip({
+        inProgressRef: skipOnboardingInProgressRef,
+        step: onboardingStep,
+        userId: user?.id,
+        onBegin: () => {
+          setIsFinishingOnboarding(true);
+          setOnboardingError("");
+        },
+        saveAuthenticatedSkip: () => savePendingMobileOnboarding({ skipped: true }),
+        finishAuthenticatedSkip: runMobileOnboardingFinalizer,
+        finishGuestSkip: () => {
+          markMobileOnboardingComplete();
+          manualOnboardingReplayRef.current = false;
+          resetOnboardingScroll();
+          setOnboardingStep("");
+          clearTutorialPackState();
+        },
+        onSettled: () => setIsFinishingOnboarding(false),
+      });
     } catch (error) {
       console.warn("Unable to sync skipped mobile onboarding", error);
-    } finally {
-      setIsFinishingOnboarding(false);
     }
   }
 
@@ -2968,6 +2976,7 @@ function MobileApp() {
 
   function replayOnboarding() {
     if (!mobileOnboardingEligible && !onboardingTestMode) return;
+    skipOnboardingInProgressRef.current = false;
     manualOnboardingReplayRef.current = true;
     resetMobileOnboarding();
     clearTutorialPackState();
@@ -3900,7 +3909,7 @@ function MobileApp() {
 
     countDevRequest("refreshAuthSession");
     const validationAttempt = ++authValidationAttemptRef.current;
-    setAuthValidationState("validating");
+    if (!onboardingStepRef.current) setAuthValidationState("validating");
     clearCachedSupabaseUser(supabase);
     setIsWelcomeRewardModalOpen(false);
     setWelcomeRewardStatus(null);

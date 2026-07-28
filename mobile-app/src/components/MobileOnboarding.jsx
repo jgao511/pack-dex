@@ -57,11 +57,29 @@ function DeferredOnboardingImage({ src, delayMs = 0, className = "", ...props })
   );
 }
 
+function OnboardingSkipButton({ className = "", onSkip }) {
+  const activate = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    onSkip?.();
+  };
+  const claimPointer = (event) => {
+    if (event.isPrimary === false || (event.pointerType === "mouse" && event.button !== 0)) return;
+    activate(event);
+  };
+
+  return (
+    <button className={className || undefined} type="button" onPointerDown={claimPointer} onClick={activate}>
+      Skip
+    </button>
+  );
+}
+
 function OnboardingHeader({ allowSkip, onSkip, entrance = false }) {
   return (
     <header className={`onboarding-header ${entrance ? "onboarding-enter enter-brand" : ""}`}>
       <span className="onboarding-brand"><img src="/packdex-icon-192.png" alt="" /><strong>Pack<span>Dex</span></strong></span>
-      {allowSkip && <button type="button" onClick={onSkip}>Skip</button>}
+      {allowSkip && <OnboardingSkipButton onSkip={onSkip} />}
     </header>
   );
 }
@@ -102,7 +120,7 @@ function WelcomeStep({ onStart, onSkip, devScenario }) {
         <h1 className="onboarding-enter enter-headline">Open packs. Build your collection. Chase every card.</h1>
         <p className="onboarding-enter enter-support">Start with a pack, discover your favorites, and build your collection.</p>
         <button className="primary-action onboarding-enter enter-action" type="button" onClick={onStart}>Get Started</button>
-        <button className="onboarding-text-button onboarding-enter enter-action" type="button" onClick={onSkip}>Skip</button>
+        <OnboardingSkipButton className="onboarding-text-button onboarding-enter enter-action" onSkip={onSkip} />
       </div>
     </section>
   );
