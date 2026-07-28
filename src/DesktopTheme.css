@@ -31,32 +31,6 @@
   background: var(--pd-page);
 }
 
-:root[data-theme="light"] {
-  --pd-page: #e9edf6;
-  --pd-page-raised: #e2e7f2;
-  --pd-surface: #f6f7fb;
-  --pd-surface-strong: #ffffff;
-  --pd-surface-soft: #e9edf6;
-  --pd-text: #17142a;
-  --pd-muted: #5f6884;
-  --pd-subtle: #7b839a;
-  --pd-border: rgba(47, 35, 92, 0.12);
-  --pd-border-strong: rgba(92, 61, 201, 0.3);
-  --pd-accent: #6840dc;
-  --pd-brand-purple: #7c4dff;
-  --pd-accent-hover: #5732c7;
-  --pd-accent-soft: rgba(104, 64, 220, 0.1);
-  --pd-accent-text: #5637c8;
-  --pd-success: #17875c;
-  --pd-danger: #b9364b;
-  --pd-danger-soft: rgba(185, 54, 75, 0.09);
-  --pd-shadow: 0 18px 42px rgba(31, 35, 62, 0.11);
-  --pd-shadow-soft: 0 10px 26px rgba(31, 35, 62, 0.08);
-  --pd-focus: #6840dc;
-  color: var(--pd-text);
-  background: var(--pd-page);
-}
-
 :root[data-theme] body {
   color: var(--pd-text);
   background: var(--pd-page);
@@ -623,10 +597,9 @@
 :root[data-theme] .empty-state,
 :root[data-theme] .profile-panel,
 :root[data-theme] .profile-stat-grid article,
-:root[data-theme] .profile-stats-note,
 :root[data-theme] .auth-panel,
 :root[data-theme] .welcome-reward-profile-card,
-:root[data-theme] .profile-settings-section {
+:root[data-theme] .profile-settings {
   border: 1px solid var(--pd-border);
   border-radius: 17px;
   color: var(--pd-text);
@@ -819,22 +792,114 @@
   font-weight: 650;
 }
 
-:root[data-theme] .profile-stats-note {
-  color: var(--pd-muted);
-  font-weight: 600;
+:root[data-theme] .profile-stats-error {
+  margin: -2px 0 0;
+  color: var(--pd-danger);
+  font-size: 0.86rem;
+  font-weight: 650;
 }
 
-:root[data-theme] .profile-settings-section {
+:root[data-theme] .profile-settings {
   margin-top: 0;
-  padding: 22px;
+  overflow: hidden;
 }
 
-:root[data-theme] .profile-settings-section h2 {
+:root[data-theme] .profile-settings > summary {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 17px;
+  cursor: pointer;
+  list-style: none;
+}
+
+:root[data-theme] .profile-settings > summary::-webkit-details-marker {
+  display: none;
+}
+
+:root[data-theme] .profile-settings > summary:hover {
+  background: var(--pd-surface-strong);
+}
+
+:root[data-theme] .profile-settings > summary:focus-visible {
+  outline: 3px solid var(--pd-focus);
+  outline-offset: -3px;
+  border-radius: 16px;
+}
+
+:root[data-theme] .profile-settings__icon {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--pd-border);
+  border-radius: 10px;
+  color: var(--pd-accent-text);
+  background: var(--pd-accent-soft);
+}
+
+:root[data-theme] .profile-settings__copy {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+:root[data-theme] .profile-settings__copy strong {
   color: var(--pd-text);
+  font-size: 0.96rem;
+  font-weight: 700;
 }
 
-:root[data-theme] .profile-settings-section p {
+:root[data-theme] .profile-settings__copy small {
   color: var(--pd-muted);
+  font-size: 0.8rem;
+}
+
+:root[data-theme] .profile-settings__chevron {
+  color: var(--pd-subtle);
+  transition: transform 160ms ease;
+}
+
+:root[data-theme] .profile-settings[open] .profile-settings__chevron {
+  transform: rotate(90deg);
+}
+
+:root[data-theme] .profile-settings__content {
+  display: grid;
+  gap: 16px;
+  border-top: 1px solid var(--pd-border);
+  padding: 18px;
+}
+
+:root[data-theme] .profile-settings__content h2 {
+  margin: 5px 0 0;
+  color: var(--pd-text);
+  font-size: 1.18rem;
+}
+
+:root[data-theme] .profile-danger-zone {
+  border: 1px solid rgba(255, 140, 152, 0.28);
+  border-radius: 14px;
+  padding: 17px;
+  background: var(--pd-danger-soft);
+}
+
+:root[data-theme] .profile-danger-zone .set-mark,
+:root[data-theme] .profile-danger-zone h3 {
+  color: var(--pd-danger);
+}
+
+:root[data-theme] .profile-danger-zone h3 {
+  margin: 6px 0;
+  font-size: 1rem;
+}
+
+:root[data-theme] .profile-danger-zone p {
+  margin: 0 0 14px;
+  color: var(--pd-muted);
+  font-size: 0.86rem;
+  line-height: 1.45;
 }
 
 :root[data-theme] .delete-account-button {
@@ -1049,32 +1114,6 @@
   text-transform: none;
 }
 
-:root[data-theme] .theme-toggle {
-  right: 18px;
-  bottom: 18px;
-  border: 1px solid var(--pd-border);
-  border-radius: 14px;
-  padding: 4px;
-  color: var(--pd-text);
-  background: var(--pd-surface-strong);
-  box-shadow: var(--pd-shadow-soft);
-}
-
-:root[data-theme] .theme-toggle__option {
-  min-height: 30px;
-  border-radius: 9px;
-  color: var(--pd-muted);
-  font-size: 0.76rem;
-  font-weight: 700;
-  text-transform: capitalize;
-}
-
-:root[data-theme] .theme-toggle__option.is-active {
-  color: #ffffff;
-  background: var(--pd-accent);
-  box-shadow: none;
-}
-
 @media (max-width: 1180px) {
   :root[data-theme] .app-shell,
   :root[data-theme] .app-shell:has(.open-pack-page) {
@@ -1247,10 +1286,6 @@
     grid-template-columns: 1fr;
   }
 
-  :root[data-theme] .theme-toggle {
-    right: 12px;
-    bottom: calc(14px + env(safe-area-inset-bottom));
-  }
 }
 
 @media (max-width: 430px) {

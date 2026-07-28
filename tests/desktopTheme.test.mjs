@@ -21,6 +21,7 @@ test("the desktop theme keeps the mobile-inspired dark system and responsive bou
   assert.match(desktopTheme, /--pd-page:\s*#090d19/);
   assert.match(desktopTheme, /--pd-accent:\s*#7c4dff/);
   assert.match(desktopTheme, /--pd-brand-purple:\s*#7c4dff/);
+  assert.doesNotMatch(desktopTheme, /:root\[data-theme="light"\]/);
   assert.match(mobileTheme, /\.mobile-wordmark span:last-child[\s\S]*?color:\s*#7c4dff/);
   assert.match(desktopTheme, /\.set-grid[\s\S]*?justify-content:\s*center/);
   assert.match(desktopTheme, /@media \(max-width:\s*1024px\)/);

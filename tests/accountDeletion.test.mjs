@@ -111,7 +111,7 @@ test("success action clears the local session before returning to guest mode", a
     readFile(new URL("../mobile-app/src/App.jsx", import.meta.url), "utf8"),
   ]);
 
-  assert.match(webApp, /async function handleContinueAsGuest\(\) \{[\s\S]*?auth\.signOut\(\{ scope: "local" \}\)[\s\S]*?setAuthSession\(null\)[\s\S]*?setIsDeleteAccountOpen\(false\)/);
+  assert.match(webApp, /async function handleContinueAsGuest\(\) \{[\s\S]*?auth\.signOut\(\{ scope: "local" \}\)[\s\S]*?commitAuthSession\(null\)[\s\S]*?setIsDeleteAccountOpen\(false\)/);
   assert.match(mobileApp, /async function handleContinueAsGuest\(\) \{[\s\S]*?auth\.signOut\(\{ scope: "local" \}\)[\s\S]*?clearAccountScopedState\(\)[\s\S]*?setIsDeleteAccountOpen\(false\)/);
 });
 

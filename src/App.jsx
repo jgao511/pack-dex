@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Mail, X } from "lucide-react";
+import { ChevronRight, Mail, Settings2, X } from "lucide-react";
 import "./App.css";
 import "./DesktopTheme.css";
 import PackOpening from "./components/PackOpening.jsx";
@@ -101,7 +101,6 @@ const SUPPORT_EMAIL = PACKDEX_SUPPORT_EMAIL;
 const GUEST_WELCOME_BETA_SEEN_KEY = "packdex_guest_welcome_beta_seen";
 const USER_WELCOME_BETA_SEEN_KEY_PREFIX = "packdex_welcome_beta_seen_";
 const LEGACY_PROFILE_STATS_STORAGE_KEYS = ["packdex-profile-stats"];
-const THEME_STORAGE_KEY = "packdex-theme";
 const COLLECTION_DASHBOARD_PAGE_SIZE = 60;
 const BINDER_PAGE_SIZE = 9;
 const MASTER_BINDER_PAGE_SIZE = 9;
@@ -141,56 +140,15 @@ const MAIN_TABS = [
   { id: "profile", label: "Profile" },
 ];
 
-function getInitialTheme() {
-  if (typeof window === "undefined") return "light";
-
-  const savedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
-
-  if (savedTheme === "light" || savedTheme === "dark") {
-    return savedTheme;
-  }
-
-  return "dark";
-}
-
-function applyPackDexTheme(theme) {
+function applyDesktopTheme() {
   if (typeof document === "undefined") return;
 
-  document.documentElement.dataset.theme = theme;
-  document.documentElement.style.colorScheme = theme;
+  document.documentElement.dataset.theme = "dark";
+  document.documentElement.style.colorScheme = "dark";
 }
 
 if (typeof window !== "undefined") {
-  applyPackDexTheme(getInitialTheme());
-}
-
-function ThemeToggle() {
-  const [theme, setTheme] = useState(() => getInitialTheme());
-
-  useEffect(() => {
-    applyPackDexTheme(theme);
-    window.localStorage.setItem(THEME_STORAGE_KEY, theme);
-  }, [theme]);
-
-  return (
-    <div
-      className="theme-toggle"
-      role="group"
-      aria-label="Theme selector"
-    >
-      {["light", "dark"].map((themeOption) => (
-        <button
-          key={themeOption}
-          className={`theme-toggle__option ${theme === themeOption ? "is-active" : ""}`}
-          type="button"
-          aria-pressed={theme === themeOption}
-          onClick={() => setTheme(themeOption)}
-        >
-          {themeOption}
-        </button>
-      ))}
-    </div>
-  );
+  applyDesktopTheme();
 }
 
 function LoadingOverlay() {
@@ -2048,6 +2006,7 @@ function ProfilePage({
   collection,
   profileStats,
   areProfileStatsLoading,
+  profileStatsError,
   user,
   isAuthLoading,
   welcomeRewardStatus,
@@ -2057,6 +2016,7 @@ function ProfilePage({
 }) {
   const collectedCards = useMemo(() => getCollectedCards(collection), [collection]);
   const completedSets = sets.filter((set) => getSetCollectionProgress(collection, set).percent === 100).length;
+  const isAccountResolving = isAuthLoading && !user;
 
   return (
     <section className="dashboard-screen profile-screen">
@@ -2065,11 +2025,11 @@ function ProfilePage({
         <h1>Your PackDex</h1>
       </div>
 
-      <AuthPanel user={user} isAuthLoading={isAuthLoading} onOpenAuth={onOpenAuth} />
+      <AuthPanel user={user} isAuthLoading={isAccountResolving} onOpenAuth={onOpenAuth} />
 
       {user && <WelcomeRewardProfileCard rewardStatus={welcomeRewardStatus} onClaim={onOpenWelcomeReward} />}
 
-      {isAuthLoading ? (
+      {isAccountResolving ? (
         <div className="empty-state">
           <h2>Loading account stats...</h2>
           <p>Checking your PackDex session.</p>
@@ -2090,17 +2050,37 @@ function ProfilePage({
               <strong>{completedSets}</strong>
             </article>
           </div>
-          <div className="profile-stats-note">
-            Stats are tied to your signed-in PackDex account.
-          </div>
-          <section className="profile-settings-section" aria-label="Account settings">
-            <span className="set-mark">Settings</span>
-            <h2>Account settings</h2>
-            <p>Manage the PackDex account signed in on this device.</p>
-            <button className="delete-account-button" type="button" onClick={onDeleteAccount}>
-              Delete Account
-            </button>
-          </section>
+          {profileStatsError && (
+            <p className="profile-stats-error" role="status">
+              {profileStatsError}
+            </p>
+          )}
+          <details className="profile-settings">
+            <summary>
+              <span className="profile-settings__icon" aria-hidden="true">
+                <Settings2 size={19} />
+              </span>
+              <span className="profile-settings__copy">
+                <strong>Settings</strong>
+                <small>Manage your PackDex account</small>
+              </span>
+              <ChevronRight className="profile-settings__chevron" size={20} aria-hidden="true" />
+            </summary>
+            <div className="profile-settings__content">
+              <div>
+                <span className="set-mark">Account Settings</span>
+                <h2>Manage your account</h2>
+              </div>
+              <section className="profile-danger-zone" aria-labelledby="profile-danger-zone-title">
+                <span className="set-mark">Danger Zone</span>
+                <h3 id="profile-danger-zone-title">Delete your PackDex account</h3>
+                <p>Delete your PackDex account and associated data. You will be asked to confirm before anything is removed.</p>
+                <button className="delete-account-button" type="button" onClick={onDeleteAccount}>
+                  Delete Account
+                </button>
+              </section>
+            </div>
+          </details>
         </>
       ) : (
         <div className="empty-state">
@@ -2109,10 +2089,6 @@ function ProfilePage({
         </div>
       )}
 
-      <div className="profile-stats-note">
-        Fan-made Pokemon TCG pack-opening simulator. Not affiliated with Nintendo, Creatures, Game Freak, or The
-        Pokemon Company. PackDex tracks a virtual collection only.
-      </div>
     </section>
   );
 }
@@ -2200,7 +2176,6 @@ function App() {
       <main className="app-shell">
         <AuthCallbackPage />
         <SiteFooter />
-        <ThemeToggle />
       </main>
     );
   }
@@ -2210,7 +2185,6 @@ function App() {
       <main className="app-shell">
         <ResetPasswordPage />
         <SiteFooter />
-        <ThemeToggle />
       </main>
     );
   }
@@ -2220,7 +2194,6 @@ function App() {
       <main className="app-shell">
         <LegalPage type={legalPageType} />
         <SiteFooter />
-        <ThemeToggle />
       </main>
     );
   }
@@ -2230,7 +2203,6 @@ function App() {
       <main className="app-shell is-pack-flow">
         <DevGodPackAnimationPreview />
         <SiteFooter />
-        <ThemeToggle />
       </main>
     );
   }
@@ -2243,6 +2215,7 @@ function App() {
   const [binders, setBinders] = useState(() => loadBinders());
   const [profileStats, setProfileStats] = useState(() => emptyProfileStats());
   const [areProfileStatsLoading, setAreProfileStatsLoading] = useState(false);
+  const [profileStatsError, setProfileStatsError] = useState("");
   const [authSession, setAuthSession] = useState(null);
   const [isAuthLoading, setIsAuthLoading] = useState(isSupabaseConfigured);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -2267,10 +2240,17 @@ function App() {
   const returnTokenRef = useRef(0);
   const tabLoadTokenRef = useRef(0);
   const shownWelcomeRewardUserRef = useRef("");
+  const loadedProfileStatsUserIdRef = useRef("");
+  const authSessionRef = useRef(null);
   const authRefreshPromiseRef = useRef(null);
   const authValidationAttemptRef = useRef(0);
   const isPackFlow = activeTab === "open" && ["opening", "reveal", "summary"].includes(screen);
-  const authUser = isAuthLoading ? null : authSession?.user || null;
+  const authUser = authSession?.user || null;
+
+  function commitAuthSession(nextSession) {
+    authSessionRef.current = nextSession;
+    setAuthSession(nextSession);
+  }
 
   useEffect(() => {
     removeLegacyProfileStatsStorage();
@@ -2324,10 +2304,10 @@ function App() {
     let isMounted = true;
 
     function refreshValidatedAuth({ showLoading = true } = {}) {
+      if (showLoading && !authSessionRef.current?.user) setIsAuthLoading(true);
       if (authRefreshPromiseRef.current) return authRefreshPromiseRef.current;
 
       const validationAttempt = ++authValidationAttemptRef.current;
-      if (showLoading) setIsAuthLoading(true);
       clearCachedSupabaseUser(supabase);
       if (showLoading) {
         setIsWelcomeRewardModalOpen(false);
@@ -2340,20 +2320,20 @@ function App() {
           const { data, error } = await supabase.auth.getSession();
           if (error) throw error;
           if (!data.session) {
-            if (isMounted && validationAttempt === authValidationAttemptRef.current) setAuthSession(null);
+            if (isMounted && validationAttempt === authValidationAttemptRef.current) commitAuthSession(null);
             return null;
           }
 
           const validation = await validateSupabaseIdentity(supabase, data.session);
           if (!isMounted || validationAttempt !== authValidationAttemptRef.current) return null;
-          setAuthSession(validation.session);
+          commitAuthSession(validation.session);
           return validation.user;
         } catch (error) {
           console.warn("Unable to validate PackDex auth session", error);
-          if (isMounted && validationAttempt === authValidationAttemptRef.current) setAuthSession(null);
+          if (isMounted && validationAttempt === authValidationAttemptRef.current) commitAuthSession(null);
           return null;
         } finally {
-          if (showLoading && isMounted && validationAttempt === authValidationAttemptRef.current) {
+          if (isMounted && validationAttempt === authValidationAttemptRef.current) {
             setIsAuthLoading(false);
           }
         }
@@ -2376,18 +2356,19 @@ function App() {
       if (!session?.user) {
         authValidationAttemptRef.current += 1;
         clearCachedSupabaseUser(supabase);
-        setAuthSession(null);
+        commitAuthSession(null);
         setIsAuthLoading(false);
         setIsWelcomeRewardModalOpen(false);
         setWelcomeRewardStatus(null);
         return;
       }
 
-      setIsAuthLoading(true);
+      const hasCurrentSession = authSessionRef.current?.user?.id === session.user.id;
+      if (!hasCurrentSession) setIsAuthLoading(true);
       clearCachedSupabaseUser(supabase);
       setIsWelcomeRewardModalOpen(false);
       setWelcomeRewardStatus(null);
-      window.setTimeout(refreshValidatedAuth, 0);
+      window.setTimeout(() => refreshValidatedAuth({ showLoading: !hasCurrentSession }), 0);
     });
 
     function handleAuthStorage(event) {
@@ -2418,43 +2399,49 @@ function App() {
   }, [authUser?.id, isAuthLoading]);
 
   useEffect(() => {
-    if (isAuthLoading) return;
+    if (isAuthLoading || authUser) return;
 
-    if (!authUser) {
-      setCollection(loadCollection());
-      setBinders(loadBinders());
-      setProfileStats(emptyProfileStats());
-      setAreProfileStatsLoading(false);
-      setCloudWarning("");
-      setWelcomeRewardStatus(null);
-      setIsWelcomeRewardLoading(false);
-      setIsWelcomeRewardModalOpen(false);
-      setWelcomeRewardError("");
-      return;
-    }
+    loadedProfileStatsUserIdRef.current = "";
+    setCollection(loadCollection());
+    setBinders(loadBinders());
+    setProfileStats(emptyProfileStats());
+    setAreProfileStatsLoading(false);
+    setProfileStatsError("");
+    setCloudWarning("");
+    setWelcomeRewardStatus(null);
+    setIsWelcomeRewardLoading(false);
+    setIsWelcomeRewardModalOpen(false);
+    setWelcomeRewardError("");
+  }, [authUser?.id, isAuthLoading]);
+
+  useEffect(() => {
+    if (!authUser) return undefined;
 
     let isMounted = true;
+    const userId = authUser.id;
+    const hasLoadedStats = loadedProfileStatsUserIdRef.current === userId;
 
     setCloudWarning("");
-    setAreProfileStatsLoading(true);
+    setProfileStatsError("");
+    setAreProfileStatsLoading(!hasLoadedStats);
 
     loadCloudCollection()
       .then(async (cloudCollection) => {
         if (!isMounted) return;
 
-        setCollection(mergePendingCloudPullsIntoCollection(cloudCollection, authUser.id));
+        setCollection(mergePendingCloudPullsIntoCollection(cloudCollection, userId));
 
-        const pendingPullCount = getPendingCloudPullCount(authUser.id);
+        const pendingPullCount = getPendingCloudPullCount(userId);
 
         if (pendingPullCount === 0) return;
 
         try {
-          const syncResult = await syncPendingCloudPulls(authUser.id);
+          const syncResult = await syncPendingCloudPulls(userId);
 
           if (!isMounted) return;
 
           if (syncResult.failed > 0) {
-            setCollection((currentCollection) => mergePendingCloudPullsIntoCollection(currentCollection, authUser.id));
+            setCollection((currentCollection) => mergePendingCloudPullsIntoCollection(currentCollection, userId));
             setCloudWarning("Some saved pulls are waiting to sync. PackDex will retry automatically.");
             return;
           }
@@ -2462,14 +2449,14 @@ function App() {
           if (syncResult.saved > 0) setCloudWarning("");
         } catch (error) {
           console.warn("Pending PackDex cloud pulls could not be synced after account load", {
-            userId: authUser.id,
+            userId,
             pendingPullCount,
             error,
           });
 
           if (!isMounted) return;
 
-          setCollection((currentCollection) => mergePendingCloudPullsIntoCollection(currentCollection, authUser.id));
+          setCollection((currentCollection) => mergePendingCloudPullsIntoCollection(currentCollection, userId));
           setCloudWarning("Some saved pulls are waiting to sync. PackDex will retry automatically.");
         }
       })
@@ -2477,11 +2464,11 @@ function App() {
         console.warn("Cloud collection load failed", error);
         if (!isMounted) return;
 
-        setCollection(mergePendingCloudPullsIntoCollection({}, authUser.id));
+        setCollection(mergePendingCloudPullsIntoCollection({}, userId));
         setCloudWarning("Account collection could not be loaded yet. Guest pulls stay local on this device.");
       });
 
-    loadCloudBinders(authUser.id)
+    loadCloudBinders(userId)
       .then((cloudBinders) => {
         if (!isMounted) return;
 
@@ -2495,32 +2482,35 @@ function App() {
         setCloudWarning("Account binders could not be loaded yet. Guest binders stay local on this device.");
       });
 
-    loadCloudProfileStats(authUser.id)
+    loadCloudProfileStats(userId)
       .then((stats) => {
         if (!isMounted) return;
 
+        loadedProfileStatsUserIdRef.current = userId;
         setProfileStats(stats);
         setAreProfileStatsLoading(false);
+        setProfileStatsError("");
       })
       .catch((error) => {
         console.warn("Cloud profile stats load failed", {
-          userId: authUser.id,
+          userId,
           error,
         });
         if (!isMounted) return;
 
-        setProfileStats(emptyProfileStats());
+        if (!hasLoadedStats) setProfileStats(emptyProfileStats());
         setAreProfileStatsLoading(false);
+        setProfileStatsError("Account stats are temporarily unavailable. Your account remains connected.");
         setCloudWarning("Account stats could not be loaded yet. Pack opening still works.");
       });
 
     return () => {
       isMounted = false;
     };
-  }, [authUser?.id, isAuthLoading]);
+  }, [authUser?.id]);
 
   useEffect(() => {
-    if (isAuthLoading || !authUser) return undefined;
+    if (!authUser) return undefined;
 
     let isMounted = true;
 
@@ -2551,7 +2541,7 @@ function App() {
     return () => {
       isMounted = false;
     };
-  }, [authUser?.id, isAuthLoading]);
+  }, [authUser?.id]);
 
   useEffect(() => {
     function handlePopState(event) {
@@ -2646,11 +2636,14 @@ function App() {
     clearDeletedAccountLocalState(deletedUserId);
     await supabase.auth.signOut({ scope: "local" }).catch(() => {});
     authValidationAttemptRef.current += 1;
-    setAuthSession(null);
+    commitAuthSession(null);
     setIsAuthLoading(false);
     setCollection({});
     setBinders([]);
     setProfileStats(emptyProfileStats());
+    loadedProfileStatsUserIdRef.current = "";
+    setAreProfileStatsLoading(false);
+    setProfileStatsError("");
     setWelcomeRewardStatus(null);
     setIsWelcomeRewardModalOpen(false);
     setActiveTab("open");
@@ -2662,7 +2655,7 @@ function App() {
   async function handleContinueAsGuest() {
     await supabase?.auth.signOut({ scope: "local" }).catch(() => {});
     authValidationAttemptRef.current += 1;
-    setAuthSession(null);
+    commitAuthSession(null);
     setIsAuthLoading(false);
     setIsDeleteAccountOpen(false);
   }
@@ -2785,7 +2778,11 @@ function App() {
               cards,
             });
 
-            if (result?.stats) setProfileStats(result.stats);
+            if (result?.stats) {
+              loadedProfileStatsUserIdRef.current = authUser.id;
+              setProfileStats(result.stats);
+              setProfileStatsError("");
+            }
           } catch (statsError) {
             console.warn("Cloud pack-open event failed after pack save", {
               userId: authUser.id,
@@ -2960,10 +2957,16 @@ function App() {
       cacheWelcomeRewardStatus(authUser.id, claimedStatus);
       if (result.collection) setCollection(result.collection);
       if (result.stats) {
+        loadedProfileStatsUserIdRef.current = authUser.id;
         setProfileStats(result.stats);
+        setProfileStatsError("");
       } else {
         loadCloudProfileStats(authUser.id)
-          .then((stats) => setProfileStats(stats))
+          .then((stats) => {
+            loadedProfileStatsUserIdRef.current = authUser.id;
+            setProfileStats(stats);
+            setProfileStatsError("");
+          })
           .catch((error) => {
             console.warn("Welcome reward profile stats reload failed", {
               userId: authUser.id,
@@ -3169,6 +3172,7 @@ function App() {
           collection={collection}
           profileStats={profileStats}
           areProfileStatsLoading={areProfileStatsLoading}
+          profileStatsError={profileStatsError}
           user={authUser}
           isAuthLoading={isAuthLoading}
           welcomeRewardStatus={welcomeRewardStatus}
@@ -3216,7 +3220,6 @@ function App() {
       {isOpeningPack && <TabLoadingOverlay text={authUser ? "Saving pulls securely..." : "Opening your pack..."} />}
       {isTabLoading && <TabLoadingOverlay />}
       {isReturningToSet && <LoadingOverlay />}
-      <ThemeToggle />
     </main>
   );
 }
