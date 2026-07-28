@@ -57,6 +57,15 @@ select {
   font: inherit;
 }
 
+.mobile-app select option {
+  color: #11172b;
+  background: #ffffff;
+}
+
+.mobile-app select option:disabled {
+  color: #68718b;
+}
+
 @media (max-width: 768px) {
   .mobile-app input,
   .mobile-app textarea,

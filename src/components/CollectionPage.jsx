@@ -16,6 +16,11 @@ import { compareCardsByRarity } from "../utils/rarityRank.js";
 const COLLECTION_PAGE_SIZE = 60;
 const MASTER_BINDER_PAGE_SIZE = 9;
 const MASTER_BINDER_COLORS_KEY = "packdex-master-binder-cover-colors";
+const COLLECTION_FILTER_OPTIONS = [
+  { value: "all", label: "All" },
+  { value: "collected", label: "Collected" },
+  { value: "missing", label: "Missing" },
+];
 const MASTER_BINDER_COLOR_OPTIONS = [
   { id: "midnight", label: "Midnight", value: "#18213f" },
   { id: "royal", label: "Royal", value: "#2557b8" },
@@ -441,14 +446,14 @@ function CollectionPage({
             </label>
 
             <div className="collection-segments" aria-label="Collection filter">
-              {["all", "collected", "missing"].map((mode) => (
+              {COLLECTION_FILTER_OPTIONS.map(({ value, label }) => (
                 <button
-                  className={filter === mode ? "is-active" : ""}
-                  key={mode}
-                  onClick={() => setFilter(mode)}
+                  className={filter === value ? "is-active" : ""}
+                  key={value}
+                  onClick={() => setFilter(value)}
                   type="button"
                 >
-                  {mode}
+                  {label}
                 </button>
               ))}
             </div>

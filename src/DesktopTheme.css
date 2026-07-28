@@ -41,6 +41,15 @@
   outline-offset: 3px;
 }
 
+:root[data-theme] select option {
+  color: #11111f;
+  background: #ffffff;
+}
+
+:root[data-theme] select option:disabled {
+  color: #6b7280;
+}
+
 :root[data-theme] .app-shell,
 :root[data-theme] .app-shell:has(.open-pack-page) {
   min-height: 100svh;
