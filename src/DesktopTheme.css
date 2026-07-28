@@ -315,6 +315,10 @@
 
 /* Open Packs */
 
+:root[data-theme] .desktop-screen-cache {
+  width: min(100%, 1180px);
+}
+
 :root[data-theme] .set-select-screen,
 :root[data-theme] .opening-screen,
 :root[data-theme] .reveal-screen,
@@ -457,6 +461,10 @@
   gap: 20px 18px;
 }
 
+:root[data-theme] .desktop-screen-cache[hidden] {
+  display: none !important;
+}
+
 :root[data-theme] .set-tile {
   position: relative;
   box-sizing: border-box;
@@ -550,7 +558,7 @@
 :root[data-theme] .set-collection-button {
   position: relative;
   z-index: 2;
-  justify-self: start;
+  justify-self: center;
   min-height: 32px;
   display: inline-flex;
   align-items: center;

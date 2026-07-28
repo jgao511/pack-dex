@@ -53,8 +53,9 @@ test("Profile data loading follows identity rather than tab or background-auth c
 });
 
 test("Profile, Collection, Open Packs, and rapid tab switching cannot cancel account hydration", () => {
-  assert.match(appSource, /function selectMainTab\(tab\)[\s\S]*?tabLoadTokenRef\.current === token[\s\S]*?setIsTabLoading\(false\)/);
-  assert.doesNotMatch(profileDataEffect, /screen|activeTab|tabLoadTokenRef/);
+  assert.match(appSource, /function selectMainTab\(tab\)[\s\S]*?setActiveTab\(tab\)[\s\S]*?setScreen\(nextScreen\)/);
+  assert.doesNotMatch(appSource, /tabLoadTokenRef|setIsTabLoading/);
+  assert.doesNotMatch(profileDataEffect, /screen|activeTab/);
   assert.match(appSource, /finally \{[\s\S]*?validationAttempt === authValidationAttemptRef\.current[\s\S]*?setIsAuthLoading\(false\)/);
 });
 

@@ -17,6 +17,8 @@ test("collection is a compact in-card action that does not open a pack", () => {
   assert.match(setSelect, /event\.stopPropagation\(\)/);
   assert.match(setSelect, /onViewCollection\(set\)/);
   assert.match(setSelect, /<span>View collection<\/span>/);
+  assert.doesNotMatch(setSelect, /aria-hidden="true">→/);
+  assert.match(desktopTheme, /\.set-collection-button\s*\{[\s\S]*?justify-self:\s*center/);
 });
 
 test("set cards provide clear pointer and keyboard states", () => {
@@ -35,4 +37,10 @@ test("responsive grids stay left aligned without horizontal overflow", () => {
   assert.match(desktopTheme, /\.set-grid\s*\{[\s\S]*?grid-template-columns:\s*repeat\(auto-fill,\s*minmax\(0,\s*238px\)\)/);
   assert.match(desktopTheme, /@media \(max-width:\s*760px\)[\s\S]*?grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/);
   assert.match(desktopTheme, /@media \(max-width:\s*430px\)[\s\S]*?grid-template-columns:\s*minmax\(0,\s*300px\)[\s\S]*?justify-content:\s*start/);
+});
+
+test("set readiness is cached across grid remounts", () => {
+  assert.match(setSelect, /const SET_READINESS_CACHE = new WeakMap\(\)/);
+  assert.match(setSelect, /SET_READINESS_CACHE\.set\(set,\s*canGeneratePack\(set\)\)/);
+  assert.match(setSelect, /sets\.map\(\(set\) => \[set\.id,\s*getSetReadiness\(set\)\]\)/);
 });

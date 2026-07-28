@@ -92,10 +92,6 @@ import {
   scheduleSelectedSetImageWarmup,
 } from "./utils/imageWarmup.js";
 
-const TAB_LOADING_MS = 420;
-const AUTH_MODAL_LOADING_MS = 380;
-const MIN_RETURN_LOADING_MS = 450;
-const RETURN_LOADING_RENDER_DELAY_MS = 100;
 const POKEBALL_LOADING_SRC = getPokeballLoadingUrl();
 const SUPPORT_EMAIL = PACKDEX_SUPPORT_EMAIL;
 const GUEST_WELCOME_BETA_SEEN_KEY = "packdex_guest_welcome_beta_seen";
@@ -149,15 +145,6 @@ function applyDesktopTheme() {
 
 if (typeof window !== "undefined") {
   applyDesktopTheme();
-}
-
-function LoadingOverlay() {
-  return (
-    <div className="loading-overlay" role="status" aria-live="polite" aria-label="Returning to set">
-      <img className="loading-pokeball" src={POKEBALL_LOADING_SRC} alt="" />
-      <div className="loading-text">Returning to set...</div>
-    </div>
-  );
 }
 
 function TabLoadingOverlay({ text = "Loading...", subtext = "" }) {
@@ -2220,7 +2207,6 @@ function App() {
   const [isAuthLoading, setIsAuthLoading] = useState(isSupabaseConfigured);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isDeleteAccountOpen, setIsDeleteAccountOpen] = useState(false);
-  const [isAuthOpening, setIsAuthOpening] = useState(false);
   const [isOpeningPack, setIsOpeningPack] = useState(false);
   const [cloudWarning, setCloudWarning] = useState("");
   const [welcomeRewardStatus, setWelcomeRewardStatus] = useState(null);
@@ -2230,15 +2216,11 @@ function App() {
   const [isClaimingWelcomeReward, setIsClaimingWelcomeReward] = useState(false);
   const [welcomeRewardError, setWelcomeRewardError] = useState("");
   const [isWelcomeBetaOpen, setIsWelcomeBetaOpen] = useState(false);
-  const [isTabLoading, setIsTabLoading] = useState(false);
-  const [isReturningToSet, setIsReturningToSet] = useState(false);
   const [collectionDashboardSubtabRequest, setCollectionDashboardSubtabRequest] = useState("");
   const [binderOpenRequestId, setBinderOpenRequestId] = useState("");
   const [showDesktopMobileNotice, setShowDesktopMobileNotice] = useState(
     () => !readStorageFlag(DESKTOP_MOBILE_NOTICE_DISMISSED_KEY, window)
   );
-  const returnTokenRef = useRef(0);
-  const tabLoadTokenRef = useRef(0);
   const shownWelcomeRewardUserRef = useRef("");
   const loadedProfileStatsUserIdRef = useRef("");
   const authSessionRef = useRef(null);
@@ -2547,9 +2529,6 @@ function App() {
     function handlePopState(event) {
       const state = event.state;
 
-      setIsTabLoading(false);
-      setIsReturningToSet(false);
-
       if (!state?.packdexApp) {
         setActiveTab("open");
         setScreen("home");
@@ -2593,11 +2572,6 @@ function App() {
       return;
     }
 
-    const token = tabLoadTokenRef.current + 1;
-
-    tabLoadTokenRef.current = token;
-    setIsTabLoading(true);
-    setIsReturningToSet(false);
     setActiveTab(tab);
     setScreen(nextScreen);
     setSelectedSet(null);
@@ -2606,23 +2580,12 @@ function App() {
     setBinderOpenRequestId("");
     pushAppHistory({ activeTab: tab, screen: nextScreen });
     resetPageScroll();
-
-    window.setTimeout(() => {
-      if (tabLoadTokenRef.current === token) {
-        setIsTabLoading(false);
-      }
-    }, TAB_LOADING_MS);
   }
 
   function openAuthModal() {
-    if (isAuthModalOpen || isAuthOpening) return;
+    if (isAuthModalOpen) return;
 
-    setIsAuthOpening(true);
-
-    window.setTimeout(() => {
-      setIsAuthOpening(false);
-      setIsAuthModalOpen(true);
-    }, AUTH_MODAL_LOADING_MS);
+    setIsAuthModalOpen(true);
   }
 
   async function handleDeleteAccount() {
@@ -2668,14 +2631,12 @@ function App() {
     }
 
     pushAppHistory({ activeTab: "open", screen: "opening", selectedSetId: set.id });
-    setIsReturningToSet(false);
     setActiveTab("open");
     setCollectionDashboardSubtabRequest("");
     setBinderOpenRequestId("");
     setSelectedSet(set);
     setPulledCards([]);
     setScreen("opening");
-    setIsTabLoading(false);
     resetPageScroll();
   }
 
@@ -2698,7 +2659,6 @@ function App() {
     if (!selectedSet || !canGeneratePack(selectedSet) || isOpeningPack) return;
 
     pauseImageWarmup({ packOpening: true });
-    setIsReturningToSet(false);
     setActiveTab("open");
     resetPageScroll();
     setCloudWarning("");
@@ -2709,7 +2669,6 @@ function App() {
 
     setPulledCards(nextPack);
     setScreen("reveal");
-    setIsTabLoading(false);
   }
 
   function viewCollection(set = selectedSet) {
@@ -2725,7 +2684,6 @@ function App() {
     setBinderOpenRequestId("");
     setSelectedSet(set);
     setScreen("setCollection");
-    setIsTabLoading(false);
     resetPageScroll();
   }
 
@@ -2737,7 +2695,6 @@ function App() {
     setPulledCards([]);
     setCollectionDashboardSubtabRequest("sets");
     setBinderOpenRequestId("");
-    setIsTabLoading(false);
     resetPageScroll();
   }
 
@@ -2749,7 +2706,6 @@ function App() {
     setPulledCards([]);
     setCollectionDashboardSubtabRequest("");
     setBinderOpenRequestId("");
-    setIsTabLoading(false);
     resetPageScroll();
   }
 
@@ -2980,7 +2936,6 @@ function App() {
       setSelectedSet(choice.set);
       setPulledCards(rewardPack);
       setScreen("reveal");
-      setIsTabLoading(false);
       resetPageScroll();
     } catch (error) {
       console.warn("Welcome reward claim failed", error);
@@ -2991,31 +2946,13 @@ function App() {
   }
 
   function backToSets() {
-    const token = returnTokenRef.current + 1;
-    const start = performance.now();
-
-    returnTokenRef.current = token;
-    setIsReturningToSet(true);
-
-    window.setTimeout(() => {
-      if (returnTokenRef.current !== token) return;
-
-      setPulledCards([]);
-      setSelectedSet(null);
-      setActiveTab("open");
-      setScreen("home");
-      pushAppHistory({ activeTab: "open", screen: "home" });
-      resetPageScroll();
-
-      const elapsed = performance.now() - start;
-      const remaining = Math.max(0, MIN_RETURN_LOADING_MS - elapsed);
-
-      window.setTimeout(() => {
-        if (returnTokenRef.current === token) {
-          setIsReturningToSet(false);
-        }
-      }, remaining);
-    }, RETURN_LOADING_RENDER_DELAY_MS);
+    clearImageWarmupQueue();
+    setPulledCards([]);
+    setSelectedSet(null);
+    setActiveTab("open");
+    setScreen("home");
+    pushAppHistory({ activeTab: "open", screen: "home" });
+    resetPageScroll();
   }
 
   return (
@@ -3080,18 +3017,18 @@ function App() {
         </div>
       )}
 
-      {activeTab === "open" && (
-        <>
-          {screen === "home" && (
-            <SetSelect
-              sets={sets}
-              collection={collection}
-              onSelectSet={startPackOpening}
-              onViewCollection={viewCollection}
-              footer={<SiteFooter />}
-            />
-          )}
+      <div className="desktop-screen-cache" hidden={!(activeTab === "open" && screen === "home")}>
+        <SetSelect
+          sets={sets}
+          collection={collection}
+          onSelectSet={startPackOpening}
+          onViewCollection={viewCollection}
+          footer={<SiteFooter />}
+        />
+      </div>
 
+      {activeTab === "open" && screen !== "home" && (
+        <>
           {screen === "opening" && selectedSet && (
             <PackOpening
               set={selectedSet}
@@ -3216,10 +3153,7 @@ function App() {
       {isClaimingWelcomeReward && (
         <TabLoadingOverlay text="Opening welcome pack..." subtext="Preparing this virtual God Pack" />
       )}
-      {isAuthOpening && <TabLoadingOverlay text="Opening account..." />}
       {isOpeningPack && <TabLoadingOverlay text={authUser ? "Saving pulls securely..." : "Opening your pack..."} />}
-      {isTabLoading && <TabLoadingOverlay />}
-      {isReturningToSet && <LoadingOverlay />}
     </main>
   );
 }

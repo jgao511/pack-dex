@@ -6,6 +6,7 @@ import { getSetCollectionProgress } from "../utils/collectionStorage.js";
 import { preloadStaticOpenPackAssets } from "../utils/staticOpenPackAssets.js";
 
 const ALL_ERAS = "All Eras";
+const SET_READINESS_CACHE = new WeakMap();
 const ERA_ORDER = [
   "Pokemon 30th Anniversary",
   "Mega Evolution",
@@ -82,6 +83,14 @@ function isNewSet(set) {
   return Boolean(set.isNew);
 }
 
+function getSetReadiness(set) {
+  if (!SET_READINESS_CACHE.has(set)) {
+    SET_READINESS_CACHE.set(set, canGeneratePack(set));
+  }
+
+  return SET_READINESS_CACHE.get(set);
+}
+
 function getEraLogo(era, sets) {
   const baseSet = getEraLogoSet(era, sets);
 
@@ -144,7 +153,7 @@ function SetSelect({ sets, collection, onSelectSet, onViewCollection, footer = n
   const [selectedEra, setSelectedEra] = useState(ALL_ERAS);
   const [activeEraBgClass, setActiveEraBgClass] = useState("era-bg-default");
   const pageRef = useRef(null);
-  const setReadiness = useMemo(() => new Map(sets.map((set) => [set.id, canGeneratePack(set)])), [sets]);
+  const setReadiness = useMemo(() => new Map(sets.map((set) => [set.id, getSetReadiness(set)])), [sets]);
   const collectionProgress = useMemo(
     () => new Map(sets.map((set) => [set.id, getSetCollectionProgress(collection, set)])),
     [sets, collection]
@@ -256,7 +265,6 @@ function SetSelect({ sets, collection, onSelectSet, onViewCollection, footer = n
           >
             <Library size={17} aria-hidden="true" />
             <span>View collection</span>
-            <span aria-hidden="true">→</span>
           </button>
         )}
       </article>
