@@ -29,7 +29,11 @@ import {
   savePulledCardsToCloud,
   syncPendingCloudPulls,
 } from "./lib/cloudCollection.js";
-import { loadPersistedBinders, persistBindersForUser } from "./lib/binderPersistence.js";
+import {
+  deletePersistedBinder,
+  loadPersistedBinders,
+  persistBindersForUser,
+} from "./lib/binderPersistence.js";
 import {
   emptyProfileStats,
   loadCloudProfileStats,
@@ -580,6 +584,7 @@ function CollectionDashboard({
   onCreateMasterSetBinder,
   onAddBinderCards,
   onReplaceBinderCards,
+  onDeleteBinder,
   onAddToBinder,
   onRemoveFromBinder,
 }) {
@@ -651,7 +656,7 @@ function CollectionDashboard({
   }, [requestedBinderId, requestedSubtab]);
 
   return (
-    <section className="dashboard-screen">
+    <section className={`dashboard-screen ${activeCollectionSubtab === "binders" ? "is-binders-active" : ""}`}>
       <div className="dashboard-heading">
         <span className="set-mark">Collection</span>
         <h1>{activeCollectionSubtab === "sets" ? "Set Collection" : "My Binders"}</h1>
@@ -785,6 +790,8 @@ function CollectionDashboard({
             onImportMasterSet={onCreateMasterSetBinder}
             onAddCards={onAddBinderCards}
             onReplaceCards={onReplaceBinderCards}
+            onDeleteBinder={onDeleteBinder}
+            desktopSurface
             onInspectCard={(card, set) => setSelectedCard({
               card,
               set,
@@ -1965,6 +1972,17 @@ function App() {
     });
   }
 
+  async function handleDeleteBinder(binderId) {
+    const refreshedBinders = await deletePersistedBinder({
+      userId: authUser?.id,
+      binderId,
+      binders,
+    });
+
+    setBinders(refreshedBinders);
+    return refreshedBinders;
+  }
+
   function backToSets() {
     clearImageWarmupQueue();
     setPulledCards([]);
@@ -2104,6 +2122,7 @@ function App() {
           onCreateMasterSetBinder={handleCreateMasterSetBinder}
           onAddBinderCards={handleAddBinderCards}
           onReplaceBinderCards={handleReplaceBinderCards}
+          onDeleteBinder={handleDeleteBinder}
           onAddToBinder={handleAddToBinder}
           onRemoveFromBinder={handleRemoveFromBinder}
         />

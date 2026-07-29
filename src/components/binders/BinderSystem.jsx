@@ -176,9 +176,6 @@ export function CustomBinderView({ binder, collection, onBack, onInspectCard, on
             <article className="custom-binder-card" key={item.binderCard.key}>
               <button type="button" className="custom-binder-card-image" onClick={() => onInspectCard?.(item.card, item.set)}>
                 <BinderCardImage card={item.card} set={item.set} />
-                {getCardCount(collection, item.card, item.set.id) > 1 && (
-                  <span className="binder-pocket-quantity">×{getCardCount(collection, item.card, item.set.id)}</span>
-                )}
               </button>
               {editing && (
                 <div className="custom-binder-edit-controls">
@@ -282,13 +279,10 @@ export function MasterSetBinderView({ binder, collection, onBack, onInspectCard 
                 type="button"
                 key={`${item.set.id}-${item.card.id || item.card.number}`}
                 onClick={() => onInspectCard?.(item.card, item.set)}
-                aria-label={`${getDisplayCardName(item.card, item.set)}, card ${item.card.number}, ${collected ? `owned quantity ${quantity}` : "missing from collection"}`}
+                aria-label={`${getDisplayCardName(item.card, item.set)}, card ${item.card.number}, ${collected ? "owned" : "missing from collection"}`}
               >
                 {collected ? (
-                  <>
-                    <BinderCardImage card={item.card} set={item.set} />
-                    {quantity > 1 && <span className="binder-pocket-quantity">×{quantity}</span>}
-                  </>
+                  <BinderCardImage card={item.card} set={item.set} />
                 ) : (
                   <span className="master-missing-card-copy">
                     <strong>#{item.card.number}</strong>
@@ -327,9 +321,15 @@ export default function BinderSystem({
   onInspectCard,
   onAddCards,
   onReplaceCards,
+  onDeleteBinder,
+  desktopSurface = false,
 }) {
   const [openBinderId, setOpenBinderId] = useState("");
   const [activeModal, setActiveModal] = useState("");
+  const [deleteTarget, setDeleteTarget] = useState(null);
+  const [deletePending, setDeletePending] = useState(false);
+  const [deleteError, setDeleteError] = useState("");
+  const [deleteSuccess, setDeleteSuccess] = useState("");
   const [customBinderName, setCustomBinderName] = useState("");
   const [customBinderTheme, setCustomBinderTheme] = useState("midnight");
   const eligibleSets = useMemo(
@@ -367,12 +367,14 @@ export default function BinderSystem({
   }, [openBinder, openBinderId]);
 
   function openCreateModal() {
+    setDeleteSuccess("");
     setCustomBinderName("");
     setCustomBinderTheme("midnight");
     setActiveModal("create");
   }
 
   function openImportModal() {
+    setDeleteSuccess("");
     const nextSet = selectedImportSet || eligibleSets[0] || null;
     setImportSetId(nextSet?.id || "");
     setImportBinderName(nextSet ? `${nextSet.name} Master Set` : "");
@@ -397,9 +399,41 @@ export default function BinderSystem({
     setActiveModal("");
   }
 
+  function requestDeleteBinder(binder) {
+    setActiveModal("");
+    setDeleteError("");
+    setDeleteSuccess("");
+    setDeleteTarget(binder);
+  }
+
+  function closeDeleteConfirmation() {
+    if (deletePending) return;
+    setDeleteTarget(null);
+    setDeleteError("");
+  }
+
+  async function confirmDeleteBinder() {
+    if (!deleteTarget || deletePending || !onDeleteBinder) return;
+
+    setDeletePending(true);
+    setDeleteError("");
+
+    try {
+      await onDeleteBinder(deleteTarget.id);
+      if (openBinderId === deleteTarget.id) setOpenBinderId("");
+      setDeleteTarget(null);
+      setDeleteSuccess(`${deleteTarget.name} was deleted. Your Collection cards were not changed.`);
+    } catch (error) {
+      console.warn("Unable to delete binder", error);
+      setDeleteError("This binder could not be deleted. Please try again.");
+    } finally {
+      setDeletePending(false);
+    }
+  }
+
   if (openBinder) {
     return (
-      <div className="shared-binder-system is-reader">
+      <div className={`shared-binder-system is-reader${desktopSurface ? " is-desktop-surface" : ""}`}>
         <BinderView
           binder={openBinder}
           collection={collection}
@@ -413,7 +447,8 @@ export default function BinderSystem({
   }
 
   return (
-    <div className="shared-binder-system is-library">
+    <div className={`shared-binder-system is-library${desktopSurface ? " is-desktop-surface" : ""}`}>
+      {deleteSuccess && <div className="binder-action-status" role="status">{deleteSuccess}</div>}
       <section className={`binder-actions ${binders.length === 0 ? "is-empty" : ""}`}>
         <div className="binder-actions-heading">
           <div>
@@ -456,9 +491,19 @@ export default function BinderSystem({
                   <strong>{binder.name}</strong>
                   <em>{binder.tag}</em>
                   <small>{set ? `${progress.collected}/${progress.total} cards` : `${binder.cards?.length || 0} cards`}</small>
-                  <button className="secondary-action" type="button" onClick={() => setOpenBinderId(binder.id)}>
-                    Open Binder
-                  </button>
+                  <div className="binder-card-actions">
+                    <button className="secondary-action" type="button" onClick={() => setOpenBinderId(binder.id)}>
+                      Open Binder
+                    </button>
+                    <button
+                      className="binder-delete-trigger"
+                      type="button"
+                      onClick={() => requestDeleteBinder(binder)}
+                      aria-label={`Delete ${binder.name}`}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
               </article>
             );
@@ -498,6 +543,44 @@ export default function BinderSystem({
               <label><span>Color</span><BinderThemeSelector value={importBinderTheme} onChange={setImportBinderTheme} /></label>
               <button className="primary-action" type="submit" disabled={!selectedImportSet}>Import Binder</button>
             </form>
+          </section>
+        </div>
+      )}
+
+      {deleteTarget && (
+        <div
+          className="binder-modal-overlay"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="delete-binder-title"
+          onClick={closeDeleteConfirmation}
+        >
+          <section className="binder-sheet binder-delete-sheet" onClick={(event) => event.stopPropagation()}>
+            <button
+              className="binder-modal-close"
+              type="button"
+              onClick={closeDeleteConfirmation}
+              aria-label="Close delete binder confirmation"
+              disabled={deletePending}
+            >
+              <CloseIcon />
+            </button>
+            <div className="binder-modal-heading">
+              <span className="eyebrow">My Binders</span>
+              <h2 id="delete-binder-title">Delete Binder?</h2>
+            </div>
+            <p className="binder-delete-copy">
+              Delete <strong>{deleteTarget.name}</strong>? This removes only the binder. Cards in your Collection will stay unchanged.
+            </p>
+            {deleteError && <div className="binder-delete-error" role="alert">{deleteError}</div>}
+            <div className="binder-delete-actions">
+              <button className="secondary-action" type="button" onClick={closeDeleteConfirmation} disabled={deletePending}>
+                Cancel
+              </button>
+              <button className="danger-action" type="button" onClick={confirmDeleteBinder} disabled={deletePending}>
+                {deletePending ? "Deleting…" : "Delete Binder"}
+              </button>
+            </div>
           </section>
         </div>
       )}

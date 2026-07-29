@@ -119,9 +119,9 @@ export function isMasterSetBinder(binder) {
 export function loadBinders() {
   if (typeof window === "undefined") return [];
 
-  const binders = safeParseBinders(window.localStorage.getItem(BINDER_STORAGE_KEY));
+  const storedBinders = window.localStorage.getItem(BINDER_STORAGE_KEY);
 
-  if (binders.length > 0) return binders;
+  if (storedBinders !== null) return safeParseBinders(storedBinders);
 
   const legacyCards = loadLegacyBinderCards();
 

@@ -32,7 +32,11 @@ import { supabase, isSupabaseConfigured, missingSupabaseEnv } from "./lib/supaba
 import { loadCloudProfileStats } from "./lib/cloudProfileStats.js";
 import { ensurePackOpenClientEventId, recordPackOpenEvent } from "../../src/lib/packOpenEvents.js";
 import { cacheWelcomeRewardStatus, loadWelcomeRewardStatus } from "../../src/lib/welcomeReward.js";
-import { loadPersistedBinders, persistBindersForUser } from "../../src/lib/binderPersistence.js";
+import {
+  deletePersistedBinder,
+  loadPersistedBinders,
+  persistBindersForUser,
+} from "../../src/lib/binderPersistence.js";
 import { getPublicPackDexStats } from "../../src/lib/publicPackDexStats.js";
 import {
   loadCloudCollection,
@@ -1632,6 +1636,7 @@ function CollectionScreen({
   onCreateBinder,
   onAddBinderCards,
   onReplaceBinderCards,
+  onDeleteBinder,
   onInspectCard,
   onReturnFromSet,
   returnLabel,
@@ -1707,6 +1712,7 @@ function CollectionScreen({
           onInspectCard={onInspectCard}
           onAddCards={onAddBinderCards}
           onReplaceCards={onReplaceBinderCards}
+          onDeleteBinder={onDeleteBinder}
         />
       ) : (
         <ValueScreen {...valueScreenProps} />
@@ -4318,6 +4324,17 @@ function MobileApp() {
     });
   }
 
+  async function deleteBinder(binderId) {
+    const refreshedBinders = await deletePersistedBinder({
+      userId: user?.id,
+      binderId,
+      binders,
+    });
+
+    setBinders(refreshedBinders);
+    return refreshedBinders;
+  }
+
   function importMasterSetBinder(set, name = "", theme = "midnight") {
     const existing = binders.find((binder) => binder.id === `master-set-${set.id}`);
 
@@ -4672,6 +4689,7 @@ function MobileApp() {
               onCreateBinder={createCustomBinder}
               onAddBinderCards={addCardsToCustomBinder}
               onReplaceBinderCards={replaceCustomBinderCards}
+              onDeleteBinder={deleteBinder}
               onInspectCard={inspectCard}
               onReturnFromSet={returnFromCollectionSet}
               returnLabel={collectionReturnSource === "open" ? "Back to Open Packs" : collectionReturnSource === "wishlist" ? "Back to Wishlist" : "Back to Collection"}

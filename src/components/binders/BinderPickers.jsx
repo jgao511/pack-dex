@@ -201,7 +201,9 @@ export function OwnedCardPicker({ collection, binder, setList, onClose, onConfir
               <article className={`owned-card-choice ${selected ? "is-selected" : ""} ${inBinder ? "is-existing" : ""}`} key={item.key}>
                 <button type="button" className="owned-card-select" onClick={() => toggleCard(item)} disabled={inBinder} aria-pressed={selected}>
                   <img src={cardImageUrl(item.card, item.set)} alt={getDisplayCardName(item.card, item.set)} loading="lazy" />
-                  <span className="owned-card-choice-state">{inBinder ? "In binder" : selected ? "Selected" : `×${item.quantity}`}</span>
+                  {(inBinder || selected) && (
+                    <span className="owned-card-choice-state">{inBinder ? "In binder" : "Selected"}</span>
+                  )}
                 </button>
                 <button className="owned-card-preview" type="button" onClick={() => setPreview(item)} aria-label={`Preview ${getDisplayCardName(item.card, item.set)}`}>
                   Preview
@@ -244,7 +246,7 @@ export function OwnedCardPicker({ collection, binder, setList, onClose, onConfir
             <div>
               <strong>{getDisplayCardName(preview.card, preview.set)}</strong>
               <span>#{preview.card.number} · {getDisplayRarity(preview.card, preview.set)}</span>
-              <small>{preview.set.name} · Owned ×{preview.quantity}</small>
+              <small>{preview.set.name} · Owned</small>
             </div>
           </div>
         )}

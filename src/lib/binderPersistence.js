@@ -1,5 +1,10 @@
 import { loadBinders, saveBinders } from "../utils/binderStorage.js";
-import { loadCloudBinders, saveCloudBinders, upsertCloudBinder } from "./cloudBinders.js";
+import {
+  deleteCloudBinder,
+  loadCloudBinders,
+  saveCloudBinders,
+  upsertCloudBinder,
+} from "./cloudBinders.js";
 
 export function loadLocalBinders() {
   return loadBinders();
@@ -22,4 +27,18 @@ export function persistBindersForUser({ userId, binders, changedBinderId = "" })
   return changedBinder
     ? upsertCloudBinder(userId, changedBinder)
     : saveCloudBinders(userId, binders);
+}
+
+export async function deletePersistedBinder({ userId, binderId, binders }) {
+  const remainingBinders = (Array.isArray(binders) ? binders : []).filter(
+    (binder) => binder.id !== binderId
+  );
+
+  if (!userId) {
+    saveBinders(remainingBinders);
+    return loadBinders();
+  }
+
+  await deleteCloudBinder(userId, binderId);
+  return loadCloudBinders(userId);
 }

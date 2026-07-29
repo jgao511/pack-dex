@@ -85,6 +85,16 @@
   text-underline-offset: 3px;
 }
 
+.shared-binder-system .binder-action-status {
+  border: 1px solid rgba(112, 211, 164, .3);
+  border-radius: 14px;
+  padding: 11px 13px;
+  color: #d8ffec;
+  background: rgba(26, 91, 65, .34);
+  font-size: .8rem;
+  font-weight: 800;
+}
+
 .shared-binder-system .binder-actions {
   display: grid;
   grid-template-columns: 1fr;
@@ -235,6 +245,29 @@
   font-size: .78rem;
 }
 
+.shared-binder-system .binder-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+  margin-top: 4px;
+}
+
+.shared-binder-system .binder-card-actions .secondary-action {
+  margin-top: 0;
+}
+
+.shared-binder-system .binder-delete-trigger {
+  min-height: 38px;
+  border: 1px solid rgba(255, 139, 151, .32);
+  border-radius: 999px;
+  padding: 8px 13px;
+  color: #ffd7dc;
+  background: rgba(93, 23, 37, .42);
+  font-size: .76rem;
+  font-weight: 850;
+}
+
 .shared-binder-system .binder-reader-mobile {
   display: grid;
   gap: 9px;
@@ -362,21 +395,6 @@
   height: 100%;
   display: block;
   object-fit: contain;
-}
-
-.shared-binder-system .binder-pocket-quantity {
-  position: absolute;
-  right: 4px;
-  bottom: 4px;
-  display: inline-grid;
-  place-items: center;
-  min-width: 23px;
-  min-height: 20px;
-  border-radius: 999px;
-  color: #fff;
-  background: rgba(7, 9, 19, .84);
-  font-size: .64rem;
-  font-weight: 950;
 }
 
 .shared-binder-system .custom-binder-edit-controls {
@@ -659,6 +677,56 @@
 
 .shared-binder-system .custom-binder-form input::placeholder {
   color: #828dab;
+}
+
+.shared-binder-system .binder-delete-sheet {
+  gap: 16px;
+}
+
+.shared-binder-system .binder-delete-copy {
+  margin: 0;
+  color: #c4cbe0;
+  font-size: .88rem;
+  line-height: 1.5;
+}
+
+.shared-binder-system .binder-delete-copy strong {
+  color: #fff;
+}
+
+.shared-binder-system .binder-delete-error {
+  border: 1px solid rgba(255, 124, 140, .34);
+  border-radius: 12px;
+  padding: 10px 12px;
+  color: #ffd9de;
+  background: rgba(105, 27, 43, .46);
+  font-size: .78rem;
+  font-weight: 800;
+}
+
+.shared-binder-system .binder-delete-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.shared-binder-system .binder-delete-actions .secondary-action,
+.shared-binder-system .danger-action {
+  min-height: 48px;
+  border-radius: 15px;
+  padding: 0 12px;
+  font-weight: 900;
+}
+
+.shared-binder-system .danger-action {
+  border: 1px solid rgba(255, 150, 162, .35);
+  color: #fff;
+  background: #a82f45;
+}
+
+.shared-binder-system .danger-action:disabled {
+  cursor: default;
+  opacity: .62;
 }
 
 .shared-binder-system .binder-theme-picker {
@@ -1060,8 +1128,84 @@
 }
 
 @media (min-width: 760px) {
+  :root[data-theme] .dashboard-screen.is-binders-active .auth-save-notice {
+    border-color: rgba(185, 205, 255, .15);
+    color: #c4cbe0;
+    background: rgba(16, 18, 40, .74);
+  }
+
+  :root[data-theme] .dashboard-screen.is-binders-active .auth-save-notice button {
+    color: #f8fbff;
+  }
+
+  :root[data-theme] .dashboard-screen.is-binders-active .collection-subtabs {
+    border-color: rgba(185, 205, 255, .15);
+    color: #f8fbff;
+    background: rgba(255, 255, 255, .08);
+  }
+
+  :root[data-theme] .dashboard-screen.is-binders-active .collection-subtabs button:not(.is-active) {
+    color: #c4cbe0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  :root[data-theme] .dashboard-screen.is-binders-active .collection-subtabs button.is-active {
+    color: #fff;
+    background: linear-gradient(135deg, #5f4dff, #7140ff);
+    box-shadow: 0 10px 24px rgba(95, 77, 255, .2);
+  }
+
   .shared-binder-system {
     gap: 18px;
+  }
+
+  .shared-binder-system.is-desktop-surface .binder-actions {
+    border-color: rgba(185, 205, 255, .15);
+    color: #f8fbff;
+    background: rgba(16, 18, 40, .74);
+  }
+
+  .shared-binder-system.is-desktop-surface .binder-empty-state {
+    border: 1px solid rgba(185, 205, 255, .15);
+    border-radius: 18px;
+    padding: 32px 18px;
+    color: #c4cbe0;
+    background:
+      radial-gradient(circle at 82% 0, rgba(95, 77, 255, .1), transparent 36%),
+      #0f1326;
+    box-shadow: none;
+    line-height: 1.4;
+  }
+
+  .shared-binder-system.is-desktop-surface .binder-empty-state strong {
+    margin: 0;
+    color: #f8fbff;
+    font-family: inherit;
+    font-size: 1.08rem;
+    line-height: 1.2;
+    text-transform: none;
+  }
+
+  .shared-binder-system.is-desktop-surface .binder-empty-state p {
+    color: #c4cbe0;
+  }
+
+  .shared-binder-system.is-desktop-surface .primary-action {
+    color: #fff;
+    background: linear-gradient(135deg, #5f4dff, #7140ff);
+    box-shadow: 0 12px 28px rgba(95, 77, 255, .2);
+  }
+
+  .shared-binder-system.is-desktop-surface .secondary-action {
+    border-color: rgba(185, 205, 255, .22);
+    color: #f8fbff;
+    background: rgba(255, 255, 255, .06);
+    box-shadow: none;
+  }
+
+  .shared-binder-system.is-desktop-surface .inline-auth-link {
+    color: #d8dcf0;
   }
 
   .shared-binder-system .binder-actions {
