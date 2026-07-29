@@ -4425,6 +4425,14 @@ body.scanner-camera-active,
   font-size: 1.15rem;
 }
 
+.custom-binder-edit-controls .custom-binder-remove-card {
+  border-color: rgba(255, 111, 127, .38);
+  color: #fff;
+  background: rgba(173, 39, 58, .72);
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
 .custom-binder-edit-controls button:disabled {
   opacity: .34;
 }
@@ -4769,6 +4777,26 @@ body.scanner-camera-active,
   grid-column: 1 / -1;
   display: grid;
   gap: 5px;
+}
+
+.owned-card-load-more {
+  grid-column: 1 / -1;
+  min-height: 48px;
+  display: grid;
+  place-items: center;
+  gap: 2px;
+  border: 1px solid rgba(169, 147, 255, .28);
+  border-radius: 13px;
+  color: #f3f0ff;
+  background: #211b42;
+  font-size: .78rem;
+  font-weight: 900;
+}
+
+.owned-card-load-more span {
+  color: #a9b2cc;
+  font-size: .64rem;
+  font-weight: 750;
 }
 
 .owned-card-picker-footer {

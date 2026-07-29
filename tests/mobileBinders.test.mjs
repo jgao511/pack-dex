@@ -6,6 +6,7 @@ import {
   filterOwnedBinderCards,
   getOwnedBinderCards,
   matchesBinderEra,
+  sortBinderRarities,
   sortSetsByRelease,
 } from "../mobile-app/src/utils/binderCatalog.js";
 import {
@@ -64,6 +65,8 @@ test("owned-card catalog excludes unowned cards and applies search, era, set, an
   assert.equal(filterOwnedBinderCards(owned, { setId: "old" }).length, 0);
   assert.deepEqual(filterOwnedBinderCards(owned, { rarity: "Ultra Rare" }).map((item) => item.card.id), ["sv-2"]);
   assert.deepEqual(filterOwnedBinderCards(owned, { sort: "recent" }).map((item) => item.card.id), ["sv-2", "sv-1"]);
+  assert.deepEqual(filterOwnedBinderCards(owned, { sort: "rarity" }).map((item) => item.card.id), ["sv-2", "sv-1"]);
+  assert.deepEqual(sortBinderRarities(owned), ["Ultra Rare", "Common"]);
 });
 
 test("multi-select adds owned cards once and preserves the no-duplicate binder model", () => {
@@ -103,8 +106,12 @@ test("custom binder UI is continuous and all add entry points share the owned-ca
   assert.match(picker, /Search cards you own…/);
   assert.match(picker, /All rarities/);
   assert.match(picker, /Recently pulled/);
+  assert.match(picker, /OWNED_CARD_PAGE_SIZE = 48/);
+  assert.match(picker, /Load More/);
+  assert.doesNotMatch(picker, /autoFocus/);
   assert.match(picker, /selectedKeys/);
   assert.doesNotMatch(picker, /Favorite/);
+  assert.match(customView, /custom-binder-remove-card[\s\S]*?>×<\/button>/);
   assert.match(css, /\.custom-binder-grid \{[\s\S]*grid-template-columns:\s*repeat\(3/);
   assert.match(css, /\.screen-content \{[\s\S]*var\(--bottom-nav-height\)/);
   assert.match(css, /\.owned-card-picker-footer \{/);

@@ -1725,7 +1725,7 @@ function CustomBinderView({ binder, collection, onBack, onInspectCard, onAddCard
               {editing && (
                 <div className="custom-binder-edit-controls">
                   <button type="button" onClick={() => moveCard(index, -1)} disabled={index === 0} aria-label={`Move ${item.card.name} earlier`}>‹</button>
-                  <button type="button" onClick={() => setDraftCards((current) => current.filter((card) => card.key !== item.binderCard.key).map((card, order) => ({ ...card, order })))} aria-label={`Remove ${item.card.name}`}>Remove</button>
+                  <button className="custom-binder-remove-card" type="button" onClick={() => setDraftCards((current) => current.filter((card) => card.key !== item.binderCard.key).map((card, order) => ({ ...card, order })))} aria-label={`Remove ${item.card.name}`}>×</button>
                   <button type="button" onClick={() => moveCard(index, 1)} disabled={index === slots.length - 1} aria-label={`Move ${item.card.name} later`}>›</button>
                 </div>
               )}

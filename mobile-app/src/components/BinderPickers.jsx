@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getCardImageUrl, getSetLogoUrl } from "../../../src/utils/assetUrls.js";
 import { getDisplayCardName, getDisplayRarity } from "../../../src/utils/packGenerator.js";
 import { getCardCount, getPullableCollectionCards } from "../../../src/utils/collectionStorage.js";
@@ -8,7 +8,10 @@ import {
   filterBinderSets,
   filterOwnedBinderCards,
   getOwnedBinderCards,
+  sortBinderRarities,
 } from "../utils/binderCatalog.js";
+
+const OWNED_CARD_PAGE_SIZE = 48;
 
 function cardImageUrl(card, set) {
   return getCardImageUrl({ ...card, setFolder: card?.setFolder || set?.setFolder || set?.id });
@@ -98,6 +101,7 @@ export function OwnedCardPicker({ collection, binder, setList, onClose, onConfir
   const [sort, setSort] = useState("set-order");
   const [selectedKeys, setSelectedKeys] = useState(() => new Set());
   const [preview, setPreview] = useState(null);
+  const [visibleCount, setVisibleCount] = useState(OWNED_CARD_PAGE_SIZE);
   const existingKeys = useMemo(() => new Set((binder?.cards || []).map((item) => item.key)), [binder?.cards]);
   const ownedCards = useMemo(
     () => getOwnedBinderCards(setList, collection, getPullableCollectionCards, getCardCount, getBinderCardKey),
@@ -111,7 +115,7 @@ export function OwnedCardPicker({ collection, binder, setList, onClose, onConfir
     [ownedCards, era]
   );
   const rarities = useMemo(
-    () => [...new Set(ownedCards.map((item) => item.card?.rarity).filter(Boolean))].sort(),
+    () => sortBinderRarities(ownedCards),
     [ownedCards]
   );
   const visibleCards = useMemo(
@@ -122,6 +126,12 @@ export function OwnedCardPicker({ collection, binder, setList, onClose, onConfir
     () => ownedCards.filter((item) => selectedKeys.has(item.key) && !existingKeys.has(item.key)),
     [ownedCards, selectedKeys, existingKeys]
   );
+  const displayedCards = visibleCards.slice(0, visibleCount);
+  const remainingCardCount = Math.max(0, visibleCards.length - displayedCards.length);
+
+  useEffect(() => {
+    setVisibleCount(OWNED_CARD_PAGE_SIZE);
+  }, [query, era, setId, rarity, sort]);
 
   function updateEra(nextEra) {
     setEra(nextEra);
@@ -158,7 +168,6 @@ export function OwnedCardPicker({ collection, binder, setList, onClose, onConfir
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Search cards you own…"
             autoComplete="off"
-            autoFocus
           />
         </label>
         <SetFilterChips value={era} onChange={updateEra} />
@@ -188,7 +197,7 @@ export function OwnedCardPicker({ collection, binder, setList, onClose, onConfir
           </label>
         </div>
         <div className="owned-card-picker-grid">
-          {visibleCards.map((item) => {
+          {displayedCards.map((item) => {
             const inBinder = existingKeys.has(item.key);
             const selected = selectedKeys.has(item.key);
 
@@ -209,6 +218,16 @@ export function OwnedCardPicker({ collection, binder, setList, onClose, onConfir
               <strong>No owned cards found.</strong>
               <span>Try changing your search or filters.</span>
             </div>
+          )}
+          {remainingCardCount > 0 && (
+            <button
+              className="owned-card-load-more"
+              type="button"
+              onClick={() => setVisibleCount((current) => current + OWNED_CARD_PAGE_SIZE)}
+            >
+              Load More
+              <span>{remainingCardCount} cards remaining</span>
+            </button>
           )}
         </div>
         <footer className="owned-card-picker-footer">

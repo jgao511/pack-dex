@@ -1,3 +1,5 @@
+import { getRarityRank } from "../../../src/utils/rarityRank.js";
+
 function normalize(value) {
   return String(value || "").trim().toLowerCase();
 }
@@ -78,6 +80,21 @@ export function getOwnedBinderCards(setList, collection, getCards, getCount, get
   );
 }
 
+export function sortBinderRarities(ownedCards) {
+  const rarityRanks = new Map();
+
+  (ownedCards || []).forEach((item) => {
+    const rarity = String(item.card?.rarity || "").trim();
+    if (!rarity) return;
+    const rank = getRarityRank(item.card, item.set);
+    rarityRanks.set(rarity, Math.min(rank, rarityRanks.get(rarity) ?? Number.MAX_SAFE_INTEGER));
+  });
+
+  return [...rarityRanks.keys()].sort((left, right) =>
+    rarityRanks.get(left) - rarityRanks.get(right) || left.localeCompare(right)
+  );
+}
+
 export function filterOwnedBinderCards(
   ownedCards,
   { query = "", era = "All", setId = "All", rarity = "All", sort = "set-order" } = {}
@@ -97,7 +114,7 @@ export function filterOwnedBinderCards(
         cardNumberValue(left.card) - cardNumberValue(right.card);
     }
     if (sort === "rarity") {
-      return String(left.card?.rarity || "").localeCompare(String(right.card?.rarity || "")) ||
+      return getRarityRank(left.card, left.set) - getRarityRank(right.card, right.set) ||
         String(left.card?.name || "").localeCompare(String(right.card?.name || ""));
     }
     if (sort === "recent") {
