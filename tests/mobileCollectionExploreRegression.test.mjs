@@ -5,11 +5,12 @@ import { calculateValueCoverage } from "../src/lib/priceCoverage.js";
 
 const read = (path) => readFile(new URL(path, import.meta.url), "utf8");
 
-test("Binder renders valid set slots and has a recovery state without crashing", async () => {
+test("Binder renders valid set slots, useful missing identities, and a recovery state", async () => {
   const app = await read("../mobile-app/src/App.jsx");
   assert.match(app, /getPullableCollectionCards\(set\)\.map\(\(card\) => \(\{ set, card \}\)\)/);
   assert.match(app, /This binder has no available cards/);
-  assert.match(app, /onClick=\{\(\) => item\?\.card && onInspectCard/);
+  assert.match(app, /master-missing-card-copy/);
+  assert.match(app, /onClick=\{\(\) => onInspectCard\?\.\(item\.card, item\.set\)\}/);
   const binders = app.match(/function CollectionBinders\([\s\S]*?\n\}/)?.[0] || "";
   assert.doesNotMatch(binders, /\{ownedShimmer && isRarePlusVisual\(card, set\)/);
 });

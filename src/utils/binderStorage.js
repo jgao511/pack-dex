@@ -158,28 +158,55 @@ export function isCardInAnyBinder(binders, card, setId) {
 }
 
 export function addCardToBinder(binders, binderId, card, setId, timestamp = Date.now()) {
-  const key = getBinderCardKey(card, setId);
+  return addCardsToBinder(binders, binderId, [{ card, setId }], timestamp);
+}
+
+export function addCardsToBinder(binders, binderId, selections, timestamp = Date.now()) {
+  const additions = Array.isArray(selections) ? selections : [];
 
   return binders.map((binder) => {
-    if (binder.id !== binderId || binder.cards.some((item) => item.key === key)) {
-      return binder;
-    }
+    if (binder.id !== binderId || binder.type === "master_set") return binder;
+
+    const existingKeys = new Set(binder.cards.map((item) => item.key));
+    const nextCards = [...binder.cards];
+
+    additions.forEach(({ card, setId }) => {
+      if (!card || !setId) return;
+      const key = getBinderCardKey(card, setId);
+      if (existingKeys.has(key)) return;
+
+      existingKeys.add(key);
+      nextCards.push({
+        key,
+        setId,
+        cardId: card.id || null,
+        cardNumber: card.number || null,
+        addedAt: timestamp,
+        order: nextCards.length,
+      });
+    });
+
+    if (nextCards.length === binder.cards.length) return binder;
 
     return {
       ...binder,
       updatedAt: timestamp,
-      cards: [
-        ...binder.cards,
-        {
-          key,
-          setId,
-          cardId: card?.id || null,
-          cardNumber: card?.number || null,
-          addedAt: timestamp,
-          order: binder.cards.length,
-        },
-      ],
+      cards: nextCards,
     };
+  });
+}
+
+export function replaceBinderCards(binders, binderId, cards, timestamp = Date.now()) {
+  return binders.map((binder) => {
+    if (binder.id !== binderId || binder.type === "master_set") return binder;
+
+    const seen = new Set();
+    const nextCards = (Array.isArray(cards) ? cards : [])
+      .map(normalizeBinderCard)
+      .filter((item) => item && !seen.has(item.key) && seen.add(item.key))
+      .map((item, order) => ({ ...item, order }));
+
+    return { ...binder, cards: nextCards, updatedAt: timestamp };
   });
 }
 

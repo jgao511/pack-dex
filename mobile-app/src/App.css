@@ -4264,3 +4264,698 @@ body.scanner-camera-active,
 .theme-light .scanner-beta-price-label, .theme-light .scanner-beta-confirmed .text-action { color: #53617b; }
 .theme-light .scanner-beta-price strong { color: #17223b; }
 @media (prefers-reduced-motion: reduce) { .scanner-beta-price-spinner, .scanner-beta-action-spinner { animation: none; } }
+
+/* Compact mobile binders and shared card/set pickers. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.collection-screen-mobile:has(.binder-reader-mobile) {
+  gap: 10px;
+}
+
+.collection-screen-mobile:has(.binder-reader-mobile) > .mobile-screen-title,
+.collection-screen-mobile:has(.binder-reader-mobile) > .collection-subtabs-mobile {
+  display: none;
+}
+
+.binder-reader-mobile {
+  gap: 9px;
+  padding-bottom: 8px;
+}
+
+.binder-back-link {
+  width: fit-content;
+  min-height: 40px;
+  border: 0;
+  padding: 0 8px 0 0;
+  color: #c9c3ff;
+  background: transparent;
+  font-size: .88rem;
+  font-weight: 850;
+}
+
+.binder-reader-heading {
+  display: block;
+}
+
+.binder-reader-heading h2 {
+  margin-top: 3px;
+  font-size: clamp(1.24rem, 5.6vw, 1.55rem);
+  line-height: 1.08;
+}
+
+.binder-reader-heading p {
+  margin-top: 4px;
+  color: #9ca8c7;
+  font-size: .82rem;
+}
+
+.binder-compact-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: 7px;
+}
+
+.binder-compact-actions .primary-action,
+.binder-compact-actions .secondary-action {
+  min-width: 0;
+  min-height: 42px;
+  padding: 0 10px;
+  border-radius: 13px;
+  font-size: .8rem;
+}
+
+.custom-binder-empty,
+.custom-binder-grid,
+.master-binder-page-mobile {
+  border: 1px solid rgba(154, 128, 255, .28);
+  border-radius: 19px;
+  background:
+    radial-gradient(circle at 85% 0, rgba(107, 70, 214, .12), transparent 32%),
+    #12162a;
+}
+
+.custom-binder-empty {
+  min-height: 205px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 8px;
+  padding: 24px 18px;
+  text-align: center;
+}
+
+.custom-binder-empty strong {
+  font-size: 1.05rem;
+}
+
+.custom-binder-empty span {
+  max-width: 280px;
+  color: #9ea9c8;
+  font-size: .84rem;
+  line-height: 1.4;
+}
+
+.custom-binder-empty .primary-action {
+  min-height: 44px;
+  margin-top: 7px;
+}
+
+.custom-binder-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: 9px 7px;
+  padding: 9px;
+}
+
+.custom-binder-card {
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+}
+
+.custom-binder-card-image,
+.custom-binder-add-slot {
+  width: 100%;
+  aspect-ratio: 2.5 / 3.5;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(157, 137, 234, .28);
+  border-radius: 8px;
+  padding: 0;
+  color: inherit;
+  background: #0a0e1c;
+}
+
+.custom-binder-card-image .mobile-card-image-shell,
+.custom-binder-card-image img,
+.master-binder-slot-mobile .mobile-card-image-shell,
+.master-binder-slot-mobile img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.binder-pocket-quantity {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  display: inline-grid;
+  place-items: center;
+  min-width: 23px;
+  min-height: 20px;
+  border-radius: 999px;
+  color: #fff !important;
+  background: rgba(7, 9, 19, .84);
+  font-size: .64rem !important;
+  font-weight: 950;
+}
+
+.custom-binder-edit-controls {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr) 32px;
+  gap: 3px;
+}
+
+.custom-binder-edit-controls button {
+  min-width: 0;
+  min-height: 34px;
+  border: 1px solid rgba(165, 147, 240, .23);
+  border-radius: 8px;
+  padding: 0 3px;
+  color: #d9dded;
+  background: #1a1e33;
+  font-size: .62rem;
+  font-weight: 850;
+}
+
+.custom-binder-edit-controls button:first-child,
+.custom-binder-edit-controls button:last-child {
+  font-size: 1.15rem;
+}
+
+.custom-binder-edit-controls button:disabled {
+  opacity: .34;
+}
+
+.custom-binder-add-slot {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 4px;
+  border-style: dashed;
+  color: #bdb3ff;
+  background: rgba(23, 24, 48, .72);
+}
+
+.custom-binder-add-slot strong {
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.custom-binder-add-slot span {
+  font-size: .67rem;
+  font-weight: 850;
+}
+
+.master-binder-page-mobile {
+  position: relative;
+  padding: 28px 9px 9px;
+  touch-action: pan-y;
+}
+
+.master-binder-page-label {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  color: #8f9abb;
+  font-size: .68rem;
+  font-weight: 850;
+}
+
+.master-binder-grid-mobile {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.master-binder-slot-mobile {
+  width: 100%;
+  aspect-ratio: 2.5 / 3.5;
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(150, 132, 223, .26);
+  border-radius: 8px;
+  padding: 0;
+  color: inherit;
+  background: #0a0e1b;
+}
+
+.master-binder-slot-mobile.is-missing {
+  border-style: dashed;
+  border-color: rgba(143, 132, 188, .24);
+  background:
+    linear-gradient(145deg, rgba(67, 61, 94, .2), transparent),
+    #111523;
+}
+
+.master-binder-slot-mobile.is-empty {
+  border-color: transparent;
+  background: rgba(8, 11, 22, .3);
+  opacity: .34;
+}
+
+.master-missing-card-copy {
+  width: 100%;
+  min-width: 0;
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 8px 5px;
+  text-align: center;
+}
+
+.master-missing-card-copy strong {
+  color: #d5d0ee;
+  font-size: .78rem;
+}
+
+.master-missing-card-copy b {
+  width: 100%;
+  display: -webkit-box;
+  overflow: hidden;
+  color: #aeb7d0;
+  font-size: clamp(.62rem, 2.5vw, .72rem);
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.master-missing-card-copy small {
+  color: #777f98;
+  font-size: .58rem;
+  font-weight: 900;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.binder-page-controls {
+  position: sticky;
+  bottom: 0;
+  z-index: 8;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 7px;
+  border: 1px solid rgba(153, 132, 235, .2);
+  border-radius: 15px;
+  padding: 6px;
+  background: rgba(12, 15, 30, .94);
+  backdrop-filter: blur(14px);
+}
+
+.binder-page-controls button {
+  min-width: 0;
+  min-height: 40px;
+  padding: 0 9px;
+  border-radius: 11px;
+  font-size: .75rem;
+}
+
+.binder-page-controls > span {
+  color: #aeb7d2;
+  font-size: .68rem;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.binder-fullscreen-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 120;
+  overflow: hidden;
+  color: #f8fbff;
+  background:
+    radial-gradient(circle at 75% -8%, rgba(104, 67, 236, .22), transparent 32%),
+    #090d19;
+}
+
+.owned-card-picker,
+.import-binder-sheet {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  overflow: hidden;
+}
+
+.owned-card-picker {
+  grid-template-rows: auto auto auto auto minmax(0, 1fr) auto;
+  gap: 10px;
+  padding: max(17px, env(safe-area-inset-top)) 13px max(12px, env(safe-area-inset-bottom));
+}
+
+.binder-picker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.binder-picker-header h2,
+.import-binder-sheet h2 {
+  margin: 2px 0 0;
+  font-size: 1.32rem;
+}
+
+.binder-picker-header > button {
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(183, 169, 245, .18);
+  border-radius: 50%;
+  color: #f4f1ff;
+  background: #191c31;
+  font-size: 1.45rem;
+}
+
+.binder-search-field {
+  display: block;
+}
+
+.binder-search-field input,
+.owned-card-filters select,
+.binder-picker-order select {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid rgba(171, 151, 255, .24);
+  border-radius: 13px;
+  padding: 0 12px;
+  color: #f8fbff;
+  background: #13172a;
+  font-size: 16px;
+}
+
+.binder-search-field input::placeholder {
+  color: #828dab;
+}
+
+.binder-era-chips {
+  display: flex;
+  gap: 7px;
+  overflow-x: auto;
+  padding: 1px 0 3px;
+  scrollbar-width: none;
+}
+
+.binder-era-chips::-webkit-scrollbar {
+  display: none;
+}
+
+.binder-era-chips button {
+  flex: 0 0 auto;
+  min-height: 36px;
+  border: 1px solid rgba(163, 144, 238, .2);
+  border-radius: 999px;
+  padding: 0 11px;
+  color: #aeb8d2;
+  background: #13172a;
+  font-size: .7rem;
+  font-weight: 850;
+}
+
+.binder-era-chips button.is-active {
+  border-color: rgba(183, 165, 255, .62);
+  color: #fff;
+  background: #4f38a8;
+}
+
+.owned-card-filters {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.owned-card-filters label {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+  color: #9da8c6;
+  font-size: .62rem;
+  font-weight: 850;
+}
+
+.owned-card-filters select {
+  min-width: 0;
+  min-height: 40px;
+  padding: 0 5px;
+  font-size: .68rem;
+  text-overflow: ellipsis;
+}
+
+.owned-card-picker-grid {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-content: start;
+  gap: 12px 7px;
+  overflow-y: auto;
+  padding: 2px 1px 14px;
+  overscroll-behavior: contain;
+}
+
+.owned-card-choice {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.owned-card-select {
+  width: 100%;
+  aspect-ratio: 2.5 / 3.5;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid transparent;
+  border-radius: 9px;
+  padding: 0;
+  background: #080b15;
+}
+
+.owned-card-select img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.owned-card-choice.is-selected .owned-card-select {
+  border-color: #a993ff;
+  box-shadow: 0 0 0 2px rgba(169, 147, 255, .2);
+}
+
+.owned-card-choice.is-existing .owned-card-select {
+  opacity: .46;
+}
+
+.owned-card-choice-state {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  min-height: 20px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0 7px;
+  color: #fff;
+  background: rgba(7, 9, 18, .84);
+  font-size: .58rem;
+  font-weight: 900;
+}
+
+.owned-card-choice.is-selected .owned-card-choice-state {
+  background: #6548d0;
+}
+
+.owned-card-preview {
+  min-height: 32px;
+  border: 0;
+  border-radius: 8px;
+  color: #bdb6e8;
+  background: rgba(38, 40, 70, .7);
+  font-size: .64rem;
+  font-weight: 850;
+}
+
+.binder-picker-empty {
+  margin: 0;
+  padding: 20px 12px;
+  color: #9da8c6;
+  font-size: .8rem;
+  text-align: center;
+}
+
+.owned-card-empty {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 5px;
+}
+
+.owned-card-picker-footer {
+  display: grid;
+  grid-template-columns: 1fr minmax(145px, auto);
+  align-items: center;
+  gap: 10px;
+  border-top: 1px solid rgba(168, 147, 255, .18);
+  padding-top: 9px;
+}
+
+.owned-card-picker-footer strong {
+  font-size: .82rem;
+}
+
+.owned-card-picker-footer .primary-action {
+  min-height: 46px;
+}
+
+.binder-card-preview-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 16px;
+  padding: max(18px, env(safe-area-inset-top)) 24px max(18px, env(safe-area-inset-bottom));
+  background:
+    radial-gradient(circle at 50% 22%, rgba(104, 67, 236, .22), transparent 35%),
+    #090d19;
+}
+
+.binder-card-preview-overlay > img {
+  width: min(72vw, 285px);
+  max-height: 65dvh;
+  object-fit: contain;
+  border-radius: 15px;
+  box-shadow: 0 24px 54px rgba(0, 0, 0, .42);
+}
+
+.binder-card-preview-overlay > div {
+  display: grid;
+  gap: 3px;
+  text-align: center;
+}
+
+.binder-card-preview-overlay span,
+.binder-card-preview-overlay small {
+  color: #aab4d0;
+}
+
+.binder-preview-close {
+  position: absolute;
+  top: max(16px, env(safe-area-inset-top));
+  left: 15px;
+  min-height: 42px;
+  border: 0;
+  padding: 0 8px;
+  color: #cbc3ff;
+  background: transparent;
+  font-weight: 850;
+}
+
+.import-binder-sheet {
+  position: relative;
+  overflow-y: auto;
+  padding: max(21px, env(safe-area-inset-top)) 16px max(18px, env(safe-area-inset-bottom));
+}
+
+.import-binder-sheet .mobile-auth-heading {
+  padding-right: 42px;
+}
+
+.import-binder-sheet .custom-binder-form {
+  min-height: 0;
+  align-content: start;
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.searchable-set-picker {
+  min-height: 0;
+  display: grid;
+  gap: 9px;
+}
+
+.binder-picker-order {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: #9da8c6;
+  font-size: .72rem;
+  font-weight: 800;
+}
+
+.binder-picker-order select {
+  width: auto;
+  min-height: 38px;
+  padding-inline: 10px 28px;
+  font-size: .72rem;
+}
+
+.binder-set-results {
+  max-height: min(42dvh, 365px);
+  display: grid;
+  gap: 7px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.binder-set-results > button {
+  min-height: 62px;
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(157, 138, 233, .19);
+  border-radius: 13px;
+  padding: 7px 10px;
+  color: #f7f8ff;
+  background: #13172a;
+  text-align: left;
+}
+
+.binder-set-results > button.is-active {
+  border-color: rgba(183, 165, 255, .7);
+  background: #29204f;
+}
+
+.binder-set-results img {
+  width: 70px;
+  max-height: 40px;
+  object-fit: contain;
+}
+
+.binder-set-results span,
+.binder-set-results strong,
+.binder-set-results small {
+  min-width: 0;
+  display: block;
+}
+
+.binder-set-results strong {
+  font-size: .82rem;
+  line-height: 1.15;
+}
+
+.binder-set-results small {
+  margin-top: 4px;
+  color: #9da8c6;
+  font-size: .63rem;
+  line-height: 1.3;
+}
+
+@media (max-width: 360px) {
+  .custom-binder-grid,
+  .master-binder-grid-mobile {
+    gap: 6px;
+  }
+
+  .owned-card-picker {
+    padding-inline: 10px;
+  }
+
+  .owned-card-filters {
+    gap: 4px;
+  }
+}

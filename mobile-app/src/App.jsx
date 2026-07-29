@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { Turnstile } from "react-turnstile";
 import MobileResetPasswordPage from "./MobileResetPasswordPage.jsx";
 import DeleteAccountDialog from "./components/DeleteAccountDialog.jsx";
+import { OwnedCardPicker, SearchableSetPicker } from "./components/BinderPickers.jsx";
 import MobileOnboarding from "./components/MobileOnboarding.jsx";
 import PrivacyChoicesDialog from "../../src/components/PrivacyChoicesDialog.jsx";
 import { LEGAL_ROUTES, PACKDEX_SUPPORT_EMAIL } from "../../src/content/legalDocuments.js";
@@ -19,7 +20,14 @@ import {
   markCardsCollected,
   saveCollection,
 } from "../../src/utils/collectionStorage.js";
-import { createBinder, createMasterSetBinder, loadBinders, saveBinders } from "../../src/utils/binderStorage.js";
+import {
+  addCardsToBinder,
+  createBinder,
+  createMasterSetBinder,
+  loadBinders,
+  replaceBinderCards,
+  saveBinders,
+} from "../../src/utils/binderStorage.js";
 import { getFoilProfile } from "../../src/utils/foil.js";
 import { supabase, isSupabaseConfigured, missingSupabaseEnv } from "./lib/supabaseClient.js";
 import { loadCloudProfileStats } from "./lib/cloudProfileStats.js";
@@ -1619,77 +1627,222 @@ function getBinderSlots(binder) {
   const set = binder.setId ? sets.find((candidate) => candidate.id === binder.setId) : null;
   const masterCards = set ? getPullableCollectionCards(set).map((card) => ({ set, card })) : [];
   const customCards = !set
-    ? binder.cards.map((item) => {
+    ? [...binder.cards].sort((left, right) => left.order - right.order).map((item) => {
         const itemSet = sets.find((candidate) => candidate.id === item.setId);
         const card = itemSet?.cards?.find((candidate) => String(candidate.id) === String(item.cardId) || String(candidate.number) === String(item.cardNumber));
 
-        return { set: itemSet, card };
-      })
+        return { set: itemSet, card, binderCard: item };
+      }).filter((item) => item.set && item.card)
     : [];
 
   return set ? masterCards : customCards;
 }
 
-function BinderPageView({ binder, collection, onBack, onInspectCard }) {
-  const [pageIndex, setPageIndex] = useState(0);
-  const slots = getBinderSlots(binder);
-  const totalPages = Math.max(1, Math.ceil(slots.length / 9));
-  const pageSlots = slots.slice(pageIndex * 9, pageIndex * 9 + 9);
+function CustomBinderView({ binder, collection, onBack, onInspectCard, onAddCards, onReplaceCards }) {
+  const [editing, setEditing] = useState(false);
+  const [pickerOpen, setPickerOpen] = useState(false);
+  const [draftCards, setDraftCards] = useState(() => binder.cards || []);
+  const slots = getBinderSlots(editing ? { ...binder, cards: draftCards } : binder);
+
+  useEffect(() => {
+    if (!editing) setDraftCards(binder.cards || []);
+  }, [binder.cards, editing]);
+
+  function startEditing() {
+    setDraftCards(binder.cards || []);
+    setEditing(true);
+  }
+
+  function cancelEditing() {
+    setDraftCards(binder.cards || []);
+    setEditing(false);
+    setPickerOpen(false);
+  }
+
+  function moveCard(index, direction) {
+    setDraftCards((current) => {
+      const nextIndex = index + direction;
+      if (nextIndex < 0 || nextIndex >= current.length) return current;
+      const next = [...current];
+      [next[index], next[nextIndex]] = [next[nextIndex], next[index]];
+      return next.map((item, order) => ({ ...item, order }));
+    });
+  }
+
+  function addSelectedCards(selections) {
+    if (editing) {
+      const nextBinder = addCardsToBinder([{ ...binder, cards: draftCards }], binder.id, selections)[0];
+      setDraftCards(nextBinder.cards);
+    } else {
+      onAddCards(binder.id, selections);
+    }
+    setPickerOpen(false);
+  }
+
+  function saveEditing() {
+    onReplaceCards(binder.id, draftCards);
+    setEditing(false);
+  }
 
   return (
-    <section className="binder-reader-mobile">
-      <div className="binder-reader-heading">
+    <section className="binder-reader-mobile custom-binder-reader">
+      <button className="binder-back-link" type="button" onClick={onBack}>‹ My Binders</button>
+      <header className="binder-reader-heading">
         <div>
           <span className="eyebrow">Binder</span>
           <h2>{binder.name}</h2>
-          <p>
-            Page {pageIndex + 1} of {totalPages}
-          </p>
+          <p>{slots.length} cards</p>
         </div>
-        <button className="secondary-action" type="button" onClick={onBack}>
-          Back
-        </button>
+      </header>
+      <div className="binder-compact-actions">
+        {!editing ? (
+          <>
+            <button className="primary-action" type="button" onClick={() => setPickerOpen(true)}>+ Add Cards</button>
+            <button className="secondary-action" type="button" onClick={startEditing}>Edit</button>
+          </>
+        ) : (
+          <>
+            <button className="primary-action" type="button" onClick={saveEditing}>Save</button>
+            <button className="secondary-action" type="button" onClick={cancelEditing}>Cancel</button>
+          </>
+        )}
       </div>
-      <div className="binder-page-preview binder-page-reader">
+
+      {slots.length === 0 && !editing ? (
+        <div className="custom-binder-empty" role="status">
+          <strong>Your binder is empty</strong>
+          <span>Add cards from your collection to build a custom display.</span>
+          <button className="primary-action" type="button" onClick={() => setPickerOpen(true)}>Add your first card</button>
+        </div>
+      ) : (
+        <div className="custom-binder-grid" aria-label={`${binder.name} cards`}>
+          {slots.map((item, index) => (
+            <article className="custom-binder-card" key={item.binderCard.key}>
+              <button type="button" className="custom-binder-card-image" onClick={() => onInspectCard?.(item.card, item.set)}>
+                <CardImage card={item.card} set={item.set} ownedShimmer />
+                {getCardCount(collection, item.card, item.set.id) > 1 && <span className="binder-pocket-quantity">×{getCardCount(collection, item.card, item.set.id)}</span>}
+              </button>
+              {editing && (
+                <div className="custom-binder-edit-controls">
+                  <button type="button" onClick={() => moveCard(index, -1)} disabled={index === 0} aria-label={`Move ${item.card.name} earlier`}>‹</button>
+                  <button type="button" onClick={() => setDraftCards((current) => current.filter((card) => card.key !== item.binderCard.key).map((card, order) => ({ ...card, order })))} aria-label={`Remove ${item.card.name}`}>Remove</button>
+                  <button type="button" onClick={() => moveCard(index, 1)} disabled={index === slots.length - 1} aria-label={`Move ${item.card.name} later`}>›</button>
+                </div>
+              )}
+            </article>
+          ))}
+          {editing && (
+            <button className="custom-binder-add-slot" type="button" onClick={() => setPickerOpen(true)}>
+              <strong>+</strong>
+              <span>Add cards</span>
+            </button>
+          )}
+        </div>
+      )}
+      {pickerOpen && (
+        <OwnedCardPicker
+          collection={collection}
+          binder={editing ? { ...binder, cards: draftCards } : binder}
+          setList={sets}
+          onClose={() => setPickerOpen(false)}
+          onConfirm={addSelectedCards}
+        />
+      )}
+    </section>
+  );
+}
+
+function MasterSetBinderView({ binder, collection, onBack, onInspectCard }) {
+  const [pageIndex, setPageIndex] = useState(0);
+  const touchStartX = useRef(null);
+  const slots = getBinderSlots(binder);
+  const totalPages = Math.max(1, Math.ceil(slots.length / 9));
+  const pageSlots = slots.slice(pageIndex * 9, pageIndex * 9 + 9);
+  const ownedCount = slots.filter((item) => getCardCount(collection, item.card, item.set.id) > 0).length;
+
+  useEffect(() => {
+    setPageIndex((current) => Math.min(current, totalPages - 1));
+  }, [totalPages]);
+
+  function changePage(direction) {
+    setPageIndex((current) => Math.max(0, Math.min(totalPages - 1, current + direction)));
+  }
+
+  function finishSwipe(event) {
+    if (touchStartX.current === null) return;
+    const distance = event.changedTouches[0].clientX - touchStartX.current;
+    touchStartX.current = null;
+    if (Math.abs(distance) < 46) return;
+    changePage(distance < 0 ? 1 : -1);
+  }
+
+  return (
+    <section className="binder-reader-mobile master-binder-reader">
+      <button className="binder-back-link" type="button" onClick={onBack}>‹ My Binders</button>
+      <header className="binder-reader-heading">
+        <div>
+          <span className="eyebrow">Master Set Binder</span>
+          <h2>{binder.name}</h2>
+          <p>{ownedCount} of {slots.length} cards</p>
+        </div>
+      </header>
+      <div
+        className="master-binder-page-mobile"
+        onTouchStart={(event) => { touchStartX.current = event.touches[0].clientX; }}
+        onTouchEnd={finishSwipe}
+      >
+        <div className="master-binder-page-label">Page {pageIndex + 1}</div>
         {slots.length === 0 && (
           <div className="binder-reader-empty" role="status">
             <strong>This binder has no available cards.</strong>
-            <span>{binder.setId ? "The linked set is unavailable. Return to My Binders and choose another set." : "Add cards to this binder, or import a master set."}</span>
+            <span>The linked set is unavailable. Return to My Binders and choose another set.</span>
           </div>
         )}
-        {Array.from({ length: 9 }).map((_, index) => {
-          const item = pageSlots[index];
-          const quantity = item?.set && item?.card ? getCardCount(collection, item.card, item.set.id) : 0;
-          const collected = quantity > 0;
+        <div className="master-binder-grid-mobile">
+          {Array.from({ length: 9 }).map((_, index) => {
+            const item = pageSlots[index];
+            if (!item?.card) return <div className="master-binder-slot-mobile is-empty" key={`empty-${index}`} aria-hidden="true" />;
+            const quantity = getCardCount(collection, item.card, item.set.id);
+            const collected = quantity > 0;
 
-          return (
-            <button
-              className={`binder-pocket ${item?.card && collected ? "is-filled" : ""}`}
-              type="button"
-              key={index}
-              onClick={() => item?.card && onInspectCard?.(item.card, item.set)}
-              disabled={!item?.card}
-            >
-              {item?.card && collected ? <><CardImage card={item.card} set={item.set} ownedShimmer /><span className="binder-pocket-quantity">×{quantity}</span></> : <span>{item?.card ? "Missing" : "+"}</span>}
-            </button>
-          );
-        })}
+            return (
+              <button
+                className={`master-binder-slot-mobile ${collected ? "is-owned" : "is-missing"}`}
+                type="button"
+                key={`${item.set.id}-${item.card.id || item.card.number}`}
+                onClick={() => onInspectCard?.(item.card, item.set)}
+                aria-label={`${getDisplayCardName(item.card, item.set)}, card ${item.card.number}, ${collected ? `owned quantity ${quantity}` : "missing from collection"}`}
+              >
+                {collected ? (
+                  <>
+                    <CardImage card={item.card} set={item.set} ownedShimmer />
+                    {quantity > 1 && <span className="binder-pocket-quantity">×{quantity}</span>}
+                  </>
+                ) : (
+                  <span className="master-missing-card-copy">
+                    <strong>#{item.card.number || getSetNumber(item.card)}</strong>
+                    <b>{getDisplayCardName(item.card, item.set)}</b>
+                    <small>Missing</small>
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
       </div>
-      <div className="binder-page-controls">
-        <button className="secondary-action" type="button" disabled={pageIndex === 0} onClick={() => setPageIndex((value) => Math.max(0, value - 1))}>
-          Previous
-        </button>
-        <button
-          className="primary-action"
-          type="button"
-          disabled={pageIndex >= totalPages - 1}
-          onClick={() => setPageIndex((value) => Math.min(totalPages - 1, value + 1))}
-        >
-          Next
-        </button>
+      <div className="binder-page-controls" aria-label="Master set binder pages">
+        <button className="secondary-action" type="button" disabled={pageIndex === 0} onClick={() => changePage(-1)}>Previous</button>
+        <span>Page {pageIndex + 1} of {totalPages}</span>
+        <button className="primary-action" type="button" disabled={pageIndex >= totalPages - 1} onClick={() => changePage(1)}>Next</button>
       </div>
     </section>
   );
+}
+
+function BinderPageView(props) {
+  return props.binder.type === "master_set"
+    ? <MasterSetBinderView {...props} />
+    : <CustomBinderView {...props} />;
 }
 
 const MOBILE_BINDER_THEME_OPTIONS = [
@@ -1721,12 +1874,17 @@ function BinderThemePicker({ value, onChange }) {
   );
 }
 
-function CollectionBinders({ collection, binders, onImportMasterSet, onCreateBinder, onInspectCard }) {
+function CollectionBinders({ collection, binders, onImportMasterSet, onCreateBinder, onInspectCard, onAddCards, onReplaceCards }) {
   const [openBinderId, setOpenBinderId] = useState("");
   const [activeModal, setActiveModal] = useState("");
   const [customBinderName, setCustomBinderName] = useState("");
   const [customBinderTheme, setCustomBinderTheme] = useState("midnight");
-  const eligibleSets = sets.filter((set) => !binders.some((binder) => binder.id === "master-set-" + set.id));
+  const eligibleSets = useMemo(
+    () => sets
+      .filter((set) => !binders.some((binder) => binder.id === "master-set-" + set.id))
+      .sort((left, right) => String(right.releaseDate || "").localeCompare(String(left.releaseDate || ""))),
+    [binders]
+  );
   const [importSetId, setImportSetId] = useState(eligibleSets[0]?.id || "");
   const selectedImportSet = eligibleSets.find((set) => set.id === importSetId) || eligibleSets[0] || null;
   const [importBinderName, setImportBinderName] = useState(selectedImportSet ? selectedImportSet.name + " Master Set" : "");
@@ -1770,7 +1928,16 @@ function CollectionBinders({ collection, binders, onImportMasterSet, onCreateBin
   }
 
   if (openBinder) {
-    return <BinderPageView binder={openBinder} collection={collection} onBack={() => setOpenBinderId("")} onInspectCard={onInspectCard} />;
+    return (
+      <BinderPageView
+        binder={openBinder}
+        collection={collection}
+        onBack={() => setOpenBinderId("")}
+        onInspectCard={onInspectCard}
+        onAddCards={onAddCards}
+        onReplaceCards={onReplaceCards}
+      />
+    );
   }
 
   return (
@@ -1839,19 +2006,19 @@ function CollectionBinders({ collection, binders, onImportMasterSet, onCreateBin
       )}
 
       {activeModal === "import" && (
-        <div className="mobile-auth-overlay binder-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="import-binder-title" onClick={() => setActiveModal("")}>
-          <section className="mobile-auth-modal binder-sheet" onClick={(event) => event.stopPropagation()}>
+        <div className="binder-fullscreen-overlay import-binder-overlay" role="dialog" aria-modal="true" aria-labelledby="import-binder-title">
+          <section className="import-binder-sheet">
             <button className="mobile-auth-close" type="button" onClick={() => setActiveModal("")} aria-label="Close import binder"><CloseIcon /></button>
             <div className="mobile-auth-heading"><span className="eyebrow">My Binders</span><h2 id="import-binder-title">Import Master Set</h2></div>
             <form className="custom-binder-form" onSubmit={handleImportBinder}>
-              <div className="binder-set-choice-list" aria-label="Eligible master sets">
-                {eligibleSets.map((set) => (
-                  <button className={set.id === selectedImportSet?.id ? "is-active" : ""} key={set.id} type="button" onClick={() => { setImportSetId(set.id); setImportBinderName(set.name + " Master Set"); }}>
-                    <SetLogo set={set} className="binder-set-choice-logo" />
-                    <span>{set.name}</span>
-                  </button>
-                ))}
-              </div>
+              <SearchableSetPicker
+                setList={eligibleSets}
+                selectedSetId={selectedImportSet?.id || ""}
+                onSelect={(set) => {
+                  setImportSetId(set.id);
+                  setImportBinderName(set.name + " Master Set");
+                }}
+              />
               <label><span>Binder name</span><input type="text" value={importBinderName} onChange={(event) => setImportBinderName(event.target.value)} placeholder="Binder name" maxLength={64} /></label>
               <label><span>Color</span><BinderThemePicker value={importBinderTheme} onChange={setImportBinderTheme} /></label>
               <button className="primary-action" type="submit" disabled={!selectedImportSet}>Import Binder</button>
@@ -1875,6 +2042,8 @@ function CollectionScreen({
   onOpenPacks,
   onImportMasterSet,
   onCreateBinder,
+  onAddBinderCards,
+  onReplaceBinderCards,
   onInspectCard,
   onReturnFromSet,
   returnLabel,
@@ -1942,7 +2111,15 @@ function CollectionScreen({
           priceStatus={priceStatus}
         />
       ) : collectionTab === "binders" ? (
-        <CollectionBinders collection={collection} binders={binders} onImportMasterSet={onImportMasterSet} onCreateBinder={onCreateBinder} onInspectCard={onInspectCard} />
+        <CollectionBinders
+          collection={collection}
+          binders={binders}
+          onImportMasterSet={onImportMasterSet}
+          onCreateBinder={onCreateBinder}
+          onInspectCard={onInspectCard}
+          onAddCards={onAddBinderCards}
+          onReplaceCards={onReplaceBinderCards}
+        />
       ) : (
         <ValueScreen {...valueScreenProps} />
       )}
@@ -4510,6 +4687,22 @@ function MobileApp() {
     saveBinders(nextBinders);
   }
 
+  function addCardsToCustomBinder(binderId, selections) {
+    setBinders((currentBinders) => {
+      const nextBinders = addCardsToBinder(currentBinders, binderId, selections);
+      if (nextBinders !== currentBinders) saveBinders(nextBinders);
+      return nextBinders;
+    });
+  }
+
+  function replaceCustomBinderCards(binderId, cards) {
+    setBinders((currentBinders) => {
+      const nextBinders = replaceBinderCards(currentBinders, binderId, cards);
+      saveBinders(nextBinders);
+      return nextBinders;
+    });
+  }
+
   function importMasterSetBinder(set, name = "", theme = "midnight") {
     const existing = binders.find((binder) => binder.id === `master-set-${set.id}`);
 
@@ -4862,6 +5055,8 @@ function MobileApp() {
               }}
               onImportMasterSet={importMasterSetBinder}
               onCreateBinder={createCustomBinder}
+              onAddBinderCards={addCardsToCustomBinder}
+              onReplaceBinderCards={replaceCustomBinderCards}
               onInspectCard={inspectCard}
               onReturnFromSet={returnFromCollectionSet}
               returnLabel={collectionReturnSource === "open" ? "Back to Open Packs" : collectionReturnSource === "wishlist" ? "Back to Wishlist" : "Back to Collection"}
