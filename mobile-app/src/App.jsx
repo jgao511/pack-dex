@@ -1976,9 +1976,11 @@ function CollectionBinders({ collection, binders, onImportMasterSet, onCreateBin
               <article className={"binder-card-mobile is-" + (binder.theme || "midnight")} key={binder.id}>
                 <div className="binder-spine" aria-hidden="true"><span /><span /><span /></div>
                 <div className="binder-card-body">
-                  <div className="binder-cover-logo">
-                    {set ? <SetLogo set={set} className="binder-logo" /> : <span>{binder.name?.slice(0, 2) || "PD"}</span>}
-                  </div>
+                  {set && (
+                    <div className="binder-cover-logo">
+                      <SetLogo set={set} className="binder-logo" />
+                    </div>
+                  )}
                   <strong>{binder.name}</strong>
                   <em>{binder.tag}</em>
                   <small>{set ? progress.collected + "/" + progress.total + " cards" : (binder.cards?.length || 0) + " cards"}</small>

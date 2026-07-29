@@ -98,6 +98,8 @@ test("custom binder UI is continuous and all add entry points share the owned-ca
   assert.equal((customView.match(/setPickerOpen\(true\)/g) || []).length >= 3, true);
   assert.match(customView, /<OwnedCardPicker/);
   assert.match(customView, /onReplaceCards\(binder\.id, draftCards\)/);
+  assert.doesNotMatch(app, /binder\.name\?\.slice\(0, 2\)/);
+  assert.match(app, /set && \([\s\S]*?<SetLogo set=\{set\} className="binder-logo" \/>/);
   assert.match(picker, /Search cards you own…/);
   assert.match(picker, /All rarities/);
   assert.match(picker, /Recently pulled/);

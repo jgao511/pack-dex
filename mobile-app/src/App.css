@@ -1605,20 +1605,6 @@ body.scanner-camera-active,
   align-items: center;
 }
 
-.binder-cover-logo > span {
-  width: 54px;
-  height: 40px;
-  display: grid;
-  place-items: center;
-  border-radius: 14px;
-  color: white;
-  background: rgba(6, 8, 22, 0.24);
-  font-size: 0.9rem;
-  font-weight: 950;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
 .binder-logo {
   width: 116px;
   height: 48px;
@@ -4039,11 +4025,6 @@ body.scanner-camera-active,
 
 .theme-light .binder-spine {
   background: color-mix(in srgb, var(--binder-theme), #ffffff 18%);
-}
-
-.theme-light .binder-cover-logo > span {
-  color: #ffffff;
-  background: color-mix(in srgb, var(--binder-theme), #7140ff 34%);
 }
 
 .theme-light .binder-card-mobile .secondary-action {
