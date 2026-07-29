@@ -3,7 +3,7 @@ import pokemonAliases from "../../../src/data/explore/pokemonAliases.json" with 
 import evolutionChains from "../../../src/data/explore/evolutionChains.json" with { type: "json" };
 import eraGuides from "../../../src/data/explore/eraGuides.json" with { type: "json" };
 import setGuides from "../../../src/data/explore/setGuides.json" with { type: "json" };
-import { sets } from "../../../src/data/sets.js";
+import { activeSets } from "../../../src/data/sets.js";
 import { getCardCollectionKey, getPullableCollectionCards, getSetCollectionProgress } from "../../../src/utils/collectionStorage.js";
 import { createSpeciesLookup, getUniqueOwnershipProgress, mapCardNameToSpeciesIds, normalizeExploreText } from "./exploreNormalization.js";
 
@@ -12,13 +12,13 @@ export const speciesById = new Map(pokemon.map((species) => [species.id, species
 export const speciesLookup = createSpeciesLookup(pokemon, pokemonAliases);
 export const evolutionChainById = new Map(evolutionChains.map((chain) => [chain.id, chain]));
 
-export const exploreSets = [...sets].sort((a, b) => String(b.releaseDate || "").localeCompare(String(a.releaseDate || "")) || a.name.localeCompare(b.name));
-export const setById = new Map(sets.map((set) => [set.id, set]));
+export const exploreSets = [...activeSets].sort((a, b) => String(b.releaseDate || "").localeCompare(String(a.releaseDate || "")) || a.name.localeCompare(b.name));
+export const setById = new Map(activeSets.map((set) => [set.id, set]));
 
 export const catalogCards = [];
 export const pokemonCatalogCards = [];
 export const cardsBySpeciesId = new Map();
-for (const set of sets) {
+for (const set of activeSets) {
   for (const card of getPullableCollectionCards(set)) {
     const speciesIds = mapCardNameToSpeciesIds(card.name, speciesLookup);
     const category = speciesIds.length > 0
@@ -44,7 +44,7 @@ for (const set of sets) {
 }
 
 const eras = new Map();
-for (const set of sets) {
+for (const set of activeSets) {
   const entry = eras.get(set.era) || { id: normalizeExploreText(set.era).replace(/\s+/g, "-"), name: set.era, sets: [] };
   entry.sets.push(set);
   eras.set(set.era, entry);
@@ -139,7 +139,7 @@ export function getDailySpotlights(date = new Date()) {
 }
 
 const verifiedFacts = [
-  ...Object.values(setGuides).flatMap((guide) => (guide.funFacts || []).map((text) => ({ text, kind: "set", id: guide.setId }))),
+  ...activeSets.flatMap((set) => (setGuides[set.id]?.funFacts || []).map((text) => ({ text, kind: "set", id: set.id }))),
   ...exploreEras.filter((era) => era.changeNote).map((era) => ({ text: era.changeNote, kind: "era", id: era.id })),
 ];
 

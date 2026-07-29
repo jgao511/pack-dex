@@ -19,7 +19,7 @@ import {
   LEGAL_ROUTES,
   PACKDEX_SUPPORT_EMAIL,
 } from "./content/legalDocuments.js";
-import { sets } from "./data/sets.js";
+import { activeSets, isRetiredSet, sets } from "./data/sets.js";
 import {
   enqueuePendingCloudPull,
   getPendingCloudPullCount,
@@ -668,7 +668,7 @@ function CollectionDashboard({
   const [selectedCard, setSelectedCard] = useState(null);
   const collectedCards = useMemo(() => getCollectedCards(collection), [collection]);
   const eraOptions = useMemo(
-    () => ["all", ...new Set(collectedCards.map(({ set }) => set.era || "Other"))],
+    () => ["all", ...new Set(collectedCards.filter(({ set }) => !isRetiredSet(set)).map(({ set }) => set.era || "Other"))],
     [collectedCards]
   );
   const setOptions = useMemo(
@@ -897,7 +897,7 @@ const BINDER_TAGS = [...new Set([
   "Sun & Moon",
   "XY",
   "Full Art Collection",
-  ...sets.map((set) => set.name),
+  ...activeSets.map((set) => set.name),
 ])];
 
 const BINDER_TAG_BASE_SET_IDS = {
@@ -984,7 +984,7 @@ function BinderSection({
   const [newBinderName, setNewBinderName] = useState("");
   const [newBinderTag, setNewBinderTag] = useState(BINDER_TAGS[0]);
   const [newBinderTheme, setNewBinderTheme] = useState(BINDER_THEME_OPTIONS[0].id);
-  const [selectedMasterSetId, setSelectedMasterSetId] = useState(sets[0]?.id || "");
+  const [selectedMasterSetId, setSelectedMasterSetId] = useState(activeSets[0]?.id || "");
   const [importTheme, setImportTheme] = useState(BINDER_THEME_OPTIONS[1].id);
   const [isImportOpen, setIsImportOpen] = useState(false);
   const [importMessage, setImportMessage] = useState("");
@@ -1012,7 +1012,7 @@ function BinderSection({
   );
   const activeTheme = getBinderTheme(activeBinder?.theme);
   const selectedImportSet = useMemo(
-    () => sets.find((set) => set.id === selectedMasterSetId) || sets[0] || null,
+    () => activeSets.find((set) => set.id === selectedMasterSetId) || activeSets[0] || null,
     [selectedMasterSetId]
   );
   const binderDisplayCards = useMemo(() => getBinderDisplayCards(activeBinder, collection), [activeBinder, collection]);
@@ -1583,7 +1583,7 @@ function BinderSection({
                 }}
                 aria-label="Select set for master set binder"
               >
-                {sets.map((set) => (
+                {activeSets.map((set) => (
                   <option key={set.id} value={set.id}>
                     {set.name}
                   </option>
@@ -2541,7 +2541,7 @@ function App() {
       const nextTab = state.activeTab || "open";
       const nextScreen = state.screen || (nextTab === "open" ? "home" : nextTab);
       const nextSet = state.selectedSetId
-        ? sets.find((candidateSet) => candidateSet.id === state.selectedSetId) || null
+        ? activeSets.find((candidateSet) => candidateSet.id === state.selectedSetId) || null
         : null;
 
       setActiveTab(nextTab);
@@ -2624,7 +2624,7 @@ function App() {
   }
 
   function startPackOpening(set = selectedSet) {
-    if (!set) return;
+    if (!set || isRetiredSet(set)) return;
 
     if (!(activeTab === "open" && screen === "home")) {
       pushAppHistory({ activeTab: "open", screen: "home" });
@@ -2656,7 +2656,7 @@ function App() {
   }
 
   function openAnotherPack() {
-    if (!selectedSet || !canGeneratePack(selectedSet) || isOpeningPack) return;
+    if (!selectedSet || isRetiredSet(selectedSet) || !canGeneratePack(selectedSet) || isOpeningPack) return;
 
     pauseImageWarmup({ packOpening: true });
     setActiveTab("open");
@@ -3019,7 +3019,7 @@ function App() {
 
       <div className="desktop-screen-cache" hidden={!(activeTab === "open" && screen === "home")}>
         <SetSelect
-          sets={sets}
+          sets={activeSets}
           collection={collection}
           onSelectSet={startPackOpening}
           onViewCollection={viewCollection}

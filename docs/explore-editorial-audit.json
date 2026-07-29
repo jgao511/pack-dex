@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-18T18:07:46.292Z",
+  "generatedAt": "2026-07-29T01:57:08.293Z",
   "policy": {
     "runtimeSourceNotesExcluded": true,
     "uncertainClaims": "Omitted rather than inferred from card names or algorithmic frequency.",
@@ -7,15 +7,6 @@
     "structuredCatalogSource": "https://github.com/PokemonTCG/pokemon-tcg-data"
   },
   "eras": [
-    {
-      "era": "Pokemon 30th Anniversary",
-      "sources": [
-        "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions",
-        "https://github.com/PokemonTCG/pokemon-tcg-data",
-        "src/data/sets.js"
-      ],
-      "custom": true
-    },
     {
       "era": "Wizards Vintage",
       "sources": [
@@ -135,26 +126,6 @@
     }
   ],
   "sets": [
-    {
-      "setId": "30th-anniversary",
-      "status": "curated",
-      "custom": true,
-      "sourceNotes": [
-        {
-          "field": "release date, era, and supported count",
-          "source": "src/data/sets.js and its imported catalog data"
-        },
-        {
-          "field": "structured set identity",
-          "source": "https://github.com/PokemonTCG/pokemon-tcg-data"
-        },
-        {
-          "field": "set-specific summary, editorial mechanics, and themes",
-          "source": "src/data/special-sets/30th-anniversary/30thAnniversarySet.js"
-        }
-      ],
-      "limitedReason": ""
-    },
     {
       "setId": "base-set",
       "status": "curated",

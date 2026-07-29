@@ -380,3 +380,12 @@ export const sets = [
   }),
 ];
 
+export const RETIRED_SET_IDS = new Set(["30th-anniversary"]);
+
+export function isRetiredSet(setOrId) {
+  const setId = typeof setOrId === "string" ? setOrId : setOrId?.id;
+  return RETIRED_SET_IDS.has(String(setId || ""));
+}
+
+export const activeSets = sets.filter((set) => !isRetiredSet(set));
+

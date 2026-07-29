@@ -8,7 +8,6 @@ import { preloadStaticOpenPackAssets } from "../utils/staticOpenPackAssets.js";
 const ALL_ERAS = "All Eras";
 const SET_READINESS_CACHE = new WeakMap();
 const ERA_ORDER = [
-  "Pokemon 30th Anniversary",
   "Mega Evolution",
   "Scarlet & Violet",
   "Sword & Shield",
@@ -25,7 +24,6 @@ const ERA_ORDER = [
   "Other",
 ];
 const ERA_LOGO_SET_IDS = {
-  "Pokemon 30th Anniversary": "30th-anniversary",
   "Mega Evolution": "mega-evolution",
   "Scarlet & Violet": "scarlet-violet",
   "Sword & Shield": "sword-shield",

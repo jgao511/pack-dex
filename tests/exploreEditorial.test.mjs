@@ -4,7 +4,7 @@ import { readFile, stat } from "node:fs/promises";
 import setGuides from "../src/data/explore/setGuides.json" with { type: "json" };
 import eraGuides from "../src/data/explore/eraGuides.json" with { type: "json" };
 import pokemon from "../src/data/explore/pokemon.json" with { type: "json" };
-import { sets } from "../src/data/sets.js";
+import { activeSets as sets } from "../src/data/sets.js";
 
 test("every supported set and era has exactly one runtime guide", () => {
   assert.equal(Object.keys(setGuides).length, sets.length);
@@ -14,7 +14,7 @@ test("every supported set and era has exactly one runtime guide", () => {
   assert.deepEqual(new Set(Object.keys(eraGuides)), eras);
 });
 
-test("editorial references resolve and custom preview content is labeled", () => {
+test("editorial references resolve for every active public set", () => {
   const pokemonIds = new Set(pokemon.map((item) => item.id));
   for (const [era, guide] of Object.entries(eraGuides)) {
     assert.ok(guide.summary, era);
@@ -25,13 +25,11 @@ test("editorial references resolve and custom preview content is labeled", () =>
     assert.equal(guide.setId, set.id);
     assert.ok(guide.summary);
     assert.equal(guide.contentStatus, "curated");
-    if (set.id !== "30th-anniversary") {
-      assert.doesNotMatch(guide.summary, /PackDex-supported|local catalog currently tracks/i, set.id);
-      assert.match(guide.summary, new RegExp(`^${set.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")} spotlights `), set.id);
-    }
+    assert.doesNotMatch(guide.summary, /PackDex-supported|local catalog currently tracks/i, set.id);
+    assert.match(guide.summary, new RegExp(`^${set.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")} spotlights `), set.id);
   }
-  assert.equal(setGuides["30th-anniversary"].custom, true);
-  assert.match(setGuides["30th-anniversary"].summary, /PackDex-created preview/);
+  assert.equal(setGuides["30th-anniversary"], undefined);
+  assert.equal(eraGuides["Pokemon 30th Anniversary"], undefined);
 });
 
 test("source notes stay in the developer audit rather than runtime JSON", async () => {

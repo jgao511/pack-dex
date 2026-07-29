@@ -1,6 +1,5 @@
 import { mkdir, writeFile } from "node:fs/promises";
-import { sets } from "../src/data/sets.js";
-import { getPullableCollectionCards } from "../src/utils/collectionStorage.js";
+import { activeSets as sets } from "../src/data/sets.js";
 
 const OUTPUT_DIR = new URL("../src/data/explore/", import.meta.url);
 const AUDIT_FILE = new URL("../docs/explore-editorial-audit.json", import.meta.url);
@@ -8,14 +7,6 @@ const STRUCTURED_SOURCE = "https://github.com/PokemonTCG/pokemon-tcg-data";
 const OFFICIAL_EXPANSIONS_SOURCE = "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions";
 
 const ERA_GUIDES = {
-  "Pokemon 30th Anniversary": {
-    summary: "A PackDex-created preview collection assembled from cards announced for Pokémon's 30th-anniversary period. It is not presented as an official standalone expansion.",
-    identity: "PackDex preview",
-    mechanics: [],
-    representativePokemonIds: [25, 6, 150],
-    changeNote: "This entry is separated from official expansion eras so preview content is not confused with an official set history.",
-    custom: true,
-  },
   "Wizards Vintage": {
     summary: "PackDex's earliest English-language catalog, spanning Base Set through the Gym expansions published by Wizards of the Coast.",
     identity: "Original card frames, early holographic rares, and the first Kanto-focused English sets.",
@@ -121,7 +112,6 @@ const THEMES = {
   "paldean-fates": ["Shiny Pokémon"], "prismatic-evolutions": ["Eevee and its Evolutions"], "journey-together": ["Trainer's Pokémon"],
   "destined-rivals": ["Trainer's Pokémon", "Team Rocket"], "black-bolt": ["Unova", "Black-themed counterpart"], "white-flare": ["Unova", "White-themed counterpart"],
   "pitch-black": ["Mega Darkrai ex", "Mega Evolution Pokémon ex"],
-  "30th-anniversary": ["PackDex preview", "30th-anniversary selection"],
 };
 
 const FACTS = {
@@ -134,7 +124,6 @@ const FACTS = {
   "black-bolt": ["Black Bolt and White Flare share the same English release date and split their Unova focus across two sets."],
   "white-flare": ["White Flare and Black Bolt share the same English release date and split their Unova focus across two sets."],
   "pitch-black": ["Pitch Black's supported catalog contains 120 cards, including Mega Darkrai ex as its Mega Hyper Rare."],
-  "30th-anniversary": ["PackDex labels this as a preview compilation, not an official standalone expansion."],
 };
 
 // Concise set identities are curated from official expansion pages/checklists and the
@@ -301,21 +290,17 @@ function mechanicsFor(set) {
 }
 
 function guideFor(set) {
-  const total = getPullableCollectionCards(set).length;
-  const isCustom = set.id === "30th-anniversary";
   const identity = SET_IDENTITIES[set.id];
-  if (!isCustom && !identity) throw new Error(`Missing curated set identity for ${set.id}.`);
+  if (!identity) throw new Error(`Missing curated set identity for ${set.id}.`);
   return {
     setId: set.id,
-    summary: isCustom
-      ? `A PackDex-created preview containing ${total} currently supported cards selected from announced 30th-anniversary material. It is not labeled as an official standalone expansion.`
-      : `${set.name} spotlights ${identity}.`,
+    summary: `${set.name} spotlights ${identity}.`,
     themes: THEMES[set.id] || [],
     mechanics: mechanicsFor(set),
     ...(FEATURED_POKEMON_IDS[set.id] ? { featuredPokemonIds: FEATURED_POKEMON_IDS[set.id] } : {}),
     funFacts: FACTS[set.id] || [],
-    custom: isCustom,
-    contentStatus: isCustom || identity ? "curated" : "limited",
+    custom: false,
+    contentStatus: "curated",
   };
 }
 
@@ -347,7 +332,7 @@ const audit = {
       sourceNotes: [
         { field: "release date, era, and supported count", source: "src/data/sets.js and its imported catalog data" },
         { field: "structured set identity", source: set.pokemonTcgApiSetId ? `https://api.pokemontcg.io/v2/sets/${set.pokemonTcgApiSetId}` : STRUCTURED_SOURCE },
-        { field: "set-specific summary, editorial mechanics, and themes", source: guide.custom ? "src/data/special-sets/30th-anniversary/30thAnniversarySet.js" : OFFICIAL_EXPANSIONS_SOURCE },
+        { field: "set-specific summary, editorial mechanics, and themes", source: OFFICIAL_EXPANSIONS_SOURCE },
       ],
       limitedReason: guide.contentStatus === "limited" ? "No additional set-specific claim was included without a dependable curated source; identity, date, era, and supported count remain complete." : "",
     };

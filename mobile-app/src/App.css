@@ -783,8 +783,6 @@ body.scanner-camera-active,
 .wishlist-summary-card > span strong { color: #fff !important; font-size: 15px; line-height: 1.15; }
 .wishlist-summary-card > span em { color: rgba(224,220,244,.72); font-size: 12px; font-style: normal; }
 .wishlist-summary-card > b { color: #c8b9ff; font-size: 25px; font-weight: 400; line-height: 1; }
-.anniversary-catalog-note { width: 100%; margin: 0; color: rgba(223,219,241,.7); font-size: 11px; line-height: 1.45; text-align: center; }
-.anniversary-catalog-note.is-summary-note { margin-top: 6px; }
 .theme-light .wishlist-state { border-color: rgba(25,35,70,.1); background: rgba(25,35,70,.035); }
 .theme-light .wishlist-set-heading span, .theme-light .wishlist-remove { color: rgba(35,42,70,.65); }
 

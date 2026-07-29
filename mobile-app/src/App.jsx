@@ -7,7 +7,7 @@ import MobileOnboarding from "./components/MobileOnboarding.jsx";
 import PrivacyChoicesDialog from "../../src/components/PrivacyChoicesDialog.jsx";
 import { LEGAL_ROUTES, PACKDEX_SUPPORT_EMAIL } from "../../src/content/legalDocuments.js";
 import { buildExplorePath } from "./explore/exploreRouting.js";
-import { sets } from "../../src/data/sets.js";
+import { activeSets, isRetiredSet, sets } from "../../src/data/sets.js";
 import { getCardBackUrl, getCardImageUrl, getPokeballLoadingUrl, getSetLogoUrl } from "../../src/utils/assetUrls.js";
 import { generatePack, getDisplayCardName, getDisplayRarity, isHigherThanRare } from "../../src/utils/packGenerator.js";
 import { selectFeaturedPull } from "../../src/utils/rarityRank.js";
@@ -131,7 +131,7 @@ const tabs = [
   { id: "profile", label: "Profile", title: "Profile", icon: "profile" },
 ];
 
-const eraOrder = ["Pokemon 30th Anniversary", "Mega Evolution", "Scarlet & Violet", "Sword & Shield", "Sun & Moon", "XY", "Vintage"];
+const eraOrder = ["Mega Evolution", "Scarlet & Violet", "Sword & Shield", "Sun & Moon", "XY", "Vintage"];
 const COLLECTION_ERA_FILTER_KEY = "packdex-mobile-collection-era-filter";
 const EMPTY_STATS = { packsOpened: 0, totalCardsPulled: 0 };
 const CARD_DEAL_STAGGER_MS = 180;
@@ -1150,7 +1150,7 @@ function MobileBrandHeader() {
 
 function OpenSetSelector({ collection, onOpenPack }) {
   const [eraFilter, setEraFilter] = useState("All Eras");
-  const orderedSets = useMemo(() => sortSetsByEra(sets), []);
+  const orderedSets = useMemo(() => sortSetsByEra(activeSets), []);
   const eras = useMemo(() => ["All Eras", ...new Set(orderedSets.map((set) => set.era).filter(Boolean))], [orderedSets]);
   const visibleSets = eraFilter === "All Eras" ? orderedSets : orderedSets.filter((set) => set.era === eraFilter);
   const groupedSets = groupSetsByEra(visibleSets);
@@ -1256,7 +1256,6 @@ function PackScreen({
             </div>
           </div>
           <div className="pack-ready-actions">
-            {selectedSet.id === "30th-anniversary" && <p className="anniversary-catalog-note">This preview includes currently confirmed cards. More cards will be added as they are announced.</p>}
             <AccountNotice user={user} onLogin={onLogin} onCreateAccount={onCreateAccount} />
             <div className="pack-actions">
               <button className="secondary-action" type="button" onClick={onBack}>
@@ -1288,7 +1287,6 @@ function PackScreen({
               <strong>{formatUsd(pullValueCoverage.totalValue)}</strong>
             </section>
           )}
-          {selectedSet.id === "30th-anniversary" && <p className="anniversary-catalog-note is-summary-note">This preview includes currently confirmed cards. More cards will be added as they are announced.</p>}
           {featuredPull?.card && <p className="pack-featured-pull"><span>Featured Pull</span><strong>{getDisplayCardName(featuredPull.card)} · {getDisplayRarity(featuredPull.card)}</strong></p>}
           <div className={`pack-actions ${tutorialMode ? "is-tutorial-hidden" : ""}`}>
             <button className="secondary-action" type="button" onClick={onBack}>
@@ -1404,8 +1402,8 @@ function CollectionCards({
   priceMap,
   priceStatus = "idle",
 }) {
-  const orderedSets = useMemo(() => sortSetsByEra(sets), []);
-  const selectedSet = orderedSets.find((set) => set.id === selectedSetId) || null;
+  const orderedSets = useMemo(() => sortSetsByEra(activeSets), []);
+  const selectedSet = sets.find((set) => set.id === selectedSetId) || null;
   const [isPickingSet, setIsPickingSet] = useState(!selectedSet);
   const [catalogQuery, setCatalogQuery] = useState("");
   const [catalogResults, setCatalogResults] = useState([]);
@@ -1581,14 +1579,11 @@ function CollectionCards({
               </p>
             )}
           </div>
-          {selectedSet.id === "30th-anniversary" && (
-            <p className="set-preview-note">New card images will be added as they are released.</p>
-          )}
           <div className="set-detail-actions">
             <button className={returnLabel === "Back to Open Packs" ? "primary-action" : "secondary-action"} type="button" onClick={() => (onReturnFromSet ? onReturnFromSet(selectedSet) : onSelectSet(null))}>
               {returnLabel || "Back to Collection"}
             </button>
-            {returnLabel !== "Back to Open Packs" && (
+            {returnLabel !== "Back to Open Packs" && !isRetiredSet(selectedSet) && (
               <button className="primary-action" type="button" onClick={() => onOpenPacks(selectedSet)}>
                 Open Packs
               </button>
@@ -1880,7 +1875,7 @@ function CollectionBinders({ collection, binders, onImportMasterSet, onCreateBin
   const [customBinderName, setCustomBinderName] = useState("");
   const [customBinderTheme, setCustomBinderTheme] = useState("midnight");
   const eligibleSets = useMemo(
-    () => sets
+    () => activeSets
       .filter((set) => !binders.some((binder) => binder.id === "master-set-" + set.id))
       .sort((left, right) => String(right.releaseDate || "").localeCompare(String(left.releaseDate || ""))),
     [binders]
@@ -2924,7 +2919,8 @@ function MobileApp() {
   const [collectionEraFilter, setCollectionEraFilter] = useState(() => {
     if (typeof window === "undefined") return "All Eras";
 
-    return window.localStorage.getItem(COLLECTION_ERA_FILTER_KEY) || "All Eras";
+    const savedEra = window.localStorage.getItem(COLLECTION_ERA_FILTER_KEY) || "All Eras";
+    return savedEra === "All Eras" || activeSets.some((set) => set.era === savedEra) ? savedEra : "All Eras";
   });
   const [collectionSetSearch, setCollectionSetSearch] = useState("");
   const [pack, setPack] = useState(restoredTutorial.cards);
@@ -2999,7 +2995,7 @@ function MobileApp() {
   validatedScannerUserIdRef.current = authValidationState === "authenticated" ? String(user?.id || "") : "";
   const setsCompleted = useMemo(
     () =>
-      sets.filter((set) => {
+      activeSets.filter((set) => {
         const progress = getSetCollectionProgress(collection, set);
 
         return progress.total > 0 && progress.collected >= progress.total;
@@ -4392,6 +4388,8 @@ function MobileApp() {
   }
 
   function openPack(set) {
+    if (!set || isRetiredSet(set)) return;
+
     const nextPack = generatePack(set);
     ensurePackOpenClientEventId(nextPack, set.id);
 
@@ -4608,7 +4606,7 @@ function MobileApp() {
   }
 
   function openAnotherPack() {
-    if (!selectedSet) {
+    if (!selectedSet || isRetiredSet(selectedSet)) {
       returnToSets();
       return;
     }

@@ -1,4 +1,4 @@
-import { sets } from "../../../src/data/sets.js";
+import { activeSets, sets } from "../../../src/data/sets.js";
 import {
   generateNormalPackOnly,
   isCardAllowedInPackSlot,
@@ -275,7 +275,7 @@ export function writeMobileOnboardingState(state, storage = getStorage()) {
 
 export function getTutorialSets(now = new Date()) {
   const today = now.toISOString().slice(0, 10);
-  const newest = [...sets]
+  const newest = [...activeSets]
     .filter((set) => set.cards?.length && set.pullRateProfile && String(set.releaseDate || "") <= today)
     .sort((a, b) => String(b.releaseDate || "").localeCompare(String(a.releaseDate || "")))[0];
   const ids = [newest?.id, "151", "prismatic-evolutions"].filter(Boolean);
