@@ -79,18 +79,19 @@ test("already-owned anniversary cards still resolve and can be added to an exist
 });
 
 test("desktop and mobile public set surfaces use the active catalog and guard retired pack opening", async () => {
-  const [desktopApp, mobileApp, exploreData, setSelect] = await Promise.all([
+  const [desktopApp, mobileApp, binderSystem, exploreData, setSelect] = await Promise.all([
     read("../src/App.jsx"),
     read("../mobile-app/src/App.jsx"),
+    read("../src/components/binders/BinderSystem.jsx"),
     read("../mobile-app/src/explore/exploreData.js"),
     read("../src/components/SetSelect.jsx"),
   ]);
 
   assert.match(desktopApp, /<SetSelect[\s\S]*?sets=\{activeSets\}/);
-  assert.match(desktopApp, /activeSets\.map\(\(set\) => \(/);
+  assert.match(binderSystem, /activeSets[\s\S]*?master-set-/);
   assert.match(desktopApp, /if \(!set \|\| isRetiredSet\(set\)\) return/);
   assert.match(mobileApp, /sortSetsByEra\(activeSets\)/);
-  assert.match(mobileApp, /\(\) => activeSets[\s\S]*?master-set-/);
+  assert.match(mobileApp, /import BinderSystem from "\.\.\/\.\.\/src\/components\/binders\/BinderSystem\.jsx"/);
   assert.match(mobileApp, /if \(!set \|\| isRetiredSet\(set\)\) return/);
   assert.doesNotMatch(mobileApp, /anniversary-catalog-note|set-preview-note/);
   assert.match(exploreData, /activeSets/);

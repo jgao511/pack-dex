@@ -10,6 +10,7 @@ import CardReveal from "./components/CardReveal.jsx";
 import CardDetailModal from "./components/CardDetailModal.jsx";
 import CollectionPage from "./components/CollectionPage.jsx";
 import FoilCard from "./components/FoilCard.jsx";
+import BinderSystem from "./components/binders/BinderSystem.jsx";
 import PullSummary from "./components/PullSummary.jsx";
 import PrivacyChoicesDialog from "./components/PrivacyChoicesDialog.jsx";
 import SetSelect from "./components/SetSelect.jsx";
@@ -28,11 +29,7 @@ import {
   savePulledCardsToCloud,
   syncPendingCloudPulls,
 } from "./lib/cloudCollection.js";
-import {
-  loadCloudBinders,
-  saveCloudBinders,
-  upsertCloudBinder,
-} from "./lib/cloudBinders.js";
+import { loadPersistedBinders, persistBindersForUser } from "./lib/binderPersistence.js";
 import {
   emptyProfileStats,
   loadCloudProfileStats,
@@ -54,15 +51,13 @@ import {
 } from "./utils/packGenerator.js";
 import {
   addCardToBinder,
-  clearBinderCards,
+  addCardsToBinder,
   createBinder,
   createMasterSetBinder,
-  getBinderCardKey,
   isMasterSetBinder,
   loadBinders,
   removeCardFromBinder,
-  saveBinders,
-  updateBinderTheme,
+  replaceBinderCards,
 } from "./utils/binderStorage.js";
 import {
   getCardCollectionKey,
@@ -98,9 +93,6 @@ const GUEST_WELCOME_BETA_SEEN_KEY = "packdex_guest_welcome_beta_seen";
 const USER_WELCOME_BETA_SEEN_KEY_PREFIX = "packdex_welcome_beta_seen_";
 const LEGACY_PROFILE_STATS_STORAGE_KEYS = ["packdex-profile-stats"];
 const COLLECTION_DASHBOARD_PAGE_SIZE = 60;
-const BINDER_PAGE_SIZE = 9;
-const MASTER_BINDER_PAGE_SIZE = 9;
-const ACTIVE_BINDER_STORAGE_KEY = "packdex-active-binder-id";
 const WELCOME_REWARD_CHOICES = [
   {
     setId: "prismatic-evolutions",
@@ -274,73 +266,6 @@ function getCollectedCards(collection) {
         count: getCardCount(collection, card, set.id),
       }))
   );
-}
-
-function getBinderDisplayCards(binder, collection) {
-  return (binder?.cards || [])
-    .map((item) => {
-      const set = sets.find((candidateSet) => candidateSet.id === item.setId);
-
-      if (!set) return null;
-
-      const card = getPullableCollectionCards(set).find((candidateCard) => getBinderCardKey(candidateCard, set.id) === item.key);
-
-      if (!card || !isCardCollected(collection, card, set.id)) return null;
-
-      return {
-        ...item,
-        card,
-        set,
-        count: getCardCount(collection, card, set.id),
-      };
-    })
-    .filter(Boolean);
-}
-
-function sortBinderCards(cards, sortMode) {
-  const sorted = [...cards];
-
-  if (sortMode === "rarity") {
-    sorted.sort((a, b) => compareCardsByRarity(a.card, b.card, a.set, b.set));
-    return sorted;
-  }
-
-  if (sortMode === "set") {
-    sorted.sort(
-      (a, b) =>
-        String(a.set.name || "").localeCompare(String(b.set.name || "")) ||
-        compareCardsByRarity(a.card, b.card, a.set, b.set)
-    );
-    return sorted;
-  }
-
-  sorted.sort((a, b) => (a.order ?? 0) - (b.order ?? 0) || (a.addedAt || 0) - (b.addedAt || 0));
-  return sorted;
-}
-
-function cardNumberValue(card) {
-  const parsed = Number.parseInt(String(card?.number || ""), 10);
-
-  return Number.isFinite(parsed) ? parsed : Number.MAX_SAFE_INTEGER;
-}
-
-function sortCardsBySetNumber(cards) {
-  return [...cards].sort(
-    (a, b) =>
-      cardNumberValue(a) - cardNumberValue(b) ||
-      String(a?.number || "").localeCompare(String(b?.number || "")) ||
-      String(a?.name || "").localeCompare(String(b?.name || ""))
-  );
-}
-
-function chunkItems(items, size) {
-  const chunks = [];
-
-  for (let index = 0; index < items.length; index += size) {
-    chunks.push(items.slice(index, index + size));
-  }
-
-  return chunks;
 }
 
 function AuthSaveNotice({ onOpenAuth }) {
@@ -653,8 +578,8 @@ function CollectionDashboard({
   onOpenAuth,
   onCreateBinder,
   onCreateMasterSetBinder,
-  onUpdateBinderTheme,
-  onClearBinder,
+  onAddBinderCards,
+  onReplaceBinderCards,
   onAddToBinder,
   onRemoveFromBinder,
 }) {
@@ -850,20 +775,22 @@ function CollectionDashboard({
         </div>
       ) : (
         <div className="collection-subtab-panel" role="tabpanel">
-          <BinderSection
+          <BinderSystem
             binders={binders}
             collection={collection}
-            user={user}
             requestedBinderId={requestedBinderId}
             onBinderRequestHandled={onBinderRequestHandled}
             binderHomeRequest={binderHomeRequest}
-            onOpenAuth={onOpenAuth}
             onCreateBinder={onCreateBinder}
-            onCreateMasterSetBinder={onCreateMasterSetBinder}
-            onUpdateBinderTheme={onUpdateBinderTheme}
-            onClearBinder={onClearBinder}
-            onAddToBinder={onAddToBinder}
-            onRemoveFromBinder={onRemoveFromBinder}
+            onImportMasterSet={onCreateMasterSetBinder}
+            onAddCards={onAddBinderCards}
+            onReplaceCards={onReplaceBinderCards}
+            onInspectCard={(card, set) => setSelectedCard({
+              card,
+              set,
+              count: getCardCount(collection, card, set.id),
+              collected: isCardCollected(collection, card, set.id),
+            })}
           />
         </div>
       )}
@@ -882,913 +809,6 @@ function CollectionDashboard({
         />
       )}
     </section>
-  );
-}
-
-const BINDER_TAGS = [...new Set([
-  "Favorites",
-  "Pulls",
-  "Trade Binder",
-  "Master Set",
-  "Deck Ideas",
-  "Chase Cards",
-  "Scarlet & Violet",
-  "Sword & Shield",
-  "Sun & Moon",
-  "XY",
-  "Full Art Collection",
-  ...activeSets.map((set) => set.name),
-])];
-
-const BINDER_TAG_BASE_SET_IDS = {
-  "Scarlet & Violet": "scarlet-violet",
-  "Sword & Shield": "sword-shield",
-  "Sun & Moon": "sun-moon",
-  XY: "xy1",
-};
-
-const BINDER_THEME_OPTIONS = [
-  { id: "midnight", label: "Midnight", value: "#18213f" },
-  { id: "royal", label: "Royal", value: "#2557b8" },
-  { id: "crimson", label: "Crimson", value: "#9f283d" },
-  { id: "forest", label: "Forest", value: "#1d6b4f" },
-  { id: "gold", label: "Gold", value: "#c58a21" },
-  { id: "violet", label: "Violet", value: "#5146c8" },
-];
-
-function getBinderTheme(themeId) {
-  return BINDER_THEME_OPTIONS.find((theme) => theme.id === themeId) || BINDER_THEME_OPTIONS[0];
-}
-
-function getBinderTagLogo(tag) {
-  const setId = BINDER_TAG_BASE_SET_IDS[tag];
-  const set = sets.find((candidateSet) => candidateSet.id === setId || candidateSet.name === tag);
-
-  return set ? getSetLogoUrl(set) : "";
-}
-
-function loadActiveBinderId() {
-  if (typeof window === "undefined") return "";
-
-  return window.localStorage.getItem(ACTIVE_BINDER_STORAGE_KEY) || "";
-}
-
-function saveActiveBinderId(binderId) {
-  if (typeof window === "undefined") return;
-
-  if (binderId) {
-    window.localStorage.setItem(ACTIVE_BINDER_STORAGE_KEY, binderId);
-  } else {
-    window.localStorage.removeItem(ACTIVE_BINDER_STORAGE_KEY);
-  }
-}
-
-function useIsMobileBinderViewport() {
-  const [isMobile, setIsMobile] = useState(() =>
-    typeof window !== "undefined" ? window.matchMedia("(max-width: 720px)").matches : false
-  );
-
-  useEffect(() => {
-    if (typeof window === "undefined") return undefined;
-
-    const mediaQuery = window.matchMedia("(max-width: 720px)");
-    const handleChange = () => setIsMobile(mediaQuery.matches);
-
-    handleChange();
-    mediaQuery.addEventListener?.("change", handleChange);
-
-    return () => {
-      mediaQuery.removeEventListener?.("change", handleChange);
-    };
-  }, []);
-
-  return isMobile;
-}
-
-function BinderSection({
-  binders,
-  collection,
-  user,
-  requestedBinderId = "",
-  binderHomeRequest = 0,
-  onBinderRequestHandled,
-  onOpenAuth,
-  onCreateBinder,
-  onCreateMasterSetBinder,
-  onUpdateBinderTheme,
-  onClearBinder,
-  onAddToBinder,
-  onRemoveFromBinder,
-}) {
-  const [activeBinderId, setActiveBinderId] = useState("");
-  const [newBinderName, setNewBinderName] = useState("");
-  const [newBinderTag, setNewBinderTag] = useState(BINDER_TAGS[0]);
-  const [newBinderTheme, setNewBinderTheme] = useState(BINDER_THEME_OPTIONS[0].id);
-  const [selectedMasterSetId, setSelectedMasterSetId] = useState(activeSets[0]?.id || "");
-  const [importTheme, setImportTheme] = useState(BINDER_THEME_OPTIONS[1].id);
-  const [isImportOpen, setIsImportOpen] = useState(false);
-  const [importMessage, setImportMessage] = useState("");
-  const [binderSortMode, setBinderSortMode] = useState("updated");
-  const [isMasterBinderOpen, setIsMasterBinderOpen] = useState(false);
-  const [masterBinderPage, setMasterBinderPage] = useState(0);
-  const [customBinderPage, setCustomBinderPage] = useState(0);
-  const [isCreateOpen, setIsCreateOpen] = useState(false);
-  const [isAddOpen, setIsAddOpen] = useState(false);
-  const [nameError, setNameError] = useState("");
-  const [addQuery, setAddQuery] = useState("");
-  const [addEraFilter, setAddEraFilter] = useState("all");
-  const [addSetFilter, setAddSetFilter] = useState("all");
-  const [addRarityFilter, setAddRarityFilter] = useState("all");
-  const [sortMode, setSortMode] = useState("order");
-  const [selectedCard, setSelectedCard] = useState(null);
-  const isMobileBinder = useIsMobileBinderViewport();
-  const activeBinder = useMemo(
-    () => binders.find((binder) => binder.id === activeBinderId) || null,
-    [activeBinderId, binders]
-  );
-  const activeMasterSet = useMemo(
-    () => (isMasterSetBinder(activeBinder) ? sets.find((set) => set.id === activeBinder.setId) || null : null),
-    [activeBinder]
-  );
-  const activeTheme = getBinderTheme(activeBinder?.theme);
-  const selectedImportSet = useMemo(
-    () => activeSets.find((set) => set.id === selectedMasterSetId) || activeSets[0] || null,
-    [selectedMasterSetId]
-  );
-  const binderDisplayCards = useMemo(() => getBinderDisplayCards(activeBinder, collection), [activeBinder, collection]);
-  const sortedBinderCards = useMemo(() => sortBinderCards(binderDisplayCards, sortMode), [binderDisplayCards, sortMode]);
-  const customPages = useMemo(() => chunkItems(sortedBinderCards, BINDER_PAGE_SIZE), [sortedBinderCards]);
-  const customPageCount = Math.max(1, customPages.length);
-  const customPagesPerView = isMobileBinder || customBinderPage === 0 ? 1 : 2;
-  const visibleCustomPages = customPages.slice(customBinderPage, customBinderPage + customPagesPerView);
-  const visibleCustomPageNumbers =
-    visibleCustomPages.length > 1
-      ? `${customBinderPage + 1}-${customBinderPage + visibleCustomPages.length}`
-      : `${customBinderPage + 1}`;
-  const masterCards = useMemo(
-    () => (activeMasterSet ? sortCardsBySetNumber(getPullableCollectionCards(activeMasterSet)) : []),
-    [activeMasterSet]
-  );
-  const masterPages = useMemo(() => chunkItems(masterCards, MASTER_BINDER_PAGE_SIZE), [masterCards]);
-  const masterProgress = activeMasterSet ? getSetCollectionProgress(collection, activeMasterSet) : { collected: 0, total: 0, percent: 0 };
-  const masterMissingCount = Math.max(0, masterProgress.total - masterProgress.collected);
-  const masterPageCount = Math.max(1, masterPages.length);
-  const masterPagesPerView = isMobileBinder || masterBinderPage === 0 ? 1 : 2;
-  const visibleMasterPages = masterPages.slice(masterBinderPage, masterBinderPage + masterPagesPerView);
-  const visibleMasterPageNumbers =
-    visibleMasterPages.length > 1
-      ? `${masterBinderPage + 1}-${masterBinderPage + visibleMasterPages.length}`
-      : `${masterBinderPage + 1}`;
-  const sortedBinders = useMemo(() => {
-    const binderValue = (binder) => {
-      if (isMasterSetBinder(binder)) {
-        const set = sets.find((candidateSet) => candidateSet.id === binder.setId);
-        const progress = set ? getSetCollectionProgress(collection, set) : { collected: 0, total: 0, percent: 0 };
-
-        return {
-          cardCount: progress.collected,
-          completion: progress.percent,
-          name: binder.name,
-        };
-      }
-
-      return {
-        cardCount: binder.cards.length,
-        completion: 0,
-        name: binder.name,
-      };
-    };
-
-    return [...binders].sort((a, b) => {
-      const valueA = binderValue(a);
-      const valueB = binderValue(b);
-
-      if (binderSortMode === "created") return (b.createdAt || 0) - (a.createdAt || 0);
-      if (binderSortMode === "name-asc") return valueA.name.localeCompare(valueB.name);
-      if (binderSortMode === "name-desc") return valueB.name.localeCompare(valueA.name);
-      if (binderSortMode === "master-first") return Number(isMasterSetBinder(b)) - Number(isMasterSetBinder(a)) || valueA.name.localeCompare(valueB.name);
-      if (binderSortMode === "custom-first") return Number(isMasterSetBinder(a)) - Number(isMasterSetBinder(b)) || valueA.name.localeCompare(valueB.name);
-      if (binderSortMode === "completion-desc") return valueB.completion - valueA.completion || valueA.name.localeCompare(valueB.name);
-      if (binderSortMode === "completion-asc") return valueA.completion - valueB.completion || valueA.name.localeCompare(valueB.name);
-      if (binderSortMode === "count-desc") return valueB.cardCount - valueA.cardCount || valueA.name.localeCompare(valueB.name);
-      if (binderSortMode === "count-asc") return valueA.cardCount - valueB.cardCount || valueA.name.localeCompare(valueB.name);
-
-      return (b.updatedAt || b.createdAt || 0) - (a.updatedAt || a.createdAt || 0);
-    });
-  }, [binderSortMode, binders, collection]);
-  const collectedCards = useMemo(() => getCollectedCards(collection), [collection]);
-  const addEraOptions = useMemo(
-    () => ["all", ...new Set(collectedCards.map(({ set }) => set.era || "Other"))],
-    [collectedCards]
-  );
-  const addSetOptions = useMemo(
-    () => collectedCards.map(({ set }) => set).filter((set, index, allSets) => allSets.findIndex((item) => item.id === set.id) === index),
-    [collectedCards]
-  );
-  const addRarityOptions = useMemo(
-    () => ["all", ...new Set(collectedCards.map(({ card, set }) => getDisplayRarity(card, set)))],
-    [collectedCards]
-  );
-  const addableCards = useMemo(() => {
-    if (!activeBinder) return [];
-
-    const existingKeys = new Set(activeBinder.cards.map((item) => item.key));
-    const search = addQuery.toLowerCase().trim();
-
-    return getCollectedCards(collection)
-      .filter(({ card, set }) => {
-        if (existingKeys.has(getBinderCardKey(card, set.id))) return false;
-
-        const displayRarity = getDisplayRarity(card, set);
-        const matchesEra = addEraFilter === "all" || (set.era || "Other") === addEraFilter;
-        const matchesSet = addSetFilter === "all" || set.id === addSetFilter;
-        const matchesRarity = addRarityFilter === "all" || displayRarity === addRarityFilter;
-
-        return (
-          matchesEra &&
-          matchesSet &&
-          matchesRarity &&
-          (!search ||
-            String(card.name || "").toLowerCase().includes(search) ||
-            String(card.rarity || "").toLowerCase().includes(search) ||
-            String(set.name || "").toLowerCase().includes(search) ||
-            displayRarity.toLowerCase().includes(search))
-        );
-      })
-      .sort((a, b) => compareCardsByRarity(a.card, b.card, a.set, b.set));
-  }, [activeBinder, addEraFilter, addQuery, addRarityFilter, addSetFilter, collection]);
-  useEffect(() => {
-    setCustomBinderPage(0);
-  }, [sortMode, activeBinder?.id, activeBinder?.cards.length]);
-
-  useEffect(() => {
-    setIsMasterBinderOpen(false);
-    setMasterBinderPage(0);
-    setCustomBinderPage(0);
-    setIsAddOpen(false);
-  }, [activeBinder?.id]);
-
-  useEffect(() => {
-    if (!requestedBinderId) return;
-
-    if (binders.some((binder) => binder.id === requestedBinderId)) {
-      setActiveBinderId(requestedBinderId);
-      saveActiveBinderId(requestedBinderId);
-      onBinderRequestHandled?.();
-    }
-  }, [binders, onBinderRequestHandled, requestedBinderId]);
-
-  useEffect(() => {
-    if (!activeBinderId) return;
-
-    if (!binders.some((binder) => binder.id === activeBinderId)) {
-      setActiveBinderId("");
-      saveActiveBinderId("");
-    }
-  }, [activeBinderId, binders]);
-
-  useEffect(() => {
-    if (binderHomeRequest > 0) {
-      closeBinder();
-    }
-  }, [binderHomeRequest]);
-
-  useEffect(() => {
-    setMasterBinderPage((currentPage) => Math.min(currentPage, masterPageCount - 1));
-  }, [masterPageCount]);
-
-  useEffect(() => {
-    setCustomBinderPage((currentPage) => Math.min(currentPage, customPageCount - 1));
-  }, [customPageCount]);
-
-  function handleCreateBinder(event) {
-    event.preventDefault();
-    const trimmedName = newBinderName.trim();
-
-    if (!trimmedName) {
-      setNameError("Binder name is required.");
-      return;
-    }
-
-    const binder = onCreateBinder(trimmedName, newBinderTag, newBinderTheme);
-
-    setNewBinderName("");
-    setNewBinderTag(BINDER_TAGS[0]);
-    setNewBinderTheme(BINDER_THEME_OPTIONS[0].id);
-    setNameError("");
-    setIsCreateOpen(false);
-  }
-
-  function openBinder(binderId) {
-    setActiveBinderId(binderId);
-    saveActiveBinderId(binderId);
-    resetPageScroll();
-  }
-
-  function closeBinder() {
-    setActiveBinderId("");
-    saveActiveBinderId("");
-    resetPageScroll();
-  }
-
-  function handleImportMasterSet() {
-    if (!selectedImportSet) return;
-
-    const existingBinder = binders.find((binder) => isMasterSetBinder(binder) && binder.setId === selectedImportSet.id);
-    const binder = onCreateMasterSetBinder?.(selectedImportSet, { theme: importTheme });
-
-    if (binder?.id) {
-      setImportMessage(existingBinder ? "You already have this master set binder. Opening it now." : "");
-      setIsImportOpen(false);
-      openBinder(binder.id);
-    }
-  }
-
-  function handleThemeChange(themeId) {
-    if (!activeBinder) return;
-
-    onUpdateBinderTheme?.(activeBinder.id, themeId);
-  }
-
-  function handleClearBinder() {
-    if (!activeBinder || isMasterSetBinder(activeBinder) || activeBinder.cards.length === 0) return;
-
-    if (window.confirm(`Clear ${activeBinder.name}? Your actual collection will not be deleted.`)) {
-      onClearBinder(activeBinder.id);
-    }
-  }
-
-  function goToPreviousMasterPage() {
-    setMasterBinderPage((currentPage) => {
-      if (currentPage <= 1) return 0;
-
-      return Math.max(1, currentPage - (isMobileBinder ? 1 : 2));
-    });
-  }
-
-  function goToNextMasterPage() {
-    setMasterBinderPage((currentPage) => Math.min(masterPageCount - 1, currentPage + masterPagesPerView));
-  }
-
-  function goToPreviousCustomPage() {
-    setCustomBinderPage((currentPage) => {
-      if (currentPage <= 1) return 0;
-
-      return Math.max(1, currentPage - (isMobileBinder ? 1 : 2));
-    });
-  }
-
-  function goToNextCustomPage() {
-    setCustomBinderPage((currentPage) => Math.min(customPageCount - 1, currentPage + customPagesPerView));
-  }
-
-  function renderMasterBinderSlot(card, slotIndex) {
-    if (!activeMasterSet || !card) {
-      return <div className="master-binder-slot is-empty" key={`empty-${slotIndex}`} aria-hidden="true" />;
-    }
-
-    const collected = isCardCollected(collection, card, activeMasterSet.id);
-    const count = getCardCount(collection, card, activeMasterSet.id);
-
-    return (
-      <button
-        className={`master-binder-slot ${collected ? "is-collected" : "is-missing"}`}
-        key={card.id || `${activeMasterSet.id}-${card.number}-${card.name}`}
-        onClick={() => setSelectedCard({ card, set: activeMasterSet, count, collected, fromBinder: true })}
-        type="button"
-      >
-        <FoilCard
-          card={card}
-          set={activeMasterSet}
-          variant="collection"
-          className={collected ? "" : "is-uncollected-preview"}
-          enableTransform={false}
-          enableCursorBlob={false}
-          enableTiltFoil={false}
-          showFoil={false}
-        />
-        <span className="master-binder-card-meta">
-          <strong>#{card.number}</strong>
-          <em>{collected ? getDisplayRarity(card, activeMasterSet) : "Not collected yet"}</em>
-        </span>
-        {!collected && <span className="missing-badge">Missing</span>}
-        {count > 1 && <span className="count-badge">x{count}</span>}
-      </button>
-    );
-  }
-
-  return (
-    <div className={`profile-panel binder-panel ${activeBinder ? "is-open" : "is-library"}`.trim()}>
-      <div className="binder-panel-header">
-        <div>
-          <h2>{activeBinder ? activeBinder.name : "My Binders"}</h2>
-          <p>
-            {activeBinder
-              ? isMasterSetBinder(activeBinder)
-                ? `${masterProgress.collected} / ${masterProgress.total} collected - ${masterProgress.percent}% complete`
-                : `${activeBinder.cards.length} saved cards`
-              : "Create custom binders or import master set binders into your library."}
-          </p>
-        </div>
-        <div className="binder-controls">
-          {activeBinder ? (
-            <>
-              <label className="binder-theme-select">
-                <span>
-                  <i style={{ "--swatch": activeTheme.value }} aria-hidden="true" />
-                  Theme
-                </span>
-                <select value={activeBinder.theme || "midnight"} onChange={(event) => handleThemeChange(event.target.value)}>
-                  {BINDER_THEME_OPTIONS.map((theme) => (
-                    <option key={theme.id} value={theme.id}>
-                      {theme.label}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <button className="secondary-button binder-create-button" type="button" onClick={closeBinder}>
-                Back to Binders
-              </button>
-            </>
-          ) : (
-            <>
-              <button className="primary-button binder-create-button" type="button" onClick={() => setIsCreateOpen(true)}>
-                Create Custom Binder
-              </button>
-              <button
-                className="secondary-button binder-create-button"
-                type="button"
-                onClick={() => {
-                  setImportMessage("");
-                  setIsImportOpen(true);
-                }}
-              >
-                Import Master Set Binder
-              </button>
-            </>
-          )}
-        </div>
-      </div>
-
-      {!user && <AuthSaveNotice onOpenAuth={onOpenAuth} />}
-
-      {!activeBinder && (
-        <>
-          {binders.length === 0 ? (
-            <div className="binder-empty-state">
-              <strong>No binders yet.</strong>
-              <span>Create a custom binder or import a master set binder to start organizing your collection.</span>
-            </div>
-          ) : (
-            <>
-              <div className="binder-library-meta">
-                <span>Showing {binders.length} binders</span>
-                <label>
-                  Sort by
-                  <select
-                    value={binderSortMode}
-                    onChange={(event) => setBinderSortMode(event.target.value)}
-                    aria-label="Sort binders"
-                  >
-                    <option value="updated">Recently Updated</option>
-                    <option value="created">Recently Created</option>
-                    <option value="name-asc">Name A-Z</option>
-                    <option value="name-desc">Name Z-A</option>
-                    <option value="master-first">Master Set First</option>
-                    <option value="custom-first">Custom First</option>
-                    <option value="completion-desc">Completion High to Low</option>
-                    <option value="completion-asc">Completion Low to High</option>
-                    <option value="count-desc">Card Count High to Low</option>
-                    <option value="count-asc">Card Count Low to High</option>
-                  </select>
-                </label>
-              </div>
-              <div className="binder-shelf" aria-label="Binder library">
-                {sortedBinders.map((binder) => {
-                const masterSet = isMasterSetBinder(binder) ? sets.find((set) => set.id === binder.setId) : null;
-                const progress = masterSet ? getSetCollectionProgress(collection, masterSet) : null;
-                const logoUrl = masterSet ? getSetLogoUrl(masterSet) : "";
-                const savedCount = isMasterSetBinder(binder) ? `${progress?.collected || 0} / ${progress?.total || 0}` : `${binder.cards.length} cards`;
-                const theme = getBinderTheme(binder.theme);
-
-                return (
-                  <article
-                    className={`binder-shelf-card is-${binder.type || "custom"}`}
-                    key={binder.id}
-                    style={{ "--binder-theme": theme.value }}
-                  >
-                    <div className="binder-shelf-card__spine" aria-hidden="true">
-                      <span />
-                      <span />
-                      <span />
-                    </div>
-                    <div className="binder-shelf-card__body">
-                      {logoUrl ? <img src={logoUrl} alt="" /> : <span className="binder-shelf-card__tag">{binder.tag}</span>}
-                      <strong>{binder.name}</strong>
-                      <em>{isMasterSetBinder(binder) ? "Master Set Binder" : "Custom Binder"}</em>
-                      <span>{savedCount}{progress ? ` - ${progress.percent}% complete` : ""}</span>
-                      <button className="primary-button" type="button" onClick={() => openBinder(binder.id)}>
-                        Open Binder
-                      </button>
-                    </div>
-                  </article>
-                );
-                })}
-              </div>
-            </>
-          )}
-        </>
-      )}
-
-      {activeBinder && !isMasterSetBinder(activeBinder) && (
-        <>
-          <div className="binder-view-header">
-            <div className="binder-view-controls">
-              <button className="primary-button binder-add-card-button" type="button" onClick={() => setIsAddOpen(true)}>
-                + Add Card
-              </button>
-              <select value={sortMode} onChange={(event) => setSortMode(event.target.value)} aria-label="Sort binder cards">
-                <option value="order">Binder Order</option>
-                <option value="rarity">Rarity</option>
-                <option value="set">Set</option>
-              </select>
-              <button className="secondary-button binder-clear-button" type="button" onClick={handleClearBinder} disabled={!activeBinder.cards.length}>
-                Clear Binder
-              </button>
-            </div>
-          </div>
-
-          <div className="master-binder-pages custom-binder-pages" style={{ "--master-cover": activeTheme.value }}>
-            <div className={`master-binder-spread ${visibleCustomPages.length > 1 ? "is-spread" : "is-single"}`}>
-              {(visibleCustomPages.length > 0 ? visibleCustomPages : [[]]).map((pageItems, spreadIndex) => {
-                const pageNumber = customBinderPage + spreadIndex + 1;
-                const slots = Array.from({ length: BINDER_PAGE_SIZE }, (_, slotIndex) => pageItems[slotIndex]);
-
-                return (
-                  <div className="master-binder-page custom-binder-page" key={`custom-page-${pageNumber}`}>
-                    <div className="master-binder-pocket-grid">
-                      {slots.map((item, index) => (
-                        <div className={`binder-slot ${item ? "is-filled" : "is-empty"}`} key={item?.key || `empty-${pageNumber}-${index}`}>
-                          {item ? (
-                            <>
-                              <button className="binder-card-button" type="button" onClick={() => setSelectedCard({ ...item, fromBinder: true })}>
-                                <FoilCard
-                                  card={item.card}
-                                  set={item.set}
-                                  variant="collection"
-                                  enableTransform={false}
-                                  enableCursorBlob={false}
-                                  enableTiltFoil={false}
-                                  showFoil={false}
-                                />
-                                <span>{getDisplayCardName(item.card, item.set)}</span>
-                              </button>
-                              <button
-                                className="binder-remove-card"
-                                type="button"
-                                onClick={() => onRemoveFromBinder(item.card, item.set, activeBinder.id)}
-                                aria-label={`Remove ${getDisplayCardName(item.card, item.set)} from binder`}
-                              >
-                                Remove
-                              </button>
-                            </>
-                          ) : (
-                            <button
-                              className="binder-slot-add"
-                              type="button"
-                              onClick={() => setIsAddOpen(true)}
-                              aria-label="Add card to binder"
-                            >
-                              <span aria-hidden="true">+</span>
-                              <strong>Add Card</strong>
-                            </button>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            {binderDisplayCards.length === 0 && (
-              <div className="binder-empty-state">This binder is empty. Add cards from your Collection.</div>
-            )}
-
-            <div className="master-binder-nav" aria-label="Custom binder pages">
-              <button type="button" onClick={goToPreviousCustomPage} disabled={customBinderPage === 0}>
-                Previous Page
-              </button>
-              <span>
-                Page {visibleCustomPageNumbers} of {customPageCount}
-              </span>
-              <button
-                type="button"
-                onClick={goToNextCustomPage}
-                disabled={customBinderPage + customPagesPerView >= customPageCount}
-              >
-                Next Page
-              </button>
-            </div>
-          </div>
-        </>
-      )}
-
-      {activeBinder && isMasterSetBinder(activeBinder) && activeMasterSet && (
-        <section className="master-binder-view binder-master-view">
-          {!isMasterBinderOpen ? (
-            <div className="master-binder-cover-stage">
-              <div className="master-binder-cover" style={{ "--master-cover": getBinderTheme(activeBinder.theme).value }}>
-                <div className="master-binder-cover__spine" aria-hidden="true">
-                  <span />
-                  <span />
-                  <span />
-                </div>
-                <div className="master-binder-cover__content">
-                  <span className="set-mark">Master Set Binder</span>
-                  <img className="collection-logo" src={getSetLogoUrl(activeMasterSet)} alt={`${activeMasterSet.name} logo`} />
-                  <h2>{activeMasterSet.name}</h2>
-                  <div className="master-binder-progress">
-                    <div className="collection-progress-copy">
-                      <strong>
-                        {masterProgress.collected} / {masterProgress.total}
-                      </strong>
-                      <span>{masterProgress.percent}% complete</span>
-                    </div>
-                    <div className="collection-progress-bar" aria-hidden="true">
-                      <span style={{ width: `${masterProgress.percent}%` }} />
-                    </div>
-                    <p>{masterMissingCount} cards still missing from this master set.</p>
-                  </div>
-                  <div className="master-binder-cover-actions">
-                    <button className="primary-button" onClick={() => setIsMasterBinderOpen(true)} type="button">
-                      Open Binder
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="master-binder-pages" style={{ "--master-cover": activeTheme.value }}>
-              <div className={`master-binder-spread ${visibleMasterPages.length > 1 ? "is-spread" : "is-single"}`}>
-                {(visibleMasterPages.length > 0 ? visibleMasterPages : [[]]).map((pageCards, spreadIndex) => {
-                  const pageNumber = masterBinderPage + spreadIndex + 1;
-                  const slots = Array.from({ length: MASTER_BINDER_PAGE_SIZE }, (_, slotIndex) => pageCards[slotIndex]);
-
-                  return (
-                    <div className="master-binder-page" key={`master-page-${pageNumber}`}>
-                      <div className="master-binder-pocket-grid">
-                        {slots.map((card, slotIndex) => renderMasterBinderSlot(card, `${pageNumber}-${slotIndex}`))}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              <div className="master-binder-nav" aria-label="Master binder pages">
-                <button type="button" onClick={goToPreviousMasterPage} disabled={masterBinderPage === 0}>
-                  Previous Page
-                </button>
-                <span>
-                  Page {visibleMasterPageNumbers} of {masterPageCount}
-                </span>
-                <button
-                  type="button"
-                  onClick={goToNextMasterPage}
-                  disabled={masterBinderPage + masterPagesPerView >= masterPageCount}
-                >
-                  Next Page
-                </button>
-              </div>
-            </div>
-          )}
-        </section>
-      )}
-
-      {isImportOpen && (
-        <div className="binder-create-overlay" role="dialog" aria-modal="true" aria-label="Import master set binder">
-          <div className="binder-create-modal binder-import-modal">
-            <div>
-              <span className="set-mark">Master Set</span>
-              <h3>Import Binder</h3>
-              <p>Choose a set, pick a cover theme, and add its master set binder to your library.</p>
-            </div>
-            <label>
-              Choose set
-              <select
-                value={selectedMasterSetId}
-                onChange={(event) => {
-                  setSelectedMasterSetId(event.target.value);
-                  setImportMessage("");
-                }}
-                aria-label="Select set for master set binder"
-              >
-                {activeSets.map((set) => (
-                  <option key={set.id} value={set.id}>
-                    {set.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <div className="binder-theme-options" aria-label="Binder theme">
-              {BINDER_THEME_OPTIONS.map((theme) => (
-                <button
-                  className={importTheme === theme.id ? "is-active" : ""}
-                  key={theme.id}
-                  onClick={() => setImportTheme(theme.id)}
-                  style={{ "--swatch": theme.value }}
-                  type="button"
-                >
-                  <span aria-hidden="true" />
-                  {theme.label}
-                </button>
-              ))}
-            </div>
-            {selectedImportSet && (
-              <div className="binder-import-preview">
-                <div className="binder-shelf-card is-master_set" style={{ "--binder-theme": getBinderTheme(importTheme).value }}>
-                  <div className="binder-shelf-card__spine" aria-hidden="true">
-                    <span />
-                    <span />
-                    <span />
-                  </div>
-                  <div className="binder-shelf-card__body">
-                    <img src={getSetLogoUrl(selectedImportSet)} alt="" />
-                    <strong>{selectedImportSet.name} Master Set</strong>
-                    <em>Master Set Binder</em>
-                  </div>
-                </div>
-              </div>
-            )}
-            {importMessage && <div className="binder-form-error">{importMessage}</div>}
-            <div className="binder-create-actions">
-              <button className="secondary-button" type="button" onClick={() => setIsImportOpen(false)}>
-                Cancel
-              </button>
-              <button className="primary-button" type="button" onClick={handleImportMasterSet}>
-                Import Binder
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {isCreateOpen && (
-        <div className="binder-create-overlay" role="dialog" aria-modal="true" aria-label="Create binder">
-          <form className="binder-create-modal" onSubmit={handleCreateBinder}>
-            <div>
-              <span className="set-mark">Binder</span>
-              <h3>Create Binder</h3>
-              <p>Name it, tag it, and start filling pages from your Collection.</p>
-            </div>
-            <label>
-              Binder name
-              <input
-                value={newBinderName}
-                onChange={(event) => {
-                  setNewBinderName(event.target.value);
-                  setNameError("");
-                }}
-                placeholder="Favorite Pulls"
-                aria-label="Binder name"
-                autoFocus
-              />
-            </label>
-            {nameError && <div className="binder-form-error">{nameError}</div>}
-            <div className="binder-theme-options" aria-label="Binder theme">
-              {BINDER_THEME_OPTIONS.map((theme) => (
-                <button
-                  className={newBinderTheme === theme.id ? "is-active" : ""}
-                  key={theme.id}
-                  onClick={() => setNewBinderTheme(theme.id)}
-                  style={{ "--swatch": theme.value }}
-                  type="button"
-                >
-                  <span aria-hidden="true" />
-                  {theme.label}
-                </button>
-              ))}
-            </div>
-            <div className="binder-create-actions">
-              <button className="secondary-button" type="button" onClick={() => setIsCreateOpen(false)}>
-                Cancel
-              </button>
-              <button className="primary-button" type="submit">
-                Create Binder
-              </button>
-            </div>
-          </form>
-        </div>
-      )}
-
-      {isAddOpen && activeBinder && (
-        <div className="binder-create-overlay" role="dialog" aria-modal="true" aria-label="Add card to binder">
-          <div className="binder-add-modal">
-            <div className="binder-add-header">
-              <div>
-                <span className="set-mark">Binder</span>
-                <h3>Add Card</h3>
-                <p>Add an owned card to {activeBinder.name}.</p>
-              </div>
-              <button className="secondary-button" type="button" onClick={() => setIsAddOpen(false)}>
-                Close
-              </button>
-            </div>
-            <label className="binder-add-search">
-              <span>Search collection</span>
-              <input
-                value={addQuery}
-                onChange={(event) => setAddQuery(event.target.value)}
-                placeholder="Search by card, set, or rarity"
-                type="search"
-              />
-            </label>
-            <div className="binder-add-filters" aria-label="Filter cards to add">
-              <label>
-                <span>Era</span>
-                <select value={addEraFilter} onChange={(event) => setAddEraFilter(event.target.value)}>
-                  {addEraOptions.map((era) => (
-                    <option key={era} value={era}>
-                      {era === "all" ? "All Eras" : era}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label>
-                <span>Set</span>
-                <select value={addSetFilter} onChange={(event) => setAddSetFilter(event.target.value)}>
-                  <option value="all">All Sets</option>
-                  {addSetOptions.map((set) => (
-                    <option key={set.id} value={set.id}>
-                      {set.name}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label>
-                <span>Rarity</span>
-                <select value={addRarityFilter} onChange={(event) => setAddRarityFilter(event.target.value)}>
-                  {addRarityOptions.map((rarity) => (
-                    <option key={rarity} value={rarity}>
-                      {rarity === "all" ? "All Rarities" : rarity}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            </div>
-            {addableCards.length === 0 ? (
-              <div className="binder-empty-state">
-                <strong>No cards to add</strong>
-                <span>Every matching collected card is already in this binder.</span>
-              </div>
-            ) : (
-              <div className="binder-add-grid">
-                {addableCards.map(({ card, set, count }) => (
-                  <button
-                    className="binder-add-card"
-                    key={getBinderCardKey(card, set.id)}
-                    type="button"
-                    onClick={() => onAddToBinder(card, set, activeBinder.id)}
-                  >
-                    <FoilCard
-                      card={card}
-                      set={set}
-                      variant="collection"
-                      enableTransform={false}
-                      enableCursorBlob={false}
-                      enableTiltFoil={false}
-                      showFoil={false}
-                    />
-                    <span>
-                      <strong>{getDisplayCardName(card, set)}</strong>
-                      <em>
-                        {set.name} - {getDisplayRarity(card, set)}
-                        {count > 1 ? ` x${count}` : ""}
-                      </em>
-                    </span>
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-
-      {selectedCard && (
-        <CardDetailModal
-          card={selectedCard.card}
-          set={selectedCard.set}
-          collected={selectedCard.collected ?? true}
-          count={selectedCard.fromBinder ? 0 : selectedCard.count}
-          showBinderControl={!selectedCard.fromBinder}
-          binders={binders}
-          onAddToBinder={onAddToBinder}
-          onRemoveFromBinder={onRemoveFromBinder}
-          onCreateBinder={() => setIsCreateOpen(true)}
-          onClose={() => setSelectedCard(null)}
-        />
-      )}
-    </div>
   );
 }
 
@@ -2450,7 +1470,7 @@ function App() {
         setCloudWarning("Account collection could not be loaded yet. Guest pulls stay local on this device.");
       });
 
-    loadCloudBinders(userId)
+    loadPersistedBinders(userId)
       .then((cloudBinders) => {
         if (!isMounted) return;
 
@@ -2763,17 +1783,11 @@ function App() {
   }
 
   function persistBinderState(nextBinders, changedBinderId = "") {
-    if (!authUser) {
-      saveBinders(nextBinders);
-      return;
-    }
-
-    const changedBinder = changedBinderId ? nextBinders.find((binder) => binder.id === changedBinderId) : null;
-    const saveOperation = changedBinder
-      ? upsertCloudBinder(authUser.id, changedBinder)
-      : saveCloudBinders(authUser.id, nextBinders);
-
-    saveOperation
+    persistBindersForUser({
+      userId: authUser?.id,
+      binders: nextBinders,
+      changedBinderId,
+    })
       .then(() => {})
       .catch((error) => {
         console.warn("Cloud binder save failed", error);
@@ -2781,8 +1795,8 @@ function App() {
       });
   }
 
-  function handleCreateBinder(name, tag, theme) {
-    const binder = createBinder({ name, tag, theme });
+  function handleCreateBinder(name, theme = "midnight") {
+    const binder = createBinder({ name, tag: "Custom Binder", theme });
 
     setBinders((currentBinders) => {
       const nextBinders = [binder, ...currentBinders];
@@ -2794,25 +1808,19 @@ function App() {
     return binder;
   }
 
-  function handleUpdateBinderTheme(binderId, theme) {
-    setBinders((currentBinders) => {
-      const nextBinders = updateBinderTheme(currentBinders, binderId, theme);
-
-      persistBinderState(nextBinders, binderId);
-      return nextBinders;
-    });
-  }
-
-  function handleCreateMasterSetBinder(set, options = {}) {
+  function handleCreateMasterSetBinder(set, name = "", theme = "midnight") {
     if (!set?.id) return null;
 
     const existingBinder = binders.find((binder) => isMasterSetBinder(binder) && binder.setId === set.id);
 
     if (existingBinder) return existingBinder;
 
-    const binder = createMasterSetBinder(set, options.theme);
+    const requestedTheme = typeof name === "object" ? name.theme : theme;
+    const requestedName = typeof name === "string" ? name.trim() : "";
+    const binder = createMasterSetBinder(set, requestedTheme);
 
     if (!binder) return null;
+    if (requestedName) binder.name = requestedName;
 
     setBinders((currentBinders) => {
       const currentExisting = currentBinders.find((candidate) => isMasterSetBinder(candidate) && candidate.setId === set.id);
@@ -2866,15 +1874,6 @@ function App() {
       const nextBinders = removeCardFromBinder(currentBinders, targetBinderId, card, set.id);
 
       persistBinderState(nextBinders, targetBinderId);
-      return nextBinders;
-    });
-  }
-
-  function handleClearBinder(binderId) {
-    setBinders((currentBinders) => {
-      const nextBinders = clearBinderCards(currentBinders, binderId);
-
-      persistBinderState(nextBinders, binderId);
       return nextBinders;
     });
   }
@@ -2943,6 +1942,27 @@ function App() {
     } finally {
       setIsClaimingWelcomeReward(false);
     }
+  }
+
+  function handleAddBinderCards(binderId, selections) {
+    setBinders((currentBinders) => {
+      const ownedSelections = (Array.isArray(selections) ? selections : []).filter(({ card, setId }) =>
+        isCardCollected(collection, card, setId)
+      );
+      const nextBinders = addCardsToBinder(currentBinders, binderId, ownedSelections);
+
+      persistBinderState(nextBinders, binderId);
+      return nextBinders;
+    });
+  }
+
+  function handleReplaceBinderCards(binderId, cards) {
+    setBinders((currentBinders) => {
+      const nextBinders = replaceBinderCards(currentBinders, binderId, cards);
+
+      persistBinderState(nextBinders, binderId);
+      return nextBinders;
+    });
   }
 
   function backToSets() {
@@ -3082,8 +2102,8 @@ function App() {
           onOpenAuth={openAuthModal}
           onCreateBinder={handleCreateBinder}
           onCreateMasterSetBinder={handleCreateMasterSetBinder}
-          onUpdateBinderTheme={handleUpdateBinderTheme}
-          onClearBinder={handleClearBinder}
+          onAddBinderCards={handleAddBinderCards}
+          onReplaceBinderCards={handleReplaceBinderCards}
           onAddToBinder={handleAddToBinder}
           onRemoveFromBinder={handleRemoveFromBinder}
         />

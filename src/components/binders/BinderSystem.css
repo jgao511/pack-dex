@@ -1,0 +1,1144 @@
+.shared-binder-system {
+  width: 100%;
+  max-width: 1120px;
+  display: grid;
+  gap: 12px;
+  margin: 0 auto;
+  color: #f8fbff;
+}
+
+.shared-binder-system *,
+.shared-binder-system *::before,
+.shared-binder-system *::after {
+  box-sizing: border-box;
+}
+
+.shared-binder-system button,
+.shared-binder-system input,
+.shared-binder-system select {
+  font: inherit;
+}
+
+.shared-binder-system button {
+  cursor: pointer;
+}
+
+.shared-binder-system button:disabled {
+  cursor: default;
+}
+
+.shared-binder-system .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.shared-binder-system .eyebrow {
+  color: #98a6c8;
+  font-size: .74rem;
+  font-weight: 850;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+.shared-binder-system .primary-action,
+.shared-binder-system .secondary-action {
+  min-height: 56px;
+  border-radius: 18px;
+  padding: 0 16px;
+  font-size: .96rem;
+  font-weight: 920;
+}
+
+.shared-binder-system .primary-action {
+  border: 0;
+  color: #fff;
+  background: linear-gradient(135deg, #7140ff, #8e00ff);
+  box-shadow: 0 16px 34px rgba(113, 64, 255, .3);
+}
+
+.shared-binder-system .primary-action:disabled,
+.shared-binder-system .secondary-action:disabled,
+.shared-binder-system .inline-auth-link:disabled {
+  opacity: .55;
+}
+
+.shared-binder-system .secondary-action {
+  border: 1px solid rgba(255, 255, 255, .7);
+  color: inherit;
+  background: rgba(255, 255, 255, .06);
+}
+
+.shared-binder-system .inline-auth-link {
+  border: 0;
+  padding: 0;
+  color: #b8b0ff;
+  background: transparent;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.shared-binder-system .binder-actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  border: 1px solid rgba(151, 129, 255, .14);
+  border-radius: 22px;
+  padding: 14px;
+  background: rgba(16, 18, 40, .74);
+}
+
+.shared-binder-system .binder-actions h2 {
+  margin: 4px 0 0;
+  color: #f8fbff;
+}
+
+.shared-binder-system .binder-actions-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.shared-binder-system .binder-quick-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.shared-binder-system .binder-quick-actions .secondary-action {
+  min-height: 36px;
+  border-color: rgba(151, 129, 255, .18);
+  border-radius: 999px;
+  padding: 0 12px;
+  font-size: .78rem;
+}
+
+.shared-binder-system .binder-empty-state {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 12px 2px 4px;
+  text-align: center;
+}
+
+.shared-binder-system .binder-empty-state strong {
+  color: #f8fbff;
+  font-size: 1.08rem;
+}
+
+.shared-binder-system .binder-empty-state p {
+  max-width: 260px;
+  margin: 0;
+  color: #c4cbe0;
+  line-height: 1.35;
+}
+
+.shared-binder-system .binder-empty-state .primary-action {
+  width: 100%;
+  margin-top: 4px;
+}
+
+.shared-binder-system .binder-list-mobile {
+  display: grid;
+  gap: 12px;
+}
+
+.shared-binder-system .binder-card-mobile {
+  --binder-theme: #25245a;
+  min-width: 0;
+  min-height: 158px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  border: 1px solid rgba(185, 205, 255, .18);
+  border-radius: 20px;
+  color: #f8fbff;
+  background:
+    radial-gradient(circle at 84% 8%, color-mix(in srgb, var(--binder-theme), transparent 82%), transparent 34%),
+    linear-gradient(135deg, color-mix(in srgb, var(--binder-theme), #171a35 22%), color-mix(in srgb, var(--binder-theme), #050817 68%));
+}
+
+.shared-binder-system .binder-card-mobile.is-forest { --binder-theme: #1d6548; }
+.shared-binder-system .binder-card-mobile.is-gold { --binder-theme: #846f20; }
+.shared-binder-system .binder-card-mobile.is-royal { --binder-theme: #3439a5; }
+.shared-binder-system .binder-card-mobile.is-crimson { --binder-theme: #8a2539; }
+.shared-binder-system .binder-card-mobile.is-violet { --binder-theme: #6425d6; }
+
+.shared-binder-system .binder-spine {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 13px;
+  background: color-mix(in srgb, var(--binder-theme), #050817 42%);
+}
+
+.shared-binder-system .binder-spine span {
+  width: 20px;
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #fff, #aeb6ca);
+}
+
+.shared-binder-system .binder-card-body {
+  min-width: 0;
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 7px;
+  padding: 14px 14px 16px;
+}
+
+.shared-binder-system .binder-cover-logo {
+  min-height: 48px;
+  display: grid;
+  align-items: center;
+}
+
+.shared-binder-system .binder-logo {
+  width: 116px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.shared-binder-system .binder-card-body strong {
+  max-width: 100%;
+  color: #fff;
+  font-size: 1.12rem;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.shared-binder-system .binder-card-body em,
+.shared-binder-system .binder-card-body small {
+  color: #d3dbf8;
+  font-size: .78rem;
+  font-style: normal;
+  font-weight: 850;
+}
+
+.shared-binder-system .binder-card-body .secondary-action {
+  width: auto;
+  min-height: 38px;
+  margin-top: 4px;
+  border-color: rgba(255, 255, 255, .18);
+  border-radius: 999px;
+  padding: 8px 14px;
+  color: #fff;
+  background: rgba(8, 12, 24, .44);
+  font-size: .78rem;
+}
+
+.shared-binder-system .binder-reader-mobile {
+  display: grid;
+  gap: 9px;
+  padding-bottom: 8px;
+}
+
+.shared-binder-system .binder-back-link {
+  width: fit-content;
+  min-height: 40px;
+  border: 0;
+  padding: 0 8px 0 0;
+  color: #c9c3ff;
+  background: transparent;
+  font-size: .88rem;
+  font-weight: 850;
+}
+
+.shared-binder-system .binder-reader-heading {
+  display: block;
+}
+
+.shared-binder-system .binder-reader-heading h2,
+.shared-binder-system .binder-reader-heading p {
+  margin: 0;
+}
+
+.shared-binder-system .binder-reader-heading h2 {
+  max-width: 100%;
+  margin-top: 3px;
+  color: #f8fbff;
+  font-size: clamp(1.24rem, 5.6vw, 1.55rem);
+  line-height: 1.08;
+  overflow-wrap: anywhere;
+}
+
+.shared-binder-system .binder-reader-heading p {
+  margin-top: 4px;
+  color: #9ca8c7;
+  font-size: .82rem;
+}
+
+.shared-binder-system .binder-compact-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: 7px;
+}
+
+.shared-binder-system .binder-compact-actions .primary-action,
+.shared-binder-system .binder-compact-actions .secondary-action {
+  min-width: 0;
+  min-height: 42px;
+  padding: 0 10px;
+  border-radius: 13px;
+  font-size: .8rem;
+}
+
+.shared-binder-system .custom-binder-empty,
+.shared-binder-system .custom-binder-grid,
+.shared-binder-system .master-binder-page-mobile {
+  border: 1px solid rgba(154, 128, 255, .28);
+  border-radius: 19px;
+  background:
+    radial-gradient(circle at 85% 0, rgba(107, 70, 214, .12), transparent 32%),
+    #12162a;
+}
+
+.shared-binder-system .custom-binder-empty {
+  min-height: 205px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 8px;
+  padding: 24px 18px;
+  text-align: center;
+}
+
+.shared-binder-system .custom-binder-empty strong {
+  color: #f8fbff;
+  font-size: 1.05rem;
+}
+
+.shared-binder-system .custom-binder-empty > span {
+  max-width: 280px;
+  color: #9ea9c8;
+  font-size: .84rem;
+  line-height: 1.4;
+}
+
+.shared-binder-system .custom-binder-empty .primary-action {
+  min-height: 44px;
+  margin-top: 7px;
+}
+
+.shared-binder-system .custom-binder-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: 9px 7px;
+  padding: 9px;
+}
+
+.shared-binder-system .custom-binder-card {
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+}
+
+.shared-binder-system .custom-binder-card-image,
+.shared-binder-system .custom-binder-add-slot {
+  width: 100%;
+  aspect-ratio: 2.5 / 3.5;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(157, 137, 234, .28);
+  border-radius: 8px;
+  padding: 0;
+  color: inherit;
+  background: #0a0e1c;
+}
+
+.shared-binder-system .mobile-card-image-shell,
+.shared-binder-system .custom-binder-card-image img,
+.shared-binder-system .master-binder-slot-mobile img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+.shared-binder-system .binder-pocket-quantity {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  display: inline-grid;
+  place-items: center;
+  min-width: 23px;
+  min-height: 20px;
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(7, 9, 19, .84);
+  font-size: .64rem;
+  font-weight: 950;
+}
+
+.shared-binder-system .custom-binder-edit-controls {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr) 32px;
+  gap: 3px;
+}
+
+.shared-binder-system .custom-binder-edit-controls button {
+  min-width: 0;
+  min-height: 34px;
+  border: 1px solid rgba(165, 147, 240, .23);
+  border-radius: 8px;
+  padding: 0 3px;
+  color: #d9dded;
+  background: #1a1e33;
+  font-size: .62rem;
+  font-weight: 850;
+}
+
+.shared-binder-system .custom-binder-edit-controls button:first-child,
+.shared-binder-system .custom-binder-edit-controls button:last-child {
+  font-size: 1.15rem;
+}
+
+.shared-binder-system .custom-binder-edit-controls .custom-binder-remove-card {
+  border-color: rgba(255, 111, 127, .38);
+  color: #fff;
+  background: rgba(173, 39, 58, .72);
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.shared-binder-system .custom-binder-edit-controls button:disabled {
+  opacity: .34;
+}
+
+.shared-binder-system .custom-binder-add-slot {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 4px;
+  border-style: dashed;
+  color: #bdb3ff;
+  background: rgba(23, 24, 48, .72);
+}
+
+.shared-binder-system .custom-binder-add-slot strong {
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.shared-binder-system .custom-binder-add-slot span {
+  font-size: .67rem;
+  font-weight: 850;
+}
+
+.shared-binder-system .master-binder-page-mobile {
+  width: min(100%, 720px);
+  position: relative;
+  margin: 0 auto;
+  padding: 28px 9px 9px;
+  touch-action: pan-y;
+}
+
+.shared-binder-system .master-binder-page-label {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  color: #8f9abb;
+  font-size: .68rem;
+  font-weight: 850;
+}
+
+.shared-binder-system .master-binder-grid-mobile {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.shared-binder-system .master-binder-slot-mobile {
+  width: 100%;
+  aspect-ratio: 2.5 / 3.5;
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(150, 132, 223, .26);
+  border-radius: 8px;
+  padding: 0;
+  color: inherit;
+  background: #0a0e1b;
+}
+
+.shared-binder-system .master-binder-slot-mobile.is-missing {
+  border-style: dashed;
+  border-color: rgba(143, 132, 188, .24);
+  background:
+    linear-gradient(145deg, rgba(67, 61, 94, .2), transparent),
+    #111523;
+}
+
+.shared-binder-system .master-binder-slot-mobile.is-empty {
+  border-color: transparent;
+  background: rgba(8, 11, 22, .3);
+  opacity: .34;
+}
+
+.shared-binder-system .master-missing-card-copy {
+  width: 100%;
+  min-width: 0;
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 8px 5px;
+  text-align: center;
+}
+
+.shared-binder-system .master-missing-card-copy strong {
+  color: #d5d0ee;
+  font-size: .78rem;
+}
+
+.shared-binder-system .master-missing-card-copy b {
+  width: 100%;
+  display: -webkit-box;
+  overflow: hidden;
+  color: #aeb7d0;
+  font-size: clamp(.62rem, 2.5vw, .72rem);
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.shared-binder-system .master-missing-card-copy small {
+  color: #777f98;
+  font-size: .58rem;
+  font-weight: 900;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.shared-binder-system .binder-reader-empty {
+  min-height: 150px;
+  display: grid;
+  place-content: center;
+  gap: 6px;
+  padding: 18px;
+  color: rgba(230, 232, 248, .76);
+  text-align: center;
+}
+
+.shared-binder-system .binder-reader-empty span {
+  font-size: .78rem;
+  line-height: 1.45;
+}
+
+.shared-binder-system .binder-page-controls {
+  position: sticky;
+  bottom: 0;
+  z-index: 8;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 7px;
+  border: 1px solid rgba(153, 132, 235, .2);
+  border-radius: 15px;
+  padding: 6px;
+  background: rgba(12, 15, 30, .94);
+  backdrop-filter: blur(14px);
+}
+
+.shared-binder-system .binder-page-controls button {
+  min-width: 0;
+  min-height: 40px;
+  padding: 0 9px;
+  border-radius: 11px;
+  font-size: .75rem;
+}
+
+.shared-binder-system .binder-page-controls > span {
+  color: #aeb7d2;
+  font-size: .68rem;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.shared-binder-system .binder-modal-overlay,
+.shared-binder-system .binder-fullscreen-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  color: #f8fbff;
+}
+
+.shared-binder-system .binder-modal-overlay {
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: rgba(4, 6, 16, .72);
+  backdrop-filter: blur(12px);
+}
+
+.shared-binder-system .binder-sheet {
+  width: min(100%, 372px);
+  position: relative;
+  display: grid;
+  gap: 14px;
+  border: 1px solid rgba(255, 255, 255, .13);
+  border-radius: 28px;
+  padding: 24px 18px 20px;
+  background:
+    radial-gradient(circle at top right, rgba(148, 82, 255, .22), transparent 34%),
+    rgba(37, 31, 55, .98);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .42);
+}
+
+.shared-binder-system .binder-modal-heading {
+  padding-right: 42px;
+}
+
+.shared-binder-system .binder-modal-heading h2 {
+  margin: 2px 0 0;
+  color: #f8fbff;
+  font-size: 1.32rem;
+}
+
+.shared-binder-system .binder-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 999px;
+  padding: 0;
+  color: #f7f4ff;
+  background: rgba(255, 255, 255, .1);
+}
+
+.shared-binder-system .binder-modal-close svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.shared-binder-system .custom-binder-form {
+  min-height: 0;
+  display: grid;
+  align-content: start;
+  gap: 10px;
+}
+
+.shared-binder-system .custom-binder-form label {
+  display: grid;
+  gap: 7px;
+  color: #cfd8f4;
+  font-size: .82rem;
+  font-weight: 850;
+}
+
+.shared-binder-system .custom-binder-form input {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid rgba(185, 205, 255, .16);
+  border-radius: 14px;
+  padding: 0 12px;
+  color: #f8fbff;
+  background: rgba(5, 8, 18, .34);
+  font-size: 16px;
+}
+
+.shared-binder-system .custom-binder-form input::placeholder {
+  color: #828dab;
+}
+
+.shared-binder-system .binder-theme-picker {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.shared-binder-system .binder-theme-picker button {
+  min-width: 0;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(185, 205, 255, .14);
+  border-radius: 14px;
+  background: rgba(5, 8, 18, .34);
+}
+
+.shared-binder-system .binder-theme-picker button.is-active {
+  border-color: rgba(184, 176, 255, .68);
+  box-shadow: inset 0 0 0 1px rgba(184, 176, 255, .18);
+}
+
+.shared-binder-system .binder-theme-picker span {
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--swatch);
+}
+
+.shared-binder-system .binder-fullscreen-overlay {
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 75% -8%, rgba(104, 67, 236, .22), transparent 32%),
+    #090d19;
+}
+
+.shared-binder-system .owned-card-picker,
+.shared-binder-system .import-binder-sheet {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  overflow: hidden;
+}
+
+.shared-binder-system .owned-card-picker {
+  grid-template-rows: auto auto auto auto minmax(0, 1fr) auto;
+  gap: 10px;
+  padding: max(17px, env(safe-area-inset-top)) 13px max(12px, env(safe-area-inset-bottom));
+}
+
+.shared-binder-system .binder-picker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.shared-binder-system .binder-picker-header h2,
+.shared-binder-system .import-binder-sheet h2 {
+  margin: 2px 0 0;
+  color: #f8fbff;
+  font-size: 1.32rem;
+}
+
+.shared-binder-system .binder-picker-header > button {
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(183, 169, 245, .18);
+  border-radius: 50%;
+  color: #f4f1ff;
+  background: #191c31;
+  font-size: 1.45rem;
+}
+
+.shared-binder-system .binder-search-field {
+  display: block;
+}
+
+.shared-binder-system .binder-search-field input,
+.shared-binder-system .owned-card-filters select,
+.shared-binder-system .binder-picker-order select {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid rgba(171, 151, 255, .24);
+  border-radius: 13px;
+  padding: 0 12px;
+  color: #f8fbff;
+  background: #13172a;
+  font-size: 16px;
+}
+
+.shared-binder-system .binder-search-field input::placeholder {
+  color: #828dab;
+}
+
+.shared-binder-system .binder-era-chips {
+  display: flex;
+  gap: 7px;
+  overflow-x: auto;
+  padding: 1px 0 3px;
+  scrollbar-width: none;
+}
+
+.shared-binder-system .binder-era-chips::-webkit-scrollbar {
+  display: none;
+}
+
+.shared-binder-system .binder-era-chips button {
+  flex: 0 0 auto;
+  min-height: 36px;
+  border: 1px solid rgba(163, 144, 238, .2);
+  border-radius: 999px;
+  padding: 0 11px;
+  color: #aeb8d2;
+  background: #13172a;
+  font-size: .7rem;
+  font-weight: 850;
+}
+
+.shared-binder-system .binder-era-chips button.is-active {
+  border-color: rgba(183, 165, 255, .62);
+  color: #fff;
+  background: #4f38a8;
+}
+
+.shared-binder-system .owned-card-filters {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.shared-binder-system .owned-card-filters label {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+  color: #9da8c6;
+  font-size: .62rem;
+  font-weight: 850;
+}
+
+.shared-binder-system .owned-card-filters select {
+  min-width: 0;
+  min-height: 40px;
+  padding: 0 5px;
+  font-size: .68rem;
+  text-overflow: ellipsis;
+}
+
+.shared-binder-system .owned-card-picker-grid {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-content: start;
+  gap: 12px 7px;
+  overflow-y: auto;
+  padding: 2px 1px 14px;
+  overscroll-behavior: contain;
+}
+
+.shared-binder-system .owned-card-choice {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.shared-binder-system .owned-card-select {
+  width: 100%;
+  aspect-ratio: 2.5 / 3.5;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid transparent;
+  border-radius: 9px;
+  padding: 0;
+  background: #080b15;
+}
+
+.shared-binder-system .owned-card-select img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.shared-binder-system .owned-card-choice.is-selected .owned-card-select {
+  border-color: #a993ff;
+  box-shadow: 0 0 0 2px rgba(169, 147, 255, .2);
+}
+
+.shared-binder-system .owned-card-choice.is-existing .owned-card-select {
+  opacity: .46;
+}
+
+.shared-binder-system .owned-card-choice-state {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  min-height: 20px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0 7px;
+  color: #fff;
+  background: rgba(7, 9, 18, .84);
+  font-size: .58rem;
+  font-weight: 900;
+}
+
+.shared-binder-system .owned-card-choice.is-selected .owned-card-choice-state {
+  background: #6548d0;
+}
+
+.shared-binder-system .owned-card-preview {
+  min-height: 32px;
+  border: 0;
+  border-radius: 8px;
+  color: #bdb6e8;
+  background: rgba(38, 40, 70, .7);
+  font-size: .64rem;
+  font-weight: 850;
+}
+
+.shared-binder-system .binder-picker-empty {
+  margin: 0;
+  padding: 20px 12px;
+  color: #9da8c6;
+  font-size: .8rem;
+  text-align: center;
+}
+
+.shared-binder-system .owned-card-empty {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 5px;
+}
+
+.shared-binder-system .owned-card-load-more {
+  grid-column: 1 / -1;
+  min-height: 48px;
+  display: grid;
+  place-items: center;
+  gap: 2px;
+  border: 1px solid rgba(169, 147, 255, .28);
+  border-radius: 13px;
+  color: #f3f0ff;
+  background: #211b42;
+  font-size: .78rem;
+  font-weight: 900;
+}
+
+.shared-binder-system .owned-card-load-more span {
+  color: #a9b2cc;
+  font-size: .64rem;
+  font-weight: 750;
+}
+
+.shared-binder-system .owned-card-picker-footer {
+  display: grid;
+  grid-template-columns: 1fr minmax(145px, auto);
+  align-items: center;
+  gap: 10px;
+  border-top: 1px solid rgba(168, 147, 255, .18);
+  padding-top: 9px;
+}
+
+.shared-binder-system .owned-card-picker-footer strong {
+  font-size: .82rem;
+}
+
+.shared-binder-system .owned-card-picker-footer .primary-action {
+  min-height: 46px;
+}
+
+.shared-binder-system .binder-card-preview-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 16px;
+  padding: max(18px, env(safe-area-inset-top)) 24px max(18px, env(safe-area-inset-bottom));
+  background:
+    radial-gradient(circle at 50% 22%, rgba(104, 67, 236, .22), transparent 35%),
+    #090d19;
+}
+
+.shared-binder-system .binder-card-preview-overlay > img {
+  width: min(72vw, 285px);
+  max-height: 65dvh;
+  object-fit: contain;
+  border-radius: 15px;
+  box-shadow: 0 24px 54px rgba(0, 0, 0, .42);
+}
+
+.shared-binder-system .binder-card-preview-overlay > div {
+  display: grid;
+  gap: 3px;
+  text-align: center;
+}
+
+.shared-binder-system .binder-card-preview-overlay span,
+.shared-binder-system .binder-card-preview-overlay small {
+  color: #aab4d0;
+}
+
+.shared-binder-system .binder-preview-close {
+  position: absolute;
+  top: max(16px, env(safe-area-inset-top));
+  left: 15px;
+  min-height: 42px;
+  border: 0;
+  padding: 0 8px;
+  color: #cbc3ff;
+  background: transparent;
+  font-weight: 850;
+}
+
+.shared-binder-system .import-binder-sheet {
+  position: relative;
+  overflow-y: auto;
+  padding: max(21px, env(safe-area-inset-top)) 16px max(18px, env(safe-area-inset-bottom));
+}
+
+.shared-binder-system .searchable-set-picker {
+  min-height: 0;
+  display: grid;
+  gap: 9px;
+}
+
+.shared-binder-system .binder-picker-order {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: #9da8c6;
+  font-size: .72rem;
+  font-weight: 800;
+}
+
+.shared-binder-system .binder-picker-order select {
+  width: auto;
+  min-height: 38px;
+  padding-inline: 10px 28px;
+  font-size: .72rem;
+}
+
+.shared-binder-system .binder-set-results {
+  max-height: min(42dvh, 365px);
+  display: grid;
+  gap: 7px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.shared-binder-system .binder-set-results > button {
+  min-height: 62px;
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(157, 138, 233, .19);
+  border-radius: 13px;
+  padding: 7px 10px;
+  color: #f7f8ff;
+  background: #13172a;
+  text-align: left;
+}
+
+.shared-binder-system .binder-set-results > button.is-active {
+  border-color: rgba(183, 165, 255, .7);
+  background: #29204f;
+}
+
+.shared-binder-system .binder-set-results img {
+  width: 70px;
+  max-height: 40px;
+  object-fit: contain;
+}
+
+.shared-binder-system .binder-set-results span,
+.shared-binder-system .binder-set-results strong,
+.shared-binder-system .binder-set-results small {
+  min-width: 0;
+  display: block;
+}
+
+.shared-binder-system .binder-set-results strong {
+  color: #f7f8ff;
+  font-size: .82rem;
+  line-height: 1.15;
+}
+
+.shared-binder-system .binder-set-results small {
+  margin-top: 4px;
+  color: #9da8c6;
+  font-size: .63rem;
+  line-height: 1.3;
+}
+
+@media (min-width: 760px) {
+  .shared-binder-system {
+    gap: 18px;
+  }
+
+  .shared-binder-system .binder-actions {
+    padding: 20px;
+  }
+
+  .shared-binder-system .binder-list-mobile {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .shared-binder-system .binder-card-mobile {
+    min-height: 188px;
+    grid-template-columns: 46px minmax(0, 1fr);
+  }
+
+  .shared-binder-system .binder-card-body {
+    padding: 20px;
+  }
+
+  .shared-binder-system .binder-reader-mobile {
+    gap: 14px;
+  }
+
+  .shared-binder-system .binder-reader-heading h2 {
+    font-size: 1.8rem;
+  }
+
+  .shared-binder-system .binder-compact-actions {
+    grid-template-columns: repeat(2, minmax(140px, 190px));
+  }
+
+  .shared-binder-system .custom-binder-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .shared-binder-system .binder-page-controls {
+    width: min(100%, 720px);
+    margin: 0 auto;
+  }
+
+  .shared-binder-system .owned-card-picker {
+    width: min(100%, 1040px);
+    margin: 0 auto;
+    padding: 24px;
+  }
+
+  .shared-binder-system .owned-card-picker-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 16px 10px;
+  }
+
+  .shared-binder-system .import-binder-sheet {
+    width: min(100%, 760px);
+    margin: 0 auto;
+    padding: 30px;
+  }
+
+  .shared-binder-system .binder-sheet {
+    width: min(100%, 520px);
+    padding: 30px;
+  }
+}
+
+@media (max-width: 360px) {
+  .shared-binder-system .custom-binder-grid,
+  .shared-binder-system .master-binder-grid-mobile {
+    gap: 6px;
+  }
+
+  .shared-binder-system .owned-card-picker {
+    padding-inline: 10px;
+  }
+
+  .shared-binder-system .owned-card-filters {
+    gap: 4px;
+  }
+}
