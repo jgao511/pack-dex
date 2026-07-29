@@ -106,6 +106,8 @@ test("custom binder UI is continuous and all add entry points share the owned-ca
   assert.match(picker, /Search cards you own…/);
   assert.match(picker, /All rarities/);
   assert.match(picker, /Recently pulled/);
+  assert.doesNotMatch(picker, /<option value="set-order">/);
+  assert.match(picker, /useState\("recent"\)/);
   assert.match(picker, /OWNED_CARD_PAGE_SIZE = 48/);
   assert.match(picker, /Load More/);
   assert.doesNotMatch(picker, /autoFocus/);

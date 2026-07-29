@@ -98,7 +98,7 @@ export function OwnedCardPicker({ collection, binder, setList, onClose, onConfir
   const [era, setEra] = useState("All");
   const [setId, setSetId] = useState("All");
   const [rarity, setRarity] = useState("All");
-  const [sort, setSort] = useState("set-order");
+  const [sort, setSort] = useState("recent");
   const [selectedKeys, setSelectedKeys] = useState(() => new Set());
   const [preview, setPreview] = useState(null);
   const [visibleCount, setVisibleCount] = useState(OWNED_CARD_PAGE_SIZE);
@@ -189,7 +189,6 @@ export function OwnedCardPicker({ collection, binder, setList, onClose, onConfir
           <label>
             <span>Sort</span>
             <select value={sort} onChange={(event) => setSort(event.target.value)}>
-              <option value="set-order">Set order</option>
               <option value="recent">Recently pulled</option>
               <option value="name">Name</option>
               <option value="rarity">Rarity</option>
