@@ -2084,9 +2084,14 @@ body.scanner-camera-active,
   position: absolute;
   inset: 0;
   z-index: 95;
+  min-height: 0;
   display: grid;
   place-items: center;
-  padding: 18px;
+  overflow: hidden;
+  padding:
+    max(12px, env(safe-area-inset-top))
+    18px
+    max(12px, env(safe-area-inset-bottom));
   background: rgba(4, 6, 16, 0.7);
   backdrop-filter: blur(12px);
 }
@@ -2094,13 +2099,17 @@ body.scanner-camera-active,
 .mobile-auth-modal {
   position: relative;
   width: min(100%, 370px);
-  max-height: calc(100dvh - 44px);
+  max-height: 100%;
+  min-height: 0;
   display: grid;
   gap: 14px;
   overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scroll-padding-bottom: calc(20px + env(safe-area-inset-bottom));
   border: 1px solid rgba(255, 255, 255, 0.13);
   border-radius: 28px;
-  padding: 24px 18px 20px;
+  padding: 24px 18px calc(20px + env(safe-area-inset-bottom));
   background:
     radial-gradient(circle at top right, rgba(148, 82, 255, 0.22), transparent 34%),
     rgba(37, 31, 55, 0.96);
@@ -3455,8 +3464,13 @@ body.scanner-camera-active,
 
 .auth-callback-mobile-card {
   width: min(100%, 380px);
+  max-height: calc(100dvh - 44px);
+  min-height: auto;
   display: grid;
   gap: 14px;
+  overscroll-behavior: auto;
+  -webkit-overflow-scrolling: auto;
+  scroll-padding-bottom: auto;
   border: 1px solid rgba(185, 205, 255, 0.16);
   border-radius: 20px;
   padding: 20px;

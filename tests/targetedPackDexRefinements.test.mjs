@@ -120,3 +120,26 @@ test("account access remains a single-page form and submit requests are deduplic
   assert.match(app, /authRequestInFlightRef\.current/);
   assert.match(app, /if \(authRequestInFlightRef\.current\) return/);
 });
+
+test("mobile account forms keep login and signup submits in the bounded modal scroller", async () => {
+  const [app, css] = await Promise.all([
+    readFile(new URL("../mobile-app/src/App.jsx", import.meta.url), "utf8"),
+    readFile(new URL("../mobile-app/src/App.css", import.meta.url), "utf8"),
+  ]);
+  const authModal = app.slice(app.indexOf("function MobileAuthModal"), app.indexOf("function TabIcon"));
+  const overlayRule = css.match(/\.mobile-auth-overlay\s*\{([^}]*)\}/)?.[1] || "";
+  const modalRule = css.match(/\.mobile-auth-modal\s*\{([^}]*)\}/)?.[1] || "";
+
+  assert.match(authModal, /<section className="mobile-auth-modal"[\s\S]*?<form className="auth-form"[\s\S]*?<button className="primary-action compact-auth-submit mobile-auth-submit" type="submit"/);
+  assert.match(authModal, /authMode === "login" \? "Log In" : "Create Account"/);
+  assert.match(overlayRule, /inset:\s*0/);
+  assert.match(overlayRule, /min-height:\s*0/);
+  assert.match(overlayRule, /overflow:\s*hidden/);
+  assert.match(overlayRule, /env\(safe-area-inset-bottom\)/);
+  assert.match(modalRule, /max-height:\s*100%/);
+  assert.match(modalRule, /min-height:\s*0/);
+  assert.match(modalRule, /overflow-y:\s*auto/);
+  assert.match(modalRule, /-webkit-overflow-scrolling:\s*touch/);
+  assert.match(modalRule, /scroll-padding-bottom:\s*calc\(20px \+ env\(safe-area-inset-bottom\)\)/);
+  assert.doesNotMatch(modalRule, /100dvh/);
+});

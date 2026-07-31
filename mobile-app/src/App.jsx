@@ -1053,7 +1053,7 @@ function MobileAuthModal({
               </div>
             </>
           )}
-          <button className="primary-action compact-auth-submit" type="submit" disabled={!canSubmitAuth}>
+          <button className="primary-action compact-auth-submit mobile-auth-submit" type="submit" disabled={!canSubmitAuth}>
             {isAuthSubmitting ? "Loading..." : authMode === "login" ? "Log In" : "Create Account"}
           </button>
           {isCreateMode && (
