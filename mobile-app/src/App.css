@@ -614,6 +614,7 @@ button {
 }
 
 .pack-stage {
+  position: relative;
   display: grid;
   justify-items: center;
   align-content: start;
@@ -661,11 +662,35 @@ button {
   padding-bottom: calc(28px + env(safe-area-inset-bottom));
 }
 
-.pack-skip-hint {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.75rem;
-  font-weight: 700;
+.pack-ready-reveal-select {
+  position: absolute;
+  z-index: 8;
+  top: 8px;
+  right: 10px;
+  width: 92px;
+  height: 30px;
+  border: 1px solid rgba(183, 170, 236, 0.18);
+  border-radius: 999px;
+  padding: 0 22px 0 10px;
+  color: #d8d2ee;
+  background: rgba(12, 10, 30, 0.72);
+  font: inherit;
+  font-size: 0.66rem;
+  font-weight: 820;
+  outline: none;
+}
+
+.pack-ready-reveal-select:focus-visible {
+  box-shadow: 0 0 0 2px rgba(169, 147, 255, 0.55);
+}
+
+.pack-save-message {
+  margin: 0.75rem auto 0;
+  max-width: 34rem;
+  color: #f1b5bd;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  text-align: center;
 }
 
 .pack-logo {
@@ -987,6 +1012,12 @@ body.scanner-camera-active,
   text-align: center;
 }
 
+.tap-reveal-instruction {
+  min-height: 1.2em;
+  font-size: 0.78rem;
+  animation: revealInstructionIn 220ms ease-out both;
+}
+
 .reveal-grid {
   width: 100%;
   display: grid;
@@ -1023,6 +1054,16 @@ body.scanner-camera-active,
   transform: translateY(18px) scale(0.94);
   animation: dealCard 280ms ease forwards;
   animation-delay: var(--deal-delay);
+}
+
+.reveal-mode-tap .reveal-card:not(.is-revealed) .reveal-card-back {
+  outline: 1px solid rgba(187, 178, 226, 0.24);
+  outline-offset: -2px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.26), 0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
+.reveal-mode-tap .reveal-card:not(.is-revealed):active {
+  transform: scale(0.97);
 }
 
 .reveal-card.is-revealed {
@@ -1173,6 +1214,127 @@ body.scanner-camera-active,
 
 .reveal-card.is-reveal-celebration.is-final.is-hit .mobile-card-image-shell {
   animation: mobileFinalHitLift 900ms ease-out both;
+}
+
+.swipe-reveal-mode {
+  width: 100%;
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  overscroll-behavior: none;
+  touch-action: none;
+  overflow: clip;
+}
+
+.swipe-reveal-progress,
+.swipe-reveal-instruction {
+  margin: 0;
+  color: #aeb7d0;
+  font-size: 0.74rem;
+  font-weight: 780;
+}
+
+.swipe-reveal-progress {
+  letter-spacing: 0.08em;
+}
+
+.swipe-deck-stage {
+  position: relative;
+  width: clamp(184px, min(72vw, 38dvh), 274px);
+  aspect-ratio: 0.716;
+  perspective: 1100px;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.swipe-under-card,
+.swipe-primary-card {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 10px;
+}
+
+.swipe-under-card {
+  z-index: 2;
+  overflow: hidden;
+  background: #080b15;
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+.swipe-card-face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #080b15;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+}
+
+.swipe-primary-card {
+  z-index: 3;
+  aspect-ratio: 0.716;
+  opacity: 1;
+  animation: none;
+  transform-origin: 50% 88%;
+  transition: transform 250ms cubic-bezier(0.2, 0.78, 0.2, 1);
+  cursor: grab;
+  will-change: transform;
+  touch-action: none;
+}
+
+.swipe-primary-card.is-dragging {
+  transition: none;
+  cursor: grabbing;
+}
+
+.swipe-primary-card.is-repositioning {
+  transition: none;
+}
+
+.swipe-primary-card.is-exiting {
+  transition-duration: 260ms;
+  transition-timing-function: cubic-bezier(0.22, 0.7, 0.25, 1);
+}
+
+.swipe-under-card .mobile-card-image-shell,
+.swipe-primary-card .mobile-card-image-shell {
+  border-radius: 10px;
+}
+
+@keyframes revealInstructionIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tap-reveal-instruction,
+  .swipe-primary-card,
+  .swipe-primary-card.is-exiting,
+  .reveal-card,
+  .reveal-card-inner,
+  .reveal-card.is-final .reveal-card-inner,
+  .reveal-card.is-reveal-celebration.is-final.is-hit .mobile-card-image-shell {
+    animation: none;
+    transition: none;
+  }
+
+  .mobile-foil-glare,
+  .mobile-foil-sparkles,
+  .mobile-foil-shine {
+    animation: none;
+  }
+
+  .reveal-card {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .new-pull-badge {
@@ -2180,6 +2342,75 @@ body.scanner-camera-active,
 .theme-light .settings-section {
   border-color: rgba(20, 29, 48, 0.08);
   background: rgba(21, 31, 54, 0.04);
+}
+
+.settings-field-label {
+  color: #f5f6fb;
+  font-size: 0.95rem;
+  text-align: left;
+}
+
+.reveal-style-options {
+  display: grid;
+  gap: 7px;
+}
+
+.reveal-style-options button {
+  width: 100%;
+  display: grid;
+  gap: 2px;
+  border: 1px solid rgba(188, 199, 232, 0.12);
+  border-radius: 13px;
+  padding: 9px 11px;
+  color: #e7e9f2;
+  background: rgba(255, 255, 255, 0.045);
+  font: inherit;
+  text-align: left;
+}
+
+.reveal-style-options button.is-selected {
+  border-color: rgba(171, 151, 236, 0.62);
+  background: rgba(123, 92, 206, 0.16);
+  box-shadow: inset 3px 0 0 #a18ae8;
+}
+
+.reveal-style-options span {
+  font-size: 0.83rem;
+  font-weight: 850;
+}
+
+.reveal-style-options small {
+  color: #aab2c8;
+  font-size: 0.7rem;
+  line-height: 1.35;
+}
+
+.reveal-style-options.is-compact {
+  gap: 4px;
+}
+
+.reveal-style-options.is-compact button {
+  min-height: 38px;
+  padding: 7px 9px;
+}
+
+.theme-light .settings-field-label {
+  color: #17142a;
+}
+
+.theme-light .reveal-style-options button {
+  border-color: rgba(20, 29, 48, 0.1);
+  color: #292640;
+  background: rgba(21, 31, 54, 0.04);
+}
+
+.theme-light .reveal-style-options button.is-selected {
+  border-color: rgba(91, 68, 182, 0.42);
+  background: rgba(91, 68, 182, 0.09);
+}
+
+.theme-light .reveal-style-options small {
+  color: #66708a;
 }
 
 .settings-email {

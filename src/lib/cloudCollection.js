@@ -7,6 +7,22 @@ const USER_COLLECTION_TABLE = "user_collection";
 const PENDING_CLOUD_PULLS_KEY = "packdex-pending-cloud-pulls";
 let pendingSyncPromise = null;
 
+export const PACK_RATE_LIMIT_ERROR_CODE = "PACK_RATE_LIMITED";
+
+export class PackRateLimitError extends Error {
+  constructor(reason = "pack_rate_limit_one_second") {
+    super("Pack submission was rate-limited. Please wait before opening another pack.");
+    this.name = "PackRateLimitError";
+    this.code = PACK_RATE_LIMIT_ERROR_CODE;
+    this.reason = reason;
+    this.retryable = false;
+  }
+}
+
+export function isPackRateLimitError(error) {
+  return error?.code === PACK_RATE_LIMIT_ERROR_CODE || error instanceof PackRateLimitError;
+}
+
 function findSet(setId) {
   return sets.find((set) => set.id === setId);
 }
@@ -144,10 +160,16 @@ export function enqueuePendingCloudPull(cards, setId, userId, clientEventId = ""
   }
 
   const pendingPulls = loadPendingCloudPulls();
+  const eventId = clientEventId || `${userId}:${validSetId}:${Date.now()}:${Math.random().toString(36).slice(2)}`;
+  const alreadyQueued = pendingPulls.some(
+    (pull) => String(pull?.userId || "") === String(userId) && String(pull?.id || "") === eventId
+  );
+  if (alreadyQueued) return pendingPulls.filter((pull) => pull.userId === userId);
+
   const nextPendingPulls = [
     ...pendingPulls,
     {
-      id: clientEventId || `${userId}:${validSetId}:${Date.now()}:${Math.random().toString(36).slice(2)}`,
+      id: eventId,
       userId,
       setId: validSetId,
       cards: cards.map(compactPendingCard),
@@ -188,23 +210,52 @@ export function mergePendingCloudPullsIntoCollection(collection, userId) {
 }
 
 async function performPendingCloudPullSync(userId) {
-  if (!userId) return { attempted: 0, saved: 0, failed: 0 };
+  if (!userId) return { attempted: 0, saved: 0, rejected: 0, failed: 0, stats: null, rejections: [] };
 
   const pendingPulls = loadPendingCloudPulls();
   const pullsForOtherUsers = pendingPulls.filter((pull) => pull.userId !== userId);
   const pullsForUser = pendingPulls.filter((pull) => pull.userId === userId);
-  if (pullsForUser.length === 0) return { attempted: 0, saved: 0, failed: 0 };
-  const batches = pullsForUser.map((pull) => makeCollectionBatch(pull.cards, pull.setId, pull.id));
-  const { data, error } = await supabase.rpc("increment_collection_cards", { batches });
-  if (error) throw error;
-  const confirmedIds = new Set((data || []).map((row) => String(row.client_event_id || "")));
-  const failedPulls = pullsForUser.filter((pull) => !confirmedIds.has(String(pull.id)));
+  if (pullsForUser.length === 0) {
+    return { attempted: 0, saved: 0, rejected: 0, failed: 0, stats: null, rejections: [] };
+  }
+
+  const failedPulls = [];
+  const rejections = [];
+  let latestStats = null;
+
+  for (const pull of pullsForUser) {
+    const batch = makeCollectionBatch(pull.cards, pull.setId, pull.id);
+    const { data, error } = await supabase.rpc("increment_collection_cards", { batches: [batch] });
+    if (error) {
+      failedPulls.push(pull);
+      continue;
+    }
+
+    const row = Array.isArray(data) ? data[0] : data;
+    latestStats = row
+      ? {
+          packsOpened: Number(row.packs_opened || 0),
+          totalCardsPulled: Number(row.total_cards_pulled || 0),
+        }
+      : latestStats;
+
+    if (row?.accepted === false) {
+      rejections.push({
+        clientEventId: pull.id,
+        reason: String(row.rejection_reason || "pack_rate_limit_one_second"),
+      });
+    }
+  }
+
   savePendingCloudPulls([...pullsForOtherUsers, ...failedPulls]);
 
   return {
     attempted: pullsForUser.length,
-    saved: pullsForUser.length - failedPulls.length,
+    saved: pullsForUser.length - failedPulls.length - rejections.length,
+    rejected: rejections.length,
     failed: failedPulls.length,
+    stats: latestStats,
+    rejections,
   };
 }
 
@@ -247,11 +298,28 @@ function makeCollectionBatch(cards, setId, clientEventId) {
 }
 
 export async function savePulledCardsToCloud(cards, setId, { userId = "", clientEventId = "" } = {}) {
-  if (!supabase || !userId || !Array.isArray(cards) || cards.length === 0) return [];
+  if (!supabase || !userId || !Array.isArray(cards) || cards.length === 0) {
+    return { rows: [], stats: null, recorded: false };
+  }
   const batch = makeCollectionBatch(cards, setId, clientEventId);
   const { data, error } = await supabase.rpc("increment_collection_cards", { batches: [batch] });
   if (error) throw error;
-  return data || [];
+  const rows = data || [];
+  const row = Array.isArray(rows) ? rows[0] : rows;
+  if (row?.accepted === false) {
+    throw new PackRateLimitError(String(row.rejection_reason || "pack_rate_limit_one_second"));
+  }
+
+  return {
+    rows: Array.isArray(rows) ? rows : [rows],
+    recorded: row?.recorded === true,
+    stats: row
+      ? {
+          packsOpened: Number(row.packs_opened || 0),
+          totalCardsPulled: Number(row.total_cards_pulled || 0),
+        }
+      : null,
+  };
 }
 
 export function cloudRowsToCollection(rows) {

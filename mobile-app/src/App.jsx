@@ -30,7 +30,7 @@ import {
 import { getFoilProfile } from "../../src/utils/foil.js";
 import { supabase, isSupabaseConfigured, missingSupabaseEnv } from "./lib/supabaseClient.js";
 import { loadCloudProfileStats } from "./lib/cloudProfileStats.js";
-import { ensurePackOpenClientEventId, recordPackOpenEvent } from "../../src/lib/packOpenEvents.js";
+import { ensurePackOpenClientEventId } from "../../src/lib/packOpenEvents.js";
 import { cacheWelcomeRewardStatus, loadWelcomeRewardStatus } from "../../src/lib/welcomeReward.js";
 import {
   deletePersistedBinder,
@@ -87,9 +87,16 @@ import { addWishlistCard, getWishlistKey, loadWishlist, removeWishlistCard, reso
 import { addScannedCardOnce, loadScannerCardActionState } from "./lib/scannerCardActions.js";
 import {
   claimPackPersistence,
-  isPackSkipReady,
-  runPackSkipTransition,
 } from "./lib/packRevealLifecycle.js";
+import {
+  claimTapRevealInput,
+  getSwipeReleaseAction,
+  getSwipeTransform,
+  loadRevealStyle,
+  normalizeRevealStyle,
+  revealCardAtIndex,
+  saveRevealStyle,
+} from "./lib/revealStyle.js";
 import {
   MOBILE_ONBOARDING_VERSION,
   createTutorialPack,
@@ -1212,6 +1219,225 @@ function OpenSetSelector({ collection, onOpenPack }) {
   );
 }
 
+const REVEAL_STYLE_OPTIONS = [
+  { value: "automatic", label: "Automatic", description: "Cards reveal in the timed sequence." },
+  { value: "tap", label: "Tap to Reveal", description: "Tap any concealed card in the grid." },
+  { value: "swipe", label: "Swipe to Reveal", description: "Reveal and swipe through one card at a time." },
+];
+
+function RevealStyleOptions({ value, onChange, compact = false }) {
+  return (
+    <div className={`reveal-style-options ${compact ? "is-compact" : ""}`} role="radiogroup" aria-label="Reveal Style">
+      {REVEAL_STYLE_OPTIONS.map((option) => (
+        <button
+          className={value === option.value ? "is-selected" : ""}
+          type="button"
+          role="radio"
+          aria-checked={value === option.value}
+          key={option.value}
+          onClick={(event) => {
+            event.stopPropagation();
+            onChange?.(option.value);
+          }}
+        >
+          <span>{option.label}</span>
+          {!compact && <small>{option.description}</small>}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function usePrefersReducedMotion() {
+  const [reducedMotion, setReducedMotion] = useState(() => (
+    typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
+  ));
+
+  useEffect(() => {
+    const media = window.matchMedia?.("(prefers-reduced-motion: reduce)");
+    if (!media) return undefined;
+    const update = () => setReducedMotion(media.matches);
+    media.addEventListener?.("change", update);
+    return () => media.removeEventListener?.("change", update);
+  }, []);
+
+  return reducedMotion;
+}
+
+function SwipeRevealDeck({
+  pack,
+  selectedSet,
+  activeIndex,
+  isAnimating,
+  onDismiss,
+}) {
+  const reducedMotion = usePrefersReducedMotion();
+  const pointerRef = useRef(null);
+  const exitTimerRef = useRef(null);
+  const repositionFrameRef = useRef(null);
+  const [drag, setDrag] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [isRepositioning, setIsRepositioning] = useState(false);
+  const [exitDirection, setExitDirection] = useState("");
+  const card = pack[activeIndex];
+  const nextCard = pack[activeIndex + 1];
+
+  useEffect(() => {
+    pointerRef.current = null;
+    setDrag({ x: 0, y: 0 });
+    setIsDragging(false);
+    setExitDirection("");
+  }, [activeIndex]);
+
+  useEffect(() => () => {
+    window.clearTimeout(exitTimerRef.current);
+    window.cancelAnimationFrame(repositionFrameRef.current);
+  }, []);
+
+  useEffect(() => {
+    if (!isRepositioning) return undefined;
+    repositionFrameRef.current = window.requestAnimationFrame(() => setIsRepositioning(false));
+    return () => window.cancelAnimationFrame(repositionFrameRef.current);
+  }, [activeIndex, isRepositioning]);
+
+  if (!card) return null;
+
+  const isFinal = activeIndex === pack.length - 1;
+  const isHit = isFoilHit(card, selectedSet);
+  const exitTransform = exitDirection === "left"
+    ? "translate3d(-135vw, -4vh, 0) rotateZ(-18deg)"
+    : exitDirection === "up"
+      ? "translate3d(0, -125vh, 0) rotateZ(4deg)"
+      : "translate3d(135vw, -4vh, 0) rotateZ(18deg)";
+  const transform = exitDirection
+    ? exitTransform
+    : getSwipeTransform({ deltaX: drag.x, deltaY: drag.y, reducedMotion });
+
+  function resetCard() {
+    pointerRef.current = null;
+    setIsDragging(false);
+    setDrag({ x: 0, y: 0 });
+  }
+
+  function requestDismiss(direction = "right") {
+    if (isAnimating || exitDirection) return;
+    setIsDragging(false);
+    setExitDirection(direction);
+    exitTimerRef.current = window.setTimeout(() => {
+      setIsRepositioning(true);
+      setExitDirection("");
+      setDrag({ x: 0, y: 0 });
+      onDismiss?.(activeIndex);
+    }, reducedMotion ? 20 : 260);
+  }
+
+  function handlePointerDown(event) {
+    if (isAnimating || exitDirection || (event.pointerType === "mouse" && event.button !== 0)) return;
+    event.preventDefault();
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+    pointerRef.current = {
+      id: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      startedAt: performance.now(),
+    };
+    setIsDragging(true);
+  }
+
+  function handlePointerMove(event) {
+    const pointer = pointerRef.current;
+    if (!pointer || pointer.id !== event.pointerId) return;
+    event.preventDefault();
+    setDrag({
+      x: event.clientX - pointer.startX,
+      y: Math.max(-220, Math.min(70, event.clientY - pointer.startY)),
+    });
+  }
+
+  function finishPointer(event, cancelled = false) {
+    const pointer = pointerRef.current;
+    if (!pointer || pointer.id !== event.pointerId) return;
+    event.preventDefault();
+    event.currentTarget.releasePointerCapture?.(event.pointerId);
+    const deltaX = event.clientX - pointer.startX;
+    const deltaY = Math.max(-220, Math.min(70, event.clientY - pointer.startY));
+    const elapsedMs = performance.now() - pointer.startedAt;
+    pointerRef.current = null;
+    setIsDragging(false);
+
+    if (cancelled) {
+      setDrag({ x: 0, y: 0 });
+      return;
+    }
+
+    const decision = getSwipeReleaseAction({ deltaX, deltaY, elapsedMs });
+    if (decision.action === "dismiss") {
+      setDrag({ x: deltaX, y: deltaY });
+      requestDismiss(decision.direction);
+    } else {
+      resetCard();
+    }
+  }
+
+  return (
+    <section className="swipe-reveal-mode" aria-live="polite">
+      <p className="swipe-reveal-progress" role="status">{activeIndex + 1} / {pack.length}</p>
+      <div className="swipe-deck-stage">
+        {nextCard && (
+          <span className={`swipe-under-card ${getRarityVisualClass(nextCard, selectedSet)}`} aria-hidden="true">
+            <span className="swipe-card-face">
+              <CardImage
+                card={nextCard}
+                set={selectedSet}
+                withEffects={isFoilHit(nextCard, selectedSet)}
+                celebrateReveal={false}
+                isFinal={activeIndex + 1 === pack.length - 1}
+                loading="eager"
+                fetchPriority="high"
+              />
+            </span>
+          </span>
+        )}
+        <button
+          className={`reveal-card swipe-primary-card ${getRarityVisualClass(card, selectedSet)} ${isFinal ? "is-final" : ""} ${isHit ? "is-hit" : ""} ${isDragging ? "is-dragging" : ""} ${isRepositioning ? "is-repositioning" : ""} ${exitDirection ? "is-exiting" : ""}`}
+          type="button"
+          aria-label={`Card ${activeIndex + 1} of ${pack.length}. Swipe left, right, or up${isFinal ? " to finish the pack" : " to reveal the next card"}.`}
+          style={{
+            transform,
+            "--foil-shift-x": `${50 + Math.max(-35, Math.min(35, drag.x / 5))}%`,
+            "--foil-shift-y": `${50 + Math.max(-30, Math.min(30, drag.y / 5))}%`,
+          }}
+          onClick={(event) => event.preventDefault()}
+          onKeyDown={(event) => {
+            if (!["Enter", " "].includes(event.key)) return;
+            event.preventDefault();
+            requestDismiss("right");
+          }}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={(event) => finishPointer(event)}
+          onPointerCancel={(event) => finishPointer(event, true)}
+        >
+          <span className="swipe-card-face">
+            <CardImage
+              card={card}
+              set={selectedSet}
+              withEffects={isHit}
+              celebrateReveal={false}
+              isFinal={isFinal}
+              loading="eager"
+              fetchPriority="high"
+            />
+          </span>
+        </button>
+      </div>
+      <p className="swipe-reveal-instruction">
+        {isFinal ? "Swipe the final card to finish" : "Swipe the card to reveal the next card"}
+      </p>
+    </section>
+  );
+}
+
 function PackScreen({
   user,
   pack,
@@ -1219,9 +1445,19 @@ function PackScreen({
   selectedSet,
   stage,
   revealedCount,
+  revealedCardIndexes,
   packImagesReady,
+  revealStyle,
+  activeRevealStyle,
+  revealAnimationRunning,
+  swipeDismissedCount,
+  isPackSaving,
+  isOpenAnotherLocked,
+  packSaveMessage,
   onStartReveal,
-  onSkipReveal,
+  onRevealCard,
+  onDismissSwipeCard,
+  onRevealStyleChange,
   onBack,
   onOpenAnother,
   onViewCollection,
@@ -1232,7 +1468,6 @@ function PackScreen({
   newPullKeys,
   priceMap,
   tutorialMode = false,
-  skipRevealEligible = false,
   onTutorialContinue,
 }) {
   if (!selectedSet || (!pack?.length && stage !== "ready" && stage !== "preloading")) return null;
@@ -1242,6 +1477,9 @@ function PackScreen({
   const isReady = stage === "ready";
   const isPreloading = stage === "preloading";
   const visibleCount = isSummary ? pack.length : revealedCount;
+  const currentRevealStyle = tutorialMode ? "automatic" : activeRevealStyle;
+  const isSwipeReveal = isRevealing && currentRevealStyle === "swipe";
+  const isTapReveal = isRevealing && currentRevealStyle === "tap";
   const pullValueCoverage = isSummary
     ? getCollectionValueCoverage(
         pack.map((card) => ({ card, set: selectedSet, count: 1 })),
@@ -1250,7 +1488,7 @@ function PackScreen({
     : null;
   const featuredPull = isSummary ? selectFeaturedPull(pack, selectedSet) : null;
   return (
-    <section className={`pack-stage is-${stage} ${tutorialMode ? "is-onboarding-tutorial" : ""}`}>
+    <section className={`pack-stage is-${stage} reveal-mode-${currentRevealStyle} ${tutorialMode ? "is-onboarding-tutorial" : ""}`}>
       {isReady ? (
         <>
           <div className="pack-ready-artwork">
@@ -1264,6 +1502,19 @@ function PackScreen({
           </div>
           <div className="pack-ready-actions">
             <AccountNotice user={user} onLogin={onLogin} onCreateAccount={onCreateAccount} />
+            {!tutorialMode && (
+              <select
+                className="pack-ready-reveal-select"
+                aria-label="Reveal Style"
+                title="Reveal Style"
+                value={revealStyle}
+                onChange={(event) => onRevealStyleChange?.(event.target.value)}
+              >
+                <option value="automatic">Automatic</option>
+                <option value="tap">Tap</option>
+                <option value="swipe">Swipe</option>
+              </select>
+            )}
             <div className="pack-actions">
               <button className="secondary-action" type="button" onClick={onBack}>
                 Back to Sets
@@ -1302,8 +1553,8 @@ function PackScreen({
             <button className="secondary-action" type="button" onClick={() => onViewCollection?.(selectedSet)}>
               View Collection
             </button>
-            <button className="primary-action" type="button" onClick={onOpenAnother}>
-              Open Another
+            <button className="primary-action" type="button" onClick={onOpenAnother} disabled={isPackSaving || isOpenAnotherLocked}>
+              {isPackSaving ? "Saving..." : isOpenAnotherLocked ? "Opening..." : "Open Another"}
             </button>
             <SharePullButton
               cards={pack}
@@ -1311,20 +1562,35 @@ function PackScreen({
               packNumber={packInstanceId}
             />
           </div>
+          {packSaveMessage && <p className="pack-save-message" role="status">{packSaveMessage}</p>}
         </>
       ) : (
         <SetLogo set={selectedSet} className="pack-logo pack-logo-compact" />
       )}
 
-      {isRevealing && packImagesReady && !tutorialMode && skipRevealEligible && <p className="pack-skip-hint">Tap anywhere to skip</p>}
+      {isTapReveal && packImagesReady && revealedCardIndexes?.size === 0 && <p className="reveal-helper-copy tap-reveal-instruction">Tap each card to reveal</p>}
 
-      {(isRevealing || isSummary) && (
+      {isSwipeReveal && packImagesReady && (
+        <SwipeRevealDeck
+          pack={pack}
+          selectedSet={selectedSet}
+          activeIndex={swipeDismissedCount}
+          isAnimating={revealAnimationRunning}
+          onDismiss={onDismissSwipeCard}
+        />
+      )}
+
+      {(isSummary || (isRevealing && !isSwipeReveal)) && (
         <div
           className={`reveal-grid ${isSummary ? "is-summary-grid" : "is-reveal-grid"} count-${pack.length}`}
           aria-live="polite"
         >
           {pack.map((card, index) => {
-            const isVisible = index < visibleCount;
+            const isVisible = isSummary
+              ? true
+              : isTapReveal
+                ? revealedCardIndexes?.has(index)
+                : index < visibleCount;
             const isFinal = index === pack.length - 1;
             const isFeatured = isSummary && index === featuredPull?.index;
             const isHit = isFoilHit(card, selectedSet);
@@ -1344,12 +1610,15 @@ function PackScreen({
                   "--deal-delay": `${index * CARD_DEAL_STAGGER_MS}ms`,
                   "--reveal-delay": `${getMobileRevealDelay(index, pack.length)}ms`,
                 }}
-                disabled={tutorialMode ? !isVisible : (!isVisible && !isRevealing)}
+                aria-label={!isVisible && isTapReveal ? `Reveal card ${index + 1} of ${pack.length}` : undefined}
+                disabled={tutorialMode ? !isVisible : (isTapReveal ? isVisible || revealAnimationRunning : isRevealing || !isVisible)}
                 onClick={(event) => {
                   event.stopPropagation();
 
                   if (isRevealing) {
-                    if (!tutorialMode) onSkipReveal?.();
+                    if (isTapReveal) {
+                      if (!isVisible) onRevealCard?.(index, event.timeStamp);
+                    }
                     return;
                   }
 
@@ -2191,11 +2460,13 @@ function SettingsModal({
   user,
   soundEnabled,
   hapticsEnabled,
+  revealStyle,
   onClose,
   onLogout,
   onDeleteAccount,
   onToggleSound,
   onToggleHaptics,
+  onRevealStyleChange,
   scannerTestEnabled = false,
   onReplayOnboarding,
 }) {
@@ -2238,6 +2509,12 @@ function SettingsModal({
             <span><strong>Haptics</strong><em>{hapticsEnabled ? "Enabled" : "Disabled"}</em></span>
             <i className={hapticsEnabled ? "is-on" : ""} />
           </button>
+        </section>
+
+        <section className="settings-section settings-reveal-section">
+          <span className="eyebrow">Pack Opening</span>
+          <strong className="settings-field-label">Reveal Style</strong>
+          <RevealStyleOptions value={revealStyle} onChange={onRevealStyleChange} />
         </section>
 
         {__PACKDEX_SCANNER_TEST__ && scannerTestEnabled && <section className="settings-section"><span className="eyebrow">Development</span><button className="settings-link" type="button" onClick={() => window.location.assign("/?scanner-test=1")}>Scanner Test</button></section>}
@@ -2286,6 +2563,8 @@ function ProfileScreen({
   onToggleSound,
   hapticsEnabled,
   onToggleHaptics,
+  revealStyle,
+  onRevealStyleChange,
   wishlistCount,
   onOpenWishlist,
   estimatedCollectionValue,
@@ -2470,6 +2749,7 @@ function ProfileScreen({
         user={user}
         soundEnabled={soundEnabled}
         hapticsEnabled={hapticsEnabled}
+        revealStyle={revealStyle}
         onClose={() => setIsSettingsOpen(false)}
         onLogout={() => {
           setIsSettingsOpen(false);
@@ -2481,6 +2761,7 @@ function ProfileScreen({
         }}
         onToggleSound={onToggleSound}
         onToggleHaptics={onToggleHaptics}
+        onRevealStyleChange={onRevealStyleChange}
         scannerTestEnabled={__PACKDEX_SCANNER_TEST__}
         onReplayOnboarding={onReplayOnboarding ? () => {
           setIsSettingsOpen(false);
@@ -2596,6 +2877,8 @@ function MobileApp() {
   const [activeTab, setActiveTab] = useState(() => getInitialMobileTab());
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [hapticsEnabled, setHapticsEnabled] = useState(loadHapticsEnabled);
+  const [revealStyle, setRevealStyle] = useState(loadRevealStyle);
+  const [activeRevealStyle, setActiveRevealStyle] = useState(loadRevealStyle);
   const [wishlistEntries, setWishlistEntries] = useState([]);
   const [wishlistStatus, setWishlistStatus] = useState("idle");
   const [wishlistError, setWishlistError] = useState("");
@@ -2634,8 +2917,13 @@ function MobileApp() {
   const [pack, setPack] = useState(restoredTutorial.cards);
   const [packStage, setPackStage] = useState(() => initialOnboardingState?.step === "pack" && restoredTutorial.cards.length ? (onboardingDevSummary ? "summary" : "revealing") : "sets");
   const [revealedCount, setRevealedCount] = useState(0);
+  const [revealedCardIndexes, setRevealedCardIndexes] = useState(() => new Set());
+  const [swipeDismissedCount, setSwipeDismissedCount] = useState(0);
+  const [revealAnimationRunning, setRevealAnimationRunning] = useState(false);
   const [packImagesReady, setPackImagesReady] = useState(false);
-  const [skipRevealEligible, setSkipRevealEligible] = useState(false);
+  const [isPackSavePending, setIsPackSavePending] = useState(false);
+  const [isOpenAnotherLocked, setIsOpenAnotherLocked] = useState(false);
+  const [packSaveMessage, setPackSaveMessage] = useState("");
   const [packInstanceId, setPackInstanceId] = useState(0);
   const [newPullKeys, setNewPullKeys] = useState(() => new Set());
   const [hasSavedCurrentPack, setHasSavedCurrentPack] = useState(false);
@@ -2694,14 +2982,21 @@ function MobileApp() {
   const manualOnboardingReplayRef = useRef(onboardingTestMode);
   const soundEnabledRef = useRef(soundEnabled);
   const hapticsEnabledRef = useRef(hapticsEnabled);
+  const revealStyleRef = useRef(revealStyle);
+  const lastTapRevealTimestampRef = useRef(Number.NEGATIVE_INFINITY);
+  const revealedCardIndexesRef = useRef(revealedCardIndexes);
+  const swipeDismissedCountRef = useRef(swipeDismissedCount);
+  const revealAnimationLockRef = useRef(false);
+  const packSavePendingRef = useRef(false);
+  const packSavePromiseRef = useRef(null);
+  const openAnotherLockRef = useRef(false);
+  const packOpeningOperationRef = useRef(false);
   const wishlistScrollRef = useRef(0);
   const revealCycleRef = useRef(null);
   const revealCycleCounterRef = useRef(0);
   const revealTimersRef = useRef([]);
   const onboardingCardPreviewOpenedRef = useRef(false);
   const packImagePreloadIdRef = useRef(0);
-  const skipRevealStartedRef = useRef(false);
-  const skipRevealEligibleRef = useRef(false);
   const screenContentRef = useRef(null);
   onboardingStepRef.current = onboardingStep;
   currentUserRef.current = user;
@@ -2809,8 +3104,6 @@ function MobileApp() {
     setSelectedSet(null);
     setPack([]);
     setRevealedCount(0);
-    skipRevealEligibleRef.current = false;
-    setSkipRevealEligible(false);
     setNewPullKeys(new Set());
     savedPackKeyRef.current = "";
   }
@@ -2853,10 +3146,8 @@ function MobileApp() {
     setRevealedCount(0);
     setNewPullKeys(new Set(cards.map((card) => getCardKey(card, set.id))));
     setHasSavedCurrentPack(true);
-    skipRevealEligibleRef.current = false;
-    setSkipRevealEligible(false);
     setPackStage("revealing");
-    startRevealCycle(cards, set);
+    startRevealCycle(cards, set, { style: "automatic" });
     savePendingMobileOnboarding({ setId: set.id, cards });
     persistOnboarding("pack", { setId: set.id, cardIds: cards.map((card) => String(card.id || "")) });
   }
@@ -3345,25 +3636,14 @@ function MobileApp() {
     setAchievements(mergedAchievements);
   }
 
-  async function runPostPackAchievementFlow({ currentUser = user, set, cards, openedAt = "", recordPackEvent = true } = {}) {
+  async function runPostPackAchievementFlow({ currentUser = user, set, cards } = {}) {
     if (!currentUser?.id || !set?.id || !cards?.length) return null;
-
-    const result = recordPackEvent
-      ? await recordPackOpenEvent({
-          userId: currentUser.id,
-          setId: set.id,
-          cards,
-          openedAt,
-        })
-      : null;
-
-    if (result?.stats) setStats(result.stats);
 
     const achievementResult = await requestServerAchievementAward(currentUser.id);
     enqueueAchievementUnlocks(achievementResult?.awarded);
     mergeAwardedAchievements(currentUser, achievementResult?.awarded);
 
-    return { packEvent: result, achievements: achievementResult };
+    return { packEvent: null, achievements: achievementResult };
   }
 
   async function performAccountScopedStateLoad(currentUser) {
@@ -3541,12 +3821,12 @@ function MobileApp() {
       setActiveTab("open");
       if (onboardingDevSummary) {
         finishActiveRevealCycle();
-        setPackStage("summary");
+        showCompletedPackSummary();
         setRevealedCount(restoredTutorial.cards.length);
       } else {
         setPackStage("revealing");
         setRevealedCount(0);
-        startRevealCycle(restoredTutorial.cards, restoredTutorial.set);
+        startRevealCycle(restoredTutorial.cards, restoredTutorial.set, { style: "automatic" });
       }
     }
   }, []);
@@ -3920,6 +4200,11 @@ function MobileApp() {
   }, [hapticsEnabled]);
 
   useEffect(() => {
+    revealStyleRef.current = revealStyle;
+    saveRevealStyle(revealStyle);
+  }, [revealStyle]);
+
+  useEffect(() => {
     if (!wishlistMessage || wishlistMessage.isError) return undefined;
     const timer = window.setTimeout(() => setWishlistMessage(null), 1800);
     return () => window.clearTimeout(timer);
@@ -4112,26 +4397,19 @@ function MobileApp() {
     const cycle = revealCycleRef.current;
     if (!cycle || cycle.phase !== "revealing") return undefined;
 
+    const usesAutomaticReveal = onboardingStep === "pack" || activeRevealStyle === "automatic";
+    if (!usesAutomaticReveal) return undefined;
+
     clearRevealTimers();
     const dealCompleteDelay = Math.max(0, (pack.length - 1) * CARD_DEAL_STAGGER_MS) + CARD_DEAL_ANIMATION_MS;
     const revealStartDelay = dealCompleteDelay + WAIT_AFTER_DEAL_MS;
-
-    // Asset readiness, not the flip schedule, controls Skip. Updating the ref
-    // and rendered state together keeps the first visible frame interactive.
-    const nextSkipReady = isPackSkipReady({
-      stage: packStage,
-      assetsReady: packImagesReady,
-      tutorialMode: onboardingStep === "pack",
-      skipStarted: skipRevealStartedRef.current,
-    });
-    skipRevealEligibleRef.current = nextSkipReady;
-    setSkipRevealEligible(nextSkipReady);
 
     pack.forEach((card, index) => {
       const revealDelay = revealStartDelay + getMobileRevealDelay(index, pack.length);
 
       scheduleRevealTimer(cycle, () => {
         setRevealedCount(index + 1);
+        markCardRevealed(index, pack.length);
         runCardRevealHaptic(card, index, cycle);
       }, revealDelay);
     });
@@ -4141,21 +4419,56 @@ function MobileApp() {
     scheduleRevealTimer(cycle, () => {
       clearRevealTimers();
       finishActiveRevealCycle();
-      setPackStage("summary");
+      showCompletedPackSummary();
     }, totalDelay + SUMMARY_AFTER_LAST_CARD_MS);
 
     return () => {
       clearRevealTimers();
     };
-  }, [onboardingStep, pack, packImagesReady, packStage, selectedSet]);
+  }, [activeRevealStyle, onboardingStep, pack, packImagesReady, packStage, selectedSet]);
 
   function persistSessionCollection(nextCollection) {
     if (!user) saveCollection(nextCollection);
     setCollection(nextCollection);
   }
 
+  function changeRevealStyle(nextStyle) {
+    const normalized = normalizeRevealStyle(nextStyle);
+    revealStyleRef.current = normalized;
+    setRevealStyle(normalized);
+    saveRevealStyle(normalized);
+    return packStage !== "revealing" || normalized === activeRevealStyle;
+  }
+
+  function resetRevealInteractionState() {
+    const emptyReveals = new Set();
+    revealedCardIndexesRef.current = emptyReveals;
+    swipeDismissedCountRef.current = 0;
+    revealAnimationLockRef.current = false;
+    lastTapRevealTimestampRef.current = Number.NEGATIVE_INFINITY;
+    setRevealedCardIndexes(emptyReveals);
+    setSwipeDismissedCount(0);
+    setRevealAnimationRunning(false);
+  }
+
+  function showCompletedPackSummary() {
+    packOpeningOperationRef.current = false;
+    openAnotherLockRef.current = false;
+    setIsOpenAnotherLocked(false);
+    setPackStage("summary");
+  }
+
+  function markCardRevealed(index, totalCards = pack.length) {
+    const result = revealCardAtIndex(revealedCardIndexesRef.current, index, totalCards);
+    if (!result.changed) return result;
+    revealedCardIndexesRef.current = result.revealedIndexes;
+    setRevealedCardIndexes(result.revealedIndexes);
+    return result;
+  }
+
   function openPack(set) {
     if (!set || isRetiredSet(set)) return;
+    if (packOpeningOperationRef.current || packSavePendingRef.current) return;
 
     const nextPack = generatePack(set);
     ensurePackOpenClientEventId(nextPack, set.id);
@@ -4167,10 +4480,10 @@ function MobileApp() {
     setPackInstanceId((current) => current + 1);
     setPackStage("ready");
     setRevealedCount(0);
-    skipRevealEligibleRef.current = false;
-    setSkipRevealEligible(false);
+    resetRevealInteractionState();
     setNewPullKeys(new Set());
     setHasSavedCurrentPack(false);
+    setPackSaveMessage("");
     savedPackKeyRef.current = "";
     scrollScreenToTop();
   }
@@ -4179,15 +4492,25 @@ function MobileApp() {
     return `${set.id}:${cards.map((card) => card.id || card.number || card.name).join("|")}`;
   }
 
-  function startRevealCycle(cards, set) {
+  function startRevealCycle(cards, set, { style = revealStyleRef.current } = {}) {
     clearRevealTimers();
     finishActiveRevealCycle();
+    resetRevealInteractionState();
+    const normalizedStyle = normalizeRevealStyle(style);
+    setActiveRevealStyle(normalizedStyle);
     revealCycleCounterRef.current += 1;
-    revealCycleRef.current = {
+    const cycle = {
       id: [revealCycleCounterRef.current, getPackSaveKey(cards, set)].join(":"),
       phase: "revealing",
       hapticKeys: new Set(),
     };
+    revealCycleRef.current = cycle;
+
+    if (normalizedStyle === "swipe" && cards.length > 0) {
+      markCardRevealed(0, cards.length);
+      setRevealedCount(1);
+      runCardRevealHaptic(cards[0], 0, cycle);
+    }
   }
 
   function finishActiveRevealCycle() {
@@ -4200,6 +4523,84 @@ function MobileApp() {
     if (cycle.hapticKeys.has(cardKey)) return;
     cycle.hapticKeys.add(cardKey);
     triggerRevealHaptic(card, selectedSet, hapticsEnabledRef.current);
+  }
+
+  function finishInteractiveCardAnimation(cycle, callback, delay) {
+    scheduleRevealTimer(cycle, () => {
+      revealAnimationLockRef.current = false;
+      setRevealAnimationRunning(false);
+      callback?.();
+    }, delay);
+  }
+
+  function revealTappedCard(index, inputTimestamp = performance.now()) {
+    const cycle = revealCycleRef.current;
+    if (
+      packStage !== "revealing" ||
+      activeRevealStyle !== "tap" ||
+      !packImagesReady ||
+      revealAnimationLockRef.current ||
+      cycle?.phase !== "revealing"
+    ) return false;
+
+    if (revealedCardIndexesRef.current.has(index)) return false;
+    const inputClaim = claimTapRevealInput(lastTapRevealTimestampRef.current, inputTimestamp);
+    if (!inputClaim.accepted) return false;
+    lastTapRevealTimestampRef.current = inputClaim.timestamp;
+
+    const result = markCardRevealed(index, pack.length);
+    if (!result.changed) return false;
+
+    runCardRevealHaptic(pack[index], index, cycle);
+    if (!result.isComplete) return true;
+
+    revealAnimationLockRef.current = true;
+    setRevealAnimationRunning(true);
+    const animationDuration = CARD_FLIP_ANIMATION_MS + (index === pack.length - 1 ? 140 : 0);
+    finishInteractiveCardAnimation(cycle, () => {
+      finishActiveRevealCycle();
+      setRevealedCount(pack.length);
+      showCompletedPackSummary();
+    }, animationDuration + (result.isComplete ? SUMMARY_AFTER_LAST_CARD_MS : 0));
+    return true;
+  }
+
+  function dismissSwipeCard(index) {
+    const cycle = revealCycleRef.current;
+    if (
+      packStage !== "revealing" ||
+      activeRevealStyle !== "swipe" ||
+      index !== swipeDismissedCountRef.current ||
+      !revealedCardIndexesRef.current.has(index) ||
+      revealAnimationLockRef.current ||
+      cycle?.phase !== "revealing"
+    ) return false;
+
+    revealAnimationLockRef.current = true;
+    setRevealAnimationRunning(true);
+    if (index === pack.length - 1) {
+      finishActiveRevealCycle();
+      setRevealedCount(pack.length);
+      showCompletedPackSummary();
+      revealAnimationLockRef.current = false;
+      setRevealAnimationRunning(false);
+      return true;
+    }
+
+    const nextIndex = index + 1;
+    const nextReveal = markCardRevealed(nextIndex, pack.length);
+    if (!nextReveal.changed) {
+      revealAnimationLockRef.current = false;
+      setRevealAnimationRunning(false);
+      return false;
+    }
+    swipeDismissedCountRef.current = nextIndex;
+    setSwipeDismissedCount(nextIndex);
+    setRevealedCount(nextIndex + 1);
+    runCardRevealHaptic(pack[nextIndex], nextIndex, cycle);
+    revealAnimationLockRef.current = false;
+    setRevealAnimationRunning(false);
+    return true;
   }
 
   function scheduleRevealTimer(cycle, callback, delay) {
@@ -4279,6 +4680,30 @@ function MobileApp() {
       }
 
       setStats(syncResult?.stats || nextStats);
+      const rejectedCurrentPull = syncResult?.rejections?.find(
+        (entry) => String(entry.clientEventId) === String(clientEventId)
+      );
+      if (rejectedCurrentPull) {
+        setPackSaveMessage("This pack was not saved because packs were opened too quickly. Please wait a moment before trying again.");
+        setCollection(collection);
+        setStats(stats);
+
+        try {
+          const [cloudCollection, cloudStats] = await Promise.all([
+            loadCloudCollection(),
+            loadCloudProfileStats(user.id),
+          ]);
+          setCollection(mergePendingCloudPullsIntoCollection(cloudCollection, user.id));
+          setStats(cloudStats);
+        } catch (error) {
+          console.warn("Unable to refresh mobile PackDex state after a rate-limited pack", {
+            userId: user.id,
+            error,
+          });
+        }
+        return;
+      }
+
       if (syncResult?.stats) {
         const eligiblePacks = Number(syncResult.stats.packsOpened || 0);
         setWelcomeRewardStatus((current) => current ? {
@@ -4294,7 +4719,6 @@ function MobileApp() {
           currentUser: user,
           set,
           cards,
-          recordPackEvent: false,
         });
       } catch (error) {
         console.warn("Mobile PackDex achievement refresh failed after durable pack sync", {
@@ -4306,55 +4730,43 @@ function MobileApp() {
     }
   }
 
-  function startReveal() {
-    if (!selectedSet || pack.length === 0 || packStage !== "ready") return;
+  function startPackPersistence(cards, set) {
+    if (packSavePendingRef.current) return packSavePromiseRef.current;
 
+    packSavePendingRef.current = true;
+    setIsPackSavePending(true);
+    const promise = Promise.resolve()
+      .then(() => saveRevealedPack(cards, set))
+      .catch((error) => {
+        console.warn("Mobile PackDex pack persistence failed", {
+          setId: set?.id,
+          cardCount: cards?.length || 0,
+          error,
+        });
+      })
+      .finally(() => {
+        if (packSavePromiseRef.current !== promise) return;
+        packSavePendingRef.current = false;
+        packSavePromiseRef.current = null;
+        setIsPackSavePending(false);
+      });
+    packSavePromiseRef.current = promise;
+    return promise;
+  }
+
+  function startReveal() {
+    if (!selectedSet || pack.length === 0 || packStage !== "ready" || packOpeningOperationRef.current || packSavePendingRef.current) return;
+
+    packOpeningOperationRef.current = true;
     beginReveal(pack, selectedSet);
   }
 
-  function beginReveal(cards, set, { assetsReady = packImagesReady } = {}) {
-    startRevealCycle(cards, set);
-    skipRevealStartedRef.current = false;
-    const nextSkipReady = isPackSkipReady({
-      stage: "revealing",
-      assetsReady,
-      tutorialMode: onboardingStep === "pack",
-      skipStarted: false,
-    });
-    skipRevealEligibleRef.current = nextSkipReady;
-    setSkipRevealEligible(nextSkipReady);
+  function beginReveal(cards, set) {
+    const nextActiveRevealStyle = normalizeRevealStyle(revealStyleRef.current);
     setRevealedCount(0);
+    startRevealCycle(cards, set, { style: nextActiveRevealStyle });
     setPackStage("revealing");
-    saveRevealedPack(cards, set);
-  }
-
-  function skipPackReveal() {
-    const canSkip = skipRevealEligibleRef.current && isPackSkipReady({
-      stage: packStage,
-      assetsReady: packImagesReady,
-      tutorialMode: onboardingStep === "pack",
-      skipStarted: skipRevealStartedRef.current,
-    });
-    if (!canSkip) return;
-
-    skipRevealStartedRef.current = true;
-    skipRevealEligibleRef.current = false;
-    setSkipRevealEligible(false);
-    runPackSkipTransition({
-      canSkip,
-      clearTimers: clearRevealTimers,
-      finishCycle: finishActiveRevealCycle,
-      revealAll: () => setRevealedCount(pack.length),
-      showSummary: () => setPackStage("summary"),
-    });
-  }
-
-  function handlePackScreenClick(event) {
-    if (activeTab !== "open" || packStage !== "revealing" || !packImagesReady) return;
-    if (onboardingStep === "pack") return;
-    if (event.target.closest("button, a, input, select, textarea, [role='button']")) return;
-
-    skipPackReveal();
+    startPackPersistence(cards, set);
   }
 
   function returnToSets() {
@@ -4366,17 +4778,24 @@ function MobileApp() {
     setPack([]);
     setPackInstanceId((current) => current + 1);
     setRevealedCount(0);
+    resetRevealInteractionState();
     setNewPullKeys(new Set());
     setHasSavedCurrentPack(false);
+    setPackSaveMessage("");
     savedPackKeyRef.current = "";
     scrollScreenToTop();
   }
 
   function openAnotherPack() {
+    if (openAnotherLockRef.current || packOpeningOperationRef.current || packSavePendingRef.current || packStage !== "summary") return;
     if (!selectedSet || isRetiredSet(selectedSet)) {
       returnToSets();
       return;
     }
+
+    openAnotherLockRef.current = true;
+    packOpeningOperationRef.current = true;
+    setIsOpenAnotherLocked(true);
 
     const nextPack = generatePack(selectedSet);
     ensurePackOpenClientEventId(nextPack, selectedSet.id);
@@ -4387,8 +4806,9 @@ function MobileApp() {
     setRevealedCount(0);
     setNewPullKeys(new Set());
     setHasSavedCurrentPack(false);
+    setPackSaveMessage("");
     savedPackKeyRef.current = "";
-    beginReveal(nextPack, selectedSet, { assetsReady: false });
+    beginReveal(nextPack, selectedSet);
     scrollScreenToTop();
   }
 
@@ -4550,7 +4970,6 @@ function MobileApp() {
           set: choice.set,
           cards: rewardPack,
           openedAt: result.rewardStatus?.claimedAt || result.status?.claimedAt || new Date().toISOString(),
-          recordPackEvent: false,
         });
       } catch (achievementError) {
         console.warn("Unable to sync achievements after welcome reward claim", {
@@ -4798,7 +5217,6 @@ function MobileApp() {
         <div
           className={`screen-content screen-${activeTab}`}
           ref={screenContentRef}
-          onClick={handlePackScreenClick}
           aria-hidden={isOnboardingActive || undefined}
           inert={isOnboardingActive}
         >
@@ -4815,9 +5233,19 @@ function MobileApp() {
                 selectedSet={selectedSet}
                 stage={packStage}
                 revealedCount={revealedCount}
+                revealedCardIndexes={revealedCardIndexes}
                 packImagesReady={packImagesReady}
+                revealStyle={revealStyle}
+                activeRevealStyle={activeRevealStyle}
+                revealAnimationRunning={revealAnimationRunning}
+                swipeDismissedCount={swipeDismissedCount}
+                isPackSaving={isPackSavePending}
+                isOpenAnotherLocked={isOpenAnotherLocked}
+                packSaveMessage={packSaveMessage}
                 onStartReveal={startReveal}
-                onSkipReveal={skipPackReveal}
+                onRevealCard={revealTappedCard}
+                onDismissSwipeCard={dismissSwipeCard}
+                onRevealStyleChange={changeRevealStyle}
                 onBack={returnToSets}
                 onOpenAnother={openAnotherPack}
                 onViewCollection={viewSetCollection}
@@ -4827,7 +5255,6 @@ function MobileApp() {
                 soundEnabled={soundEnabled}
                 newPullKeys={newPullKeys}
                 priceMap={selectedSet ? fullSetPriceMapsBySet[selectedSet.id] || priceMapsBySet[selectedSet.id] : null}
-                skipRevealEligible={skipRevealEligible}
               />
             ))}
           {activeTab === "collection" && (
@@ -4892,12 +5319,14 @@ function MobileApp() {
               isAuthPanelOpen={isAuthPanelOpen}
               soundEnabled={soundEnabled}
               hapticsEnabled={hapticsEnabled}
+              revealStyle={revealStyle}
               onOpenLogin={() => openAuthProfile("login")}
               onOpenSignup={() => openAuthProfile("signup")}
               onLogout={handleLogout}
               onDeleteAccount={() => setIsDeleteAccountOpen(true)}
               onToggleSound={() => setSoundEnabled((value) => !value)}
               onToggleHaptics={() => setHapticsEnabled((value) => !value)}
+              onRevealStyleChange={changeRevealStyle}
               wishlistCount={wishlistEntries.length}
               onOpenWishlist={openWishlist}
               estimatedCollectionValue={estimatedCollectionValue}
@@ -4931,7 +5360,15 @@ function MobileApp() {
                   selectedSet={selectedSet}
                   stage={packStage}
                   revealedCount={revealedCount}
+                  revealedCardIndexes={revealedCardIndexes}
                   packImagesReady={packImagesReady}
+                  revealStyle="automatic"
+                  activeRevealStyle="automatic"
+                  revealAnimationRunning={revealAnimationRunning}
+                  swipeDismissedCount={0}
+                  isPackSaving={false}
+                  isOpenAnotherLocked={false}
+                  packSaveMessage=""
                   onInspectCard={(card, set) => inspectCard(card, set, { origin: "onboarding-summary" })}
                   soundEnabled={soundEnabled}
                   newPullKeys={newPullKeys}

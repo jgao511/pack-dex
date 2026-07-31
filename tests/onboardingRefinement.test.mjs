@@ -43,12 +43,11 @@ test("the final conveyor resolves exactly the documented, non-duplicated catalog
   assert.ok(cards.filter(({ card }) => /umbreon|espeon|vaporeon|jolteon|flareon|sylveon|glaceon|leafeon/i.test(card.name)).length <= 2);
 });
 
-test("normal skip is rendered only when its same-frame eligibility guard is active", async () => {
+test("normal pack reveal has no skip affordance while onboarding keeps its separate setup Skip", async () => {
   const source = await readFile(appUrl, "utf8");
-  assert.ok(source.includes('!tutorialMode && skipRevealEligible && <p className="pack-skip-hint">Tap anywhere to skip</p>'));
-  assert.match(source, /skipRevealEligibleRef\.current = nextSkipReady;\s*setSkipRevealEligible\(nextSkipReady\);/);
-  assert.match(source, /const canSkip = skipRevealEligibleRef\.current && isPackSkipReady\(/);
-  assert.match(source, /tutorialMode: onboardingStep === "pack"/);
+  assert.doesNotMatch(source, /Tap anywhere to skip|skipPackReveal|isPackSkipReady/);
+  assert.match(source, /runMobileOnboardingSkip/);
+  assert.match(source, /onSkip=\{skipOnboarding\}/);
 });
 
 test("onboarding uses the shared Explore search, a three-step real-page tour, and shared public counters", async () => {

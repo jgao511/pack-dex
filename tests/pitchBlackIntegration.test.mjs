@@ -170,7 +170,8 @@ test("mobile surfaces use the shared registry for New state and generic set work
   assert.match(mobileSource, /const nextPack = generatePack\(selectedSet\)/);
   assert.match(mobileSource, /getSetCollectionProgress\(collection, selectedSet\)/);
   assert.match(mobileSource, /resolveCatalogWishlistItem/);
-  assert.match(mobileSource, /runPostPackAchievementFlow[\s\S]*recordPackOpenEvent\(\{[\s\S]*setId: set\.id/);
+  assert.match(mobileSource, /syncPendingCloudPulls\(user\.id\)[\s\S]*runPostPackAchievementFlow/);
+  assert.doesNotMatch(mobileSource, /recordPackOpenEvent\(/);
   assert.match(mobileSource, /<SharePullButton[\s\S]*setId=\{selectedSet\.id\}/);
   assert.match(desktopSource, /href="\/mobile-app\/"/);
 });

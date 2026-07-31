@@ -24,6 +24,7 @@ import { activeSets, isRetiredSet, sets } from "./data/sets.js";
 import {
   enqueuePendingCloudPull,
   getPendingCloudPullCount,
+  isPackRateLimitError,
   loadCloudCollection,
   mergePendingCloudPullsIntoCollection,
   savePulledCardsToCloud,
@@ -38,7 +39,7 @@ import {
   emptyProfileStats,
   loadCloudProfileStats,
 } from "./lib/cloudProfileStats.js";
-import { ensurePackOpenClientEventId, recordPackOpenEvent } from "./lib/packOpenEvents.js";
+import { ensurePackOpenClientEventId } from "./lib/packOpenEvents.js";
 import { isSupabaseConfigured, supabase } from "./lib/supabaseClient.js";
 import {
   DESKTOP_MOBILE_NOTICE_DISMISSED_KEY,
@@ -1234,7 +1235,9 @@ function App() {
   const [isAuthLoading, setIsAuthLoading] = useState(isSupabaseConfigured);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isDeleteAccountOpen, setIsDeleteAccountOpen] = useState(false);
-  const [isOpeningPack, setIsOpeningPack] = useState(false);
+  const [isPackStartLocked, setIsPackStartLocked] = useState(false);
+  const [isPackSavePending, setIsPackSavePending] = useState(false);
+  const [isOpenAnotherLocked, setIsOpenAnotherLocked] = useState(false);
   const [cloudWarning, setCloudWarning] = useState("");
   const [welcomeRewardStatus, setWelcomeRewardStatus] = useState(null);
   const [isWelcomeRewardLoading, setIsWelcomeRewardLoading] = useState(false);
@@ -1253,6 +1256,9 @@ function App() {
   const authSessionRef = useRef(null);
   const authRefreshPromiseRef = useRef(null);
   const authValidationAttemptRef = useRef(0);
+  const packOperationRef = useRef(false);
+  const packSavePromiseRef = useRef(null);
+  const persistedPackEventIdsRef = useRef(new Set());
   const isPackFlow = activeTab === "open" && ["opening", "reveal", "summary"].includes(screen);
   const authUser = authSession?.user || null;
 
@@ -1652,6 +1658,7 @@ function App() {
 
   function startPackOpening(set = selectedSet) {
     if (!set || isRetiredSet(set)) return;
+    if (packOperationRef.current || packSavePromiseRef.current) return;
 
     if (!(activeTab === "open" && screen === "home")) {
       pushAppHistory({ activeTab: "open", screen: "home" });
@@ -1663,12 +1670,17 @@ function App() {
     setBinderOpenRequestId("");
     setSelectedSet(set);
     setPulledCards([]);
+    setIsPackStartLocked(false);
+    setIsOpenAnotherLocked(false);
     setScreen("opening");
     resetPageScroll();
   }
 
   function revealPack() {
-    if (!selectedSet || isOpeningPack) return;
+    if (!selectedSet || packOperationRef.current || packSavePromiseRef.current) return;
+
+    packOperationRef.current = true;
+    setIsPackStartLocked(true);
 
     pauseImageWarmup({ packOpening: true });
     resetPageScroll();
@@ -1683,7 +1695,18 @@ function App() {
   }
 
   function openAnotherPack() {
-    if (!selectedSet || isRetiredSet(selectedSet) || !canGeneratePack(selectedSet) || isOpeningPack) return;
+    if (
+      !selectedSet ||
+      isRetiredSet(selectedSet) ||
+      !canGeneratePack(selectedSet) ||
+      screen !== "summary" ||
+      packOperationRef.current ||
+      packSavePromiseRef.current
+    ) return;
+
+    packOperationRef.current = true;
+    setIsOpenAnotherLocked(true);
+    setIsPackStartLocked(true);
 
     pauseImageWarmup({ packOpening: true });
     setActiveTab("open");
@@ -1739,6 +1762,10 @@ function App() {
   function handleCardsRevealed(cards) {
     if (!selectedSet || !cards.length) return;
 
+    const clientEventId = ensurePackOpenClientEventId(cards, selectedSet.id);
+    if (persistedPackEventIdsRef.current.has(clientEventId)) return;
+    persistedPackEventIdsRef.current.add(clientEventId);
+
     const currentCollection = authUser ? collection : loadCollection();
     const nextCollection = markCardsCollected(currentCollection, cards, selectedSet.id);
 
@@ -1751,42 +1778,65 @@ function App() {
     if (cards.welcomeReward) return;
 
     if (authUser) {
-      const clientEventId = ensurePackOpenClientEventId(cards, selectedSet.id);
-      savePulledCardsToCloud(cards, selectedSet.id, { userId: authUser.id, clientEventId })
-        .then(async () => {
-          try {
-            const result = await recordPackOpenEvent({
-              userId: authUser.id,
-              setId: selectedSet.id,
-              cards,
-            });
-
-            if (result?.stats) {
-              loadedProfileStatsUserIdRef.current = authUser.id;
-              setProfileStats(result.stats);
-              setProfileStatsError("");
-            }
-          } catch (statsError) {
-            console.warn("Cloud pack-open event failed after pack save", {
-              userId: authUser.id,
-              setId: selectedSet.id,
-              cardCount: cards.length,
-              error: statsError,
-            });
-            setCloudWarning("Your collection saved, but account stats could not be updated yet.");
+      setIsPackSavePending(true);
+      const savingUser = authUser;
+      const savingSet = selectedSet;
+      const promise = savePulledCardsToCloud(cards, savingSet.id, {
+        userId: savingUser.id,
+        clientEventId,
+      })
+        .then((result) => {
+          if (result?.stats) {
+            loadedProfileStatsUserIdRef.current = savingUser.id;
+            setProfileStats(result.stats);
+            setProfileStatsError("");
           }
         })
-        .catch((error) => {
+        .catch(async (error) => {
+          if (isPackRateLimitError(error)) {
+            setCloudWarning("This pack was not saved because packs were opened too quickly. Please wait a moment before trying again.");
+            setCollection(currentCollection);
+            setProfileStats(profileStats);
+
+            try {
+              const [cloudCollection, cloudStats] = await Promise.all([
+                loadCloudCollection(),
+                loadCloudProfileStats(savingUser.id),
+              ]);
+              setCollection(mergePendingCloudPullsIntoCollection(cloudCollection, savingUser.id));
+              setProfileStats(cloudStats);
+            } catch (refreshError) {
+              console.warn("Unable to refresh PackDex state after a rate-limited pack", {
+                userId: savingUser.id,
+                error: refreshError,
+              });
+            }
+            return;
+          }
+
           console.warn("Cloud pack save failed; queued pull for retry", {
-            setId: selectedSet.id,
+            setId: savingSet.id,
             cardCount: cards.length,
             error,
           });
 
-          enqueuePendingCloudPull(cards, selectedSet.id, authUser.id, clientEventId);
+          enqueuePendingCloudPull(cards, savingSet.id, savingUser.id, clientEventId);
           setCloudWarning("Couldn't save this pack to your account yet. It was saved locally and will retry automatically.");
+        })
+        .finally(() => {
+          if (packSavePromiseRef.current !== promise) return;
+          packSavePromiseRef.current = null;
+          setIsPackSavePending(false);
         });
+      packSavePromiseRef.current = promise;
     }
+  }
+
+  function handleRevealComplete() {
+    packOperationRef.current = false;
+    setIsPackStartLocked(false);
+    setIsOpenAnotherLocked(false);
+    setScreen("summary");
   }
 
   function persistBinderState(nextBinders, changedBinderId = "") {
@@ -1986,6 +2036,9 @@ function App() {
   function backToSets() {
     clearImageWarmupQueue();
     setPulledCards([]);
+    packOperationRef.current = false;
+    setIsPackStartLocked(false);
+    setIsOpenAnotherLocked(false);
     setSelectedSet(null);
     setActiveTab("open");
     setScreen("home");
@@ -2075,7 +2128,7 @@ function App() {
               onViewCollection={viewCollection}
               user={authUser}
               onOpenAuth={openAuthModal}
-              isOpening={isOpeningPack}
+              isOpening={isPackStartLocked}
             />
           )}
 
@@ -2084,7 +2137,7 @@ function App() {
               cards={pulledCards}
               set={selectedSet}
               onCardsRevealed={handleCardsRevealed}
-              onComplete={() => setScreen("summary")}
+              onComplete={handleRevealComplete}
               onBackToSets={backToSets}
             />
           )}
@@ -2099,7 +2152,8 @@ function App() {
               onOpenAnother={openAnotherPack}
               onBackToSets={backToSets}
               onViewCollection={viewCollection}
-              isOpeningAnother={isOpeningPack}
+              isOpeningAnother={isPackSavePending || isOpenAnotherLocked}
+              isSaving={isPackSavePending}
             />
           )}
 
@@ -2192,7 +2246,6 @@ function App() {
       {isClaimingWelcomeReward && (
         <TabLoadingOverlay text="Opening welcome pack..." subtext="Preparing this virtual God Pack" />
       )}
-      {isOpeningPack && <TabLoadingOverlay text={authUser ? "Saving pulls securely..." : "Opening your pack..."} />}
     </main>
   );
 }

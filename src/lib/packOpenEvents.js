@@ -1,6 +1,3 @@
-import { supabase } from "./supabaseClient.js";
-import { getCachedSupabaseUser } from "./sessionUserCache.js";
-
 function makeFallbackId() {
   if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
     return crypto.randomUUID();
@@ -21,57 +18,4 @@ export function ensurePackOpenClientEventId(cards, setId = "") {
   }
 
   return cards.packOpenClientEventId;
-}
-
-function normalizeStats(row = {}) {
-  return {
-    packsOpened: Number(row.packsOpened || row.packs_opened || 0),
-    totalCardsPulled: Number(row.totalCardsPulled || row.total_cards_pulled || 0),
-  };
-}
-
-async function getCurrentPackOpenUser() {
-  if (!supabase) return null;
-
-  try {
-    return await getCachedSupabaseUser(supabase);
-  } catch (error) {
-    console.warn("Unable to read PackDex pack-open user", error);
-    return null;
-  }
-}
-
-export async function recordPackOpenEvent({ userId = "", setId = "", cards = [], clientEventId = "", openedAt = "" } = {}) {
-  if (!supabase) return null;
-
-  const user = userId ? { id: String(userId) } : await getCurrentPackOpenUser();
-
-  if (!user?.id) return null;
-  if (userId && String(userId) !== String(user.id)) return null;
-
-  const eventId = clientEventId || ensurePackOpenClientEventId(cards, setId);
-
-  if (!eventId) return null;
-
-  const { data, error } = await supabase.rpc("record_pack_open_event", {
-    p_client_event_id: eventId,
-    p_set_id: setId,
-    p_opened_at: openedAt || new Date().toISOString(),
-  });
-
-  if (error) {
-    console.warn("Unable to record PackDex pack-open event", {
-      userId: user.id,
-      setId,
-      error,
-    });
-    throw error;
-  }
-
-  const row = Array.isArray(data) ? data[0] : data;
-  return {
-    recorded: Boolean(row?.recorded),
-    duplicate: !row?.recorded,
-    stats: normalizeStats(row),
-  };
 }

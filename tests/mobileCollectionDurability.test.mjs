@@ -51,7 +51,7 @@ class MemoryStorage {
 const SET_ID = "base-set";
 const CARD = { id: "base-set-4", name: "Charizard", number: "4" };
 
-function makeCloudClient({ failCollection = false, failPackEvent = false } = {}) {
+function makeCloudClient({ failCollection = false, rejectReason = "" } = {}) {
   const collectionEvents = new Set();
   const packEvents = new Set();
   const quantities = new Map();
@@ -70,8 +70,23 @@ function makeCloudClient({ failCollection = false, failPackEvent = false } = {})
           return { data: null, error: new Error("offline") };
         }
 
+        if (rejectReason) {
+          return {
+            data: [{
+              client_event_id: payload.batches[0].client_event_id,
+              accepted: false,
+              rejection_reason: rejectReason,
+              recorded: false,
+              packs_opened: packEvents.size,
+              total_cards_pulled: [...quantities.values()].reduce((total, count) => total + count, 0),
+            }],
+            error: null,
+          };
+        }
+
         const rows = [];
         for (const batch of payload.batches) {
+          const recorded = !packEvents.has(batch.client_event_id);
           if (!collectionEvents.has(batch.client_event_id)) {
             collectionEvents.add(batch.client_event_id);
             for (const card of batch.cards) {
@@ -79,26 +94,16 @@ function makeCloudClient({ failCollection = false, failPackEvent = false } = {})
               quantities.set(key, Number(quantities.get(key) || 0) + Number(card.quantity || 0));
             }
           }
-          rows.push({ client_event_id: batch.client_event_id });
+          packEvents.add(batch.client_event_id);
+          rows.push({
+            client_event_id: batch.client_event_id,
+            accepted: true,
+            recorded,
+            packs_opened: packEvents.size,
+            total_cards_pulled: [...quantities.values()].reduce((total, count) => total + count, 0),
+          });
         }
         return { data: rows, error: null };
-      }
-
-      if (name === "record_pack_open_event") {
-        if (failPackEvent) {
-          return { data: null, error: new Error("stats unavailable") };
-        }
-
-        packEvents.add(payload.p_client_event_id);
-        const totalCardsPulled = [...quantities.values()].reduce((total, count) => total + count, 0);
-        return {
-          data: [{
-            recorded: true,
-            packs_opened: packEvents.size,
-            total_cards_pulled: totalCardsPulled,
-          }],
-          error: null,
-        };
       }
 
       throw new Error(`Unexpected RPC: ${name}`);
@@ -206,7 +211,6 @@ test("successful immediate sync removes the queued event", async () => {
   assert.equal(getPendingCloudPullCount(userId, storage), 0);
   assert.deepEqual(client.calls.map(([name]) => name), [
     "increment_collection_cards",
-    "record_pack_open_event",
   ]);
 });
 
@@ -226,40 +230,53 @@ test("collection RPC failure retains the exact queued event", async () => {
   assert.equal(getPendingCloudPulls(userId, storage)[0].id, eventId);
 });
 
-test("stats-phase interruption retains the event without double-overlaying confirmed cards", async () => {
+test("an atomic submission interruption retains the whole event for idempotent retry", async () => {
   const storage = new MemoryStorage();
-  const client = makeCloudClient({ failPackEvent: true });
+  const client = makeCloudClient({ failCollection: true });
   const userId = "stats-retry-user";
   const eventId = "pack-open:base-set:stats-retry";
   enqueuePendingCloudPull([CARD], SET_ID, userId, eventId, { storage });
 
   await assert.rejects(
     syncPendingCloudPulls(userId, { client, storage, validateUser: false }),
-    /stats unavailable/
+    /offline/
   );
 
   const queued = getPendingCloudPulls(userId, storage)[0];
-  assert.ok(queued.collectionConfirmedAt);
+  assert.equal(queued.collectionConfirmedAt, null);
   assert.equal(queued.packEventConfirmedAt, null);
-  const cloudCollection = {
-    [SET_ID]: {
-      [CARD.id]: { count: 1, firstCollectedAt: 1, lastCollectedAt: 1 },
-    },
-  };
   assert.equal(
-    getCardCount(mergePendingCloudPullsIntoCollection(cloudCollection, userId, storage), CARD, SET_ID),
+    getCardCount(mergePendingCloudPullsIntoCollection({}, userId, storage), CARD, SET_ID),
     1
   );
 
-  client.rpc = makeCloudClient().rpc;
-  const result = await syncPendingCloudPulls(userId, { client, storage, validateUser: false });
+  const retryClient = makeCloudClient();
+  const result = await syncPendingCloudPulls(userId, { client: retryClient, storage, validateUser: false });
   assert.equal(result.saved, 1);
   assert.equal(
-    client.calls.filter(([name]) => name === "increment_collection_cards").length,
+    retryClient.calls.filter(([name]) => name === "increment_collection_cards").length,
     1,
-    "the already-confirmed collection event must not be incremented again"
+    "one retry submits one atomic completed pack"
   );
   assert.equal(getPendingCloudPullCount(userId, storage), 0);
+});
+
+test("rate-limited submissions are removed from the durable queue and never retried", async () => {
+  const storage = new MemoryStorage();
+  const client = makeCloudClient({ rejectReason: "pack_rate_limit_one_second" });
+  const userId = "rate-limited-user";
+  const eventId = "pack-open:base-set:rate-limited";
+  enqueuePendingCloudPull([CARD], SET_ID, userId, eventId, { storage });
+
+  const result = await syncPendingCloudPulls(userId, { client, storage, validateUser: false });
+  const retry = await syncPendingCloudPulls(userId, { client, storage, validateUser: false });
+
+  assert.equal(result.rejected, 1);
+  assert.equal(result.saved, 0);
+  assert.equal(getPendingCloudPullCount(userId, storage), 0);
+  assert.equal(client.collectionEvents.size, 0);
+  assert.equal(client.packEvents.size, 0);
+  assert.equal(retry.attempted, 0);
 });
 
 test("repeated retry with the same event id never duplicates card quantities or pack events", async () => {

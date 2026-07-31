@@ -1,13 +1,10 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
-import {
-  claimPackPersistence,
-  isPackSkipReady,
-  runPackSkipTransition,
-} from "../mobile-app/src/lib/packRevealLifecycle.js";
+import { claimPackPersistence } from "../mobile-app/src/lib/packRevealLifecycle.js";
 
 const appUrl = new URL("../mobile-app/src/App.jsx", import.meta.url);
+const cssUrl = new URL("../mobile-app/src/App.css", import.meta.url);
 
 function functionSource(source, name, nextName) {
   const start = source.indexOf(`function ${name}`);
@@ -16,89 +13,55 @@ function functionSource(source, name, nextName) {
   return source.slice(start, end === -1 ? source.length : end);
 }
 
-test("fast readiness exposes Skip during dealing and slow readiness keeps it hidden", () => {
-  assert.equal(isPackSkipReady({
-    stage: "revealing",
-    assetsReady: true,
-    tutorialMode: false,
-    skipStarted: false,
-  }), true);
-  assert.equal(isPackSkipReady({
-    stage: "revealing",
-    assetsReady: false,
-    tutorialMode: false,
-    skipStarted: false,
-  }), false);
+test("normal pack reveal has no screen-wide skip affordance or skip transition", async () => {
+  const [source, css] = await Promise.all([readFile(appUrl, "utf8"), readFile(cssUrl, "utf8")]);
+
+  assert.doesNotMatch(source, /Tap anywhere to skip|Tap to Skip|skipPackReveal|isPackSkipReady|runPackSkipTransition/);
+  assert.doesNotMatch(css, /pack-skip-hint/);
+  assert.doesNotMatch(source, /screen-content[^>]*onClick=\{handlePackScreenClick\}/);
 });
 
-test("opening another pack does not reuse the previous pack's ready state", async () => {
+test("automatic reveal ignores card input and completes only from its scheduled timer", async () => {
   const source = await readFile(appUrl, "utf8");
-  const openAnotherPack = functionSource(source, "openAnotherPack", "inspectCard");
-
-  assert.match(openAnotherPack, /beginReveal\(nextPack,\s*selectedSet,\s*\{\s*assetsReady:\s*false\s*\}\)/);
-});
-
-test("the first visible Skip frame is enabled by the same readiness transition", async () => {
-  const source = await readFile(appUrl, "utf8");
-  const revealEffect = source.slice(
+  const automaticEffect = source.slice(
     source.indexOf('if (packStage !== "revealing"'),
     source.indexOf("function persistSessionCollection")
   );
 
-  assert.match(revealEffect, /const nextSkipReady = isPackSkipReady\(/);
-  assert.match(revealEffect, /skipRevealEligibleRef\.current = nextSkipReady;\s*setSkipRevealEligible\(nextSkipReady\);/);
-  assert.doesNotMatch(revealEffect, /scheduleRevealTimer\([\s\S]*setSkipRevealEligible\(true\)/);
-  assert.match(source, /isRevealing && packImagesReady && !tutorialMode && skipRevealEligible/);
-  assert.match(source, /const canSkip = skipRevealEligibleRef\.current && isPackSkipReady\(/);
+  assert.match(automaticEffect, /activeRevealStyle === "automatic"/);
+  assert.match(automaticEffect, /pack\.forEach\(\(card, index\) =>/);
+  assert.match(automaticEffect, /showCompletedPackSummary\(\)/);
+  assert.match(source, /if \(isRevealing\) \{\s*if \(isTapReveal\)/);
 });
 
-test("the opening activation is released and stopped before Skip can receive it", async () => {
+test("interactive modes accept one distinct input at a time without a long tap cooldown", async () => {
   const source = await readFile(appUrl, "utf8");
-  assert.match(
-    source,
-    /onClick=\{\(event\) => \{\s*event\.stopPropagation\(\);\s*onStartReveal\?\.\(\);\s*\}\}/
-  );
+  const tapReveal = functionSource(source, "revealTappedCard", "dismissSwipeCard");
+  const swipeDismiss = functionSource(source, "dismissSwipeCard", "scheduleRevealTimer");
+
+  assert.match(tapReveal, /claimTapRevealInput/);
+  assert.match(tapReveal, /if \(!result\.isComplete\) return true/);
+  assert.match(tapReveal, /markCardRevealed\(index, pack\.length\)/);
+  assert.match(swipeDismiss, /revealAnimationLockRef\.current/);
+  assert.match(swipeDismiss, /index !== swipeDismissedCountRef\.current/);
+  assert.match(swipeDismiss, /markCardRevealed\(nextIndex, pack\.length\)/);
 });
 
-test("skipping during dealing cancels timers, reveals every card, and enters summary", () => {
-  const calls = [];
-  const skipped = runPackSkipTransition({
-    canSkip: true,
-    clearTimers: () => calls.push("clear"),
-    finishCycle: () => calls.push("finish"),
-    revealAll: () => calls.push("reveal-all"),
-    showSummary: () => calls.push("summary"),
-  });
-
-  assert.equal(skipped, true);
-  assert.deepEqual(calls, ["clear", "finish", "reveal-all", "summary"]);
-  assert.equal(runPackSkipTransition({ canSkip: false, showSummary: () => calls.push("duplicate") }), false);
-  assert.equal(calls.includes("duplicate"), false);
-});
-
-test("pack persistence and its stable event are claimed exactly once across Skip", async () => {
+test("pack persistence and Open Another are claimed exactly once", async () => {
   const first = claimPackPersistence("", "set-a:card-1|card-2");
   const retry = claimPackPersistence(first.saveKey, "set-a:card-1|card-2");
   assert.equal(first.shouldPersist, true);
   assert.equal(retry.shouldPersist, false);
 
   const source = await readFile(appUrl, "utf8");
-  const beginReveal = functionSource(source, "beginReveal", "skipPackReveal");
-  const skipReveal = functionSource(source, "skipPackReveal", "handlePackScreenClick");
-  const persistence = functionSource(source, "saveRevealedPack", "startReveal");
-  assert.equal((beginReveal.match(/saveRevealedPack\(/g) || []).length, 1);
-  assert.doesNotMatch(skipReveal, /saveRevealedPack|recordPackOpenEvent|enqueuePendingCloudPull/);
-  assert.match(persistence, /claimPackPersistence\(savedPackKeyRef\.current, saveKey\)/);
-  assert.match(persistence, /ensurePackOpenClientEventId\(cards, set\.id\)/);
-});
+  const beginReveal = functionSource(source, "beginReveal", "returnToSets");
+  const persistence = functionSource(source, "saveRevealedPack", "startPackPersistence");
+  const openAnother = functionSource(source, "openAnotherPack", "inspectCard");
 
-test("onboarding remains unskippable", () => {
-  assert.equal(isPackSkipReady({
-    stage: "revealing",
-    assetsReady: true,
-    tutorialMode: true,
-    skipStarted: false,
-  }), false);
+  assert.match(beginReveal, /startPackPersistence\(cards, set\)/);
+  assert.match(persistence, /claimPackPersistence\(savedPackKeyRef\.current, saveKey\)/);
+  assert.match(openAnother, /openAnotherLockRef\.current \|\| packOpeningOperationRef\.current \|\| packSavePendingRef\.current/);
+  assert.match(openAnother, /openAnotherLockRef\.current = true/);
 });
 
 test("existing deal, flip, and summary timing values are unchanged", async () => {

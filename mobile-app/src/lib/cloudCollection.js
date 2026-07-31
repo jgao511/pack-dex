@@ -6,10 +6,24 @@ import { getCachedSupabaseUser } from "../../../src/lib/sessionUserCache.js";
 
 const USER_COLLECTION_TABLE = "user_collection";
 export const PENDING_CLOUD_PULLS_KEY = "packdex-mobile-pending-cloud-pulls";
-const MAX_BATCHES_PER_REQUEST = 50;
-const MAX_CARD_ROWS_PER_REQUEST = 500;
 const CLOUD_SYNC_REQUEST_TIMEOUT_MS = 15_000;
 const pendingSyncPromisesByUserId = new Map();
+
+export const PACK_RATE_LIMIT_ERROR_CODE = "PACK_RATE_LIMITED";
+
+export class PackRateLimitError extends Error {
+  constructor(reason = "pack_rate_limit_one_second") {
+    super("Pack submission was rate-limited. Please wait before opening another pack.");
+    this.name = "PackRateLimitError";
+    this.code = PACK_RATE_LIMIT_ERROR_CODE;
+    this.reason = reason;
+    this.retryable = false;
+  }
+}
+
+export function isPackRateLimitError(error) {
+  return error?.code === PACK_RATE_LIMIT_ERROR_CODE || error instanceof PackRateLimitError;
+}
 
 function findSet(setId) {
   return sets.find((set) => set.id === setId);
@@ -283,31 +297,6 @@ function makeCollectionBatch(cards, setId, clientEventId) {
   return { client_event_id: eventId, cards: [...grouped.values()] };
 }
 
-function makeRequestChunks(pulls) {
-  const chunks = [];
-  let currentChunk = [];
-  let currentCardRows = 0;
-
-  pulls.forEach((pull) => {
-    const batch = makeCollectionBatch(pull.cards, pull.setId, pull.id);
-    const wouldOverflow =
-      currentChunk.length >= MAX_BATCHES_PER_REQUEST ||
-      currentCardRows + batch.cards.length > MAX_CARD_ROWS_PER_REQUEST;
-
-    if (wouldOverflow && currentChunk.length > 0) {
-      chunks.push(currentChunk);
-      currentChunk = [];
-      currentCardRows = 0;
-    }
-
-    currentChunk.push(batch);
-    currentCardRows += batch.cards.length;
-  });
-
-  if (currentChunk.length > 0) chunks.push(currentChunk);
-  return chunks;
-}
-
 function updatePendingPullsForUser(userId, update, storage) {
   const normalizedUserId = String(userId || "");
   const current = loadPendingCloudPulls(storage);
@@ -364,6 +353,26 @@ function removeFullyConfirmedPulls(userId, storage) {
   return removed;
 }
 
+function removePendingPullIds(userId, ids, storage) {
+  if (ids.size === 0) return [];
+
+  const normalizedUserId = String(userId || "");
+  const current = loadPendingCloudPulls(storage);
+  const removed = current.filter(
+    (pull) =>
+      String(pull?.userId || "") === normalizedUserId &&
+      ids.has(String(pull?.id || ""))
+  );
+  const remaining = current.filter(
+    (pull) =>
+      String(pull?.userId || "") !== normalizedUserId ||
+      !ids.has(String(pull?.id || ""))
+  );
+
+  if (removed.length > 0) savePendingCloudPulls(remaining, storage);
+  return removed;
+}
+
 async function assertCurrentSyncUser(userId, client, validateUser) {
   if (!validateUser) return;
 
@@ -382,6 +391,20 @@ function normalizePackEventStats(data) {
   return {
     packsOpened: Number(row.packsOpened || row.packs_opened || 0),
     totalCardsPulled: Number(row.totalCardsPulled || row.total_cards_pulled || 0),
+  };
+}
+
+function normalizeSubmission(data, fallbackEventId) {
+  const rows = Array.isArray(data) ? data : data ? [data] : [];
+  const row = rows[0] || {};
+
+  return {
+    rows,
+    clientEventId: String(row.client_event_id || fallbackEventId || ""),
+    accepted: row.accepted !== false,
+    rejectionReason: String(row.rejection_reason || ""),
+    recorded: row.recorded === true,
+    stats: normalizePackEventStats(row),
   };
 }
 
@@ -414,64 +437,42 @@ async function performPendingCloudPullSync(
   const normalizedUserId = String(userId || "");
 
   if (!normalizedUserId || !client || !storage) {
-    return { attempted: 0, saved: 0, failed: 0, stats: null };
+    return { attempted: 0, saved: 0, rejected: 0, failed: 0, stats: null, rejections: [] };
   }
 
   const initialPulls = getPendingCloudPulls(normalizedUserId, storage);
   if (initialPulls.length === 0) {
-    return { attempted: 0, saved: 0, failed: 0, stats: null };
+    return { attempted: 0, saved: 0, rejected: 0, failed: 0, stats: null, rejections: [] };
   }
 
-  const unconfirmedCollectionPulls = initialPulls.filter(
-    (pull) => !pull.collectionConfirmedAt
-  );
+  let latestStats = null;
+  const rejections = [];
 
-  for (const batches of makeRequestChunks(unconfirmedCollectionPulls)) {
+  for (const pull of initialPulls) {
     await assertCurrentSyncUser(normalizedUserId, client, validateUser);
     const { data, error } = await callRpcWithTimeout(
       client,
       "increment_collection_cards",
-      { batches },
+      { batches: [makeCollectionBatch(pull.cards, pull.setId, pull.id)] },
       requestTimeoutMs
     );
 
     if (error) throw error;
 
-    const confirmedIds = new Set(
-      (data || [])
-        .map((row) => String(row?.client_event_id || ""))
-        .filter(Boolean)
-    );
+    const submission = normalizeSubmission(data, pull.id);
+    latestStats = submission.stats || latestStats;
 
-    if (confirmedIds.size > 0) {
-      markCollectionConfirmed(normalizedUserId, confirmedIds, storage);
+    if (!submission.accepted) {
+      const rejection = {
+        clientEventId: pull.id,
+        reason: submission.rejectionReason || "pack_rate_limit_one_second",
+      };
+      rejections.push(rejection);
+      removePendingPullIds(normalizedUserId, new Set([pull.id]), storage);
+      continue;
     }
-  }
 
-  let latestStats = null;
-  const collectionConfirmedPulls = getPendingCloudPulls(normalizedUserId, storage).filter(
-    (pull) => pull.collectionConfirmedAt && !pull.packEventConfirmedAt
-  );
-
-  for (const pull of collectionConfirmedPulls) {
-    await assertCurrentSyncUser(normalizedUserId, client, validateUser);
-    const openedAt = Number.isFinite(Number(pull.createdAt))
-      ? new Date(Number(pull.createdAt)).toISOString()
-      : new Date().toISOString();
-    const { data, error } = await callRpcWithTimeout(
-      client,
-      "record_pack_open_event",
-      {
-        p_client_event_id: pull.id,
-        p_set_id: pull.setId,
-        p_opened_at: openedAt,
-      },
-      requestTimeoutMs
-    );
-
-    if (error) throw error;
-
-    latestStats = normalizePackEventStats(data) || latestStats;
+    markCollectionConfirmed(normalizedUserId, new Set([pull.id]), storage);
     markPackEventConfirmed(normalizedUserId, pull.id, storage);
   }
 
@@ -481,8 +482,10 @@ async function performPendingCloudPullSync(
   return {
     attempted: initialPulls.length,
     saved: savedPulls.length,
+    rejected: rejections.length,
     failed,
     stats: latestStats,
+    rejections,
   };
 }
 
@@ -490,7 +493,7 @@ export function syncPendingCloudPulls(userId, options = {}) {
   const normalizedUserId = String(userId || "");
 
   if (!normalizedUserId) {
-    return Promise.resolve({ attempted: 0, saved: 0, failed: 0, stats: null });
+    return Promise.resolve({ attempted: 0, saved: 0, rejected: 0, failed: 0, stats: null, rejections: [] });
   }
 
   const existing = pendingSyncPromisesByUserId.get(normalizedUserId);
@@ -526,16 +529,23 @@ export async function savePulledCardsToCloud(
   } = {}
 ) {
   if (!client || !userId || !Array.isArray(cards) || cards.length === 0) {
-    return { attempted: 0, saved: 0, failed: 0, stats: null };
+    return { attempted: 0, saved: 0, rejected: 0, failed: 0, stats: null, rejections: [] };
   }
 
   enqueuePendingCloudPull(cards, setId, userId, clientEventId, { storage });
-  return syncPendingCloudPulls(userId, {
+  const result = await syncPendingCloudPulls(userId, {
     client,
     storage,
     validateUser,
     requestTimeoutMs,
   });
+
+  const rejection = result.rejections?.find(
+    (entry) => String(entry.clientEventId) === String(clientEventId)
+  );
+  if (rejection) throw new PackRateLimitError(rejection.reason);
+
+  return result;
 }
 
 export function cloudRowsToCollection(rows) {

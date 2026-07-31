@@ -36,11 +36,12 @@ test("pack achievement flow merges awards instead of reloading the achievement t
   );
 
   const postPackFlow = mobileApp.match(
-    /async function runPostPackAchievementFlow[\s\S]*?return \{ packEvent: result, achievements: achievementResult \};/
+    /async function runPostPackAchievementFlow[\s\S]*?return \{ packEvent: null, achievements: achievementResult \};/
   )?.[0] || "";
 
   assert.match(postPackFlow, /mergeAwardedAchievements/);
   assert.doesNotMatch(postPackFlow, /loadUserAchievements/);
+  assert.doesNotMatch(postPackFlow, /recordPackOpenEvent/);
   assert.match(edgeFunction, /\.select\("award_key"\)/);
   assert.match(edgeFunction, /return jsonResponse\(\{ awarded \}\)/);
   assert.doesNotMatch(edgeFunction, /alreadyEarned:/);

@@ -34,12 +34,11 @@ function functionSource(source, name, nextName) {
   return source.slice(start, end === -1 ? source.length : end);
 }
 
-test("normal, skipped, onboarding, God Pack, and welcome-reward flows schedule no pack audio", async () => {
+test("normal, onboarding, God Pack, and welcome-reward flows schedule no pack audio", async () => {
   const source = await readFile(mobileAppUrl, "utf8");
   const flows = [
     functionSource(source, "startTutorialPack", "chooseOnboardingPokemon"),
     functionSource(source, "startReveal", "beginReveal"),
-    functionSource(source, "skipPackReveal", "handlePackScreenClick"),
     functionSource(source, "openAnotherPack", "inspectCard"),
     functionSource(source, "handleClaimWelcomeReward", "handleAuthSubmit"),
   ];

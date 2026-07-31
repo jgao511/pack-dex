@@ -16,6 +16,7 @@ function PullSummary({
   onBackToSets,
   onViewCollection,
   isOpeningAnother = false,
+  isSaving = false,
 }) {
   const [inspectedCard, setInspectedCard] = useState(null);
 
@@ -60,7 +61,7 @@ function PullSummary({
           </button>
           <button className="primary-button" onClick={onOpenAnother} disabled={isOpeningAnother}>
             <RotateCcw size={20} aria-hidden="true" />
-            {isOpeningAnother ? "Opening..." : "Open Another Pack"}
+            {isSaving ? "Saving..." : isOpeningAnother ? "Opening..." : "Open Another Pack"}
           </button>
         </div>
       </div>
