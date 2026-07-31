@@ -55,10 +55,70 @@ function MissingImage({ label = "Image unavailable" }) {
   return <span className="explore-image-fallback" role="img" aria-label={label}>◇</span>;
 }
 
-function SafeImage({ src, alt, className = "" }) {
+function SafeImage({ src, alt, className = "", ...imageProps }) {
   const [failed, setFailed] = useState(false);
   if (!src || failed) return <MissingImage label={`${alt || "Artwork"} unavailable`} />;
-  return <img className={className} src={src} alt={alt} loading="lazy" decoding="async" onError={() => setFailed(true)} />;
+  return <img {...imageProps} className={className} src={src} alt={alt} loading="lazy" decoding="async" onError={() => setFailed(true)} />;
+}
+
+const opticalLogoOffsets = new Map();
+
+export function measureVisibleImageCenter(image) {
+  if (!image?.naturalWidth || !image?.naturalHeight) return 0;
+
+  try {
+    const scale = Math.min(1, 512 / Math.max(image.naturalWidth, image.naturalHeight));
+    const width = Math.max(1, Math.round(image.naturalWidth * scale));
+    const height = Math.max(1, Math.round(image.naturalHeight * scale));
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d", { willReadFrequently: true });
+    if (!context) return 0;
+    canvas.width = width;
+    canvas.height = height;
+    context.drawImage(image, 0, 0, width, height);
+    const pixels = context.getImageData(0, 0, width, height).data;
+    let left = width;
+    let right = -1;
+
+    for (let y = 0; y < height; y += 1) {
+      for (let x = 0; x < width; x += 1) {
+        if (pixels[(y * width + x) * 4 + 3] <= 12) continue;
+        left = Math.min(left, x);
+        right = Math.max(right, x);
+      }
+    }
+
+    if (right < left) return 0;
+    const visibleCenter = (left + right + 1) / 2;
+    return Math.max(-18, Math.min(18, ((width / 2 - visibleCenter) / width) * 100));
+  } catch {
+    return 0;
+  }
+}
+
+function OpticallyCenteredSetLogo({ set }) {
+  const src = getSetLogoUrl(set);
+  const [offset, setOffset] = useState(() => opticalLogoOffsets.get(src) || 0);
+
+  useEffect(() => {
+    setOffset(opticalLogoOffsets.get(src) || 0);
+  }, [src]);
+
+  return (
+    <div className="set-logo-frame">
+      <SafeImage
+        src={src}
+        alt={`${set.name} logo`}
+        className="set-logo-frame__image"
+        onLoad={(event) => {
+          const nextOffset = measureVisibleImageCenter(event.currentTarget);
+          opticalLogoOffsets.set(src, nextOffset);
+          setOffset(nextOffset);
+        }}
+        style={{ "--set-logo-optical-x": `${offset}%` }}
+      />
+    </div>
+  );
 }
 
 function ProgressBar({ value, label }) {
@@ -207,7 +267,7 @@ function ExploreHome({ collection, wishlistEntries, query, onQueryChange, naviga
         <PokemonTile species={spotlights.pokemon} collection={collection} compact featureLabel="Featured Pokémon" contextLine={`A ${spotlights.pokemon.types.join("/")}-type Pokémon introduced in Generation ${spotlights.pokemon.generation}.`} onOpen={(species) => navigate({ kind: "pokemon", id: species.id })} />
         <SetTile set={spotlights.set} collection={collection} compact featureLabel="Featured Set" contextLine={getSetGuide(spotlights.set.id)?.summary || ""} onOpen={(set) => navigate({ kind: "set", id: set.id })} />
         <EraTile era={spotlights.era} collection={collection} compact featureLabel="Featured Era" contextLine={spotlights.era.identity || spotlights.era.summary || ""} onOpen={(era) => navigate({ kind: "era", id: era.id })} />
-        {dailyFact && <button className="daily-fact-card" type="button" onClick={() => navigate({ kind: dailyFact.kind, id: dailyFact.id })}><span>Fun Fact</span><strong>{dailyFact.text}</strong><em>Explore this {dailyFact.kind} ›</em></button>}
+        {dailyFact && <button className="daily-fact-card" type="button" onClick={() => navigate({ kind: dailyFact.kind, id: dailyFact.id })}><span>{dailyFact.kind === "set" ? "Set Fun Fact" : "Era Fun Fact"}</span><strong>{dailyFact.text}</strong><em>{dailyFact.linkLabel} ›</em></button>}
       </div></section>
       {selectedRecommendation && <section className="explore-section"><div className="explore-section-heading"><span>Personalized from your PackDex activity</span><h2>What Should I Open?</h2></div><RecommendationCard item={selectedRecommendation} onOpenPack={onOpenPack} onViewSet={(set) => navigate({ kind: "set", id: set.id })} /><div className="recommendation-switcher" aria-label="Recommendation categories">{recommendationItems.map((item, index) => <button className={!surpriseRecommendation && index === recommendationIndex ? "is-active" : ""} type="button" key={`${item.category}:${item.setId}`} onClick={() => { setSurpriseRecommendation(null); setRecommendationIndex(index); }}>{item.title}</button>)}{recommendations.surprise && <button className={surpriseRecommendation ? "is-active" : ""} type="button" onClick={() => setSurpriseRecommendation(recommendations.surprise)}>Surprise Me</button>}</div><p className="recommendation-disclaimer">Recommendations use your PackDex collection and wishlist—not real-world pull odds, value forecasts, or guarantees.</p></section>}
       <section className="explore-section"><div className="explore-section-heading"><span>Encyclopedia</span><h2>Browse</h2></div><div className="explore-category-grid">
@@ -369,13 +429,13 @@ function SetDetail({ id, collection, wishlistKeys, navigate, goBack, onInspectCa
   const wishlistCount = cardEntries.filter((entry) => wishlistKeys.has(`${set.id}:${entry.card.id}`)).length;
   const inspectSetCard = (card, cardSet) => onInspectCard(card, cardSet, { origin: "set-detail", setId: set.id });
   return <section className="explore-screen"><PageHeader title={set.name} onBack={goBack} />
-    <section className="set-detail-hero"><div className="set-detail-logo"><SafeImage src={getSetLogoUrl(set)} alt={`${set.name} logo`} /></div><div><span>{guide.custom ? "PackDex-created preview" : set.era}</span><strong>{set.releaseDate ? new Date(`${set.releaseDate}T00:00:00`).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" }) : "Release date unavailable"}</strong><em>{cardEntries.length} supported cards</em></div></section>
+    <section className="set-detail-hero"><OpticallyCenteredSetLogo set={set} /><div><span>{guide.custom ? "PackDex-created preview" : set.era}</span><strong>{set.releaseDate ? new Date(`${set.releaseDate}T00:00:00`).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" }) : "Release date unavailable"}</strong><em>{cardEntries.length} supported cards</em></div></section>
     {guide.summary && <section className="explore-detail-section"><span className="eyebrow">About This Set</span><p className="explore-description">{guide.summary}</p></section>}
     {guide.themes?.length > 0 && <section className="explore-detail-section"><span className="eyebrow">Themes</span><div className="mechanic-list">{guide.themes.map((item) => <span key={item}>{item}</span>)}</div></section>}
     {guide.mechanics?.length > 0 && <section className="explore-detail-section"><span className="eyebrow">Verified Mechanics</span><div className="mechanic-list">{guide.mechanics.map((item) => <span key={item}>{item}</span>)}</div></section>}
     {species.length > 0 && <section className="explore-detail-section"><div className="explore-section-heading"><span>Pokémon represented in this set</span><h2>Featured Pokémon</h2></div><div className="explore-pokemon-grid is-small is-set-featured">{species.map((entry) => <PokemonTile key={entry.species.id} species={entry.species} collection={collection} showProgress={false} onOpen={(item) => navigate({ kind: "pokemon", id: item.id })} />)}</div></section>}
     {featured.length > 0 && <section className="explore-detail-section"><div className="explore-section-heading"><span>Selected high-rarity cards</span><h2>Featured Cards</h2></div><div className="explore-card-grid">{featured.map((entry) => <CardTile key={entry.card.id} entry={entry} collection={collection} wishlistKeys={wishlistKeys} onOpen={inspectSetCard} />)}</div></section>}
-    {guide.funFacts?.length > 0 && <section className="explore-detail-section"><span className="eyebrow">Fun Facts</span><ul className="explore-fact-list">{guide.funFacts.map((fact) => <li key={fact}>{fact}</li>)}</ul></section>}
+    {guide.funFacts?.length > 0 && <section className="explore-detail-section"><span className="eyebrow">Set Fun Facts</span><ul className="explore-fact-list">{guide.funFacts.map((fact) => <li key={fact}>{fact}</li>)}</ul></section>}
     <section className="explore-detail-section"><span className="eyebrow">Your Collection</span><div className="progress-summary"><strong>{progress.percent}%</strong><span>{progress.collected} of {progress.total} unique cards</span><em>{wishlistCount} wishlisted</em></div><ProgressBar value={progress.percent} label={`${set.name} collection completion`} /><div className="explore-actions"><button type="button" onClick={() => onOpenPack(set)}>Open This Pack</button><button type="button" onClick={() => onViewSetCollection(set)}>View Set Collection</button></div></section>
     {era && <section className="explore-detail-section"><button className="explore-link-row" type="button" onClick={() => navigate({ kind: "era", id: era.id })}><span><small>Era</small><strong>{era.name}</strong></span><em>View era ›</em></button></section>}
     {related.length > 0 && <section className="explore-detail-section"><div className="explore-section-heading"><span>{set.era}</span><h2>Other Sets in This Era</h2></div><div className="explore-horizontal">{related.map((item) => <SetTile key={item.id} set={item} collection={collection} compact onOpen={(next) => navigate({ kind: "set", id: next.id })} />)}</div></section>}

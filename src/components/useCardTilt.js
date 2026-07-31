@@ -12,6 +12,8 @@ const NEUTRAL_TILT = {
   foilShiftY: 50,
   rainbowOpacity: 0.32,
   shineOpacity: 0.28,
+  inspectionGlowAngle: 115,
+  inspectionGlowOpacity: 0,
 };
 
 const INTENSITY = {
@@ -43,6 +45,9 @@ function writeTiltVars(element, values) {
   element.style.setProperty("--foil-shift-y", `${values.foilShiftY.toFixed(2)}%`);
   element.style.setProperty("--rainbow-opacity", values.rainbowOpacity.toFixed(3));
   element.style.setProperty("--shine-opacity", values.shineOpacity.toFixed(3));
+  element.style.setProperty("--inspection-glow-angle", `${values.inspectionGlowAngle.toFixed(2)}deg`);
+  element.style.setProperty("--inspection-glow-proximity", values.tilt.toFixed(3));
+  element.style.setProperty("--inspection-glow-opacity", values.inspectionGlowOpacity.toFixed(3));
 }
 
 function setNeutral(target) {
@@ -67,6 +72,8 @@ function calculateTilt(event, element, motion) {
     foilShiftY: 50 + ny * 12,
     rainbowOpacity: 0.24 + tilt * 0.2,
     shineOpacity: 0.18 + tilt * 0.18,
+    inspectionGlowAngle: 115 + nx * 90 - ny * 45,
+    inspectionGlowOpacity: 0.48 + tilt * 0.42,
   };
 }
 
@@ -74,41 +81,77 @@ export function useCardTilt({ enabled = true, intensity = "normal" } = {}) {
   const ref = useRef(null);
   const frameRef = useRef(0);
   const activePointerIdRef = useRef(null);
+  const reducedMotionRef = useRef(false);
   const currentRef = useRef({ ...NEUTRAL_TILT });
   const targetRef = useRef({ ...NEUTRAL_TILT });
   const motion = INTENSITY[intensity] || INTENSITY.normal;
 
+  const startAnimation = useCallback(() => {
+    if (!enabled || frameRef.current || reducedMotionRef.current) return;
+
+    function animate() {
+      const element = ref.current;
+      const current = currentRef.current;
+      const target = targetRef.current;
+      let isMoving = false;
+
+      for (const key of Object.keys(current)) {
+        const difference = target[key] - current[key];
+        if (Math.abs(difference) > 0.002) {
+          current[key] += difference * motion.ease;
+          isMoving = true;
+        } else {
+          current[key] = target[key];
+        }
+      }
+
+      if (element) writeTiltVars(element, current);
+
+      if (isMoving && ref.current) {
+        frameRef.current = requestAnimationFrame(animate);
+      } else {
+        frameRef.current = 0;
+      }
+    }
+
+    frameRef.current = requestAnimationFrame(animate);
+  }, [enabled, motion.ease]);
+
+  useEffect(() => {
+    const media = window.matchMedia?.("(prefers-reduced-motion: reduce)");
+    const updatePreference = () => {
+      reducedMotionRef.current = Boolean(media?.matches);
+      if (media?.matches) {
+        if (frameRef.current) cancelAnimationFrame(frameRef.current);
+        frameRef.current = 0;
+        setNeutral(targetRef);
+        currentRef.current = { ...NEUTRAL_TILT };
+        if (ref.current) writeTiltVars(ref.current, NEUTRAL_TILT);
+      }
+    };
+
+    updatePreference();
+    media?.addEventListener?.("change", updatePreference);
+    return () => media?.removeEventListener?.("change", updatePreference);
+  }, []);
+
   useEffect(() => {
     if (!enabled) {
+      if (frameRef.current) cancelAnimationFrame(frameRef.current);
+      frameRef.current = 0;
       setNeutral(targetRef);
+      currentRef.current = { ...NEUTRAL_TILT };
       if (ref.current) writeTiltVars(ref.current, NEUTRAL_TILT);
       return undefined;
     }
 
-    function animate() {
-      const element = ref.current;
-
-      if (element) {
-        const current = currentRef.current;
-        const target = targetRef.current;
-
-        for (const key of Object.keys(current)) {
-          current[key] += (target[key] - current[key]) * motion.ease;
-        }
-
-        writeTiltVars(element, current);
-      }
-
-      frameRef.current = requestAnimationFrame(animate);
-    }
-
-    frameRef.current = requestAnimationFrame(animate);
+    if (ref.current) writeTiltVars(ref.current, currentRef.current);
 
     return () => {
-      cancelAnimationFrame(frameRef.current);
+      if (frameRef.current) cancelAnimationFrame(frameRef.current);
       frameRef.current = 0;
     };
-  }, [enabled, motion.ease]);
+  }, [enabled]);
 
   useEffect(() => {
     if (!enabled) return undefined;
@@ -129,6 +172,7 @@ export function useCardTilt({ enabled = true, intensity = "normal" } = {}) {
 
       if (!isInside) {
         setNeutral(targetRef);
+        startAnimation();
       }
     }
 
@@ -137,22 +181,29 @@ export function useCardTilt({ enabled = true, intensity = "normal" } = {}) {
     return () => {
       window.removeEventListener("pointermove", handleDocumentPointerMove);
     };
-  }, [enabled]);
+  }, [enabled, startAnimation]);
 
   const onPointerDown = useCallback(
     (event) => {
-      if (!enabled || !ref.current) return;
+      if (!enabled || !ref.current || reducedMotionRef.current || event.isPrimary === false) return;
+      if (activePointerIdRef.current !== null && activePointerIdRef.current !== event.pointerId) return;
 
       activePointerIdRef.current = event.pointerId;
-      ref.current.setPointerCapture?.(event.pointerId);
+      if (event.pointerType === "touch" || event.pointerType === "pen") event.preventDefault();
+      try {
+        ref.current.setPointerCapture?.(event.pointerId);
+      } catch {
+        // Older WebKit can reject capture while promoting a touch to a gesture.
+      }
       targetRef.current = calculateTilt(event, ref.current, motion);
+      startAnimation();
     },
-    [enabled, motion]
+    [enabled, motion, startAnimation]
   );
 
   const onPointerMove = useCallback(
     (event) => {
-      if (!enabled || !ref.current) return;
+      if (!enabled || !ref.current || reducedMotionRef.current || event.isPrimary === false) return;
 
       const isTouchPointer = event.pointerType === "touch" || event.pointerType === "pen";
 
@@ -160,26 +211,43 @@ export function useCardTilt({ enabled = true, intensity = "normal" } = {}) {
       if (isTouchPointer) event.preventDefault();
 
       targetRef.current = calculateTilt(event, ref.current, motion);
+      startAnimation();
     },
-    [enabled, motion]
+    [enabled, motion, startAnimation]
   );
 
   const onPointerEnd = useCallback((event) => {
     if (event?.pointerId != null && activePointerIdRef.current === event.pointerId) {
-      ref.current?.releasePointerCapture?.(event.pointerId);
+      try {
+        if (ref.current?.hasPointerCapture?.(event.pointerId)) {
+          ref.current.releasePointerCapture(event.pointerId);
+        }
+      } catch {
+        // Capture may already have been released by Safari after cancellation.
+      }
       activePointerIdRef.current = null;
     }
 
     setNeutral(targetRef);
-  }, []);
+    startAnimation();
+  }, [startAnimation]);
+
+  const onLostPointerCapture = useCallback((event) => {
+    if (event?.pointerId == null || activePointerIdRef.current === event.pointerId) {
+      activePointerIdRef.current = null;
+      setNeutral(targetRef);
+      startAnimation();
+    }
+  }, [startAnimation]);
 
   const onPointerLeave = useCallback(
     (event) => {
       if (event.pointerType === "mouse" || activePointerIdRef.current === null) {
         setNeutral(targetRef);
+        startAnimation();
       }
     },
-    []
+    [startAnimation]
   );
 
   return {
@@ -189,5 +257,6 @@ export function useCardTilt({ enabled = true, intensity = "normal" } = {}) {
     onPointerUp: onPointerEnd,
     onPointerCancel: onPointerEnd,
     onPointerLeave,
+    onLostPointerCapture,
   };
 }

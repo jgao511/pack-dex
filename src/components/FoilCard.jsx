@@ -19,6 +19,7 @@ function FoilCard({
   showFoil = true,
   useCardBackPlaceholder = false,
   imageDebugMeta = null,
+  inspectionGlowStrength = "none",
 }) {
   const [loaded, setLoaded] = useState(false);
   const [displaySrc, setDisplaySrc] = useState("");
@@ -77,7 +78,11 @@ function FoilCard({
   }, [displaySrc, imageUrl]);
 
   return (
-    <TiltCardFrame variant={variant} enabled={enableTransform || enableTiltFoil}>
+    <TiltCardFrame
+      variant={variant}
+      enabled={enableTransform || enableTiltFoil}
+      inspectionGlowStrength={inspectionGlowStrength}
+    >
       <div
         className={`foil-card card-image-shell foil-profile-${foilProfile} foil-card--${variant} ${
           enableTransform ? "is-interactive" : "is-static"
@@ -100,6 +105,9 @@ function FoilCard({
             loading={variant === "collection" ? "lazy" : "eager"}
             decoding="async"
             fetchPriority={variant === "collection" ? "low" : "high"}
+            draggable={false}
+            onContextMenu={(event) => event.preventDefault()}
+            onDragStart={(event) => event.preventDefault()}
             onLoad={(event) => {
               setLoaded(displaySrc === imageUrl || variant === "reveal");
               if ((displaySrc === imageUrl || variant === "reveal") && imageUrl) {

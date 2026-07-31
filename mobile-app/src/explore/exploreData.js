@@ -139,8 +139,12 @@ export function getDailySpotlights(date = new Date()) {
 }
 
 const verifiedFacts = [
-  ...activeSets.flatMap((set) => (setGuides[set.id]?.funFacts || []).map((text) => ({ text, kind: "set", id: set.id }))),
-  ...exploreEras.filter((era) => era.changeNote).map((era) => ({ text: era.changeNote, kind: "era", id: era.id })),
+  ...activeSets.flatMap((set) => (setGuides[set.id]?.funFacts || []).map((text) => ({
+    text,
+    kind: "set",
+    id: set.id,
+    linkLabel: `Explore ${set.name}`,
+  }))),
 ];
 
 export function getDailyFact(date = new Date()) {

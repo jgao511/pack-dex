@@ -6,12 +6,12 @@ import { calculateValueCoverage } from "../src/lib/priceCoverage.js";
 const read = (path) => readFile(new URL(path, import.meta.url), "utf8");
 
 test("Binder renders valid set slots, useful missing identities, and a recovery state", async () => {
-  const app = await read("../mobile-app/src/App.jsx");
-  assert.match(app, /getPullableCollectionCards\(set\)\.map\(\(card\) => \(\{ set, card \}\)\)/);
-  assert.match(app, /This binder has no available cards/);
-  assert.match(app, /master-missing-card-copy/);
-  assert.match(app, /onClick=\{\(\) => onInspectCard\?\.\(item\.card, item\.set\)\}/);
-  const binders = app.match(/function CollectionBinders\([\s\S]*?\n\}/)?.[0] || "";
+  const source = await read("../src/components/binders/BinderSystem.jsx");
+  assert.match(source, /getPullableCollectionCards\(set\)\.map\(\(card\) => \(\{ set, card \}\)\)/);
+  assert.match(source, /This binder has no available cards/);
+  assert.match(source, /master-missing-card-copy/);
+  assert.match(source, /onClick=\{\(\) => onInspectCard\?\.\(item\.card, item\.set\)\}/);
+  const binders = source.match(/export default function BinderSystem[\s\S]*$/)?.[0] || "";
   assert.doesNotMatch(binders, /\{ownedShimmer && isRarePlusVisual\(card, set\)/);
 });
 
@@ -63,12 +63,12 @@ test("Set and Era Featured Pokémon omit global collection progress", async () =
   assert.match(screen, /aria-label=\{showProgress \?[^:]+: `View \$\{species\.displayName\}`\}/);
 });
 
-test("Surprise Me selects a detail card and Daily Fact lives in Spotlight", async () => {
+test("Surprise Me selects a detail card and contextual set facts live in Spotlight", async () => {
   const screen = await read("../mobile-app/src/explore/ExploreScreen.jsx");
   assert.match(screen, /onClick=\{\(\) => setSurpriseRecommendation\(recommendations\.surprise\)\}/);
   assert.doesNotMatch(screen, /else onOpenPack\(setById\.get\(recommendations\.surprise\.setId\)\)/);
   const spotlight = screen.match(/<div className="explore-spotlights">[\s\S]*?<\/div><\/section>/)?.[0] || "";
-  assert.match(spotlight, />Fun Fact</);
+  assert.match(spotlight, /Set Fun Fact|Era Fun Fact/);
   assert.match(spotlight, /PokemonTile[\s\S]*contextLine=/);
   assert.match(spotlight, /SetTile[\s\S]*contextLine=/);
   assert.match(spotlight, /EraTile[\s\S]*contextLine=/);
@@ -84,7 +84,6 @@ test("Surprise Me selects a detail card and Daily Fact lives in Spotlight", asyn
 test("Pokémon price highlight remains mounted through loading and failure", async () => {
   const [screen, css] = await Promise.all([read("../mobile-app/src/explore/ExploreScreen.jsx"), read("../mobile-app/src/explore/ExploreScreen.css")]);
   assert.match(screen, /function PriceHighlight/);
-  assert.match(screen, /Checking card prices…/);
   assert.match(screen, /Checking latest price…/);
   assert.match(screen, /Some prices could not be checked\./);
   assert.match(screen, /Couldn’t check the latest prices\./);

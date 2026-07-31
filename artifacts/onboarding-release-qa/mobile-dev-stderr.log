@@ -1,0 +1,1 @@
+[2m5:09:28 PM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22m[PackDex mobile] Supabase is not configured. Missing VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY. Add them to mobile-app/.env and restart npm run dev.

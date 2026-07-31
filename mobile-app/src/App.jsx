@@ -80,6 +80,8 @@ import {
   stopAllMobileSounds,
 } from "./utils/mobileSounds.js";
 import { getRarityVisualClass, isRarePlusVisual } from "./utils/rarityPresentation.js";
+import InspectionBorderGlow from "../../src/components/InspectionBorderGlow.jsx";
+import { getInspectionGlowStrength } from "../../src/utils/inspectionGlow.js";
 import { loadHapticsEnabled, saveHapticsEnabled, triggerRevealHaptic } from "./utils/mobileHaptics.js";
 import { addWishlistCard, getWishlistKey, loadWishlist, removeWishlistCard, resolveCatalogWishlistItem } from "./lib/wishlist.js";
 import { addScannedCardOnce, loadScannerCardActionState } from "./lib/scannerCardActions.js";
@@ -123,7 +125,8 @@ import {
   getMobileTabPath,
 } from "./lib/mobileRouting.js";
 
-const ExploreScreen = lazy(() => import("./explore/ExploreScreen.jsx"));
+const loadExploreScreenModule = () => import("./explore/ExploreScreen.jsx");
+const ExploreScreen = lazy(loadExploreScreenModule);
 const MobileScannerPage = __PACKDEX_SCANNER_TEST__ ? lazy(() => import("./MobileScannerPage.jsx")) : null;
 
 const tabs = [
@@ -884,11 +887,86 @@ function MobileAuthModal({
   const isResetMode = authMode === "forgot";
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
+  const [authStep, setAuthStep] = useState("email");
+  const [stepMessage, setStepMessage] = useState("");
+  const emailInputRef = useRef(null);
+  const passwordInputRef = useRef(null);
+  const confirmPasswordInputRef = useRef(null);
+
+  useEffect(() => {
+    setAuthStep("email");
+    setStepMessage("");
+    setIsPasswordVisible(false);
+    setIsConfirmPasswordVisible(false);
+  }, [authMode, isOpen]);
+
+  useEffect(() => {
+    if (!isOpen || isResetMode) return undefined;
+    const target = authStep === "email"
+      ? emailInputRef.current
+      : authStep === "password"
+        ? passwordInputRef.current
+        : authStep === "confirm"
+          ? confirmPasswordInputRef.current
+          : null;
+    const frame = window.requestAnimationFrame(() => target?.focus({ preventScroll: true }));
+    return () => window.cancelAnimationFrame(frame);
+  }, [authStep, isOpen, isResetMode]);
 
   if (!isOpen) return null;
 
   const canSubmitAuth =
     isSupabaseConfigured && !isAuthSubmitting && (!isCreateMode || (Boolean(TURNSTILE_SITE_KEY) && Boolean(turnstileToken)));
+
+  function moveToStep(nextStep) {
+    setStepMessage("");
+    setAuthStep(nextStep);
+  }
+
+  function handleProgressiveSubmit(event) {
+    event.preventDefault();
+    setStepMessage("");
+
+    if (authStep === "email") {
+      if (!authEmail.trim() || !emailInputRef.current?.checkValidity()) {
+        setStepMessage("Enter a valid email address.");
+        emailInputRef.current?.focus();
+        return;
+      }
+      moveToStep("password");
+      return;
+    }
+
+    if (authStep === "password") {
+      if (authPassword.length < 8) {
+        setStepMessage("Password must be at least 8 characters.");
+        passwordInputRef.current?.focus();
+        return;
+      }
+      if (isCreateMode) moveToStep("confirm");
+      else onAuthSubmit(event);
+      return;
+    }
+
+    if (authStep === "confirm") {
+      if (authConfirmPassword !== authPassword) {
+        setStepMessage("Passwords do not match.");
+        confirmPasswordInputRef.current?.focus();
+        return;
+      }
+      moveToStep("verification");
+      return;
+    }
+
+    onAuthSubmit(event);
+  }
+
+  function goBackOneStep() {
+    if (isAuthSubmitting) return;
+    if (authStep === "verification") moveToStep("confirm");
+    else if (authStep === "confirm") moveToStep("password");
+    else if (authStep === "password") moveToStep("email");
+  }
 
   if (isResetMode) {
     const canSubmitReset = isSupabaseConfigured && !isAuthSubmitting && Boolean(TURNSTILE_SITE_KEY) && Boolean(turnstileToken);
@@ -968,108 +1046,133 @@ function MobileAuthModal({
             Create account
           </button>
         </div>
-        <form className="auth-form" onSubmit={onAuthSubmit}>
-          <label>
-            Email
-            <input value={authEmail} type="email" autoComplete="email" onChange={(event) => onAuthEmail(event.target.value)} />
-          </label>
-          <label>
-            Password
-            <span className="auth-password-field">
-              <input
-                value={authPassword}
-                type={isPasswordVisible ? "text" : "password"}
-                autoComplete={isCreateMode ? "new-password" : "current-password"}
-                minLength={8}
-                onChange={(event) => onAuthPassword(event.target.value)}
-              />
-              <button
-                className="auth-password-toggle"
-                type="button"
-                aria-label={isPasswordVisible ? "Hide password" : "Show password"}
-                aria-pressed={isPasswordVisible}
-                onClick={() => setIsPasswordVisible((value) => !value)}
-              >
-                <EyeIcon isVisible={isPasswordVisible} />
-              </button>
-            </span>
-          </label>
-          {authMode === "login" && (
-            <button className="auth-switch-link" type="button" onClick={() => onAuthMode("forgot")}>
-              Forgot password?
-            </button>
-          )}
-          {isCreateMode && (
-            <>
+        <form className="auth-form progressive-auth-form" onSubmit={handleProgressiveSubmit}>
+          <div className="auth-step-progress" aria-label={`${isCreateMode ? "Registration" : "Login"} progress`}>
+            {(isCreateMode ? ["email", "password", "confirm", "verification"] : ["email", "password"]).map((step) => (
+              <span className={step === authStep ? "is-active" : ""} key={step} />
+            ))}
+          </div>
+          <div className="auth-step-panel" key={`${authMode}:${authStep}`}>
+            {authStep === "email" && (
+              <label>
+                Email
+                <input
+                  ref={emailInputRef}
+                  value={authEmail}
+                  type="email"
+                  autoComplete="email"
+                  inputMode="email"
+                  enterKeyHint="next"
+                  required
+                  onChange={(event) => onAuthEmail(event.target.value)}
+                />
+              </label>
+            )}
+            {authStep === "password" && (
+              <>
+                <label>
+                  Password
+                  <span className="auth-password-field">
+                    <input
+                      ref={passwordInputRef}
+                      value={authPassword}
+                      type={isPasswordVisible ? "text" : "password"}
+                      autoComplete={isCreateMode ? "new-password" : "current-password"}
+                      enterKeyHint={isCreateMode ? "next" : "go"}
+                      minLength={8}
+                      required
+                      onChange={(event) => onAuthPassword(event.target.value)}
+                    />
+                    <button className="auth-password-toggle" type="button" aria-label={isPasswordVisible ? "Hide password" : "Show password"} aria-pressed={isPasswordVisible} onClick={() => setIsPasswordVisible((value) => !value)}>
+                      <EyeIcon isVisible={isPasswordVisible} />
+                    </button>
+                  </span>
+                </label>
+                {!isCreateMode && (
+                  <button className="auth-switch-link" type="button" onClick={() => onAuthMode("forgot")}>
+                    Forgot password?
+                  </button>
+                )}
+              </>
+            )}
+            {authStep === "confirm" && (
               <label>
                 Confirm password
                 <span className="auth-password-field">
                   <input
+                    ref={confirmPasswordInputRef}
                     value={authConfirmPassword}
                     type={isConfirmPasswordVisible ? "text" : "password"}
                     autoComplete="new-password"
+                    enterKeyHint="next"
                     minLength={8}
+                    required
                     onChange={(event) => onAuthConfirmPassword(event.target.value)}
                   />
-                  <button
-                    className="auth-password-toggle"
-                    type="button"
-                    aria-label={isConfirmPasswordVisible ? "Hide confirm password" : "Show confirm password"}
-                    aria-pressed={isConfirmPasswordVisible}
-                    onClick={() => setIsConfirmPasswordVisible((value) => !value)}
-                  >
+                  <button className="auth-password-toggle" type="button" aria-label={isConfirmPasswordVisible ? "Hide confirm password" : "Show confirm password"} aria-pressed={isConfirmPasswordVisible} onClick={() => setIsConfirmPasswordVisible((value) => !value)}>
                     <EyeIcon isVisible={isConfirmPasswordVisible} />
                   </button>
                 </span>
               </label>
-              <div className="mobile-turnstile-panel">
-                {TURNSTILE_SITE_KEY ? (
-                  <>
-                    <Turnstile
-                      sitekey={TURNSTILE_SITE_KEY}
-                      size="flexible"
-                      theme="dark"
-                      onVerify={(token) => {
-                        onTurnstileToken(token);
-                        onTurnstileMessage("");
-                      }}
-                      onExpire={() => {
-                        onTurnstileToken("");
-                        onTurnstileMessage("Verification expired. Please verify again.");
-                      }}
-                      onError={() => {
-                        onTurnstileToken("");
-                        onTurnstileMessage("Verification failed. Please try again.");
-                      }}
-                    />
-                    {turnstileMessage && <p className="turnstile-status">{turnstileMessage}</p>}
-                  </>
-                ) : (
-                  <p className="auth-message is-error">Add VITE_TURNSTILE_SITE_KEY to mobile-app/.env to enable account creation.</p>
-                )}
-              </div>
-            </>
-          )}
-          <button className="primary-action compact-auth-submit" type="submit" disabled={!canSubmitAuth}>
-            {isAuthSubmitting ? "Loading..." : authMode === "login" ? "Log In" : "Create Account"}
-          </button>
-          {isCreateMode && (
-            <p className="auth-legal-copy">
-              By creating an account, you agree to the{" "}
-              <a href={LEGAL_URLS.terms}>
-                Terms of Service
-              </a>{" "}
-              and{" "}
-              <a href={LEGAL_URLS.privacy}>
-                Privacy Policy
-              </a>
-              .
-            </p>
-          )}
+            )}
+            {authStep === "verification" && (
+              <>
+                <div className="auth-verification-copy">
+                  <strong>One last step</strong>
+                  <span>Complete the verification below to create your PackDex account.</span>
+                </div>
+                <div className="mobile-turnstile-panel">
+                  {TURNSTILE_SITE_KEY ? (
+                    <>
+                      <Turnstile
+                        sitekey={TURNSTILE_SITE_KEY}
+                        size="flexible"
+                        theme="dark"
+                        onVerify={(token) => {
+                          onTurnstileToken(token);
+                          onTurnstileMessage("");
+                        }}
+                        onExpire={() => {
+                          onTurnstileToken("");
+                          onTurnstileMessage("Verification expired. Please verify again.");
+                        }}
+                        onError={() => {
+                          onTurnstileToken("");
+                          onTurnstileMessage("Verification failed. Please try again.");
+                        }}
+                      />
+                      {turnstileMessage && <p className="turnstile-status">{turnstileMessage}</p>}
+                    </>
+                  ) : (
+                    <p className="auth-message is-error">Add VITE_TURNSTILE_SITE_KEY to mobile-app/.env to enable account creation.</p>
+                  )}
+                </div>
+                <p className="auth-legal-copy">
+                  By creating an account, you agree to the <a href={LEGAL_URLS.terms}>Terms of Service</a> and <a href={LEGAL_URLS.privacy}>Privacy Policy</a>.
+                </p>
+              </>
+            )}
+          </div>
+          {(stepMessage || authMessage) && <p className="auth-message is-error" role="alert">{stepMessage || authMessage}</p>}
+          <div className="auth-step-actions">
+            {authStep !== "email" && <button className="auth-back-action" type="button" onClick={goBackOneStep} disabled={isAuthSubmitting}>Back</button>}
+            <button
+              className="primary-action compact-auth-submit"
+              type="submit"
+              disabled={isAuthSubmitting || ((authStep === "verification" || (!isCreateMode && authStep === "password")) && !canSubmitAuth)}
+            >
+              {isAuthSubmitting
+                ? "Loading..."
+                : authStep === "verification"
+                  ? "Create Account"
+                  : authStep === "password" && !isCreateMode
+                    ? "Log In"
+                    : <>Continue <span aria-hidden="true">→</span></>}
+            </button>
+          </div>
           <button className="auth-switch-link" type="button" onClick={() => onAuthMode(isCreateMode ? "login" : "signup")}>
             {isCreateMode ? "Already have an account? Log in" : "New to PackDex? Create an account"}
           </button>
-          {authMessage && <p className="auth-message">{authMessage}</p>}
         </form>
       </section>
     </div>
@@ -1725,13 +1828,55 @@ function isOnboardingCardPreview(item) {
   return ["onboarding-summary", "onboarding-collection"].includes(item?.context?.origin || item?.origin || "");
 }
 
+function PackDexStartupAnimation({ phase = "loading" }) {
+  return (
+    <section className={`packdex-startup is-${phase}`} role="status" aria-live="polite" aria-label="Loading PackDex account">
+      <div className="packdex-startup__ambient" aria-hidden="true">
+        <i />
+        <i />
+        <i />
+      </div>
+      <div className="packdex-startup__brand">
+        <div className="packdex-startup__cards" aria-hidden="true">
+          <span />
+          <span />
+          <img src="/packdex-icon-192.png" alt="" draggable={false} />
+        </div>
+        <span className="packdex-startup__wordmark">
+          <span>Pack</span><span>Dex</span>
+        </span>
+        <small>Preparing your collection</small>
+      </div>
+    </section>
+  );
+}
+
+export function DelayedExploreFallback({ message = "Loading Explore…", delay = 240 }) {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setIsVisible(true), delay);
+    return () => window.clearTimeout(timer);
+  }, [delay]);
+
+  if (!isVisible) return <section className="explore-loading-placeholder" aria-hidden="true" />;
+
+  return (
+    <section className="mobile-auth-validation explore-delayed-loader" role="status" aria-live="polite">
+      <img src={POKEBALL_LOADING_SRC} alt="" />
+      <strong>{message}</strong>
+    </section>
+  );
+}
+
 function CardInspectModal({ item, collection, user, wishlistKeys, wishlistPendingKeys, wishlistMessage, onToggleWishlist, onLogin, onClose, priceMap, onLoadSpecies, onViewPokemon, onViewSet, onViewEra }) {
-  const [tiltStyle, setTiltStyle] = useState({});
-  const [isInspectTilting, setIsInspectTilting] = useState(false);
   const [linkedSpecies, setLinkedSpecies] = useState([]);
+  const inspectTiltFrameRef = useRef(null);
   const activeInspectPointerRef = useRef(null);
   const pendingInspectTiltRef = useRef(null);
   const inspectTiltRafRef = useRef(null);
+  const inspectRectRef = useRef(null);
+  const inspectReducedMotionRef = useRef(false);
   const minimalPreview = isOnboardingCardPreview(item);
 
   function requestClose() {
@@ -1790,6 +1935,24 @@ function CardInspectModal({ item, collection, user, wishlistKeys, wishlistPendin
     };
   }, [item?.card, item?.set, minimalPreview, onClose]);
 
+  useEffect(() => {
+    const media = window.matchMedia?.("(prefers-reduced-motion: reduce)");
+    const updatePreference = () => {
+      inspectReducedMotionRef.current = Boolean(media?.matches);
+    };
+    updatePreference();
+    media?.addEventListener?.("change", updatePreference);
+
+    return () => {
+      media?.removeEventListener?.("change", updatePreference);
+      if (inspectTiltRafRef.current) window.cancelAnimationFrame(inspectTiltRafRef.current);
+      inspectTiltRafRef.current = null;
+      pendingInspectTiltRef.current = null;
+      activeInspectPointerRef.current = null;
+      inspectRectRef.current = null;
+    };
+  }, [item?.card?.id, item?.set?.id]);
+
   if (!item?.card || !item?.set) return null;
 
   const { card, set } = item;
@@ -1818,9 +1981,9 @@ function CardInspectModal({ item, collection, user, wishlistKeys, wishlistPendin
   ].filter(Boolean);
 
   function getInspectTilt(event, target) {
-    const rect = target.getBoundingClientRect();
-    const nx = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
-    const ny = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+    const rect = inspectRectRef.current || target.getBoundingClientRect();
+    const nx = Math.max(-1.25, Math.min(1.25, ((event.clientX - rect.left) / rect.width - 0.5) * 2));
+    const ny = Math.max(-1.25, Math.min(1.25, ((event.clientY - rect.top) / rect.height - 0.5) * 2));
     const tilt = Math.min(1, Math.hypot(nx, ny));
 
     return {
@@ -1831,6 +1994,9 @@ function CardInspectModal({ item, collection, user, wishlistKeys, wishlistPendin
       "--foil-shift-x": `${(50 + nx * 18).toFixed(2)}%`,
       "--foil-shift-y": `${(50 + ny * 12).toFixed(2)}%`,
       "--shine-opacity": (0.18 + tilt * 0.18).toFixed(3),
+      "--inspection-glow-angle": `${(115 + nx * 90 - ny * 45).toFixed(2)}deg`,
+      "--inspection-glow-proximity": tilt.toFixed(3),
+      "--inspection-glow-opacity": (0.48 + tilt * 0.42).toFixed(3),
     };
   }
 
@@ -1841,19 +2007,33 @@ function CardInspectModal({ item, collection, user, wishlistKeys, wishlistPendin
 
     inspectTiltRafRef.current = window.requestAnimationFrame(() => {
       inspectTiltRafRef.current = null;
-      setTiltStyle(pendingInspectTiltRef.current || {});
+      const target = inspectTiltFrameRef.current;
+      const style = pendingInspectTiltRef.current;
+      if (!target || !style) return;
+      target.style.transform = style.transform;
+      Object.entries(style).forEach(([key, value]) => {
+        if (key !== "transform") target.style.setProperty(key, value);
+      });
     });
   }
 
   function startTilt(event) {
+    if (inspectReducedMotionRef.current || event.isPrimary === false) return;
+    if (activeInspectPointerRef.current !== null && activeInspectPointerRef.current !== event.pointerId) return;
     activeInspectPointerRef.current = event.pointerId;
-    setIsInspectTilting(true);
-    event.currentTarget.setPointerCapture?.(event.pointerId);
+    inspectRectRef.current = event.currentTarget.getBoundingClientRect();
+    event.currentTarget.classList.add("is-tilting");
     if (event.pointerType === "touch" || event.pointerType === "pen") event.preventDefault();
+    try {
+      event.currentTarget.setPointerCapture?.(event.pointerId);
+    } catch {
+      // Some iOS WebViews reject capture during gesture promotion.
+    }
     scheduleInspectTilt(getInspectTilt(event, event.currentTarget));
   }
 
   function updateTilt(event) {
+    if (inspectReducedMotionRef.current || event.isPrimary === false) return;
     const isTouchPointer = event.pointerType === "touch" || event.pointerType === "pen";
     const isMousePointer = event.pointerType === "mouse";
     const hasActivePointer = activeInspectPointerRef.current === event.pointerId;
@@ -1865,20 +2045,50 @@ function CardInspectModal({ item, collection, user, wishlistKeys, wishlistPendin
     scheduleInspectTilt(getInspectTilt(event, event.currentTarget));
   }
 
-  function resetTilt(event) {
+  function resetTilt(event, { captureAlreadyLost = false } = {}) {
+    if (
+      event?.pointerId != null &&
+      activeInspectPointerRef.current !== null &&
+      activeInspectPointerRef.current !== event.pointerId
+    ) {
+      return;
+    }
     if (inspectTiltRafRef.current) {
       window.cancelAnimationFrame(inspectTiltRafRef.current);
       inspectTiltRafRef.current = null;
     }
 
-    if (event?.pointerId != null && activeInspectPointerRef.current === event.pointerId) {
-      event.currentTarget.releasePointerCapture?.(event.pointerId);
+    const target = inspectTiltFrameRef.current;
+    if (!captureAlreadyLost && event?.pointerId != null && activeInspectPointerRef.current === event.pointerId) {
+      try {
+        if (target?.hasPointerCapture?.(event.pointerId)) target.releasePointerCapture(event.pointerId);
+      } catch {
+        // Safari can release capture before dispatching pointercancel.
+      }
     }
 
     activeInspectPointerRef.current = null;
     pendingInspectTiltRef.current = null;
-    setIsInspectTilting(false);
-    setTiltStyle({});
+    inspectRectRef.current = null;
+    target?.classList.remove("is-tilting");
+    target?.style.removeProperty("transform");
+    [
+      "--foil-angle",
+      "--foil-shift-x",
+      "--foil-shift-y",
+      "--shine-opacity",
+      "--inspection-glow-angle",
+      "--inspection-glow-proximity",
+      "--inspection-glow-opacity",
+    ].forEach((property) => target?.style.removeProperty(property));
+  }
+
+  function leaveTilt(event) {
+    if (event.pointerType === "mouse" || activeInspectPointerRef.current === null) resetTilt(event);
+  }
+
+  function handleLostInspectPointerCapture(event) {
+    resetTilt(event, { captureAlreadyLost: true });
   }
 
   return (
@@ -1888,17 +2098,19 @@ function CardInspectModal({ item, collection, user, wishlistKeys, wishlistPendin
           <CloseIcon />
         </button>
         <div
-          className={`inspect-tilt-frame ${isInspectTilting ? "is-tilting" : ""}`}
-          style={tiltStyle}
+          ref={inspectTiltFrameRef}
+          className="inspect-tilt-frame"
           onPointerDown={startTilt}
           onPointerMove={updateTilt}
           onPointerEnter={updateTilt}
           onPointerUp={resetTilt}
           onPointerCancel={resetTilt}
-          onPointerLeave={resetTilt}
-          onLostPointerCapture={resetTilt}
+          onPointerLeave={leaveTilt}
+          onLostPointerCapture={handleLostInspectPointerCapture}
         >
-          <CardImage card={card} set={set} className="inspect-card-image" withEffects={!minimalPreview && isFoilHit(card, set)} isFinal />
+          <InspectionBorderGlow strength={minimalPreview ? "none" : getInspectionGlowStrength(card, set)}>
+            <CardImage card={card} set={set} className="inspect-card-image" withEffects={!minimalPreview && isFoilHit(card, set)} isFinal />
+          </InspectionBorderGlow>
         </div>
         <div className="inspect-card-copy">
           <h2>{getDisplayCardName(card, set)}</h2>
@@ -2496,7 +2708,8 @@ function MobileApp() {
   const [user, setUser] = useState(null);
   const [authValidationState, setAuthValidationState] = useState(isSupabaseConfigured ? "validating" : "guest");
   const [stats, setStats] = useState(EMPTY_STATS);
-  const [loadingMessage, setLoadingMessage] = useState("Loading account...");
+  const [loadingMessage, setLoadingMessage] = useState("");
+  const [startupPhase, setStartupPhase] = useState("loading");
   const [onboardingStep, setOnboardingStep] = useState(() => {
     if (!mobileOnboardingEligible && !onboardingTestMode) return "";
     if (!onboardingTestMode && hasCompletedMobileOnboarding()) return "";
@@ -2560,6 +2773,10 @@ function MobileApp() {
   const accountLoadPromisesRef = useRef(new Map());
   const accountLoadedAtRef = useRef(new Map());
   const authRefreshPromiseRef = useRef(null);
+  const authRequestInFlightRef = useRef(false);
+  const initialHydrationCompleteRef = useRef(false);
+  const startupResolveTimerRef = useRef(null);
+  const currentUserRef = useRef(null);
   const onboardingFinalizePromiseRef = useRef(null);
   const skipOnboardingInProgressRef = useRef(false);
   const onboardingStepRef = useRef(onboardingStep);
@@ -2589,6 +2806,7 @@ function MobileApp() {
   const skipRevealEligibleRef = useRef(false);
   const screenContentRef = useRef(null);
   onboardingStepRef.current = onboardingStep;
+  currentUserRef.current = user;
   validatedScannerUserIdRef.current = authValidationState === "authenticated" ? String(user?.id || "") : "";
   const setsCompleted = useMemo(
     () =>
@@ -2614,6 +2832,16 @@ function MobileApp() {
     window.requestAnimationFrame(() => {
       screenContentRef.current?.scrollTo({ top: 0, left: 0, behavior });
     });
+  }
+
+  function finishInitialHydration() {
+    if (initialHydrationCompleteRef.current) return;
+    initialHydrationCompleteRef.current = true;
+    setStartupPhase("resolving");
+    startupResolveTimerRef.current = window.setTimeout(() => {
+      startupResolveTimerRef.current = null;
+      setStartupPhase("complete");
+    }, 180);
   }
 
   function resetOnboardingScroll() {
@@ -3246,7 +3474,8 @@ function MobileApp() {
       return;
     }
 
-    if (lastAccountScopedUserIdRef.current && lastAccountScopedUserIdRef.current !== currentUser.id) {
+    const isSameAccount = lastAccountScopedUserIdRef.current === currentUser.id;
+    if (lastAccountScopedUserIdRef.current && !isSameAccount) {
       achievementCacheByUserIdRef.current.clear();
       lastAchievementsLoadedUserIdRef.current = "";
       setAchievements([]);
@@ -3257,7 +3486,7 @@ function MobileApp() {
 
     const localPendingCollection = mergePendingCloudPullsIntoCollection({}, currentUser.id);
     setUser(currentUser);
-    setCollection(localPendingCollection);
+    if (!isSameAccount) setCollection(localPendingCollection);
 
     let pendingSyncResult = null;
     try {
@@ -3659,6 +3888,14 @@ function MobileApp() {
     return () => cancelIdleTask(idleHandle);
   }, [activeTab, isAuthSubmitting, isValueLoading, loadingMessage, packStage, selectedCollectionSetId, selectedSet?.id]);
 
+  useEffect(() => {
+    if (startupPhase !== "complete") return undefined;
+    const idleHandle = scheduleIdleTask(() => {
+      loadExploreScreenModule().catch(() => {});
+    });
+    return () => cancelIdleTask(idleHandle);
+  }, [startupPhase]);
+
   async function refreshWelcomeRewardStatus(currentUser, { autoOpen = false, force = false } = {}) {
     if (!currentUser?.id) {
       setWelcomeRewardStatus(null);
@@ -3680,7 +3917,7 @@ function MobileApp() {
     return status;
   }
 
-  async function refreshAuthSession({ showLoading = false, autoOpenWelcomeReward = false } = {}) {
+  async function refreshAuthSession({ initial = false, showLoading = false, autoOpenWelcomeReward = false } = {}) {
     if (authRefreshPromiseRef.current) return authRefreshPromiseRef.current;
     if (!supabase) {
       clearAccountScopedState();
@@ -3691,15 +3928,19 @@ function MobileApp() {
 
     countDevRequest("refreshAuthSession");
     const validationAttempt = ++authValidationAttemptRef.current;
-    if (!onboardingStepRef.current) setAuthValidationState("validating");
+    if (initial) {
+      if (!onboardingStepRef.current) setAuthValidationState("validating");
+    }
     clearCachedSupabaseUser(supabase);
-    setIsWelcomeRewardModalOpen(false);
-    setWelcomeRewardStatus(null);
-    setWelcomeRewardError("");
+    if (initial) {
+      setIsWelcomeRewardModalOpen(false);
+      setWelcomeRewardStatus(null);
+      setWelcomeRewardError("");
+    }
     if (showLoading) setLoadingMessage("Loading account...");
 
     const promise = (async () => {
-      let authenticatedUser = null;
+      let authenticatedUser = currentUserRef.current;
       try {
         const { data, error } = await supabase.auth.getSession();
         if (error) throw error;
@@ -3811,32 +4052,43 @@ function MobileApp() {
   useEffect(() => {
     let mounted = true;
 
-    refreshAuthSession({ showLoading: true })
+    refreshAuthSession({ initial: true, showLoading: false })
       .then((currentUser) => mounted && resumePendingMobileOnboarding(currentUser))
       .finally(() => {
         if (!mounted) return;
+        finishInitialHydration();
       });
 
     if (!supabase) {
       return () => {
         mounted = false;
+        if (startupResolveTimerRef.current) {
+          window.clearTimeout(startupResolveTimerRef.current);
+          startupResolveTimerRef.current = null;
+        }
       };
     }
 
     function refreshIfActive() {
       if (!mounted || document.visibilityState === "hidden") return;
-      refreshAuthSession({ showLoading: true, autoOpenWelcomeReward: false })
+      refreshAuthSession({ showLoading: false, autoOpenWelcomeReward: false })
         .then((currentUser) => mounted && resumePendingMobileOnboarding(currentUser));
     }
 
     const { data } = supabase.auth.onAuthStateChange((event, session) => {
       const nextUser = session?.user || null;
+      const visibleUserId = String(currentUserRef.current?.id || lastAccountScopedUserIdRef.current || "");
+      const nextUserId = String(nextUser?.id || "");
+
+      // The explicit bootstrap above owns INITIAL_SESSION so the app only has one
+      // first-launch hydration path and one branded loading transition.
+      if (event === "INITIAL_SESSION") return;
 
       if (nextUser) {
         setIsSignupVerificationOpen(false);
         setSignupVerificationEmail("");
       }
-      if (!nextUser) {
+      if (event === "SIGNED_OUT" || !nextUser) {
         authValidationAttemptRef.current += 1;
         clearAccountScopedState();
         setAuthValidationState("guest");
@@ -3844,13 +4096,19 @@ function MobileApp() {
         return;
       }
 
+      // Token refreshes, profile updates, and repeat same-account SIGNED_IN
+      // notifications must not replace or unmount the active nested screen.
+      if (visibleUserId && visibleUserId === nextUserId && event !== "PASSWORD_RECOVERY") {
+        setUser(nextUser);
+        setAuthValidationState("authenticated");
+        return;
+      }
+
       setAuthValidationState("validating");
-      clearCachedSupabaseUser(supabase);
-      setIsWelcomeRewardModalOpen(false);
-      setWelcomeRewardStatus(null);
-      setLoadingMessage("Loading account...");
+      if (visibleUserId && visibleUserId !== nextUserId) clearAccountScopedState();
       window.setTimeout(() => {
-        refreshAuthSession({ showLoading: true, autoOpenWelcomeReward: false })
+        if (!mounted) return;
+        refreshAuthSession({ showLoading: false, autoOpenWelcomeReward: false })
           .then((currentUser) => mounted && resumePendingMobileOnboarding(currentUser));
       }, 0);
     });
@@ -3870,6 +4128,10 @@ function MobileApp() {
       window.removeEventListener("storage", handleAuthStorage);
       document.removeEventListener("visibilitychange", refreshIfActive);
       data.subscription.unsubscribe();
+      if (startupResolveTimerRef.current) {
+        window.clearTimeout(startupResolveTimerRef.current);
+        startupResolveTimerRef.current = null;
+      }
     };
   }, []);
 
@@ -4424,6 +4686,7 @@ function MobileApp() {
 
   async function handleAuthSubmit(event) {
     event.preventDefault();
+    if (authRequestInFlightRef.current) return;
     setAuthMessage("");
     const isCreateMode = authMode === "signup";
 
@@ -4443,6 +4706,7 @@ function MobileApp() {
         return;
       }
 
+      authRequestInFlightRef.current = true;
       setIsAuthSubmitting(true);
       setLoadingMessage("Sending reset email...");
 
@@ -4467,6 +4731,7 @@ function MobileApp() {
         setTurnstileToken("");
         setTurnstileMessage("Verification reset. Please verify again.");
       } finally {
+        authRequestInFlightRef.current = false;
         setIsAuthSubmitting(false);
         setLoadingMessage("");
       }
@@ -4494,6 +4759,7 @@ function MobileApp() {
       return;
     }
 
+    authRequestInFlightRef.current = true;
     setIsAuthSubmitting(true);
     setLoadingMessage(authMode === "login" ? "Logging in..." : "Creating account...");
     if (onboardingStep === "community" && selectedSet && pack.length === 10) {
@@ -4584,6 +4850,7 @@ function MobileApp() {
       console.warn("Unable to load account data after mobile auth", error);
       setAuthMessage("Unable to sign in. Please check your connection and try again.");
     } finally {
+      authRequestInFlightRef.current = false;
       setIsAuthSubmitting(false);
       setLoadingMessage("");
     }
@@ -4637,14 +4904,8 @@ function MobileApp() {
           aria-hidden={isOnboardingActive || undefined}
           inert={isOnboardingActive}
         >
-          <MobileBrandHeader />
-          {authValidationState === "validating" && activeTab !== "scanner" ? (
-            <section className="mobile-auth-validation" role="status" aria-live="polite">
-              <img src={POKEBALL_LOADING_SRC} alt="" />
-              <strong>Checking your account...</strong>
-              <span>Verifying this session securely.</span>
-            </section>
-          ) : <>
+          {startupPhase === "complete" && <MobileBrandHeader />}
+          {startupPhase !== "complete" ? <PackDexStartupAnimation phase={startupPhase} /> : <>
           {activeTab === "open" &&
             (packStage === "sets" ? (
               <OpenSetSelector collection={collection} onOpenPack={openPack} />
@@ -4698,7 +4959,7 @@ function MobileApp() {
               valueScreenProps={{ user, collection, priceMapsBySet, estimatedCollectionValue, isValueLoading, onInspectCard: inspectCard, onOpenLogin: () => openAuthProfile("login"), onOpenSignup: () => openAuthProfile("signup") }}
             />
           )}
-          {activeTab === "explore" && <Suspense fallback={<section className="mobile-auth-validation" role="status"><img src={POKEBALL_LOADING_SRC} alt="" /><strong>Loading Explore...</strong></section>}><ExploreScreen collection={collection} wishlistEntries={wishlistEntries} priceMapsBySet={{ ...priceMapsBySet, ...fullSetPriceMapsBySet }} onInspectCard={inspectCard} onOpenPack={(set) => { setActiveTab("open"); window.history.replaceState({}, "", window.location.pathname.startsWith("/mobile-app") ? "/mobile-app/" : "/"); openPack(set); }} onViewSetCollection={(set) => { selectCollectionSet(set, "collection"); setActiveTab("collection"); window.history.replaceState({}, "", window.location.pathname.startsWith("/mobile-app") ? "/mobile-app/" : "/"); }} /></Suspense>}
+          {activeTab === "explore" && <Suspense fallback={<DelayedExploreFallback />}><ExploreScreen collection={collection} wishlistEntries={wishlistEntries} priceMapsBySet={{ ...priceMapsBySet, ...fullSetPriceMapsBySet }} onInspectCard={inspectCard} onOpenPack={(set) => { setActiveTab("open"); window.history.replaceState({}, "", window.location.pathname.startsWith("/mobile-app") ? "/mobile-app/" : "/"); openPack(set); }} onViewSetCollection={(set) => { selectCollectionSet(set, "collection"); setActiveTab("collection"); window.history.replaceState({}, "", window.location.pathname.startsWith("/mobile-app") ? "/mobile-app/" : "/"); }} /></Suspense>}
           {__PACKDEX_SCANNER_TEST__ && activeTab === "scanner" && MobileScannerPage && <Suspense fallback={null}><MobileScannerPage authState={authValidationState} authUserId={authValidationState === "authenticated" ? user?.id || "" : ""} onRequireAuth={openScannerAuth} onLoadActionState={loadScannedCardActionState} onAddToCollection={addScannedCardToCollection} onAddToWishlist={addScannedCardToWishlist} onSearchManually={openScannerSearchInCollection} onLoadCardPrice={loadScannerCardPrice} /></Suspense>}
           {activeTab === "value" && (
             <ValueScreen
@@ -4819,7 +5080,7 @@ function MobileApp() {
                 onFinishAccount={() => finishAccountOnboarding(user)}
               >
                 {onboardingStep === "explore" && (
-                  <Suspense fallback={<section className="mobile-auth-validation"><img src={POKEBALL_LOADING_SRC} alt="" /><strong>Loading Explore…</strong></section>}>
+                  <Suspense fallback={<DelayedExploreFallback />}>
                     <ExploreScreen
                       key={`onboarding-pokemon-${onboardingPokemon?.id || ""}`}
                       collection={collection}
@@ -4840,7 +5101,7 @@ function MobileApp() {
 
         {cardDestinationOverlay && (
           <div className="card-destination-overlay" aria-label="Card detail destination">
-            <Suspense fallback={<section className="mobile-auth-validation" role="status"><img src={POKEBALL_LOADING_SRC} alt="" /><strong>Loading Pokémon...</strong></section>}>
+            <Suspense fallback={<DelayedExploreFallback message="Loading Pokémon…" />}>
               <ExploreScreen
                 collection={collection}
                 wishlistEntries={wishlistEntries}
@@ -4853,7 +5114,7 @@ function MobileApp() {
           </div>
         )}
 
-        {!isOnboardingActive && <nav className={`bottom-tabs ${isPackOpening ? "is-pack-locked" : ""}`} aria-label="Mobile app sections">
+        {startupPhase === "complete" && !isOnboardingActive && <nav className={`bottom-tabs ${isPackOpening ? "is-pack-locked" : ""}`} aria-label="Mobile app sections">
           {tabs.map((tab) => {
             const isNavigationLocked = isPackOpening && tab.id !== "open";
 
@@ -4873,9 +5134,9 @@ function MobileApp() {
           })}
         </nav>}
 
-        {authValidationState !== "validating" && <AchievementUnlockToast toast={activeAchievementToast} />}
+        {startupPhase === "complete" && <AchievementUnlockToast toast={activeAchievementToast} />}
 
-        {authValidationState !== "validating" && !cardDestinationOverlay && <CardInspectModal
+        {startupPhase === "complete" && !cardDestinationOverlay && <CardInspectModal
           item={inspectedCard}
           collection={collection}
           user={user}
@@ -4895,7 +5156,7 @@ function MobileApp() {
           }}
         />}
         <MobileAuthModal
-          isOpen={authValidationState !== "validating" && isAuthPanelOpen && !user}
+          isOpen={startupPhase === "complete" && isAuthPanelOpen && !user}
           authMode={authMode}
           authEmail={authEmail}
           authPassword={authPassword}
@@ -4925,7 +5186,7 @@ function MobileApp() {
           onClose={() => setIsSignupVerificationOpen(false)}
         />
         <WelcomeRewardModal
-          isOpen={authValidationState !== "validating" && isWelcomeRewardModalOpen}
+          isOpen={startupPhase === "complete" && isWelcomeRewardModalOpen}
           rewardStatus={displayedWelcomeRewardStatus}
           selectedSetId={selectedWelcomeRewardSetId}
           isClaiming={isClaimingWelcomeReward}
@@ -4942,7 +5203,7 @@ function MobileApp() {
           onDismiss={() => setIsWelcomeDisclaimerOpen(false)}
         />
         <PrivacyChoicesDialog />
-        {loadingMessage && !onboardingStep && <PokeballLoadingOverlay message={loadingMessage} />}
+        {startupPhase === "complete" && loadingMessage && !onboardingStep && <PokeballLoadingOverlay message={loadingMessage} />}
       </section>
     </main>
   );

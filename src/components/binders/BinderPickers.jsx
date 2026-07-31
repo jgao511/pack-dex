@@ -99,7 +99,7 @@ export function OwnedCardPicker({ collection, binder, setList, onClose, onConfir
   const [setId, setSetId] = useState("All");
   const [rarity, setRarity] = useState("All");
   const [sort, setSort] = useState("recent");
-  const [selectedKeys, setSelectedKeys] = useState(() => new Set());
+  const [selectedOrder, setSelectedOrder] = useState([]);
   const [preview, setPreview] = useState(null);
   const [visibleCount, setVisibleCount] = useState(OWNED_CARD_PAGE_SIZE);
   const existingKeys = useMemo(() => new Set((binder?.cards || []).map((item) => item.key)), [binder?.cards]);
@@ -119,9 +119,11 @@ export function OwnedCardPicker({ collection, binder, setList, onClose, onConfir
     () => filterOwnedBinderCards(ownedCards, { query, era, setId, rarity, sort }),
     [ownedCards, query, era, setId, rarity, sort]
   );
+  const selectedKeys = useMemo(() => new Set(selectedOrder), [selectedOrder]);
+  const ownedCardsByKey = useMemo(() => new Map(ownedCards.map((item) => [item.key, item])), [ownedCards]);
   const selectedCards = useMemo(
-    () => ownedCards.filter((item) => selectedKeys.has(item.key) && !existingKeys.has(item.key)),
-    [ownedCards, selectedKeys, existingKeys]
+    () => selectedOrder.map((key) => ownedCardsByKey.get(key)).filter((item) => item && !existingKeys.has(item.key)),
+    [selectedOrder, ownedCardsByKey, existingKeys]
   );
   const displayedCards = visibleCards.slice(0, visibleCount);
   const remainingCardCount = Math.max(0, visibleCards.length - displayedCards.length);
@@ -139,11 +141,9 @@ export function OwnedCardPicker({ collection, binder, setList, onClose, onConfir
 
   function toggleCard(item) {
     if (existingKeys.has(item.key)) return;
-    setSelectedKeys((current) => {
-      const next = new Set(current);
-      if (next.has(item.key)) next.delete(item.key);
-      else next.add(item.key);
-      return next;
+    setSelectedOrder((current) => {
+      if (current.includes(item.key)) return current.filter((key) => key !== item.key);
+      return [...current, item.key];
     });
   }
 

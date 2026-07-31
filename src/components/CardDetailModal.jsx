@@ -3,6 +3,7 @@ import { X } from "lucide-react";
 import FoilCard from "./FoilCard.jsx";
 import { getDisplayCardName } from "../utils/packGenerator.js";
 import { isCardInBinder, isMasterSetBinder } from "../utils/binderStorage.js";
+import { getInspectionGlowStrength } from "../utils/inspectionGlow.js";
 
 function CardDetailModal({
   card,
@@ -56,6 +57,7 @@ function CardDetailModal({
           enableTransform
           enableCursorBlob={false}
           enableTiltFoil
+          inspectionGlowStrength={getInspectionGlowStrength(card, set)}
         />
         {!collected && <div className="inspect-status">Not collected yet</div>}
         {collected && count > 1 && <div className="inspect-status">Collected x{count}</div>}

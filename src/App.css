@@ -1463,7 +1463,18 @@ button {
 }
 
 .tilt-card-shell.is-interactive {
-  touch-action: none;
+  touch-action: pan-y;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.tilt-card-shell.is-interactive img {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .foil-card {

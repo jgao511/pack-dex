@@ -1,6 +1,7 @@
 import { useCardTilt } from "./useCardTilt.js";
+import InspectionBorderGlow from "./InspectionBorderGlow.jsx";
 
-function TiltCardFrame({ children, variant = "default", className = "", enabled = true }) {
+function TiltCardFrame({ children, variant = "default", className = "", enabled = true, inspectionGlowStrength = "none" }) {
   const tilt = useCardTilt({
     enabled,
     intensity: "normal",
@@ -15,9 +16,10 @@ function TiltCardFrame({ children, variant = "default", className = "", enabled 
       onPointerUp={enabled ? tilt.onPointerUp : undefined}
       onPointerCancel={enabled ? tilt.onPointerCancel : undefined}
       onPointerLeave={enabled ? tilt.onPointerLeave : undefined}
+      onLostPointerCapture={enabled ? tilt.onLostPointerCapture : undefined}
     >
       <div className={`tilt-card-frame tilt-card-frame--${variant}`}>
-        {children}
+        <InspectionBorderGlow strength={inspectionGlowStrength}>{children}</InspectionBorderGlow>
       </div>
     </div>
   );

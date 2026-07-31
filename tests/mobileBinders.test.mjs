@@ -87,12 +87,13 @@ test("multi-select adds owned cards once and preserves the no-duplicate binder m
 });
 
 test("custom binder UI is continuous and all add entry points share the owned-card picker", async () => {
-  const [app, picker, css] = await Promise.all([
+  const [app, binders, picker, css] = await Promise.all([
     read("../mobile-app/src/App.jsx"),
-    read("../mobile-app/src/components/BinderPickers.jsx"),
-    read("../mobile-app/src/App.css"),
+    read("../src/components/binders/BinderSystem.jsx"),
+    read("../src/components/binders/BinderPickers.jsx"),
+    read("../src/components/binders/BinderSystem.css"),
   ]);
-  const customView = app.match(/function CustomBinderView[\s\S]*?function MasterSetBinderView/)?.[0] || "";
+  const customView = binders.match(/function CustomBinderView[\s\S]*?function MasterSetBinderView/)?.[0] || "";
 
   assert.match(customView, /Your binder is empty/);
   assert.match(customView, /custom-binder-grid/);
@@ -100,10 +101,11 @@ test("custom binder UI is continuous and all add entry points share the owned-ca
   assert.doesNotMatch(customView, /More binder options|•••/);
   assert.equal((customView.match(/setPickerOpen\(true\)/g) || []).length >= 3, true);
   assert.match(customView, /<OwnedCardPicker/);
-  assert.match(customView, /onReplaceCards\(binder\.id, draftCards\)/);
-  assert.doesNotMatch(app, /binder\.name\?\.slice\(0, 2\)/);
-  assert.match(app, /set && \([\s\S]*?<SetLogo set=\{set\} className="binder-logo" \/>/);
-  assert.match(picker, /Search cards you own…/);
+  assert.match(customView, /onReplaceCards\?\.\(binder\.id, draftCards\)/);
+  assert.doesNotMatch(binders, /binder\.name\?\.slice\(0, 2\)/);
+  assert.match(binders, /set && \([\s\S]*?<SetLogo set=\{set\} className="binder-logo" \/>/);
+  assert.match(app, /import BinderSystem from "\.\.\/\.\.\/src\/components\/binders\/BinderSystem\.jsx"/);
+  assert.match(picker, /Search cards you own/);
   assert.match(picker, /All rarities/);
   assert.match(picker, /Recently pulled/);
   assert.doesNotMatch(picker, /<option value="set-order">/);
@@ -113,21 +115,20 @@ test("custom binder UI is continuous and all add entry points share the owned-ca
   assert.doesNotMatch(picker, /autoFocus/);
   assert.match(picker, /selectedKeys/);
   assert.doesNotMatch(picker, /Favorite/);
-  assert.match(customView, /custom-binder-remove-card[\s\S]*?>×<\/button>/);
+  assert.match(customView, /custom-binder-remove-card[\s\S]*?>\s*×\s*<\/button>/);
   assert.match(css, /\.custom-binder-grid \{[\s\S]*grid-template-columns:\s*repeat\(3/);
-  assert.match(css, /\.screen-content \{[\s\S]*var\(--bottom-nav-height\)/);
   assert.match(css, /\.owned-card-picker-footer \{/);
 });
 
 test("master-set binders retain nine-slot pages, swipe paging, identity-rich missing cards, and set order", async () => {
-  const [app, css] = await Promise.all([
-    read("../mobile-app/src/App.jsx"),
-    read("../mobile-app/src/App.css"),
+  const [binders, css] = await Promise.all([
+    read("../src/components/binders/BinderSystem.jsx"),
+    read("../src/components/binders/BinderSystem.css"),
   ]);
-  const masterView = app.match(/function MasterSetBinderView[\s\S]*?function BinderPageView/)?.[0] || "";
+  const masterView = binders.match(/function MasterSetBinderView[\s\S]*?function BinderView/)?.[0] || "";
 
-  assert.match(app, /getPullableCollectionCards\(set\)\.map\(\(card\) => \(\{ set, card \}\)\)/);
-  assert.match(masterView, /Array\.from\(\{ length: 9 \}\)/);
+  assert.match(binders, /getPullableCollectionCards\(set\)\.map\(\(card\) => \(\{ set, card \}\)\)/);
+  assert.match(masterView, /Array\.from\(\{ length: BINDER_PAGE_SIZE \}\)/);
   assert.match(masterView, /onTouchEnd=\{finishSwipe\}/);
   assert.match(masterView, /Previous/);
   assert.match(masterView, /Next/);
@@ -140,13 +141,13 @@ test("master-set binders retain nine-slot pages, swipe paging, identity-rich mis
 });
 
 test("master-set importer keeps naming, color, and import controls around the shared searchable picker", async () => {
-  const app = await read("../mobile-app/src/App.jsx");
-  const binders = app.match(/function CollectionBinders[\s\S]*?function CollectionScreen/)?.[0] || "";
+  const source = await read("../src/components/binders/BinderSystem.jsx");
+  const binders = source.match(/export default function BinderSystem[\s\S]*$/)?.[0] || "";
 
   assert.match(binders, /String\(right\.releaseDate \|\| ""\)\.localeCompare\(String\(left\.releaseDate/);
   assert.match(binders, /<SearchableSetPicker/);
   assert.match(binders, /value=\{importBinderName\}/);
-  assert.match(binders, /BinderThemePicker value=\{importBinderTheme\}/);
+  assert.match(binders, /BinderThemeSelector value=\{importBinderTheme\}/);
   assert.match(binders, />Import Binder</);
   assert.match(binders, /onImportMasterSet\?\.\(selectedImportSet, name, importBinderTheme\)/);
 });

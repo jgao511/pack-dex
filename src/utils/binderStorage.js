@@ -29,6 +29,17 @@ export function normalizeBinder(binder) {
 
   const type = binder.type === "master_set" ? "master_set" : "custom";
 
+  const cards = Array.isArray(binder.cards)
+    ? binder.cards
+        .map((item, index) => normalizeBinderCard({
+          ...item,
+          order: Number.isFinite(Number(item?.order)) ? Number(item.order) : index,
+        }))
+        .filter(Boolean)
+        .sort((a, b) => a.order - b.order || a.addedAt - b.addedAt)
+        .map((item, order) => ({ ...item, order }))
+    : [];
+
   return {
     id: String(binder.id),
     name: String(binder.name || "Untitled Binder").trim() || "Untitled Binder",
@@ -38,7 +49,7 @@ export function normalizeBinder(binder) {
     theme: String(binder.theme || "midnight").trim() || "midnight",
     createdAt: binder.createdAt || Date.now(),
     updatedAt: binder.updatedAt || binder.updated_at || binder.createdAt || Date.now(),
-    cards: Array.isArray(binder.cards) ? binder.cards.map(normalizeBinderCard).filter(Boolean) : [],
+    cards,
   };
 }
 
@@ -214,7 +225,13 @@ export function removeCardFromBinder(binders, binderId, card, setId) {
   const key = getBinderCardKey(card, setId);
 
   return binders.map((binder) =>
-    binder.id === binderId ? { ...binder, updatedAt: Date.now(), cards: binder.cards.filter((item) => item.key !== key) } : binder
+    binder.id === binderId
+      ? {
+          ...binder,
+          updatedAt: Date.now(),
+          cards: binder.cards.filter((item) => item.key !== key).map((item, order) => ({ ...item, order })),
+        }
+      : binder
   );
 }
 

@@ -116,14 +116,14 @@ const THEMES = {
 
 const FACTS = {
   "base-set": ["Base Set is the first expansion in PackDex's supported English catalog."],
-  g1: ["Generations includes the second Radiant Collection subset."],
-  celebrations: ["Celebrations includes a Classic Collection that revisits cards from earlier TCG eras."],
-  151: ["The main set follows National Pokédex order across the original 151 Pokémon."],
-  "battle-styles": ["Single Strike and Rapid Strike cards were introduced in this expansion."],
-  "temporal-forces": ["ACE SPEC cards returned to English expansions in Temporal Forces."],
-  "black-bolt": ["Black Bolt and White Flare share the same English release date and split their Unova focus across two sets."],
-  "white-flare": ["White Flare and Black Bolt share the same English release date and split their Unova focus across two sets."],
-  "pitch-black": ["Pitch Black's supported catalog contains 120 cards, including Mega Darkrai ex as its Mega Hyper Rare."],
+  g1: ["Generations, the Pokémon TCG's 20th-anniversary expansion, includes the second Radiant Collection subset."],
+  celebrations: ["Celebrations includes a Classic Collection subset that revisits cards from earlier Pokémon TCG eras."],
+  151: ["Scarlet & Violet—151 follows National Pokédex order across the original 151 Pokémon in its main set."],
+  "battle-styles": ["Sword & Shield—Battle Styles introduced Single Strike and Rapid Strike cards to the English Pokémon TCG."],
+  "temporal-forces": ["Scarlet & Violet—Temporal Forces marked the return of ACE SPEC cards to English Pokémon TCG expansions."],
+  "black-bolt": ["Scarlet & Violet—Black Bolt and Scarlet & Violet—White Flare were released together in English on July 18, 2025. The paired expansions divide their Unova-themed Pokémon and cards across two complementary sets."],
+  "white-flare": ["Scarlet & Violet—White Flare and Scarlet & Violet—Black Bolt were released together in English on July 18, 2025. The paired expansions divide their Unova-themed Pokémon and cards across two complementary sets."],
+  "pitch-black": ["Pitch Black is a PackDex custom set with 120 supported cards, including Mega Darkrai ex as its Mega Hyper Rare."],
 };
 
 // Concise set identities are curated from official expansion pages/checklists and the
@@ -299,7 +299,7 @@ function guideFor(set) {
     mechanics: mechanicsFor(set),
     ...(FEATURED_POKEMON_IDS[set.id] ? { featuredPokemonIds: FEATURED_POKEMON_IDS[set.id] } : {}),
     funFacts: FACTS[set.id] || [],
-    custom: false,
+    custom: set.id === "pitch-black",
     contentStatus: "curated",
   };
 }
