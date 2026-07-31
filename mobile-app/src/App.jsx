@@ -1838,8 +1838,6 @@ function PackDexStartupAnimation({ phase = "loading" }) {
       </div>
       <div className="packdex-startup__brand">
         <div className="packdex-startup__cards" aria-hidden="true">
-          <span />
-          <span />
           <img src="/packdex-icon-192.png" alt="" draggable={false} />
         </div>
         <span className="packdex-startup__wordmark">

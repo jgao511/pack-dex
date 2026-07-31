@@ -84,6 +84,15 @@ test("mobile auth refresh preserves the mounted route after initial hydration", 
   assert.match(app, /<PackDexStartupAnimation phase=\{startupPhase\}/);
 });
 
+test("mobile startup uses one PackDex logo and the collection message", async () => {
+  const app = await readFile(new URL("../mobile-app/src/App.jsx", import.meta.url), "utf8");
+  const startupMarkup = app.match(/function PackDexStartupAnimation[\s\S]*?\n\}/)?.[0] || "";
+
+  assert.match(startupMarkup, /<img src="\/packdex-icon-192\.png"/);
+  assert.doesNotMatch(startupMarkup, /<span \/>/);
+  assert.match(startupMarkup, /<small>Preparing your collection<\/small>/);
+});
+
 test("mobile inspected cards use stable pointer geometry and browser-action guards", async () => {
   const [app, css, sharedGlow, sharedTilt] = await Promise.all([
     readFile(new URL("../mobile-app/src/App.jsx", import.meta.url), "utf8"),
