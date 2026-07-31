@@ -164,3 +164,12 @@ test("style selector is limited to Settings and the Pack Ready card-back screen"
   assert.match(settings, /Reveal Style/);
   assert.match(settings, /RevealStyleOptions/);
 });
+
+test("Pack Ready selector stays inside narrow phone and safe-area bounds", async () => {
+  const css = await readFile(cssUrl, "utf8");
+  const selectorRule = css.match(/\.pack-ready-reveal-select\s*\{[\s\S]*?\}/)?.[0] || "";
+  assert.match(selectorRule, /box-sizing:\s*border-box/);
+  assert.match(selectorRule, /max-width:\s*calc\(100% - 16px\)/);
+  assert.match(selectorRule, /safe-area-inset-right/);
+  assert.match(css, /@media \(max-width:\s*340px\)[\s\S]*?\.pack-ready-reveal-select/);
+});

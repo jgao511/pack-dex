@@ -666,9 +666,11 @@ button {
   position: absolute;
   z-index: 8;
   top: 8px;
-  right: 10px;
-  width: 92px;
+  right: max(8px, env(safe-area-inset-right));
+  width: 104px;
+  max-width: calc(100% - 16px);
   height: 30px;
+  box-sizing: border-box;
   border: 1px solid rgba(183, 170, 236, 0.18);
   border-radius: 999px;
   padding: 0 22px 0 10px;
@@ -678,6 +680,16 @@ button {
   font-size: 0.66rem;
   font-weight: 820;
   outline: none;
+}
+
+@media (max-width: 340px) {
+  .pack-ready-reveal-select {
+    right: max(6px, env(safe-area-inset-right));
+    width: 100px;
+    padding-right: 20px;
+    padding-left: 8px;
+    font-size: 0.62rem;
+  }
 }
 
 .pack-ready-reveal-select:focus-visible {
