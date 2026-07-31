@@ -111,11 +111,12 @@ test("mobile inspected cards use stable pointer geometry and browser-action guar
   assert.match(sharedTilt, /else \{\s*frameRef\.current = 0;/);
 });
 
-test("account creation remains progressive and submit requests are deduplicated", async () => {
+test("account access remains a single-page form and submit requests are deduplicated", async () => {
   const app = await readFile(new URL("../mobile-app/src/App.jsx", import.meta.url), "utf8");
 
-  assert.match(app, /\["email", "password", "confirm", "verification"\]/);
-  assert.match(app, /authStep === "verification"[\s\S]*<Turnstile/);
+  assert.match(app, /<form className="auth-form" onSubmit=\{onAuthSubmit\}>/);
+  assert.match(app, /Email[\s\S]*Password[\s\S]*Confirm password[\s\S]*<Turnstile/);
+  assert.doesNotMatch(app, /authStep|progressive-auth-form|auth-step-progress/);
   assert.match(app, /authRequestInFlightRef\.current/);
   assert.match(app, /if \(authRequestInFlightRef\.current\) return/);
 });

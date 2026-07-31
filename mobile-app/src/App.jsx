@@ -887,86 +887,11 @@ function MobileAuthModal({
   const isResetMode = authMode === "forgot";
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
-  const [authStep, setAuthStep] = useState("email");
-  const [stepMessage, setStepMessage] = useState("");
-  const emailInputRef = useRef(null);
-  const passwordInputRef = useRef(null);
-  const confirmPasswordInputRef = useRef(null);
-
-  useEffect(() => {
-    setAuthStep("email");
-    setStepMessage("");
-    setIsPasswordVisible(false);
-    setIsConfirmPasswordVisible(false);
-  }, [authMode, isOpen]);
-
-  useEffect(() => {
-    if (!isOpen || isResetMode) return undefined;
-    const target = authStep === "email"
-      ? emailInputRef.current
-      : authStep === "password"
-        ? passwordInputRef.current
-        : authStep === "confirm"
-          ? confirmPasswordInputRef.current
-          : null;
-    const frame = window.requestAnimationFrame(() => target?.focus({ preventScroll: true }));
-    return () => window.cancelAnimationFrame(frame);
-  }, [authStep, isOpen, isResetMode]);
 
   if (!isOpen) return null;
 
   const canSubmitAuth =
     isSupabaseConfigured && !isAuthSubmitting && (!isCreateMode || (Boolean(TURNSTILE_SITE_KEY) && Boolean(turnstileToken)));
-
-  function moveToStep(nextStep) {
-    setStepMessage("");
-    setAuthStep(nextStep);
-  }
-
-  function handleProgressiveSubmit(event) {
-    event.preventDefault();
-    setStepMessage("");
-
-    if (authStep === "email") {
-      if (!authEmail.trim() || !emailInputRef.current?.checkValidity()) {
-        setStepMessage("Enter a valid email address.");
-        emailInputRef.current?.focus();
-        return;
-      }
-      moveToStep("password");
-      return;
-    }
-
-    if (authStep === "password") {
-      if (authPassword.length < 8) {
-        setStepMessage("Password must be at least 8 characters.");
-        passwordInputRef.current?.focus();
-        return;
-      }
-      if (isCreateMode) moveToStep("confirm");
-      else onAuthSubmit(event);
-      return;
-    }
-
-    if (authStep === "confirm") {
-      if (authConfirmPassword !== authPassword) {
-        setStepMessage("Passwords do not match.");
-        confirmPasswordInputRef.current?.focus();
-        return;
-      }
-      moveToStep("verification");
-      return;
-    }
-
-    onAuthSubmit(event);
-  }
-
-  function goBackOneStep() {
-    if (isAuthSubmitting) return;
-    if (authStep === "verification") moveToStep("confirm");
-    else if (authStep === "confirm") moveToStep("password");
-    else if (authStep === "password") moveToStep("email");
-  }
 
   if (isResetMode) {
     const canSubmitReset = isSupabaseConfigured && !isAuthSubmitting && Boolean(TURNSTILE_SITE_KEY) && Boolean(turnstileToken);
@@ -1046,133 +971,108 @@ function MobileAuthModal({
             Create account
           </button>
         </div>
-        <form className="auth-form progressive-auth-form" onSubmit={handleProgressiveSubmit}>
-          <div className="auth-step-progress" aria-label={`${isCreateMode ? "Registration" : "Login"} progress`}>
-            {(isCreateMode ? ["email", "password", "confirm", "verification"] : ["email", "password"]).map((step) => (
-              <span className={step === authStep ? "is-active" : ""} key={step} />
-            ))}
-          </div>
-          <div className="auth-step-panel" key={`${authMode}:${authStep}`}>
-            {authStep === "email" && (
-              <label>
-                Email
-                <input
-                  ref={emailInputRef}
-                  value={authEmail}
-                  type="email"
-                  autoComplete="email"
-                  inputMode="email"
-                  enterKeyHint="next"
-                  required
-                  onChange={(event) => onAuthEmail(event.target.value)}
-                />
-              </label>
-            )}
-            {authStep === "password" && (
-              <>
-                <label>
-                  Password
-                  <span className="auth-password-field">
-                    <input
-                      ref={passwordInputRef}
-                      value={authPassword}
-                      type={isPasswordVisible ? "text" : "password"}
-                      autoComplete={isCreateMode ? "new-password" : "current-password"}
-                      enterKeyHint={isCreateMode ? "next" : "go"}
-                      minLength={8}
-                      required
-                      onChange={(event) => onAuthPassword(event.target.value)}
-                    />
-                    <button className="auth-password-toggle" type="button" aria-label={isPasswordVisible ? "Hide password" : "Show password"} aria-pressed={isPasswordVisible} onClick={() => setIsPasswordVisible((value) => !value)}>
-                      <EyeIcon isVisible={isPasswordVisible} />
-                    </button>
-                  </span>
-                </label>
-                {!isCreateMode && (
-                  <button className="auth-switch-link" type="button" onClick={() => onAuthMode("forgot")}>
-                    Forgot password?
-                  </button>
-                )}
-              </>
-            )}
-            {authStep === "confirm" && (
+        <form className="auth-form" onSubmit={onAuthSubmit}>
+          <label>
+            Email
+            <input value={authEmail} type="email" autoComplete="email" onChange={(event) => onAuthEmail(event.target.value)} />
+          </label>
+          <label>
+            Password
+            <span className="auth-password-field">
+              <input
+                value={authPassword}
+                type={isPasswordVisible ? "text" : "password"}
+                autoComplete={isCreateMode ? "new-password" : "current-password"}
+                minLength={8}
+                onChange={(event) => onAuthPassword(event.target.value)}
+              />
+              <button
+                className="auth-password-toggle"
+                type="button"
+                aria-label={isPasswordVisible ? "Hide password" : "Show password"}
+                aria-pressed={isPasswordVisible}
+                onClick={() => setIsPasswordVisible((value) => !value)}
+              >
+                <EyeIcon isVisible={isPasswordVisible} />
+              </button>
+            </span>
+          </label>
+          {authMode === "login" && (
+            <button className="auth-switch-link" type="button" onClick={() => onAuthMode("forgot")}>
+              Forgot password?
+            </button>
+          )}
+          {isCreateMode && (
+            <>
               <label>
                 Confirm password
                 <span className="auth-password-field">
                   <input
-                    ref={confirmPasswordInputRef}
                     value={authConfirmPassword}
                     type={isConfirmPasswordVisible ? "text" : "password"}
                     autoComplete="new-password"
-                    enterKeyHint="next"
                     minLength={8}
-                    required
                     onChange={(event) => onAuthConfirmPassword(event.target.value)}
                   />
-                  <button className="auth-password-toggle" type="button" aria-label={isConfirmPasswordVisible ? "Hide confirm password" : "Show confirm password"} aria-pressed={isConfirmPasswordVisible} onClick={() => setIsConfirmPasswordVisible((value) => !value)}>
+                  <button
+                    className="auth-password-toggle"
+                    type="button"
+                    aria-label={isConfirmPasswordVisible ? "Hide confirm password" : "Show confirm password"}
+                    aria-pressed={isConfirmPasswordVisible}
+                    onClick={() => setIsConfirmPasswordVisible((value) => !value)}
+                  >
                     <EyeIcon isVisible={isConfirmPasswordVisible} />
                   </button>
                 </span>
               </label>
-            )}
-            {authStep === "verification" && (
-              <>
-                <div className="auth-verification-copy">
-                  <strong>One last step</strong>
-                  <span>Complete the verification below to create your PackDex account.</span>
-                </div>
-                <div className="mobile-turnstile-panel">
-                  {TURNSTILE_SITE_KEY ? (
-                    <>
-                      <Turnstile
-                        sitekey={TURNSTILE_SITE_KEY}
-                        size="flexible"
-                        theme="dark"
-                        onVerify={(token) => {
-                          onTurnstileToken(token);
-                          onTurnstileMessage("");
-                        }}
-                        onExpire={() => {
-                          onTurnstileToken("");
-                          onTurnstileMessage("Verification expired. Please verify again.");
-                        }}
-                        onError={() => {
-                          onTurnstileToken("");
-                          onTurnstileMessage("Verification failed. Please try again.");
-                        }}
-                      />
-                      {turnstileMessage && <p className="turnstile-status">{turnstileMessage}</p>}
-                    </>
-                  ) : (
-                    <p className="auth-message is-error">Add VITE_TURNSTILE_SITE_KEY to mobile-app/.env to enable account creation.</p>
-                  )}
-                </div>
-                <p className="auth-legal-copy">
-                  By creating an account, you agree to the <a href={LEGAL_URLS.terms}>Terms of Service</a> and <a href={LEGAL_URLS.privacy}>Privacy Policy</a>.
-                </p>
-              </>
-            )}
-          </div>
-          {(stepMessage || authMessage) && <p className="auth-message is-error" role="alert">{stepMessage || authMessage}</p>}
-          <div className="auth-step-actions">
-            {authStep !== "email" && <button className="auth-back-action" type="button" onClick={goBackOneStep} disabled={isAuthSubmitting}>Back</button>}
-            <button
-              className="primary-action compact-auth-submit"
-              type="submit"
-              disabled={isAuthSubmitting || ((authStep === "verification" || (!isCreateMode && authStep === "password")) && !canSubmitAuth)}
-            >
-              {isAuthSubmitting
-                ? "Loading..."
-                : authStep === "verification"
-                  ? "Create Account"
-                  : authStep === "password" && !isCreateMode
-                    ? "Log In"
-                    : <>Continue <span aria-hidden="true">→</span></>}
-            </button>
-          </div>
+              <div className="mobile-turnstile-panel">
+                {TURNSTILE_SITE_KEY ? (
+                  <>
+                    <Turnstile
+                      sitekey={TURNSTILE_SITE_KEY}
+                      size="flexible"
+                      theme="dark"
+                      onVerify={(token) => {
+                        onTurnstileToken(token);
+                        onTurnstileMessage("");
+                      }}
+                      onExpire={() => {
+                        onTurnstileToken("");
+                        onTurnstileMessage("Verification expired. Please verify again.");
+                      }}
+                      onError={() => {
+                        onTurnstileToken("");
+                        onTurnstileMessage("Verification failed. Please try again.");
+                      }}
+                    />
+                    {turnstileMessage && <p className="turnstile-status">{turnstileMessage}</p>}
+                  </>
+                ) : (
+                  <p className="auth-message is-error">Add VITE_TURNSTILE_SITE_KEY to mobile-app/.env to enable account creation.</p>
+                )}
+              </div>
+            </>
+          )}
+          <button className="primary-action compact-auth-submit" type="submit" disabled={!canSubmitAuth}>
+            {isAuthSubmitting ? "Loading..." : authMode === "login" ? "Log In" : "Create Account"}
+          </button>
+          {isCreateMode && (
+            <p className="auth-legal-copy">
+              By creating an account, you agree to the{" "}
+              <a href={LEGAL_URLS.terms}>
+                Terms of Service
+              </a>{" "}
+              and{" "}
+              <a href={LEGAL_URLS.privacy}>
+                Privacy Policy
+              </a>
+              .
+            </p>
+          )}
           <button className="auth-switch-link" type="button" onClick={() => onAuthMode(isCreateMode ? "login" : "signup")}>
             {isCreateMode ? "Already have an account? Log in" : "New to PackDex? Create an account"}
           </button>
+          {authMessage && <p className="auth-message">{authMessage}</p>}
         </form>
       </section>
     </div>
