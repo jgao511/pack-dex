@@ -4,9 +4,6 @@
 /*.html
   Cache-Control: no-store, max-age=0, must-revalidate
 
-/mobile-app/*
-  Cache-Control: no-store, max-age=0, must-revalidate
-
 /index.html
   Cache-Control: no-store, max-age=0, must-revalidate
 

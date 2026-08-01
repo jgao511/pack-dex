@@ -84,6 +84,7 @@ assert.ok(!fs.existsSync(path.join(dist, "mobile-app", "_headers")), "Nested mob
 assert.ok(!fs.existsSync(path.join(dist, "mobile-app", "sw.js")), "The mobile app must use the root update worker");
 const headers = read(headersPath);
 assert.match(headers, /\/sw\.js[\s\S]*Cache-Control: no-store/);
+assert.doesNotMatch(headers, /^\/mobile-app\/\*\s*\r?\n\s*Cache-Control:\s*no-store/m);
 assert.match(headers, /\/assets\/\*[\s\S]*Cache-Control: public, max-age=31536000, immutable/);
 assert.match(headers, /\/mobile-app\/assets\/\*[\s\S]*Cache-Control: public, max-age=31536000, immutable/);
 
