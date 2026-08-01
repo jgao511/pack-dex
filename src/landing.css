@@ -933,6 +933,27 @@ body:has(.landing-site) {
   text-decoration: none;
 }
 
+.landing-footer__support-actions {
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+}
+
+.landing-footer__support:hover {
+  color: #d8d0ff !important;
+  text-decoration: underline;
+}
+
+.landing-footer__support:focus-visible {
+  outline: 3px solid rgba(169, 152, 255, 0.48);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.landing-footer__support span {
+  overflow-wrap: anywhere;
+}
+
 .landing-footer__links {
   display: grid;
   align-content: start;

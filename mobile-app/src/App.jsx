@@ -4,6 +4,8 @@ import MobileResetPasswordPage from "./MobileResetPasswordPage.jsx";
 import DeleteAccountDialog from "./components/DeleteAccountDialog.jsx";
 import MobileOnboarding from "./components/MobileOnboarding.jsx";
 import BinderSystem from "../../src/components/binders/BinderSystem.jsx";
+import BuyMeACoffeeCard from "../../src/components/BuyMeACoffeeCard.jsx";
+import BuyMeACoffeePrompt from "../../src/components/BuyMeACoffeePrompt.jsx";
 import PrivacyChoicesDialog from "../../src/components/PrivacyChoicesDialog.jsx";
 import { LEGAL_ROUTES, PACKDEX_SUPPORT_EMAIL } from "../../src/content/legalDocuments.js";
 import { buildExplorePath } from "./explore/exploreRouting.js";
@@ -74,6 +76,12 @@ import { clearCachedSupabaseUser } from "../../src/lib/sessionUserCache.js";
 import { isSupabaseAuthStorageKey, validateSupabaseIdentity } from "../../src/lib/authIdentityValidation.js";
 import { clearDeletedAccountLocalState, deleteCurrentAccount } from "../../src/lib/accountDeletion.js";
 import { openPrivacyChoices } from "../../src/lib/privacyChoices.js";
+import {
+  claimBuyMeACoffeePrompt,
+  dismissBuyMeACoffeePrompt,
+  loadGuestLifetimePacks,
+  recordGuestCompletedPack,
+} from "../../src/lib/buyMeACoffeePrompt.js";
 import {
   playAchievementUnlockSound,
   preloadMobileSounds,
@@ -2520,9 +2528,10 @@ function SettingsModal({
         {__PACKDEX_SCANNER_TEST__ && scannerTestEnabled && <section className="settings-section"><span className="eyebrow">Development</span><button className="settings-link" type="button" onClick={() => window.location.assign("/?scanner-test=1")}>Scanner Test</button></section>}
 
         <section className="settings-section settings-contact-section">
-          <span className="eyebrow">Support</span>
-          <span className="settings-support-label">Support email</span>
-          <a className="settings-link settings-email-link" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
+          <span className="eyebrow">Customer assistance</span>
+          <strong className="settings-field-label">Contact Support</strong>
+          <p className="settings-contact-copy">Get help with an account issue, report a bug, or send feedback.</p>
+          <a className="settings-link settings-email-link" href={`mailto:${SUPPORT_EMAIL}`}>Email Support · {SUPPORT_EMAIL}</a>
         </section>
 
         <section className="settings-section">
@@ -2738,12 +2747,15 @@ function ProfileScreen({
         </section>
       )}
 
+      <BuyMeACoffeeCard className="mobile-profile-support-card" source="profile" />
+
       <section className="content-section">
         <p className="section-copy">
           Fan-made Pokemon TCG pack-opening simulator. Not affiliated with Nintendo, Creatures, Game Freak, or The
           Pokemon Company. PackDex tracks a virtual collection only.
         </p>
       </section>
+
       <SettingsModal
         isOpen={isSettingsOpen}
         user={user}
@@ -2888,7 +2900,7 @@ function MobileApp() {
   const [binders, setBinders] = useState([]);
   const [user, setUser] = useState(null);
   const [authValidationState, setAuthValidationState] = useState(isSupabaseConfigured ? "validating" : "guest");
-  const [stats, setStats] = useState(EMPTY_STATS);
+  const [stats, setStats] = useState(() => ({ ...EMPTY_STATS, packsOpened: loadGuestLifetimePacks() }));
   const [loadingMessage, setLoadingMessage] = useState("");
   const [startupPhase, setStartupPhase] = useState("loading");
   const [onboardingStep, setOnboardingStep] = useState(() => {
@@ -2948,6 +2960,8 @@ function MobileApp() {
   const [isWelcomeRewardModalOpen, setIsWelcomeRewardModalOpen] = useState(false);
   const [isClaimingWelcomeReward, setIsClaimingWelcomeReward] = useState(false);
   const [welcomeRewardError, setWelcomeRewardError] = useState("");
+  const [isBuyMeACoffeePromptOpen, setIsBuyMeACoffeePromptOpen] = useState(false);
+  const [buyMeACoffeePromptUserId, setBuyMeACoffeePromptUserId] = useState("");
   const [achievements, setAchievements] = useState([]);
   const [achievementProgress, setAchievementProgress] = useState([]);
   const [isAchievementsLoading, setIsAchievementsLoading] = useState(false);
@@ -2989,6 +3003,7 @@ function MobileApp() {
   const revealAnimationLockRef = useRef(false);
   const packSavePendingRef = useRef(false);
   const packSavePromiseRef = useRef(null);
+  const pendingBuyMeACoffeePackCountRef = useRef(0);
   const openAnotherLockRef = useRef(false);
   const packOpeningOperationRef = useRef(false);
   const wishlistScrollRef = useRef(0);
@@ -3001,6 +3016,45 @@ function MobileApp() {
   onboardingStepRef.current = onboardingStep;
   currentUserRef.current = user;
   validatedScannerUserIdRef.current = authValidationState === "authenticated" ? String(user?.id || "") : "";
+
+  useEffect(() => {
+    if (
+      isBuyMeACoffeePromptOpen ||
+      pendingBuyMeACoffeePackCountRef.current < 50 ||
+      startupPhase !== "complete" ||
+      onboardingStep ||
+      packStage !== "summary" ||
+      isPackSavePending ||
+      revealAnimationRunning ||
+      packOpeningOperationRef.current ||
+      isAuthPanelOpen ||
+      isSignupVerificationOpen ||
+      isWelcomeRewardModalOpen ||
+      inspectedCard
+    ) return;
+
+    const packsOpened = pendingBuyMeACoffeePackCountRef.current;
+    pendingBuyMeACoffeePackCountRef.current = 0;
+    const userId = user?.id || "";
+    const result = claimBuyMeACoffeePrompt({ packsOpened, userId });
+    if (result.shouldShow) {
+      setBuyMeACoffeePromptUserId(userId);
+      setIsBuyMeACoffeePromptOpen(true);
+    }
+  }, [
+    inspectedCard,
+    isAuthPanelOpen,
+    isBuyMeACoffeePromptOpen,
+    isPackSavePending,
+    isSignupVerificationOpen,
+    isWelcomeRewardModalOpen,
+    onboardingStep,
+    packStage,
+    revealAnimationRunning,
+    startupPhase,
+    user?.id,
+  ]);
+
   const setsCompleted = useMemo(
     () =>
       activeSets.filter((set) => {
@@ -3480,7 +3534,7 @@ function MobileApp() {
     accountLoadedAtRef.current.clear();
     setUser(null);
     setCollection(loadCollection());
-    setStats(EMPTY_STATS);
+    setStats({ ...EMPTY_STATS, packsOpened: loadGuestLifetimePacks() });
     setBinders(loadBinders());
     setSelectedCollectionSetId("");
     setCollectionReturnSource("collection");
@@ -3489,6 +3543,7 @@ function MobileApp() {
     setWelcomeRewardStatus(null);
     setIsWelcomeRewardModalOpen(false);
     setWelcomeRewardError("");
+    setIsBuyMeACoffeePromptOpen(false);
     setAchievements([]);
     setAchievementProgress([]);
     setIsAchievementsLoading(false);
@@ -4651,13 +4706,17 @@ function MobileApp() {
         .map((card) => getCardKey(card, set.id))
     );
     const nextCollection = markCardsCollected(collection, cards, set.id, timestamp);
-    const nextStats = {
+    let nextStats = {
       packsOpened: stats.packsOpened + 1,
       totalCardsPulled: stats.totalCardsPulled + cards.length,
     };
 
     setNewPullKeys(nextNewPullKeys);
     persistSessionCollection(nextCollection);
+    if (!user) {
+      nextStats = { ...nextStats, packsOpened: recordGuestCompletedPack() };
+      pendingBuyMeACoffeePackCountRef.current = nextStats.packsOpened;
+    }
     setStats(nextStats);
 
     if (user) {
@@ -4706,6 +4765,7 @@ function MobileApp() {
 
       if (syncResult?.stats) {
         const eligiblePacks = Number(syncResult.stats.packsOpened || 0);
+        if (syncResult.saved > 0) pendingBuyMeACoffeePackCountRef.current = eligiblePacks;
         setWelcomeRewardStatus((current) => current ? {
           ...current,
           eligiblePacks,
@@ -5448,6 +5508,15 @@ function MobileApp() {
             </Suspense>
           </div>
         )}
+
+        <BuyMeACoffeePrompt
+          isOpen={isBuyMeACoffeePromptOpen}
+          mobile
+          onDismiss={() => {
+            dismissBuyMeACoffeePrompt({ userId: buyMeACoffeePromptUserId });
+            setIsBuyMeACoffeePromptOpen(false);
+          }}
+        />
 
         {startupPhase === "complete" && !isOnboardingActive && <nav className={`bottom-tabs ${isPackOpening ? "is-pack-locked" : ""}`} aria-label="Mobile app sections">
           {tabs.map((tab) => {

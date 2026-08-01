@@ -5,7 +5,7 @@ import App from "./App.jsx";
 import MobileResetPasswordPage from "./MobileResetPasswordPage.jsx";
 import PublicPullSharePage from "./PublicPullSharePage.jsx";
 import { supabase } from "./lib/supabaseClient.js";
-import { installIosExternalLinkRouting } from "./lib/externalLinks.js";
+import { installNativeExternalLinkRouting } from "./lib/externalLinks.js";
 import { normalizeCanonicalProductionLocation } from "../../src/utils/authRedirects.js";
 import { registerPackDexServiceWorker } from "../../src/lib/clientUpdate.js";
 import "./App.css";
@@ -13,7 +13,7 @@ import "./App.css";
 const isCanonicalRedirecting = normalizeCanonicalProductionLocation();
 const isNativePlatform = Capacitor.isNativePlatform();
 document.documentElement.classList.toggle("capacitor-native", isNativePlatform);
-installIosExternalLinkRouting();
+installNativeExternalLinkRouting();
 
 if (!isNativePlatform) {
   registerPackDexServiceWorker().catch((error) => {

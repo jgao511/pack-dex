@@ -4924,6 +4924,13 @@ button {
   text-transform: uppercase;
 }
 
+.site-footer__support-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+}
+
 .site-footer__support svg {
   flex: 0 0 auto;
 }
@@ -6772,7 +6779,8 @@ button {
 
   .site-footer__brand,
   .site-footer__bottom,
-  .site-footer__legal {
+  .site-footer__legal,
+  .site-footer__support-actions {
     justify-content: center;
   }
 

@@ -2,7 +2,8 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { readFile, readdir } from "node:fs/promises";
 import test from "node:test";
-import { getExternalHttpUrl, installIosExternalLinkRouting } from "../mobile-app/src/lib/externalLinks.js";
+import { BUY_ME_A_COFFEE_URL } from "../src/config/support.js";
+import { getExternalHttpUrl, installNativeExternalLinkRouting } from "../mobile-app/src/lib/externalLinks.js";
 import { getScannerRuntime, isAndroidNative, isIosNative } from "../mobile-app/src/lib/platform.js";
 import { resolveScannerAssetUrl } from "../mobile-app/src/lib/scannerAssetUrl.js";
 
@@ -23,21 +24,27 @@ test("iOS uses bundled browser scanner URLs under the Capacitor scheme", () => {
   assert.equal(resolveScannerAssetUrl("wasm/", { baseUrl: "./", origin: "capacitor://localhost" }), "capacitor://localhost/scanner-ai/wasm/");
 });
 
-test("iOS routing opens external HTTP links without intercepting internal or mail links", async () => {
+test("native routing opens external HTTP links without intercepting internal or mail links", async () => {
   const locationRef = { href: "capacitor://localhost/index.html", origin: "null" };
   const anchor = (href) => ({ getAttribute: () => href });
   assert.equal(getExternalHttpUrl(anchor("https://www.tcgplayer.com/card"), locationRef), "https://www.tcgplayer.com/card");
   assert.equal(getExternalHttpUrl(anchor("/settings"), locationRef), null);
   assert.equal(getExternalHttpUrl(anchor("mailto:packdexsupport@gmail.com"), locationRef), null);
+  assert.equal(getExternalHttpUrl(anchor("http://[invalid"), locationRef), null);
 
   let listener; const opened = [];
   const documentRef = { addEventListener: (_name, callback) => { listener = callback; }, removeEventListener() {} };
-  installIosExternalLinkRouting({ capacitor: capacitor("ios"), documentRef, locationRef, openBrowser: async (url) => opened.push(url) });
+  installNativeExternalLinkRouting({ capacitor: capacitor("ios"), documentRef, locationRef, openBrowser: async (url) => opened.push(url) });
   let prevented = false;
   listener({ target: { closest: () => anchor("https://youtube.com/watch?v=test") }, button: 0, preventDefault: () => { prevented = true; } });
   await new Promise((resolve) => setImmediate(resolve));
   assert.equal(prevented, true);
   assert.deepEqual(opened, ["https://youtube.com/watch?v=test"]);
+
+  installNativeExternalLinkRouting({ capacitor: capacitor("android"), documentRef, locationRef, openBrowser: async (url) => opened.push(url) });
+  listener({ target: { closest: () => anchor(BUY_ME_A_COFFEE_URL) }, button: 0, preventDefault() {} });
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.equal(opened.at(-1), BUY_ME_A_COFFEE_URL);
 });
 
 test("iOS cannot import or call Android scanner adapters through platform selection", async () => {

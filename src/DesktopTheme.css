@@ -174,6 +174,39 @@
   box-shadow: 0 8px 18px rgba(81, 43, 180, 0.26);
 }
 
+:root[data-theme] .site-header__navigation {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+:root[data-theme] .site-header__support-link {
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--pd-border);
+  border-radius: 11px;
+  padding: 0 12px;
+  color: var(--pd-muted);
+  background: transparent;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+:root[data-theme] .site-header__support-link:hover {
+  color: var(--pd-text);
+  background: var(--pd-surface-soft);
+}
+
+:root[data-theme] .site-header__support-link:focus-visible {
+  outline: 3px solid var(--pd-focus);
+  outline-offset: 2px;
+}
+
 :root[data-theme] .mobile-experience-notice {
   width: min(100%, 1180px);
   border: 1px solid var(--pd-border);
@@ -963,6 +996,179 @@
   line-height: 1.45;
 }
 
+:root[data-theme] .buy-me-a-coffee-card,
+:root[data-theme] .profile-contact-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px 22px;
+  border: 1px solid var(--pd-border);
+  border-radius: 18px;
+  padding: 20px;
+  color: var(--pd-text);
+  background: var(--pd-surface);
+  box-shadow: var(--pd-shadow-soft);
+}
+
+:root[data-theme] .buy-me-a-coffee-card__eyebrow {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--pd-accent-text);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+:root[data-theme] .buy-me-a-coffee-card h2,
+:root[data-theme] .profile-contact-card h2 {
+  margin: 0;
+  color: var(--pd-text);
+  font-size: 1.08rem;
+}
+
+:root[data-theme] .buy-me-a-coffee-card p,
+:root[data-theme] .profile-contact-card p {
+  max-width: 720px;
+  margin: 7px 0 0;
+  color: var(--pd-muted);
+  font-size: 0.87rem;
+  line-height: 1.5;
+}
+
+:root[data-theme] .buy-me-a-coffee-card__action,
+:root[data-theme] .profile-contact-card > a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--pd-border-strong);
+  border-radius: 12px;
+  padding: 0 16px;
+  color: var(--pd-text);
+  background: var(--pd-surface-strong);
+  font-size: 0.86rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+:root[data-theme] .buy-me-a-coffee-card__action:hover,
+:root[data-theme] .profile-contact-card > a:hover {
+  border-color: var(--pd-accent-text);
+  background: var(--pd-accent-soft);
+}
+
+:root[data-theme] .buy-me-a-coffee-card__action:active,
+:root[data-theme] .profile-contact-card > a:active {
+  transform: translateY(1px);
+}
+
+:root[data-theme] .buy-me-a-coffee-card__action:focus-visible,
+:root[data-theme] .profile-contact-card > a:focus-visible {
+  outline: 3px solid var(--pd-focus);
+  outline-offset: 2px;
+}
+
+:root[data-theme] .buy-me-a-coffee-card > small {
+  grid-column: 1 / -1;
+  color: var(--pd-subtle);
+  font-size: 0.76rem;
+}
+
+:root[data-theme] .profile-contact-card .set-mark {
+  color: var(--pd-muted);
+}
+
+:root[data-theme] .buy-me-a-coffee-prompt.is-desktop {
+  position: fixed;
+  right: max(20px, env(safe-area-inset-right));
+  bottom: max(20px, env(safe-area-inset-bottom));
+  z-index: 90;
+  width: min(390px, calc(100vw - 32px));
+  display: grid;
+  gap: 16px;
+  border: 1px solid var(--pd-border-strong);
+  border-radius: 18px;
+  padding: 20px;
+  color: var(--pd-text);
+  background: var(--pd-surface);
+  box-shadow: var(--pd-shadow);
+}
+
+:root[data-theme] .buy-me-a-coffee-prompt__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 10px;
+  color: var(--pd-muted);
+  background: transparent;
+  font-size: 1.35rem;
+}
+
+:root[data-theme] .buy-me-a-coffee-prompt__close:hover {
+  color: var(--pd-text);
+  background: var(--pd-surface-strong);
+}
+
+:root[data-theme] .buy-me-a-coffee-prompt__eyebrow {
+  color: var(--pd-accent-text);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+:root[data-theme] .buy-me-a-coffee-prompt h2 {
+  margin: 7px 36px 0 0;
+  font-size: 1.18rem;
+}
+
+:root[data-theme] .buy-me-a-coffee-prompt p {
+  margin: 7px 0 0;
+  color: var(--pd-muted);
+  font-size: 0.86rem;
+  line-height: 1.48;
+}
+
+:root[data-theme] .buy-me-a-coffee-prompt__actions {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+:root[data-theme] .buy-me-a-coffee-prompt__actions a,
+:root[data-theme] .buy-me-a-coffee-prompt__actions button {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--pd-border-strong);
+  border-radius: 11px;
+  padding: 0 14px;
+  color: var(--pd-text);
+  background: var(--pd-surface-strong);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+:root[data-theme] .buy-me-a-coffee-prompt__actions a:hover,
+:root[data-theme] .buy-me-a-coffee-prompt__actions button:hover {
+  border-color: var(--pd-accent-text);
+  background: var(--pd-accent-soft);
+}
+
+:root[data-theme] .buy-me-a-coffee-prompt__actions a:focus-visible,
+:root[data-theme] .buy-me-a-coffee-prompt__actions button:focus-visible,
+:root[data-theme] .buy-me-a-coffee-prompt__close:focus-visible {
+  outline: 3px solid var(--pd-focus);
+  outline-offset: 2px;
+}
+
 :root[data-theme] .delete-account-button {
   border-color: rgba(255, 140, 152, 0.26);
   color: var(--pd-danger);
@@ -1204,7 +1410,7 @@
     gap: 16px;
   }
 
-  :root[data-theme] .main-tabs {
+  :root[data-theme] .site-header__navigation {
     grid-column: 2;
     justify-self: end;
   }
@@ -1243,9 +1449,14 @@
     padding: 9px;
   }
 
-  :root[data-theme] .main-tabs {
+  :root[data-theme] .site-header__navigation {
     grid-column: 1;
     justify-self: stretch;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  :root[data-theme] .main-tabs {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     width: 100%;
@@ -1338,6 +1549,17 @@
 
   :root[data-theme] .profile-stat-grid {
     grid-template-columns: 1fr;
+  }
+
+  :root[data-theme] .buy-me-a-coffee-card,
+  :root[data-theme] .profile-contact-card {
+    grid-template-columns: 1fr;
+    padding: 17px;
+  }
+
+  :root[data-theme] .buy-me-a-coffee-card__action,
+  :root[data-theme] .profile-contact-card > a {
+    width: 100%;
   }
 
 }

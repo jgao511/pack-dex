@@ -11,6 +11,7 @@ import {
 import { useAnimatedCount } from "./hooks/useAnimatedCount.js";
 import { getSetAssetUrl } from "./utils/assetUrls.js";
 import { markWelcomeSeen } from "./welcomeEntry.js";
+import { BUY_ME_A_COFFEE_URL, isBuyMeACoffeeEnabled } from "./config/support.js";
 
 const APP_PATH = "/mobile-app/";
 const DESKTOP_APP_PATH = "/?desktop=1";
@@ -390,10 +391,24 @@ function LandingFooter() {
         <div className="landing-footer__intro">
           <Brand footer />
           <p>A fan-made Pokémon TCG pack-opening and collection experience built for collectors.</p>
-          <a className="landing-footer__support" href={`mailto:${PACKDEX_SUPPORT_EMAIL}`}>
-            <Mail size={16} aria-hidden="true" />
-            {PACKDEX_SUPPORT_EMAIL}
-          </a>
+          <div className="landing-footer__support-actions">
+            {isBuyMeACoffeeEnabled() && (
+              <a
+                className="landing-footer__support"
+                href={BUY_ME_A_COFFEE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Buy Me a Coffee to support PackDex (opens in a new tab)"
+                data-support-source="footer"
+              >
+                Buy Me a Coffee
+              </a>
+            )}
+            <a className="landing-footer__support" href={`mailto:${PACKDEX_SUPPORT_EMAIL}`}>
+              <Mail size={16} aria-hidden="true" />
+              <span>Contact Support · {PACKDEX_SUPPORT_EMAIL}</span>
+            </a>
+          </div>
         </div>
 
         <nav className="landing-footer__links" aria-label="Product links">

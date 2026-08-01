@@ -2351,9 +2351,110 @@ body.scanner-camera-active,
   background: rgba(255, 255, 255, 0.05);
 }
 
+.mobile-profile-support-card {
+  display: grid;
+  gap: 10px;
+  margin-top: 4px;
+  border: 1px solid rgba(185, 205, 255, 0.14);
+  border-radius: 20px;
+  padding: 16px;
+  align-items: stretch;
+  background: rgba(18, 21, 46, 0.94);
+}
+
+.buy-me-a-coffee-card__eyebrow {
+  display: block;
+  margin-bottom: 6px;
+  color: #b8abff;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.mobile-profile-support-card h2 {
+  margin: 0;
+  color: #f5f6fb;
+  font-size: 1rem;
+}
+
+.mobile-profile-support-card p,
+.settings-contact-copy {
+  margin: 7px 0 0;
+  color: #aab4d5;
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.buy-me-a-coffee-card__action {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(184, 176, 255, 0.3);
+  border-radius: 14px;
+  padding: 0 14px;
+  color: #f3f0ff;
+  background: rgba(124, 100, 213, 0.16);
+  font-size: 0.86rem;
+  font-weight: 850;
+  text-decoration: none;
+}
+
+.buy-me-a-coffee-card__action:hover {
+  border-color: rgba(184, 176, 255, 0.52);
+  background: rgba(124, 100, 213, 0.24);
+}
+
+.buy-me-a-coffee-card__action:active {
+  transform: scale(0.985);
+}
+
+.buy-me-a-coffee-card__action:focus-visible {
+  outline: 3px solid rgba(184, 176, 255, 0.48);
+  outline-offset: 2px;
+}
+
+.mobile-profile-support-card > small {
+  order: 2;
+  color: #8f9aba;
+  font-size: 0.72rem;
+  line-height: 1.4;
+}
+
+.mobile-profile-support-card .buy-me-a-coffee-card__action {
+  order: 3;
+  width: 100%;
+}
+
 .theme-light .settings-section {
   border-color: rgba(20, 29, 48, 0.08);
   background: rgba(21, 31, 54, 0.04);
+}
+
+.theme-light .mobile-profile-support-card {
+  border-color: rgba(20, 29, 48, 0.09);
+  background: #f8f8ff;
+}
+
+.theme-light .buy-me-a-coffee-card__eyebrow {
+  color: #5a43bf;
+}
+
+.theme-light .mobile-profile-support-card h2 {
+  color: #17142a;
+}
+
+.theme-light .mobile-profile-support-card p,
+.theme-light .settings-contact-copy,
+.theme-light .mobile-profile-support-card > small {
+  color: #66708a;
+}
+
+.theme-light .buy-me-a-coffee-card__action {
+  border-color: rgba(91, 68, 182, 0.28);
+  color: #3f2b9c;
+  background: rgba(91, 68, 182, 0.08);
 }
 
 .settings-field-label {
@@ -2908,6 +3009,135 @@ body.scanner-camera-active,
   border-color: rgba(77, 53, 207, 0.2);
   color: #4d35cf;
   background: rgba(77, 53, 207, 0.07);
+}
+
+.buy-me-a-coffee-prompt.is-mobile {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: calc(var(--bottom-nav-height) + max(var(--bottom-nav-gap), env(safe-area-inset-bottom)) + 10px);
+  z-index: 50;
+  display: grid;
+  gap: 14px;
+  border: 1px solid rgba(184, 176, 255, 0.34);
+  border-radius: 20px;
+  padding: 18px;
+  color: #f5f6fb;
+  background: #15182d;
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.34);
+}
+
+.buy-me-a-coffee-prompt__close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 13px;
+  color: #aab4d5;
+  background: transparent;
+  font-size: 1.45rem;
+}
+
+.buy-me-a-coffee-prompt__close:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.buy-me-a-coffee-prompt__eyebrow {
+  color: #b8abff;
+  font-size: 0.69rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.buy-me-a-coffee-prompt h2 {
+  margin: 6px 42px 0 0;
+  color: #ffffff;
+  font-size: 1.08rem;
+}
+
+.buy-me-a-coffee-prompt p {
+  margin: 7px 0 0;
+  color: #b9c2dc;
+  font-size: 0.79rem;
+  line-height: 1.45;
+}
+
+.buy-me-a-coffee-prompt__actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(104px, auto);
+  gap: 8px;
+}
+
+.buy-me-a-coffee-prompt__actions a,
+.buy-me-a-coffee-prompt__actions button {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(184, 176, 255, 0.28);
+  border-radius: 14px;
+  padding: 0 12px;
+  color: #f3f0ff;
+  background: rgba(124, 100, 213, 0.16);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 850;
+  text-decoration: none;
+}
+
+.buy-me-a-coffee-prompt__actions button {
+  color: #c4cbe0;
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.buy-me-a-coffee-prompt__actions a:hover,
+.buy-me-a-coffee-prompt__actions button:hover {
+  border-color: rgba(184, 176, 255, 0.5);
+  background: rgba(124, 100, 213, 0.24);
+}
+
+.buy-me-a-coffee-prompt__actions a:active,
+.buy-me-a-coffee-prompt__actions button:active,
+.buy-me-a-coffee-prompt__close:active {
+  transform: scale(0.985);
+}
+
+.buy-me-a-coffee-prompt__actions a:focus-visible,
+.buy-me-a-coffee-prompt__actions button:focus-visible,
+.buy-me-a-coffee-prompt__close:focus-visible {
+  outline: 3px solid rgba(184, 176, 255, 0.48);
+  outline-offset: 2px;
+}
+
+.theme-light .buy-me-a-coffee-prompt.is-mobile {
+  border-color: rgba(91, 68, 182, 0.24);
+  color: #17142a;
+  background: #ffffff;
+  box-shadow: 0 16px 38px rgba(35, 43, 82, 0.18);
+}
+
+.theme-light .buy-me-a-coffee-prompt__eyebrow {
+  color: #5a43bf;
+}
+
+.theme-light .buy-me-a-coffee-prompt h2 {
+  color: #17142a;
+}
+
+.theme-light .buy-me-a-coffee-prompt p,
+.theme-light .buy-me-a-coffee-prompt__close {
+  color: #5e6882;
+}
+
+.theme-light .buy-me-a-coffee-prompt__actions a,
+.theme-light .buy-me-a-coffee-prompt__actions button {
+  border-color: rgba(91, 68, 182, 0.24);
+  color: #3f2b9c;
+  background: rgba(91, 68, 182, 0.08);
 }
 
 .bottom-tabs {

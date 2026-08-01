@@ -5,6 +5,8 @@ import "./DesktopTheme.css";
 import PackOpening from "./components/PackOpening.jsx";
 import AccountSaveNotice from "./components/AccountSaveNotice.jsx";
 import AuthPanel, { AuthModal } from "./components/AuthPanel.jsx";
+import BuyMeACoffeeCard from "./components/BuyMeACoffeeCard.jsx";
+import BuyMeACoffeePrompt from "./components/BuyMeACoffeePrompt.jsx";
 import DeleteAccountDialog from "./components/DeleteAccountDialog.jsx";
 import CardReveal from "./components/CardReveal.jsx";
 import CardDetailModal from "./components/CardDetailModal.jsx";
@@ -83,6 +85,12 @@ import { clearDeletedAccountLocalState, deleteCurrentAccount } from "./lib/accou
 import { isSupabaseAuthStorageKey, validateSupabaseIdentity } from "./lib/authIdentityValidation.js";
 import { clearCachedSupabaseUser } from "./lib/sessionUserCache.js";
 import { openPrivacyChoices } from "./lib/privacyChoices.js";
+import {
+  claimBuyMeACoffeePrompt,
+  dismissBuyMeACoffeePrompt,
+  recordGuestCompletedPack,
+} from "./lib/buyMeACoffeePrompt.js";
+import { BUY_ME_A_COFFEE_URL, isBuyMeACoffeeEnabled } from "./config/support.js";
 import { markPackGenerationComplete, markPackGenerationStart } from "./utils/imageDebug.js";
 import { markCardBackPreloadFinish, markCardBackPreloadStart } from "./utils/cardBackDebug.js";
 import {
@@ -859,10 +867,12 @@ function SiteFooter() {
           </a>
         ))}
       </nav>
-      <a className="site-footer__support" href={`mailto:${SUPPORT_EMAIL}`}>
-        <Mail size={17} aria-hidden="true" />
-        <span>{SUPPORT_EMAIL}</span>
-      </a>
+      <div className="site-footer__support-actions">
+        <a className="site-footer__support" href={`mailto:${SUPPORT_EMAIL}`}>
+          <Mail size={17} aria-hidden="true" />
+          <span>Contact Support</span>
+        </a>
+      </div>
       <nav className="site-footer__legal" aria-label="Legal and privacy links">
         <a href="/welcome">About PackDex</a>
         <a href={LEGAL_ROUTES.privacy}>Privacy</a>
@@ -870,7 +880,17 @@ function SiteFooter() {
         <button type="button" onClick={(event) => openPrivacyChoices(event.currentTarget)}>
           Privacy Choices
         </button>
-        <a href={`mailto:${SUPPORT_EMAIL}`}>Support</a>
+        {isBuyMeACoffeeEnabled() && (
+          <a
+            href={BUY_ME_A_COFFEE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Buy Me a Coffee to support PackDex (opens in a new tab)"
+            data-support-source="footer"
+          >
+            Buy Me a Coffee
+          </a>
+        )}
       </nav>
       <p>
         Fan-made Pokemon TCG pack-opening simulator. Not affiliated with Nintendo, Creatures, Game Freak, or The
@@ -1104,6 +1124,16 @@ function ProfilePage({
         </div>
       )}
 
+      <BuyMeACoffeeCard className="profile-support-card" source="profile" />
+      <section className="profile-contact-card" aria-labelledby="profile-contact-support-title">
+        <div>
+          <span className="set-mark">Customer assistance</span>
+          <h2 id="profile-contact-support-title">Contact Support</h2>
+          <p>Get help with an account issue, report a bug, or send feedback.</p>
+        </div>
+        <a href={`mailto:${SUPPORT_EMAIL}`}>Email Support</a>
+      </section>
+
     </section>
   );
 }
@@ -1246,6 +1276,8 @@ function App() {
   const [isClaimingWelcomeReward, setIsClaimingWelcomeReward] = useState(false);
   const [welcomeRewardError, setWelcomeRewardError] = useState("");
   const [isWelcomeBetaOpen, setIsWelcomeBetaOpen] = useState(false);
+  const [isBuyMeACoffeePromptOpen, setIsBuyMeACoffeePromptOpen] = useState(false);
+  const [buyMeACoffeePromptUserId, setBuyMeACoffeePromptUserId] = useState("");
   const [collectionDashboardSubtabRequest, setCollectionDashboardSubtabRequest] = useState("");
   const [binderOpenRequestId, setBinderOpenRequestId] = useState("");
   const [showDesktopMobileNotice, setShowDesktopMobileNotice] = useState(
@@ -1259,8 +1291,28 @@ function App() {
   const packOperationRef = useRef(false);
   const packSavePromiseRef = useRef(null);
   const persistedPackEventIdsRef = useRef(new Set());
+  const pendingBuyMeACoffeePackCountRef = useRef(0);
   const isPackFlow = activeTab === "open" && ["opening", "reveal", "summary"].includes(screen);
   const authUser = authSession?.user || null;
+
+  useEffect(() => {
+    if (
+      isBuyMeACoffeePromptOpen ||
+      pendingBuyMeACoffeePackCountRef.current < 50 ||
+      isPackSavePending ||
+      packOperationRef.current ||
+      screen !== "summary"
+    ) return;
+
+    const packsOpened = pendingBuyMeACoffeePackCountRef.current;
+    pendingBuyMeACoffeePackCountRef.current = 0;
+    const userId = authUser?.id || "";
+    const result = claimBuyMeACoffeePrompt({ packsOpened, userId });
+    if (result.shouldShow) {
+      setBuyMeACoffeePromptUserId(userId);
+      setIsBuyMeACoffeePromptOpen(true);
+    }
+  }, [authUser?.id, isBuyMeACoffeePromptOpen, isPackSavePending, screen]);
 
   function commitAuthSession(nextSession) {
     authSessionRef.current = nextSession;
@@ -1642,6 +1694,7 @@ function App() {
     setProfileStatsError("");
     setWelcomeRewardStatus(null);
     setIsWelcomeRewardModalOpen(false);
+    setIsBuyMeACoffeePromptOpen(false);
     setActiveTab("open");
     setScreen("home");
     replaceAppHistory({ activeTab: "open", screen: "home" });
@@ -1771,6 +1824,7 @@ function App() {
 
     if (!authUser) {
       saveCollection(nextCollection);
+      pendingBuyMeACoffeePackCountRef.current = recordGuestCompletedPack();
     }
 
     setCollection(nextCollection);
@@ -1790,6 +1844,9 @@ function App() {
             loadedProfileStatsUserIdRef.current = savingUser.id;
             setProfileStats(result.stats);
             setProfileStatsError("");
+          }
+          if (result?.saved > 0 && result?.stats) {
+            pendingBuyMeACoffeePackCountRef.current = Number(result.stats.packsOpened || 0);
           }
         })
         .catch(async (error) => {
@@ -2057,18 +2114,32 @@ function App() {
           </span>
         </div>
         {!isPackFlow && (
-          <nav className="main-tabs" aria-label="Main navigation">
-            {MAIN_TABS.map((tab) => (
-              <button
-                key={tab.id}
-                className={activeTab === tab.id ? "is-active" : ""}
-                type="button"
-                onClick={() => selectMainTab(tab.id)}
+          <div className="site-header__navigation">
+            <nav className="main-tabs" aria-label="Main navigation">
+              {MAIN_TABS.map((tab) => (
+                <button
+                  key={tab.id}
+                  className={activeTab === tab.id ? "is-active" : ""}
+                  type="button"
+                  onClick={() => selectMainTab(tab.id)}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </nav>
+            {isBuyMeACoffeeEnabled() && (
+              <a
+                className="site-header__support-link"
+                href={BUY_ME_A_COFFEE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Buy Me a Coffee to support PackDex (opens in a new tab)"
+                data-support-source="desktop_header"
               >
-                {tab.label}
-              </button>
-            ))}
-          </nav>
+                Buy Me a Coffee
+              </a>
+            )}
+          </div>
         )}
       </header>
 
@@ -2242,6 +2313,13 @@ function App() {
         }}
         onClaim={handleClaimWelcomeReward}
         onClose={() => setIsWelcomeRewardModalOpen(false)}
+      />
+      <BuyMeACoffeePrompt
+        isOpen={isBuyMeACoffeePromptOpen}
+        onDismiss={() => {
+          dismissBuyMeACoffeePrompt({ userId: buyMeACoffeePromptUserId });
+          setIsBuyMeACoffeePromptOpen(false);
+        }}
       />
       {isClaimingWelcomeReward && (
         <TabLoadingOverlay text="Opening welcome pack..." subtext="Preparing this virtual God Pack" />
