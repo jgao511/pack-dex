@@ -4743,7 +4743,9 @@ function MobileApp() {
         (entry) => String(entry.clientEventId) === String(clientEventId)
       );
       if (rejectedCurrentPull) {
-        setPackSaveMessage("This pack was not saved because packs were opened too quickly. Please wait a moment before trying again.");
+        setPackSaveMessage(rejectedCurrentPull.permanent
+          ? "This pack could not be saved because the account request was rejected. Please sign in again before opening another pack."
+          : "This pack was not saved because packs were opened too quickly. Please wait a moment before trying again.");
         setCollection(collection);
         setStats(stats);
 

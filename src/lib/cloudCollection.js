@@ -12,10 +12,12 @@ import {
   isPackQueueEntryVersionCompatible,
   logCompletedPackPayloadShape,
   makeAtomicPackRpcPayload,
+  sanitizePendingPackQueueEntries,
 } from "./packSubmissionPolicy.js";
 
 const USER_COLLECTION_TABLE = "user_collection";
 export const PENDING_CLOUD_PULLS_KEY = "packdex-pending-cloud-pulls";
+const CLOUD_SYNC_REQUEST_TIMEOUT_MS = 15_000;
 let pendingSyncPromise = null;
 
 export const PACK_RATE_LIMIT_ERROR_CODE = "PACK_RATE_LIMITED";
@@ -58,26 +60,34 @@ function assertValidSetId(setId, context = "cloud collection save") {
   return setId.trim();
 }
 
-function safeParsePendingPulls(value) {
-  if (!value) return [];
-
-  try {
-    const parsed = JSON.parse(value);
-
-    return Array.isArray(parsed) ? parsed : [];
-  } catch {
-    return [];
-  }
-}
-
 function getDefaultStorage() {
   return typeof window === "undefined" ? null : window.localStorage;
 }
 
 function loadPendingCloudPulls(storage = getDefaultStorage()) {
   if (!storage) return [];
+  const rawValue = storage.getItem(PENDING_CLOUD_PULLS_KEY);
+  if (!rawValue) return [];
 
-  return safeParsePendingPulls(storage.getItem(PENDING_CLOUD_PULLS_KEY));
+  let parsed;
+  try {
+    parsed = JSON.parse(rawValue);
+  } catch {
+    storage.removeItem?.(PENDING_CLOUD_PULLS_KEY);
+    return [];
+  }
+
+  const sanitized = sanitizePendingPackQueueEntries(parsed);
+  if (sanitized.changed) {
+    storage.setItem(PENDING_CLOUD_PULLS_KEY, JSON.stringify(sanitized.entries));
+    if (sanitized.removed > 0) {
+      console.info("Removed obsolete PackDex completed-pack queue entries", {
+        removed: sanitized.removed,
+        reasons: [...new Set(sanitized.reasons)],
+      });
+    }
+  }
+  return sanitized.entries;
 }
 
 function savePendingCloudPulls(pulls, storage = getDefaultStorage()) {
@@ -257,7 +267,12 @@ async function performPendingCloudPullSync(userId, { client = supabase, storage 
       batches = [batch];
       const payload = makeAtomicPackRpcPayload(batches);
       if (import.meta.env?.DEV) logCompletedPackPayloadShape(batches);
-      const { data, error } = await client.rpc(ATOMIC_PACK_RPC_NAME, payload);
+      const { data, error } = await callRpcWithTimeout(
+        client,
+        ATOMIC_PACK_RPC_NAME,
+        payload,
+        CLOUD_SYNC_REQUEST_TIMEOUT_MS
+      );
       if (error) throw error;
 
       const row = Array.isArray(data) ? data[0] : data;
@@ -305,6 +320,25 @@ async function performPendingCloudPullSync(userId, { client = supabase, storage 
     stats: latestStats,
     rejections,
   };
+}
+
+async function callRpcWithTimeout(client, name, payload, timeoutMs) {
+  if (!timeoutMs) return client.rpc(name, payload);
+
+  let timeoutId = null;
+  const timeout = new Promise((_, reject) => {
+    timeoutId = setTimeout(() => {
+      const error = new Error(`PackDex ${name} request timed out; the pull remains queued.`);
+      error.retryable = true;
+      reject(error);
+    }, timeoutMs);
+  });
+
+  try {
+    return await Promise.race([client.rpc(name, payload), timeout]);
+  } finally {
+    clearTimeout(timeoutId);
+  }
 }
 
 export function syncPendingCloudPulls(userId, options = {}) {

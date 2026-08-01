@@ -13,6 +13,7 @@ import {
   isPackQueueEntryVersionCompatible,
   logCompletedPackPayloadShape,
   makeAtomicPackRpcPayload,
+  sanitizePendingPackQueueEntries,
 } from "../../../src/lib/packSubmissionPolicy.js";
 
 const USER_COLLECTION_TABLE = "user_collection";
@@ -73,26 +74,34 @@ function assertStableClientEventId(clientEventId) {
   return eventId;
 }
 
-function safeParsePendingPulls(value) {
-  if (!value) return [];
-
-  try {
-    const parsed = JSON.parse(value);
-
-    return Array.isArray(parsed) ? parsed : [];
-  } catch {
-    return [];
-  }
-}
-
 function getDefaultStorage() {
   return typeof window === "undefined" ? null : window.localStorage;
 }
 
 function loadPendingCloudPulls(storage = getDefaultStorage()) {
   if (!storage) return [];
+  const rawValue = storage.getItem(PENDING_CLOUD_PULLS_KEY);
+  if (!rawValue) return [];
 
-  return safeParsePendingPulls(storage.getItem(PENDING_CLOUD_PULLS_KEY));
+  let parsed;
+  try {
+    parsed = JSON.parse(rawValue);
+  } catch {
+    storage.removeItem?.(PENDING_CLOUD_PULLS_KEY);
+    return [];
+  }
+
+  const sanitized = sanitizePendingPackQueueEntries(parsed);
+  if (sanitized.changed) {
+    storage.setItem(PENDING_CLOUD_PULLS_KEY, JSON.stringify(sanitized.entries));
+    if (sanitized.removed > 0) {
+      console.info("Removed obsolete PackDex mobile completed-pack queue entries", {
+        removed: sanitized.removed,
+        reasons: [...new Set(sanitized.reasons)],
+      });
+    }
+  }
+  return sanitized.entries;
 }
 
 function savePendingCloudPulls(pulls, storage = getDefaultStorage()) {
@@ -403,7 +412,10 @@ async function assertCurrentSyncUser(userId, client, validateUser) {
   const currentUser = await getCurrentUser(client);
 
   if (String(currentUser?.id || "") !== String(userId || "")) {
-    throw new Error("PackDex pending pull sync stopped because the signed-in user changed.");
+    const error = new Error("PackDex pending pull sync stopped because the signed-in user changed.");
+    // Preserve this user's queue without submitting it under a different session.
+    error.retryable = true;
+    throw error;
   }
 }
 
@@ -438,7 +450,9 @@ async function callRpcWithTimeout(client, name, payload, timeoutMs) {
   let timeoutId = null;
   const timeout = new Promise((_, reject) => {
     timeoutId = setTimeout(() => {
-      reject(new Error(`PackDex ${name} request timed out; the pull remains queued.`));
+      const error = new Error(`PackDex ${name} request timed out; the pull remains queued.`);
+      error.retryable = true;
+      reject(error);
     }, timeoutMs);
   });
 
@@ -464,6 +478,10 @@ async function performPendingCloudPullSync(
     return { attempted: 0, saved: 0, rejected: 0, failed: 0, stats: null, rejections: [] };
   }
 
+  // Old split-save builds could terminate after marking both halves locally but
+  // before deleting the queue row. That row is already complete and must not be
+  // submitted again; normal in-flight confirmation uses the same cleanup.
+  removeFullyConfirmedPulls(normalizedUserId, storage);
   const initialPulls = getPendingCloudPulls(normalizedUserId, storage);
   if (initialPulls.length === 0) {
     return { attempted: 0, saved: 0, rejected: 0, failed: 0, stats: null, rejections: [] };
@@ -600,6 +618,12 @@ export async function savePulledCardsToCloud(
   const rejection = result.rejections?.find(
     (entry) => String(entry.clientEventId) === String(clientEventId)
   );
+  if (rejection?.permanent) {
+    throw new PackSubmissionValidationError(
+      "PackDex rejected this completed-pack submission permanently.",
+      rejection.reason
+    );
+  }
   if (rejection) throw new PackRateLimitError(rejection.reason);
 
   return result;

@@ -10,6 +10,7 @@ const mobileAppUrl = new URL("../mobile-app/src/App.jsx", import.meta.url);
 const desktopCloudUrl = new URL("../src/lib/cloudCollection.js", import.meta.url);
 const mobileCloudUrl = new URL("../mobile-app/src/lib/cloudCollection.js", import.meta.url);
 const retiredEdgeUrl = new URL("../supabase/functions/record-pack-open/index.ts", import.meta.url);
+const hardeningMigrationUrl = new URL("../supabase/migrations/20260801120000_harden_pack_submission_execution_context.sql", import.meta.url);
 
 test("the existing collection RPC atomically rate-limits one completed pack per call", async () => {
   const migration = await readFile(migrationUrl, "utf8");
@@ -49,6 +50,17 @@ test("normal clients cannot use the legacy event-only write paths", async () => 
   assert.match(edge, /PACK_WRITE_PATH_RETIRED/);
   assert.match(edge, /410/);
   assert.doesNotMatch(edge, /user_pack_open_events|user_profile_stats/);
+});
+
+test("pack RPC execution contexts retain fixed search paths and least-privilege grants", async () => {
+  const migration = await readFile(hardeningMigrationUrl, "utf8");
+
+  assert.match(migration, /alter function public\.increment_collection_cards\(jsonb\)[\s\S]*set search_path = public, pg_temp/);
+  assert.match(migration, /revoke all on function public\.increment_collection_cards\(jsonb\)[\s\S]*from public, anon, service_role/);
+  assert.match(migration, /grant execute on function public\.increment_collection_cards\(jsonb\)[\s\S]*to authenticated/);
+  assert.match(migration, /revoke all on function public\.record_pack_open_event\(text, text, timestamptz\)[\s\S]*from public, anon, authenticated/);
+  assert.match(migration, /grant execute on function public\.record_pack_open_event\(text, text, timestamptz\)[\s\S]*to service_role/);
+  assert.doesNotMatch(migration, /grant execute on all functions/i);
 });
 
 test("both clients single-flight Open Another while preserving durable reveal-start submission", async () => {

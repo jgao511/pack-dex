@@ -47,8 +47,8 @@ export async function validateIosProject() {
   assert.match(project, /IPHONEOS_DEPLOYMENT_TARGET = 15\.0;/);
   assert.equal((project.match(/TARGETED_DEVICE_FAMILY = 1;/g) || []).length, 2);
   assert.equal((project.match(/PRODUCT_NAME = PackDex;/g) || []).length, 2);
-  assert.match(project, /MARKETING_VERSION = 1\.0;/);
-  assert.match(project, /CURRENT_PROJECT_VERSION = 1;/);
+  assert.match(project, /MARKETING_VERSION = 1\.0\.1;/);
+  assert.match(project, /CURRENT_PROJECT_VERSION = 2;/);
   assert.match(project, /PrivacyInfo\.xcprivacy in Resources/);
   assert.doesNotMatch(project, /DEVELOPMENT_TEAM|PROVISIONING_PROFILE_SPECIFIER/);
   assert.doesNotMatch(packageSwift, /path: "[^"\n]*\\/);
@@ -93,7 +93,7 @@ export async function validateIosProject() {
     "ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-512@2x.png",
   ]) await access(new URL(relative, mobileRoot));
 
-  console.info("Capacitor iOS static validation passed (iOS 15, PackDex 1.0 build 1)." );
+  console.info("Capacitor iOS static validation passed (iOS 15, PackDex 1.0.1 build 2)." );
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) await validateIosProject();

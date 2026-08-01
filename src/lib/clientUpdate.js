@@ -1,4 +1,4 @@
-export const PACKDEX_CLIENT_VERSION = "pack-atomic-v2-20260731";
+export const PACKDEX_CLIENT_VERSION = "pack-atomic-v3-20260801";
 const RELOAD_MARKER_PREFIX = "packdex-sw-reloaded:";
 
 export function shouldReloadForServiceWorkerVersion({

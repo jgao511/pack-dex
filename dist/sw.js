@@ -1,4 +1,4 @@
-const PACKDEX_SW_VERSION = "pack-atomic-v2-20260731";
+const PACKDEX_SW_VERSION = "pack-atomic-v3-20260801";
 
 self.addEventListener("install", () => {
   self.skipWaiting();
