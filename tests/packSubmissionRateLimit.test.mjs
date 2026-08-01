@@ -80,5 +80,5 @@ test("rate-limit results are non-retryable and removed from both durable queues"
     assert.match(source, /row\?\.accepted === false|!submission\.accepted/);
   }
   assert.match(mobileCloud, /removePendingPullIds\(normalizedUserId/);
-  assert.match(desktopCloud, /savePendingCloudPulls\(\[\.\.\.pullsForOtherUsers, \.\.\.failedPulls\]\)/);
+  assert.match(desktopCloud, /savePendingCloudPulls\(\[\.\.\.pullsForOtherUsers, \.\.\.failedPulls\](?:, storage)?\)/);
 });

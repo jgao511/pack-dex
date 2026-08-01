@@ -7,12 +7,19 @@ import PublicPullSharePage from "./PublicPullSharePage.jsx";
 import { supabase } from "./lib/supabaseClient.js";
 import { installIosExternalLinkRouting } from "./lib/externalLinks.js";
 import { normalizeCanonicalProductionLocation } from "../../src/utils/authRedirects.js";
+import { registerPackDexServiceWorker } from "../../src/lib/clientUpdate.js";
 import "./App.css";
 
 const isCanonicalRedirecting = normalizeCanonicalProductionLocation();
 const isNativePlatform = Capacitor.isNativePlatform();
 document.documentElement.classList.toggle("capacitor-native", isNativePlatform);
 installIosExternalLinkRouting();
+
+if (!isNativePlatform) {
+  registerPackDexServiceWorker().catch((error) => {
+    if (import.meta.env.DEV) console.warn("Unable to register the PackDex update worker", error);
+  });
+}
 
 if (import.meta.env.DEV) {
   const viewport = window.visualViewport;

@@ -15,6 +15,8 @@ await cp(mobileDist, targetDist, { recursive: true });
 // mobile Vite build shares ../public, so discard its copied nested rule file
 // and keep dist/_redirects as the single authoritative routing table.
 await rm(path.join(targetDist, "_redirects"), { force: true });
+await rm(path.join(targetDist, "_headers"), { force: true });
+await rm(path.join(targetDist, "sw.js"), { force: true });
 await mkdir(resetPasswordDist, { recursive: true });
 await cp(path.join(mobileDist, "index.html"), path.join(resetPasswordDist, "index.html"));
 await mkdir(authCallbackDist, { recursive: true });

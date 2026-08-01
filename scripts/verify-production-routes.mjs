@@ -7,6 +7,7 @@ const dist = path.join(root, "dist");
 const desktopEntry = path.join(dist, "index.html");
 const mobileEntry = path.join(dist, "mobile-app", "index.html");
 const redirectsPath = path.join(dist, "_redirects");
+const headersPath = path.join(dist, "_headers");
 
 function read(file) {
   assert.ok(fs.existsSync(file), `Missing production artifact: ${path.relative(root, file)}`);
@@ -79,6 +80,12 @@ assert.deepEqual(redirects, [
   { from: "/mobile-app/*", to: "/mobile-app/index.html", status: "200" },
 ]);
 assert.ok(!fs.existsSync(path.join(dist, "mobile-app", "_redirects")), "Nested mobile _redirects must not be deployed");
+assert.ok(!fs.existsSync(path.join(dist, "mobile-app", "_headers")), "Nested mobile _headers must not be deployed");
+assert.ok(!fs.existsSync(path.join(dist, "mobile-app", "sw.js")), "The mobile app must use the root update worker");
+const headers = read(headersPath);
+assert.match(headers, /\/sw\.js[\s\S]*Cache-Control: no-store/);
+assert.match(headers, /\/assets\/\*[\s\S]*Cache-Control: public, max-age=31536000, immutable/);
+assert.match(headers, /\/mobile-app\/assets\/\*[\s\S]*Cache-Control: public, max-age=31536000, immutable/);
 
 const routeCases = [
   ["/", desktopEntry],

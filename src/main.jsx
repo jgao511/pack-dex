@@ -9,6 +9,11 @@ import {
   markWelcomeSeen,
   normalizeEntryPath,
 } from "./welcomeEntry.js";
+import { registerPackDexServiceWorker } from "./lib/clientUpdate.js";
+
+registerPackDexServiceWorker().catch((error) => {
+  if (import.meta.env.DEV) console.warn("Unable to register the PackDex update worker", error);
+});
 
 const pathname = window.location.pathname || "/";
 const normalizedPath = normalizeEntryPath(pathname);

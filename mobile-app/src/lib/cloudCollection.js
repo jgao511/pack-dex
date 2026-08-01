@@ -3,6 +3,17 @@ import { getCardCollectionKey, markCardsCollected } from "../../../src/utils/col
 import { sets } from "../../../src/data/sets.js";
 import { countDevRequest } from "../utils/requestDiagnostics.js";
 import { getCachedSupabaseUser } from "../../../src/lib/sessionUserCache.js";
+import {
+  ATOMIC_PACK_RPC_NAME,
+  ATOMIC_PACK_SUBMISSION_VERSION,
+  PackSubmissionValidationError,
+  classifyPackSubmissionError,
+  getSafeCompletedPackPayloadShape,
+  isLegacyPackQueueEntry,
+  isPackQueueEntryVersionCompatible,
+  logCompletedPackPayloadShape,
+  makeAtomicPackRpcPayload,
+} from "../../../src/lib/packSubmissionPolicy.js";
 
 const USER_COLLECTION_TABLE = "user_collection";
 export const PENDING_CLOUD_PULLS_KEY = "packdex-mobile-pending-cloud-pulls";
@@ -32,7 +43,10 @@ function findSet(setId) {
 function assertValidSetId(setId, context = "mobile cloud collection save") {
   if (typeof setId !== "string" || setId.trim() === "") {
     const receivedType = Array.isArray(setId) ? "array" : typeof setId;
-    const error = new TypeError(`PackDex ${context} requires a non-empty string set id.`);
+    const error = new PackSubmissionValidationError(
+      `PackDex ${context} requires a non-empty string set id.`,
+      "invalid_set_id"
+    );
 
     console.warn("Invalid PackDex mobile cloud collection set id", {
       context,
@@ -50,7 +64,10 @@ function assertStableClientEventId(clientEventId) {
   const eventId = typeof clientEventId === "string" ? clientEventId.trim() : "";
 
   if (!eventId) {
-    throw new TypeError("PackDex cloud pull save requires a stable client event id.");
+    throw new PackSubmissionValidationError(
+      "PackDex cloud pull save requires a stable client event id.",
+      "invalid_client_event_id"
+    );
   }
 
   return eventId;
@@ -224,6 +241,7 @@ export function enqueuePendingCloudPull(
             : null,
           collectionConfirmedAt: null,
           packEventConfirmedAt: null,
+          submissionVersion: ATOMIC_PACK_SUBMISSION_VERSION,
         },
       ];
 
@@ -270,6 +288,12 @@ export function mergePendingCloudPullsIntoCollection(
 }
 
 function makeCollectionBatch(cards, setId, clientEventId) {
+  if (!Array.isArray(cards) || cards.length === 0) {
+    throw new PackSubmissionValidationError(
+      "PackDex cloud pull save requires at least one card.",
+      "empty_completed_pack"
+    );
+  }
   const validSetId = assertValidSetId(setId, "cloud pull save");
   const set = findSet(validSetId);
 
@@ -278,7 +302,7 @@ function makeCollectionBatch(cards, setId, clientEventId) {
       setId: validSetId,
       cardCount: cards.length,
     });
-    throw new Error(`Unknown PackDex set id: ${validSetId}`);
+    throw new PackSubmissionValidationError(`Unknown PackDex set id: ${validSetId}`, "unknown_set");
   }
 
   const eventId = assertStableClientEventId(clientEventId);
@@ -447,41 +471,74 @@ async function performPendingCloudPullSync(
 
   let latestStats = null;
   const rejections = [];
+  let savedCount = 0;
 
   for (const pull of initialPulls) {
-    await assertCurrentSyncUser(normalizedUserId, client, validateUser);
-    const { data, error } = await callRpcWithTimeout(
-      client,
-      "increment_collection_cards",
-      { batches: [makeCollectionBatch(pull.cards, pull.setId, pull.id)] },
-      requestTimeoutMs
-    );
+    let batches = [];
+    try {
+      if (!isPackQueueEntryVersionCompatible(pull)) {
+        throw new PackSubmissionValidationError(
+          "The queued pack uses a newer submission version.",
+          "client_version_mismatch"
+        );
+      }
+      await assertCurrentSyncUser(normalizedUserId, client, validateUser);
+      const batch = makeCollectionBatch(pull.cards, pull.setId, pull.id);
+      batches = [batch];
+      const payload = makeAtomicPackRpcPayload(batches);
+      if (import.meta.env?.DEV) logCompletedPackPayloadShape(batches);
+      const { data, error } = await callRpcWithTimeout(
+        client,
+        ATOMIC_PACK_RPC_NAME,
+        payload,
+        requestTimeoutMs
+      );
 
-    if (error) throw error;
+      if (error) throw error;
 
-    const submission = normalizeSubmission(data, pull.id);
-    latestStats = submission.stats || latestStats;
+      const submission = normalizeSubmission(data, pull.id);
+      if (submission.rows.length === 0) {
+        throw new Error("PackDex atomic pack RPC returned no result; the pack remains queued.");
+      }
+      latestStats = submission.stats || latestStats;
 
-    if (!submission.accepted) {
-      const rejection = {
-        clientEventId: pull.id,
-        reason: submission.rejectionReason || "pack_rate_limit_one_second",
-      };
-      rejections.push(rejection);
-      removePendingPullIds(normalizedUserId, new Set([pull.id]), storage);
-      continue;
+      if (!submission.accepted) {
+        const rejection = {
+          clientEventId: pull.id,
+          reason: submission.rejectionReason || "pack_rate_limit_one_second",
+        };
+        rejections.push(rejection);
+        removePendingPullIds(normalizedUserId, new Set([pull.id]), storage);
+        continue;
+      }
+
+      markCollectionConfirmed(normalizedUserId, new Set([pull.id]), storage);
+      markPackEventConfirmed(normalizedUserId, pull.id, storage);
+      savedCount += removeFullyConfirmedPulls(normalizedUserId, storage).length;
+    } catch (error) {
+      const classification = classifyPackSubmissionError(error);
+      if (classification.retryable) throw error;
+      console.warn("Discarding permanent PackDex mobile completed-pack queue entry", {
+        reason: classification.reason,
+        code: classification.code,
+        migratedFromLegacyRpc: isLegacyPackQueueEntry(pull),
+        ...getSafeCompletedPackPayloadShape(batches),
+      });
+      rejections.push({
+        clientEventId: String(pull?.id || ""),
+        reason: classification.reason,
+        permanent: true,
+      });
+      removePendingPullIds(normalizedUserId, new Set([String(pull?.id || "")]), storage);
     }
-
-    markCollectionConfirmed(normalizedUserId, new Set([pull.id]), storage);
-    markPackEventConfirmed(normalizedUserId, pull.id, storage);
   }
 
-  const savedPulls = removeFullyConfirmedPulls(normalizedUserId, storage);
+  savedCount += removeFullyConfirmedPulls(normalizedUserId, storage).length;
   const failed = getPendingCloudPullCount(normalizedUserId, storage);
 
   return {
     attempted: initialPulls.length,
-    saved: savedPulls.length,
+    saved: savedCount,
     rejected: rejections.length,
     failed,
     stats: latestStats,

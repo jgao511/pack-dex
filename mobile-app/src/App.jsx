@@ -4489,7 +4489,7 @@ function MobileApp() {
   }
 
   function getPackSaveKey(cards, set) {
-    return `${set.id}:${cards.map((card) => card.id || card.number || card.name).join("|")}`;
+    return ensurePackOpenClientEventId(cards, set.id);
   }
 
   function startRevealCycle(cards, set, { style = revealStyleRef.current } = {}) {
