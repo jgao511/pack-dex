@@ -1,6 +1,6 @@
 -- PackDex completed-pack post-deploy verification (read-only).
--- Run sections 1-8 in the Supabase SQL editor. Adjust the lookback intervals
--- as needed. Section 9 is for Supabase Logs Explorer, not the SQL editor.
+-- Run sections 1-10 in the Supabase SQL editor. Adjust the lookback intervals
+-- as needed. Sections 11-12 are for Supabase Logs Explorer, not the SQL editor.
 
 -- 1. Pack events per minute.
 select
@@ -109,10 +109,37 @@ select
 from pg_proc as procedure
 join pg_namespace as namespace on namespace.oid = procedure.pronamespace
 where namespace.nspname = 'public'
-  and procedure.proname in ('increment_collection_cards', 'record_pack_open_event')
+  and procedure.proname in ('increment_collection_cards', 'increment_collection_cards_v2_internal', 'record_pack_open_event')
 order by procedure.oid::regprocedure::text;
 
--- 9. Supabase Logs Explorer only: count legacy permission failures in the
+-- 9. Rate-limit rejection volume. This should correlate with deliberate rapid
+-- use and should not grow continuously while clients are idle.
+select
+  date_trunc('minute', rejected_at) as minute,
+  reason,
+  count(*) as rejections
+from public.user_pack_open_rate_limit_rejections
+where rejected_at >= now() - interval '24 hours'
+group by 1, 2
+order by 1 desc, 2;
+
+-- 10. Application write volume by minute, without reading card payloads.
+with writes as (
+  select created_at, 'pack_event'::text as kind from public.user_pack_open_events
+  where created_at >= now() - interval '24 hours'
+  union all
+  select created_at, 'collection_receipt'::text from public.user_collection_increment_events
+  where created_at >= now() - interval '24 hours'
+  union all
+  select rejected_at, 'rate_rejection'::text from public.user_pack_open_rate_limit_rejections
+  where rejected_at >= now() - interval '24 hours'
+)
+select date_trunc('minute', created_at) as minute, kind, count(*) as writes
+from writes
+group by 1, 2
+order by 1 desc, 2;
+
+-- 11. Supabase Logs Explorer only: count legacy permission failures in the
 -- time range selected in the Logs Explorer UI (current ClickHouse syntax).
 -- The primary Postgres database does not retain query-error history in a SQL
 -- table, so this cannot be run in the database SQL editor.
@@ -122,4 +149,19 @@ from logs
 where source = 'postgres_logs'
   and log_attributes['parsed.sql_state_code'] = '42501'
   and match(event_message, 'permission denied for function record_pack_open_event');
+*/
+
+-- 12. Supabase Logs Explorer only: PostgreSQL error-code trend. After rollout,
+-- 22023 completed-pack-count errors and retired-function 42501 errors should be
+-- zero for new traffic. Controlled stale-shape rejections are successful calls.
+/* Copy the query below into Logs Explorer and remove this block comment.
+select
+  log_attributes['parsed.sql_state_code'] as sql_state,
+  event_message,
+  count() as occurrences
+from logs
+where source = 'postgres_logs'
+  and log_attributes['parsed.sql_state_code'] != '00000'
+group by sql_state, event_message
+order by occurrences desc;
 */

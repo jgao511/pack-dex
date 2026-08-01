@@ -4,22 +4,21 @@ import { sets } from "../../../src/data/sets.js";
 import { countDevRequest } from "../utils/requestDiagnostics.js";
 import { getCachedSupabaseUser } from "../../../src/lib/sessionUserCache.js";
 import {
-  ATOMIC_PACK_RPC_NAME,
   ATOMIC_PACK_SUBMISSION_VERSION,
   PackSubmissionValidationError,
-  classifyPackSubmissionError,
-  getSafeCompletedPackPayloadShape,
-  isLegacyPackQueueEntry,
-  isPackQueueEntryVersionCompatible,
-  logCompletedPackPayloadShape,
-  makeAtomicPackRpcPayload,
-  sanitizePendingPackQueueEntries,
 } from "../../../src/lib/packSubmissionPolicy.js";
+import {
+  cancelCompletedPackQueueDrain,
+  enqueueCompletedPackQueueEntry,
+  getCompletedPackQueueEntries,
+  readCompletedPackQueue,
+  scheduleCompletedPackQueueDrain,
+  syncCompletedPackQueue,
+} from "../../../src/lib/completedPackQueue.js";
 
 const USER_COLLECTION_TABLE = "user_collection";
 export const PENDING_CLOUD_PULLS_KEY = "packdex-mobile-pending-cloud-pulls";
 const CLOUD_SYNC_REQUEST_TIMEOUT_MS = 15_000;
-const pendingSyncPromisesByUserId = new Map();
 
 export const PACK_RATE_LIMIT_ERROR_CODE = "PACK_RATE_LIMITED";
 
@@ -79,35 +78,7 @@ function getDefaultStorage() {
 }
 
 function loadPendingCloudPulls(storage = getDefaultStorage()) {
-  if (!storage) return [];
-  const rawValue = storage.getItem(PENDING_CLOUD_PULLS_KEY);
-  if (!rawValue) return [];
-
-  let parsed;
-  try {
-    parsed = JSON.parse(rawValue);
-  } catch {
-    storage.removeItem?.(PENDING_CLOUD_PULLS_KEY);
-    return [];
-  }
-
-  const sanitized = sanitizePendingPackQueueEntries(parsed);
-  if (sanitized.changed) {
-    storage.setItem(PENDING_CLOUD_PULLS_KEY, JSON.stringify(sanitized.entries));
-    if (sanitized.removed > 0) {
-      console.info("Removed obsolete PackDex mobile completed-pack queue entries", {
-        removed: sanitized.removed,
-        reasons: [...new Set(sanitized.reasons)],
-      });
-    }
-  }
-  return sanitized.entries;
-}
-
-function savePendingCloudPulls(pulls, storage = getDefaultStorage()) {
-  if (!storage) return;
-
-  storage.setItem(PENDING_CLOUD_PULLS_KEY, JSON.stringify(pulls));
+  return readCompletedPackQueue(PENDING_CLOUD_PULLS_KEY, storage);
 }
 
 export function getPendingCloudPulls(userId, storage = getDefaultStorage()) {
@@ -115,9 +86,7 @@ export function getPendingCloudPulls(userId, storage = getDefaultStorage()) {
 
   if (!normalizedUserId) return [];
 
-  return loadPendingCloudPulls(storage).filter(
-    (pull) => String(pull?.userId || "") === normalizedUserId
-  );
+  return getCompletedPackQueueEntries(PENDING_CLOUD_PULLS_KEY, normalizedUserId, storage);
 }
 
 export function getPendingCloudPullCount(userId, storage = getDefaultStorage()) {
@@ -170,10 +139,10 @@ function mergeCollectionCounts(baseCollection, overlayCollection) {
   return merged;
 }
 
-export async function getCurrentUser(client = supabase) {
+export async function getCurrentUser(client = supabase, { force = false } = {}) {
   if (!client) return null;
   try {
-    return await getCachedSupabaseUser(client);
+    return await getCachedSupabaseUser(client, { force });
   } catch (error) {
     console.warn("Unable to read mobile Supabase user", error);
     return null;
@@ -226,38 +195,20 @@ export function enqueuePendingCloudPull(
     return [];
   }
 
-  const pendingPulls = loadPendingCloudPulls(storage);
-  const alreadyQueued = pendingPulls.some(
-    (pull) =>
-      String(pull?.userId || "") === normalizedUserId &&
-      String(pull?.id || "") === eventId
-  );
-  const nextPendingPulls = alreadyQueued
-    ? pendingPulls
-    : [
-        ...pendingPulls,
-        {
-          id: eventId,
-          userId: normalizedUserId,
-          setId: validSetId,
-          cards: cards.map(compactPendingCard),
-          createdAt,
-          expectedPacksOpened:
-            expectedPacksOpened !== null &&
-            expectedPacksOpened !== "" &&
-            Number.isFinite(Number(expectedPacksOpened))
-            ? Number(expectedPacksOpened)
-            : null,
-          collectionConfirmedAt: null,
-          packEventConfirmedAt: null,
-          submissionVersion: ATOMIC_PACK_SUBMISSION_VERSION,
-        },
-      ];
-
-  if (!alreadyQueued) savePendingCloudPulls(nextPendingPulls, storage);
-  return nextPendingPulls.filter(
-    (pull) => String(pull?.userId || "") === normalizedUserId
-  );
+  return enqueueCompletedPackQueueEntry(PENDING_CLOUD_PULLS_KEY, {
+    id: eventId,
+    userId: normalizedUserId,
+    setId: validSetId,
+    cards: cards.map(compactPendingCard),
+    createdAt,
+    expectedPacksOpened:
+      expectedPacksOpened !== null && expectedPacksOpened !== "" && Number.isFinite(Number(expectedPacksOpened))
+        ? Number(expectedPacksOpened)
+        : null,
+    attempts: 0,
+    nextRetryAt: null,
+    submissionVersion: ATOMIC_PACK_SUBMISSION_VERSION,
+  }, storage);
 }
 
 export function mergePendingCloudPullsIntoCollection(
@@ -330,265 +281,41 @@ function makeCollectionBatch(cards, setId, clientEventId) {
   return { client_event_id: eventId, cards: [...grouped.values()] };
 }
 
-function updatePendingPullsForUser(userId, update, storage) {
-  const normalizedUserId = String(userId || "");
-  const current = loadPendingCloudPulls(storage);
-  const next = current.map((pull) =>
-    String(pull?.userId || "") === normalizedUserId ? update(pull) : pull
-  );
-  savePendingCloudPulls(next, storage);
-  return next;
-}
-
-function markCollectionConfirmed(userId, confirmedIds, storage) {
-  const confirmedAt = Date.now();
-
-  updatePendingPullsForUser(
-    userId,
-    (pull) =>
-      confirmedIds.has(String(pull?.id || ""))
-        ? { ...pull, collectionConfirmedAt: pull.collectionConfirmedAt || confirmedAt }
-        : pull,
-    storage
-  );
-}
-
-function markPackEventConfirmed(userId, eventId, storage) {
-  const confirmedAt = Date.now();
-
-  updatePendingPullsForUser(
-    userId,
-    (pull) =>
-      String(pull?.id || "") === String(eventId)
-        ? { ...pull, packEventConfirmedAt: pull.packEventConfirmedAt || confirmedAt }
-        : pull,
-    storage
-  );
-}
-
-function removeFullyConfirmedPulls(userId, storage) {
-  const normalizedUserId = String(userId || "");
-  const current = loadPendingCloudPulls(storage);
-  const removed = current.filter(
-    (pull) =>
-      String(pull?.userId || "") === normalizedUserId &&
-      pull.collectionConfirmedAt &&
-      pull.packEventConfirmedAt
-  );
-  const remaining = current.filter(
-    (pull) =>
-      String(pull?.userId || "") !== normalizedUserId ||
-      !pull.collectionConfirmedAt ||
-      !pull.packEventConfirmedAt
-  );
-
-  if (removed.length > 0) savePendingCloudPulls(remaining, storage);
-  return removed;
-}
-
-function removePendingPullIds(userId, ids, storage) {
-  if (ids.size === 0) return [];
-
-  const normalizedUserId = String(userId || "");
-  const current = loadPendingCloudPulls(storage);
-  const removed = current.filter(
-    (pull) =>
-      String(pull?.userId || "") === normalizedUserId &&
-      ids.has(String(pull?.id || ""))
-  );
-  const remaining = current.filter(
-    (pull) =>
-      String(pull?.userId || "") !== normalizedUserId ||
-      !ids.has(String(pull?.id || ""))
-  );
-
-  if (removed.length > 0) savePendingCloudPulls(remaining, storage);
-  return removed;
-}
-
-async function assertCurrentSyncUser(userId, client, validateUser) {
-  if (!validateUser) return;
-
-  const currentUser = await getCurrentUser(client);
-
-  if (String(currentUser?.id || "") !== String(userId || "")) {
-    const error = new Error("PackDex pending pull sync stopped because the signed-in user changed.");
-    // Preserve this user's queue without submitting it under a different session.
-    error.retryable = true;
-    throw error;
-  }
-}
-
-function normalizePackEventStats(data) {
-  const row = Array.isArray(data) ? data[0] : data;
-
-  if (!row) return null;
-
-  return {
-    packsOpened: Number(row.packsOpened || row.packs_opened || 0),
-    totalCardsPulled: Number(row.totalCardsPulled || row.total_cards_pulled || 0),
-  };
-}
-
-function normalizeSubmission(data, fallbackEventId) {
-  const rows = Array.isArray(data) ? data : data ? [data] : [];
-  const row = rows[0] || {};
-
-  return {
-    rows,
-    clientEventId: String(row.client_event_id || fallbackEventId || ""),
-    accepted: row.accepted !== false,
-    rejectionReason: String(row.rejection_reason || ""),
-    recorded: row.recorded === true,
-    stats: normalizePackEventStats(row),
-  };
-}
-
-async function callRpcWithTimeout(client, name, payload, timeoutMs) {
-  if (!timeoutMs) return client.rpc(name, payload);
-
-  let timeoutId = null;
-  const timeout = new Promise((_, reject) => {
-    timeoutId = setTimeout(() => {
-      const error = new Error(`PackDex ${name} request timed out; the pull remains queued.`);
-      error.retryable = true;
-      reject(error);
-    }, timeoutMs);
-  });
-
-  try {
-    return await Promise.race([client.rpc(name, payload), timeout]);
-  } finally {
-    clearTimeout(timeoutId);
-  }
-}
-
-async function performPendingCloudPullSync(
-  userId,
-  {
-    client = supabase,
-    storage = getDefaultStorage(),
-    validateUser = client === supabase,
-    requestTimeoutMs = CLOUD_SYNC_REQUEST_TIMEOUT_MS,
-  } = {}
-) {
-  const normalizedUserId = String(userId || "");
-
-  if (!normalizedUserId || !client || !storage) {
-    return { attempted: 0, saved: 0, rejected: 0, failed: 0, stats: null, rejections: [] };
-  }
-
-  // Old split-save builds could terminate after marking both halves locally but
-  // before deleting the queue row. That row is already complete and must not be
-  // submitted again; normal in-flight confirmation uses the same cleanup.
-  removeFullyConfirmedPulls(normalizedUserId, storage);
-  const initialPulls = getPendingCloudPulls(normalizedUserId, storage);
-  if (initialPulls.length === 0) {
-    return { attempted: 0, saved: 0, rejected: 0, failed: 0, stats: null, rejections: [] };
-  }
-
-  let latestStats = null;
-  const rejections = [];
-  let savedCount = 0;
-
-  for (const pull of initialPulls) {
-    let batches = [];
-    try {
-      if (!isPackQueueEntryVersionCompatible(pull)) {
-        throw new PackSubmissionValidationError(
-          "The queued pack uses a newer submission version.",
-          "client_version_mismatch"
-        );
-      }
-      await assertCurrentSyncUser(normalizedUserId, client, validateUser);
-      const batch = makeCollectionBatch(pull.cards, pull.setId, pull.id);
-      batches = [batch];
-      const payload = makeAtomicPackRpcPayload(batches);
-      if (import.meta.env?.DEV) logCompletedPackPayloadShape(batches);
-      const { data, error } = await callRpcWithTimeout(
-        client,
-        ATOMIC_PACK_RPC_NAME,
-        payload,
-        requestTimeoutMs
-      );
-
-      if (error) throw error;
-
-      const submission = normalizeSubmission(data, pull.id);
-      if (submission.rows.length === 0) {
-        throw new Error("PackDex atomic pack RPC returned no result; the pack remains queued.");
-      }
-      latestStats = submission.stats || latestStats;
-
-      if (!submission.accepted) {
-        const rejection = {
-          clientEventId: pull.id,
-          reason: submission.rejectionReason || "pack_rate_limit_one_second",
-        };
-        rejections.push(rejection);
-        removePendingPullIds(normalizedUserId, new Set([pull.id]), storage);
-        continue;
-      }
-
-      markCollectionConfirmed(normalizedUserId, new Set([pull.id]), storage);
-      markPackEventConfirmed(normalizedUserId, pull.id, storage);
-      savedCount += removeFullyConfirmedPulls(normalizedUserId, storage).length;
-    } catch (error) {
-      const classification = classifyPackSubmissionError(error);
-      if (classification.retryable) throw error;
-      console.warn("Discarding permanent PackDex mobile completed-pack queue entry", {
-        reason: classification.reason,
-        code: classification.code,
-        migratedFromLegacyRpc: isLegacyPackQueueEntry(pull),
-        ...getSafeCompletedPackPayloadShape(batches),
-      });
-      rejections.push({
-        clientEventId: String(pull?.id || ""),
-        reason: classification.reason,
-        permanent: true,
-      });
-      removePendingPullIds(normalizedUserId, new Set([String(pull?.id || "")]), storage);
-    }
-  }
-
-  savedCount += removeFullyConfirmedPulls(normalizedUserId, storage).length;
-  const failed = getPendingCloudPullCount(normalizedUserId, storage);
-
-  return {
-    attempted: initialPulls.length,
-    saved: savedCount,
-    rejected: rejections.length,
-    failed,
-    stats: latestStats,
-    rejections,
-  };
-}
-
 export function syncPendingCloudPulls(userId, options = {}) {
   const normalizedUserId = String(userId || "");
+  const client = options.client || supabase;
+  const storage = options.storage || getDefaultStorage();
+  const validateUser = options.validateUser ?? client === supabase;
+  const run = () => syncCompletedPackQueue({
+    storageKey: PENDING_CLOUD_PULLS_KEY,
+    userId: normalizedUserId,
+    client,
+    storage,
+    makeBatch: makeCollectionBatch,
+    validateCurrentUser: validateUser ? () => getCurrentUser(client, { force: true }) : null,
+    requestTimeoutMs: options.requestTimeoutMs ?? CLOUD_SYNC_REQUEST_TIMEOUT_MS,
+    now: options.now || Date.now,
+    random: options.random || Math.random,
+  });
+  const scheduleRetry = () => {
+    if (client !== supabase || storage !== getDefaultStorage()) return;
+    const nextRetryAt = Math.min(...getPendingCloudPulls(normalizedUserId, storage)
+      .map((entry) => Number(entry.nextRetryAt || Infinity)));
+    if (Number.isFinite(nextRetryAt)) {
+      scheduleCompletedPackQueueDrain(PENDING_CLOUD_PULLS_KEY, normalizedUserId, () => run().catch(() => {}), nextRetryAt);
+    }
+  };
+  return run().then((result) => {
+    if (result.failed > 0) scheduleRetry();
+    return result;
+  }).catch((error) => {
+    if (error?.packSyncCategory !== "authentication") scheduleRetry();
+    throw error;
+  });
+}
 
-  if (!normalizedUserId) {
-    return Promise.resolve({ attempted: 0, saved: 0, rejected: 0, failed: 0, stats: null, rejections: [] });
-  }
-
-  const existing = pendingSyncPromisesByUserId.get(normalizedUserId);
-  if (existing) return existing;
-
-  const promise = performPendingCloudPullSync(normalizedUserId, options)
-    .catch((error) => {
-      console.warn("Pending PackDex mobile cloud pull sync failed", {
-        userId: normalizedUserId,
-        error,
-      });
-      throw error;
-    })
-    .finally(() => {
-      if (pendingSyncPromisesByUserId.get(normalizedUserId) === promise) {
-        pendingSyncPromisesByUserId.delete(normalizedUserId);
-      }
-    });
-  pendingSyncPromisesByUserId.set(normalizedUserId, promise);
-  return promise;
+export function cancelPendingCloudPullSync(userId) {
+  cancelCompletedPackQueueDrain(PENDING_CLOUD_PULLS_KEY, userId);
 }
 
 export async function savePulledCardsToCloud(

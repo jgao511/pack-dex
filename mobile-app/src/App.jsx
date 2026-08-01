@@ -41,6 +41,7 @@ import {
 } from "../../src/lib/binderPersistence.js";
 import { getPublicPackDexStats } from "../../src/lib/publicPackDexStats.js";
 import {
+  cancelPendingCloudPullSync,
   loadCloudCollection,
   enqueuePendingCloudPull,
   getPendingCloudPullCount,
@@ -3530,6 +3531,8 @@ function MobileApp() {
   }
 
   function clearAccountScopedState() {
+    const previousUserId = currentUserRef.current?.id || lastAccountScopedUserIdRef.current;
+    if (previousUserId) cancelPendingCloudPullSync(previousUserId);
     clearCachedSupabaseUser(supabase);
     accountLoadedAtRef.current.clear();
     setUser(null);
@@ -4507,6 +4510,10 @@ function MobileApp() {
   }
 
   function showCompletedPackSummary() {
+    const cycle = revealCycleRef.current;
+    if (cycle?.completionClaimed) return;
+    if (cycle) cycle.completionClaimed = true;
+    startPackPersistence(pack, selectedSet);
     packOpeningOperationRef.current = false;
     openAnotherLockRef.current = false;
     setIsOpenAnotherLocked(false);
@@ -4558,6 +4565,7 @@ function MobileApp() {
       id: [revealCycleCounterRef.current, getPackSaveKey(cards, set)].join(":"),
       phase: "revealing",
       hapticKeys: new Set(),
+      completionClaimed: false,
     };
     revealCycleRef.current = cycle;
 
@@ -4828,7 +4836,6 @@ function MobileApp() {
     setRevealedCount(0);
     startRevealCycle(cards, set, { style: nextActiveRevealStyle });
     setPackStage("revealing");
-    startPackPersistence(cards, set);
   }
 
   function returnToSets() {

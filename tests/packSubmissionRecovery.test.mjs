@@ -110,7 +110,7 @@ test("a versionless split-save pull is repaired only through the atomic RPC", as
   assert.equal(getPendingCloudPullCount("user-1", storage), 0);
 });
 
-test("a 42501 response is permanent, removed immediately, and never retried", async () => {
+test("an authorization failure stops the drain, preserves ownership, and backs off", async () => {
   const storage = new MemoryStorage({
     [PENDING_CLOUD_PULLS_KEY]: JSON.stringify([
       queuedPull({ submissionVersion: ATOMIC_PACK_SUBMISSION_VERSION }),
@@ -127,14 +127,15 @@ test("a 42501 response is permanent, removed immediately, and never retried", as
     },
   };
 
-  const first = await syncPendingCloudPulls("user-1", { client, storage, validateUser: false });
+  await assert.rejects(
+    syncPendingCloudPulls("user-1", { client, storage, validateUser: false }),
+    (error) => error.code === "42501"
+  );
   const retry = await syncPendingCloudPulls("user-1", { client, storage, validateUser: false });
 
-  assert.equal(first.rejected, 1);
-  assert.equal(first.failed, 0);
   assert.equal(retry.attempted, 0);
   assert.equal(calls, 1);
-  assert.equal(getPendingCloudPullCount("user-1", storage), 0);
+  assert.equal(getPendingCloudPullCount("user-1", storage), 1);
 });
 
 test("empty and multi-pack atomic submissions are rejected locally", () => {
@@ -319,7 +320,10 @@ test("queue sanitation removes malformed and retired jobs without deleting valid
     valid,
   ]);
 
-  assert.deepEqual(result.entries, [valid]);
+  assert.equal(result.entries.length, 1);
+  assert.equal(result.entries[0].id, valid.id);
+  assert.equal(result.entries[0].submissionVersion, ATOMIC_PACK_SUBMISSION_VERSION);
+  assert.equal(result.entries[0].attempts, 0);
   assert.equal(result.removed, 4);
   assert.ok(result.reasons.includes("retired_event_only_job"));
   assert.ok(result.reasons.includes("malformed_pack_job"));
@@ -370,21 +374,21 @@ test("guest save helpers never enqueue or call a pack RPC", async () => {
 });
 
 test("current desktop and mobile client sources have no retired RPC call site", async () => {
-  const [desktopSource, mobileSource, desktopApp, mobileApp, eventHelpers] = await Promise.all([
+  const [desktopSource, mobileSource, queueSource, desktopApp, mobileApp, eventHelpers] = await Promise.all([
     readFile(new URL("../src/lib/cloudCollection.js", import.meta.url), "utf8"),
     readFile(new URL("../mobile-app/src/lib/cloudCollection.js", import.meta.url), "utf8"),
+    readFile(new URL("../src/lib/completedPackQueue.js", import.meta.url), "utf8"),
     readFile(new URL("../src/App.jsx", import.meta.url), "utf8"),
     readFile(new URL("../mobile-app/src/App.jsx", import.meta.url), "utf8"),
     readFile(new URL("../src/lib/packOpenEvents.js", import.meta.url), "utf8"),
   ]);
 
-  for (const source of [desktopSource, mobileSource, desktopApp, mobileApp, eventHelpers]) {
+  for (const source of [desktopSource, mobileSource, queueSource, desktopApp, mobileApp, eventHelpers]) {
     assert.doesNotMatch(source, /\.rpc\(["'`]record_pack_open_event["'`]/);
     assert.doesNotMatch(source, /callRpcWithTimeout\([^)]*record_pack_open_event/);
     assert.doesNotMatch(source, /functions\.invoke\(["'`]record-pack-open["'`]/);
   }
-  for (const source of [desktopSource, mobileSource]) {
-    assert.match(source, /ATOMIC_PACK_RPC_NAME/);
-    assert.match(source, /makeAtomicPackRpcPayload/);
-  }
+  assert.match(queueSource, /ATOMIC_PACK_RPC_NAME/);
+  assert.match(queueSource, /makeAtomicPackRpcPayload/);
+  for (const source of [desktopSource, mobileSource]) assert.match(source, /syncCompletedPackQueue/);
 });

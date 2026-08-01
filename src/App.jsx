@@ -24,6 +24,7 @@ import {
 } from "./content/legalDocuments.js";
 import { activeSets, isRetiredSet, sets } from "./data/sets.js";
 import {
+  cancelPendingCloudPullSync,
   enqueuePendingCloudPull,
   getPendingCloudPullCount,
   isPackRateLimitError,
@@ -1315,6 +1316,9 @@ function App() {
   }, [authUser?.id, isBuyMeACoffeePromptOpen, isPackSavePending, screen]);
 
   function commitAuthSession(nextSession) {
+    const previousUserId = authSessionRef.current?.user?.id;
+    const nextUserId = nextSession?.user?.id;
+    if (previousUserId && previousUserId !== nextUserId) cancelPendingCloudPullSync(previousUserId);
     authSessionRef.current = nextSession;
     setAuthSession(nextSession);
   }

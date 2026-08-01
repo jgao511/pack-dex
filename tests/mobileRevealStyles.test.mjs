@@ -112,12 +112,13 @@ test("reveal style changes remain preference-only and cannot regenerate the acti
   assert.doesNotMatch(changeStyle, /generatePack|setPack\(|startRevealCycle|resetRevealInteractionState/);
 });
 
-test("interactive modes preserve durable persistence at reveal start and complete the final card once", async () => {
+test("interactive modes persist only after completion and complete the final card once", async () => {
   const source = await readFile(appUrl, "utf8");
   const beginReveal = functionSource(source, "beginReveal", "returnToSets");
   const tapReveal = functionSource(source, "revealTappedCard", "dismissSwipeCard");
   const swipeDismiss = functionSource(source, "dismissSwipeCard", "scheduleRevealTimer");
-  assert.match(beginReveal, /startPackPersistence\(cards, set\)/);
+  assert.doesNotMatch(beginReveal, /startPackPersistence/);
+  assert.match(source, /function showCompletedPackSummary\(\)[\s\S]*completionClaimed[\s\S]*startPackPersistence\(pack, selectedSet\)/);
   assert.doesNotMatch(`${tapReveal}\n${swipeDismiss}`, /saveRevealedPack|generatePack|markCardsCollected/);
   assert.match(tapReveal, /result\.isComplete/);
   assert.match(swipeDismiss, /markCardRevealed\(nextIndex, pack\.length\)/);

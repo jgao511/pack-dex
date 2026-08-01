@@ -8,6 +8,8 @@ const desktopEntry = path.join(dist, "index.html");
 const mobileEntry = path.join(dist, "mobile-app", "index.html");
 const redirectsPath = path.join(dist, "_redirects");
 const headersPath = path.join(dist, "_headers");
+const publicAdsPath = path.join(root, "public", "ads.txt");
+const builtAdsPath = path.join(dist, "ads.txt");
 
 function read(file) {
   assert.ok(fs.existsSync(file), `Missing production artifact: ${path.relative(root, file)}`);
@@ -120,5 +122,9 @@ assertEntryMarker(desktopEntry, "welcome-controller");
 assertEntryMarker(mobileEntry, "mobile-app");
 assertEntryMarker(path.join(dist, "mobile-app", "reset-password", "index.html"), "mobile-app");
 assertEntryMarker(path.join(dist, "mobile-app", "auth", "callback", "index.html"), "mobile-app");
+
+const expectedAds = read(publicAdsPath).trim();
+assert.equal(expectedAds, "google.com, pub-4828542760410446, DIRECT, f08c47fec0942fa0");
+assert.equal(read(builtAdsPath).trim(), expectedAds, "The production build must preserve public/ads.txt exactly");
 
 console.log(`Verified ${routeCases.length} production routes and all generated entry assets.`);

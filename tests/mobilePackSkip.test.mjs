@@ -55,10 +55,13 @@ test("pack persistence and Open Another are claimed exactly once", async () => {
 
   const source = await readFile(appUrl, "utf8");
   const beginReveal = functionSource(source, "beginReveal", "returnToSets");
+  const completeReveal = functionSource(source, "showCompletedPackSummary", "markCardRevealed");
   const persistence = functionSource(source, "saveRevealedPack", "startPackPersistence");
   const openAnother = functionSource(source, "openAnotherPack", "inspectCard");
 
-  assert.match(beginReveal, /startPackPersistence\(cards, set\)/);
+  assert.doesNotMatch(beginReveal, /startPackPersistence/);
+  assert.match(completeReveal, /completionClaimed/);
+  assert.match(completeReveal, /startPackPersistence\(pack, selectedSet\)/);
   assert.match(persistence, /claimPackPersistence\(savedPackKeyRef\.current, saveKey\)/);
   assert.match(openAnother, /openAnotherLockRef\.current \|\| packOpeningOperationRef\.current \|\| packSavePendingRef\.current/);
   assert.match(openAnother, /openAnotherLockRef\.current = true/);

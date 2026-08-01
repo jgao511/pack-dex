@@ -47,6 +47,7 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
   const [isRevealed, setIsRevealed] = useState(false);
 
   const revealStartedRef = useRef(false);
+  const completionClaimedRef = useRef(false);
   const autoRevealTimerRef = useRef(null);
   const autoCompleteTimerRef = useRef(null);
   const dealTimerRef = useRef(null);
@@ -84,6 +85,7 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
     setIsDealt(false);
     setIsRevealed(false);
     revealStartedRef.current = false;
+    completionClaimedRef.current = false;
 
     const revealDelay =
       getDealCompleteDelay(cards.length, isGodPack) +
@@ -143,14 +145,15 @@ function CardReveal({ cards, set, onCardsRevealed, onComplete, onBackToSets }) {
         revealStartedAt + getCardRevealDelay(index, cards.length, isGodPack)
       );
     });
-    onCardsRevealed(cards);
-
     const summaryDelay =
       getCardRevealDelay(cards.length - 1, cards.length, isGodPack) +
       CARD_FLIP_ANIMATION_MS +
       SUMMARY_AFTER_LAST_CARD_MS;
 
     autoCompleteTimerRef.current = window.setTimeout(() => {
+      if (completionClaimedRef.current) return;
+      completionClaimedRef.current = true;
+      onCardsRevealed(cards);
       onComplete();
     }, summaryDelay);
   }

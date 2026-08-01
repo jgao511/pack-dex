@@ -201,7 +201,7 @@ Deno.serve(async (req) => {
     debugStep = "save_collection";
     await upsertWelcomeRewardCards(admin, user.id, cards, set);
     const savedAt = new Date().toISOString();
-    debugStep = "record_pack_open_event";
+    debugStep = "insert_reward_pack_event";
     await recordWelcomePackOpenEvent(admin, user.id, set.id, claimId, claimedAt);
     debugStep = "save_profile_stats";
     const stats = await incrementWelcomeRewardStats(admin, user.id, {

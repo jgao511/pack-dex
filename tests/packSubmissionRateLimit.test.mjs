@@ -63,7 +63,7 @@ test("pack RPC execution contexts retain fixed search paths and least-privilege 
   assert.doesNotMatch(migration, /grant execute on all functions/i);
 });
 
-test("both clients single-flight Open Another while preserving durable reveal-start submission", async () => {
+test("both clients single-flight Open Another while persisting only completed reveals", async () => {
   const [desktopApp, desktopReveal, desktopSummary, mobileApp] = await Promise.all([
     readFile(desktopAppUrl, "utf8"),
     readFile(desktopRevealUrl, "utf8"),
@@ -76,11 +76,11 @@ test("both clients single-flight Open Another while preserving durable reveal-st
   assert.match(desktopApp, /isOpeningAnother=\{isPackSavePending \|\| isOpenAnotherLocked\}/);
   assert.ok(desktopReveal.indexOf("onCardsRevealed(cards)") < desktopReveal.indexOf("onComplete()"));
   assert.match(desktopSummary, /isSaving \? "Saving\.\.\."/);
-  assert.match(mobileApp, /startPackPersistence\(cards, set\)/);
+  assert.match(mobileApp, /completionClaimed[\s\S]*startPackPersistence\(pack, selectedSet\)/);
   assert.match(mobileApp, /openAnotherLockRef\.current \|\| packOpeningOperationRef\.current \|\| packSavePendingRef\.current/);
 });
 
-test("rate-limit results are non-retryable and removed from both durable queues", async () => {
+test("rate-limit results use the shared controlled backoff queue", async () => {
   const [desktopCloud, mobileCloud] = await Promise.all([
     readFile(desktopCloudUrl, "utf8"),
     readFile(mobileCloudUrl, "utf8"),
@@ -89,8 +89,6 @@ test("rate-limit results are non-retryable and removed from both durable queues"
   for (const source of [desktopCloud, mobileCloud]) {
     assert.match(source, /PACK_RATE_LIMIT_ERROR_CODE = "PACK_RATE_LIMITED"/);
     assert.match(source, /this\.retryable = false/);
-    assert.match(source, /row\?\.accepted === false|!submission\.accepted/);
+    assert.match(source, /syncCompletedPackQueue/);
   }
-  assert.match(mobileCloud, /removePendingPullIds\(normalizedUserId/);
-  assert.match(desktopCloud, /savePendingCloudPulls\(\[\.\.\.pullsForOtherUsers, \.\.\.failedPulls\](?:, storage)?\)/);
 });

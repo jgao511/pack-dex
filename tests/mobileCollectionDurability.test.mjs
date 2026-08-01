@@ -243,15 +243,20 @@ test("an atomic submission interruption retains the whole event for idempotent r
   );
 
   const queued = getPendingCloudPulls(userId, storage)[0];
-  assert.equal(queued.collectionConfirmedAt, null);
-  assert.equal(queued.packEventConfirmedAt, null);
+  assert.equal(queued.attempts, 1);
+  assert.ok(queued.nextRetryAt > Date.now());
   assert.equal(
     getCardCount(mergePendingCloudPullsIntoCollection({}, userId, storage), CARD, SET_ID),
     1
   );
 
   const retryClient = makeCloudClient();
-  const result = await syncPendingCloudPulls(userId, { client: retryClient, storage, validateUser: false });
+  const result = await syncPendingCloudPulls(userId, {
+    client: retryClient,
+    storage,
+    validateUser: false,
+    now: () => queued.nextRetryAt + 1,
+  });
   assert.equal(result.saved, 1);
   assert.equal(
     retryClient.calls.filter(([name]) => name === "increment_collection_cards").length,
@@ -261,7 +266,7 @@ test("an atomic submission interruption retains the whole event for idempotent r
   assert.equal(getPendingCloudPullCount(userId, storage), 0);
 });
 
-test("rate-limited submissions are removed from the durable queue and never retried", async () => {
+test("rate-limited submissions remain queued and retry only after the controlled delay", async () => {
   const storage = new MemoryStorage();
   const client = makeCloudClient({ rejectReason: "pack_rate_limit_one_second" });
   const userId = "rate-limited-user";
@@ -273,10 +278,22 @@ test("rate-limited submissions are removed from the durable queue and never retr
 
   assert.equal(result.rejected, 1);
   assert.equal(result.saved, 0);
-  assert.equal(getPendingCloudPullCount(userId, storage), 0);
+  assert.equal(getPendingCloudPullCount(userId, storage), 1);
   assert.equal(client.collectionEvents.size, 0);
   assert.equal(client.packEvents.size, 0);
   assert.equal(retry.attempted, 0);
+  assert.equal(client.calls.length, 1);
+
+  const queued = getPendingCloudPulls(userId, storage)[0];
+  const recoveryClient = makeCloudClient();
+  const recovered = await syncPendingCloudPulls(userId, {
+    client: recoveryClient,
+    storage,
+    validateUser: false,
+    now: () => queued.nextRetryAt + 1,
+  });
+  assert.equal(recovered.saved, 1);
+  assert.equal(getPendingCloudPullCount(userId, storage), 0);
 });
 
 test("repeated retry with the same event id never duplicates card quantities or pack events", async () => {
