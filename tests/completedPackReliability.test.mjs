@@ -55,9 +55,10 @@ test("queue migration deep-validates, rejects ambiguous batches, and deduplicate
   ]);
 
   assert.equal(result.entries.length, 1);
-  assert.equal(result.entries[0].cards.length, 2);
+  assert.equal(result.entries[0].cards.length, 1);
   assert.equal(result.entries[0].submissionVersion, ATOMIC_PACK_SUBMISSION_VERSION);
-  assert.ok(result.reasons.includes("duplicate_client_event_id"));
+  assert.equal(result.quarantined.length, 4);
+  assert.ok(result.reasons.includes("duplicate_client_event_id_payload_conflict"));
   assert.ok(result.reasons.includes("ambiguous_multi_pack_job"));
   assert.ok(result.reasons.includes("invalid_pack_cards"));
 });
@@ -98,7 +99,15 @@ test("a rate-limited queue stops immediately and does not sacrifice later packs"
       calls.push(id);
       if (id === "event-1") return accepted(payload);
       return {
-        data: [{ client_event_id: id, accepted: false, rejection_reason: "pack_rate_limit_one_second" }],
+        data: [{
+          client_event_id: id,
+          accepted: false,
+          recorded: false,
+          already_processed: false,
+          rejection_reason: "pack_rate_limit_one_second",
+          rejection_code: "pack_rate_limit_one_second",
+          retryable: true,
+        }],
         error: null,
       };
     },
@@ -143,9 +152,9 @@ test("account switching cannot submit the next queued pack under the new user", 
 });
 
 test("retry backoff is bounded, jittered, and stable event ids belong to logical packs", () => {
-  assert.equal(getPendingPackRetryDelayMs(0, { reason: "pack_rate_limit_one_second" }), 1_250);
-  assert.equal(getPendingPackRetryDelayMs(0, { random: () => 0 }), 1_500);
-  assert.ok(getPendingPackRetryDelayMs(20, { random: () => 1 }) <= 300_000);
+  assert.equal(getPendingPackRetryDelayMs(0, { reason: "pack_rate_limit_one_second" }), 1_500);
+  assert.equal(getPendingPackRetryDelayMs(0, { random: () => 0 }), 6_000);
+  assert.ok(getPendingPackRetryDelayMs(20, { random: () => 1 }) <= 900_000);
 
   const firstPack = [CARD];
   const firstId = ensurePackOpenClientEventId(firstPack, "base-set");
@@ -153,17 +162,19 @@ test("retry backoff is bounded, jittered, and stable event ids belong to logical
   assert.notEqual(ensurePackOpenClientEventId([CARD], "base-set"), firstId);
 });
 
-test("forward migration controls stale shape errors without granting the retired function", async () => {
+test("forward migration expands acknowledgements and constrains the temporary compatibility bridge", async () => {
   const migration = await readFile(
-    new URL("../supabase/migrations/20260801190000_controlled_pack_submission_boundary.sql", import.meta.url),
+    new URL("../supabase/migrations/20260802150000_pack_submission_integrity_contract_v4.sql", import.meta.url),
     "utf8"
   );
   assert.match(migration, /invalid_completed_pack_count/);
   assert.match(migration, /invalid_completed_pack_payload/);
-  assert.match(migration, /return query select[\s\S]*false,[\s\S]*v_rejection_reason/);
-  assert.match(migration, /revoke all on function public\.increment_collection_cards_v2_internal/);
+  assert.match(migration, /already_processed boolean/);
+  assert.match(migration, /rejection_code text/);
+  assert.match(migration, /retryable boolean/);
   assert.match(migration, /grant execute on function public\.increment_collection_cards\(jsonb\)[\s\S]*to authenticated/);
-  assert.doesNotMatch(migration, /grant execute on function public\.record_pack_open_event[\s\S]*to authenticated/);
+  assert.match(migration, /Legacy event cannot be repaired without its collection receipt/);
+  assert.match(migration, /grant execute on function public\.record_pack_open_event[\s\S]*to authenticated, service_role/);
 });
 
 test("ads.txt production regression check compares the source and built artifact exactly", async () => {

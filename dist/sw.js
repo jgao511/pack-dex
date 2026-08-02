@@ -1,4 +1,4 @@
-const PACKDEX_SW_VERSION = "pack-queue-v4-20260801";
+const PACKDEX_SW_VERSION = "pack-integrity-v5-20260802";
 
 self.addEventListener("install", () => {
   self.skipWaiting();

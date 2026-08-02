@@ -10,8 +10,10 @@ import {
 import {
   cancelCompletedPackQueueDrain,
   enqueueCompletedPackQueueEntry,
+  getAcknowledgedCompletedPackOverlays,
   getCompletedPackQueueEntries,
   readCompletedPackQueue,
+  reconcileAcknowledgedCompletedPackOverlays,
   scheduleCompletedPackQueueDrain,
   syncCompletedPackQueue,
 } from "./completedPackQueue.js";
@@ -131,6 +133,7 @@ export async function loadCloudCollection() {
 
   if (!user) return {};
 
+  const cloudRequestStartedAt = Date.now();
   const { data, error } = await supabase
     .from(USER_COLLECTION_TABLE)
     .select("set_id,card_id,quantity,created_at,updated_at")
@@ -140,6 +143,13 @@ export async function loadCloudCollection() {
     console.warn("Unable to load cloud collection", error);
     throw error;
   }
+
+  reconcileAcknowledgedCompletedPackOverlays(
+    PENDING_CLOUD_PULLS_KEY,
+    user.id,
+    cloudRequestStartedAt,
+    getDefaultStorage()
+  );
 
   return cloudRowsToCollection(data || []);
 }
@@ -163,6 +173,7 @@ export function enqueuePendingCloudPull(cards, setId, userId, clientEventId = ""
   if (!userId || collectibleCards.length === 0) {
     return [];
   }
+
   if (!eventId) throw new PackSubmissionValidationError(
     "PackDex completed-pack enqueue requires the stable event id created with the pack.",
     "invalid_client_event_id"
@@ -176,6 +187,8 @@ export function enqueuePendingCloudPull(cards, setId, userId, clientEventId = ""
     createdAt: Date.now(),
     attempts: 0,
     nextRetryAt: null,
+    state: "pending",
+    source: "desktop",
     submissionVersion: ATOMIC_PACK_SUBMISSION_VERSION,
   }, storage);
 }
@@ -189,7 +202,11 @@ export function getPendingCloudPullCount(userId, storage = getDefaultStorage()) 
 export function mergePendingCloudPullsIntoCollection(collection, userId, storage = getDefaultStorage()) {
   if (!userId) return collection || {};
 
-  const pendingCollection = loadPendingCloudPulls(storage)
+  const overlayPulls = [
+    ...loadPendingCloudPulls(storage).filter((pull) => !pull.collectionConfirmedAt),
+    ...getAcknowledgedCompletedPackOverlays(PENDING_CLOUD_PULLS_KEY, userId, storage),
+  ];
+  const pendingCollection = overlayPulls
     .filter((pull) => pull.userId === userId && typeof pull.setId === "string" && Array.isArray(pull.cards))
     .reduce((nextCollection, pull) => {
       const set = findSet(pull.setId);
@@ -223,6 +240,7 @@ export function syncPendingCloudPulls(userId, options = {}) {
     requestTimeoutMs,
     now: options.now || Date.now,
     random: options.random || Math.random,
+    source: "desktop",
   });
   return run().then((result) => {
     if (client === supabase && storage === getDefaultStorage() && result.failed > 0) {

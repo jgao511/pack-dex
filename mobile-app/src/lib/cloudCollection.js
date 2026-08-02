@@ -11,8 +11,10 @@ import {
 import {
   cancelCompletedPackQueueDrain,
   enqueueCompletedPackQueueEntry,
+  getAcknowledgedCompletedPackOverlays,
   getCompletedPackQueueEntries,
   readCompletedPackQueue,
+  reconcileAcknowledgedCompletedPackOverlays,
   scheduleCompletedPackQueueDrain,
   syncCompletedPackQueue,
 } from "../../../src/lib/completedPackQueue.js";
@@ -156,6 +158,7 @@ export async function loadCloudCollection() {
 
   if (!user) return {};
 
+  const cloudRequestStartedAt = Date.now();
   const { data, error } = await supabase
     .from(USER_COLLECTION_TABLE)
     .select("set_id,card_id,quantity,created_at,updated_at")
@@ -165,6 +168,14 @@ export async function loadCloudCollection() {
     console.warn("Unable to load mobile cloud collection", error);
     throw error;
   }
+
+
+  reconcileAcknowledgedCompletedPackOverlays(
+    PENDING_CLOUD_PULLS_KEY,
+    user.id,
+    cloudRequestStartedAt,
+    getDefaultStorage()
+  );
 
   return cloudRowsToCollection(data || []);
 }
@@ -212,6 +223,8 @@ export function enqueuePendingCloudPull(
         : null,
     attempts: 0,
     nextRetryAt: null,
+    state: "pending",
+    source: "mobile",
     submissionVersion: ATOMIC_PACK_SUBMISSION_VERSION,
   }, storage);
 }
@@ -223,10 +236,13 @@ export function mergePendingCloudPullsIntoCollection(
 ) {
   if (!userId) return collection || {};
 
-  const pendingCollection = getPendingCloudPulls(userId, storage)
+  const overlayPulls = [
+    ...getPendingCloudPulls(userId, storage).filter((pull) => !pull.collectionConfirmedAt),
+    ...getAcknowledgedCompletedPackOverlays(PENDING_CLOUD_PULLS_KEY, userId, storage),
+  ];
+  const pendingCollection = overlayPulls
     .filter(
       (pull) =>
-        !pull.collectionConfirmedAt &&
         typeof pull.setId === "string" &&
         Array.isArray(pull.cards)
     )
@@ -309,6 +325,7 @@ export function syncPendingCloudPulls(userId, options = {}) {
     requestTimeoutMs: options.requestTimeoutMs ?? CLOUD_SYNC_REQUEST_TIMEOUT_MS,
     now: options.now || Date.now,
     random: options.random || Math.random,
+    source: "mobile",
   });
   const scheduleRetry = () => {
     if (client !== supabase || storage !== getDefaultStorage()) return;

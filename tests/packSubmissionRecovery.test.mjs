@@ -27,6 +27,9 @@ import {
   shouldReloadForServiceWorkerVersion,
 } from "../src/lib/clientUpdate.js";
 import { claimPackPersistence } from "../mobile-app/src/lib/packRevealLifecycle.js";
+import {
+  getCompletedPackQuarantineEntries,
+} from "../src/lib/completedPackQueue.js";
 
 class MemoryStorage {
   constructor(entries = {}) {
@@ -57,12 +60,15 @@ function successfulRow(payload, packsOpened = 1) {
     client_event_id: payload.batches[0].client_event_id,
     accepted: true,
     recorded: true,
+    already_processed: false,
+    rejection_code: null,
+    retryable: false,
     packs_opened: packsOpened,
     total_cards_pulled: packsOpened,
   }];
 }
 
-test("an explicit retired event-only queue job is discarded without any RPC", async () => {
+test("a retired split-save queue job with cards is migrated through the atomic RPC", async () => {
   const storage = new MemoryStorage({
     [PENDING_CLOUD_PULLS_KEY]: JSON.stringify([
       queuedPull({ rpcName: RETIRED_PACK_RPC_NAME }),
@@ -82,10 +88,10 @@ test("an explicit retired event-only queue job is discarded without any RPC", as
     validateUser: false,
   });
 
-  assert.equal(result.attempted, 0);
-  assert.equal(result.saved, 0);
+  assert.equal(result.attempted, 1);
+  assert.equal(result.saved, 1);
   assert.equal(getPendingCloudPullCount("user-1", storage), 0);
-  assert.deepEqual(calls, []);
+  assert.deepEqual(calls.map(([name]) => name), [ATOMIC_PACK_RPC_NAME]);
 });
 
 test("a versionless split-save pull is repaired only through the atomic RPC", async () => {
@@ -139,23 +145,19 @@ test("an authorization failure stops the drain, preserves ownership, and backs o
 });
 
 test("empty and multi-pack atomic submissions are rejected locally", () => {
-  assert.throws(() => makeAtomicPackRpcPayload([]), { code: "22023" });
+  assert.throws(() => makeAtomicPackRpcPayload([]), { code: "PACK_LOCAL_VALIDATION" });
   assert.throws(
     () => makeAtomicPackRpcPayload([
       { client_event_id: "one", cards: [{ set_id: "base-set", card_id: "1", quantity: 1 }] },
       { client_event_id: "two", cards: [{ set_id: "base-set", card_id: "2", quantity: 1 }] },
     ]),
-    { code: "22023" }
+    { code: "PACK_LOCAL_VALIDATION" }
   );
-  assert.deepEqual(getSafeCompletedPackPayloadShape([]), {
-    rpc: ATOMIC_PACK_RPC_NAME,
-    submissionVersion: ATOMIC_PACK_SUBMISSION_VERSION,
-    batchCount: 0,
-    clientEventId: "",
-    cardRowCount: 0,
-    totalCardQuantity: 0,
-    setCount: 0,
-  });
+  const safeShape = getSafeCompletedPackPayloadShape([]);
+  assert.equal(safeShape.rpc, ATOMIC_PACK_RPC_NAME);
+  assert.equal(safeShape.batchCount, 0);
+  assert.equal(safeShape.eventIdSuffix, "");
+  assert.equal(safeShape.cardRowCount, 0);
 });
 
 test("multiple queued packs submit individually and sequentially", async () => {
@@ -226,7 +228,7 @@ test("duplicate UI completion claims cannot persist the same pack twice", () => 
   assert.equal(duplicateAnimation.shouldPersist, false);
 });
 
-test("22023 entries are discarded while a transient network failure remains queued", async () => {
+test("untrusted server validation and network failures both remain queued", async () => {
   const invalidStorage = new MemoryStorage();
   enqueuePendingCloudPull([CARD], "base-set", "user-1", "invalid-pack", { storage: invalidStorage });
   let invalidCalls = 0;
@@ -236,10 +238,18 @@ test("22023 entries are discarded while a transient network failure remains queu
       return { data: null, error: { code: "22023", message: "Exactly one completed pack must be submitted" } };
     },
   };
-  await syncPendingCloudPulls("user-1", { client: invalidClient, storage: invalidStorage, validateUser: false });
-  await syncPendingCloudPulls("user-1", { client: invalidClient, storage: invalidStorage, validateUser: false });
+  await assert.rejects(
+    syncPendingCloudPulls("user-1", { client: invalidClient, storage: invalidStorage, validateUser: false }),
+    (error) => error.code === "22023"
+  );
+  const deferred = await syncPendingCloudPulls("user-1", {
+    client: invalidClient,
+    storage: invalidStorage,
+    validateUser: false,
+  });
   assert.equal(invalidCalls, 1);
-  assert.equal(getPendingCloudPullCount("user-1", invalidStorage), 0);
+  assert.equal(deferred.attempted, 0);
+  assert.equal(getPendingCloudPullCount("user-1", invalidStorage), 1);
 
   const transientStorage = new MemoryStorage();
   enqueuePendingCloudPull([CARD], "base-set", "user-1", "offline-pack", { storage: transientStorage });
@@ -291,26 +301,28 @@ test("stale service-worker and client-version states fail safely", async () => {
   assert.match(headersSource, /\/mobile-app\/assets\/\*[\s\S]*immutable/);
 });
 
-test("permanent and transient retry classification stays narrow", () => {
+test("only local validation is permanent; server, auth, skew, and unknown failures retry", () => {
   assert.deepEqual(
     classifyPackSubmissionError(
       { code: "42501", message: "permission denied for function record_pack_open_event" },
       { rpcName: RETIRED_PACK_RPC_NAME }
     ).retryable,
-    false
+    true
   );
-  assert.equal(classifyPackSubmissionError({ code: "22023" }).retryable, false);
-  assert.equal(classifyPackSubmissionError({ code: "22P02" }).retryable, false);
-  assert.equal(classifyPackSubmissionError({ code: "PGRST202" }).retryable, false);
-  assert.equal(classifyPackSubmissionError({ status: 401 }).retryable, false);
-  assert.equal(classifyPackSubmissionError({ status: 429 }).retryable, false);
-  assert.equal(classifyPackSubmissionError(new Error("unexpected application failure")).retryable, false);
+  assert.equal(classifyPackSubmissionError({ code: "22023" }).retryable, true);
+  assert.equal(classifyPackSubmissionError({ code: "22P02" }).retryable, true);
+  assert.equal(classifyPackSubmissionError({ code: "PGRST202" }).retryable, true);
+  assert.equal(classifyPackSubmissionError({ code: "42883" }).retryable, true);
+  assert.equal(classifyPackSubmissionError({ status: 401 }).retryable, true);
+  assert.equal(classifyPackSubmissionError({ status: 403 }).retryable, true);
+  assert.equal(classifyPackSubmissionError({ status: 429 }).retryable, true);
+  assert.equal(classifyPackSubmissionError(new Error("unexpected application failure")).retryable, true);
   assert.equal(classifyPackSubmissionError(new Error("offline")).retryable, true);
   assert.equal(classifyPackSubmissionError(new Error("request timed out")).retryable, true);
   assert.equal(classifyPackSubmissionError({ status: 503 }).retryable, true);
 });
 
-test("queue sanitation removes malformed and retired jobs without deleting valid atomic pulls", () => {
+test("queue sanitation migrates recoverable legacy jobs and quarantines ambiguous data", () => {
   const valid = queuedPull({ submissionVersion: ATOMIC_PACK_SUBMISSION_VERSION });
   const result = sanitizePendingPackQueueEntries([
     null,
@@ -325,7 +337,8 @@ test("queue sanitation removes malformed and retired jobs without deleting valid
   assert.equal(result.entries[0].submissionVersion, ATOMIC_PACK_SUBMISSION_VERSION);
   assert.equal(result.entries[0].attempts, 0);
   assert.equal(result.removed, 4);
-  assert.ok(result.reasons.includes("retired_event_only_job"));
+  assert.equal(result.quarantined.length, 3);
+  assert.ok(result.reasons.includes("legacy_event_only_job"));
   assert.ok(result.reasons.includes("malformed_pack_job"));
   assert.ok(result.reasons.includes("incompatible_pack_job_version"));
 });
@@ -341,7 +354,8 @@ test("malformed persisted queue JSON is removed and does not crash synchronizati
 
   assert.equal(result.attempted, 0);
   assert.equal(calls, 0);
-  assert.equal(storage.getItem(PENDING_CLOUD_PULLS_KEY), null);
+  assert.equal(storage.getItem(PENDING_CLOUD_PULLS_KEY), "[]");
+  assert.equal(getCompletedPackQuarantineEntries(PENDING_CLOUD_PULLS_KEY, storage).length, 1);
 });
 
 test("guest save helpers never enqueue or call a pack RPC", async () => {

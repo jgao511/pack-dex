@@ -4753,9 +4753,11 @@ function MobileApp() {
       if (rejectedCurrentPull) {
         setPackSaveMessage(rejectedCurrentPull.permanent
           ? "This pack could not be saved because the account request was rejected. Please sign in again before opening another pack."
-          : "This pack was not saved because packs were opened too quickly. Please wait a moment before trying again.");
-        setCollection(collection);
-        setStats(stats);
+          : "This pack is saved locally and will sync after the rate-limit window.");
+        setCollection(rejectedCurrentPull.permanent
+          ? collection
+          : mergePendingCloudPullsIntoCollection(collection, user.id));
+        setStats(rejectedCurrentPull.permanent ? stats : nextStats);
 
         try {
           const [cloudCollection, cloudStats] = await Promise.all([

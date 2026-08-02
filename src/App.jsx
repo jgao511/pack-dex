@@ -1855,8 +1855,8 @@ function App() {
         })
         .catch(async (error) => {
           if (isPackRateLimitError(error)) {
-            setCloudWarning("This pack was not saved because packs were opened too quickly. Please wait a moment before trying again.");
-            setCollection(currentCollection);
+            setCloudWarning("This pack is saved locally and will sync after the rate-limit window.");
+            setCollection(mergePendingCloudPullsIntoCollection(currentCollection, savingUser.id));
             setProfileStats(profileStats);
 
             try {

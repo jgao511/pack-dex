@@ -1,4 +1,6 @@
-export const PACKDEX_CLIENT_VERSION = "pack-queue-v4-20260801";
+import { PACKDEX_CLIENT_BUILD } from "./packPersistenceVersion.js";
+
+export const PACKDEX_CLIENT_VERSION = PACKDEX_CLIENT_BUILD;
 const RELOAD_MARKER_PREFIX = "packdex-sw-reloaded:";
 
 export function shouldReloadForServiceWorkerVersion({
