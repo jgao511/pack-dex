@@ -251,3 +251,13 @@ test("service-worker upgrade never clears completed-pack local storage", async (
   assert.doesNotMatch(source, /localStorage|indexedDB\.deleteDatabase/);
   assert.doesNotMatch(source, /caches\.keys\(\)[\s\S]*localStorage/);
 });
+
+test("profile labels distinguish collection quantity from pack-only pulls", async () => {
+  const [mobileSource, desktopSource] = await Promise.all([
+    readFile(new URL("../mobile-app/src/App.jsx", import.meta.url), "utf8"),
+    readFile(new URL("../src/App.jsx", import.meta.url), "utf8"),
+  ]);
+  assert.match(mobileSource, /<span>Cards in Collection<\/span>/);
+  assert.doesNotMatch(mobileSource, /<span>Total Pulled<\/span>/);
+  assert.match(desktopSource, /<span>Total Cards Pulled<\/span>/);
+});

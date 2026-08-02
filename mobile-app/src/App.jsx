@@ -2665,7 +2665,7 @@ function ProfileScreen({
             <strong>{stats.packsOpened}</strong>
           </article>
           <article className="stat-card">
-            <span>Total Pulled</span>
+            <span>Cards in Collection</span>
             <strong>{stats.totalCardsPulled}</strong>
           </article>
           <article className="stat-card stat-card-wide">
