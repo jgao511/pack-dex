@@ -52,9 +52,11 @@ import {
 import { preloadImages } from "./utils/imageCache.js";
 import SharePullButton from "./components/SharePullButton.jsx";
 import {
-  loadCurrentUserAchievementProgress,
+  clearAchievementReconciliationCache,
+  invalidateAchievementReconciliation,
   loadCurrentUserAchievements,
   mergeUserAchievementRows,
+  reconcileCurrentUserAchievements,
   requestServerAchievementAward,
 } from "../../src/lib/userAchievements.js";
 import {
@@ -380,6 +382,7 @@ const MOBILE_ACHIEVEMENTS = [
     category: "pulls",
     icon_key: "sparkle",
     progress_target: 1,
+    visibility: "hidden",
   },
   {
     id: "big_hits_10",
@@ -389,6 +392,7 @@ const MOBILE_ACHIEVEMENTS = [
     category: "pulls",
     icon_key: "sparkle",
     progress_target: 10,
+    visibility: "hidden",
   },
   {
     id: "rare_hits_25",
@@ -398,6 +402,7 @@ const MOBILE_ACHIEVEMENTS = [
     category: "pulls",
     icon_key: "sparkle",
     progress_target: 25,
+    visibility: "hidden",
   },
   {
     id: "rare_hits_50",
@@ -407,8 +412,12 @@ const MOBILE_ACHIEVEMENTS = [
     category: "pulls",
     icon_key: "sparkle",
     progress_target: 50,
+    visibility: "hidden",
   },
 ];
+const VISIBLE_MOBILE_ACHIEVEMENTS = MOBILE_ACHIEVEMENTS.filter(
+  (achievement) => achievement.visibility !== "hidden"
+);
 const WELCOME_REWARD_CHOICES = [
   { setId: "prismatic-evolutions", title: "Prismatic Evolutions", description: "A premium Eeveelution God Pack.", forcedFormat: "PRISMATIC_FULL_EEVEELUTION_PACK" },
   { setId: "black-bolt", title: "Black Bolt", description: "Nine Illustration Rares and one Special Illustration Rare." },
@@ -2595,7 +2604,10 @@ function ProfileScreen({
   const earnedAchievementMap = useMemo(() => new Map(achievements.map((achievement) => [achievement.achievementId, achievement])), [achievements]);
   const earnedAchievementIds = useMemo(() => new Set(earnedAchievementMap.keys()), [earnedAchievementMap]);
   const achievementProgressMap = useMemo(() => new Map(achievementProgress.map((progress) => [progress.achievementId, progress])), [achievementProgress]);
-  const publicAchievements = useMemo(() => MOBILE_ACHIEVEMENTS.filter((achievement) => achievement.trust === "trusted"), []);
+  const publicAchievements = useMemo(
+    () => VISIBLE_MOBILE_ACHIEVEMENTS.filter((achievement) => achievement.trust === "trusted"),
+    []
+  );
   const earnedPublicAchievements = publicAchievements.filter((achievement) => earnedAchievementIds.has(achievement.id)).length;
   const achievementTotal = publicAchievements.length;
   const achievementPercent = achievementTotal > 0 ? Math.round((earnedPublicAchievements / achievementTotal) * 100) : 0;
@@ -2699,7 +2711,7 @@ function ProfileScreen({
               <p>{earnedPublicAchievements} of {achievementTotal} public achievements earned.</p>
             </div>
             <div className="achievement-list-mobile">
-              {MOBILE_ACHIEVEMENTS.map((achievement) => {
+              {VISIBLE_MOBILE_ACHIEVEMENTS.map((achievement) => {
                 const earnedAchievement = earnedAchievementMap.get(achievement.id);
                 const metadata = earnedAchievement?.metadata || {};
                 const isEarned = earnedAchievementIds.has(achievement.id);
@@ -3367,6 +3379,7 @@ function MobileApp() {
     const outcome = await addScannedCardOnce(supabase, { cardId: String(card.id), setId: set.id });
     if (validatedScannerUserIdRef.current !== actionUserId) throw new Error("Your account session changed. Please try again.");
     if (outcome.added) {
+      invalidateAchievementReconciliation(actionUserId);
       const timestamp = Date.now();
       const key = getCardCollectionKey(card, set.id);
       setCollection((current) => {
@@ -3552,6 +3565,7 @@ function MobileApp() {
     setIsAchievementsLoading(false);
     setAchievementToastQueue([]);
     setActiveAchievementToast(null);
+    clearAchievementReconciliationCache();
     setWishlistEntries([]);
     setWishlistStatus("idle");
     setWishlistError("");
@@ -3643,7 +3657,10 @@ function MobileApp() {
     }
 
     try {
-      const cloudProgress = await loadCurrentUserAchievementProgress(currentUser.id);
+      const reconciliation = await reconcileCurrentUserAchievements(currentUser.id);
+      const cloudProgress = reconciliation?.progress || [];
+      enqueueAchievementUnlocks(reconciliation?.awarded);
+      mergeAwardedAchievements(currentUser, reconciliation?.awarded || []);
       setAchievementProgress(cloudProgress);
       return cloudProgress;
     } catch (error) {
@@ -3712,6 +3729,7 @@ function MobileApp() {
 
     const isSameAccount = lastAccountScopedUserIdRef.current === currentUser.id;
     if (lastAccountScopedUserIdRef.current && !isSameAccount) {
+      clearAchievementReconciliationCache();
       achievementCacheByUserIdRef.current.clear();
       lastAchievementsLoadedUserIdRef.current = "";
       setAchievements([]);

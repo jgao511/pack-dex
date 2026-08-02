@@ -1,5 +1,14 @@
 import { getAuthenticatedUser } from "../_shared/auth.ts";
 import { corsHeaders, formatErrorForResponse, jsonResponse } from "../_shared/http.ts";
+import setCompletionCatalog from "./setCompletionCatalog.js";
+import {
+  VALUE_MILESTONES,
+  SET_MASTERY_MILESTONES,
+  calculateCompletedSetCount,
+  calculateEstimatedCollectionValue,
+  createAchievementCandidate,
+  makeProgressRows,
+} from "./achievementMetrics.js";
 
 type Candidate = {
   achievement_id: string;
@@ -22,21 +31,12 @@ const TOTAL_MILESTONES = [
   ["card_stack_100", 100], ["total_cards_250", 250], ["total_cards_500", 500], ["card_stack_1000", 1000],
 ] as const;
 
+const PROFILE_RECONCILIATION_SCOPE = "profile_reconcile";
+const COLLECTION_PAGE_SIZE = 1000;
+const PRICE_CHUNK_SIZE = 500;
+
 function candidate(userId: string, achievementId: string, category: string, current: number, target: number): Candidate {
-  return {
-    achievement_id: achievementId,
-    scope_type: "global",
-    scope_key: "global",
-    award_key: ["account", userId, achievementId, "global"].join("::"),
-    metadata: {
-      category,
-      icon_key: category === "packs" ? "pack" : "binder",
-      progress_current: current,
-      progress_target: target,
-      progress_percent: Math.min(100, Math.floor((current / target) * 100)),
-    },
-    source: "edge:check-achievements-incremental",
-  };
+  return createAchievementCandidate(userId, achievementId, category, current, target) as Candidate;
 }
 
 function addReached(
@@ -51,6 +51,56 @@ function addReached(
   });
 }
 
+function chunkValues<T>(values: T[], size: number) {
+  const chunks: T[][] = [];
+  for (let index = 0; index < values.length; index += size) {
+    chunks.push(values.slice(index, index + size));
+  }
+  return chunks;
+}
+
+async function loadTrustedCollectionMetrics(
+  admin: Awaited<ReturnType<typeof getAuthenticatedUser>>["admin"],
+  userId: string,
+) {
+  const collectionRows: Record<string, unknown>[] = [];
+  let from = 0;
+
+  while (true) {
+    const { data, error } = await admin
+      .from("user_collection")
+      .select("set_id,card_id,quantity")
+      .eq("user_id", userId)
+      .gt("quantity", 0)
+      .order("set_id", { ascending: true })
+      .order("card_id", { ascending: true })
+      .range(from, from + COLLECTION_PAGE_SIZE - 1);
+    if (error) throw error;
+    collectionRows.push(...(data || []));
+    if (!data || data.length < COLLECTION_PAGE_SIZE) break;
+    from += COLLECTION_PAGE_SIZE;
+  }
+
+  const ownedCardIds = [...new Set(
+    collectionRows.map((row) => String(row.card_id || "")).filter(Boolean)
+  )];
+  const priceRows: Record<string, unknown>[] = [];
+
+  for (const cardIds of chunkValues(ownedCardIds, PRICE_CHUNK_SIZE)) {
+    const { data, error } = await admin
+      .from("card_prices")
+      .select("set_id,card_id,market_price_usd")
+      .in("card_id", cardIds);
+    if (error) throw error;
+    priceRows.push(...(data || []));
+  }
+
+  return {
+    collectionValue: calculateEstimatedCollectionValue(collectionRows, priceRows),
+    completedSets: calculateCompletedSetCount(collectionRows, setCompletionCatalog),
+  };
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
 
@@ -63,7 +113,7 @@ Deno.serve(async (req) => {
     debugStep = "load_compact_profile_stats";
     const { data: stats, error: statsError } = await admin
       .from("user_profile_stats")
-      .select("packs_opened,total_cards_pulled,unique_cards,sets_completed")
+      .select("packs_opened,total_cards_pulled,unique_cards")
       .eq("user_id", user.id)
       .maybeSingle();
     if (statsError) throw statsError;
@@ -72,13 +122,22 @@ Deno.serve(async (req) => {
     const packsOpened = Math.max(0, Number(stats?.packs_opened || 0));
     const totalCards = Math.max(0, Number(stats?.total_cards_pulled || 0));
     const uniqueCards = Math.max(0, Number(stats?.unique_cards || 0));
+    const isProfileReconciliation = scope === PROFILE_RECONCILIATION_SCOPE;
 
-    if (scope === "pack" || scope === "pack_and_collection") {
+    if (scope === "pack" || scope === "pack_and_collection" || isProfileReconciliation) {
       addReached(candidates, user.id, PACK_MILESTONES, "packs", packsOpened);
     }
-    if (scope === "collection" || scope === "pack_and_collection") {
+    if (scope === "collection" || scope === "pack_and_collection" || isProfileReconciliation) {
       addReached(candidates, user.id, UNIQUE_MILESTONES, "collection", uniqueCards);
       addReached(candidates, user.id, TOTAL_MILESTONES, "collection", totalCards);
+    }
+
+    let trustedCollectionMetrics = { collectionValue: 0, completedSets: 0 };
+    if (isProfileReconciliation) {
+      debugStep = "load_trusted_collection_achievement_metrics";
+      trustedCollectionMetrics = await loadTrustedCollectionMetrics(admin, user.id);
+      addReached(candidates, user.id, VALUE_MILESTONES, "value", trustedCollectionMetrics.collectionValue);
+      addReached(candidates, user.id, SET_MASTERY_MILESTONES, "set_mastery", trustedCollectionMetrics.completedSets);
     }
 
     debugStep = "load_existing_affected_achievements";
@@ -104,6 +163,19 @@ Deno.serve(async (req) => {
         .select("id,user_id,achievement_id,scope_type,scope_key,award_key,metadata,source,awarded_at,created_at,updated_at");
       if (error) throw error;
       awarded = data || [];
+    }
+
+    if (isProfileReconciliation) {
+      return jsonResponse({
+        awarded,
+        progress: [
+          ...makeProgressRows(PACK_MILESTONES, packsOpened, "packs", "user_profile_stats"),
+          ...makeProgressRows(UNIQUE_MILESTONES, uniqueCards, "collection", "user_profile_stats"),
+          ...makeProgressRows(TOTAL_MILESTONES, totalCards, "collection", "user_profile_stats"),
+          ...makeProgressRows(VALUE_MILESTONES, trustedCollectionMetrics.collectionValue, "value", "user_collection,card_prices"),
+          ...makeProgressRows(SET_MASTERY_MILESTONES, trustedCollectionMetrics.completedSets, "set_mastery", "user_collection,achievement_set_catalog"),
+        ],
+      });
     }
 
     return jsonResponse({ awarded });
