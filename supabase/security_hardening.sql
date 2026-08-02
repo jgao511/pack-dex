@@ -25,9 +25,8 @@ create table if not exists public.user_collection (
 alter table public.user_collection enable row level security;
 
 grant usage on schema public to authenticated, service_role;
+revoke all privileges on public.user_collection from public, anon, authenticated;
 grant select on public.user_collection to authenticated;
-grant insert, update on public.user_collection to authenticated;
-revoke delete on public.user_collection from authenticated;
 grant select, insert, update on public.user_collection to service_role;
 
 do $$
@@ -60,29 +59,16 @@ to authenticated
 using (auth.uid() = user_id);
 
 drop policy if exists "Users can insert their own collection" on public.user_collection;
-create policy "Users can insert their own collection"
-on public.user_collection
-for insert
-to authenticated
-with check (auth.uid() = user_id);
-
 drop policy if exists "Users can update their own collection" on public.user_collection;
-create policy "Users can update their own collection"
-on public.user_collection
-for update
-to authenticated
-using (auth.uid() = user_id)
-with check (auth.uid() = user_id);
-
 drop policy if exists "Users can upsert their own collection" on public.user_collection;
 drop policy if exists "Users can sync their own collection" on public.user_collection;
 drop policy if exists "Users can delete their own collection" on public.user_collection;
 drop policy if exists "Users can reset their own collection" on public.user_collection;
 drop policy if exists "Users can clear their own collection" on public.user_collection;
 
--- Authenticated users may save normal pack pulls only to their own collection rows.
--- They still cannot delete collection rows or touch another user's rows.
--- claim-welcome-god-pack writes reward cards with the server-side service role.
+-- Authenticated users can read only their own rows. Normal pack saves and
+-- scanner additions use their dedicated security-definer RPCs; onboarding,
+-- welcome rewards, and administrative work use the server-side service role.
 
 create or replace function public.set_user_collection_updated_at()
 returns trigger
