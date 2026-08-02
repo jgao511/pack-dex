@@ -662,7 +662,8 @@
     "name": "Team Rocket's Pupitar",
     "rarity": "Common",
     "number": "95",
-    "image": "/assets/sets/team-up/cards/95_Team_Rocket's_Pupitar_Common.png"
+    "image": "/assets/sets/team-up/cards/95_Team_Rocket's_Pupitar_Common.png",
+    "excludeFromPulls": true
   },
   {
     "id": "team-up-95-yveltal",

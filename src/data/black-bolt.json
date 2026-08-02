@@ -1192,9 +1192,10 @@
   {
     "id": "black-bolt-171-victini",
     "name": "Victini",
-    "rarity": "Rare",
+    "rarity": "Black White Rare",
     "number": "171",
-    "image": "/assets/sets/black-bolt/cards/171_Victini_Rare.png"
+    "image": "/assets/sets/black-bolt/cards/171_Victini_Rare.png",
+    "rarityCategory": "victiniRare"
   },
   {
     "id": "black-bolt-172-zekrom-ex",

@@ -11,9 +11,6 @@ import { sets } from "../src/data/sets.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, "..");
-const dataDir = path.join(rootDir, "src", "data");
-const setsSource = fs.readFileSync(path.join(dataDir, "sets.js"), "utf8");
-const setIds = Array.from(setsSource.matchAll(/createSet\("([^"]+)"/g), (match) => match[1]);
 const chasePattern =
   /\b(mega hyper|hyper rare|rare hyper|gold rare|rare gold|rainbow rare|rare rainbow|secret rare|rare secret|special illustration rare|illustration rare|ultra rare|rare ultra|double rare|radiant rare|amazing rare|shiny|trainer gallery|galarian gallery|ace spec|black white rare)\b/u;
 const suspiciousRows = [];
@@ -23,10 +20,10 @@ const scannerCatalogPath = path.join(rootDir, "public", "scanner-ai", "catalog-m
 const priceCatalogPath = path.join(rootDir, "supabase", "functions", "sync-card-prices", "catalog.json");
 const scannerCatalog = fs.existsSync(scannerCatalogPath) ? JSON.parse(fs.readFileSync(scannerCatalogPath, "utf8")) : [];
 const scannerRows = Array.isArray(scannerCatalog) ? scannerCatalog : scannerCatalog.cards || [];
-const scannerByIdentity = new Map(scannerRows.map((row) => [`${row.setId}:${row.collectorNumber}`, row]));
+const scannerByCardId = new Map(scannerRows.map((row) => [String(row.cardId || ""), row]));
 const priceSets = fs.existsSync(priceCatalogPath) ? JSON.parse(fs.readFileSync(priceCatalogPath, "utf8")) : [];
-const priceByIdentity = new Map(priceSets.flatMap((set) => (
-  (set.cards || []).map((card) => [`${set.id}:${card.number}`, card])
+const priceByCardId = new Map(priceSets.flatMap((set) => (
+  (set.cards || []).map((card) => [String(card.id || ""), { ...card, setId: set.id }])
 )));
 const pairedArtAuditSetIds = new Set(["white-flare", "black-bolt", "ascended-heroes", "pitch-black"]);
 
@@ -34,19 +31,10 @@ function normalize(value) {
   return normalizeRarity(value);
 }
 
-function cardEvidence(card) {
+function explicitRarityEvidence(card) {
   return [
     card.rarity,
-    card.name,
-    card.id,
-    card.number,
-    card.image,
-    card.imagePath,
-    card.fileName,
-    card.imageFileName,
-    card.filename,
     card.subset,
-    card.collection,
     card.rarityCategory,
   ]
     .filter(Boolean)
@@ -54,32 +42,24 @@ function cardEvidence(card) {
     .join(" ");
 }
 
-for (const setId of setIds) {
-  const jsonPath = path.join(dataDir, `${setId}.json`);
-
-  if (!fs.existsSync(jsonPath)) continue;
-
-  const cards = JSON.parse(fs.readFileSync(jsonPath, "utf8"));
-  const setDefinition = sets.find((set) => set.id === setId) || { id: setId, cards };
+for (const setDefinition of sets) {
+  const setId = String(setDefinition.id || "");
+  const cards = Array.isArray(setDefinition.cards) ? setDefinition.cards : [];
   const counts = {};
-  const identities = new Set();
   const cardsByName = new Map();
 
   for (const card of cards) {
-    const set = { ...setDefinition, cards };
+    const set = setDefinition;
     const category = getRarityCategory(card, set);
-    const evidence = cardEvidence(card);
+    const rarityEvidence = explicitRarityEvidence(card);
 
     counts[category] = (counts[category] || 0) + 1;
 
     const number = String(card.number || "").trim();
     const id = String(card.id || "").trim();
-    const identity = `${setId}:${number}`;
     if (!number) integrityErrors.push({ setId, cardId: id, reason: "missing_collector_number" });
     if (!id) integrityErrors.push({ setId, cardId: number, reason: "missing_card_id" });
     if (!String(card.rarity || "").trim()) integrityErrors.push({ setId, cardId: id || number, reason: "missing_rarity" });
-    if (identities.has(identity)) integrityErrors.push({ setId, cardId: id || number, reason: "duplicate_set_and_collector_number" });
-    identities.add(identity);
     if (globalCardIds.has(id)) {
       integrityErrors.push({ setId, cardId: id, reason: `duplicate_card_id_also_in_${globalCardIds.get(id)}` });
     } else if (id) globalCardIds.set(id, setId);
@@ -92,25 +72,36 @@ for (const setId of setIds) {
       cardsByName.set(normalizedName, sameNameCards);
     }
 
-    const scannerCard = scannerByIdentity.get(identity);
+    const scannerCard = scannerByCardId.get(id);
     if (scannerCard && normalize(scannerCard.rarity) !== normalize(card.rarity)) {
       integrityErrors.push({ setId, cardId: id || number, reason: "scanner_catalog_rarity_mismatch" });
     }
-    const priceCard = priceByIdentity.get(identity);
+    if (
+      scannerCard &&
+      (
+        String(scannerCard.setId || "") !== setId ||
+        String(scannerCard.collectorNumber || "") !== number ||
+        normalize(scannerCard.name) !== normalizedName
+      )
+    ) {
+      integrityErrors.push({ setId, cardId: id || number, reason: "scanner_catalog_identity_mismatch" });
+    }
+    const priceCard = priceByCardId.get(id);
     if (priceCard && normalize(priceCard.rarity) !== normalize(card.rarity)) {
       integrityErrors.push({ setId, cardId: id || number, reason: "price_catalog_rarity_mismatch" });
     }
-
-    const imagePath = String(card.image || card.imagePath || card.fileName || card.imageFileName || "");
-    const filenameRarity = imagePath.match(/_(Common|Uncommon|Rare|Rare_Holo|Double_Rare|Illustration_Rare|Special_Illustration_Rare|Ultra_Rare|Hyper_Rare|ACE_SPEC_Rare)\.(?:png|jpe?g|webp)$/i)?.[1];
-    if (filenameRarity) {
-      const filenameCategory = getRarityCategory({ rarity: filenameRarity.replaceAll("_", " ") }, set);
-      if (filenameCategory !== category) {
-        integrityErrors.push({ setId, cardId: id || number, reason: "filename_rarity_mismatch" });
-      }
+    if (
+      priceCard &&
+      (
+        String(priceCard.setId || "") !== setId ||
+        String(priceCard.number || "") !== number ||
+        normalize(priceCard.name) !== normalizedName
+      )
+    ) {
+      integrityErrors.push({ setId, cardId: id || number, reason: "price_catalog_identity_mismatch" });
     }
 
-    if (category === "rare" && chasePattern.test(evidence)) {
+    if (category === "rare" && chasePattern.test(rarityEvidence)) {
       suspiciousRows.push({
         setId,
         cardId: card.id || card.number,

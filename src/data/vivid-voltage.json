@@ -58,9 +58,10 @@
   {
     "id": "vivid-voltage-9-celebi-amazing",
     "name": "Celebi Amazing",
-    "rarity": "Rare",
+    "rarity": "Amazing Rare",
     "number": "9",
-    "image": "/assets/sets/vivid-voltage/cards/9_Celebi_Amazing_Rare.png"
+    "image": "/assets/sets/vivid-voltage/cards/9_Celebi_Amazing_Rare.png",
+    "rarityCategory": "ultraRare"
   },
   {
     "id": "vivid-voltage-10-seedot",
@@ -345,9 +346,10 @@
   {
     "id": "vivid-voltage-50-raikou-amazing",
     "name": "Raikou Amazing",
-    "rarity": "Rare",
+    "rarity": "Amazing Rare",
     "number": "50",
-    "image": "/assets/sets/vivid-voltage/cards/50_Raikou_Amazing_Rare.png"
+    "image": "/assets/sets/vivid-voltage/cards/50_Raikou_Amazing_Rare.png",
+    "rarityCategory": "ultraRare"
   },
   {
     "id": "vivid-voltage-51-electrike",
@@ -569,9 +571,10 @@
   {
     "id": "vivid-voltage-82-zacian-amazing",
     "name": "Zacian Amazing",
-    "rarity": "Rare",
+    "rarity": "Amazing Rare",
     "number": "82",
-    "image": "/assets/sets/vivid-voltage/cards/82_Zacian_Amazing_Rare.png"
+    "image": "/assets/sets/vivid-voltage/cards/82_Zacian_Amazing_Rare.png",
+    "rarityCategory": "ultraRare"
   },
   {
     "id": "vivid-voltage-83-wooper",
@@ -709,9 +712,10 @@
   {
     "id": "vivid-voltage-102-zamazenta-amazing",
     "name": "Zamazenta Amazing",
-    "rarity": "Rare",
+    "rarity": "Amazing Rare",
     "number": "102",
-    "image": "/assets/sets/vivid-voltage/cards/102_Zamazenta_Amazing_Rare.png"
+    "image": "/assets/sets/vivid-voltage/cards/102_Zamazenta_Amazing_Rare.png",
+    "rarityCategory": "ultraRare"
   },
   {
     "id": "vivid-voltage-103-poochyena",
@@ -828,9 +832,10 @@
   {
     "id": "vivid-voltage-119-jirachi-amazing",
     "name": "Jirachi Amazing",
-    "rarity": "Rare",
+    "rarity": "Amazing Rare",
     "number": "119",
-    "image": "/assets/sets/vivid-voltage/cards/119_Jirachi_Amazing_Rare.png"
+    "image": "/assets/sets/vivid-voltage/cards/119_Jirachi_Amazing_Rare.png",
+    "rarityCategory": "ultraRare"
   },
   {
     "id": "vivid-voltage-120-lucario",
@@ -961,9 +966,10 @@
   {
     "id": "vivid-voltage-138-rayquaza-amazing",
     "name": "Rayquaza Amazing",
-    "rarity": "Rare",
+    "rarity": "Amazing Rare",
     "number": "138",
-    "image": "/assets/sets/vivid-voltage/cards/138_Rayquaza_Amazing_Rare.png"
+    "image": "/assets/sets/vivid-voltage/cards/138_Rayquaza_Amazing_Rare.png",
+    "rarityCategory": "ultraRare"
   },
   {
     "id": "vivid-voltage-139-chatot",

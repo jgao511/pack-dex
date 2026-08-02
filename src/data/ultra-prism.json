@@ -774,7 +774,8 @@
     "name": "Prism Tower",
     "rarity": "Ultra Rare",
     "number": "111",
-    "image": "/assets/sets/ultra-prism/cards/111_Prism_Tower_Ultra_Rare.png"
+    "image": "/assets/sets/ultra-prism/cards/111_Prism_Tower_Ultra_Rare.png",
+    "excludeFromPulls": true
   },
   {
     "id": "ultra-prism-111-shaymin",
@@ -949,7 +950,8 @@
     "name": "Amarys",
     "rarity": "Ultra Rare",
     "number": "132",
-    "image": "/assets/sets/ultra-prism/cards/132_Amarys_Ultra_Rare.png"
+    "image": "/assets/sets/ultra-prism/cards/132_Amarys_Ultra_Rare.png",
+    "excludeFromPulls": true
   },
   {
     "id": "ultra-prism-132-pal-pad",
@@ -963,7 +965,8 @@
     "name": "Atticus",
     "rarity": "Ultra Rare",
     "number": "133",
-    "image": "/assets/sets/ultra-prism/cards/133_Atticus_Ultra_Rare.png"
+    "image": "/assets/sets/ultra-prism/cards/133_Atticus_Ultra_Rare.png",
+    "excludeFromPulls": true
   },
   {
     "id": "ultra-prism-133-pok-mon-fan-club",
@@ -977,7 +980,8 @@
     "name": "Atticus",
     "rarity": "Ultra Rare",
     "number": "134",
-    "image": "/assets/sets/ultra-prism/cards/134_Atticus_Ultra_Rare.png"
+    "image": "/assets/sets/ultra-prism/cards/134_Atticus_Ultra_Rare.png",
+    "excludeFromPulls": true
   },
   {
     "id": "ultra-prism-134-unidentified-fossil",
@@ -991,7 +995,8 @@
     "name": "Brassius",
     "rarity": "Ultra Rare",
     "number": "135",
-    "image": "/assets/sets/ultra-prism/cards/135_Brassius_Ultra_Rare.png"
+    "image": "/assets/sets/ultra-prism/cards/135_Brassius_Ultra_Rare.png",
+    "excludeFromPulls": true
   },
   {
     "id": "ultra-prism-135-volkner",
@@ -1012,21 +1017,24 @@
     "name": "Eri",
     "rarity": "Ultra Rare",
     "number": "136",
-    "image": "/assets/sets/ultra-prism/cards/136_Eri_Ultra_Rare.png"
+    "image": "/assets/sets/ultra-prism/cards/136_Eri_Ultra_Rare.png",
+    "excludeFromPulls": true
   },
   {
     "id": "ultra-prism-136-super-boost-energy",
     "name": "Super Boost Energy ◇",
-    "rarity": "Rare",
+    "rarity": "Prism Star",
     "number": "136",
-    "image": "/assets/sets/ultra-prism/cards/136_Super_Boost_Energy_◇_Rare_Prism_Star.png"
+    "image": "/assets/sets/ultra-prism/cards/136_Super_Boost_Energy_◇_Rare_Prism_Star.png",
+    "rarityCategory": "prismStar"
   },
   {
     "id": "ultra-prism-137-friends-in-paldea",
     "name": "Friends in Paldea",
     "rarity": "Ultra Rare",
     "number": "137",
-    "image": "/assets/sets/ultra-prism/cards/137_Friends_in_Paldea_Ultra_Rare.png"
+    "image": "/assets/sets/ultra-prism/cards/137_Friends_in_Paldea_Ultra_Rare.png",
+    "excludeFromPulls": true
   },
   {
     "id": "ultra-prism-137-unit-energy-grassfirewater",
@@ -1040,7 +1048,8 @@
     "name": "Giacomo",
     "rarity": "Ultra Rare",
     "number": "138",
-    "image": "/assets/sets/ultra-prism/cards/138_Giacomo_Ultra_Rare.png"
+    "image": "/assets/sets/ultra-prism/cards/138_Giacomo_Ultra_Rare.png",
+    "excludeFromPulls": true
   },
   {
     "id": "ultra-prism-138-unit-energy-lightningpsychicmetal",
@@ -1054,7 +1063,8 @@
     "name": "Larry's Skill",
     "rarity": "Ultra Rare",
     "number": "139",
-    "image": "/assets/sets/ultra-prism/cards/139_Larry's_Skill_Ultra_Rare.png"
+    "image": "/assets/sets/ultra-prism/cards/139_Larry's_Skill_Ultra_Rare.png",
+    "excludeFromPulls": true
   },
   {
     "id": "ultra-prism-139-leafeon-gx",
@@ -1068,7 +1078,8 @@
     "name": "Mela",
     "rarity": "Ultra Rare",
     "number": "140",
-    "image": "/assets/sets/ultra-prism/cards/140_Mela_Ultra_Rare.png"
+    "image": "/assets/sets/ultra-prism/cards/140_Mela_Ultra_Rare.png",
+    "excludeFromPulls": true
   },
   {
     "id": "ultra-prism-140-pheromosa-gx",
@@ -1089,14 +1100,16 @@
     "name": "Ortega",
     "rarity": "Ultra Rare",
     "number": "141",
-    "image": "/assets/sets/ultra-prism/cards/141_Ortega_Ultra_Rare.png"
+    "image": "/assets/sets/ultra-prism/cards/141_Ortega_Ultra_Rare.png",
+    "excludeFromPulls": true
   },
   {
     "id": "ultra-prism-142-raifort",
     "name": "Raifort",
     "rarity": "Ultra Rare",
     "number": "142",
-    "image": "/assets/sets/ultra-prism/cards/142_Raifort_Ultra_Rare.png"
+    "image": "/assets/sets/ultra-prism/cards/142_Raifort_Ultra_Rare.png",
+    "excludeFromPulls": true
   },
   {
     "id": "ultra-prism-142-xurkitree-gx",
@@ -1117,7 +1130,8 @@
     "name": "Tyme",
     "rarity": "Ultra Rare",
     "number": "143",
-    "image": "/assets/sets/ultra-prism/cards/143_Tyme_Ultra_Rare.png"
+    "image": "/assets/sets/ultra-prism/cards/143_Tyme_Ultra_Rare.png",
+    "excludeFromPulls": true
   },
   {
     "id": "ultra-prism-144-celesteela-gx",

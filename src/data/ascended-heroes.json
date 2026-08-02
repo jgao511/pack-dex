@@ -1850,51 +1850,58 @@
   {
     "id": "ascended-heroes-265-mega-froslass-ex-mega-att",
     "name": "Mega Froslass ex MEGA ATT",
-    "rarity": "Unknown",
+    "rarity": "Mega Attack Rare",
     "number": "265",
-    "image": "/assets/sets/ascended-heroes/cards/265_Mega_Froslass_ex_MEGA_ATTACK_RARE.png"
+    "image": "/assets/sets/ascended-heroes/cards/265_Mega_Froslass_ex_MEGA_ATTACK_RARE.png",
+    "rarityCategory": "megaAttackRare"
   },
   {
     "id": "ascended-heroes-266-mega-eelektross-ex-mega-att",
     "name": "Mega Eelektross ex MEGA ATT",
-    "rarity": "Unknown",
+    "rarity": "Mega Attack Rare",
     "number": "266",
-    "image": "/assets/sets/ascended-heroes/cards/266_Mega_Eelektross_ex_MEGA_ATTACK_RARE.png"
+    "image": "/assets/sets/ascended-heroes/cards/266_Mega_Eelektross_ex_MEGA_ATTACK_RARE.png",
+    "rarityCategory": "megaAttackRare"
   },
   {
     "id": "ascended-heroes-267-mega-diancie-ex-mega-att",
     "name": "Mega Diancie ex MEGA ATT",
-    "rarity": "Unknown",
+    "rarity": "Mega Attack Rare",
     "number": "267",
-    "image": "/assets/sets/ascended-heroes/cards/267_Mega_Diancie_ex_MEGA_ATTACK_RARE.png"
+    "image": "/assets/sets/ascended-heroes/cards/267_Mega_Diancie_ex_MEGA_ATTACK_RARE.png",
+    "rarityCategory": "megaAttackRare"
   },
   {
     "id": "ascended-heroes-268-mega-hawlucha-ex-mega-att",
     "name": "Mega Hawlucha ex MEGA ATT",
-    "rarity": "Unknown",
+    "rarity": "Mega Attack Rare",
     "number": "268",
-    "image": "/assets/sets/ascended-heroes/cards/268_Mega_Hawlucha_ex_MEGA_ATTACK_RARE.png"
+    "image": "/assets/sets/ascended-heroes/cards/268_Mega_Hawlucha_ex_MEGA_ATTACK_RARE.png",
+    "rarityCategory": "megaAttackRare"
   },
   {
     "id": "ascended-heroes-269-mega-gengar-ex-mega-att",
     "name": "Mega Gengar ex MEGA ATT",
-    "rarity": "Unknown",
+    "rarity": "Mega Attack Rare",
     "number": "269",
-    "image": "/assets/sets/ascended-heroes/cards/269_Mega_Gengar_ex_MEGA_ATTACK_RARE.png"
+    "image": "/assets/sets/ascended-heroes/cards/269_Mega_Gengar_ex_MEGA_ATTACK_RARE.png",
+    "rarityCategory": "megaAttackRare"
   },
   {
     "id": "ascended-heroes-270-mega-scrafty-ex-mega-att",
     "name": "Mega Scrafty ex MEGA ATT",
-    "rarity": "Unknown",
+    "rarity": "Mega Attack Rare",
     "number": "270",
-    "image": "/assets/sets/ascended-heroes/cards/270_Mega_Scrafty_ex_MEGA_ATTACK_RARE.png"
+    "image": "/assets/sets/ascended-heroes/cards/270_Mega_Scrafty_ex_MEGA_ATTACK_RARE.png",
+    "rarityCategory": "megaAttackRare"
   },
   {
     "id": "ascended-heroes-271-mega-dragonite-ex-mega-att",
     "name": "Mega Dragonite ex MEGA ATT",
-    "rarity": "Unknown",
+    "rarity": "Mega Attack Rare",
     "number": "271",
-    "image": "/assets/sets/ascended-heroes/cards/271_Mega_Dragonite_ex_MEGA_ATTACK_RARE.png"
+    "image": "/assets/sets/ascended-heroes/cards/271_Mega_Dragonite_ex_MEGA_ATTACK_RARE.png",
+    "rarityCategory": "megaAttackRare"
   },
   {
     "id": "ascended-heroes-272-mega-meganium-ex",
@@ -2053,15 +2060,17 @@
   {
     "id": "ascended-heroes-294-mega-charizard-y-ex-mega-hyper",
     "name": "Mega Charizard Y ex Mega Hyper",
-    "rarity": "Rare",
+    "rarity": "Mega Hyper Rare",
     "number": "294",
-    "image": "/assets/sets/ascended-heroes/cards/294_Mega_Charizard_Y_ex_Mega_Hyper_Rare.png"
+    "image": "/assets/sets/ascended-heroes/cards/294_Mega_Charizard_Y_ex_Mega_Hyper_Rare.png",
+    "rarityCategory": "megaHyperRare"
   },
   {
     "id": "ascended-heroes-295-mega-dragonite-ex-mega-hyper",
     "name": "Mega Dragonite ex Mega Hyper",
-    "rarity": "Rare",
+    "rarity": "Mega Hyper Rare",
     "number": "295",
-    "image": "/assets/sets/ascended-heroes/cards/295_Mega_Dragonite_ex_Mega_Hyper_Rare.png"
+    "image": "/assets/sets/ascended-heroes/cards/295_Mega_Dragonite_ex_Mega_Hyper_Rare.png",
+    "rarityCategory": "megaHyperRare"
   }
 ]

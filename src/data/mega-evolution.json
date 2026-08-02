@@ -1304,15 +1304,17 @@
   {
     "id": "mega-evolution-187-mega-gardevoir-ex-mega-hyper",
     "name": "Mega Gardevoir ex Mega Hyper",
-    "rarity": "Rare",
+    "rarity": "Mega Hyper Rare",
     "number": "187",
-    "image": "/assets/sets/mega-evolution/cards/187_Mega_Gardevoir_ex_Mega_Hyper_Rare.png"
+    "image": "/assets/sets/mega-evolution/cards/187_Mega_Gardevoir_ex_Mega_Hyper_Rare.png",
+    "rarityCategory": "megaHyperRare"
   },
   {
     "id": "mega-evolution-188-mega-lucario-ex-mega-hyper",
     "name": "Mega Lucario ex Mega Hyper",
-    "rarity": "Rare",
+    "rarity": "Mega Hyper Rare",
     "number": "188",
-    "image": "/assets/sets/mega-evolution/cards/188_Mega_Lucario_ex_Mega_Hyper_Rare.png"
+    "image": "/assets/sets/mega-evolution/cards/188_Mega_Lucario_ex_Mega_Hyper_Rare.png",
+    "rarityCategory": "megaHyperRare"
   }
 ]

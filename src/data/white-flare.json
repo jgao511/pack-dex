@@ -1199,9 +1199,10 @@
   {
     "id": "white-flare-172-victini",
     "name": "Victini",
-    "rarity": "Rare",
+    "rarity": "Black White Rare",
     "number": "172",
-    "image": "/assets/sets/white-flare/cards/172_Victini_Rare.png"
+    "image": "/assets/sets/white-flare/cards/172_Victini_Rare.png",
+    "rarityCategory": "victiniRare"
   },
   {
     "id": "white-flare-173-reshiram-ex",

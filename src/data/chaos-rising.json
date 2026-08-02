@@ -849,8 +849,9 @@
   {
     "id": "chaos-rising-122-mega-greninja-ex-mega-hyper",
     "name": "Mega Greninja ex Mega Hyper",
-    "rarity": "Rare",
+    "rarity": "Mega Hyper Rare",
     "number": "122",
-    "image": "/assets/sets/chaos-rising/cards/122_Mega_Greninja_ex_Mega_Hyper_Rare.png"
+    "image": "/assets/sets/chaos-rising/cards/122_Mega_Greninja_ex_Mega_Hyper_Rare.png",
+    "rarityCategory": "megaHyperRare"
   }
 ]

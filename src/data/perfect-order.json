@@ -863,8 +863,9 @@
   {
     "id": "perfect-order-124-mega-zygarde-ex-mega-hyper",
     "name": "Mega Zygarde ex Mega Hyper",
-    "rarity": "Rare",
+    "rarity": "Mega Hyper Rare",
     "number": "124",
-    "image": "/assets/sets/perfect-order/cards/124_Mega_Zygarde_ex_Mega_Hyper_Rare.png"
+    "image": "/assets/sets/perfect-order/cards/124_Mega_Zygarde_ex_Mega_Hyper_Rare.png",
+    "rarityCategory": "megaHyperRare"
   }
 ]

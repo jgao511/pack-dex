@@ -36,6 +36,11 @@ const MEGA_SET_IDS = new Set([
 
 const SPECIAL_PREVIEW_SET_IDS = new Set([THIRTIETH_ANNIVERSARY_PACK_CONFIG.setId]);
 
+const BLACK_WHITE_RARE_VICTINI_IDS = new Set([
+  "black-bolt-171-victini",
+  "white-flare-172-victini",
+]);
+
 const MINI_PACK_SLOTS = {
   regular: 3,
   final: 1,
@@ -516,9 +521,11 @@ const EXPERIENCE_TUNED_FINAL_SLOT_WEIGHTS = {
   },
 };
 
-const HIGHER_THAN_RARE_CATEGORIES = new Set(
-  [...FINAL_SLOT_CATEGORIES].filter((category) => category !== "rare" && category !== "holoRare")
-);
+const HIGHER_THAN_RARE_CATEGORIES = new Set([
+  ...[...FINAL_SLOT_CATEGORIES].filter((category) => category !== "rare" && category !== "holoRare"),
+  "megaAttackRare",
+  "prismStar",
+]);
 
 const PREMIUM_SUBSET_CATEGORIES = new Set([
   "gx",
@@ -864,6 +871,10 @@ function isCodeCard(card) {
   return normalizeText(card.name).includes("code card");
 }
 
+export function isPullEligibleCard(card) {
+  return card?.excludeFromPulls !== true;
+}
+
 export function isActualEnergyCard(card) {
   return isEnergyCard(card);
 }
@@ -994,27 +1005,18 @@ export function getRarityCategory(card, set = {}) {
   const subset = normalizeRarity(card.subset);
   const combined = cardSearchText(card);
 
-  if (
-    combined.includes("mega hyper rare") ||
-    combined.includes(" mhr") ||
-    combined.endsWith("mhr") ||
-    (rarity === "rare" && hasRaritySuffix(name, "mega hyper"))
-  ) {
+  if (rarity === "mega hyper rare" || rarity === "mhr") {
     return normalizeCategoryForSet("megaHyperRare", set);
   }
 
-  if (rarity === "victini rare" || (combined.includes("victini") && combined.includes("rare"))) {
+  if (BLACK_WHITE_RARE_VICTINI_IDS.has(String(card?.id || "")) && rarity === "black white rare") {
     return "victiniRare";
   }
 
-  if (
-    combined.includes("zekrom") &&
-    (combined.includes("black white rare") || combined.includes("black white"))
-  ) {
-    return "blackWhiteRare";
-  }
-
   if (rarity === "black white rare") return "blackWhiteRare";
+  if (rarity === "mega attack rare" || rarity === "mar") return "megaAttackRare";
+  if (rarity === "prism star") return "prismStar";
+  if (rarity === "amazing rare") return "ultraRare";
   if (isSpecialIllustrationRare(card)) return "specialIllustrationRare";
   // Prefer the card's explicit Illustration Rare classification before broad
   // cross-field phrase checks (for example, "Rare" followed by "Goldeen"
@@ -1031,11 +1033,7 @@ export function getRarityCategory(card, set = {}) {
   ) {
     return "hyperRare";
   }
-  if (
-    combined.includes("gold rare") ||
-    combined.includes("rare gold") ||
-    (rarity === "rare" && hasRaritySuffix(name, "gold"))
-  ) {
+  if (["gold rare", "rare gold"].includes(rarity) || (rarity === "rare" && hasRaritySuffix(name, "gold"))) {
     return "hyperRare";
   }
   if (
@@ -1112,9 +1110,11 @@ export const RARITY_CATEGORY_LABELS = {
   galarianGallery: "Galarian Gallery",
   classicCollection: "Classic Collection",
   radiantRare: "Radiant Rare",
+  megaAttackRare: "Mega Attack Rare",
+  prismStar: "Prism Star",
   aceSpecRare: "ACE SPEC Rare",
   blackWhiteRare: "Black White Rare",
-  victiniRare: "Victini Rare",
+  victiniRare: "Black White Rare",
   megaDoubleRare: "Mega Double Rare",
   megaHyperRare: "Mega Hyper Rare",
   pikachu: "Pikachu",
@@ -1124,6 +1124,7 @@ export const RARITY_CATEGORY_LABELS = {
 
 const DISPLAY_RARITY_SUFFIXES_BY_CATEGORY = {
   megaHyperRare: ["Mega Hyper"],
+  megaAttackRare: ["MEGA ATT", "Mega Attack"],
   hyperRare: ["Hyper", "Gold"],
   rainbowRare: ["Rainbow"],
   secretRare: ["Secret"],
@@ -1767,6 +1768,7 @@ function pickSubsetFromBucket(pool, bucket, set, usedIds = new Set()) {
 
 function buildPools(cards, set = {}) {
   const cleanCards = cards
+    .filter(isPullEligibleCard)
     .filter((card) => !isCodeCard(card))
     .filter((card) => !isGenericBonusEnergyCard(card, set))
     .map((card) => ({
@@ -1794,6 +1796,7 @@ function buildPools(cards, set = {}) {
 
 function buildVintagePools(cards, set = {}) {
   const cleanCards = cards
+    .filter(isPullEligibleCard)
     .filter((card) => !isCodeCard(card))
     .map((card) => ({
       ...card,
@@ -2757,7 +2760,7 @@ export function isRareOrHigher(card) {
 export function getFoilClass(card) {
   const category = getRarityCategory(card);
 
-  if (["victiniRare", "blackWhiteRare", "megaHyperRare", "futuristicRare", "classic"].includes(category)) {
+  if (["victiniRare", "blackWhiteRare", "megaHyperRare", "megaAttackRare", "prismStar", "futuristicRare", "classic"].includes(category)) {
     return "card-foil card-foil--chase";
   }
 

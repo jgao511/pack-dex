@@ -1054,7 +1054,8 @@
     "name": "Audino",
     "rarity": "Illustration Rare",
     "number": "151",
-    "image": "/assets/sets/151/cards/151_Audino_Illustration_Rare.png"
+    "image": "/assets/sets/151/cards/151_Audino_Illustration_Rare.png",
+    "excludeFromPulls": true
   },
   {
     "id": "151-151-mew-ex",

@@ -135,9 +135,10 @@
   {
     "id": "crown-zenith-20-radiant-charizard-radiant",
     "name": "Radiant Charizard Radiant",
-    "rarity": "Rare",
+    "rarity": "Radiant Rare",
     "number": "20",
-    "image": "/assets/sets/crown-zenith/cards/20_Radiant_Charizard_Radiant_Rare.png"
+    "image": "/assets/sets/crown-zenith/cards/20_Radiant_Charizard_Radiant_Rare.png",
+    "rarityCategory": "radiantRare"
   },
   {
     "id": "crown-zenith-21-entei",
@@ -352,9 +353,10 @@
   {
     "id": "crown-zenith-51-radiant-charjabug-radiant",
     "name": "Radiant Charjabug Radiant",
-    "rarity": "Rare",
+    "rarity": "Radiant Rare",
     "number": "51",
-    "image": "/assets/sets/crown-zenith/cards/51_Radiant_Charjabug_Radiant_Rare.png"
+    "image": "/assets/sets/crown-zenith/cards/51_Radiant_Charjabug_Radiant_Rare.png",
+    "rarityCategory": "radiantRare"
   },
   {
     "id": "crown-zenith-52-zeraora",
@@ -730,9 +732,10 @@
   {
     "id": "crown-zenith-105-radiant-eternatus-radiant",
     "name": "Radiant Eternatus Radiant",
-    "rarity": "Rare",
+    "rarity": "Radiant Rare",
     "number": "105",
-    "image": "/assets/sets/crown-zenith/cards/105_Radiant_Eternatus_Radiant_Rare.png"
+    "image": "/assets/sets/crown-zenith/cards/105_Radiant_Eternatus_Radiant_Rare.png",
+    "rarityCategory": "radiantRare"
   },
   {
     "id": "crown-zenith-106-tauros",

@@ -114,9 +114,10 @@
   {
     "id": "shining-fates-17-reshiram-amazing",
     "name": "Reshiram Amazing",
-    "rarity": "Rare",
+    "rarity": "Amazing Rare",
     "number": "17",
-    "image": "/assets/sets/shining-fates/cards/17_Reshiram_Amazing_Rare.png"
+    "image": "/assets/sets/shining-fates/cards/17_Reshiram_Amazing_Rare.png",
+    "rarityCategory": "ultraRare"
   },
   {
     "id": "shining-fates-18-cinderace-v",
@@ -142,9 +143,10 @@
   {
     "id": "shining-fates-21-kyogre-amazing",
     "name": "Kyogre Amazing",
-    "rarity": "Rare",
+    "rarity": "Amazing Rare",
     "number": "21",
-    "image": "/assets/sets/shining-fates/cards/21_Kyogre_Amazing_Rare.png"
+    "image": "/assets/sets/shining-fates/cards/21_Kyogre_Amazing_Rare.png",
+    "rarityCategory": "ultraRare"
   },
   {
     "id": "shining-fates-22-buizel",
@@ -317,9 +319,10 @@
   {
     "id": "shining-fates-46-yveltal-amazing",
     "name": "Yveltal Amazing",
-    "rarity": "Rare",
+    "rarity": "Amazing Rare",
     "number": "46",
-    "image": "/assets/sets/shining-fates/cards/46_Yveltal_Amazing_Rare.png"
+    "image": "/assets/sets/shining-fates/cards/46_Yveltal_Amazing_Rare.png",
+    "rarityCategory": "ultraRare"
   },
   {
     "id": "shining-fates-47-nickit",
