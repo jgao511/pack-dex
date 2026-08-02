@@ -33,7 +33,10 @@ const TOTAL_MILESTONES = [
 
 const PROFILE_RECONCILIATION_SCOPE = "profile_reconcile";
 const COLLECTION_PAGE_SIZE = 1000;
-const PRICE_CHUNK_SIZE = 500;
+// Keep PostgREST `in` filter URLs comfortably below proxy/HTTP2 limits even
+// when canonical card IDs are long. Large collections are processed in
+// bounded server-side batches and still produce one reconciliation response.
+const PRICE_CHUNK_SIZE = 100;
 
 function candidate(userId: string, achievementId: string, category: string, current: number, target: number): Candidate {
   return createAchievementCandidate(userId, achievementId, category, current, target) as Candidate;

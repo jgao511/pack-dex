@@ -158,6 +158,7 @@ test("trusted reconciliation is profile-only and leaves the post-pack request sc
   assert.match(achievementClient, /body: \{ scope: "pack_and_collection" \}/);
   assert.match(achievementClient, /body: \{ scope: "profile_reconcile" \}/);
   assert.match(edgeSource, /if \(isProfileReconciliation\) \{[\s\S]*loadTrustedCollectionMetrics/);
+  assert.match(edgeSource, /const PRICE_CHUNK_SIZE = 100;/);
   assert.doesNotMatch(edgeSource, /select\("packs_opened,total_cards_pulled,unique_cards,sets_completed"\)/);
   assert.match(edgeSource, /return jsonResponse\(\{ awarded \}\);/);
 });
