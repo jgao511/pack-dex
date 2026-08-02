@@ -4,8 +4,6 @@ import {
   compactWelcomeRewardCard,
   findWelcomeRewardSet,
   generateWelcomeRewardGodPack,
-  incrementWelcomeRewardStats,
-  upsertWelcomeRewardCards,
 } from "../_shared/welcomeRewardPackdex.ts";
 
 const WELCOME_REWARD_SET_IDS = new Set([
@@ -16,25 +14,40 @@ const WELCOME_REWARD_SET_IDS = new Set([
   "151",
 ]);
 
-async function recordWelcomePackOpenEvent(
-  admin: any,
-  userId: string,
-  setId: string,
-  claimId: string,
-  openedAt: string,
-) {
-  const { error } = await admin
-    .from("user_pack_open_events")
-    .insert({
-      user_id: userId,
-      client_event_id: `welcome-god-pack:${claimId}`,
-      set_id: setId,
-      opened_at: openedAt,
-    })
-    .select("id")
-    .maybeSingle();
+type WelcomeClaimAcknowledgement = {
+  status: string;
+  client_event_id: string;
+  recorded: boolean;
+  already_processed: boolean;
+  eligible_packs: number;
+  reward_set_id: string;
+  reward_claim_id: string;
+  reward_claimed_at: string | null;
+  packs_opened: number;
+  total_cards_pulled: number;
+};
 
-  if (error && error.code !== "23505") throw error;
+function parseClaimAcknowledgement(data: unknown): WelcomeClaimAcknowledgement | null {
+  if (!Array.isArray(data) || data.length !== 1) return null;
+  const row = data[0] as Record<string, unknown>;
+
+  if (
+    !row ||
+    typeof row.status !== "string" ||
+    typeof row.client_event_id !== "string" ||
+    typeof row.recorded !== "boolean" ||
+    typeof row.already_processed !== "boolean" ||
+    typeof row.eligible_packs !== "number" ||
+    typeof row.reward_set_id !== "string" ||
+    typeof row.reward_claim_id !== "string" ||
+    (row.reward_claimed_at !== null && typeof row.reward_claimed_at !== "string") ||
+    typeof row.packs_opened !== "number" ||
+    typeof row.total_cards_pulled !== "number"
+  ) {
+    return null;
+  }
+
+  return row as WelcomeClaimAcknowledgement;
 }
 
 Deno.serve(async (req) => {
@@ -58,36 +71,45 @@ Deno.serve(async (req) => {
       return jsonResponse({ error: "Unknown welcome reward set." }, 400);
     }
 
-    debugStep = "verify_pack_requirement";
-    const { count: eligiblePackCount, error: eligiblePackError } = await admin
-      .from("user_pack_open_events")
-      .select("id", { count: "exact", head: true })
-      .eq("user_id", user.id)
-      .not("client_event_id", "like", "welcome-god-pack:%");
-    if (eligiblePackError) throw eligiblePackError;
-    if (Number(eligiblePackCount || 0) < 50) {
+    debugStep = "generate_pack";
+    const cards = generateWelcomeRewardGodPack(set, forcedFormat);
+
+    if (!cards?.length || !cards.isGodPack || cards.length !== 10) {
+      return jsonResponse({ error: "This welcome reward pack is unavailable." }, 400);
+    }
+
+    const claimId = crypto.randomUUID();
+    const eventId = `welcome-god-pack:${claimId}`;
+    const responseCards = cards.map((card, index) => compactWelcomeRewardCard(card, set, index));
+
+    debugStep = "claim_atomic";
+    const { data, error } = await admin.rpc("claim_welcome_god_pack_v1", {
+      p_user_id: user.id,
+      p_set_id: set.id,
+      p_claim_id: claimId,
+      p_reward_cards: responseCards,
+    });
+    if (error) throw error;
+
+    const acknowledgement = parseClaimAcknowledgement(data);
+    if (!acknowledgement) {
+      throw new Error("Malformed atomic welcome reward acknowledgement");
+    }
+
+    if (acknowledgement.status === "not_ready") {
       return jsonResponse({
         error: "Open 50 eligible packs before claiming this reward.",
         rewardStatus: {
           isEligible: true,
           isReady: false,
           isClaimed: false,
-          eligiblePacks: Number(eligiblePackCount || 0),
+          eligiblePacks: acknowledgement.eligible_packs,
           targetPacks: 50,
         },
       }, 403);
     }
 
-    debugStep = "load_reward";
-    const { data: existingReward, error: loadRewardError } = await admin
-      .from("user_welcome_rewards")
-      .select("user_id,welcome_god_pack_claimed,welcome_god_pack_set,welcome_reward_claimed_at,welcome_reward_claim_id,welcome_reward_cards,welcome_reward_cards_saved_at")
-      .eq("user_id", user.id)
-      .maybeSingle();
-
-    if (loadRewardError) throw loadRewardError;
-
-    if (existingReward?.welcome_god_pack_claimed && existingReward.welcome_reward_cards_saved_at) {
+    if (acknowledgement.status === "already_claimed") {
       return jsonResponse({
         alreadyClaimed: true,
         error: "This welcome reward has already been claimed.",
@@ -95,142 +117,49 @@ Deno.serve(async (req) => {
           isEligible: true,
           isReady: true,
           isClaimed: true,
-          eligiblePacks: Number(eligiblePackCount || 0),
+          eligiblePacks: acknowledgement.eligible_packs,
           targetPacks: 50,
-          setId: existingReward.welcome_god_pack_set || "",
-          claimedAt: existingReward.welcome_reward_claimed_at || "",
+          setId: acknowledgement.reward_set_id,
+          claimedAt: acknowledgement.reward_claimed_at || "",
         },
+      }, 409);
+    }
+
+    if (acknowledgement.status === "legacy_pending_review") {
+      return jsonResponse({
+        error: "This reward needs support review before it can be completed safely.",
+        supportReviewRequired: true,
       }, 409);
     }
 
     if (
-      existingReward?.welcome_god_pack_claimed &&
-      !existingReward.welcome_reward_cards_saved_at &&
-      Array.isArray(existingReward.welcome_reward_cards)
+      acknowledgement.status !== "claimed" ||
+      acknowledgement.recorded !== true ||
+      acknowledgement.already_processed !== false ||
+      acknowledgement.client_event_id !== eventId ||
+      acknowledgement.reward_claim_id !== claimId ||
+      acknowledgement.reward_set_id !== set.id ||
+      typeof acknowledgement.reward_claimed_at !== "string"
     ) {
-      debugStep = "retry_save_claimed_reward";
-      const retrySet = findWelcomeRewardSet(String(existingReward.welcome_god_pack_set || ""));
-
-      if (!retrySet) {
-        return jsonResponse({ error: "Claimed welcome reward set is unavailable." }, 400);
-      }
-
-      const retryCards = existingReward.welcome_reward_cards as Record<string, unknown>[];
-      const retryClaimId = String(existingReward.welcome_reward_claim_id || existingReward.welcome_reward_claimed_at || "legacy-claim");
-      const retryOpenedAt = String(existingReward.welcome_reward_claimed_at || new Date().toISOString());
-
-      await upsertWelcomeRewardCards(admin, user.id, retryCards, retrySet);
-      const savedAt = new Date().toISOString();
-      debugStep = "record_retry_pack_open_event";
-      await recordWelcomePackOpenEvent(admin, user.id, retrySet.id, retryClaimId, retryOpenedAt);
-      debugStep = "save_retry_profile_stats";
-      const stats = await incrementWelcomeRewardStats(admin, user.id, {
-        packsOpened: 1,
-        totalCardsPulled: retryCards.length,
-      });
-
-      const { error: markSavedError } = await admin
-        .from("user_welcome_rewards")
-        .update({ welcome_reward_cards_saved_at: savedAt })
-        .eq("user_id", user.id)
-        .is("welcome_reward_cards_saved_at", null);
-
-      if (markSavedError) throw markSavedError;
-
-      return jsonResponse({
-        cards: retryCards,
-        godPackFormat: "",
-        godPackDisplayName: "God Pack",
-        stats,
-        rewardStatus: {
-          isEligible: true,
-          isReady: true,
-          isClaimed: true,
-          eligiblePacks: Number(eligiblePackCount || 0),
-          targetPacks: 50,
-          setId: retrySet.id,
-          claimedAt: existingReward.welcome_reward_claimed_at || savedAt,
-        },
-      });
+      throw new Error("Invalid atomic welcome reward acknowledgement");
     }
-
-    if (!existingReward) {
-      debugStep = "create_reward";
-      const { error: createRewardError } = await admin
-        .from("user_welcome_rewards")
-        .insert({ user_id: user.id });
-
-      if (createRewardError) throw createRewardError;
-    }
-
-    debugStep = "generate_pack";
-    const cards = generateWelcomeRewardGodPack(set, forcedFormat);
-
-    if (!cards?.length || !cards.isGodPack) {
-      return jsonResponse({ error: "This welcome reward pack is unavailable." }, 400);
-    }
-
-    const claimedAt = new Date().toISOString();
-    const claimId = crypto.randomUUID();
-    const responseCards = cards.map((card, index) => compactWelcomeRewardCard(card, set, index));
-
-    debugStep = "claim_reward";
-    const { data: rewardRow, error: claimError } = await admin
-      .from("user_welcome_rewards")
-      .update({
-        welcome_god_pack_claimed: true,
-        welcome_god_pack_set: set.id,
-        welcome_reward_claimed_at: claimedAt,
-        welcome_reward_claim_id: claimId,
-        welcome_reward_cards: responseCards,
-      })
-      .eq("user_id", user.id)
-      .eq("welcome_god_pack_claimed", false)
-      .select("user_id, welcome_god_pack_claimed, welcome_god_pack_set, welcome_reward_claimed_at, welcome_reward_cards_saved_at")
-      .maybeSingle();
-
-    if (claimError) throw claimError;
-
-    if (!rewardRow) {
-      return jsonResponse({
-        alreadyClaimed: true,
-        error: "This welcome reward has already been claimed.",
-      }, 409);
-    }
-
-    debugStep = "save_collection";
-    await upsertWelcomeRewardCards(admin, user.id, cards, set);
-    const savedAt = new Date().toISOString();
-    debugStep = "insert_reward_pack_event";
-    await recordWelcomePackOpenEvent(admin, user.id, set.id, claimId, claimedAt);
-    debugStep = "save_profile_stats";
-    const stats = await incrementWelcomeRewardStats(admin, user.id, {
-      packsOpened: 1,
-      totalCardsPulled: cards.length,
-    });
-
-    debugStep = "mark_reward_cards_saved";
-    const { error: markSavedError } = await admin
-      .from("user_welcome_rewards")
-      .update({ welcome_reward_cards_saved_at: savedAt })
-      .eq("user_id", user.id)
-      .is("welcome_reward_cards_saved_at", null);
-
-    if (markSavedError) throw markSavedError;
 
     return jsonResponse({
       cards: responseCards,
       godPackFormat: cards.godPackFormat || forcedFormat || "",
       godPackDisplayName: cards.godPackDisplayName || "God Pack",
-      stats,
+      stats: {
+        packsOpened: acknowledgement.packs_opened,
+        totalCardsPulled: acknowledgement.total_cards_pulled,
+      },
       rewardStatus: {
         isEligible: true,
         isReady: true,
         isClaimed: true,
-        eligiblePacks: Number(eligiblePackCount || 0),
+        eligiblePacks: acknowledgement.eligible_packs,
         targetPacks: 50,
         setId: set.id,
-        claimedAt,
+        claimedAt: acknowledgement.reward_claimed_at,
       },
     });
   } catch (error) {

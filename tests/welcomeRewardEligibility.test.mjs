@@ -8,6 +8,10 @@ const claimSourceUrl = new URL(
   import.meta.url
 );
 const mobileAppUrl = new URL("../mobile-app/src/App.jsx", import.meta.url);
+const atomicClaimMigrationUrl = new URL(
+  "../supabase/migrations/20260802223000_atomic_welcome_reward_claim.sql",
+  import.meta.url
+);
 
 test("guest reward status is ineligible without making account data available", async () => {
   assert.deepEqual(await loadWelcomeRewardStatus(null), {
@@ -19,43 +23,55 @@ test("guest reward status is ineligible without making account data available", 
 });
 
 test("welcome reward eligibility is counted and enforced by the authenticated server", async () => {
-  const source = await readFile(claimSourceUrl, "utf8");
+  const [source, migration] = await Promise.all([
+    readFile(claimSourceUrl, "utf8"),
+    readFile(atomicClaimMigrationUrl, "utf8"),
+  ]);
 
   assert.match(source, /getAuthenticatedUser\(req\)/);
-  assert.match(source, /\.from\("user_pack_open_events"\)/);
-  assert.match(source, /\.eq\("user_id", user\.id\)/);
-  assert.match(source, /\.not\("client_event_id", "like", "welcome-god-pack:%"\)/);
-  assert.match(source, /Number\(eligiblePackCount \|\| 0\) < 50/);
+  assert.match(source, /admin\.rpc\("claim_welcome_god_pack_v1"/);
+  assert.match(source, /p_user_id: user\.id/);
+  assert.match(migration, /from public\.user_pack_open_events as eligible_event/);
+  assert.match(migration, /eligible_event\.client_event_id not like 'welcome-god-pack:%'/);
+  assert.match(migration, /if v_eligible_packs < 50 then/);
   assert.match(source, /Open 50 eligible packs before claiming this reward/);
   assert.match(source, /WELCOME_REWARD_SET_IDS\.has\(setId\)/);
 });
 
 test("49 remains locked, 50 is the first ready count, and duplicate claim events are idempotent", async () => {
-  const [claimSource, rewardSource] = await Promise.all([
+  const [claimSource, rewardSource, migration] = await Promise.all([
     readFile(claimSourceUrl, "utf8"),
     readFile(new URL("../src/lib/welcomeReward.js", import.meta.url), "utf8"),
+    readFile(atomicClaimMigrationUrl, "utf8"),
   ]);
 
-  assert.match(claimSource, /eligiblePackCount \|\| 0\) < 50/);
+  assert.match(migration, /if v_eligible_packs < 50 then/);
   assert.match(rewardSource, /isReady: eligiblePacks >= 50/);
   assert.match(rewardSource, /\.from\("user_pack_open_events"\)/);
   assert.match(rewardSource, /\.not\("client_event_id", "like", "welcome-god-pack:%"\)/);
-  assert.match(claimSource, /client_event_id: `welcome-god-pack:\$\{claimId\}`/);
-  assert.match(claimSource, /error\.code !== "23505"/);
-  assert.match(claimSource, /welcome_reward_cards_saved_at/);
+  assert.match(claimSource, /const eventId = `welcome-god-pack:\$\{claimId\}`/);
+  assert.match(migration, /'already_claimed'::text/);
+  assert.match(migration, /already_processed boolean/);
+  assert.match(migration, /v_existing_claimed and v_existing_saved_at is not null/);
 });
 
-test("claim state is won conditionally before collection grant and supports safe retry", async () => {
-  const source = await readFile(claimSourceUrl, "utf8");
-  const claimPosition = source.indexOf('debugStep = "claim_reward"');
-  const collectionPosition = source.indexOf('debugStep = "save_collection"');
+test("claim uses one strict atomic acknowledgement and never retries ambiguous legacy state", async () => {
+  const [source, migration] = await Promise.all([
+    readFile(claimSourceUrl, "utf8"),
+    readFile(atomicClaimMigrationUrl, "utf8"),
+  ]);
 
-  assert.ok(claimPosition > 0 && claimPosition < collectionPosition);
-  assert.match(source, /\.eq\("welcome_god_pack_claimed", false\)/);
-  assert.match(source, /welcome_reward_claim_id: claimId/);
-  assert.match(source, /welcome_reward_cards: responseCards/);
-  assert.match(source, /retry_save_claimed_reward/);
-  assert.match(source, /recordWelcomePackOpenEvent\(admin, user\.id, retrySet\.id, retryClaimId/);
+  assert.match(source, /parseClaimAcknowledgement\(data\)/);
+  assert.match(source, /acknowledgement\.recorded !== true/);
+  assert.match(source, /acknowledgement\.already_processed !== false/);
+  assert.match(source, /acknowledgement\.client_event_id !== eventId/);
+  assert.match(source, /acknowledgement\.reward_claim_id !== claimId/);
+  assert.match(source, /acknowledgement\.reward_set_id !== set\.id/);
+  assert.match(source, /acknowledgement\.status === "legacy_pending_review"/);
+  assert.match(migration, /'legacy_pending_review'::text/);
+  assert.doesNotMatch(source, /\.from\("user_collection"\)/);
+  assert.doesNotMatch(source, /\.from\("user_profile_stats"\)/);
+  assert.doesNotMatch(source, /\.from\("user_pack_open_events"\)/);
 });
 
 test("mobile Profile hides claimed rewards and only exposes Claim at the ready state", async () => {
