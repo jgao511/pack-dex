@@ -2,6 +2,11 @@ import { hardcodedPullRates } from "../data/hardcodedPullRates.js";
 import { defaultPullRateProfile, pullRateProfiles } from "../data/pullRateProfiles.js";
 import { THIRTIETH_ANNIVERSARY_PACK_CONFIG } from "../data/special-sets/30th-anniversary/30thAnniversaryRates.js";
 import { getVintagePackRule, isVintageSet } from "../data/vintagePackRules.js";
+import {
+  isEnergyCard,
+  isGenericBonusEnergyCard,
+  isNumberedSetEnergyCard,
+} from "./energyCardPolicy.js";
 
 const PACK_SLOTS = {
   commons: 4,
@@ -859,47 +864,11 @@ function isCodeCard(card) {
   return normalizeText(card.name).includes("code card");
 }
 
-const BASIC_ENERGY_NAMES = new Set([
-  "grass energy",
-  "fire energy",
-  "water energy",
-  "lightning energy",
-  "psychic energy",
-  "fighting energy",
-  "darkness energy",
-  "metal energy",
-  "fairy energy",
-  "basic grass energy",
-  "basic fire energy",
-  "basic water energy",
-  "basic lightning energy",
-  "basic psychic energy",
-  "basic fighting energy",
-  "basic darkness energy",
-  "basic metal energy",
-  "basic fairy energy",
-]);
-
 export function isActualEnergyCard(card) {
-  const supertype = normalizeText(card.supertype);
-  const category = normalizeText(card.category);
-  const cardType = normalizeText(card.cardType);
-  const type = normalizeText(card.type);
-  const types = Array.isArray(card.types) ? card.types.map((value) => normalizeText(value)) : [];
-  const name = normalizeText(card.name);
-  const rarity = normalizeRarity(card.rarity);
-
-  return (
-    supertype === "energy" ||
-    category === "energy" ||
-    cardType === "energy" ||
-    type === "energy" ||
-    types.includes("energy") ||
-    rarity === "basic energy" ||
-    rarity === "energy" ||
-    BASIC_ENERGY_NAMES.has(name)
-  );
+  return isEnergyCard(card);
 }
+
+export { isNumberedSetEnergyCard };
 
 function normalizeCategoryForSet(category, set = {}) {
   if (category === "megaHyperRare" && !isMegaSet(set)) return "secretRare";
@@ -1799,7 +1768,7 @@ function pickSubsetFromBucket(pool, bucket, set, usedIds = new Set()) {
 function buildPools(cards, set = {}) {
   const cleanCards = cards
     .filter((card) => !isCodeCard(card))
-    .filter((card) => !isActualEnergyCard(card))
+    .filter((card) => !isGenericBonusEnergyCard(card, set))
     .map((card) => ({
       ...card,
       rarityCategory: getRarityCategory(card, set),
@@ -2142,10 +2111,10 @@ function drawReplacementNonEnergyCard(card, pools, set, blockedIds) {
 }
 
 function removeEnergyFromPack(pack, pools, set) {
-  const blockedIds = new Set(pack.filter((card) => !isActualEnergyCard(card)).map((card) => card.id));
+  const blockedIds = new Set(pack.filter((card) => !isGenericBonusEnergyCard(card, set)).map((card) => card.id));
 
   return pack.map((card) => {
-    if (!isActualEnergyCard(card)) return card;
+    if (!isGenericBonusEnergyCard(card, set)) return card;
 
     const replacement = drawReplacementNonEnergyCard(card, pools, set, blockedIds);
 

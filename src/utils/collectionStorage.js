@@ -1,4 +1,5 @@
-import { isActualEnergyCard } from "./packGenerator.js";
+import { sets } from "../data/sets.js";
+import { isCollectibleSetCard } from "./energyCardPolicy.js";
 
 export const COLLECTION_STORAGE_KEY = "pokemon-pack-simulator-collection";
 
@@ -47,6 +48,9 @@ export function saveCollection(collection, storage = getDefaultStorage()) {
 }
 
 export function markCardCollected(collection, card, setId, timestamp = Date.now()) {
+  const set = sets.find((candidate) => candidate.id === setId) || { id: setId };
+  if (!isCollectibleSetCard(card, set)) return collection;
+
   const key = getCardCollectionKey(card, setId);
   const setCollection = collection[setId] || {};
   const existing = setCollection[key];
@@ -86,7 +90,7 @@ export function getCardCount(collection, card, setId) {
 }
 
 export function getPullableCollectionCards(set) {
-  return (set?.cards || []).filter((card) => !isCodeCard(card) && !isActualEnergyCard(card));
+  return (set?.cards || []).filter((card) => !isCodeCard(card) && isCollectibleSetCard(card, set));
 }
 
 export function getSetCollectionProgress(collection, set) {

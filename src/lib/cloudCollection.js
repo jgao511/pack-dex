@@ -1,6 +1,7 @@
 import { supabase } from "./supabaseClient.js";
 import { getCardCollectionKey, markCardsCollected } from "../utils/collectionStorage.js";
 import { sets } from "../data/sets.js";
+import { isCollectibleSetCard } from "../utils/energyCardPolicy.js";
 import { getCachedSupabaseUser } from "./sessionUserCache.js";
 import {
   ATOMIC_PACK_SUBMISSION_VERSION,
@@ -153,9 +154,13 @@ function compactCardRow(card, setId, quantity = 1) {
 
 export function enqueuePendingCloudPull(cards, setId, userId, clientEventId = "", { storage = getDefaultStorage() } = {}) {
   const validSetId = assertValidSetId(setId, "pending cloud pull queue");
+  const set = findSet(validSetId);
+  const collectibleCards = Array.isArray(cards)
+    ? cards.filter((card) => isCollectibleSetCard(card, set || { id: validSetId }))
+    : [];
   const eventId = typeof clientEventId === "string" ? clientEventId.trim() : "";
 
-  if (!userId || !Array.isArray(cards) || cards.length === 0) {
+  if (!userId || collectibleCards.length === 0) {
     return [];
   }
   if (!eventId) throw new PackSubmissionValidationError(
@@ -167,7 +172,7 @@ export function enqueuePendingCloudPull(cards, setId, userId, clientEventId = ""
     id: eventId,
     userId: String(userId),
     setId: validSetId,
-    cards: cards.map(compactPendingCard),
+    cards: collectibleCards.map(compactPendingCard),
     createdAt: Date.now(),
     attempts: 0,
     nextRetryAt: null,
@@ -262,12 +267,20 @@ function makeCollectionBatch(cards, setId, clientEventId) {
     throw new PackSubmissionValidationError(`Unknown PackDex set id: ${validSetId}`, "unknown_set");
   }
 
+  const collectibleCards = cards.filter((card) => isCollectibleSetCard(card, set));
+  if (collectibleCards.length === 0) {
+    throw new PackSubmissionValidationError(
+      "PackDex cloud pull save did not contain collectible set cards.",
+      "empty_completed_pack"
+    );
+  }
+
   if (!clientEventId || typeof clientEventId !== "string") {
     throw new PackSubmissionValidationError("PackDex cloud pull save requires a stable client event id.");
   }
   const grouped = new Map();
 
-  for (const card of cards) {
+  for (const card of collectibleCards) {
     const row = compactCardRow(card, validSetId, 1);
     const existing = grouped.get(row.card_id);
 

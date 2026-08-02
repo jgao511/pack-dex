@@ -1,6 +1,7 @@
 import { supabase } from "./supabaseClient.js";
 import { getCardCollectionKey, markCardsCollected } from "../../../src/utils/collectionStorage.js";
 import { sets } from "../../../src/data/sets.js";
+import { isCollectibleSetCard } from "../../../src/utils/energyCardPolicy.js";
 import { countDevRequest } from "../utils/requestDiagnostics.js";
 import { getCachedSupabaseUser } from "../../../src/lib/sessionUserCache.js";
 import {
@@ -188,10 +189,14 @@ export function enqueuePendingCloudPull(
   } = {}
 ) {
   const validSetId = assertValidSetId(setId, "pending cloud pull queue");
+  const set = findSet(validSetId);
+  const collectibleCards = Array.isArray(cards)
+    ? cards.filter((card) => isCollectibleSetCard(card, set || { id: validSetId }))
+    : [];
   const normalizedUserId = String(userId || "");
   const eventId = assertStableClientEventId(clientEventId);
 
-  if (!normalizedUserId || !Array.isArray(cards) || cards.length === 0) {
+  if (!normalizedUserId || collectibleCards.length === 0) {
     return [];
   }
 
@@ -199,7 +204,7 @@ export function enqueuePendingCloudPull(
     id: eventId,
     userId: normalizedUserId,
     setId: validSetId,
-    cards: cards.map(compactPendingCard),
+    cards: collectibleCards.map(compactPendingCard),
     createdAt,
     expectedPacksOpened:
       expectedPacksOpened !== null && expectedPacksOpened !== "" && Number.isFinite(Number(expectedPacksOpened))
@@ -265,10 +270,18 @@ function makeCollectionBatch(cards, setId, clientEventId) {
     throw new PackSubmissionValidationError(`Unknown PackDex set id: ${validSetId}`, "unknown_set");
   }
 
+  const collectibleCards = cards.filter((card) => isCollectibleSetCard(card, set));
+  if (collectibleCards.length === 0) {
+    throw new PackSubmissionValidationError(
+      "PackDex cloud pull save did not contain collectible set cards.",
+      "empty_completed_pack"
+    );
+  }
+
   const eventId = assertStableClientEventId(clientEventId);
   const grouped = new Map();
 
-  for (const card of cards) {
+  for (const card of collectibleCards) {
     const row = compactCardRow(card, validSetId, 1);
     const existing = grouped.get(row.card_id);
 

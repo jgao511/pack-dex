@@ -313,7 +313,10 @@ export const sets = [
   createSet("xy12", xySetConfig.xy12.name, xy12Cards, xySetConfig.xy12),
 
   // Sun & Moon
-  createSet("sun-moon", "Sun & Moon", sunMoonCards),
+  createSet("sun-moon", "Sun & Moon", sunMoonCards, {
+    printedTotal: 149,
+    officialChecklistTotal: 163,
+  }),
   createSet("guardians-rising", "Guardians Rising", guardiansRisingCards),
   createSet("burning-shadows", "Burning Shadows", burningShadowsCards),
   createSet("shining-legends", "Shining Legends", shiningLegendsCards),
