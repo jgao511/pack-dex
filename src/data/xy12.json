@@ -295,7 +295,7 @@
   },
   {
     "id": "xy12-43-nidoran",
-    "name": "Nidoran",
+    "name": "Nidoran ♂",
     "rarity": "Common",
     "number": "43",
     "image": "/assets/sets/xy12/cards/43_Nidoran_Common_xy12-43.png"
@@ -470,7 +470,7 @@
   },
   {
     "id": "xy12-68-farfetchd",
-    "name": "Farfetchd",
+    "name": "Farfetch'd",
     "rarity": "Rare",
     "number": "68",
     "image": "/assets/sets/xy12/cards/68_Farfetchd_Rare_xy12-68.png"
@@ -512,7 +512,7 @@
   },
   {
     "id": "xy12-74-brocks_grit",
-    "name": "Brocks Grit",
+    "name": "Brock's Grit",
     "rarity": "Uncommon",
     "number": "74",
     "image": "/assets/sets/xy12/cards/74_Brocks_Grit_Uncommon_xy12-74.png"
@@ -554,7 +554,7 @@
   },
   {
     "id": "xy12-80-mistys_determination",
-    "name": "Mistys Determination",
+    "name": "Misty's Determination",
     "rarity": "Uncommon",
     "number": "80",
     "image": "/assets/sets/xy12/cards/80_Mistys_Determination_Uncommon_xy12-80.png"
@@ -582,7 +582,7 @@
   },
   {
     "id": "xy12-84-professor_oaks_hint",
-    "name": "Professor Oaks Hint",
+    "name": "Professor Oak's Hint",
     "rarity": "Uncommon",
     "number": "84",
     "image": "/assets/sets/xy12/cards/84_Professor_Oaks_Hint_Uncommon_xy12-84.png"
@@ -743,21 +743,21 @@
   },
   {
     "id": "xy12-107-brocks_grit",
-    "name": "Brocks Grit",
+    "name": "Brock's Grit",
     "rarity": "Rare Ultra",
     "number": "107",
     "image": "/assets/sets/xy12/cards/107_Brocks_Grit_Rare_Ultra_xy12-107.png"
   },
   {
     "id": "xy12-108-mistys_determination",
-    "name": "Mistys Determination",
+    "name": "Misty's Determination",
     "rarity": "Rare Ultra",
     "number": "108",
     "image": "/assets/sets/xy12/cards/108_Mistys_Determination_Rare_Ultra_xy12-108.png"
   },
   {
     "id": "xy12-109-exeggutor",
-    "name": "ナッシーExeggutor",
+    "name": "ナッシー[Exeggutor]",
     "rarity": "Rare Secret",
     "number": "109",
     "image": "/assets/sets/xy12/cards/109_ナッシーExeggutor_Rare_Secret_xy12-109.png"
@@ -778,14 +778,14 @@
   },
   {
     "id": "xy12-112-imakunis_doduo",
-    "name": "Imakunis Doduo",
+    "name": "Imakuni?'s Doduo",
     "rarity": "Rare Secret",
     "number": "112",
     "image": "/assets/sets/xy12/cards/112_Imakunis_Doduo_Rare_Secret_xy12-112.png"
   },
   {
     "id": "xy12-113-here_comes_team_rocket",
-    "name": "Here Comes Team Rocket",
+    "name": "Here Comes Team Rocket!",
     "rarity": "Rare Secret",
     "number": "113",
     "image": "/assets/sets/xy12/cards/113_Here_Comes_Team_Rocket_Rare_Secret_xy12-113.png"

@@ -1058,7 +1058,7 @@
   },
   {
     "id": "twilight-masquerade-152-hyper-aroma-ace-spec",
-    "name": "Hyper Aroma ACE SPEC",
+    "name": "Hyper Aroma",
     "rarity": "Rare",
     "number": "152",
     "image": "/assets/sets/twilight-masquerade/cards/152_Hyper_Aroma_ACE_SPEC_Rare.png"
@@ -1128,28 +1128,28 @@
   },
   {
     "id": "twilight-masquerade-162-scoop-up-cyclone-ace-spec",
-    "name": "Scoop Up Cyclone ACE SPEC",
+    "name": "Scoop Up Cyclone",
     "rarity": "Rare",
     "number": "162",
     "image": "/assets/sets/twilight-masquerade/cards/162_Scoop_Up_Cyclone_ACE_SPEC_Rare.png"
   },
   {
     "id": "twilight-masquerade-163-secret-box-ace-spec",
-    "name": "Secret Box ACE SPEC",
+    "name": "Secret Box",
     "rarity": "Rare",
     "number": "163",
     "image": "/assets/sets/twilight-masquerade/cards/163_Secret_Box_ACE_SPEC_Rare.png"
   },
   {
     "id": "twilight-masquerade-164-survival-brace-ace-spec",
-    "name": "Survival Brace ACE SPEC",
+    "name": "Survival Brace",
     "rarity": "Rare",
     "number": "164",
     "image": "/assets/sets/twilight-masquerade/cards/164_Survival_Brace_ACE_SPEC_Rare.png"
   },
   {
     "id": "twilight-masquerade-165-unfair-stamp-ace-spec",
-    "name": "Unfair Stamp ACE SPEC",
+    "name": "Unfair Stamp",
     "rarity": "Rare",
     "number": "165",
     "image": "/assets/sets/twilight-masquerade/cards/165_Unfair_Stamp_ACE_SPEC_Rare.png"
@@ -1163,7 +1163,7 @@
   },
   {
     "id": "twilight-masquerade-167-legacy-energy-ace-spec",
-    "name": "Legacy Energy ACE SPEC",
+    "name": "Legacy Energy",
     "rarity": "Rare",
     "number": "167",
     "image": "/assets/sets/twilight-masquerade/cards/167_Legacy_Energy_ACE_SPEC_Rare.png"
@@ -1541,43 +1541,43 @@
   },
   {
     "id": "twilight-masquerade-221-teal-mask-ogerpon-ex-hyper",
-    "name": "Teal Mask Ogerpon ex Hyper",
+    "name": "Teal Mask Ogerpon ex",
     "rarity": "Rare",
     "number": "221",
     "image": "/assets/sets/twilight-masquerade/cards/221_Teal_Mask_Ogerpon_ex_Hyper_Rare.png"
   },
   {
     "id": "twilight-masquerade-222-bloodmoon-ursaluna-ex-hyper",
-    "name": "Bloodmoon Ursaluna ex Hyper",
+    "name": "Bloodmoon Ursaluna ex",
     "rarity": "Rare",
     "number": "222",
     "image": "/assets/sets/twilight-masquerade/cards/222_Bloodmoon_Ursaluna_ex_Hyper_Rare.png"
   },
   {
     "id": "twilight-masquerade-223-buddy-buddy-poffin-hyper",
-    "name": "Buddy-Buddy Poffin Hyper",
+    "name": "Buddy-Buddy Poffin",
     "rarity": "Rare",
     "number": "223",
     "image": "/assets/sets/twilight-masquerade/cards/223_Buddy-Buddy_Poffin_Hyper_Rare.png"
   },
   {
     "id": "twilight-masquerade-224-enhanced-hammer-hyper",
-    "name": "Enhanced Hammer Hyper",
+    "name": "Enhanced Hammer",
     "rarity": "Rare",
     "number": "224",
     "image": "/assets/sets/twilight-masquerade/cards/224_Enhanced_Hammer_Hyper_Rare.png"
   },
   {
     "id": "twilight-masquerade-225-rescue-board-hyper",
-    "name": "Rescue Board Hyper",
+    "name": "Rescue Board",
     "rarity": "Rare",
     "number": "225",
     "image": "/assets/sets/twilight-masquerade/cards/225_Rescue_Board_Hyper_Rare.png"
   },
   {
     "id": "twilight-masquerade-226-luminous-energy-hyper",
-    "name": "Luminous Energy Hyper",
-    "rarity": "Rare",
+    "name": "Luminous Energy",
+    "rarity": "Hyper Rare",
     "number": "226",
     "image": "/assets/sets/twilight-masquerade/cards/226_Luminous_Energy_Hyper_Rare.png"
   }

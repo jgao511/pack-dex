@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { activeSets, sets } from "../../data/sets.js";
+import { activeSets, getSetCardById, sets } from "../../data/sets.js";
 import { getCardImageUrl, getSetLogoUrl } from "../../utils/assetUrls.js";
 import { addCardsToBinder } from "../../utils/binderStorage.js";
 import { getCardCount, getPullableCollectionCards, getSetCollectionProgress } from "../../utils/collectionStorage.js";
@@ -80,11 +80,8 @@ export function getBinderSlots(binder) {
         .sort((left, right) => left.order - right.order)
         .map((item) => {
           const itemSet = sets.find((candidate) => candidate.id === item.setId);
-          const card = itemSet?.cards?.find(
-            (candidate) =>
-              String(candidate.id) === String(item.cardId) ||
-              String(candidate.number) === String(item.cardNumber)
-          );
+          const card = getSetCardById(itemSet, item.cardId, { includeLegacy: true }) ||
+            itemSet?.cards?.find((candidate) => String(candidate.number) === String(item.cardNumber));
 
           return { set: itemSet, card, binderCard: item };
         })

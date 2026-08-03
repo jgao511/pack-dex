@@ -113,7 +113,7 @@
   },
   {
     "id": "shining-fates-17-reshiram-amazing",
-    "name": "Reshiram Amazing",
+    "name": "Reshiram",
     "rarity": "Amazing Rare",
     "number": "17",
     "image": "/assets/sets/shining-fates/cards/17_Reshiram_Amazing_Rare.png",
@@ -142,7 +142,7 @@
   },
   {
     "id": "shining-fates-21-kyogre-amazing",
-    "name": "Kyogre Amazing",
+    "name": "Kyogre",
     "rarity": "Amazing Rare",
     "number": "21",
     "image": "/assets/sets/shining-fates/cards/21_Kyogre_Amazing_Rare.png",
@@ -318,7 +318,7 @@
   },
   {
     "id": "shining-fates-46-yveltal-amazing",
-    "name": "Yveltal Amazing",
+    "name": "Yveltal",
     "rarity": "Amazing Rare",
     "number": "46",
     "image": "/assets/sets/shining-fates/cards/46_Yveltal_Amazing_Rare.png",

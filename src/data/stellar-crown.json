@@ -932,7 +932,7 @@
   },
   {
     "id": "stellar-crown-134-deluxe-bomb-ace-spec",
-    "name": "Deluxe Bomb ACE SPEC",
+    "name": "Deluxe Bomb",
     "rarity": "Rare",
     "number": "134",
     "image": "/assets/sets/stellar-crown/cards/134_Deluxe_Bomb_ACE_SPEC_Rare.png"
@@ -946,7 +946,7 @@
   },
   {
     "id": "stellar-crown-136-grand-tree-ace-spec",
-    "name": "Grand Tree ACE SPEC",
+    "name": "Grand Tree",
     "rarity": "Rare",
     "number": "136",
     "image": "/assets/sets/stellar-crown/cards/136_Grand_Tree_ACE_SPEC_Rare.png"
@@ -988,7 +988,7 @@
   },
   {
     "id": "stellar-crown-142-sparkling-crystal-ace-spec",
-    "name": "Sparkling Crystal ACE SPEC",
+    "name": "Sparkling Crystal",
     "rarity": "Rare",
     "number": "142",
     "image": "/assets/sets/stellar-crown/cards/142_Sparkling_Crystal_ACE_SPEC_Rare.png"
@@ -1205,21 +1205,21 @@
   },
   {
     "id": "stellar-crown-173-terapagos-ex-hyper",
-    "name": "Terapagos ex Hyper",
+    "name": "Terapagos ex",
     "rarity": "Rare",
     "number": "173",
     "image": "/assets/sets/stellar-crown/cards/173_Terapagos_ex_Hyper_Rare.png"
   },
   {
     "id": "stellar-crown-174-area-zero-underdepths-hyper",
-    "name": "Area Zero Underdepths Hyper",
+    "name": "Area Zero Underdepths",
     "rarity": "Rare",
     "number": "174",
     "image": "/assets/sets/stellar-crown/cards/174_Area_Zero_Underdepths_Hyper_Rare.png"
   },
   {
     "id": "stellar-crown-175-bravery-charm-hyper",
-    "name": "Bravery Charm Hyper",
+    "name": "Bravery Charm",
     "rarity": "Rare",
     "number": "175",
     "image": "/assets/sets/stellar-crown/cards/175_Bravery_Charm_Hyper_Rare.png"

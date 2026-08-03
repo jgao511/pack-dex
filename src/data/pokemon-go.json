@@ -22,7 +22,7 @@
   },
   {
     "id": "pokemon-go-4-radiant-venusaur-radiant",
-    "name": "Radiant Venusaur Radiant",
+    "name": "Radiant Venusaur",
     "rarity": "Radiant Rare",
     "number": "4",
     "image": "/assets/sets/pokemon-go/cards/4_Radiant_Venusaur_Radiant_Rare.png",
@@ -72,7 +72,7 @@
   },
   {
     "id": "pokemon-go-11-radiant-charizard-radiant",
-    "name": "Radiant Charizard Radiant",
+    "name": "Radiant Charizard",
     "rarity": "Radiant Rare",
     "number": "11",
     "image": "/assets/sets/pokemon-go/cards/11_Radiant_Charizard_Radiant_Rare.png",
@@ -122,7 +122,7 @@
   },
   {
     "id": "pokemon-go-18-radiant-blastoise-radiant",
-    "name": "Radiant Blastoise Radiant",
+    "name": "Radiant Blastoise",
     "rarity": "Radiant Rare",
     "number": "18",
     "image": "/assets/sets/pokemon-go/cards/18_Radiant_Blastoise_Radiant_Rare.png",

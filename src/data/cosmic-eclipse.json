@@ -1282,7 +1282,7 @@
   },
   {
     "id": "cosmic-eclipse-183-type-null",
-    "name": "Type Null",
+    "name": "Type: Null",
     "rarity": "Uncommon",
     "number": "183",
     "image": "/assets/sets/cosmic-eclipse/cards/183_Type_Null_Uncommon.png"
@@ -1331,7 +1331,7 @@
   },
   {
     "id": "cosmic-eclipse-190-dragonium-z-dragon-claw",
-    "name": "Dragonium Z Dragon Claw",
+    "name": "Dragonium Z: Dragon Claw",
     "rarity": "Uncommon",
     "number": "190",
     "image": "/assets/sets/cosmic-eclipse/cards/190_Dragonium_Z_Dragon_Claw_Uncommon.png"

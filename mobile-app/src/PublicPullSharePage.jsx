@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { sets } from "../../src/data/sets.js";
+import { getSetCardById, sets } from "../../src/data/sets.js";
 import { getCardImageUrl } from "../../src/utils/assetUrls.js";
 import { getPublicPullShare } from "../../src/lib/publicPullShares.js";
 import { selectFeaturedPull } from "../../src/utils/rarityRank.js";
@@ -27,8 +27,7 @@ export default function PublicPullSharePage({ shareCode }) {
         const set = sets.find((candidate) => candidate.id === data?.set_id || candidate.id === data?.setId);
         const cardIds = data?.card_ids || data?.cardIds || [];
         if (!data || !set) throw new Error("Share not found.");
-        const cardMap = new Map((set.cards || []).map((card) => [String(card.id), card]));
-        const cards = cardIds.map((id) => cardMap.get(String(id)));
+        const cards = cardIds.map((id) => getSetCardById(set, id, { includeLegacy: true }));
         if (cards.some((card) => !card)) throw new Error("Share not found.");
         if (active) setState({ status: "loaded", share: { ...data, setName: set.name, cards } });
       } catch {

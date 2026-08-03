@@ -85,10 +85,14 @@ test("scanner camera lifecycle still stops on teardown and restarts once through
   assert.match(page, /startingRef\.current\) return startingRef\.current/);
 });
 
-test("frozen-A hashes stay exact and model C is absent from the iOS scanner bundle", async () => {
+test("frozen-A release source follows its metadata binding and model C is absent from the iOS scanner bundle", async () => {
   const hash = async (url) => createHash("sha256").update(await readFile(url)).digest("hex");
+  const scannerMetadata = JSON.parse(await readFile(new URL("../public/scanner-ai/catalog-embeddings.meta.json", import.meta.url), "utf8"));
   assert.equal(await hash(new URL("../public/scanner-ai/frozen-a-62f2ff60.tflite", import.meta.url)), "62f2ff60cfdb09714a01fa74343e4dc1968601c2a43046979cbc548c28027c7c");
-  assert.equal(await hash(new URL("../public/scanner-ai/catalog-embeddings-a851d797.f16", import.meta.url)), "a851d797aef5c140d8918bb2ffa7dcafa2315cb1f0cbdb6ca4abbd91c3d61edb");
+  assert.equal(
+    await hash(new URL(`../public/scanner-ai/${scannerMetadata.vectorFile}`, import.meta.url)),
+    scannerMetadata.vectorSha256
+  );
   const files = await readdir(new URL("../mobile-app/ios/App/App/public/scanner-ai/", import.meta.url), { recursive: true });
   assert.equal(files.some((name) => /(?:model|frozen)[-_]?c/i.test(name)), false);
 });

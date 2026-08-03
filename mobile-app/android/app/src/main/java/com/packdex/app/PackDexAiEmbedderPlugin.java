@@ -66,15 +66,19 @@ public class PackDexAiEmbedderPlugin extends Plugin {
 
     private String indexVectorAssetPath() throws Exception {
         JSONObject metadata = new JSONObject(readAssetText(INDEX_METADATA_ASSET_PATH));
-        String vectorFile = metadata.optString("vectorFile", "catalog-embeddings-a851d797.f16");
-        if (vectorFile.contains("/") || vectorFile.contains("\\") || vectorFile.contains("..")) throw new IOException("Invalid scanner-AI vector filename.");
+        String vectorFile = metadata.optString("vectorFile", "");
+        if (vectorFile.isEmpty() || !vectorFile.endsWith(".f16") || vectorFile.contains("/") || vectorFile.contains("\\") || vectorFile.contains("..")) {
+            throw new IOException("Scanner-AI metadata is missing a valid vector filename.");
+        }
         return "public/scanner-ai/" + vectorFile;
     }
 
     private String catalogMetadataAssetPath() throws Exception {
         JSONObject metadata = new JSONObject(readAssetText(INDEX_METADATA_ASSET_PATH));
-        String metadataFile = metadata.optString("metadataFile", "catalog-metadata.json");
-        if (metadataFile.contains("/") || metadataFile.contains("\\") || metadataFile.contains("..")) throw new IOException("Invalid scanner-AI catalog metadata filename.");
+        String metadataFile = metadata.optString("metadataFile", "");
+        if (metadataFile.isEmpty() || !metadataFile.endsWith(".json") || metadataFile.contains("/") || metadataFile.contains("\\") || metadataFile.contains("..")) {
+            throw new IOException("Scanner-AI metadata is missing a valid catalog filename.");
+        }
         return "public/scanner-ai/" + metadataFile;
     }
 

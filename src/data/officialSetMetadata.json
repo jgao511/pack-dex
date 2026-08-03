@@ -1,0 +1,1042 @@
+{
+  "151": {
+    "sourceSetId": "sv3pt5",
+    "allowedSourceSetIds": [
+      "sv3pt5"
+    ],
+    "printedTotal": 165,
+    "sourceCardCount": 207
+  },
+  "base-set": {
+    "sourceSetId": "base1",
+    "allowedSourceSetIds": [
+      "base1"
+    ],
+    "printedTotal": 102,
+    "sourceCardCount": 102
+  },
+  "jungle": {
+    "sourceSetId": "base2",
+    "allowedSourceSetIds": [
+      "base2"
+    ],
+    "printedTotal": 64,
+    "sourceCardCount": 64
+  },
+  "fossil": {
+    "sourceSetId": "base3",
+    "allowedSourceSetIds": [
+      "base3"
+    ],
+    "printedTotal": 62,
+    "sourceCardCount": 62
+  },
+  "base-set-2": {
+    "sourceSetId": "base4",
+    "allowedSourceSetIds": [
+      "base4"
+    ],
+    "printedTotal": 130,
+    "sourceCardCount": 130
+  },
+  "team-rocket": {
+    "sourceSetId": "base5",
+    "allowedSourceSetIds": [
+      "base5"
+    ],
+    "printedTotal": 82,
+    "sourceCardCount": 83
+  },
+  "gym-heroes": {
+    "sourceSetId": "gym1",
+    "allowedSourceSetIds": [
+      "gym1"
+    ],
+    "printedTotal": 132,
+    "sourceCardCount": 132
+  },
+  "gym-challenge": {
+    "sourceSetId": "gym2",
+    "allowedSourceSetIds": [
+      "gym2"
+    ],
+    "printedTotal": 132,
+    "sourceCardCount": 132
+  },
+  "neo-genesis": {
+    "sourceSetId": "neo1",
+    "allowedSourceSetIds": [
+      "neo1"
+    ],
+    "printedTotal": 111,
+    "sourceCardCount": 111
+  },
+  "neo-discovery": {
+    "sourceSetId": "neo2",
+    "allowedSourceSetIds": [
+      "neo2"
+    ],
+    "printedTotal": 75,
+    "sourceCardCount": 75
+  },
+  "neo-revelation": {
+    "sourceSetId": "neo3",
+    "allowedSourceSetIds": [
+      "neo3"
+    ],
+    "printedTotal": 64,
+    "sourceCardCount": 66
+  },
+  "neo-destiny": {
+    "sourceSetId": "neo4",
+    "allowedSourceSetIds": [
+      "neo4"
+    ],
+    "printedTotal": 105,
+    "sourceCardCount": 113
+  },
+  "legendary-collection": {
+    "sourceSetId": "base6",
+    "allowedSourceSetIds": [
+      "base6"
+    ],
+    "printedTotal": 110,
+    "sourceCardCount": 110
+  },
+  "expedition-base-set": {
+    "sourceSetId": "ecard1",
+    "allowedSourceSetIds": [
+      "ecard1"
+    ],
+    "printedTotal": 165,
+    "sourceCardCount": 165
+  },
+  "aquapolis": {
+    "sourceSetId": "ecard2",
+    "allowedSourceSetIds": [
+      "ecard2"
+    ],
+    "printedTotal": 147,
+    "sourceCardCount": 182
+  },
+  "skyridge": {
+    "sourceSetId": "ecard3",
+    "allowedSourceSetIds": [
+      "ecard3"
+    ],
+    "printedTotal": 144,
+    "sourceCardCount": 182
+  },
+  "ex-ruby-sapphire": {
+    "sourceSetId": "ex1",
+    "allowedSourceSetIds": [
+      "ex1"
+    ],
+    "printedTotal": 109,
+    "sourceCardCount": 109
+  },
+  "ex-sandstorm": {
+    "sourceSetId": "ex2",
+    "allowedSourceSetIds": [
+      "ex2"
+    ],
+    "printedTotal": 100,
+    "sourceCardCount": 100
+  },
+  "ex-dragon": {
+    "sourceSetId": "ex3",
+    "allowedSourceSetIds": [
+      "ex3"
+    ],
+    "printedTotal": 97,
+    "sourceCardCount": 100
+  },
+  "ex-team-magma-vs-team-aqua": {
+    "sourceSetId": "ex4",
+    "allowedSourceSetIds": [
+      "ex4"
+    ],
+    "printedTotal": 95,
+    "sourceCardCount": 97
+  },
+  "ex-hidden-legends": {
+    "sourceSetId": "ex5",
+    "allowedSourceSetIds": [
+      "ex5"
+    ],
+    "printedTotal": 101,
+    "sourceCardCount": 102
+  },
+  "ex-firered-leafgreen": {
+    "sourceSetId": "ex6",
+    "allowedSourceSetIds": [
+      "ex6"
+    ],
+    "printedTotal": 112,
+    "sourceCardCount": 116
+  },
+  "ex-team-rocket-returns": {
+    "sourceSetId": "ex7",
+    "allowedSourceSetIds": [
+      "ex7"
+    ],
+    "printedTotal": 109,
+    "sourceCardCount": 111
+  },
+  "ex-deoxys": {
+    "sourceSetId": "ex8",
+    "allowedSourceSetIds": [
+      "ex8"
+    ],
+    "printedTotal": 107,
+    "sourceCardCount": 108
+  },
+  "ex-emerald": {
+    "sourceSetId": "ex9",
+    "allowedSourceSetIds": [
+      "ex9"
+    ],
+    "printedTotal": 106,
+    "sourceCardCount": 107
+  },
+  "ex-unseen-forces": {
+    "sourceSetId": "ex10",
+    "allowedSourceSetIds": [
+      "ex10"
+    ],
+    "printedTotal": 115,
+    "sourceCardCount": 145
+  },
+  "ex-delta-species": {
+    "sourceSetId": "ex11",
+    "allowedSourceSetIds": [
+      "ex11"
+    ],
+    "printedTotal": 113,
+    "sourceCardCount": 114
+  },
+  "ex-legend-maker": {
+    "sourceSetId": "ex12",
+    "allowedSourceSetIds": [
+      "ex12"
+    ],
+    "printedTotal": 92,
+    "sourceCardCount": 93
+  },
+  "ex-holon-phantoms": {
+    "sourceSetId": "ex13",
+    "allowedSourceSetIds": [
+      "ex13"
+    ],
+    "printedTotal": 110,
+    "sourceCardCount": 111
+  },
+  "ex-crystal-guardians": {
+    "sourceSetId": "ex14",
+    "allowedSourceSetIds": [
+      "ex14"
+    ],
+    "printedTotal": 100,
+    "sourceCardCount": 100
+  },
+  "ex-dragon-frontiers": {
+    "sourceSetId": "ex15",
+    "allowedSourceSetIds": [
+      "ex15"
+    ],
+    "printedTotal": 101,
+    "sourceCardCount": 101
+  },
+  "ex-power-keepers": {
+    "sourceSetId": "ex16",
+    "allowedSourceSetIds": [
+      "ex16"
+    ],
+    "printedTotal": 108,
+    "sourceCardCount": 108
+  },
+  "diamond-pearl": {
+    "sourceSetId": "dp1",
+    "allowedSourceSetIds": [
+      "dp1"
+    ],
+    "printedTotal": 130,
+    "sourceCardCount": 130
+  },
+  "diamond-pearl-mysterious-treasures": {
+    "sourceSetId": "dp2",
+    "allowedSourceSetIds": [
+      "dp2"
+    ],
+    "printedTotal": 123,
+    "sourceCardCount": 124
+  },
+  "diamond-pearl-secret-wonders": {
+    "sourceSetId": "dp3",
+    "allowedSourceSetIds": [
+      "dp3"
+    ],
+    "printedTotal": 132,
+    "sourceCardCount": 132
+  },
+  "diamond-pearl-great-encounters": {
+    "sourceSetId": "dp4",
+    "allowedSourceSetIds": [
+      "dp4"
+    ],
+    "printedTotal": 106,
+    "sourceCardCount": 106
+  },
+  "diamond-pearl-majestic-dawn": {
+    "sourceSetId": "dp5",
+    "allowedSourceSetIds": [
+      "dp5"
+    ],
+    "printedTotal": 100,
+    "sourceCardCount": 100
+  },
+  "diamond-pearl-legends-awakened": {
+    "sourceSetId": "dp6",
+    "allowedSourceSetIds": [
+      "dp6"
+    ],
+    "printedTotal": 146,
+    "sourceCardCount": 146
+  },
+  "diamond-pearl-stormfront": {
+    "sourceSetId": "dp7",
+    "allowedSourceSetIds": [
+      "dp7"
+    ],
+    "printedTotal": 100,
+    "sourceCardCount": 106
+  },
+  "platinum": {
+    "sourceSetId": "pl1",
+    "allowedSourceSetIds": [
+      "pl1"
+    ],
+    "printedTotal": 127,
+    "sourceCardCount": 133
+  },
+  "platinum-rising-rivals": {
+    "sourceSetId": "pl2",
+    "allowedSourceSetIds": [
+      "pl2"
+    ],
+    "printedTotal": 111,
+    "sourceCardCount": 120
+  },
+  "platinum-supreme-victors": {
+    "sourceSetId": "pl3",
+    "allowedSourceSetIds": [
+      "pl3"
+    ],
+    "printedTotal": 147,
+    "sourceCardCount": 153
+  },
+  "platinum-arceus": {
+    "sourceSetId": "pl4",
+    "allowedSourceSetIds": [
+      "pl4"
+    ],
+    "printedTotal": 99,
+    "sourceCardCount": 111
+  },
+  "heartgold-soulsilver": {
+    "sourceSetId": "hgss1",
+    "allowedSourceSetIds": [
+      "hgss1"
+    ],
+    "printedTotal": 123,
+    "sourceCardCount": 124
+  },
+  "hs-unleashed": {
+    "sourceSetId": "hgss2",
+    "allowedSourceSetIds": [
+      "hgss2"
+    ],
+    "printedTotal": 95,
+    "sourceCardCount": 96
+  },
+  "hs-undaunted": {
+    "sourceSetId": "hgss3",
+    "allowedSourceSetIds": [
+      "hgss3"
+    ],
+    "printedTotal": 90,
+    "sourceCardCount": 91
+  },
+  "hs-triumphant": {
+    "sourceSetId": "hgss4",
+    "allowedSourceSetIds": [
+      "hgss4"
+    ],
+    "printedTotal": 102,
+    "sourceCardCount": 103
+  },
+  "call-of-legends": {
+    "sourceSetId": "col1",
+    "allowedSourceSetIds": [
+      "col1"
+    ],
+    "printedTotal": 95,
+    "sourceCardCount": 106
+  },
+  "black-white": {
+    "sourceSetId": "bw1",
+    "allowedSourceSetIds": [
+      "bw1"
+    ],
+    "printedTotal": 114,
+    "sourceCardCount": 115
+  },
+  "black-white-emerging-powers": {
+    "sourceSetId": "bw2",
+    "allowedSourceSetIds": [
+      "bw2"
+    ],
+    "printedTotal": 98,
+    "sourceCardCount": 98
+  },
+  "black-white-noble-victories": {
+    "sourceSetId": "bw3",
+    "allowedSourceSetIds": [
+      "bw3"
+    ],
+    "printedTotal": 101,
+    "sourceCardCount": 102
+  },
+  "black-white-next-destinies": {
+    "sourceSetId": "bw4",
+    "allowedSourceSetIds": [
+      "bw4"
+    ],
+    "printedTotal": 99,
+    "sourceCardCount": 103
+  },
+  "black-white-dark-explorers": {
+    "sourceSetId": "bw5",
+    "allowedSourceSetIds": [
+      "bw5"
+    ],
+    "printedTotal": 108,
+    "sourceCardCount": 111
+  },
+  "black-white-dragons-exalted": {
+    "sourceSetId": "bw6",
+    "allowedSourceSetIds": [
+      "bw6"
+    ],
+    "printedTotal": 124,
+    "sourceCardCount": 128
+  },
+  "dragon-vault": {
+    "sourceSetId": "dv1",
+    "allowedSourceSetIds": [
+      "dv1"
+    ],
+    "printedTotal": 20,
+    "sourceCardCount": 21
+  },
+  "black-white-boundaries-crossed": {
+    "sourceSetId": "bw7",
+    "allowedSourceSetIds": [
+      "bw7"
+    ],
+    "printedTotal": 149,
+    "sourceCardCount": 153
+  },
+  "black-white-plasma-storm": {
+    "sourceSetId": "bw8",
+    "allowedSourceSetIds": [
+      "bw8"
+    ],
+    "printedTotal": 135,
+    "sourceCardCount": 138
+  },
+  "black-white-plasma-freeze": {
+    "sourceSetId": "bw9",
+    "allowedSourceSetIds": [
+      "bw9"
+    ],
+    "printedTotal": 116,
+    "sourceCardCount": 122
+  },
+  "black-white-plasma-blast": {
+    "sourceSetId": "bw10",
+    "allowedSourceSetIds": [
+      "bw10"
+    ],
+    "printedTotal": 101,
+    "sourceCardCount": 105
+  },
+  "black-white-legendary-treasures": {
+    "sourceSetId": "bw11",
+    "allowedSourceSetIds": [
+      "bw11"
+    ],
+    "printedTotal": 113,
+    "sourceCardCount": 140
+  },
+  "xy0": {
+    "sourceSetId": "xy0",
+    "allowedSourceSetIds": [
+      "xy0"
+    ],
+    "printedTotal": 39,
+    "sourceCardCount": 39
+  },
+  "xy1": {
+    "sourceSetId": "xy1",
+    "allowedSourceSetIds": [
+      "xy1"
+    ],
+    "printedTotal": 146,
+    "sourceCardCount": 146
+  },
+  "xy2": {
+    "sourceSetId": "xy2",
+    "allowedSourceSetIds": [
+      "xy2"
+    ],
+    "printedTotal": 106,
+    "sourceCardCount": 110
+  },
+  "xy3": {
+    "sourceSetId": "xy3",
+    "allowedSourceSetIds": [
+      "xy3"
+    ],
+    "printedTotal": 111,
+    "sourceCardCount": 114
+  },
+  "xy4": {
+    "sourceSetId": "xy4",
+    "allowedSourceSetIds": [
+      "xy4"
+    ],
+    "printedTotal": 119,
+    "sourceCardCount": 124
+  },
+  "xy5": {
+    "sourceSetId": "xy5",
+    "allowedSourceSetIds": [
+      "xy5"
+    ],
+    "printedTotal": 160,
+    "sourceCardCount": 164
+  },
+  "dc1": {
+    "sourceSetId": "dc1",
+    "allowedSourceSetIds": [
+      "dc1"
+    ],
+    "printedTotal": 34,
+    "sourceCardCount": 34
+  },
+  "xy6": {
+    "sourceSetId": "xy6",
+    "allowedSourceSetIds": [
+      "xy6"
+    ],
+    "printedTotal": 108,
+    "sourceCardCount": 112
+  },
+  "xy7": {
+    "sourceSetId": "xy7",
+    "allowedSourceSetIds": [
+      "xy7"
+    ],
+    "printedTotal": 98,
+    "sourceCardCount": 101
+  },
+  "xy8": {
+    "sourceSetId": "xy8",
+    "allowedSourceSetIds": [
+      "xy8"
+    ],
+    "printedTotal": 162,
+    "sourceCardCount": 165
+  },
+  "xy9": {
+    "sourceSetId": "xy9",
+    "allowedSourceSetIds": [
+      "xy9"
+    ],
+    "printedTotal": 122,
+    "sourceCardCount": 126
+  },
+  "g1": {
+    "sourceSetId": "g1",
+    "allowedSourceSetIds": [
+      "g1"
+    ],
+    "printedTotal": 83,
+    "sourceCardCount": 117
+  },
+  "xy10": {
+    "sourceSetId": "xy10",
+    "allowedSourceSetIds": [
+      "xy10"
+    ],
+    "printedTotal": 124,
+    "sourceCardCount": 129
+  },
+  "xy11": {
+    "sourceSetId": "xy11",
+    "allowedSourceSetIds": [
+      "xy11"
+    ],
+    "printedTotal": 114,
+    "sourceCardCount": 116
+  },
+  "xy12": {
+    "sourceSetId": "xy12",
+    "allowedSourceSetIds": [
+      "xy12"
+    ],
+    "printedTotal": 108,
+    "sourceCardCount": 113
+  },
+  "sun-moon": {
+    "sourceSetId": "sm1",
+    "allowedSourceSetIds": [
+      "sm1"
+    ],
+    "printedTotal": 149,
+    "sourceCardCount": 173
+  },
+  "guardians-rising": {
+    "sourceSetId": "sm2",
+    "allowedSourceSetIds": [
+      "sm2"
+    ],
+    "printedTotal": 145,
+    "sourceCardCount": 180
+  },
+  "burning-shadows": {
+    "sourceSetId": "sm3",
+    "allowedSourceSetIds": [
+      "sm3"
+    ],
+    "printedTotal": 147,
+    "sourceCardCount": 177
+  },
+  "shining-legends": {
+    "sourceSetId": "sm35",
+    "allowedSourceSetIds": [
+      "sm35"
+    ],
+    "printedTotal": 73,
+    "sourceCardCount": 81
+  },
+  "crimson-invasion": {
+    "sourceSetId": "sm4",
+    "allowedSourceSetIds": [
+      "sm4"
+    ],
+    "printedTotal": 111,
+    "sourceCardCount": 126
+  },
+  "ultra-prism": {
+    "sourceSetId": "sm5",
+    "allowedSourceSetIds": [
+      "sm5"
+    ],
+    "printedTotal": 156,
+    "sourceCardCount": 178
+  },
+  "forbidden-light": {
+    "sourceSetId": "sm6",
+    "allowedSourceSetIds": [
+      "sm6"
+    ],
+    "printedTotal": 131,
+    "sourceCardCount": 150
+  },
+  "celestial-storm": {
+    "sourceSetId": "sm7",
+    "allowedSourceSetIds": [
+      "sm7"
+    ],
+    "printedTotal": 168,
+    "sourceCardCount": 187
+  },
+  "dragon-majesty": {
+    "sourceSetId": "sm75",
+    "allowedSourceSetIds": [
+      "sm75"
+    ],
+    "printedTotal": 70,
+    "sourceCardCount": 80
+  },
+  "lost-thunder": {
+    "sourceSetId": "sm8",
+    "allowedSourceSetIds": [
+      "sm8"
+    ],
+    "printedTotal": 214,
+    "sourceCardCount": 240
+  },
+  "team-up": {
+    "sourceSetId": "sm9",
+    "allowedSourceSetIds": [
+      "sm9"
+    ],
+    "printedTotal": 181,
+    "sourceCardCount": 198
+  },
+  "detective-pikachu": {
+    "sourceSetId": "det1",
+    "allowedSourceSetIds": [
+      "det1"
+    ],
+    "printedTotal": 18,
+    "sourceCardCount": 18
+  },
+  "unbroken-bonds": {
+    "sourceSetId": "sm10",
+    "allowedSourceSetIds": [
+      "sm10"
+    ],
+    "printedTotal": 214,
+    "sourceCardCount": 238
+  },
+  "unified-minds": {
+    "sourceSetId": "sm11",
+    "allowedSourceSetIds": [
+      "sm11"
+    ],
+    "printedTotal": 236,
+    "sourceCardCount": 261
+  },
+  "hidden-fates": {
+    "sourceSetId": "sm115",
+    "allowedSourceSetIds": [
+      "sm115",
+      "sma"
+    ],
+    "printedTotal": 68,
+    "sourceCardCount": 163
+  },
+  "cosmic-eclipse": {
+    "sourceSetId": "sm12",
+    "allowedSourceSetIds": [
+      "sm12"
+    ],
+    "printedTotal": 236,
+    "sourceCardCount": 272
+  },
+  "sword-shield": {
+    "sourceSetId": "swsh1",
+    "allowedSourceSetIds": [
+      "swsh1"
+    ],
+    "printedTotal": 202,
+    "sourceCardCount": 216
+  },
+  "rebel-clash": {
+    "sourceSetId": "swsh2",
+    "allowedSourceSetIds": [
+      "swsh2"
+    ],
+    "printedTotal": 192,
+    "sourceCardCount": 209
+  },
+  "darkness-ablaze": {
+    "sourceSetId": "swsh3",
+    "allowedSourceSetIds": [
+      "swsh3"
+    ],
+    "printedTotal": 189,
+    "sourceCardCount": 201
+  },
+  "champions-path": {
+    "sourceSetId": "swsh35",
+    "allowedSourceSetIds": [
+      "swsh35"
+    ],
+    "printedTotal": 73,
+    "sourceCardCount": 80
+  },
+  "vivid-voltage": {
+    "sourceSetId": "swsh4",
+    "allowedSourceSetIds": [
+      "swsh4"
+    ],
+    "printedTotal": 185,
+    "sourceCardCount": 203
+  },
+  "shining-fates": {
+    "sourceSetId": "swsh45",
+    "allowedSourceSetIds": [
+      "swsh45",
+      "swsh45sv"
+    ],
+    "printedTotal": 72,
+    "sourceCardCount": 195
+  },
+  "battle-styles": {
+    "sourceSetId": "swsh5",
+    "allowedSourceSetIds": [
+      "swsh5"
+    ],
+    "printedTotal": 163,
+    "sourceCardCount": 183
+  },
+  "chilling-reign": {
+    "sourceSetId": "swsh6",
+    "allowedSourceSetIds": [
+      "swsh6"
+    ],
+    "printedTotal": 198,
+    "sourceCardCount": 233
+  },
+  "evolving-skies": {
+    "sourceSetId": "swsh7",
+    "allowedSourceSetIds": [
+      "swsh7"
+    ],
+    "printedTotal": 203,
+    "sourceCardCount": 237
+  },
+  "celebrations": {
+    "sourceSetId": "cel25",
+    "allowedSourceSetIds": [
+      "cel25",
+      "cel25c"
+    ],
+    "printedTotal": 25,
+    "sourceCardCount": 50
+  },
+  "fusion-strike": {
+    "sourceSetId": "swsh8",
+    "allowedSourceSetIds": [
+      "swsh8"
+    ],
+    "printedTotal": 264,
+    "sourceCardCount": 284
+  },
+  "brilliant-stars": {
+    "sourceSetId": "swsh9",
+    "allowedSourceSetIds": [
+      "swsh9",
+      "swsh9tg"
+    ],
+    "printedTotal": 172,
+    "sourceCardCount": 216
+  },
+  "astral-radiance": {
+    "sourceSetId": "swsh10",
+    "allowedSourceSetIds": [
+      "swsh10",
+      "swsh10tg"
+    ],
+    "printedTotal": 189,
+    "sourceCardCount": 246
+  },
+  "pokemon-go": {
+    "sourceSetId": "pgo",
+    "allowedSourceSetIds": [
+      "pgo"
+    ],
+    "printedTotal": 78,
+    "sourceCardCount": 88
+  },
+  "lost-origin": {
+    "sourceSetId": "swsh11",
+    "allowedSourceSetIds": [
+      "swsh11",
+      "swsh11tg"
+    ],
+    "printedTotal": 196,
+    "sourceCardCount": 247
+  },
+  "silver-tempest": {
+    "sourceSetId": "swsh12",
+    "allowedSourceSetIds": [
+      "swsh12",
+      "swsh12tg"
+    ],
+    "printedTotal": 195,
+    "sourceCardCount": 245
+  },
+  "crown-zenith": {
+    "sourceSetId": "swsh12pt5",
+    "allowedSourceSetIds": [
+      "swsh12pt5",
+      "swsh12pt5gg"
+    ],
+    "printedTotal": 159,
+    "sourceCardCount": 230
+  },
+  "scarlet-violet": {
+    "sourceSetId": "sv1",
+    "allowedSourceSetIds": [
+      "sv1"
+    ],
+    "printedTotal": 198,
+    "sourceCardCount": 258
+  },
+  "paldea-evolved": {
+    "sourceSetId": "sv2",
+    "allowedSourceSetIds": [
+      "sv2"
+    ],
+    "printedTotal": 193,
+    "sourceCardCount": 279
+  },
+  "obsidian-flames": {
+    "sourceSetId": "sv3",
+    "allowedSourceSetIds": [
+      "sv3"
+    ],
+    "printedTotal": 197,
+    "sourceCardCount": 230
+  },
+  "paradox-rift": {
+    "sourceSetId": "sv4",
+    "allowedSourceSetIds": [
+      "sv4"
+    ],
+    "printedTotal": 182,
+    "sourceCardCount": 266
+  },
+  "paldean-fates": {
+    "sourceSetId": "sv4pt5",
+    "allowedSourceSetIds": [
+      "sv4pt5"
+    ],
+    "printedTotal": 91,
+    "sourceCardCount": 245
+  },
+  "temporal-forces": {
+    "sourceSetId": "sv5",
+    "allowedSourceSetIds": [
+      "sv5"
+    ],
+    "printedTotal": 162,
+    "sourceCardCount": 218
+  },
+  "twilight-masquerade": {
+    "sourceSetId": "sv6",
+    "allowedSourceSetIds": [
+      "sv6"
+    ],
+    "printedTotal": 167,
+    "sourceCardCount": 226
+  },
+  "shrouded-fable": {
+    "sourceSetId": "sv6pt5",
+    "allowedSourceSetIds": [
+      "sv6pt5"
+    ],
+    "printedTotal": 64,
+    "sourceCardCount": 99
+  },
+  "stellar-crown": {
+    "sourceSetId": "sv7",
+    "allowedSourceSetIds": [
+      "sv7"
+    ],
+    "printedTotal": 142,
+    "sourceCardCount": 175
+  },
+  "surging-sparks": {
+    "sourceSetId": "sv8",
+    "allowedSourceSetIds": [
+      "sv8"
+    ],
+    "printedTotal": 191,
+    "sourceCardCount": 252
+  },
+  "prismatic-evolutions": {
+    "sourceSetId": "sv8pt5",
+    "allowedSourceSetIds": [
+      "sv8pt5"
+    ],
+    "printedTotal": 131,
+    "sourceCardCount": 180
+  },
+  "journey-together": {
+    "sourceSetId": "sv9",
+    "allowedSourceSetIds": [
+      "sv9"
+    ],
+    "printedTotal": 159,
+    "sourceCardCount": 190
+  },
+  "destined-rivals": {
+    "sourceSetId": "sv10",
+    "allowedSourceSetIds": [
+      "sv10"
+    ],
+    "printedTotal": 182,
+    "sourceCardCount": 244
+  },
+  "black-bolt": {
+    "sourceSetId": "zsv10pt5",
+    "allowedSourceSetIds": [
+      "zsv10pt5"
+    ],
+    "printedTotal": 86,
+    "sourceCardCount": 172
+  },
+  "white-flare": {
+    "sourceSetId": "rsv10pt5",
+    "allowedSourceSetIds": [
+      "rsv10pt5"
+    ],
+    "printedTotal": 86,
+    "sourceCardCount": 173
+  },
+  "mega-evolution": {
+    "sourceSetId": "me1",
+    "allowedSourceSetIds": [
+      "me1"
+    ],
+    "printedTotal": 132,
+    "sourceCardCount": 188
+  },
+  "phantasmal-flames": {
+    "sourceSetId": "me2",
+    "allowedSourceSetIds": [
+      "me2"
+    ],
+    "printedTotal": 94,
+    "sourceCardCount": 130
+  },
+  "ascended-heroes": {
+    "sourceSetId": "me2pt5",
+    "allowedSourceSetIds": [
+      "me2pt5"
+    ],
+    "printedTotal": 217,
+    "sourceCardCount": 295
+  },
+  "perfect-order": {
+    "sourceSetId": "me3",
+    "allowedSourceSetIds": [
+      "me3"
+    ],
+    "printedTotal": 88,
+    "sourceCardCount": 124
+  },
+  "chaos-rising": {
+    "sourceSetId": "me4",
+    "allowedSourceSetIds": [
+      "me4"
+    ],
+    "printedTotal": 86,
+    "sourceCardCount": 122
+  },
+  "pitch-black": {
+    "sourceSetId": "me5",
+    "allowedSourceSetIds": [
+      "me5"
+    ],
+    "printedTotal": 84,
+    "sourceCardCount": 120
+  }
+}

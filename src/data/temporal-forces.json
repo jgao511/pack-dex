@@ -981,7 +981,7 @@
   },
   {
     "id": "temporal-forces-141-awakening-drum-ace-spec",
-    "name": "Awakening Drum ACE SPEC",
+    "name": "Awakening Drum",
     "rarity": "Rare",
     "number": "141",
     "image": "/assets/sets/temporal-forces/cards/141_Awakening_Drum_ACE_SPEC_Rare.png"
@@ -1058,21 +1058,21 @@
   },
   {
     "id": "temporal-forces-152-hero-s-cape-ace-spec",
-    "name": "Hero's Cape ACE SPEC",
+    "name": "Hero's Cape",
     "rarity": "Rare",
     "number": "152",
     "image": "/assets/sets/temporal-forces/cards/152_Hero's_Cape_ACE_SPEC_Rare.png"
   },
   {
     "id": "temporal-forces-153-master-ball-ace-spec",
-    "name": "Master Ball ACE SPEC",
+    "name": "Master Ball",
     "rarity": "Rare",
     "number": "153",
     "image": "/assets/sets/temporal-forces/cards/153_Master_Ball_ACE_SPEC_Rare.png"
   },
   {
     "id": "temporal-forces-154-maximum-belt-ace-spec",
-    "name": "Maximum Belt ACE SPEC",
+    "name": "Maximum Belt",
     "rarity": "Rare",
     "number": "154",
     "image": "/assets/sets/temporal-forces/cards/154_Maximum_Belt_ACE_SPEC_Rare.png"
@@ -1093,14 +1093,14 @@
   },
   {
     "id": "temporal-forces-157-prime-catcher-ace-spec",
-    "name": "Prime Catcher ACE SPEC",
+    "name": "Prime Catcher",
     "rarity": "Rare",
     "number": "157",
     "image": "/assets/sets/temporal-forces/cards/157_Prime_Catcher_ACE_SPEC_Rare.png"
   },
   {
     "id": "temporal-forces-158-reboot-pod-ace-spec",
-    "name": "Reboot Pod ACE SPEC",
+    "name": "Reboot Pod",
     "rarity": "Rare",
     "number": "158",
     "image": "/assets/sets/temporal-forces/cards/158_Reboot_Pod_ACE_SPEC_Rare.png"
@@ -1128,7 +1128,7 @@
   },
   {
     "id": "temporal-forces-162-neo-upper-energy-ace-spec",
-    "name": "Neo Upper Energy ACE SPEC",
+    "name": "Neo Upper Energy",
     "rarity": "Rare",
     "number": "162",
     "image": "/assets/sets/temporal-forces/cards/162_Neo_Upper_Energy_ACE_SPEC_Rare.png"
@@ -1485,42 +1485,42 @@
   },
   {
     "id": "temporal-forces-213-iron-leaves-ex-hyper",
-    "name": "Iron Leaves ex Hyper",
+    "name": "Iron Leaves ex",
     "rarity": "Rare",
     "number": "213",
     "image": "/assets/sets/temporal-forces/cards/213_Iron_Leaves_ex_Hyper_Rare.png"
   },
   {
     "id": "temporal-forces-214-gouging-fire-ex-hyper",
-    "name": "Gouging Fire ex Hyper",
+    "name": "Gouging Fire ex",
     "rarity": "Rare",
     "number": "214",
     "image": "/assets/sets/temporal-forces/cards/214_Gouging_Fire_ex_Hyper_Rare.png"
   },
   {
     "id": "temporal-forces-215-walking-wake-ex-hyper",
-    "name": "Walking Wake ex Hyper",
+    "name": "Walking Wake ex",
     "rarity": "Rare",
     "number": "215",
     "image": "/assets/sets/temporal-forces/cards/215_Walking_Wake_ex_Hyper_Rare.png"
   },
   {
     "id": "temporal-forces-216-iron-crown-ex-hyper",
-    "name": "Iron Crown ex Hyper",
+    "name": "Iron Crown ex",
     "rarity": "Rare",
     "number": "216",
     "image": "/assets/sets/temporal-forces/cards/216_Iron_Crown_ex_Hyper_Rare.png"
   },
   {
     "id": "temporal-forces-217-iron-boulder-ex-hyper",
-    "name": "Iron Boulder ex Hyper",
+    "name": "Iron Boulder ex",
     "rarity": "Rare",
     "number": "217",
     "image": "/assets/sets/temporal-forces/cards/217_Iron_Boulder_ex_Hyper_Rare.png"
   },
   {
     "id": "temporal-forces-218-raging-bolt-ex-hyper",
-    "name": "Raging Bolt ex Hyper",
+    "name": "Raging Bolt ex",
     "rarity": "Rare",
     "number": "218",
     "image": "/assets/sets/temporal-forces/cards/218_Raging_Bolt_ex_Hyper_Rare.png"

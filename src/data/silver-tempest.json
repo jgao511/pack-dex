@@ -106,7 +106,7 @@
   },
   {
     "id": "silver-tempest-16-radiant-tsareena-radiant",
-    "name": "Radiant Tsareena Radiant",
+    "name": "Radiant Tsareena",
     "rarity": "Radiant Rare",
     "number": "16",
     "image": "/assets/sets/silver-tempest/cards/16_Radiant_Tsareena_Radiant_Rare.png",
@@ -408,7 +408,7 @@
   },
   {
     "id": "silver-tempest-59-radiant-alakazam-radiant",
-    "name": "Radiant Alakazam Radiant",
+    "name": "Radiant Alakazam",
     "rarity": "Radiant Rare",
     "number": "59",
     "image": "/assets/sets/silver-tempest/cards/59_Radiant_Alakazam_Radiant_Rare.png",
@@ -836,7 +836,7 @@
   },
   {
     "id": "silver-tempest-120-radiant-jirachi-radiant",
-    "name": "Radiant Jirachi Radiant",
+    "name": "Radiant Jirachi",
     "rarity": "Radiant Rare",
     "number": "120",
     "image": "/assets/sets/silver-tempest/cards/120_Radiant_Jirachi_Radiant_Rare.png",

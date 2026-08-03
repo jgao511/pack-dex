@@ -400,7 +400,7 @@
   },
   {
     "id": "shrouded-fable-58-dangerous-laser-ace-spec",
-    "name": "Dangerous Laser ACE SPEC",
+    "name": "Dangerous Laser",
     "rarity": "Rare",
     "number": "58",
     "image": "/assets/sets/shrouded-fable/cards/58_Dangerous_Laser_ACE_SPEC_Rare.png"
@@ -414,7 +414,7 @@
   },
   {
     "id": "shrouded-fable-60-neutralization-zone-ace-spec",
-    "name": "Neutralization Zone ACE SPEC",
+    "name": "Neutralization Zone",
     "rarity": "Rare",
     "number": "60",
     "image": "/assets/sets/shrouded-fable/cards/60_Neutralization_Zone_ACE_SPEC_Rare.png"
@@ -428,7 +428,7 @@
   },
   {
     "id": "shrouded-fable-62-pok-vital-a-ace-spec",
-    "name": "Poké Vital A ACE SPEC",
+    "name": "Poké Vital A",
     "rarity": "Rare",
     "number": "62",
     "image": "/assets/sets/shrouded-fable/cards/62_Poké_Vital_A_ACE_SPEC_Rare.png"
@@ -659,36 +659,36 @@
   },
   {
     "id": "shrouded-fable-95-pecharunt-ex-hyper",
-    "name": "Pecharunt ex Hyper",
+    "name": "Pecharunt ex",
     "rarity": "Rare",
     "number": "95",
     "image": "/assets/sets/shrouded-fable/cards/95_Pecharunt_ex_Hyper_Rare.png"
   },
   {
     "id": "shrouded-fable-96-earthen-vessel-hyper",
-    "name": "Earthen Vessel Hyper",
+    "name": "Earthen Vessel",
     "rarity": "Rare",
     "number": "96",
     "image": "/assets/sets/shrouded-fable/cards/96_Earthen_Vessel_Hyper_Rare.png"
   },
   {
     "id": "shrouded-fable-97-powerglass-hyper",
-    "name": "Powerglass Hyper",
+    "name": "Powerglass",
     "rarity": "Rare",
     "number": "97",
     "image": "/assets/sets/shrouded-fable/cards/97_Powerglass_Hyper_Rare.png"
   },
   {
     "id": "shrouded-fable-98-basic-darkness-energy-hyper",
-    "name": "Basic Darkness Energy Hyper",
-    "rarity": "Rare",
+    "name": "Basic Darkness Energy",
+    "rarity": "Hyper Rare",
     "number": "98",
     "image": "/assets/sets/shrouded-fable/cards/98_Basic_Darkness_Energy_Hyper_Rare.png"
   },
   {
     "id": "shrouded-fable-99-basic-metal-energy-hyper",
-    "name": "Basic Metal Energy Hyper",
-    "rarity": "Rare",
+    "name": "Basic Metal Energy",
+    "rarity": "Hyper Rare",
     "number": "99",
     "image": "/assets/sets/shrouded-fable/cards/99_Basic_Metal_Energy_Hyper_Rare.png"
   }

@@ -1,0 +1,7168 @@
+{
+  "schemaVersion": 1,
+  "sourceSnapshot": {
+    "repository": "PokemonTCG/pokemon-tcg-data",
+    "commit": "8b4e387930ead7be6595b4d4c59b7ba7a3a79f08",
+    "cardManifestCount": 137
+  },
+  "setCount": 130,
+  "activeSetCount": 129,
+  "officialActiveSetCount": 129,
+  "customRetiredSetCount": 1,
+  "sets": [
+    {
+      "id": "30th-anniversary",
+      "canonicalSourceSetId": null,
+      "displayName": "Pokemon 30th Anniversary",
+      "era": "Pokemon 30th Anniversary",
+      "classification": "packdex-custom-preview",
+      "lifecycle": {
+        "status": "retired",
+        "discoverable": false,
+        "openable": false,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2026-06-14",
+      "printedTotal": null,
+      "sources": [],
+      "allowedSourceSetIds": [],
+      "expectedCounts": {
+        "source": 15,
+        "canonicalCatalog": 15,
+        "collectionChecklist": 15,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "30th-anniversary/logo.png",
+        "imageDirectory": "sets/30th-anniversary/cards"
+      },
+      "pack": {
+        "profile": "thirtiethAnniversaryPreview",
+        "size": 5,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "base-set",
+      "canonicalSourceSetId": "base1",
+      "displayName": "Base Set",
+      "era": "Wizards Vintage",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "1999-01-09",
+      "printedTotal": 102,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "base1",
+          "role": "main",
+          "expectedCards": 102
+        }
+      ],
+      "allowedSourceSetIds": [
+        "base1"
+      ],
+      "expectedCounts": {
+        "source": 102,
+        "canonicalCatalog": 102,
+        "collectionChecklist": 102,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "base-set/logo.png",
+        "imageDirectory": "sets/base-set/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 11,
+        "vintageRule": {
+          "type": "wotc",
+          "packSize": 11,
+          "commonSlots": 5,
+          "basicEnergySlots": 2,
+          "uncommonSlots": 3,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333,
+          "basicEnergyFileNames": [
+            "97_Fighting_Energy_Common.png",
+            "98_Fire_Energy_Common.png",
+            "99_Grass_Energy_Common.png",
+            "100_Lightning_Energy_Common.png",
+            "101_Psychic_Energy_Common.png",
+            "102_Water_Energy_Common.png"
+          ]
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "jungle",
+      "canonicalSourceSetId": "base2",
+      "displayName": "Jungle",
+      "era": "Wizards Vintage",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "1999-06-16",
+      "printedTotal": 64,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "base2",
+          "role": "main",
+          "expectedCards": 64
+        }
+      ],
+      "allowedSourceSetIds": [
+        "base2"
+      ],
+      "expectedCounts": {
+        "source": 64,
+        "canonicalCatalog": 64,
+        "collectionChecklist": 64,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "jungle/logo.png",
+        "imageDirectory": "sets/jungle/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 11,
+        "vintageRule": {
+          "type": "wotc",
+          "packSize": 11,
+          "commonSlots": 7,
+          "basicEnergySlots": 0,
+          "uncommonSlots": 3,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "fossil",
+      "canonicalSourceSetId": "base3",
+      "displayName": "Fossil",
+      "era": "Wizards Vintage",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "1999-10-10",
+      "printedTotal": 62,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "base3",
+          "role": "main",
+          "expectedCards": 62
+        }
+      ],
+      "allowedSourceSetIds": [
+        "base3"
+      ],
+      "expectedCounts": {
+        "source": 62,
+        "canonicalCatalog": 62,
+        "collectionChecklist": 62,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "fossil/logo.png",
+        "imageDirectory": "sets/fossil/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 11,
+        "vintageRule": {
+          "type": "wotc",
+          "packSize": 11,
+          "commonSlots": 7,
+          "basicEnergySlots": 0,
+          "uncommonSlots": 3,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "base-set-2",
+      "canonicalSourceSetId": "base4",
+      "displayName": "Base Set 2",
+      "era": "Wizards Vintage",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2000-02-24",
+      "printedTotal": 130,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "base4",
+          "role": "main",
+          "expectedCards": 130
+        }
+      ],
+      "allowedSourceSetIds": [
+        "base4"
+      ],
+      "expectedCounts": {
+        "source": 130,
+        "canonicalCatalog": 130,
+        "collectionChecklist": 130,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "base-set-2/logo.png",
+        "imageDirectory": "sets/base-set-2/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 11,
+        "vintageRule": {
+          "type": "wotc",
+          "packSize": 11,
+          "commonSlots": 5,
+          "basicEnergySlots": 2,
+          "uncommonSlots": 3,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333,
+          "basicEnergyFileNames": [
+            "125_Fighting_Energy_Common.png",
+            "126_Fire_Energy_Common.png",
+            "127_Grass_Energy_Common.png",
+            "128_Lightning_Energy_Common.png",
+            "129_Psychic_Energy_Common.png",
+            "130_Water_Energy_Common.png"
+          ]
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "team-rocket",
+      "canonicalSourceSetId": "base5",
+      "displayName": "Team Rocket",
+      "era": "Wizards Vintage",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2000-04-24",
+      "printedTotal": 82,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "base5",
+          "role": "main",
+          "expectedCards": 83
+        }
+      ],
+      "allowedSourceSetIds": [
+        "base5"
+      ],
+      "expectedCounts": {
+        "source": 83,
+        "canonicalCatalog": 83,
+        "collectionChecklist": 83,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "team-rocket/logo.png",
+        "imageDirectory": "sets/team-rocket/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 11,
+        "vintageRule": {
+          "type": "wotc",
+          "packSize": 11,
+          "commonSlots": 7,
+          "basicEnergySlots": 0,
+          "uncommonSlots": 3,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "gym-heroes",
+      "canonicalSourceSetId": "gym1",
+      "displayName": "Gym Heroes",
+      "era": "Wizards Vintage",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2000-08-14",
+      "printedTotal": 132,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "gym1",
+          "role": "main",
+          "expectedCards": 132
+        }
+      ],
+      "allowedSourceSetIds": [
+        "gym1"
+      ],
+      "expectedCounts": {
+        "source": 132,
+        "canonicalCatalog": 132,
+        "collectionChecklist": 132,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "gym-heroes/logo.png",
+        "imageDirectory": "sets/gym-heroes/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 11,
+        "vintageRule": {
+          "type": "wotc",
+          "packSize": 11,
+          "commonSlots": 6,
+          "basicEnergySlots": 1,
+          "uncommonSlots": 3,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333,
+          "basicEnergyFileNames": [
+            "127_Fighting_Energy_Common.png",
+            "128_Fire_Energy_Common.png",
+            "129_Grass_Energy_Common.png",
+            "130_Lightning_Energy_Common.png",
+            "131_Psychic_Energy_Common.png",
+            "132_Water_Energy_Common.png"
+          ]
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "gym-challenge",
+      "canonicalSourceSetId": "gym2",
+      "displayName": "Gym Challenge",
+      "era": "Wizards Vintage",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2000-10-16",
+      "printedTotal": 132,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "gym2",
+          "role": "main",
+          "expectedCards": 132
+        }
+      ],
+      "allowedSourceSetIds": [
+        "gym2"
+      ],
+      "expectedCounts": {
+        "source": 132,
+        "canonicalCatalog": 132,
+        "collectionChecklist": 132,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "gym-challenge/logo.png",
+        "imageDirectory": "sets/gym-challenge/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 11,
+        "vintageRule": {
+          "type": "wotc",
+          "packSize": 11,
+          "commonSlots": 6,
+          "basicEnergySlots": 1,
+          "uncommonSlots": 3,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333,
+          "basicEnergyFileNames": [
+            "127_Fighting_Energy_Common.png",
+            "128_Fire_Energy_Common.png",
+            "129_Grass_Energy_Common.png",
+            "130_Lightning_Energy_Common.png",
+            "131_Psychic_Energy_Common.png",
+            "132_Water_Energy_Common.png"
+          ]
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "neo-genesis",
+      "canonicalSourceSetId": "neo1",
+      "displayName": "Neo Genesis",
+      "era": "Neo",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2000-12-16",
+      "printedTotal": 111,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "neo1",
+          "role": "main",
+          "expectedCards": 111
+        }
+      ],
+      "allowedSourceSetIds": [
+        "neo1"
+      ],
+      "expectedCounts": {
+        "source": 111,
+        "canonicalCatalog": 111,
+        "collectionChecklist": 111,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "neo-genesis/logo.png",
+        "imageDirectory": "sets/neo-genesis/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 11,
+        "vintageRule": {
+          "type": "wotc",
+          "packSize": 11,
+          "commonSlots": 6,
+          "basicEnergySlots": 1,
+          "uncommonSlots": 3,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333,
+          "basicEnergyFileNames": [
+            "106_Fighting_Energy_Common.png",
+            "107_Fire_Energy_Common.png",
+            "108_Grass_Energy_Common.png",
+            "109_Lightning_Energy_Common.png",
+            "110_Psychic_Energy_Common.png",
+            "111_Water_Energy_Common.png"
+          ]
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "neo-discovery",
+      "canonicalSourceSetId": "neo2",
+      "displayName": "Neo Discovery",
+      "era": "Neo",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2001-06-01",
+      "printedTotal": 75,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "neo2",
+          "role": "main",
+          "expectedCards": 75
+        }
+      ],
+      "allowedSourceSetIds": [
+        "neo2"
+      ],
+      "expectedCounts": {
+        "source": 75,
+        "canonicalCatalog": 75,
+        "collectionChecklist": 75,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "neo-discovery/logo.png",
+        "imageDirectory": "sets/neo-discovery/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 11,
+        "vintageRule": {
+          "type": "wotc",
+          "packSize": 11,
+          "commonSlots": 7,
+          "basicEnergySlots": 0,
+          "uncommonSlots": 3,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "neo-revelation",
+      "canonicalSourceSetId": "neo3",
+      "displayName": "Neo Revelation",
+      "era": "Neo",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2001-09-21",
+      "printedTotal": 64,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "neo3",
+          "role": "main",
+          "expectedCards": 66
+        }
+      ],
+      "allowedSourceSetIds": [
+        "neo3"
+      ],
+      "expectedCounts": {
+        "source": 66,
+        "canonicalCatalog": 66,
+        "collectionChecklist": 66,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "neo-revelation/logo.png",
+        "imageDirectory": "sets/neo-revelation/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 11,
+        "vintageRule": {
+          "type": "wotc",
+          "packSize": 11,
+          "commonSlots": 7,
+          "basicEnergySlots": 0,
+          "uncommonSlots": 3,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "neo-destiny",
+      "canonicalSourceSetId": "neo4",
+      "displayName": "Neo Destiny",
+      "era": "Neo",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2002-02-28",
+      "printedTotal": 105,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "neo4",
+          "role": "main",
+          "expectedCards": 113
+        }
+      ],
+      "allowedSourceSetIds": [
+        "neo4"
+      ],
+      "expectedCounts": {
+        "source": 113,
+        "canonicalCatalog": 113,
+        "collectionChecklist": 113,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "neo-destiny/logo.png",
+        "imageDirectory": "sets/neo-destiny/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 11,
+        "vintageRule": {
+          "type": "wotc",
+          "packSize": 11,
+          "commonSlots": 7,
+          "basicEnergySlots": 0,
+          "uncommonSlots": 3,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "legendary-collection",
+      "canonicalSourceSetId": "base6",
+      "displayName": "Legendary Collection",
+      "era": "e-Card / Late WOTC",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2002-05-24",
+      "printedTotal": 110,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "base6",
+          "role": "main",
+          "expectedCards": 110
+        }
+      ],
+      "allowedSourceSetIds": [
+        "base6"
+      ],
+      "expectedCounts": {
+        "source": 110,
+        "canonicalCatalog": 110,
+        "collectionChecklist": 110,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "legendary-collection/logo.png",
+        "imageDirectory": "sets/legendary-collection/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 11,
+        "vintageRule": {
+          "type": "wotc",
+          "packSize": 11,
+          "commonSlots": 7,
+          "basicEnergySlots": 0,
+          "uncommonSlots": 3,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "expedition-base-set",
+      "canonicalSourceSetId": "ecard1",
+      "displayName": "Expedition Base Set",
+      "era": "e-Card / Late WOTC",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2002-09-15",
+      "printedTotal": 165,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "ecard1",
+          "role": "main",
+          "expectedCards": 165
+        }
+      ],
+      "allowedSourceSetIds": [
+        "ecard1"
+      ],
+      "expectedCounts": {
+        "source": 165,
+        "canonicalCatalog": 165,
+        "collectionChecklist": 165,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "expedition-base-set/logo.png",
+        "imageDirectory": "sets/expedition-base-set/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 9,
+        "vintageRule": {
+          "type": "ecard",
+          "packSize": 9,
+          "commonSlots": 5,
+          "uncommonSlots": 2,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "aquapolis",
+      "canonicalSourceSetId": "ecard2",
+      "displayName": "Aquapolis",
+      "era": "e-Card / Late WOTC",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2003-01-15",
+      "printedTotal": 147,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "ecard2",
+          "role": "main",
+          "expectedCards": 182
+        }
+      ],
+      "allowedSourceSetIds": [
+        "ecard2"
+      ],
+      "expectedCounts": {
+        "source": 182,
+        "canonicalCatalog": 182,
+        "collectionChecklist": 182,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "aquapolis/logo.png",
+        "imageDirectory": "sets/aquapolis/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 9,
+        "vintageRule": {
+          "type": "ecard",
+          "packSize": 9,
+          "commonSlots": 5,
+          "uncommonSlots": 2,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "skyridge",
+      "canonicalSourceSetId": "ecard3",
+      "displayName": "Skyridge",
+      "era": "e-Card / Late WOTC",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2003-05-12",
+      "printedTotal": 144,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "ecard3",
+          "role": "main",
+          "expectedCards": 182
+        }
+      ],
+      "allowedSourceSetIds": [
+        "ecard3"
+      ],
+      "expectedCounts": {
+        "source": 182,
+        "canonicalCatalog": 182,
+        "collectionChecklist": 182,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "skyridge/logo.png",
+        "imageDirectory": "sets/skyridge/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 9,
+        "vintageRule": {
+          "type": "ecard",
+          "packSize": 9,
+          "commonSlots": 5,
+          "uncommonSlots": 2,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "ex-ruby-sapphire",
+      "canonicalSourceSetId": "ex1",
+      "displayName": "EX Ruby & Sapphire",
+      "era": "EX",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2003-07-18",
+      "printedTotal": 109,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "ex1",
+          "role": "main",
+          "expectedCards": 109
+        }
+      ],
+      "allowedSourceSetIds": [
+        "ex1"
+      ],
+      "expectedCounts": {
+        "source": 109,
+        "canonicalCatalog": 109,
+        "collectionChecklist": 109,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "ex-ruby-sapphire/logo.png",
+        "imageDirectory": "sets/ex-ruby-sapphire/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 9,
+        "vintageRule": {
+          "type": "ex",
+          "packSize": 9,
+          "commonSlots": 5,
+          "uncommonSlots": 2,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "ex-sandstorm",
+      "canonicalSourceSetId": "ex2",
+      "displayName": "EX Sandstorm",
+      "era": "EX",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2003-09-18",
+      "printedTotal": 100,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "ex2",
+          "role": "main",
+          "expectedCards": 100
+        }
+      ],
+      "allowedSourceSetIds": [
+        "ex2"
+      ],
+      "expectedCounts": {
+        "source": 100,
+        "canonicalCatalog": 100,
+        "collectionChecklist": 100,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "ex-sandstorm/logo.png",
+        "imageDirectory": "sets/ex-sandstorm/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 9,
+        "vintageRule": {
+          "type": "ex",
+          "packSize": 9,
+          "commonSlots": 5,
+          "uncommonSlots": 2,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "ex-dragon",
+      "canonicalSourceSetId": "ex3",
+      "displayName": "EX Dragon",
+      "era": "EX",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2003-11-24",
+      "printedTotal": 97,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "ex3",
+          "role": "main",
+          "expectedCards": 100
+        }
+      ],
+      "allowedSourceSetIds": [
+        "ex3"
+      ],
+      "expectedCounts": {
+        "source": 100,
+        "canonicalCatalog": 100,
+        "collectionChecklist": 100,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "ex-dragon/logo.png",
+        "imageDirectory": "sets/ex-dragon/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 9,
+        "vintageRule": {
+          "type": "ex",
+          "packSize": 9,
+          "commonSlots": 5,
+          "uncommonSlots": 2,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "ex-team-magma-vs-team-aqua",
+      "canonicalSourceSetId": "ex4",
+      "displayName": "EX Team Magma vs Team Aqua",
+      "era": "EX",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2004-03-15",
+      "printedTotal": 95,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "ex4",
+          "role": "main",
+          "expectedCards": 97
+        }
+      ],
+      "allowedSourceSetIds": [
+        "ex4"
+      ],
+      "expectedCounts": {
+        "source": 97,
+        "canonicalCatalog": 97,
+        "collectionChecklist": 97,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "ex-team-magma-vs-team-aqua/logo.png",
+        "imageDirectory": "sets/ex-team-magma-vs-team-aqua/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 9,
+        "vintageRule": {
+          "type": "ex",
+          "packSize": 9,
+          "commonSlots": 5,
+          "uncommonSlots": 2,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "ex-hidden-legends",
+      "canonicalSourceSetId": "ex5",
+      "displayName": "EX Hidden Legends",
+      "era": "EX",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2004-06-14",
+      "printedTotal": 101,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "ex5",
+          "role": "main",
+          "expectedCards": 102
+        }
+      ],
+      "allowedSourceSetIds": [
+        "ex5"
+      ],
+      "expectedCounts": {
+        "source": 102,
+        "canonicalCatalog": 102,
+        "collectionChecklist": 102,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "ex-hidden-legends/logo.png",
+        "imageDirectory": "sets/ex-hidden-legends/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 9,
+        "vintageRule": {
+          "type": "ex",
+          "packSize": 9,
+          "commonSlots": 5,
+          "uncommonSlots": 2,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "ex-firered-leafgreen",
+      "canonicalSourceSetId": "ex6",
+      "displayName": "EX FireRed & LeafGreen",
+      "era": "EX",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2004-08-30",
+      "printedTotal": 112,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "ex6",
+          "role": "main",
+          "expectedCards": 116
+        }
+      ],
+      "allowedSourceSetIds": [
+        "ex6"
+      ],
+      "expectedCounts": {
+        "source": 116,
+        "canonicalCatalog": 116,
+        "collectionChecklist": 116,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "ex-firered-leafgreen/logo.png",
+        "imageDirectory": "sets/ex-firered-leafgreen/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 9,
+        "vintageRule": {
+          "type": "ex",
+          "packSize": 9,
+          "commonSlots": 5,
+          "uncommonSlots": 2,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "ex-team-rocket-returns",
+      "canonicalSourceSetId": "ex7",
+      "displayName": "EX Team Rocket Returns",
+      "era": "EX",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2004-11-08",
+      "printedTotal": 109,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "ex7",
+          "role": "main",
+          "expectedCards": 111
+        }
+      ],
+      "allowedSourceSetIds": [
+        "ex7"
+      ],
+      "expectedCounts": {
+        "source": 111,
+        "canonicalCatalog": 111,
+        "collectionChecklist": 111,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "ex-team-rocket-returns/logo.png",
+        "imageDirectory": "sets/ex-team-rocket-returns/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 9,
+        "vintageRule": {
+          "type": "ex",
+          "packSize": 9,
+          "commonSlots": 5,
+          "uncommonSlots": 2,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "ex-deoxys",
+      "canonicalSourceSetId": "ex8",
+      "displayName": "EX Deoxys",
+      "era": "EX",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2005-02-14",
+      "printedTotal": 107,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "ex8",
+          "role": "main",
+          "expectedCards": 108
+        }
+      ],
+      "allowedSourceSetIds": [
+        "ex8"
+      ],
+      "expectedCounts": {
+        "source": 108,
+        "canonicalCatalog": 108,
+        "collectionChecklist": 108,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "ex-deoxys/logo.png",
+        "imageDirectory": "sets/ex-deoxys/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 9,
+        "vintageRule": {
+          "type": "ex",
+          "packSize": 9,
+          "commonSlots": 5,
+          "uncommonSlots": 2,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "ex-emerald",
+      "canonicalSourceSetId": "ex9",
+      "displayName": "EX Emerald",
+      "era": "EX",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2005-05-09",
+      "printedTotal": 106,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "ex9",
+          "role": "main",
+          "expectedCards": 107
+        }
+      ],
+      "allowedSourceSetIds": [
+        "ex9"
+      ],
+      "expectedCounts": {
+        "source": 107,
+        "canonicalCatalog": 107,
+        "collectionChecklist": 107,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "ex-emerald/logo.png",
+        "imageDirectory": "sets/ex-emerald/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 9,
+        "vintageRule": {
+          "type": "ex",
+          "packSize": 9,
+          "commonSlots": 5,
+          "uncommonSlots": 2,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "ex-unseen-forces",
+      "canonicalSourceSetId": "ex10",
+      "displayName": "EX Unseen Forces",
+      "era": "EX",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2005-08-22",
+      "printedTotal": 115,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "ex10",
+          "role": "main",
+          "expectedCards": 145
+        }
+      ],
+      "allowedSourceSetIds": [
+        "ex10"
+      ],
+      "expectedCounts": {
+        "source": 145,
+        "canonicalCatalog": 145,
+        "collectionChecklist": 145,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "ex-unseen-forces/logo.png",
+        "imageDirectory": "sets/ex-unseen-forces/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 9,
+        "vintageRule": {
+          "type": "ex",
+          "packSize": 9,
+          "commonSlots": 5,
+          "uncommonSlots": 2,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "ex-delta-species",
+      "canonicalSourceSetId": "ex11",
+      "displayName": "EX Delta Species",
+      "era": "EX",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2005-10-31",
+      "printedTotal": 113,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "ex11",
+          "role": "main",
+          "expectedCards": 114
+        }
+      ],
+      "allowedSourceSetIds": [
+        "ex11"
+      ],
+      "expectedCounts": {
+        "source": 114,
+        "canonicalCatalog": 114,
+        "collectionChecklist": 114,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "ex-delta-species/logo.png",
+        "imageDirectory": "sets/ex-delta-species/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 9,
+        "vintageRule": {
+          "type": "ex",
+          "packSize": 9,
+          "commonSlots": 5,
+          "uncommonSlots": 2,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "ex-legend-maker",
+      "canonicalSourceSetId": "ex12",
+      "displayName": "EX Legend Maker",
+      "era": "EX",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2006-02-13",
+      "printedTotal": 92,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "ex12",
+          "role": "main",
+          "expectedCards": 93
+        }
+      ],
+      "allowedSourceSetIds": [
+        "ex12"
+      ],
+      "expectedCounts": {
+        "source": 93,
+        "canonicalCatalog": 93,
+        "collectionChecklist": 93,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "ex-legend-maker/logo.png",
+        "imageDirectory": "sets/ex-legend-maker/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 9,
+        "vintageRule": {
+          "type": "ex",
+          "packSize": 9,
+          "commonSlots": 5,
+          "uncommonSlots": 2,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "ex-holon-phantoms",
+      "canonicalSourceSetId": "ex13",
+      "displayName": "EX Holon Phantoms",
+      "era": "EX",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2006-05-03",
+      "printedTotal": 110,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "ex13",
+          "role": "main",
+          "expectedCards": 111
+        }
+      ],
+      "allowedSourceSetIds": [
+        "ex13"
+      ],
+      "expectedCounts": {
+        "source": 111,
+        "canonicalCatalog": 111,
+        "collectionChecklist": 111,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "ex-holon-phantoms/logo.png",
+        "imageDirectory": "sets/ex-holon-phantoms/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 9,
+        "vintageRule": {
+          "type": "ex",
+          "packSize": 9,
+          "commonSlots": 5,
+          "uncommonSlots": 2,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "ex-crystal-guardians",
+      "canonicalSourceSetId": "ex14",
+      "displayName": "EX Crystal Guardians",
+      "era": "EX",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2006-08-30",
+      "printedTotal": 100,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "ex14",
+          "role": "main",
+          "expectedCards": 100
+        }
+      ],
+      "allowedSourceSetIds": [
+        "ex14"
+      ],
+      "expectedCounts": {
+        "source": 100,
+        "canonicalCatalog": 100,
+        "collectionChecklist": 100,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "ex-crystal-guardians/logo.png",
+        "imageDirectory": "sets/ex-crystal-guardians/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 9,
+        "vintageRule": {
+          "type": "ex",
+          "packSize": 9,
+          "commonSlots": 5,
+          "uncommonSlots": 2,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "ex-dragon-frontiers",
+      "canonicalSourceSetId": "ex15",
+      "displayName": "EX Dragon Frontiers",
+      "era": "EX",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2006-11-08",
+      "printedTotal": 101,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "ex15",
+          "role": "main",
+          "expectedCards": 101
+        }
+      ],
+      "allowedSourceSetIds": [
+        "ex15"
+      ],
+      "expectedCounts": {
+        "source": 101,
+        "canonicalCatalog": 101,
+        "collectionChecklist": 101,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "ex-dragon-frontiers/logo.png",
+        "imageDirectory": "sets/ex-dragon-frontiers/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 9,
+        "vintageRule": {
+          "type": "ex",
+          "packSize": 9,
+          "commonSlots": 5,
+          "uncommonSlots": 2,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "ex-power-keepers",
+      "canonicalSourceSetId": "ex16",
+      "displayName": "EX Power Keepers",
+      "era": "EX",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2007-02-14",
+      "printedTotal": 108,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "ex16",
+          "role": "main",
+          "expectedCards": 108
+        }
+      ],
+      "allowedSourceSetIds": [
+        "ex16"
+      ],
+      "expectedCounts": {
+        "source": 108,
+        "canonicalCatalog": 108,
+        "collectionChecklist": 108,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "ex-power-keepers/logo.png",
+        "imageDirectory": "sets/ex-power-keepers/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 9,
+        "vintageRule": {
+          "type": "ex",
+          "packSize": 9,
+          "commonSlots": 5,
+          "uncommonSlots": 2,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "diamond-pearl",
+      "canonicalSourceSetId": "dp1",
+      "displayName": "Diamond & Pearl",
+      "era": "Diamond & Pearl",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2007-05-23",
+      "printedTotal": 130,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "dp1",
+          "role": "main",
+          "expectedCards": 130
+        }
+      ],
+      "allowedSourceSetIds": [
+        "dp1"
+      ],
+      "expectedCounts": {
+        "source": 130,
+        "canonicalCatalog": 130,
+        "collectionChecklist": 130,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "diamond-pearl/logo.png",
+        "imageDirectory": "sets/diamond-pearl/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 10,
+        "vintageRule": {
+          "type": "diamondPearl",
+          "packSize": 10,
+          "commonSlots": 5,
+          "uncommonSlots": 3,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "diamond-pearl-mysterious-treasures",
+      "canonicalSourceSetId": "dp2",
+      "displayName": "Diamond & Pearl—Mysterious Treasures",
+      "era": "Diamond & Pearl",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2007-08-22",
+      "printedTotal": 123,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "dp2",
+          "role": "main",
+          "expectedCards": 124
+        }
+      ],
+      "allowedSourceSetIds": [
+        "dp2"
+      ],
+      "expectedCounts": {
+        "source": 124,
+        "canonicalCatalog": 124,
+        "collectionChecklist": 124,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "diamond-pearl-mysterious-treasures/logo.png",
+        "imageDirectory": "sets/diamond-pearl-mysterious-treasures/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 10,
+        "vintageRule": {
+          "type": "diamondPearl",
+          "packSize": 10,
+          "commonSlots": 5,
+          "uncommonSlots": 3,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "diamond-pearl-secret-wonders",
+      "canonicalSourceSetId": "dp3",
+      "displayName": "Diamond & Pearl—Secret Wonders",
+      "era": "Diamond & Pearl",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2007-11-07",
+      "printedTotal": 132,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "dp3",
+          "role": "main",
+          "expectedCards": 132
+        }
+      ],
+      "allowedSourceSetIds": [
+        "dp3"
+      ],
+      "expectedCounts": {
+        "source": 132,
+        "canonicalCatalog": 132,
+        "collectionChecklist": 132,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "diamond-pearl-secret-wonders/logo.png",
+        "imageDirectory": "sets/diamond-pearl-secret-wonders/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 10,
+        "vintageRule": {
+          "type": "diamondPearl",
+          "packSize": 10,
+          "commonSlots": 5,
+          "uncommonSlots": 3,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "diamond-pearl-great-encounters",
+      "canonicalSourceSetId": "dp4",
+      "displayName": "Diamond & Pearl—Great Encounters",
+      "era": "Diamond & Pearl",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2008-02-13",
+      "printedTotal": 106,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "dp4",
+          "role": "main",
+          "expectedCards": 106
+        }
+      ],
+      "allowedSourceSetIds": [
+        "dp4"
+      ],
+      "expectedCounts": {
+        "source": 106,
+        "canonicalCatalog": 106,
+        "collectionChecklist": 106,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "diamond-pearl-great-encounters/logo.png",
+        "imageDirectory": "sets/diamond-pearl-great-encounters/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 10,
+        "vintageRule": {
+          "type": "diamondPearl",
+          "packSize": 10,
+          "commonSlots": 5,
+          "uncommonSlots": 3,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "diamond-pearl-majestic-dawn",
+      "canonicalSourceSetId": "dp5",
+      "displayName": "Diamond & Pearl—Majestic Dawn",
+      "era": "Diamond & Pearl",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2008-05-21",
+      "printedTotal": 100,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "dp5",
+          "role": "main",
+          "expectedCards": 100
+        }
+      ],
+      "allowedSourceSetIds": [
+        "dp5"
+      ],
+      "expectedCounts": {
+        "source": 100,
+        "canonicalCatalog": 100,
+        "collectionChecklist": 100,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "diamond-pearl-majestic-dawn/logo.png",
+        "imageDirectory": "sets/diamond-pearl-majestic-dawn/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 10,
+        "vintageRule": {
+          "type": "diamondPearl",
+          "packSize": 10,
+          "commonSlots": 5,
+          "uncommonSlots": 3,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "diamond-pearl-legends-awakened",
+      "canonicalSourceSetId": "dp6",
+      "displayName": "Diamond & Pearl—Legends Awakened",
+      "era": "Diamond & Pearl",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2008-08-20",
+      "printedTotal": 146,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "dp6",
+          "role": "main",
+          "expectedCards": 146
+        }
+      ],
+      "allowedSourceSetIds": [
+        "dp6"
+      ],
+      "expectedCounts": {
+        "source": 146,
+        "canonicalCatalog": 146,
+        "collectionChecklist": 146,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "diamond-pearl-legends-awakened/logo.png",
+        "imageDirectory": "sets/diamond-pearl-legends-awakened/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 10,
+        "vintageRule": {
+          "type": "diamondPearl",
+          "packSize": 10,
+          "commonSlots": 5,
+          "uncommonSlots": 3,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "diamond-pearl-stormfront",
+      "canonicalSourceSetId": "dp7",
+      "displayName": "Diamond & Pearl—Stormfront",
+      "era": "Diamond & Pearl",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2008-11-05",
+      "printedTotal": 100,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "dp7",
+          "role": "main",
+          "expectedCards": 106
+        }
+      ],
+      "allowedSourceSetIds": [
+        "dp7"
+      ],
+      "expectedCounts": {
+        "source": 106,
+        "canonicalCatalog": 106,
+        "collectionChecklist": 106,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "diamond-pearl-stormfront/logo.png",
+        "imageDirectory": "sets/diamond-pearl-stormfront/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 10,
+        "vintageRule": {
+          "type": "diamondPearl",
+          "packSize": 10,
+          "commonSlots": 5,
+          "uncommonSlots": 3,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "platinum",
+      "canonicalSourceSetId": "pl1",
+      "displayName": "Platinum",
+      "era": "Platinum",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2009-02-11",
+      "printedTotal": 127,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "pl1",
+          "role": "main",
+          "expectedCards": 133
+        }
+      ],
+      "allowedSourceSetIds": [
+        "pl1"
+      ],
+      "expectedCounts": {
+        "source": 133,
+        "canonicalCatalog": 133,
+        "collectionChecklist": 133,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "platinum/logo.png",
+        "imageDirectory": "sets/platinum/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 10,
+        "vintageRule": {
+          "type": "platinum",
+          "packSize": 10,
+          "commonSlots": 5,
+          "uncommonSlots": 3,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "platinum-rising-rivals",
+      "canonicalSourceSetId": "pl2",
+      "displayName": "Platinum—Rising Rivals",
+      "era": "Platinum",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2009-05-16",
+      "printedTotal": 111,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "pl2",
+          "role": "main",
+          "expectedCards": 120
+        }
+      ],
+      "allowedSourceSetIds": [
+        "pl2"
+      ],
+      "expectedCounts": {
+        "source": 120,
+        "canonicalCatalog": 120,
+        "collectionChecklist": 120,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "platinum-rising-rivals/logo.png",
+        "imageDirectory": "sets/platinum-rising-rivals/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 10,
+        "vintageRule": {
+          "type": "platinum",
+          "packSize": 10,
+          "commonSlots": 5,
+          "uncommonSlots": 3,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "platinum-supreme-victors",
+      "canonicalSourceSetId": "pl3",
+      "displayName": "Platinum—Supreme Victors",
+      "era": "Platinum",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2009-08-19",
+      "printedTotal": 147,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "pl3",
+          "role": "main",
+          "expectedCards": 153
+        }
+      ],
+      "allowedSourceSetIds": [
+        "pl3"
+      ],
+      "expectedCounts": {
+        "source": 153,
+        "canonicalCatalog": 153,
+        "collectionChecklist": 153,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "platinum-supreme-victors/logo.png",
+        "imageDirectory": "sets/platinum-supreme-victors/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 10,
+        "vintageRule": {
+          "type": "platinum",
+          "packSize": 10,
+          "commonSlots": 5,
+          "uncommonSlots": 3,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "platinum-arceus",
+      "canonicalSourceSetId": "pl4",
+      "displayName": "Platinum—Arceus",
+      "era": "Platinum",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2009-11-04",
+      "printedTotal": 99,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "pl4",
+          "role": "main",
+          "expectedCards": 111
+        }
+      ],
+      "allowedSourceSetIds": [
+        "pl4"
+      ],
+      "expectedCounts": {
+        "source": 111,
+        "canonicalCatalog": 111,
+        "collectionChecklist": 111,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "platinum-arceus/logo.png",
+        "imageDirectory": "sets/platinum-arceus/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 10,
+        "vintageRule": {
+          "type": "platinum",
+          "packSize": 10,
+          "commonSlots": 5,
+          "uncommonSlots": 3,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "heartgold-soulsilver",
+      "canonicalSourceSetId": "hgss1",
+      "displayName": "HeartGold & SoulSilver",
+      "era": "HeartGold & SoulSilver",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2010-02-10",
+      "printedTotal": 123,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "hgss1",
+          "role": "main",
+          "expectedCards": 124
+        }
+      ],
+      "allowedSourceSetIds": [
+        "hgss1"
+      ],
+      "expectedCounts": {
+        "source": 124,
+        "canonicalCatalog": 124,
+        "collectionChecklist": 124,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "heartgold-soulsilver/logo.png",
+        "imageDirectory": "sets/heartgold-soulsilver/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 10,
+        "vintageRule": {
+          "type": "heartGoldSoulSilver",
+          "packSize": 10,
+          "commonSlots": 5,
+          "uncommonSlots": 3,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "hs-unleashed",
+      "canonicalSourceSetId": "hgss2",
+      "displayName": "HS—Unleashed",
+      "era": "HeartGold & SoulSilver",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2010-05-12",
+      "printedTotal": 95,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "hgss2",
+          "role": "main",
+          "expectedCards": 96
+        }
+      ],
+      "allowedSourceSetIds": [
+        "hgss2"
+      ],
+      "expectedCounts": {
+        "source": 96,
+        "canonicalCatalog": 96,
+        "collectionChecklist": 96,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "hs-unleashed/logo.png",
+        "imageDirectory": "sets/hs-unleashed/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 10,
+        "vintageRule": {
+          "type": "heartGoldSoulSilver",
+          "packSize": 10,
+          "commonSlots": 5,
+          "uncommonSlots": 3,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "hs-undaunted",
+      "canonicalSourceSetId": "hgss3",
+      "displayName": "HS—Undaunted",
+      "era": "HeartGold & SoulSilver",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2010-08-18",
+      "printedTotal": 90,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "hgss3",
+          "role": "main",
+          "expectedCards": 91
+        }
+      ],
+      "allowedSourceSetIds": [
+        "hgss3"
+      ],
+      "expectedCounts": {
+        "source": 91,
+        "canonicalCatalog": 91,
+        "collectionChecklist": 91,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "hs-undaunted/logo.png",
+        "imageDirectory": "sets/hs-undaunted/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 10,
+        "vintageRule": {
+          "type": "heartGoldSoulSilver",
+          "packSize": 10,
+          "commonSlots": 5,
+          "uncommonSlots": 3,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "hs-triumphant",
+      "canonicalSourceSetId": "hgss4",
+      "displayName": "HS—Triumphant",
+      "era": "HeartGold & SoulSilver",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2010-11-03",
+      "printedTotal": 102,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "hgss4",
+          "role": "main",
+          "expectedCards": 103
+        }
+      ],
+      "allowedSourceSetIds": [
+        "hgss4"
+      ],
+      "expectedCounts": {
+        "source": 103,
+        "canonicalCatalog": 103,
+        "collectionChecklist": 103,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "hs-triumphant/logo.png",
+        "imageDirectory": "sets/hs-triumphant/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 10,
+        "vintageRule": {
+          "type": "heartGoldSoulSilver",
+          "packSize": 10,
+          "commonSlots": 5,
+          "uncommonSlots": 3,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "call-of-legends",
+      "canonicalSourceSetId": "col1",
+      "displayName": "Call of Legends",
+      "era": "HeartGold & SoulSilver",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2011-02-09",
+      "printedTotal": 95,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "col1",
+          "role": "main",
+          "expectedCards": 106
+        }
+      ],
+      "allowedSourceSetIds": [
+        "col1"
+      ],
+      "expectedCounts": {
+        "source": 106,
+        "canonicalCatalog": 106,
+        "collectionChecklist": 106,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "call-of-legends/logo.png",
+        "imageDirectory": "sets/call-of-legends/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 10,
+        "vintageRule": {
+          "type": "heartGoldSoulSilver",
+          "packSize": 10,
+          "commonSlots": 5,
+          "uncommonSlots": 3,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "black-white",
+      "canonicalSourceSetId": "bw1",
+      "displayName": "Black & White",
+      "era": "Black & White",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2011-04-25",
+      "printedTotal": 114,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "bw1",
+          "role": "main",
+          "expectedCards": 115
+        }
+      ],
+      "allowedSourceSetIds": [
+        "bw1"
+      ],
+      "expectedCounts": {
+        "source": 115,
+        "canonicalCatalog": 115,
+        "collectionChecklist": 115,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "black-white/logo.png",
+        "imageDirectory": "sets/black-white/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 10,
+        "vintageRule": {
+          "type": "blackWhite",
+          "packSize": 10,
+          "commonSlots": 5,
+          "uncommonSlots": 3,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "black-white-emerging-powers",
+      "canonicalSourceSetId": "bw2",
+      "displayName": "Black & White—Emerging Powers",
+      "era": "Black & White",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2011-08-31",
+      "printedTotal": 98,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "bw2",
+          "role": "main",
+          "expectedCards": 98
+        }
+      ],
+      "allowedSourceSetIds": [
+        "bw2"
+      ],
+      "expectedCounts": {
+        "source": 98,
+        "canonicalCatalog": 98,
+        "collectionChecklist": 98,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "black-white-emerging-powers/logo.png",
+        "imageDirectory": "sets/black-white-emerging-powers/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 10,
+        "vintageRule": {
+          "type": "blackWhite",
+          "packSize": 10,
+          "commonSlots": 5,
+          "uncommonSlots": 3,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "black-white-noble-victories",
+      "canonicalSourceSetId": "bw3",
+      "displayName": "Black & White—Noble Victories",
+      "era": "Black & White",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2011-11-16",
+      "printedTotal": 101,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "bw3",
+          "role": "main",
+          "expectedCards": 102
+        }
+      ],
+      "allowedSourceSetIds": [
+        "bw3"
+      ],
+      "expectedCounts": {
+        "source": 102,
+        "canonicalCatalog": 102,
+        "collectionChecklist": 102,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "black-white-noble-victories/logo.png",
+        "imageDirectory": "sets/black-white-noble-victories/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 10,
+        "vintageRule": {
+          "type": "blackWhite",
+          "packSize": 10,
+          "commonSlots": 5,
+          "uncommonSlots": 3,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "black-white-next-destinies",
+      "canonicalSourceSetId": "bw4",
+      "displayName": "Black & White—Next Destinies",
+      "era": "Black & White",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2012-02-08",
+      "printedTotal": 99,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "bw4",
+          "role": "main",
+          "expectedCards": 103
+        }
+      ],
+      "allowedSourceSetIds": [
+        "bw4"
+      ],
+      "expectedCounts": {
+        "source": 103,
+        "canonicalCatalog": 103,
+        "collectionChecklist": 103,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "black-white-next-destinies/logo.png",
+        "imageDirectory": "sets/black-white-next-destinies/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 10,
+        "vintageRule": {
+          "type": "blackWhite",
+          "packSize": 10,
+          "commonSlots": 5,
+          "uncommonSlots": 3,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "black-white-dark-explorers",
+      "canonicalSourceSetId": "bw5",
+      "displayName": "Black & White—Dark Explorers",
+      "era": "Black & White",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2012-05-09",
+      "printedTotal": 108,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "bw5",
+          "role": "main",
+          "expectedCards": 111
+        }
+      ],
+      "allowedSourceSetIds": [
+        "bw5"
+      ],
+      "expectedCounts": {
+        "source": 111,
+        "canonicalCatalog": 111,
+        "collectionChecklist": 111,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "black-white-dark-explorers/logo.png",
+        "imageDirectory": "sets/black-white-dark-explorers/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 10,
+        "vintageRule": {
+          "type": "blackWhite",
+          "packSize": 10,
+          "commonSlots": 5,
+          "uncommonSlots": 3,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "black-white-dragons-exalted",
+      "canonicalSourceSetId": "bw6",
+      "displayName": "Black & White—Dragons Exalted",
+      "era": "Black & White",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2012-08-15",
+      "printedTotal": 124,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "bw6",
+          "role": "main",
+          "expectedCards": 128
+        }
+      ],
+      "allowedSourceSetIds": [
+        "bw6"
+      ],
+      "expectedCounts": {
+        "source": 128,
+        "canonicalCatalog": 128,
+        "collectionChecklist": 128,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "black-white-dragons-exalted/logo.png",
+        "imageDirectory": "sets/black-white-dragons-exalted/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 10,
+        "vintageRule": {
+          "type": "blackWhite",
+          "packSize": 10,
+          "commonSlots": 5,
+          "uncommonSlots": 3,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "dragon-vault",
+      "canonicalSourceSetId": "dv1",
+      "displayName": "Dragon Vault",
+      "era": "Black & White",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2012-10-05",
+      "printedTotal": 20,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "dv1",
+          "role": "main",
+          "expectedCards": 21
+        }
+      ],
+      "allowedSourceSetIds": [
+        "dv1"
+      ],
+      "expectedCounts": {
+        "source": 21,
+        "canonicalCatalog": 21,
+        "collectionChecklist": 21,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "dragon-vault/logo.png",
+        "imageDirectory": "sets/dragon-vault/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 5,
+        "vintageRule": {
+          "type": "dragonVault",
+          "packSize": 5,
+          "regularSlots": 4,
+          "rareSlots": 1,
+          "allFoil": true
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "black-white-boundaries-crossed",
+      "canonicalSourceSetId": "bw7",
+      "displayName": "Black & White—Boundaries Crossed",
+      "era": "Black & White",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2012-11-07",
+      "printedTotal": 149,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "bw7",
+          "role": "main",
+          "expectedCards": 153
+        }
+      ],
+      "allowedSourceSetIds": [
+        "bw7"
+      ],
+      "expectedCounts": {
+        "source": 153,
+        "canonicalCatalog": 153,
+        "collectionChecklist": 153,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "black-white-boundaries-crossed/logo.png",
+        "imageDirectory": "sets/black-white-boundaries-crossed/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 10,
+        "vintageRule": {
+          "type": "blackWhite",
+          "packSize": 10,
+          "commonSlots": 5,
+          "uncommonSlots": 3,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "black-white-plasma-storm",
+      "canonicalSourceSetId": "bw8",
+      "displayName": "Black & White—Plasma Storm",
+      "era": "Black & White",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2013-02-06",
+      "printedTotal": 135,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "bw8",
+          "role": "main",
+          "expectedCards": 138
+        }
+      ],
+      "allowedSourceSetIds": [
+        "bw8"
+      ],
+      "expectedCounts": {
+        "source": 138,
+        "canonicalCatalog": 138,
+        "collectionChecklist": 138,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "black-white-plasma-storm/logo.png",
+        "imageDirectory": "sets/black-white-plasma-storm/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 10,
+        "vintageRule": {
+          "type": "blackWhite",
+          "packSize": 10,
+          "commonSlots": 5,
+          "uncommonSlots": 3,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "black-white-plasma-freeze",
+      "canonicalSourceSetId": "bw9",
+      "displayName": "Black & White—Plasma Freeze",
+      "era": "Black & White",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2013-05-08",
+      "printedTotal": 116,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "bw9",
+          "role": "main",
+          "expectedCards": 122
+        }
+      ],
+      "allowedSourceSetIds": [
+        "bw9"
+      ],
+      "expectedCounts": {
+        "source": 122,
+        "canonicalCatalog": 122,
+        "collectionChecklist": 122,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "black-white-plasma-freeze/logo.png",
+        "imageDirectory": "sets/black-white-plasma-freeze/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 10,
+        "vintageRule": {
+          "type": "blackWhite",
+          "packSize": 10,
+          "commonSlots": 5,
+          "uncommonSlots": 3,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "black-white-plasma-blast",
+      "canonicalSourceSetId": "bw10",
+      "displayName": "Black & White—Plasma Blast",
+      "era": "Black & White",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2013-08-14",
+      "printedTotal": 101,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "bw10",
+          "role": "main",
+          "expectedCards": 105
+        }
+      ],
+      "allowedSourceSetIds": [
+        "bw10"
+      ],
+      "expectedCounts": {
+        "source": 105,
+        "canonicalCatalog": 105,
+        "collectionChecklist": 105,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "black-white-plasma-blast/logo.png",
+        "imageDirectory": "sets/black-white-plasma-blast/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 10,
+        "vintageRule": {
+          "type": "blackWhite",
+          "packSize": 10,
+          "commonSlots": 5,
+          "uncommonSlots": 3,
+          "reverseSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "black-white-legendary-treasures",
+      "canonicalSourceSetId": "bw11",
+      "displayName": "Black & White—Legendary Treasures",
+      "era": "Black & White",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2013-11-06",
+      "printedTotal": 113,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "bw11",
+          "role": "main",
+          "expectedCards": 140
+        }
+      ],
+      "allowedSourceSetIds": [
+        "bw11"
+      ],
+      "expectedCounts": {
+        "source": 140,
+        "canonicalCatalog": 140,
+        "collectionChecklist": 140,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "black-white-legendary-treasures/logo.png",
+        "imageDirectory": "sets/black-white-legendary-treasures/cards"
+      },
+      "pack": {
+        "profile": null,
+        "size": 10,
+        "vintageRule": {
+          "type": "legendaryTreasures",
+          "packSize": 10,
+          "commonSlots": 5,
+          "uncommonSlots": 2,
+          "reverseSlots": 1,
+          "radiantCollectionSlots": 1,
+          "rareSlots": 1,
+          "holoChance": 0.3333333333333333
+        },
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "xy0",
+      "canonicalSourceSetId": "xy0",
+      "displayName": "XY-Kalos Starter Set",
+      "era": "XY",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2013-11-08",
+      "printedTotal": 39,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "xy0",
+          "role": "main",
+          "expectedCards": 39
+        }
+      ],
+      "allowedSourceSetIds": [
+        "xy0"
+      ],
+      "expectedCounts": {
+        "source": 39,
+        "canonicalCatalog": 39,
+        "collectionChecklist": 39,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "xy0/logo.png",
+        "imageDirectory": "sets/xy0/cards"
+      },
+      "pack": {
+        "profile": "xyKalosStarter",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "xy1",
+      "canonicalSourceSetId": "xy1",
+      "displayName": "XY",
+      "era": "XY",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2014-02-05",
+      "printedTotal": 146,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "xy1",
+          "role": "main",
+          "expectedCards": 146
+        }
+      ],
+      "allowedSourceSetIds": [
+        "xy1"
+      ],
+      "expectedCounts": {
+        "source": 146,
+        "canonicalCatalog": 146,
+        "collectionChecklist": 146,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "xy1/logo.png",
+        "imageDirectory": "sets/xy1/cards"
+      },
+      "pack": {
+        "profile": "xyEarly",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "xy2",
+      "canonicalSourceSetId": "xy2",
+      "displayName": "XY-Flashfire",
+      "era": "XY",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2014-05-07",
+      "printedTotal": 106,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "xy2",
+          "role": "main",
+          "expectedCards": 110
+        }
+      ],
+      "allowedSourceSetIds": [
+        "xy2"
+      ],
+      "expectedCounts": {
+        "source": 110,
+        "canonicalCatalog": 110,
+        "collectionChecklist": 110,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "xy2/logo.png",
+        "imageDirectory": "sets/xy2/cards"
+      },
+      "pack": {
+        "profile": "xyEarly",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "xy3",
+      "canonicalSourceSetId": "xy3",
+      "displayName": "XY-Furious Fists",
+      "era": "XY",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2014-08-13",
+      "printedTotal": 111,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "xy3",
+          "role": "main",
+          "expectedCards": 114
+        }
+      ],
+      "allowedSourceSetIds": [
+        "xy3"
+      ],
+      "expectedCounts": {
+        "source": 114,
+        "canonicalCatalog": 114,
+        "collectionChecklist": 114,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "xy3/logo.png",
+        "imageDirectory": "sets/xy3/cards"
+      },
+      "pack": {
+        "profile": "xyEarly",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "xy4",
+      "canonicalSourceSetId": "xy4",
+      "displayName": "XY-Phantom Forces",
+      "era": "XY",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2014-11-05",
+      "printedTotal": 119,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "xy4",
+          "role": "main",
+          "expectedCards": 124
+        }
+      ],
+      "allowedSourceSetIds": [
+        "xy4"
+      ],
+      "expectedCounts": {
+        "source": 124,
+        "canonicalCatalog": 124,
+        "collectionChecklist": 124,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "xy4/logo.png",
+        "imageDirectory": "sets/xy4/cards"
+      },
+      "pack": {
+        "profile": "xyEarly",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "xy5",
+      "canonicalSourceSetId": "xy5",
+      "displayName": "XY-Primal Clash",
+      "era": "XY",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2015-02-04",
+      "printedTotal": 160,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "xy5",
+          "role": "main",
+          "expectedCards": 164
+        }
+      ],
+      "allowedSourceSetIds": [
+        "xy5"
+      ],
+      "expectedCounts": {
+        "source": 164,
+        "canonicalCatalog": 164,
+        "collectionChecklist": 164,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "xy5/logo.png",
+        "imageDirectory": "sets/xy5/cards"
+      },
+      "pack": {
+        "profile": "xyTransition",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "dc1",
+      "canonicalSourceSetId": "dc1",
+      "displayName": "Double Crisis",
+      "era": "XY",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2015-03-25",
+      "printedTotal": 34,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "dc1",
+          "role": "main",
+          "expectedCards": 34
+        }
+      ],
+      "allowedSourceSetIds": [
+        "dc1"
+      ],
+      "expectedCounts": {
+        "source": 34,
+        "canonicalCatalog": 34,
+        "collectionChecklist": 34,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "dc1/logo.png",
+        "imageDirectory": "sets/dc1/cards"
+      },
+      "pack": {
+        "profile": "xyDoubleCrisis",
+        "size": 7,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "xy6",
+      "canonicalSourceSetId": "xy6",
+      "displayName": "XY-Roaring Skies",
+      "era": "XY",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2015-05-06",
+      "printedTotal": 108,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "xy6",
+          "role": "main",
+          "expectedCards": 112
+        }
+      ],
+      "allowedSourceSetIds": [
+        "xy6"
+      ],
+      "expectedCounts": {
+        "source": 112,
+        "canonicalCatalog": 112,
+        "collectionChecklist": 112,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "xy6/logo.png",
+        "imageDirectory": "sets/xy6/cards"
+      },
+      "pack": {
+        "profile": "xyTransition",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "xy7",
+      "canonicalSourceSetId": "xy7",
+      "displayName": "XY-Ancient Origins",
+      "era": "XY",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2015-08-12",
+      "printedTotal": 98,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "xy7",
+          "role": "main",
+          "expectedCards": 101
+        }
+      ],
+      "allowedSourceSetIds": [
+        "xy7"
+      ],
+      "expectedCounts": {
+        "source": 101,
+        "canonicalCatalog": 101,
+        "collectionChecklist": 101,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "xy7/logo.png",
+        "imageDirectory": "sets/xy7/cards"
+      },
+      "pack": {
+        "profile": "xyLate",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "xy8",
+      "canonicalSourceSetId": "xy8",
+      "displayName": "XY-BREAKthrough",
+      "era": "XY",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2015-11-04",
+      "printedTotal": 162,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "xy8",
+          "role": "main",
+          "expectedCards": 165
+        }
+      ],
+      "allowedSourceSetIds": [
+        "xy8"
+      ],
+      "expectedCounts": {
+        "source": 165,
+        "canonicalCatalog": 165,
+        "collectionChecklist": 165,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "xy8/logo.png",
+        "imageDirectory": "sets/xy8/cards"
+      },
+      "pack": {
+        "profile": "xyBreak",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "xy9",
+      "canonicalSourceSetId": "xy9",
+      "displayName": "XY-BREAKpoint",
+      "era": "XY",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2016-02-03",
+      "printedTotal": 122,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "xy9",
+          "role": "main",
+          "expectedCards": 126
+        }
+      ],
+      "allowedSourceSetIds": [
+        "xy9"
+      ],
+      "expectedCounts": {
+        "source": 126,
+        "canonicalCatalog": 126,
+        "collectionChecklist": 126,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "xy9/logo.png",
+        "imageDirectory": "sets/xy9/cards"
+      },
+      "pack": {
+        "profile": "xyBreak",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "g1",
+      "canonicalSourceSetId": "g1",
+      "displayName": "Generations",
+      "era": "XY",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2016-02-22",
+      "printedTotal": 83,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "g1",
+          "role": "main",
+          "expectedCards": 117
+        }
+      ],
+      "allowedSourceSetIds": [
+        "g1"
+      ],
+      "expectedCounts": {
+        "source": 117,
+        "canonicalCatalog": 117,
+        "collectionChecklist": 117,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "g1/logo.png",
+        "imageDirectory": "sets/g1/cards"
+      },
+      "pack": {
+        "profile": "xyGenerations",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "xy10",
+      "canonicalSourceSetId": "xy10",
+      "displayName": "XY-Fates Collide",
+      "era": "XY",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2016-05-02",
+      "printedTotal": 124,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "xy10",
+          "role": "main",
+          "expectedCards": 129
+        }
+      ],
+      "allowedSourceSetIds": [
+        "xy10"
+      ],
+      "expectedCounts": {
+        "source": 129,
+        "canonicalCatalog": 129,
+        "collectionChecklist": 129,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "xy10/logo.png",
+        "imageDirectory": "sets/xy10/cards"
+      },
+      "pack": {
+        "profile": "xyBreak",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "xy11",
+      "canonicalSourceSetId": "xy11",
+      "displayName": "XY-Steam Siege",
+      "era": "XY",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2016-08-03",
+      "printedTotal": 114,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "xy11",
+          "role": "main",
+          "expectedCards": 116
+        }
+      ],
+      "allowedSourceSetIds": [
+        "xy11"
+      ],
+      "expectedCounts": {
+        "source": 116,
+        "canonicalCatalog": 116,
+        "collectionChecklist": 116,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "xy11/logo.png",
+        "imageDirectory": "sets/xy11/cards"
+      },
+      "pack": {
+        "profile": "xyBreak",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "xy12",
+      "canonicalSourceSetId": "xy12",
+      "displayName": "XY-Evolutions",
+      "era": "XY",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2016-11-02",
+      "printedTotal": 108,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "xy12",
+          "role": "main",
+          "expectedCards": 113
+        }
+      ],
+      "allowedSourceSetIds": [
+        "xy12"
+      ],
+      "expectedCounts": {
+        "source": 113,
+        "canonicalCatalog": 113,
+        "collectionChecklist": 113,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "xy12/logo.png",
+        "imageDirectory": "sets/xy12/cards"
+      },
+      "pack": {
+        "profile": "xyEvolutions",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "sun-moon",
+      "canonicalSourceSetId": "sm1",
+      "displayName": "Sun & Moon",
+      "era": "Sun & Moon",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2017-02-03",
+      "printedTotal": 149,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "sm1",
+          "role": "main",
+          "expectedCards": 173
+        }
+      ],
+      "allowedSourceSetIds": [
+        "sm1"
+      ],
+      "expectedCounts": {
+        "source": 173,
+        "canonicalCatalog": 173,
+        "collectionChecklist": 164,
+        "legacyResolvable": 1
+      },
+      "assets": {
+        "logo": "sun-moon/logo.png",
+        "imageDirectory": "sets/sun-moon/cards"
+      },
+      "pack": {
+        "profile": "sunMoonStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": [
+        {
+          "cardId": "sun-moon-151-moon-sun-badge",
+          "status": "legacy-resolution-only",
+          "canonicalSetId": "evolving-skies",
+          "canonicalCardId": "evolving-skies-151-moon-sun-badge",
+          "reason": "Preserved historical wrong-set identity; excluded from all active catalogs."
+        }
+      ]
+    },
+    {
+      "id": "guardians-rising",
+      "canonicalSourceSetId": "sm2",
+      "displayName": "Guardians Rising",
+      "era": "Sun & Moon",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2017-05-05",
+      "printedTotal": 145,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "sm2",
+          "role": "main",
+          "expectedCards": 180
+        }
+      ],
+      "allowedSourceSetIds": [
+        "sm2"
+      ],
+      "expectedCounts": {
+        "source": 180,
+        "canonicalCatalog": 180,
+        "collectionChecklist": 180,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "guardians-rising/logo.png",
+        "imageDirectory": "sets/guardians-rising/cards"
+      },
+      "pack": {
+        "profile": "sunMoonStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "burning-shadows",
+      "canonicalSourceSetId": "sm3",
+      "displayName": "Burning Shadows",
+      "era": "Sun & Moon",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2017-08-04",
+      "printedTotal": 147,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "sm3",
+          "role": "main",
+          "expectedCards": 177
+        }
+      ],
+      "allowedSourceSetIds": [
+        "sm3"
+      ],
+      "expectedCounts": {
+        "source": 177,
+        "canonicalCatalog": 177,
+        "collectionChecklist": 177,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "burning-shadows/logo.png",
+        "imageDirectory": "sets/burning-shadows/cards"
+      },
+      "pack": {
+        "profile": "sunMoonStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "shining-legends",
+      "canonicalSourceSetId": "sm35",
+      "displayName": "Shining Legends",
+      "era": "Sun & Moon",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2017-10-06",
+      "printedTotal": 73,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "sm35",
+          "role": "main",
+          "expectedCards": 81
+        }
+      ],
+      "allowedSourceSetIds": [
+        "sm35"
+      ],
+      "expectedCounts": {
+        "source": 81,
+        "canonicalCatalog": 81,
+        "collectionChecklist": 81,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "shining-legends/logo.png",
+        "imageDirectory": "sets/shining-legends/cards"
+      },
+      "pack": {
+        "profile": "sunMoonSpecial",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "crimson-invasion",
+      "canonicalSourceSetId": "sm4",
+      "displayName": "Crimson Invasion",
+      "era": "Sun & Moon",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2017-11-03",
+      "printedTotal": 111,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "sm4",
+          "role": "main",
+          "expectedCards": 126
+        }
+      ],
+      "allowedSourceSetIds": [
+        "sm4"
+      ],
+      "expectedCounts": {
+        "source": 126,
+        "canonicalCatalog": 126,
+        "collectionChecklist": 126,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "crimson-invasion/logo.png",
+        "imageDirectory": "sets/crimson-invasion/cards"
+      },
+      "pack": {
+        "profile": "sunMoonStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "ultra-prism",
+      "canonicalSourceSetId": "sm5",
+      "displayName": "Ultra Prism",
+      "era": "Sun & Moon",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2018-02-02",
+      "printedTotal": 156,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "sm5",
+          "role": "main",
+          "expectedCards": 178
+        }
+      ],
+      "allowedSourceSetIds": [
+        "sm5"
+      ],
+      "expectedCounts": {
+        "source": 178,
+        "canonicalCatalog": 178,
+        "collectionChecklist": 178,
+        "legacyResolvable": 13
+      },
+      "assets": {
+        "logo": "ultra-prism/logo.png",
+        "imageDirectory": "sets/ultra-prism/cards"
+      },
+      "pack": {
+        "profile": "sunMoonStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": {
+          "type": "prismStar",
+          "rates": {
+            "normal": 91.28,
+            "prismStar": 8.72
+          },
+          "legacy": false
+        },
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": [
+        {
+          "cardId": "ultra-prism-111-prism-tower",
+          "status": "legacy-resolution-only",
+          "canonicalSetId": "chaos-rising",
+          "canonicalCardId": "chaos-rising-111-prism-tower",
+          "reason": "Preserved historical wrong-set identity; excluded from all active catalogs."
+        },
+        {
+          "cardId": "ultra-prism-132-amarys",
+          "status": "legacy-resolution-only",
+          "canonicalSetId": "prismatic-evolutions",
+          "canonicalCardId": "prismatic-evolutions-132-amarys",
+          "reason": "Preserved historical wrong-set identity; excluded from all active catalogs."
+        },
+        {
+          "cardId": "ultra-prism-133-atticus",
+          "status": "legacy-resolution-only",
+          "canonicalSetId": "prismatic-evolutions",
+          "canonicalCardId": "prismatic-evolutions-133-atticus",
+          "reason": "Preserved historical wrong-set identity; excluded from all active catalogs."
+        },
+        {
+          "cardId": "ultra-prism-134-atticus",
+          "status": "legacy-resolution-only",
+          "canonicalSetId": "prismatic-evolutions",
+          "canonicalCardId": "prismatic-evolutions-134-atticus",
+          "reason": "Preserved historical wrong-set identity; excluded from all active catalogs."
+        },
+        {
+          "cardId": "ultra-prism-135-brassius",
+          "status": "legacy-resolution-only",
+          "canonicalSetId": "prismatic-evolutions",
+          "canonicalCardId": "prismatic-evolutions-135-brassius",
+          "reason": "Preserved historical wrong-set identity; excluded from all active catalogs."
+        },
+        {
+          "cardId": "ultra-prism-136-eri",
+          "status": "legacy-resolution-only",
+          "canonicalSetId": "prismatic-evolutions",
+          "canonicalCardId": "prismatic-evolutions-136-eri",
+          "reason": "Preserved historical wrong-set identity; excluded from all active catalogs."
+        },
+        {
+          "cardId": "ultra-prism-137-friends-in-paldea",
+          "status": "legacy-resolution-only",
+          "canonicalSetId": "prismatic-evolutions",
+          "canonicalCardId": "prismatic-evolutions-137-friends-in-paldea",
+          "reason": "Preserved historical wrong-set identity; excluded from all active catalogs."
+        },
+        {
+          "cardId": "ultra-prism-138-giacomo",
+          "status": "legacy-resolution-only",
+          "canonicalSetId": "prismatic-evolutions",
+          "canonicalCardId": "prismatic-evolutions-138-giacomo",
+          "reason": "Preserved historical wrong-set identity; excluded from all active catalogs."
+        },
+        {
+          "cardId": "ultra-prism-139-larry-s-skill",
+          "status": "legacy-resolution-only",
+          "canonicalSetId": "prismatic-evolutions",
+          "canonicalCardId": "prismatic-evolutions-139-larry-s-skill",
+          "reason": "Preserved historical wrong-set identity; excluded from all active catalogs."
+        },
+        {
+          "cardId": "ultra-prism-140-mela",
+          "status": "legacy-resolution-only",
+          "canonicalSetId": "prismatic-evolutions",
+          "canonicalCardId": "prismatic-evolutions-140-mela",
+          "reason": "Preserved historical wrong-set identity; excluded from all active catalogs."
+        },
+        {
+          "cardId": "ultra-prism-141-ortega",
+          "status": "legacy-resolution-only",
+          "canonicalSetId": "prismatic-evolutions",
+          "canonicalCardId": "prismatic-evolutions-141-ortega",
+          "reason": "Preserved historical wrong-set identity; excluded from all active catalogs."
+        },
+        {
+          "cardId": "ultra-prism-142-raifort",
+          "status": "legacy-resolution-only",
+          "canonicalSetId": "prismatic-evolutions",
+          "canonicalCardId": "prismatic-evolutions-142-raifort",
+          "reason": "Preserved historical wrong-set identity; excluded from all active catalogs."
+        },
+        {
+          "cardId": "ultra-prism-143-tyme",
+          "status": "legacy-resolution-only",
+          "canonicalSetId": "prismatic-evolutions",
+          "canonicalCardId": "prismatic-evolutions-143-tyme",
+          "reason": "Preserved historical wrong-set identity; excluded from all active catalogs."
+        }
+      ]
+    },
+    {
+      "id": "forbidden-light",
+      "canonicalSourceSetId": "sm6",
+      "displayName": "Forbidden Light",
+      "era": "Sun & Moon",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2018-05-04",
+      "printedTotal": 131,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "sm6",
+          "role": "main",
+          "expectedCards": 150
+        }
+      ],
+      "allowedSourceSetIds": [
+        "sm6"
+      ],
+      "expectedCounts": {
+        "source": 150,
+        "canonicalCatalog": 150,
+        "collectionChecklist": 150,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "forbidden-light/logo.png",
+        "imageDirectory": "sets/forbidden-light/cards"
+      },
+      "pack": {
+        "profile": "sunMoonStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": {
+          "type": "prismStar",
+          "rates": {
+            "normal": 92.09,
+            "prismStar": 7.91
+          },
+          "legacy": false
+        },
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "celestial-storm",
+      "canonicalSourceSetId": "sm7",
+      "displayName": "Celestial Storm",
+      "era": "Sun & Moon",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2018-08-03",
+      "printedTotal": 168,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "sm7",
+          "role": "main",
+          "expectedCards": 187
+        }
+      ],
+      "allowedSourceSetIds": [
+        "sm7"
+      ],
+      "expectedCounts": {
+        "source": 187,
+        "canonicalCatalog": 187,
+        "collectionChecklist": 187,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "celestial-storm/logo.png",
+        "imageDirectory": "sets/celestial-storm/cards"
+      },
+      "pack": {
+        "profile": "sunMoonStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": {
+          "type": "prismStar",
+          "rates": {
+            "normal": 94.53,
+            "prismStar": 5.47
+          },
+          "legacy": false
+        },
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "dragon-majesty",
+      "canonicalSourceSetId": "sm75",
+      "displayName": "Dragon Majesty",
+      "era": "Sun & Moon",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2018-09-07",
+      "printedTotal": 70,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "sm75",
+          "role": "main",
+          "expectedCards": 80
+        }
+      ],
+      "allowedSourceSetIds": [
+        "sm75"
+      ],
+      "expectedCounts": {
+        "source": 80,
+        "canonicalCatalog": 80,
+        "collectionChecklist": 80,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "dragon-majesty/logo.png",
+        "imageDirectory": "sets/dragon-majesty/cards"
+      },
+      "pack": {
+        "profile": "sunMoonSpecial",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": {
+          "type": "prismStar",
+          "rates": {
+            "normal": 89.2,
+            "prismStar": 10.8
+          },
+          "legacy": false
+        },
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "lost-thunder",
+      "canonicalSourceSetId": "sm8",
+      "displayName": "Lost Thunder",
+      "era": "Sun & Moon",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2018-11-02",
+      "printedTotal": 214,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "sm8",
+          "role": "main",
+          "expectedCards": 240
+        }
+      ],
+      "allowedSourceSetIds": [
+        "sm8"
+      ],
+      "expectedCounts": {
+        "source": 240,
+        "canonicalCatalog": 240,
+        "collectionChecklist": 240,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "lost-thunder/logo.png",
+        "imageDirectory": "sets/lost-thunder/cards"
+      },
+      "pack": {
+        "profile": "sunMoonStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": {
+          "type": "prismStar",
+          "rates": {
+            "normal": 87.83,
+            "prismStar": 12.17
+          },
+          "legacy": false
+        },
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "team-up",
+      "canonicalSourceSetId": "sm9",
+      "displayName": "Team Up",
+      "era": "Sun & Moon",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2019-02-01",
+      "printedTotal": 181,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "sm9",
+          "role": "main",
+          "expectedCards": 198
+        }
+      ],
+      "allowedSourceSetIds": [
+        "sm9"
+      ],
+      "expectedCounts": {
+        "source": 198,
+        "canonicalCatalog": 198,
+        "collectionChecklist": 198,
+        "legacyResolvable": 1
+      },
+      "assets": {
+        "logo": "team-up/logo.png",
+        "imageDirectory": "sets/team-up/cards"
+      },
+      "pack": {
+        "profile": "sunMoonStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": {
+          "type": "prismStar",
+          "rates": {
+            "normal": 94.04,
+            "prismStar": 5.96
+          },
+          "legacy": false
+        },
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": [
+        {
+          "cardId": "team-up-95-team-rocket-s-pupitar",
+          "status": "legacy-resolution-only",
+          "canonicalSetId": "destined-rivals",
+          "canonicalCardId": "destined-rivals-95-team-rocket-s-pupitar",
+          "reason": "Preserved historical wrong-set identity; excluded from all active catalogs."
+        }
+      ]
+    },
+    {
+      "id": "detective-pikachu",
+      "canonicalSourceSetId": "det1",
+      "displayName": "Detective Pikachu",
+      "era": "Sun & Moon",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2019-04-05",
+      "printedTotal": 18,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "det1",
+          "role": "main",
+          "expectedCards": 18
+        }
+      ],
+      "allowedSourceSetIds": [
+        "det1"
+      ],
+      "expectedCounts": {
+        "source": 18,
+        "canonicalCatalog": 18,
+        "collectionChecklist": 18,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "detective-pikachu/logo.png",
+        "imageDirectory": "sets/detective-pikachu/cards"
+      },
+      "pack": {
+        "profile": "detectivePikachu",
+        "size": 4,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "unbroken-bonds",
+      "canonicalSourceSetId": "sm10",
+      "displayName": "Unbroken Bonds",
+      "era": "Sun & Moon",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2019-05-03",
+      "printedTotal": 214,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "sm10",
+          "role": "main",
+          "expectedCards": 238
+        }
+      ],
+      "allowedSourceSetIds": [
+        "sm10"
+      ],
+      "expectedCounts": {
+        "source": 238,
+        "canonicalCatalog": 238,
+        "collectionChecklist": 238,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "unbroken-bonds/logo.png",
+        "imageDirectory": "sets/unbroken-bonds/cards"
+      },
+      "pack": {
+        "profile": "sunMoonStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "unified-minds",
+      "canonicalSourceSetId": "sm11",
+      "displayName": "Unified Minds",
+      "era": "Sun & Moon",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2019-08-02",
+      "printedTotal": 236,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "sm11",
+          "role": "main",
+          "expectedCards": 261
+        }
+      ],
+      "allowedSourceSetIds": [
+        "sm11"
+      ],
+      "expectedCounts": {
+        "source": 261,
+        "canonicalCatalog": 261,
+        "collectionChecklist": 261,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "unified-minds/logo.png",
+        "imageDirectory": "sets/unified-minds/cards"
+      },
+      "pack": {
+        "profile": "sunMoonStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "hidden-fates",
+      "canonicalSourceSetId": "sm115",
+      "displayName": "Hidden Fates",
+      "era": "Sun & Moon",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2019-08-23",
+      "printedTotal": 68,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "sm115",
+          "role": "main",
+          "expectedCards": 69
+        },
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "sma",
+          "role": "subset",
+          "subset": "Shiny Vault",
+          "expectedCards": 94
+        }
+      ],
+      "allowedSourceSetIds": [
+        "sm115",
+        "sma"
+      ],
+      "expectedCounts": {
+        "source": 163,
+        "canonicalCatalog": 163,
+        "collectionChecklist": 163,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "hidden-fates/logo.png",
+        "imageDirectory": "sets/hidden-fates/cards"
+      },
+      "pack": {
+        "profile": "sunMoonSpecial",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": {
+          "type": "shinyVault",
+          "rates": {
+            "normal": 70.5,
+            "shinyRare": 21.5,
+            "shinyUltraRare": 8
+          },
+          "legacy": false
+        },
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "cosmic-eclipse",
+      "canonicalSourceSetId": "sm12",
+      "displayName": "Cosmic Eclipse",
+      "era": "Sun & Moon",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2019-11-01",
+      "printedTotal": 236,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "sm12",
+          "role": "main",
+          "expectedCards": 272
+        }
+      ],
+      "allowedSourceSetIds": [
+        "sm12"
+      ],
+      "expectedCounts": {
+        "source": 272,
+        "canonicalCatalog": 272,
+        "collectionChecklist": 272,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "cosmic-eclipse/logo.png",
+        "imageDirectory": "sets/cosmic-eclipse/cards"
+      },
+      "pack": {
+        "profile": "sunMoonStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": {
+          "type": "characterSecret",
+          "rates": {
+            "normal": 90,
+            "trainerGallery": 10
+          },
+          "legacy": false
+        },
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "sword-shield",
+      "canonicalSourceSetId": "swsh1",
+      "displayName": "Sword & Shield",
+      "era": "Sword & Shield",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2020-02-07",
+      "printedTotal": 202,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "swsh1",
+          "role": "main",
+          "expectedCards": 216
+        }
+      ],
+      "allowedSourceSetIds": [
+        "swsh1"
+      ],
+      "expectedCounts": {
+        "source": 216,
+        "canonicalCatalog": 216,
+        "collectionChecklist": 216,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "sword-shield/logo.png",
+        "imageDirectory": "sets/sword-shield/cards"
+      },
+      "pack": {
+        "profile": "swordShieldStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "rebel-clash",
+      "canonicalSourceSetId": "swsh2",
+      "displayName": "Rebel Clash",
+      "era": "Sword & Shield",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2020-05-01",
+      "printedTotal": 192,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "swsh2",
+          "role": "main",
+          "expectedCards": 209
+        }
+      ],
+      "allowedSourceSetIds": [
+        "swsh2"
+      ],
+      "expectedCounts": {
+        "source": 209,
+        "canonicalCatalog": 209,
+        "collectionChecklist": 209,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "rebel-clash/logo.png",
+        "imageDirectory": "sets/rebel-clash/cards"
+      },
+      "pack": {
+        "profile": "swordShieldStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "darkness-ablaze",
+      "canonicalSourceSetId": "swsh3",
+      "displayName": "Darkness Ablaze",
+      "era": "Sword & Shield",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2020-08-14",
+      "printedTotal": 189,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "swsh3",
+          "role": "main",
+          "expectedCards": 201
+        }
+      ],
+      "allowedSourceSetIds": [
+        "swsh3"
+      ],
+      "expectedCounts": {
+        "source": 201,
+        "canonicalCatalog": 201,
+        "collectionChecklist": 201,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "darkness-ablaze/logo.png",
+        "imageDirectory": "sets/darkness-ablaze/cards"
+      },
+      "pack": {
+        "profile": "swordShieldStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "champions-path",
+      "canonicalSourceSetId": "swsh35",
+      "displayName": "Champion's Path",
+      "era": "Sword & Shield",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2020-09-25",
+      "printedTotal": 73,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "swsh35",
+          "role": "main",
+          "expectedCards": 80
+        }
+      ],
+      "allowedSourceSetIds": [
+        "swsh35"
+      ],
+      "expectedCounts": {
+        "source": 80,
+        "canonicalCatalog": 80,
+        "collectionChecklist": 80,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "champions-path/logo.png",
+        "imageDirectory": "sets/champions-path/cards"
+      },
+      "pack": {
+        "profile": "swordShieldSpecial",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "vivid-voltage",
+      "canonicalSourceSetId": "swsh4",
+      "displayName": "Vivid Voltage",
+      "era": "Sword & Shield",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2020-11-13",
+      "printedTotal": 185,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "swsh4",
+          "role": "main",
+          "expectedCards": 203
+        }
+      ],
+      "allowedSourceSetIds": [
+        "swsh4"
+      ],
+      "expectedCounts": {
+        "source": 203,
+        "canonicalCatalog": 203,
+        "collectionChecklist": 203,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "vivid-voltage/logo.png",
+        "imageDirectory": "sets/vivid-voltage/cards"
+      },
+      "pack": {
+        "profile": "swordShieldStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "shining-fates",
+      "canonicalSourceSetId": "swsh45",
+      "displayName": "Shining Fates",
+      "era": "Sword & Shield",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2021-02-19",
+      "printedTotal": 72,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "swsh45",
+          "role": "main",
+          "expectedCards": 73
+        },
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "swsh45sv",
+          "role": "subset",
+          "subset": "Shiny Vault",
+          "expectedCards": 122
+        }
+      ],
+      "allowedSourceSetIds": [
+        "swsh45",
+        "swsh45sv"
+      ],
+      "expectedCounts": {
+        "source": 195,
+        "canonicalCatalog": 195,
+        "collectionChecklist": 195,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "shining-fates/logo.png",
+        "imageDirectory": "sets/shining-fates/cards"
+      },
+      "pack": {
+        "profile": "swordShieldSpecial",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": {
+          "type": "shinyVault",
+          "rates": {
+            "normal": 71.8,
+            "shinyRare": 20.2,
+            "shinyUltraRare": 8
+          },
+          "legacy": false
+        },
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "battle-styles",
+      "canonicalSourceSetId": "swsh5",
+      "displayName": "Battle Styles",
+      "era": "Sword & Shield",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2021-03-19",
+      "printedTotal": 163,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "swsh5",
+          "role": "main",
+          "expectedCards": 183
+        }
+      ],
+      "allowedSourceSetIds": [
+        "swsh5"
+      ],
+      "expectedCounts": {
+        "source": 183,
+        "canonicalCatalog": 183,
+        "collectionChecklist": 183,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "battle-styles/logo.png",
+        "imageDirectory": "sets/battle-styles/cards"
+      },
+      "pack": {
+        "profile": "swordShieldStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "chilling-reign",
+      "canonicalSourceSetId": "swsh6",
+      "displayName": "Chilling Reign",
+      "era": "Sword & Shield",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2021-06-18",
+      "printedTotal": 198,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "swsh6",
+          "role": "main",
+          "expectedCards": 233
+        }
+      ],
+      "allowedSourceSetIds": [
+        "swsh6"
+      ],
+      "expectedCounts": {
+        "source": 233,
+        "canonicalCatalog": 233,
+        "collectionChecklist": 233,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "chilling-reign/logo.png",
+        "imageDirectory": "sets/chilling-reign/cards"
+      },
+      "pack": {
+        "profile": "swordShieldStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "evolving-skies",
+      "canonicalSourceSetId": "swsh7",
+      "displayName": "Evolving Skies",
+      "era": "Sword & Shield",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2021-08-27",
+      "printedTotal": 203,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "swsh7",
+          "role": "main",
+          "expectedCards": 237
+        }
+      ],
+      "allowedSourceSetIds": [
+        "swsh7"
+      ],
+      "expectedCounts": {
+        "source": 237,
+        "canonicalCatalog": 237,
+        "collectionChecklist": 237,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "evolving-skies/logo.png",
+        "imageDirectory": "sets/evolving-skies/cards"
+      },
+      "pack": {
+        "profile": "swordShieldStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "celebrations",
+      "canonicalSourceSetId": "cel25",
+      "displayName": "Celebrations",
+      "era": "Sword & Shield",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2021-10-08",
+      "printedTotal": 25,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "cel25",
+          "role": "main",
+          "expectedCards": 25
+        },
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "cel25c",
+          "role": "subset",
+          "subset": "Classic Collection",
+          "expectedCards": 25
+        }
+      ],
+      "allowedSourceSetIds": [
+        "cel25",
+        "cel25c"
+      ],
+      "expectedCounts": {
+        "source": 50,
+        "canonicalCatalog": 50,
+        "collectionChecklist": 50,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "celebrations/logo.png",
+        "imageDirectory": "sets/celebrations/cards"
+      },
+      "pack": {
+        "profile": "swordShieldSpecial",
+        "size": 4,
+        "vintageRule": null,
+        "subsetRule": {
+          "type": "classicCollection",
+          "rates": {
+            "normal": 70.2,
+            "classicCollection": 29.8
+          },
+          "legacy": false
+        },
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "fusion-strike",
+      "canonicalSourceSetId": "swsh8",
+      "displayName": "Fusion Strike",
+      "era": "Sword & Shield",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2021-11-12",
+      "printedTotal": 264,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "swsh8",
+          "role": "main",
+          "expectedCards": 284
+        }
+      ],
+      "allowedSourceSetIds": [
+        "swsh8"
+      ],
+      "expectedCounts": {
+        "source": 284,
+        "canonicalCatalog": 284,
+        "collectionChecklist": 284,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "fusion-strike/logo.png",
+        "imageDirectory": "sets/fusion-strike/cards"
+      },
+      "pack": {
+        "profile": "swordShieldStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "brilliant-stars",
+      "canonicalSourceSetId": "swsh9",
+      "displayName": "Brilliant Stars",
+      "era": "Sword & Shield",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2022-02-25",
+      "printedTotal": 172,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "swsh9",
+          "role": "main",
+          "expectedCards": 186
+        },
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "swsh9tg",
+          "role": "subset",
+          "subset": "Trainer Gallery",
+          "expectedCards": 30
+        }
+      ],
+      "allowedSourceSetIds": [
+        "swsh9",
+        "swsh9tg"
+      ],
+      "expectedCounts": {
+        "source": 216,
+        "canonicalCatalog": 216,
+        "collectionChecklist": 216,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "brilliant-stars/logo.png",
+        "imageDirectory": "sets/brilliant-stars/cards"
+      },
+      "pack": {
+        "profile": "swordShieldTrainerGallery",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": {
+          "type": "trainerGallery",
+          "rates": {
+            "normal": 90,
+            "trainerGallery": 10
+          },
+          "legacy": false
+        },
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "astral-radiance",
+      "canonicalSourceSetId": "swsh10",
+      "displayName": "Astral Radiance",
+      "era": "Sword & Shield",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2022-05-27",
+      "printedTotal": 189,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "swsh10",
+          "role": "main",
+          "expectedCards": 216
+        },
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "swsh10tg",
+          "role": "subset",
+          "subset": "Trainer Gallery",
+          "expectedCards": 30
+        }
+      ],
+      "allowedSourceSetIds": [
+        "swsh10",
+        "swsh10tg"
+      ],
+      "expectedCounts": {
+        "source": 246,
+        "canonicalCatalog": 246,
+        "collectionChecklist": 246,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "astral-radiance/logo.png",
+        "imageDirectory": "sets/astral-radiance/cards"
+      },
+      "pack": {
+        "profile": "swordShieldTrainerGallery",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": {
+          "type": "trainerGallery",
+          "rates": {
+            "normal": 82.54,
+            "trainerGallery": 12.58,
+            "radiantRare": 4.88
+          },
+          "legacy": false
+        },
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "pokemon-go",
+      "canonicalSourceSetId": "pgo",
+      "displayName": "Pokemon GO",
+      "era": "Sword & Shield",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2022-07-01",
+      "printedTotal": 78,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "pgo",
+          "role": "main",
+          "expectedCards": 88
+        }
+      ],
+      "allowedSourceSetIds": [
+        "pgo"
+      ],
+      "expectedCounts": {
+        "source": 88,
+        "canonicalCatalog": 88,
+        "collectionChecklist": 88,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "pokemon-go/logo.png",
+        "imageDirectory": "sets/pokemon-go/cards"
+      },
+      "pack": {
+        "profile": "swordShieldSpecial",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": {
+          "type": "radiant",
+          "rates": {
+            "normal": 95,
+            "radiantRare": 5
+          },
+          "legacy": false
+        },
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "lost-origin",
+      "canonicalSourceSetId": "swsh11",
+      "displayName": "Lost Origin",
+      "era": "Sword & Shield",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2022-09-09",
+      "printedTotal": 196,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "swsh11",
+          "role": "main",
+          "expectedCards": 217
+        },
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "swsh11tg",
+          "role": "subset",
+          "subset": "Trainer Gallery",
+          "expectedCards": 30
+        }
+      ],
+      "allowedSourceSetIds": [
+        "swsh11",
+        "swsh11tg"
+      ],
+      "expectedCounts": {
+        "source": 247,
+        "canonicalCatalog": 247,
+        "collectionChecklist": 247,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "lost-origin/logo.png",
+        "imageDirectory": "sets/lost-origin/cards"
+      },
+      "pack": {
+        "profile": "swordShieldStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": {
+          "type": "trainerGallery",
+          "rates": {
+            "normal": 82.68,
+            "trainerGallery": 12.31,
+            "radiantRare": 5.01
+          },
+          "legacy": false
+        },
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "silver-tempest",
+      "canonicalSourceSetId": "swsh12",
+      "displayName": "Silver Tempest",
+      "era": "Sword & Shield",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2022-11-11",
+      "printedTotal": 195,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "swsh12",
+          "role": "main",
+          "expectedCards": 215
+        },
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "swsh12tg",
+          "role": "subset",
+          "subset": "Trainer Gallery",
+          "expectedCards": 30
+        }
+      ],
+      "allowedSourceSetIds": [
+        "swsh12",
+        "swsh12tg"
+      ],
+      "expectedCounts": {
+        "source": 245,
+        "canonicalCatalog": 245,
+        "collectionChecklist": 245,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "silver-tempest/logo.png",
+        "imageDirectory": "sets/silver-tempest/cards"
+      },
+      "pack": {
+        "profile": "swordShieldStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": {
+          "type": "trainerGallery",
+          "rates": {
+            "normal": 83.22,
+            "trainerGallery": 12.23,
+            "radiantRare": 4.55
+          },
+          "legacy": false
+        },
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "crown-zenith",
+      "canonicalSourceSetId": "swsh12pt5",
+      "displayName": "Crown Zenith",
+      "era": "Sword & Shield",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2023-01-20",
+      "printedTotal": 159,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "swsh12pt5",
+          "role": "main",
+          "expectedCards": 160
+        },
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "swsh12pt5gg",
+          "role": "subset",
+          "subset": "Galarian Gallery",
+          "expectedCards": 70
+        }
+      ],
+      "allowedSourceSetIds": [
+        "swsh12pt5",
+        "swsh12pt5gg"
+      ],
+      "expectedCounts": {
+        "source": 230,
+        "canonicalCatalog": 230,
+        "collectionChecklist": 230,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "crown-zenith/logo.png",
+        "imageDirectory": "sets/crown-zenith/cards"
+      },
+      "pack": {
+        "profile": "swordShieldSpecial",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": {
+          "type": "galarianGallery",
+          "rates": {
+            "normal": 60.25,
+            "galarianGallery": 22.4,
+            "premiumGalarianGallery": 12,
+            "goldGalarianGallery": 0.8,
+            "radiantRare": 4.55
+          },
+          "legacy": false
+        },
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "scarlet-violet",
+      "canonicalSourceSetId": "sv1",
+      "displayName": "Scarlet & Violet",
+      "era": "Scarlet & Violet",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2023-03-31",
+      "printedTotal": 198,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "sv1",
+          "role": "main",
+          "expectedCards": 258
+        }
+      ],
+      "allowedSourceSetIds": [
+        "sv1"
+      ],
+      "expectedCounts": {
+        "source": 258,
+        "canonicalCatalog": 258,
+        "collectionChecklist": 258,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "scarlet-violet/logo.png",
+        "imageDirectory": "sets/scarlet-violet/cards"
+      },
+      "pack": {
+        "profile": "scarletVioletStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "paldea-evolved",
+      "canonicalSourceSetId": "sv2",
+      "displayName": "Paldea Evolved",
+      "era": "Scarlet & Violet",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2023-06-09",
+      "printedTotal": 193,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "sv2",
+          "role": "main",
+          "expectedCards": 279
+        }
+      ],
+      "allowedSourceSetIds": [
+        "sv2"
+      ],
+      "expectedCounts": {
+        "source": 279,
+        "canonicalCatalog": 279,
+        "collectionChecklist": 279,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "paldea-evolved/logo.png",
+        "imageDirectory": "sets/paldea-evolved/cards"
+      },
+      "pack": {
+        "profile": "scarletVioletStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "obsidian-flames",
+      "canonicalSourceSetId": "sv3",
+      "displayName": "Obsidian Flames",
+      "era": "Scarlet & Violet",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2023-08-11",
+      "printedTotal": 197,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "sv3",
+          "role": "main",
+          "expectedCards": 230
+        }
+      ],
+      "allowedSourceSetIds": [
+        "sv3"
+      ],
+      "expectedCounts": {
+        "source": 230,
+        "canonicalCatalog": 230,
+        "collectionChecklist": 230,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "obsidian-flames/logo.png",
+        "imageDirectory": "sets/obsidian-flames/cards"
+      },
+      "pack": {
+        "profile": "scarletVioletStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "151",
+      "canonicalSourceSetId": "sv3pt5",
+      "displayName": "151",
+      "era": "Scarlet & Violet",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2023-09-22",
+      "printedTotal": 165,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "sv3pt5",
+          "role": "main",
+          "expectedCards": 207
+        }
+      ],
+      "allowedSourceSetIds": [
+        "sv3pt5"
+      ],
+      "expectedCounts": {
+        "source": 207,
+        "canonicalCatalog": 207,
+        "collectionChecklist": 207,
+        "legacyResolvable": 1
+      },
+      "assets": {
+        "logo": "151/logo.png",
+        "imageDirectory": "sets/151/cards"
+      },
+      "pack": {
+        "profile": "scarletVioletSpecial",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": {
+          "type": "premium",
+          "subsetTypes": [
+            "pokeball",
+            "masterball"
+          ],
+          "rates": {
+            "normal": 100
+          },
+          "legacy": false
+        },
+        "godPackRule": {
+          "enabled": true,
+          "displayName": "Demi-God Pack",
+          "odds": 0.004,
+          "type": "demiGodPack",
+          "format": "151_THREE_CARD_EVOLUTION_LINE",
+          "sourceNote": "English 151 demi-god packs contain a complete IR/SIR evolution line."
+        },
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": [
+        {
+          "cardId": "151-151-audino",
+          "status": "legacy-resolution-only",
+          "canonicalSetId": "black-bolt",
+          "canonicalCardId": "black-bolt-151-audino",
+          "reason": "Preserved historical wrong-set identity; excluded from all active catalogs."
+        }
+      ]
+    },
+    {
+      "id": "paradox-rift",
+      "canonicalSourceSetId": "sv4",
+      "displayName": "Paradox Rift",
+      "era": "Scarlet & Violet",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2023-11-03",
+      "printedTotal": 182,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "sv4",
+          "role": "main",
+          "expectedCards": 266
+        }
+      ],
+      "allowedSourceSetIds": [
+        "sv4"
+      ],
+      "expectedCounts": {
+        "source": 266,
+        "canonicalCatalog": 266,
+        "collectionChecklist": 266,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "paradox-rift/logo.png",
+        "imageDirectory": "sets/paradox-rift/cards"
+      },
+      "pack": {
+        "profile": "scarletVioletStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "paldean-fates",
+      "canonicalSourceSetId": "sv4pt5",
+      "displayName": "Paldean Fates",
+      "era": "Scarlet & Violet",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2024-01-26",
+      "printedTotal": 91,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "sv4pt5",
+          "role": "main",
+          "expectedCards": 245
+        }
+      ],
+      "allowedSourceSetIds": [
+        "sv4pt5"
+      ],
+      "expectedCounts": {
+        "source": 245,
+        "canonicalCatalog": 245,
+        "collectionChecklist": 245,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "paldean-fates/logo.png",
+        "imageDirectory": "sets/paldean-fates/cards"
+      },
+      "pack": {
+        "profile": "scarletVioletSpecial",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": {
+          "type": "shiny",
+          "rates": {
+            "normal": 66.84,
+            "shinyRare": 25.44,
+            "shinyUltraRare": 7.72
+          },
+          "legacy": false
+        },
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "temporal-forces",
+      "canonicalSourceSetId": "sv5",
+      "displayName": "Temporal Forces",
+      "era": "Scarlet & Violet",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2024-03-22",
+      "printedTotal": 162,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "sv5",
+          "role": "main",
+          "expectedCards": 218
+        }
+      ],
+      "allowedSourceSetIds": [
+        "sv5"
+      ],
+      "expectedCounts": {
+        "source": 218,
+        "canonicalCatalog": 218,
+        "collectionChecklist": 218,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "temporal-forces/logo.png",
+        "imageDirectory": "sets/temporal-forces/cards"
+      },
+      "pack": {
+        "profile": "scarletVioletStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": {
+          "type": "aceSpec",
+          "rates": {
+            "normal": 98,
+            "aceSpecRare": 2
+          },
+          "legacy": false
+        },
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "twilight-masquerade",
+      "canonicalSourceSetId": "sv6",
+      "displayName": "Twilight Masquerade",
+      "era": "Scarlet & Violet",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2024-05-24",
+      "printedTotal": 167,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "sv6",
+          "role": "main",
+          "expectedCards": 226
+        }
+      ],
+      "allowedSourceSetIds": [
+        "sv6"
+      ],
+      "expectedCounts": {
+        "source": 226,
+        "canonicalCatalog": 226,
+        "collectionChecklist": 226,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "twilight-masquerade/logo.png",
+        "imageDirectory": "sets/twilight-masquerade/cards"
+      },
+      "pack": {
+        "profile": "scarletVioletStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": {
+          "type": "aceSpec",
+          "rates": {
+            "normal": 98,
+            "aceSpecRare": 2
+          },
+          "legacy": false
+        },
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "shrouded-fable",
+      "canonicalSourceSetId": "sv6pt5",
+      "displayName": "Shrouded Fable",
+      "era": "Scarlet & Violet",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2024-08-02",
+      "printedTotal": 64,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "sv6pt5",
+          "role": "main",
+          "expectedCards": 99
+        }
+      ],
+      "allowedSourceSetIds": [
+        "sv6pt5"
+      ],
+      "expectedCounts": {
+        "source": 99,
+        "canonicalCatalog": 99,
+        "collectionChecklist": 99,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "shrouded-fable/logo.png",
+        "imageDirectory": "sets/shrouded-fable/cards"
+      },
+      "pack": {
+        "profile": "scarletVioletSpecial",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": {
+          "type": "aceSpec",
+          "subsetTypes": [
+            "aceSpec"
+          ],
+          "rates": {
+            "normal": 95,
+            "aceSpecRare": 5
+          },
+          "legacy": false
+        },
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "stellar-crown",
+      "canonicalSourceSetId": "sv7",
+      "displayName": "Stellar Crown",
+      "era": "Scarlet & Violet",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2024-09-13",
+      "printedTotal": 142,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "sv7",
+          "role": "main",
+          "expectedCards": 175
+        }
+      ],
+      "allowedSourceSetIds": [
+        "sv7"
+      ],
+      "expectedCounts": {
+        "source": 175,
+        "canonicalCatalog": 175,
+        "collectionChecklist": 175,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "stellar-crown/logo.png",
+        "imageDirectory": "sets/stellar-crown/cards"
+      },
+      "pack": {
+        "profile": "scarletVioletStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": {
+          "type": "aceSpec",
+          "rates": {
+            "normal": 98,
+            "aceSpecRare": 2
+          },
+          "legacy": false
+        },
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "surging-sparks",
+      "canonicalSourceSetId": "sv8",
+      "displayName": "Surging Sparks",
+      "era": "Scarlet & Violet",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2024-11-08",
+      "printedTotal": 191,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "sv8",
+          "role": "main",
+          "expectedCards": 252
+        }
+      ],
+      "allowedSourceSetIds": [
+        "sv8"
+      ],
+      "expectedCounts": {
+        "source": 252,
+        "canonicalCatalog": 252,
+        "collectionChecklist": 252,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "surging-sparks/logo.png",
+        "imageDirectory": "sets/surging-sparks/cards"
+      },
+      "pack": {
+        "profile": "scarletVioletStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": {
+          "type": "aceSpec",
+          "rates": {
+            "normal": 98,
+            "aceSpecRare": 2
+          },
+          "legacy": false
+        },
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "prismatic-evolutions",
+      "canonicalSourceSetId": "sv8pt5",
+      "displayName": "Prismatic Evolutions",
+      "era": "Scarlet & Violet",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2025-01-17",
+      "printedTotal": 131,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "sv8pt5",
+          "role": "main",
+          "expectedCards": 180
+        }
+      ],
+      "allowedSourceSetIds": [
+        "sv8pt5"
+      ],
+      "expectedCounts": {
+        "source": 180,
+        "canonicalCatalog": 180,
+        "collectionChecklist": 180,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "prismatic-evolutions/logo.png",
+        "imageDirectory": "sets/prismatic-evolutions/cards"
+      },
+      "pack": {
+        "profile": "scarletVioletSpecial",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": {
+          "type": "premium",
+          "subsetTypes": [
+            "shiny",
+            "pokeball",
+            "masterball"
+          ],
+          "rates": {
+            "normal": 96,
+            "aceSpecRare": 4
+          },
+          "legacy": false
+        },
+        "godPackRule": {
+          "enabled": true,
+          "displayName": "God Pack",
+          "odds": 0.004,
+          "type": "mixedGodPack",
+          "formats": [
+            {
+              "format": "PRISMATIC_FULL_EEVEELUTION_PACK",
+              "weight": 0.35
+            },
+            {
+              "format": "PRISMATIC_DEMI_GOD_PACK",
+              "weight": 0.65
+            }
+          ],
+          "sourceNote": "TCGplayer reports that English Demigod packs contain any three SIRs and full God Packs contain Eevee (Master Ball), SIR Eevee ex, and every SIR Eeveelution. Frequency remains unconfirmed; 1/250 is a simulator assumption."
+        },
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "journey-together",
+      "canonicalSourceSetId": "sv9",
+      "displayName": "Journey Together",
+      "era": "Scarlet & Violet",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2025-03-28",
+      "printedTotal": 159,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "sv9",
+          "role": "main",
+          "expectedCards": 190
+        }
+      ],
+      "allowedSourceSetIds": [
+        "sv9"
+      ],
+      "expectedCounts": {
+        "source": 190,
+        "canonicalCatalog": 190,
+        "collectionChecklist": 190,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "journey-together/logo.png",
+        "imageDirectory": "sets/journey-together/cards"
+      },
+      "pack": {
+        "profile": "scarletVioletStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "destined-rivals",
+      "canonicalSourceSetId": "sv10",
+      "displayName": "Destined Rivals",
+      "era": "Scarlet & Violet",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2025-05-30",
+      "printedTotal": 182,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "sv10",
+          "role": "main",
+          "expectedCards": 244
+        }
+      ],
+      "allowedSourceSetIds": [
+        "sv10"
+      ],
+      "expectedCounts": {
+        "source": 244,
+        "canonicalCatalog": 244,
+        "collectionChecklist": 244,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "destined-rivals/logo.png",
+        "imageDirectory": "sets/destined-rivals/cards"
+      },
+      "pack": {
+        "profile": "scarletVioletStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "black-bolt",
+      "canonicalSourceSetId": "zsv10pt5",
+      "displayName": "Black Bolt",
+      "era": "Scarlet & Violet",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2025-07-18",
+      "printedTotal": 86,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "zsv10pt5",
+          "role": "main",
+          "expectedCards": 172
+        }
+      ],
+      "allowedSourceSetIds": [
+        "zsv10pt5"
+      ],
+      "expectedCounts": {
+        "source": 172,
+        "canonicalCatalog": 172,
+        "collectionChecklist": 172,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "black-bolt/logo.png",
+        "imageDirectory": "sets/black-bolt/cards"
+      },
+      "pack": {
+        "profile": "blackBoltWhiteFlare2025",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": {
+          "enabled": true,
+          "displayName": "God Pack",
+          "odds": 0.004,
+          "type": "fullGodPack",
+          "format": "BLACK_BOLT_9_IR_1_SIR",
+          "sourceNote": "English Black Bolt God Packs contain 9 Illustration Rares and 1 Special Illustration Rare."
+        },
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "white-flare",
+      "canonicalSourceSetId": "rsv10pt5",
+      "displayName": "White Flare",
+      "era": "Scarlet & Violet",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2025-07-18",
+      "printedTotal": 86,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "rsv10pt5",
+          "role": "main",
+          "expectedCards": 173
+        }
+      ],
+      "allowedSourceSetIds": [
+        "rsv10pt5"
+      ],
+      "expectedCounts": {
+        "source": 173,
+        "canonicalCatalog": 173,
+        "collectionChecklist": 173,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "white-flare/logo.png",
+        "imageDirectory": "sets/white-flare/cards"
+      },
+      "pack": {
+        "profile": "blackBoltWhiteFlare2025",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": {
+          "enabled": true,
+          "displayName": "God Pack",
+          "odds": 0.004,
+          "type": "fullGodPack",
+          "format": "WHITE_FLARE_9_IR_1_SIR",
+          "sourceNote": "English White Flare God Packs contain 9 Illustration Rares and 1 Special Illustration Rare."
+        },
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "mega-evolution",
+      "canonicalSourceSetId": "me1",
+      "displayName": "Mega Evolution",
+      "era": "Mega Evolution",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2025-09-26",
+      "printedTotal": 132,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "me1",
+          "role": "main",
+          "expectedCards": 188
+        }
+      ],
+      "allowedSourceSetIds": [
+        "me1"
+      ],
+      "expectedCounts": {
+        "source": 188,
+        "canonicalCatalog": 188,
+        "collectionChecklist": 188,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "mega-evolution/logo.png",
+        "imageDirectory": "sets/mega-evolution/cards"
+      },
+      "pack": {
+        "profile": "megaEvolutionStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "phantasmal-flames",
+      "canonicalSourceSetId": "me2",
+      "displayName": "Phantasmal Flames",
+      "era": "Mega Evolution",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2025-11-14",
+      "printedTotal": 94,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "me2",
+          "role": "main",
+          "expectedCards": 130
+        }
+      ],
+      "allowedSourceSetIds": [
+        "me2"
+      ],
+      "expectedCounts": {
+        "source": 130,
+        "canonicalCatalog": 130,
+        "collectionChecklist": 130,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "phantasmal-flames/logo.png",
+        "imageDirectory": "sets/phantasmal-flames/cards"
+      },
+      "pack": {
+        "profile": "megaEvolutionStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "ascended-heroes",
+      "canonicalSourceSetId": "me2pt5",
+      "displayName": "Ascended Heroes",
+      "era": "Mega Evolution",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2026-01-30",
+      "printedTotal": 217,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "me2pt5",
+          "role": "main",
+          "expectedCards": 295
+        }
+      ],
+      "allowedSourceSetIds": [
+        "me2pt5"
+      ],
+      "expectedCounts": {
+        "source": 295,
+        "canonicalCatalog": 295,
+        "collectionChecklist": 295,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "ascended-heroes/logo.png",
+        "imageDirectory": "sets/ascended-heroes/cards"
+      },
+      "pack": {
+        "profile": "megaEvolutionStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": {
+          "enabled": true,
+          "displayName": "God Pack",
+          "odds": 0.004,
+          "type": "fullGodPack",
+          "format": "ASCENDED_HEROES_3_MAR_7_SIR",
+          "sourceNote": "Ascended Heroes God Pack format: 3 Mega Attack Rares and 7 Special Illustration Rares."
+        },
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "perfect-order",
+      "canonicalSourceSetId": "me3",
+      "displayName": "Perfect Order",
+      "era": "Mega Evolution",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2026-03-13",
+      "printedTotal": 88,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "me3",
+          "role": "main",
+          "expectedCards": 124
+        }
+      ],
+      "allowedSourceSetIds": [
+        "me3"
+      ],
+      "expectedCounts": {
+        "source": 124,
+        "canonicalCatalog": 124,
+        "collectionChecklist": 124,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "perfect-order/logo.png",
+        "imageDirectory": "sets/perfect-order/cards"
+      },
+      "pack": {
+        "profile": "megaEvolutionStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "chaos-rising",
+      "canonicalSourceSetId": "me4",
+      "displayName": "Chaos Rising",
+      "era": "Mega Evolution",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2026-05-22",
+      "printedTotal": 86,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "me4",
+          "role": "main",
+          "expectedCards": 122
+        }
+      ],
+      "allowedSourceSetIds": [
+        "me4"
+      ],
+      "expectedCounts": {
+        "source": 122,
+        "canonicalCatalog": 122,
+        "collectionChecklist": 122,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "chaos-rising/logo.png",
+        "imageDirectory": "sets/chaos-rising/cards"
+      },
+      "pack": {
+        "profile": "megaEvolutionStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    },
+    {
+      "id": "pitch-black",
+      "canonicalSourceSetId": "me5",
+      "displayName": "Pitch Black",
+      "era": "Mega Evolution",
+      "classification": "official",
+      "lifecycle": {
+        "status": "active",
+        "discoverable": true,
+        "openable": true,
+        "historicallyResolvable": true
+      },
+      "releaseDate": "2026-07-17",
+      "printedTotal": 84,
+      "sources": [
+        {
+          "provider": "pokemon-tcg-data",
+          "setId": "me5",
+          "role": "main",
+          "expectedCards": 120
+        }
+      ],
+      "allowedSourceSetIds": [
+        "me5"
+      ],
+      "expectedCounts": {
+        "source": 120,
+        "canonicalCatalog": 120,
+        "collectionChecklist": 120,
+        "legacyResolvable": 0
+      },
+      "assets": {
+        "logo": "pitch-black/logo.png",
+        "imageDirectory": "sets/pitch-black/cards"
+      },
+      "pack": {
+        "profile": "megaEvolutionStandard",
+        "size": 10,
+        "vintageRule": null,
+        "subsetRule": null,
+        "godPackRule": null,
+        "codeCardsExcluded": true,
+        "genericEnergiesExcluded": true,
+        "numberedSetEnergiesIncluded": true,
+        "promosPermitted": false
+      },
+      "exceptions": []
+    }
+  ]
+}

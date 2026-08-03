@@ -477,7 +477,7 @@
   },
   {
     "id": "lost-origin-69-radiant-gardevoir-radiant",
-    "name": "Radiant Gardevoir Radiant",
+    "name": "Radiant Gardevoir",
     "rarity": "Radiant Rare",
     "number": "69",
     "image": "/assets/sets/lost-origin/cards/69_Radiant_Gardevoir_Radiant_Rare.png",
@@ -856,7 +856,7 @@
   },
   {
     "id": "lost-origin-123-radiant-hisuian-sneasler-radiant",
-    "name": "Radiant Hisuian Sneasler Radiant",
+    "name": "Radiant Hisuian Sneasler",
     "rarity": "Radiant Rare",
     "number": "123",
     "image": "/assets/sets/lost-origin/cards/123_Radiant_Hisuian_Sneasler_Radiant_Rare.png",
@@ -864,7 +864,7 @@
   },
   {
     "id": "lost-origin-124-radiant-steelix-radiant",
-    "name": "Radiant Steelix Radiant",
+    "name": "Radiant Steelix",
     "rarity": "Radiant Rare",
     "number": "124",
     "image": "/assets/sets/lost-origin/cards/124_Radiant_Steelix_Radiant_Rare.png",

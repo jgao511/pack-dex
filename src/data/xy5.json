@@ -456,7 +456,7 @@
   },
   {
     "id": "xy5-66-nidoran",
-    "name": "Nidoran",
+    "name": "Nidoran ♀",
     "rarity": "Common",
     "number": "66",
     "image": "/assets/sets/xy5/cards/66_Nidoran_Common_xy5-66.png"
@@ -862,7 +862,7 @@
   },
   {
     "id": "xy5-124-archies_ace_in_the_hole",
-    "name": "Archies Ace in the Hole",
+    "name": "Archie's Ace in the Hole",
     "rarity": "Uncommon",
     "number": "124",
     "image": "/assets/sets/xy5/cards/124_Archies_Ace_in_the_Hole_Uncommon_xy5-124.png"
@@ -925,14 +925,14 @@
   },
   {
     "id": "xy5-133-maxies_hidden_ball_trick",
-    "name": "Maxies Hidden Ball Trick",
+    "name": "Maxie's Hidden Ball Trick",
     "rarity": "Uncommon",
     "number": "133",
     "image": "/assets/sets/xy5/cards/133_Maxies_Hidden_Ball_Trick_Uncommon_xy5-133.png"
   },
   {
     "id": "xy5-134-professor_birchs_observations",
-    "name": "Professor Birchs Observations",
+    "name": "Professor Birch's Observations",
     "rarity": "Uncommon",
     "number": "134",
     "image": "/assets/sets/xy5/cards/134_Professor_Birchs_Observations_Uncommon_xy5-134.png"
@@ -1093,21 +1093,21 @@
   },
   {
     "id": "xy5-157-archies_ace_in_the_hole",
-    "name": "Archies Ace in the Hole",
+    "name": "Archie's Ace in the Hole",
     "rarity": "Rare Ultra",
     "number": "157",
     "image": "/assets/sets/xy5/cards/157_Archies_Ace_in_the_Hole_Rare_Ultra_xy5-157.png"
   },
   {
     "id": "xy5-158-maxies_hidden_ball_trick",
-    "name": "Maxies Hidden Ball Trick",
+    "name": "Maxie's Hidden Ball Trick",
     "rarity": "Rare Ultra",
     "number": "158",
     "image": "/assets/sets/xy5/cards/158_Maxies_Hidden_Ball_Trick_Rare_Ultra_xy5-158.png"
   },
   {
     "id": "xy5-159-professor_birchs_observations",
-    "name": "Professor Birchs Observations",
+    "name": "Professor Birch's Observations",
     "rarity": "Rare Ultra",
     "number": "159",
     "image": "/assets/sets/xy5/cards/159_Professor_Birchs_Observations_Rare_Ultra_xy5-159.png"

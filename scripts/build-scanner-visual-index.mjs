@@ -16,7 +16,7 @@ const projectRoot = path.resolve(scriptDirectory, "..");
 const DEFAULT_OUTPUT_PATH = path.join(projectRoot, "src", "lib", "cardScanner", "generated", "scannerVisualIndex.json");
 const DEFAULT_REPORT_PATH = path.join(projectRoot, "reports", "scanner-visual-index.json");
 const DEFAULT_CACHE_PATH = path.join(projectRoot, "node_modules", ".cache", "packdex-scanner-visual-index");
-const DEFAULT_ASSET_BASE_URL = "https://assets.pack-dex.com/assets/sets";
+const DEFAULT_ASSET_BASE_URL = "https://assets.pack-dex.com/sets";
 export async function calculateVisualDescriptor(image) {
   const { data, info } = await sharp(image)
     .rotate()
@@ -123,6 +123,8 @@ function parseArguments(argv) {
   for (const argument of argv) {
     if (argument === "--offline") options.offline = true;
     else if (argument === "--strict") options.strict = true;
+    else if (argument === "--check") options.check = true;
+    else if (argument === "--reuse-existing") options["reuse-existing"] = true;
     else {
       const match = argument.match(/^--([^=]+)=(.*)$/);
       if (!match) throw new Error(`Unknown argument: ${argument}`);
@@ -152,6 +154,30 @@ export async function runCli(argv = process.argv.slice(2)) {
   const cachePath = resolveFromProject(options.cache, DEFAULT_CACHE_PATH);
   const trustedCatalog = buildScannerCatalog();
   const trustedById = new Map(trustedCatalog.map((card) => [card.cardId, card]));
+  if (options.check) {
+    const existing = JSON.parse(await fs.readFile(outputPath, "utf8"));
+    const actualIds = Object.keys(existing.cards || {}).sort();
+    const expectedIds = [...trustedById.keys()].sort();
+    if (existing.version !== VISUAL_DESCRIPTOR_SCHEMA.version || JSON.stringify(actualIds) !== JSON.stringify(expectedIds)) {
+      throw new Error(`Scanner visual index is stale: expected ${expectedIds.length} canonical cards, found ${actualIds.length}.`);
+    }
+    process.stdout.write(`Scanner visual index is current: ${actualIds.length} canonical cards.\n`);
+    return { indexedCardCount: actualIds.length, checked: true };
+  }
+  let reusableCards = {};
+  let reusableDescriptor;
+  if (options["reuse-existing"]) {
+    try {
+      const existing = JSON.parse(await fs.readFile(outputPath, "utf8"));
+      if (existing.version !== VISUAL_DESCRIPTOR_SCHEMA.version) throw new Error("descriptor schema changed");
+      reusableDescriptor = existing.descriptor;
+      reusableCards = Object.fromEntries(
+        Object.entries(existing.cards || {}).filter(([cardId]) => trustedById.has(cardId))
+      );
+    } catch (error) {
+      if (error.code !== "ENOENT") throw error;
+    }
+  }
   let entries;
   if (options.fixtures) {
     entries = await loadFixtureEntries(resolveFromProject(options.fixtures), trustedById);
@@ -159,27 +185,42 @@ export async function runCli(argv = process.argv.slice(2)) {
     entries = trustedCatalog.map((card) => ({
       cardId: card.cardId,
       source: resolveCatalogImageUrl(card.imageUrl, options["asset-base"] || DEFAULT_ASSET_BASE_URL),
-    }));
+    })).filter((entry) => !Object.prototype.hasOwnProperty.call(reusableCards, entry.cardId));
   }
   if (options["card-id"]) entries = entries.filter((entry) => entry.cardId === options["card-id"]);
   if (options.limit) entries = entries.slice(0, Math.max(0, Number(options.limit) || 0));
-  if (!entries.length) throw new Error("No trusted catalog cards matched the requested index selection.");
+  if (!entries.length && Object.keys(reusableCards).length !== trustedCatalog.length) {
+    throw new Error("No trusted catalog cards matched the requested index selection.");
+  }
 
   const loader = createCachedImageLoader({ cachePath, offline: options.offline });
   let lastProgress = 0;
   const startedAt = performance.now();
-  const result = await generateVisualIndex({
-    entries,
-    loadImage: loader.load,
-    concurrency: options.concurrency || 12,
-    onProgress({ processed, total, failures }) {
-      if (processed === total || processed - lastProgress >= 250) {
-        lastProgress = processed;
-        process.stdout.write(`Indexed ${processed}/${total}; failures ${failures}\n`);
-      }
-    },
-  });
-  const serialized = `${JSON.stringify(result.manifest)}\n`;
+  const result = entries.length
+    ? await generateVisualIndex({
+        entries,
+        loadImage: loader.load,
+        concurrency: options.concurrency || 12,
+        onProgress({ processed, total, failures }) {
+          if (processed === total || processed - lastProgress >= 250) {
+            lastProgress = processed;
+            process.stdout.write(`Indexed ${processed}/${total}; failures ${failures}\n`);
+          }
+        },
+      })
+    : {
+        manifest: {
+          version: VISUAL_DESCRIPTOR_SCHEMA.version,
+          descriptor: reusableDescriptor,
+          cards: {},
+        },
+        failures: [],
+      };
+  const mergedCards = Object.fromEntries(
+    [...Object.entries({ ...reusableCards, ...result.manifest.cards })].sort(([left], [right]) => left.localeCompare(right))
+  );
+  const mergedManifest = { ...result.manifest, cards: mergedCards };
+  const serialized = `${JSON.stringify(mergedManifest)}\n`;
   const rawBytes = Buffer.byteLength(serialized);
   const gzipBytes = gzipSync(serialized, { level: 9 }).byteLength;
   const report = {
@@ -187,9 +228,10 @@ export async function runCli(argv = process.argv.slice(2)) {
     scannerTestOnly: true,
     trustedCatalogCardCount: trustedCatalog.length,
     requestedCardCount: entries.length,
-    indexedCardCount: Object.keys(result.manifest.cards).length,
+    reusedCardCount: Object.keys(reusableCards).length,
+    indexedCardCount: Object.keys(mergedCards).length,
     missingOrUnreadableCount: result.failures.length,
-    coverage: Object.keys(result.manifest.cards).length / entries.length,
+    coverage: Object.keys(mergedCards).length / trustedCatalog.length,
     rawBytes,
     gzipBytes,
     cacheHits: loader.stats.cacheHits,
@@ -198,12 +240,17 @@ export async function runCli(argv = process.argv.slice(2)) {
     outputPath: path.relative(projectRoot, outputPath).replaceAll("\\", "/"),
     failures: result.failures,
   };
-  await fs.mkdir(path.dirname(outputPath), { recursive: true });
   await fs.mkdir(path.dirname(reportPath), { recursive: true });
-  await fs.writeFile(outputPath, serialized);
   await fs.writeFile(reportPath, `${JSON.stringify(report, null, 2)}\n`);
   process.stdout.write(`${JSON.stringify(report, null, 2)}\n`);
   if (options.strict && result.failures.length) throw new Error(`${result.failures.length} catalog images could not be indexed.`);
+  if (Object.keys(mergedCards).length !== trustedCatalog.length) {
+    throw new Error(`Visual index coverage is incomplete: ${Object.keys(mergedCards).length}/${trustedCatalog.length}.`);
+  }
+  await fs.mkdir(path.dirname(outputPath), { recursive: true });
+  const temporaryOutputPath = `${outputPath}.${process.pid}.tmp`;
+  await fs.writeFile(temporaryOutputPath, serialized);
+  await fs.rename(temporaryOutputPath, outputPath);
   return report;
 }
 

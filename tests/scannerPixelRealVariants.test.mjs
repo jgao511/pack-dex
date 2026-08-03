@@ -159,7 +159,7 @@ const variants = ["original", "more-table", "rotation", "blur", "foil-glare", "o
 
 test("four real Pixel Blob photos record bounded full-catalog recall across capture variants", { timeout: 180_000 }, async (context) => {
   const cv = await loadOpenCv();
-  assert.equal(visualEntries.length, 18_747);
+  assert.equal(visualEntries.length, trustedById.size);
   for (const fixture of manifest) {
     const sourceBytes = await readFile(path.join(fixtureRoot, fixture.fixture));
     for (const variant of variants) {

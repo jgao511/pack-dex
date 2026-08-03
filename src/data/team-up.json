@@ -65,7 +65,7 @@
   {
     "id": "team-up-10-shaymin",
     "name": "Shaymin ◇",
-    "rarity": "Rare",
+    "rarity": "Rare Prism Star",
     "number": "10",
     "image": "/assets/sets/team-up/cards/10_Shaymin_◇_Rare_Prism_Star.png"
   },
@@ -352,7 +352,7 @@
   {
     "id": "team-up-51-tapu-koko",
     "name": "Tapu Koko ◇",
-    "rarity": "Rare",
+    "rarity": "Rare Prism Star",
     "number": "51",
     "image": "/assets/sets/team-up/cards/51_Tapu_Koko_◇_Rare_Prism_Star.png"
   },
@@ -658,14 +658,6 @@
     "image": "/assets/sets/team-up/cards/94_Pangoro_Rare.png"
   },
   {
-    "id": "team-up-95-team-rocket-s-pupitar",
-    "name": "Team Rocket's Pupitar",
-    "rarity": "Common",
-    "number": "95",
-    "image": "/assets/sets/team-up/cards/95_Team_Rocket's_Pupitar_Common.png",
-    "excludeFromPulls": true
-  },
-  {
     "id": "team-up-95-yveltal",
     "name": "Yveltal",
     "rarity": "Rare",
@@ -941,7 +933,7 @@
   {
     "id": "team-up-134-black-market",
     "name": "Black Market ◇",
-    "rarity": "Rare",
+    "rarity": "Rare Prism Star",
     "number": "134",
     "image": "/assets/sets/team-up/cards/134_Black_Market_◇_Rare_Prism_Star.png"
   },
@@ -1123,7 +1115,7 @@
   {
     "id": "team-up-158-wondrous-labyrinth",
     "name": "Wondrous Labyrinth ◇",
-    "rarity": "Rare",
+    "rarity": "Rare Prism Star",
     "number": "158",
     "image": "/assets/sets/team-up/cards/158_Wondrous_Labyrinth_◇_Rare_Prism_Star.png"
   },

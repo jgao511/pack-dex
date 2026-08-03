@@ -1050,14 +1050,6 @@
     "image": "/assets/sets/151/cards/150_Mewtwo_Rare.png"
   },
   {
-    "id": "151-151-audino",
-    "name": "Audino",
-    "rarity": "Illustration Rare",
-    "number": "151",
-    "image": "/assets/sets/151/cards/151_Audino_Illustration_Rare.png",
-    "excludeFromPulls": true
-  },
-  {
     "id": "151-151-mew-ex",
     "name": "Mew ex",
     "rarity": "Double Rare",
@@ -1437,22 +1429,22 @@
   },
   {
     "id": "151-205-mew-ex-hyper",
-    "name": "Mew ex Hyper",
+    "name": "Mew ex",
     "rarity": "Rare",
     "number": "205",
     "image": "/assets/sets/151/cards/205_Mew_ex_Hyper_Rare.png"
   },
   {
     "id": "151-206-switch-hyper",
-    "name": "Switch Hyper",
+    "name": "Switch",
     "rarity": "Rare",
     "number": "206",
     "image": "/assets/sets/151/cards/206_Switch_Hyper_Rare.png"
   },
   {
     "id": "151-207-basic-psychic-energy-hyper",
-    "name": "Basic Psychic Energy Hyper",
-    "rarity": "Rare",
+    "name": "Basic Psychic Energy",
+    "rarity": "Hyper Rare",
     "number": "207",
     "image": "/assets/sets/151/cards/207_Basic_Psychic_Energy_Hyper_Rare.png"
   }

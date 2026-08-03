@@ -1064,14 +1064,6 @@
     "image": "/assets/sets/sun-moon/cards/151_Lapras-GX_Rare_Rainbow.png"
   },
   {
-    "id": "sun-moon-151-moon-sun-badge",
-    "name": "Moon & Sun Badge",
-    "rarity": "Uncommon",
-    "number": "151",
-    "image": "/assets/sets/sun-moon/cards/151_Moon_&_Sun_Badge_Uncommon.png",
-    "excludeFromPulls": true
-  },
-  {
     "id": "sun-moon-152-espeon-gx",
     "name": "Espeon-GX",
     "rarity": "Secret Rare",

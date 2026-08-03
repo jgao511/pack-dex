@@ -681,7 +681,7 @@
   {
     "id": "celestial-storm-97-jirachi",
     "name": "Jirachi ◇",
-    "rarity": "Rare",
+    "rarity": "Rare Prism Star",
     "number": "97",
     "image": "/assets/sets/celestial-storm/cards/97_Jirachi_◇_Rare_Prism_Star.png"
   },
@@ -751,14 +751,14 @@
   {
     "id": "celestial-storm-107-latias",
     "name": "Latias ◇",
-    "rarity": "Rare",
+    "rarity": "Rare Prism Star",
     "number": "107",
     "image": "/assets/sets/celestial-storm/cards/107_Latias_◇_Rare_Prism_Star.png"
   },
   {
     "id": "celestial-storm-108-latios",
     "name": "Latios ◇",
-    "rarity": "Rare",
+    "rarity": "Rare Prism Star",
     "number": "108",
     "image": "/assets/sets/celestial-storm/cards/108_Latios_◇_Rare_Prism_Star.png"
   },

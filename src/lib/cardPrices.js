@@ -1,6 +1,7 @@
 import { supabase as defaultSupabase } from "./supabaseClient.js";
 import { getPokemonTcgApiSetId } from "./priceSetMap.js";
 import { getPriceSetAlias } from "./priceSetAliases.js";
+import { getCardSourceId, getCardSourceSetIds } from "./cardSourceIdentity.js";
 import { countDevRequest } from "../../mobile-app/src/utils/requestDiagnostics.js";
 import { calculateValueCoverage } from "./priceCoverage.js";
 
@@ -40,12 +41,15 @@ function getApiSetIdForPackDexSet(setId) {
 }
 
 function getPriceSetLookupIds(setId) {
-  return [...new Set([setId, getApiSetIdForPackDexSet(setId)].filter(Boolean).map(String))];
+  return [...new Set([
+    setId,
+    getApiSetIdForPackDexSet(setId),
+    ...getCardSourceSetIds(setId),
+  ].filter(Boolean).map(String))];
 }
 
 function getCardPriceLookupKeys(card, setId) {
-  const apiSetId = getApiSetIdForPackDexSet(setId);
-  const apiCardId = apiSetId && card?.number ? `${apiSetId}-${normalizeCardNumber(card.number)}` : null;
+  const apiCardId = getCardSourceId(card, setId);
   const keys = [card?.id, card?.card_id, card?.tcgplayerId, card?.pokemonTcgId, card?.apiId, apiCardId]
     .filter(Boolean)
     .map(String);

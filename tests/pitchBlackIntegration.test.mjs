@@ -23,8 +23,13 @@ import { getWishlistKey, resolveCatalogWishlistItem } from "../mobile-app/src/li
 
 const pitchBlack = sets.find((set) => set.id === "pitch-black");
 const ordinary = new Set(["common", "uncommon", "rare"]);
-const slot9 = new Set([...ordinary, "illustrationRare", "specialIllustrationRare"]);
-const slot10 = new Set(["rare", "doubleRare", "megaDoubleRare", "ultraRare", "megaHyperRare"]);
+const slot9 = new Set([
+  ...ordinary,
+  "illustrationRare",
+  "specialIllustrationRare",
+  "megaHyperRare",
+]);
+const slot10 = new Set(["rare", "doubleRare", "megaDoubleRare", "ultraRare"]);
 
 function normalizeFilePart(value) {
   return String(value)

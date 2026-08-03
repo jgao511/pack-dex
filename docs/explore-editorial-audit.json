@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-31T00:54:22.461Z",
+  "generatedAt": "2026-08-03T14:39:37.889Z",
   "policy": {
     "runtimeSourceNotesExcluded": true,
     "uncertainClaims": "Omitted rather than inferred from card names or algorithmic frequency.",
@@ -2689,7 +2689,7 @@
     {
       "setId": "pitch-black",
       "status": "curated",
-      "custom": true,
+      "custom": false,
       "sourceNotes": [
         {
           "field": "release date, era, and supported count",

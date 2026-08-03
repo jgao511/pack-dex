@@ -2,13 +2,20 @@ import { Capacitor } from "@capacitor/core";
 import { getScannerCatalog } from "../../../src/lib/cardScanner/buildScannerCatalog.js";
 import { isAndroidNative } from "./platform.js";
 import { resolveScannerAssetUrl } from "./scannerAssetUrl.js";
+import {
+  FROZEN_A_CARD_COUNT,
+  FROZEN_A_DIMENSIONS,
+  FROZEN_A_INDEX_BYTES,
+  FROZEN_A_INDEX_FILE,
+  FROZEN_A_INDEX_SHA256,
+} from "./generated/frozenAScannerManifest.js";
 
 export const FROZEN_A_MODEL_SHA256 = "62f2ff60cfdb09714a01fa74343e4dc1968601c2a43046979cbc548c28027c7c";
-export const FROZEN_A_INDEX_SHA256 = "a851d797aef5c140d8918bb2ffa7dcafa2315cb1f0cbdb6ca4abbd91c3d61edb";
+export { FROZEN_A_INDEX_SHA256 };
 const MODEL_BYTES = 4490924;
-const INDEX_BYTES = 4799232;
-const DIMENSIONS = 128;
-const CARD_COUNT = 18747;
+const INDEX_BYTES = FROZEN_A_INDEX_BYTES;
+const DIMENSIONS = FROZEN_A_DIMENSIONS;
+const CARD_COUNT = FROZEN_A_CARD_COUNT;
 let runtimePromise;
 
 function assetUrl(path) { return resolveScannerAssetUrl(path, { baseUrl: import.meta.env.BASE_URL }); }
@@ -44,7 +51,7 @@ async function loadIndex(fetchImpl = fetch) {
   const metadataResponse = await fetchImpl(assetUrl("catalog-embeddings.meta.json"), { cache: "force-cache" });
   if (!metadataResponse.ok) throw new Error("Frozen scanner metadata is unavailable.");
   const metadata = JSON.parse(await metadataResponse.text());
-  const vectorResponse = await fetchImpl(assetUrl("catalog-embeddings-a851d797.f16"), { cache: "force-cache" });
+  const vectorResponse = await fetchImpl(assetUrl(FROZEN_A_INDEX_FILE), { cache: "force-cache" });
   if (!vectorResponse.ok) throw new Error("Frozen scanner index is unavailable.");
   const buffer = await vectorResponse.arrayBuffer();
   if (await sha256Hex(buffer) !== FROZEN_A_INDEX_SHA256) throw new Error("Frozen scanner index checksum did not match.");
@@ -59,13 +66,15 @@ function normalize(values) {
   return result;
 }
 
-function search(query, index, limit = 20) {
+export function searchFrozenIndex(query, index, limit = 20, allowedCardIds = null) {
   const embedding = normalize(query); if (embedding.length !== DIMENSIONS) throw new Error("Frozen scanner embedding dimensions did not match the catalog.");
   const best = [];
   for (let row = 0; row < CARD_COUNT; row += 1) {
+    const cardId = index.cardIds[row];
+    if (allowedCardIds && !allowedCardIds.has(cardId)) continue;
     let score = 0; const offset = row * DIMENSIONS;
     for (let column = 0; column < DIMENSIONS; column += 1) score += embedding[column] * index.vectors[offset + column];
-    best.push({ cardId: index.cardIds[row], score });
+    best.push({ cardId, score });
   }
   return best.sort((left, right) => right.score - left.score || left.cardId.localeCompare(right.cardId)).slice(0, limit);
 }
@@ -121,10 +130,12 @@ export async function preloadFrozenAScanner({ fetchImpl = fetch } = {}) {
 export function resetFrozenAScannerForTests() { runtimePromise = undefined; }
 
 export async function recognizeFrozenA(canvas, ocrMatch) {
-  const started = performance.now(); const runtime = await preloadFrozenAScanner(); const candidates = search(await runtime.embed(canvas), runtime.index, 20);
-  const catalog = new Map(getScannerCatalog().map((entry) => [entry.cardId, entry])); const ocrIds = new Set((ocrMatch?.results || []).map((entry) => entry.cardId));
+  const started = performance.now(); const runtime = await preloadFrozenAScanner();
+  const catalog = new Map(getScannerCatalog().map((entry) => [entry.cardId, entry]));
+  const candidates = searchFrozenIndex(await runtime.embed(canvas), runtime.index, 20, new Set(catalog.keys()));
+  const ocrIds = new Set((ocrMatch?.results || []).map((entry) => entry.cardId));
   const results = candidates.slice(0, 3).map((candidate, index) => {
-    const entry = catalog.get(candidate.cardId); if (!entry) throw new Error(`Frozen scanner index card ${candidate.cardId} is not in the trusted catalog.`);
+    const entry = catalog.get(candidate.cardId);
     return { cardId: candidate.cardId, card: entry.card, setId: entry.setId, setName: entry.setName, printedSetTotal: entry.printedSetTotal, score: Math.round(candidate.score * 100), confidence: "low", reasons: ["frozen-A full-catalog cosine", ...(ocrIds.has(candidate.cardId) ? ["OCR evidence"] : [])], visualEvidence: { frozenA: candidate.score } };
   });
   return { candidates, fusedMatch: { ...(ocrMatch || {}), confidence: "low", primaryMatch: null, results, frozenA: { modelSha256: FROZEN_A_MODEL_SHA256, indexSha256: FROZEN_A_INDEX_SHA256, processingMs: performance.now() - started } } };

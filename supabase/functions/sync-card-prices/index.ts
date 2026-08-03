@@ -17,6 +17,7 @@ type PackDexSet = {
   name?: string;
   cards?: PackDexCard[];
   apiSetId?: string | null;
+  apiSetIds?: string[];
   tcgplayerSetSlug?: string | null;
 };
 type PackDexCard = {
@@ -25,6 +26,8 @@ type PackDexCard = {
   name?: string;
   number?: string | number;
   rarity?: string;
+  sourceSetId?: string;
+  sourceCardId?: string;
 };
 type PokemonTcgCard = {
   id?: string;
@@ -131,15 +134,23 @@ function getApiSetId(set: PackDexSet, setApiIds: Record<string, unknown>) {
   return compactId(setApiIds[set.id]) || compactId(set.apiSetId) || null;
 }
 
+function getApiSetIds(set: PackDexSet, setApiIds: Record<string, unknown>) {
+  const override = compactId(setApiIds[set.id]);
+  if (override) return [override];
+  return [...new Set([...(set.apiSetIds || []), set.apiSetId].map(compactId).filter(Boolean))];
+}
+
 function getTcgplayerSetSlug(set: PackDexSet, setTcgplayerSlugs: Record<string, unknown>) {
   return compactId(setTcgplayerSlugs[set.id]) || compactId(set.tcgplayerSetSlug) || null;
 }
 
 function buildCardLookup(cards: PackDexCard[]) {
+  const bySourceCardId = new Map<string, PackDexCard>();
   const byNumber = new Map<string, PackDexCard[]>();
   const byNumberAndName = new Map<string, PackDexCard>();
 
   cards.forEach((card) => {
+    if (card.sourceCardId) bySourceCardId.set(compactId(card.sourceCardId).toLowerCase(), card);
     const number = normalizeCardNumber(card.number);
     if (!number) return;
 
@@ -147,10 +158,12 @@ function buildCardLookup(cards: PackDexCard[]) {
     byNumberAndName.set(`${number}:${normalizeName(card.name)}`, card);
   });
 
-  return { byNumber, byNumberAndName };
+  return { bySourceCardId, byNumber, byNumberAndName };
 }
 
 function findAppCard(apiCard: PokemonTcgCard, lookup: ReturnType<typeof buildCardLookup>) {
+  const exactSourceId = lookup.bySourceCardId.get(compactId(apiCard.id).toLowerCase());
+  if (exactSourceId) return exactSourceId;
   const number = normalizeCardNumber(apiCard.number);
   const exact = lookup.byNumberAndName.get(`${number}:${normalizeName(apiCard.name)}`);
   if (exact) return exact;
@@ -208,6 +221,7 @@ function getStaleCardIds(set: PackDexSet, appCard: PackDexCard, apiCard?: Pokemo
 
   return [
     apiCard?.id,
+    appCard.sourceCardId,
     generatedApiCardId,
     appCard.id,
     appCard.card_id,
@@ -266,13 +280,13 @@ async function deleteStalePrices(admin: AdminClient, cardIds: string[]) {
 async function syncSet(
   admin: AdminClient,
   set: PackDexSet,
-  apiSetId: string,
+  apiSetIds: string[],
   tcgplayerSetSlug: string | null,
   appCardCount: number | null,
 ) {
   const cards = Array.isArray(set.cards) ? set.cards : [];
   const lookup = buildCardLookup(cards);
-  const apiCards = await fetchPokemonTcgCards(apiSetId);
+  const apiCards = (await Promise.all(apiSetIds.map(fetchPokemonTcgCards))).flat();
   const rows = [];
   const staleCardIds = [];
   const pricedAppCardIds = new Set<string>();
@@ -321,7 +335,8 @@ async function syncSet(
 
   return {
     setId: set.id,
-    apiSetId,
+    apiSetId: apiSetIds[0] || null,
+    apiSetIds,
     tcgplayerSetSlug,
     appCardCount: sourceCardCount,
     externalCardsFetched: apiCards.length,
@@ -359,11 +374,11 @@ Deno.serve(async (req) => {
       .filter((set) => requestedSetIds.size === 0 || requestedSetIds.has(set.id))
       .map((set) => ({
         set,
-        apiSetId: getApiSetId(set, setApiIds),
+        apiSetIds: getApiSetIds(set, setApiIds),
         tcgplayerSetSlug: getTcgplayerSetSlug(set, setTcgplayerSlugs),
         appCardCount: allowOverrides ? Number(appCardCounts[set.id]) || null : null,
       }))
-      .filter(({ apiSetId }) => Boolean(apiSetId));
+      .filter(({ apiSetIds }) => apiSetIds.length > 0);
 
     let cardsUpserted = 0;
     let skippedNoMarketPrice = 0;
@@ -378,7 +393,7 @@ Deno.serve(async (req) => {
         const result = await syncSet(
           admin,
           selected.set,
-          selected.apiSetId as string,
+          selected.apiSetIds,
           selected.tcgplayerSetSlug,
           selected.appCardCount,
         );
@@ -391,12 +406,12 @@ Deno.serve(async (req) => {
       } catch (error) {
         errors.push({
           setId: selected.set.id,
-          apiSetId: selected.apiSetId,
+          apiSetIds: selected.apiSetIds,
           error: formatErrorForResponse(error),
         });
         console.error("sync-card-prices set failed", {
           setId: selected.set.id,
-          apiSetId: selected.apiSetId,
+          apiSetIds: selected.apiSetIds,
           error: formatErrorForResponse(error),
         });
       }

@@ -72,12 +72,18 @@ const FINAL_SLOT_CATEGORIES = new Set([
   "blackWhiteRare",
   "victiniRare",
   "megaDoubleRare",
+  "megaAttackRare",
   "megaHyperRare",
   "futuristicRare",
   "classic",
 ]);
 
-const MODERN_SV_PRE_RARE_CATEGORIES = new Set(["illustrationRare", "specialIllustrationRare"]);
+const MODERN_SV_PRE_RARE_CATEGORIES = new Set(["illustrationRare", "specialIllustrationRare", "hyperRare"]);
+const MEGA_SECOND_FOIL_CATEGORIES = new Set([
+  "illustrationRare",
+  "specialIllustrationRare",
+  "megaHyperRare",
+]);
 
 const REVERSE_SLOT_CATEGORIES = new Set(["common", "uncommon", "rare"]);
 const SHOULD_VALIDATE_PACK_SLOTS = Boolean(import.meta.env?.DEV);
@@ -108,7 +114,7 @@ export const GOD_PACK_CONFIG = {
       },
     ],
     sourceNote:
-      "Community-reported English Prismatic Evolutions rare packs include full Eeveelution God Packs and Demi-God style packs.",
+      "TCGplayer reports that English Demigod packs contain any three SIRs and full God Packs contain Eevee (Master Ball), SIR Eevee ex, and every SIR Eeveelution. Frequency remains unconfirmed; 1/250 is a simulator assumption.",
   },
   "black-bolt": {
     enabled: true,
@@ -387,11 +393,9 @@ const EXPERIENCE_TUNED_FINAL_SLOT_WEIGHTS = {
     hyperRare: 1,
   },
   "paldean-fates": {
-    rare: 72,
-    doubleRare: 18,
-    ultraRare: 5,
-    specialIllustrationRare: 2,
-    hyperRare: 1,
+    rare: 77.5,
+    doubleRare: 15.89,
+    ultraRare: 6.61,
   },
   "temporal-forces": {
     rare: 60,
@@ -493,13 +497,14 @@ const EXPERIENCE_TUNED_FINAL_SLOT_WEIGHTS = {
     megaHyperRare: 0.2,
   },
   "ascended-heroes": {
-    rare: 60,
-    doubleRare: 14,
-    megaDoubleRare: 12,
-    ultraRare: 6,
-    illustrationRare: 5,
-    specialIllustrationRare: 2,
-    megaHyperRare: 0.2,
+    rare: 71.16,
+    doubleRare: 13.58,
+    megaDoubleRare: 6.79,
+    ultraRare: 4.81,
+    illustrationRare: 11.25,
+    specialIllustrationRare: 1.44,
+    megaAttackRare: 3.47,
+    megaHyperRare: 0.19,
   },
   "perfect-order": {
     rare: 60,
@@ -627,11 +632,10 @@ const SUBSET_SLOT_RULES = {
     premiumWeight: 5,
   },
   "shrouded-fable": {
-    type: "premium",
-    subsetTypes: ["shiny", "pokeball", "masterball"],
-    normalWeight: 80,
-    regularWeight: 15,
-    premiumWeight: 5,
+    type: "aceSpec",
+    subsetTypes: ["aceSpec"],
+    normalWeight: 95,
+    regularWeight: 5,
   },
   151: {
     type: "premium",
@@ -647,15 +651,21 @@ const EXPERIENCE_TUNED_SUBSET_SLOT_RATES = {
   "shining-fates": { normal: 71.8, shinyRare: 20.2, shinyUltraRare: 8 },
   celebrations: { normal: 70.2, classicCollection: 29.8 },
   "brilliant-stars": { normal: 90, trainerGallery: 10 },
-  "astral-radiance": { normal: 90, trainerGallery: 10 },
-  "lost-origin": { normal: 90, trainerGallery: 10 },
-  "silver-tempest": { normal: 90, trainerGallery: 10 },
+  "astral-radiance": { normal: 82.54, trainerGallery: 12.58, radiantRare: 4.88 },
+  "lost-origin": { normal: 82.68, trainerGallery: 12.31, radiantRare: 5.01 },
+  "silver-tempest": { normal: 83.22, trainerGallery: 12.23, radiantRare: 4.55 },
   "pokemon-go": { normal: 95, radiantRare: 5 },
-  "crown-zenith": { normal: 76.8, galarianGallery: 18.2, premiumGalarianGallery: 5 },
+  "crown-zenith": {
+    normal: 60.25,
+    galarianGallery: 22.4,
+    premiumGalarianGallery: 12,
+    goldGalarianGallery: 0.8,
+    radiantRare: 4.55,
+  },
   "crown-zentih": { normal: 76.8, galarianGallery: 18.2, premiumGalarianGallery: 5 },
-  "paldean-fates": { normal: 88, shinyRare: 12 },
+  "paldean-fates": { normal: 66.84, shinyRare: 25.44, shinyUltraRare: 7.72 },
   "prismatic-evolutions": { normal: 96, aceSpecRare: 4 },
-  "shrouded-fable": { normal: 92, shinyRare: 8 },
+  "shrouded-fable": { normal: 95, aceSpecRare: 5 },
   151: { normal: 100 },
   "temporal-forces": { normal: 98, aceSpecRare: 2 },
   "twilight-masquerade": { normal: 98, aceSpecRare: 2 },
@@ -1015,7 +1025,7 @@ export function getRarityCategory(card, set = {}) {
 
   if (rarity === "black white rare") return "blackWhiteRare";
   if (rarity === "mega attack rare" || rarity === "mar") return "megaAttackRare";
-  if (rarity === "prism star") return "prismStar";
+  if (rarity.includes("prism star") || /◇$/u.test(name)) return "prismStar";
   if (rarity === "amazing rare") return "ultraRare";
   if (isSpecialIllustrationRare(card)) return "specialIllustrationRare";
   // Prefer the card's explicit Illustration Rare classification before broad
@@ -1051,12 +1061,14 @@ export function getRarityCategory(card, set = {}) {
   ) {
     return "ultraRare";
   }
+  // Shiny Ultra contains the words "Ultra Rare", so it must be resolved before
+  // the broad XY/full-art detector below.
+  if (combined.includes("shiny ultra rare") || combined.includes("rare shiny gx")) {
+    return "shinyUltraRare";
+  }
   if (isXYFullArtOrUltra(card)) return "ultraRare";
   if (combined.includes("mega") && combined.includes("double rare")) {
     return normalizeCategoryForSet("megaDoubleRare", set);
-  }
-  if (combined.includes("shiny ultra rare") || combined.includes("rare shiny gx")) {
-    return "shinyUltraRare";
   }
   if (subset === "shiny vault") return "shinyRare";
   if (combined.includes("shiny rare") || combined.includes("rare shiny")) {
@@ -1073,7 +1085,7 @@ export function getRarityCategory(card, set = {}) {
   if (/\bvmax\b/u.test(combined) || /\bvstar\b/u.test(combined) || rarity === "vmax rare" || rarity === "vstar rare") {
     return "vmaxOrVstar";
   }
-  if (combined.includes("rare holo v") || ["pokemon v", "pokémon v", "v"].includes(rarity)) return "pokemonV";
+  if (rarity === "rare holo v" || ["pokemon v", "pokémon v", "v"].includes(rarity)) return "pokemonV";
   if (combined.includes("full art")) return "fullArt";
   if (combined.includes("rare holo gx") || ["gx", "pokemon gx", "pokémon gx", "gx rare"].includes(rarity) || /\bgx\b/u.test(name)) {
     return "gx";
@@ -1178,6 +1190,8 @@ export function getPullRateProfile(set = {}) {
 }
 
 export function getFinalSlotWeights(profile = pullRateProfiles[defaultPullRateProfile], set = {}) {
+  if (profile.rareSlot) return profile.rareSlot;
+
   const tunedWeights = getExperienceTunedFinalSlotWeights(set);
 
   if (tunedWeights) return tunedWeights;
@@ -1331,8 +1345,52 @@ function groupCardsByCategory(cards, usedIds = new Set(), set = {}) {
   }, {});
 }
 
-function isModernSVPreRareCategory(category) {
-  return MODERN_SV_PRE_RARE_CATEGORIES.has(category);
+export function getModernSVSecondFoilSlotWeights(set = {}) {
+  const profile = getPullRateProfile(set);
+
+  if (profile.secondFoilSlot) return profile.secondFoilSlot;
+
+  const finalWeights = getFinalSlotWeights(profile, set);
+  const illustrationRare = Number(finalWeights.illustrationRare) || 0;
+  const specialIllustrationRare = Number(finalWeights.specialIllustrationRare) || 0;
+  const hyperRare = Number(finalWeights.hyperRare) || 0;
+
+  return {
+    normal: Math.max(0, 100 - illustrationRare - specialIllustrationRare - hyperRare),
+    illustrationRare,
+    specialIllustrationRare,
+    hyperRare,
+  };
+}
+
+export function getModernSVRareSlotWeights(set = {}) {
+  const profile = getPullRateProfile(set);
+
+  if (profile.rareSlot) return profile.rareSlot;
+
+  const allCategoryWeights = getFinalSlotWeights(profile, set);
+  const secondFoilCategories = new Set(
+    Object.keys(getModernSVSecondFoilSlotWeights(set)).filter((category) => category !== "normal")
+  );
+  const rareSlotWeights = Object.fromEntries(
+    Object.entries(allCategoryWeights)
+      .filter(([category, weight]) => category !== "rare" && !secondFoilCategories.has(category) && Number(weight) > 0)
+  );
+  const configuredHigherRate = Object.values(rareSlotWeights)
+    .reduce((sum, weight) => sum + (Number(weight) || 0), 0);
+
+  return {
+    rare: Math.max(0, 100 - configuredHigherRate),
+    ...rareSlotWeights,
+  };
+}
+
+function isModernSVPreRareCategory(category, set = {}) {
+  if (isMegaSet(set) && MEGA_SECOND_FOIL_CATEGORIES.has(category)) return true;
+  if (MODERN_SV_PRE_RARE_CATEGORIES.has(category)) return true;
+
+  const configuredWeight = getModernSVSecondFoilSlotWeights(set)[category];
+  return category !== "normal" && Number(configuredWeight) > 0;
 }
 
 function usesDedicatedArtSlot(set = {}) {
@@ -1343,67 +1401,81 @@ function getFinalRareSlotPool(pools, set = {}) {
   if (!usesDedicatedArtSlot(set)) return pools.finalSlotPool;
 
   return pools.finalSlotPool.filter(
-    (card) => !isModernSVPreRareCategory(card.rarityCategory || getRarityCategory(card, set))
+    (card) => !isModernSVPreRareCategory(card.rarityCategory || getRarityCategory(card, set), set)
   );
 }
 
 function pickModernSVPreRareSlot(pools, set = {}, usedIds = new Set()) {
-  const profile = getPullRateProfile(set);
   const finalCardsByCategory = groupCardsByCategory(pools.finalSlotPool, usedIds, set);
-  const availableFinalCategories = new Set(Object.keys(finalCardsByCategory));
-  const finalWeightedCategories = Object.keys(finalCardsByCategory)
-    .map((category) => [category, getProfileWeightForCategory(category, profile, set, availableFinalCategories)])
-    .filter(([, weight]) => weight > 0);
-  const totalFinalWeight = finalWeightedCategories.reduce((sum, [, weight]) => sum + weight, 0);
-  const preRareWeightedCategories = finalWeightedCategories.filter(([category]) =>
-    isModernSVPreRareCategory(category)
+  const slotWeights = getModernSVSecondFoilSlotWeights(set);
+  const chosenCategory = weightedRandomCategory(
+    Object.entries(slotWeights)
+      .map(([category, weight]) => [category, Number(weight) || 0])
+      .filter(([, weight]) => weight > 0)
   );
-  const totalPreRareWeight = preRareWeightedCategories.reduce((sum, [, weight]) => sum + weight, 0);
 
-  if (totalFinalWeight > 0 && totalPreRareWeight > 0 && Math.random() * totalFinalWeight < totalPreRareWeight) {
-    const chosenCategory = weightedRandomCategory(preRareWeightedCategories);
+  if (chosenCategory && chosenCategory !== "normal") {
     const cardsInCategory = chosenCategory ? finalCardsByCategory[chosenCategory] : [];
     const selected = pickRandom(cardsInCategory || [], 1, usedIds)[0];
 
     if (selected) return selected;
   }
 
-  return pickRegularOrSubsetSlot(pools, set, usedIds);
+  return pickRandom(pools.reverseSlotPool, 1, usedIds)[0];
 }
 
 export function getMegaSecondFoilSlotWeights(set = {}) {
   const profile = getPullRateProfile(set);
-
-  if (profile.secondFoilSlot) return profile.secondFoilSlot;
-
   const finalWeights = getFinalSlotWeights(profile, set);
-  const illustrationRare = Number(finalWeights.illustrationRare) || 0;
-  const specialIllustrationRare = Number(finalWeights.specialIllustrationRare) || 0;
+  const configuredSecondFoilSlot = profile.secondFoilSlot;
+  const illustrationRare = Number(configuredSecondFoilSlot?.illustrationRare ?? finalWeights.illustrationRare) || 0;
+  const specialIllustrationRare = Number(configuredSecondFoilSlot?.specialIllustrationRare ?? finalWeights.specialIllustrationRare) || 0;
+  const configuredMegaHyperRare = Number(configuredSecondFoilSlot?.megaHyperRare) || 0;
+  const migratedMegaHyperRare = configuredSecondFoilSlot?.megaHyperRare === undefined
+    ? Number(profile.rareSlot?.megaHyperRare ?? finalWeights.megaHyperRare) || 0
+    : 0;
+  const megaHyperRare = configuredMegaHyperRare + migratedMegaHyperRare;
+
+  if (configuredSecondFoilSlot) {
+    return {
+      ...configuredSecondFoilSlot,
+      normal: Math.max(0, (Number(configuredSecondFoilSlot.normal) || 0) - migratedMegaHyperRare),
+      megaHyperRare,
+    };
+  }
 
   return {
-    normal: Math.max(0, 100 - illustrationRare - specialIllustrationRare),
+    normal: Math.max(0, 100 - illustrationRare - specialIllustrationRare - megaHyperRare),
     illustrationRare,
     specialIllustrationRare,
+    megaHyperRare,
   };
 }
 
 export function getMegaRareSlotWeights(set = {}) {
   const profile = getPullRateProfile(set);
 
-  if (profile.rareSlot) return profile.rareSlot;
+  if (profile.rareSlot) {
+    const { megaHyperRare = 0, ...rareSlotWeights } = profile.rareSlot;
+
+    return {
+      ...rareSlotWeights,
+      rare: (Number(rareSlotWeights.rare) || 0) + (Number(megaHyperRare) || 0),
+    };
+  }
 
   const finalWeights = getFinalSlotWeights(profile, set);
   const doubleRare = Number(finalWeights.doubleRare) || 0;
   const megaDoubleRare = Number(finalWeights.megaDoubleRare) || 0;
   const ultraRare = Number(finalWeights.ultraRare) || 0;
-  const megaHyperRare = Number(finalWeights.megaHyperRare) || 0;
+  const megaAttackRare = Number(finalWeights.megaAttackRare) || 0;
 
   return {
-    rare: Math.max(0, 100 - doubleRare - megaDoubleRare - ultraRare - megaHyperRare),
+    rare: Math.max(0, 100 - doubleRare - megaDoubleRare - ultraRare - megaAttackRare),
     doubleRare,
     megaDoubleRare,
     ultraRare,
-    megaHyperRare,
+    megaAttackRare,
   };
 }
 
@@ -1411,8 +1483,7 @@ function pickMegaSecondFoilSlot(pools, set = {}, usedIds = new Set()) {
   const weights = getMegaSecondFoilSlotWeights(set);
   const chosenCategory = weightedRandomCategory([
     ["normal", Number(weights.normal) || 0],
-    ["illustrationRare", Number(weights.illustrationRare) || 0],
-    ["specialIllustrationRare", Number(weights.specialIllustrationRare) || 0],
+    ...[...MEGA_SECOND_FOIL_CATEGORIES].map((category) => [category, Number(weights[category]) || 0]),
   ]);
 
   if (chosenCategory && chosenCategory !== "normal") {
@@ -1430,13 +1501,20 @@ function pickMegaSecondFoilSlot(pools, set = {}, usedIds = new Set()) {
 function pickMegaRareSlotCard(finalSlotPool, set = {}, usedIds = new Set()) {
   const weights = getMegaRareSlotWeights(set);
   const cardsByCategory = groupCardsByCategory(finalSlotPool, usedIds, set);
-  const weightedCategories = Object.entries(weights).filter(
-    ([category, weight]) => weight > 0 && cardsByCategory[category]?.length > 0
-  );
+  const weightedCategories = Object.entries(weights).filter(([, weight]) => weight > 0);
   const chosenCategory = weightedRandomCategory(weightedCategories);
-  const selected = chosenCategory ? pickRandom(cardsByCategory[chosenCategory], 1, usedIds)[0] : undefined;
+  const selected = chosenCategory ? pickRandom(cardsByCategory[chosenCategory] || [], 1, usedIds)[0] : undefined;
 
   if (selected) return selected;
+
+  // A configured hit category with no eligible card must fall back to an
+  // ordinary Rare outcome; dropping its weight would inflate every other hit.
+  const ordinaryRarePool = [
+    ...(cardsByCategory.rare || []),
+    ...(cardsByCategory.holoRare || []),
+  ];
+  const ordinaryRare = pickRandom(ordinaryRarePool, 1, usedIds)[0];
+  if (ordinaryRare) return ordinaryRare;
 
   const fallbackPool = finalSlotPool.filter((card) => !usedIds.has(card.id));
   return pickRandom(fallbackPool.length > 0 ? fallbackPool : finalSlotPool, 1, usedIds)[0];
@@ -1500,25 +1578,47 @@ export function drawXYReverseSlotCard({ setPool, allowBreak, set = {}, usedIds =
 
 export function getFinalSlotCategoryDiagnostics(finalSlotPool, set = {}) {
   const profile = getPullRateProfile(set);
-  const weights = isMegaSet(set) ? getMegaRareSlotWeights(set) : getFinalSlotWeights(profile, set);
-  const eligibleFinalSlotPool = isMegaSet(set)
-    ? finalSlotPool.filter((card) => !isModernSVPreRareCategory(card.rarityCategory || getRarityCategory(card, set)))
+  const dedicatedRareSlot = usesDedicatedArtSlot(set);
+  const weights = isMegaSet(set)
+    ? getMegaRareSlotWeights(set)
+    : isModernSVSet(set)
+      ? getModernSVRareSlotWeights(set)
+      : getFinalSlotWeights(profile, set);
+  const eligibleFinalSlotPool = dedicatedRareSlot
+    ? finalSlotPool.filter((card) => !isModernSVPreRareCategory(card.rarityCategory || getRarityCategory(card, set), set))
     : finalSlotPool;
   const cardsByCategory = groupCardsByCategory(eligibleFinalSlotPool, new Set(), set);
   const availableCategories = new Set(Object.keys(cardsByCategory));
+  const getDiagnosticWeight = (category) => {
+    if (!dedicatedRareSlot) return getProfileWeightForCategory(category, profile, set, availableCategories);
+    if (
+      weights.holoRare === undefined &&
+      weights.rare !== undefined &&
+      availableCategories.has("rare") &&
+      availableCategories.has("holoRare")
+    ) {
+      if (category === "rare") return weights.rare * 0.65;
+      if (category === "holoRare") return weights.rare * 0.35;
+    }
+    return Number(weights[getProfileWeightKey(category)]) || 0;
+  };
   const poolCounts = Object.fromEntries(
     Object.entries(cardsByCategory).map(([category, cards]) => [category, cards.length])
   );
   const activeWeights = Object.fromEntries(
     Object.keys(cardsByCategory)
-      .map((category) => [category, isMegaSet(set) ? weights[category] || 0 : getProfileWeightForCategory(category, profile, set, availableCategories)])
+      .map((category) => [category, getDiagnosticWeight(category)])
       .filter(([, weight]) => weight > 0)
   );
   const categoriesWithoutWeight = Object.keys(cardsByCategory).filter(
-    (category) => (isMegaSet(set) ? weights[category] || 0 : getProfileWeightForCategory(category, profile, set, availableCategories)) <= 0
+    (category) => getDiagnosticWeight(category) <= 0
   );
   const profileWeightsWithoutCards = Object.keys(weights).filter(
-    (category) => (weights[category] || 0) > 0 && !cardsByCategory[category]
+    (category) => {
+      if ((weights[category] || 0) <= 0) return false;
+      if (category === "rare") return !cardsByCategory.rare && !cardsByCategory.holoRare;
+      return !cardsByCategory[category];
+    }
   );
 
   return {
@@ -1551,11 +1651,36 @@ export function pickFinalSlotCard(finalSlotPool, set = {}, usedIds = new Set()) 
   const profile = getPullRateProfile(set);
   const cardsByCategory = groupCardsByCategory(finalSlotPool, usedIds, set);
   const availableCategories = new Set(Object.keys(cardsByCategory));
-  const weightedCategories = Object.keys(cardsByCategory)
-    .map((category) => [category, getProfileWeightForCategory(category, profile, set, availableCategories)])
-    .filter(([, weight]) => weight > 0);
+  const modernRareSlotWeights = isModernSVSet(set) ? getModernSVRareSlotWeights(set) : null;
+  const weightedCategories = modernRareSlotWeights
+    ? Object.entries(modernRareSlotWeights).flatMap(([category, rawWeight]) => {
+        const weight = Number(rawWeight) || 0;
+        if (weight <= 0) return [];
+
+        if (category === "rare") {
+          const hasRare = Boolean(cardsByCategory.rare?.length);
+          const hasHoloRare = Boolean(cardsByCategory.holoRare?.length);
+          if (hasRare && hasHoloRare) {
+            return [["rare", weight * 0.65], ["holoRare", weight * 0.35]];
+          }
+          if (hasRare) return [["rare", weight]];
+          if (hasHoloRare) return [["holoRare", weight]];
+          return [[`__normalFallback:${category}`, weight]];
+        }
+
+        return cardsByCategory[category]?.length
+          ? [[category, weight]]
+          : [[`__normalFallback:${category}`, weight]];
+      })
+    : Object.keys(cardsByCategory)
+        .map((category) => [category, getProfileWeightForCategory(category, profile, set, availableCategories)])
+        .filter(([, weight]) => weight > 0);
   const chosenCategory = weightedRandomCategory(weightedCategories);
-  const cardsInCategory = chosenCategory ? cardsByCategory[chosenCategory] : [];
+  const cardsInCategory = chosenCategory?.startsWith("__normalFallback:")
+    ? [...(cardsByCategory.rare || []), ...(cardsByCategory.holoRare || [])]
+    : chosenCategory
+      ? cardsByCategory[chosenCategory]
+      : [];
   const selected = pickRandom(cardsInCategory || [], 1, usedIds)[0];
 
   if (selected) return selected;
@@ -1589,22 +1714,33 @@ export function getSubsetType(card, set = {}) {
   const text = cardSearchText(card);
   const number = normalizeText(card.number);
   const subset = normalizeText(card.subset);
+  const configuredSubsetTypes = new Set(getSubsetSlotConfig(set)?.subsetTypes || []);
+  const numericNumber = Number.parseInt(number, 10);
 
+  if (getRarityCategory(card, set) === "prismStar") return "prismStar";
+  if (setId === "cosmic-eclipse" && numericNumber >= 237 && numericNumber <= 248) {
+    return "characterSecret";
+  }
   if (isRadiantCollectionCard(card)) return "radiantCollection";
   if (subset.includes("shiny vault") || number.startsWith("sv")) return "shinyVault";
   if (subset.includes("classic collection") || text.includes("classic collection")) {
     return "classicCollection";
   }
-  if (subset.includes("trainer gallery") || number.startsWith("tg") || text.includes("trainer gallery")) {
-    return "trainerGallery";
-  }
   if (subset.includes("galarian gallery") || number.startsWith("gg") || text.includes("galarian gallery")) {
     return "galarianGallery";
   }
+  if (subset.includes("trainer gallery") || number.startsWith("tg") || text.includes("trainer gallery")) {
+    return "trainerGallery";
+  }
   if (text.includes("radiant")) return "radiant";
   if (text.includes("ace spec")) return "aceSpec";
-  if (text.includes("master ball")) return "masterball";
-  if (text.includes("poke ball") || text.includes("pokeball")) return "pokeball";
+  if (configuredSubsetTypes.has("masterball") && text.includes("master ball")) return "masterball";
+  if (
+    configuredSubsetTypes.has("pokeball") &&
+    (text.includes("poke ball") || text.includes("pokeball"))
+  ) {
+    return "pokeball";
+  }
   if (
     ["paldean-fates", "prismatic-evolutions", "shrouded-fable"].includes(setId) &&
     text.includes("shiny")
@@ -1666,9 +1802,11 @@ export function getSubsetSlotWeight(card, set = {}) {
 }
 
 function getSubsetRateKey(card, set = {}, config = getSubsetSlotConfig(set)) {
+  const setId = normalizeSetId(set);
   const category = getRarityCategory(card, set);
   const subsetType = getSubsetType(card, set);
   const rates = config?.rates || {};
+  const subsetNumber = Number.parseInt(normalizeText(card.number).replace(/^sv/u, ""), 10);
 
   if (config?.legacy) {
     if (isChaseSubsetCard(card)) return "chase";
@@ -1677,17 +1815,40 @@ function getSubsetRateKey(card, set = {}, config = getSubsetSlotConfig(set)) {
     return "regular";
   }
 
+  if (subsetType === "galarianGallery") {
+    const galleryNumber = Number.parseInt(normalizeText(card.number).replace(/^gg/u, ""), 10);
+
+    if (galleryNumber >= 67 && rates.goldGalarianGallery !== undefined) return "goldGalarianGallery";
+    if (galleryNumber >= 35 && rates.premiumGalarianGallery !== undefined) return "premiumGalarianGallery";
+    if (rates.galarianGallery !== undefined) return "galarianGallery";
+  }
+
+  // Cosmic Eclipse's twelve character secrets predate the Trainer Gallery
+  // name, but occupy the same reverse/subset slot represented by this legacy
+  // configuration key.
+  if (subsetType === "characterSecret" && rates.trainerGallery !== undefined) {
+    return "trainerGallery";
+  }
+
+  // The Shining Fates Shiny Vault tail is the full-art/premium tier. Its nine
+  // Pokemon V entries use a base V rarity label locally, so the collector-number
+  // boundary is the stable evidence that keeps all SV105-SV122 in one bucket.
+  if (
+    setId === "shining-fates" &&
+    subsetType === "shinyVault" &&
+    subsetNumber >= 105 &&
+    subsetNumber <= 122 &&
+    rates.shinyUltraRare !== undefined
+  ) {
+    return "shinyUltraRare";
+  }
+
   if (rates[category] !== undefined) return category;
   if (rates[subsetType] !== undefined) return subsetType;
   if (subsetType === "classicCollection" && rates.classicCollection !== undefined) return "classicCollection";
   if (subsetType === "trainerGallery" && rates.trainerGallery !== undefined) return "trainerGallery";
   if (subsetType === "radiant" && rates.radiantRare !== undefined) return "radiantRare";
   if (subsetType === "aceSpec" && rates.aceSpecRare !== undefined) return "aceSpecRare";
-
-  if (subsetType === "galarianGallery") {
-    if (isPremiumSubsetCard(card) && rates.premiumGalarianGallery !== undefined) return "premiumGalarianGallery";
-    if (rates.galarianGallery !== undefined) return "galarianGallery";
-  }
 
   if (subsetType === "shinyVault" || subsetType === "shiny") {
     if ((category === "shinyUltraRare" || isPremiumSubsetCard(card)) && rates.shinyUltraRare !== undefined) {
@@ -1776,7 +1937,10 @@ function buildPools(cards, set = {}) {
       rarityCategory: getRarityCategory(card, set),
       subsetType: getSubsetType(card, set),
     }));
-  const mainCards = cleanCards.filter((card) => !isSubsetCard(card, set));
+  // Display/search hints such as "Radiant" or "Poké Ball" are not sufficient
+  // to remove a card from its main set. Only a configured positive subset-slot
+  // route excludes a card from the ordinary pools.
+  const mainCards = cleanCards.filter((card) => getSubsetSlotWeight(card, set) <= 0);
   const commonPool = mainCards.filter((card) => card.rarityCategory === "common");
   const uncommonPool = mainCards.filter((card) => card.rarityCategory === "uncommon");
   const reverseSlotPool = mainCards.filter((card) => REVERSE_SLOT_CATEGORIES.has(card.rarityCategory));
@@ -1916,20 +2080,34 @@ function isRegularSlotCard(card, set = {}) {
   return isRegularSlotCategory(card?.rarityCategory || getRarityCategory(card, set));
 }
 
+function isRegularOrConfiguredSubsetSlotCard(card, set = {}) {
+  return isRegularSlotCard(card, set) || getSubsetSlotWeight(card, set) > 0;
+}
+
 function isSubsetOrPreRareSlotCard(card, set = {}) {
   const category = card?.rarityCategory || getRarityCategory(card, set);
 
   return (
     isRegularSlotCategory(category) ||
     getSubsetSlotWeight(card, set) > 0 ||
-    (usesDedicatedArtSlot(set) && isModernSVPreRareCategory(category))
+    (usesDedicatedArtSlot(set) && isModernSVPreRareCategory(category, set))
   );
+}
+
+function isRegularOrModernSecondFoilSlotCard(card, set = {}) {
+  const category = card?.rarityCategory || getRarityCategory(card, set);
+
+  return isRegularSlotCategory(category) || isModernSVPreRareCategory(category, set);
 }
 
 function isFinalRareSlotCard(card, set = {}) {
   const category = card?.rarityCategory || getRarityCategory(card, set);
 
-  return FINAL_SLOT_CATEGORIES.has(category) && !(usesDedicatedArtSlot(set) && isModernSVPreRareCategory(category));
+  return (
+    FINAL_SLOT_CATEGORIES.has(category) &&
+    getSubsetSlotWeight(card, set) <= 0 &&
+    !(usesDedicatedArtSlot(set) && isModernSVPreRareCategory(category, set))
+  );
 }
 
 function getSpecialPreviewPackConfig(set = {}) {
@@ -2032,6 +2210,13 @@ function validatePackSlotPlacement(pack, set = {}) {
       ["final rare slot", isFinalRareSlotCard]
     );
   } else {
+    const firstReverseValidator = isModernSVSet(set)
+      ? isRegularOrConfiguredSubsetSlotCard
+      : isRegularSlotCard;
+    const secondReverseValidator = isModernSVSet(set)
+      ? isRegularOrModernSecondFoilSlotCard
+      : isSubsetOrPreRareSlotCard;
+
     validators.push(
       ["common slot", isCommonSlotCard],
       ["common slot", isCommonSlotCard],
@@ -2040,8 +2225,8 @@ function validatePackSlotPlacement(pack, set = {}) {
       ["uncommon slot", isUncommonSlotCard],
       ["uncommon slot", isUncommonSlotCard],
       ["uncommon slot", isUncommonSlotCard],
-      ["regular slot", isRegularSlotCard],
-      ["art/subset slot", isSubsetOrPreRareSlotCard],
+      ["first reverse/subset slot", firstReverseValidator],
+      ["second reverse/art slot", secondReverseValidator],
       ["final rare slot", isFinalRareSlotCard]
     );
   }
@@ -2091,8 +2276,16 @@ export function isCardAllowedInPackSlot(card, index, set = {}) {
 
   if (index < 4) return isCommonSlotCard(card, set);
   if (index < 7) return isUncommonSlotCard(card, set);
-  if (index === 7) return isRegularSlotCard(card, set);
-  if (index === 8) return isSubsetOrPreRareSlotCard(card, set);
+  if (index === 7) {
+    return isModernSVSet(set)
+      ? isRegularOrConfiguredSubsetSlotCard(card, set)
+      : isRegularSlotCard(card, set);
+  }
+  if (index === 8) {
+    return isModernSVSet(set)
+      ? isRegularOrModernSecondFoilSlotCard(card, set)
+      : isSubsetOrPreRareSlotCard(card, set);
+  }
   return index === 9 && isFinalRareSlotCard(card, set);
 }
 
@@ -2560,7 +2753,14 @@ function generatePrismaticFullGodPack(set, pools, config, selectedFormat) {
   fillUniqueFromPool(orderedCards, premiumFallback, packSize, usedIds);
   fillUniqueFromPool(orderedCards, pools.finalSlotPool, packSize, usedIds);
 
-  return withPackMetadata(orderedCards.slice(0, packSize).map((card) => ({ ...card })), {
+  const cards = orderedCards.slice(0, packSize).map((card, index) => ({
+    ...card,
+    // The parallel is a transient pack attribute. Collection identity remains
+    // the canonical Eevee printing and persistence continues to submit IDs only.
+    ...(index === 0 ? { parallelType: "masterBall", parallelLabel: "Master Ball Foil" } : {}),
+  }));
+
+  return withPackMetadata(cards, {
     isGodPack: true,
     godPackType: config.type,
     godPackFormat: selectedFormat,
@@ -2571,8 +2771,11 @@ function generatePrismaticFullGodPack(set, pools, config, selectedFormat) {
 function generatePrismaticDemiGodPack(set, pools, profile, config, selectedFormat) {
   const normalPack = generateNormalPack(set, pools, profile, new Set());
   const usedIds = new Set();
-  const eeveelutionHits = pools.cleanCards.filter((card) => isPrismaticEeveelutionPremium(card, set));
-  const replacementCards = pickRandom(eeveelutionHits, 3, usedIds);
+  // English Demigod packs contain any three SIRs from the set, not only
+  // Eeveelutions. Preserve the canonical card IDs while sampling that full
+  // rarity pool.
+  const sirPool = pools.cleanCards.filter((card) => isSpecialIllustrationRare(card));
+  const replacementCards = pickRandom(sirPool, 3, usedIds);
 
   if (replacementCards.length < 3) {
     fillUniqueFromPool(replacementCards, pools.cleanCards.filter((card) => isPremiumArtHit(card, set)), 3, usedIds);
@@ -2682,7 +2885,10 @@ function generateNormalPack(set, pools, profile, usedIds) {
 
   const commons = pickRandom(pools.commonPool, PACK_SLOTS.commons, usedIds);
   const uncommons = pickRandom(pools.uncommonPool, PACK_SLOTS.uncommons, usedIds);
-  const regularSlot = pickRandom(pools.reverseSlotPool, PACK_SLOTS.regular, usedIds);
+  const regularSlotCard = isModernSVSet(set)
+    ? pickRegularOrSubsetSlot(pools, set, usedIds)
+    : pickRandom(pools.reverseSlotPool, PACK_SLOTS.regular, usedIds)[0];
+  const regularSlot = regularSlotCard ? [regularSlotCard] : [];
   const regularOrSubsetCard = isModernSVSet(set)
     ? pickModernSVPreRareSlot(pools, set, usedIds)
     : isMegaSet(set)

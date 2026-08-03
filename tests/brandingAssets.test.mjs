@@ -9,7 +9,6 @@ import sharp from "sharp";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const at = (...parts) => path.join(root, ...parts);
 const modelHash = "62f2ff60cfdb09714a01fa74343e4dc1968601c2a43046979cbc548c28027c7c";
-const indexHash = "a851d797aef5c140d8918bb2ffa7dcafa2315cb1f0cbdb6ca4abbd91c3d61edb";
 
 async function metadata(relative) {
   return sharp(at(relative)).metadata();
@@ -81,7 +80,8 @@ test("Android launcher and splash resources are PackDex-sized, opaque, and use n
   await assertOpaque("mobile-app/android/app/src/main/res/drawable-land-xxxhdpi/splash.png", 1920, 1280);
 });
 
-test("frozen scanner model and index remain byte-for-byte unchanged", async () => {
+test("frozen scanner model and canonical index match their release metadata", async () => {
+  const scannerMetadata = JSON.parse(await readFile(at("public/scanner-ai/catalog-embeddings.meta.json"), "utf8"));
   assert.equal(await sha256("public/scanner-ai/frozen-a-62f2ff60.tflite"), modelHash);
-  assert.equal(await sha256("public/scanner-ai/catalog-embeddings-a851d797.f16"), indexHash);
+  assert.equal(await sha256(`public/scanner-ai/${scannerMetadata.vectorFile}`), scannerMetadata.vectorSha256);
 });

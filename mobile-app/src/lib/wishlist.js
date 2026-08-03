@@ -1,4 +1,4 @@
-import { sets } from "../../../src/data/sets.js";
+import { getSetCardById, sets } from "../../../src/data/sets.js";
 
 export function getWishlistKey(setId, cardId) {
   return `${String(setId)}:${String(cardId)}`;
@@ -6,7 +6,7 @@ export function getWishlistKey(setId, cardId) {
 
 export function resolveCatalogWishlistItem(setId, cardId) {
   const set = sets.find((candidate) => candidate.id === setId);
-  const card = set?.cards?.find((candidate) => String(candidate.id) === String(cardId));
+  const card = set ? getSetCardById(set, cardId, { includeLegacy: true }) : null;
   return set && card ? { set, card } : null;
 }
 
@@ -18,7 +18,10 @@ export async function loadWishlist(supabase, userId) {
 }
 
 export async function addWishlistCard(supabase, userId, setId, cardId) {
-  if (!resolveCatalogWishlistItem(setId, cardId)) throw new Error("This card is not available in the PackDex catalog.");
+  const resolved = resolveCatalogWishlistItem(setId, cardId);
+  if (!resolved || resolved.card.legacyQuarantine) {
+    throw new Error("This card is not available in the PackDex catalog.");
+  }
   const { error } = await supabase.from("user_wishlist").upsert(
     { user_id: userId, set_id: setId, card_id: String(cardId) },
     { onConflict: "user_id,set_id,card_id", ignoreDuplicates: true }

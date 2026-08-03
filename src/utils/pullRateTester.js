@@ -6,6 +6,8 @@ import {
   getFoilClass,
   getMegaRareSlotWeights,
   getMegaSecondFoilSlotWeights,
+  getModernSVRareSlotWeights,
+  getModernSVSecondFoilSlotWeights,
   getNormalizedSetId,
   getPackPools,
   getPullRateProfile,
@@ -14,11 +16,14 @@ import {
   getSubsetType,
   isHigherThanRare,
   isMegaSet,
+  isModernSVSet,
   isSubsetCard,
+  isXYSet,
   normalizeRarity,
   subsetSlotRules,
 } from "./packGenerator.js";
 import { hardcodedPullRates } from "../data/hardcodedPullRates.js";
+import { getVintagePackRule } from "../data/vintagePackRules.js";
 
 function percent(count, total) {
   return total > 0 ? (count / total) * 100 : 0;
@@ -163,17 +168,27 @@ export function testPullRates(set, packCount = 10000) {
 
   const profile = getPullRateProfile(set);
   const profileName = getProfileName(set);
-  const finalSlotWeights = isMegaSet(set) ? getMegaRareSlotWeights(set) : getFinalSlotWeights(profile, set);
+  const finalSlotWeights = isMegaSet(set)
+    ? getMegaRareSlotWeights(set)
+    : isModernSVSet(set)
+      ? getModernSVRareSlotWeights(set)
+      : getFinalSlotWeights(profile, set);
   const subsetSlotConfig = getSubsetSlotConfig(set);
-  const megaSecondFoilSlotWeights = isMegaSet(set) ? getMegaSecondFoilSlotWeights(set) : null;
+  const secondFoilSlotWeights = isMegaSet(set)
+    ? getMegaSecondFoilSlotWeights(set)
+    : isModernSVSet(set)
+      ? getModernSVSecondFoilSlotWeights(set)
+      : null;
   const pools = getPackPools(set);
   const finalSlotDiagnostics = getFinalSlotCategoryDiagnostics(pools.finalSlotPool, set);
   const expectedPercentages = getExpectedActivePercentages(finalSlotDiagnostics.activeWeights);
-  const subsetExpectedPercentages = megaSecondFoilSlotWeights
-    ? getSubsetExpectedPercentages({ rates: megaSecondFoilSlotWeights })
-    : getSubsetExpectedPercentages(subsetSlotConfig);
+  const secondFoilExpectedPercentages = secondFoilSlotWeights
+    ? getSubsetExpectedPercentages({ rates: secondFoilSlotWeights })
+    : {};
+  const subsetExpectedPercentages = getSubsetExpectedPercentages(subsetSlotConfig);
   const finalCategoryCounts = new Map();
   const finalRarityCounts = new Map();
+  const secondFoilCategoryCounts = new Map();
   const subsetTypeCounts = new Map();
   const chaseCounts = new Map();
   let higherHitCount = 0;
@@ -213,13 +228,21 @@ export function testPullRates(set, packCount = 10000) {
 
     for (let slotIndex = 0; slotIndex < pack.length - 1; slotIndex += 1) {
       const card = pack[slotIndex];
+      const category = getRarityCategory(card, set);
 
       if (
-        isSubsetCard(card, set) ||
-        (isMegaSet(set) && slotIndex === 8 && ["illustrationRare", "specialIllustrationRare"].includes(getRarityCategory(card, set)))
+        secondFoilSlotWeights &&
+        slotIndex === 8 &&
+        category !== "normal" &&
+        (Number(secondFoilSlotWeights[category]) || 0) > 0
       ) {
+        increment(secondFoilCategoryCounts, category);
+        if (category === "megaHyperRare") increment(chaseCounts, category);
+      }
+
+      if (isSubsetCard(card, set)) {
         subsetHitCount += 1;
-        increment(subsetTypeCounts, getRarityCategory(card, set) || getSubsetType(card, set) || card.subset || "subset");
+        increment(subsetTypeCounts, category || getSubsetType(card, set) || card.subset || "subset");
       }
     }
   }
@@ -291,12 +314,16 @@ export function testPullRates(set, packCount = 10000) {
     sourceUrl: profile.sourceUrl || "",
     notes: profile.notes || "",
     finalSlotWeights,
-    megaSecondFoilSlotWeights,
+    secondFoilSlotWeights,
+    megaSecondFoilSlotWeights: isMegaSet(set) ? secondFoilSlotWeights : null,
+    modernSecondFoilSlotWeights: isModernSVSet(set) ? secondFoilSlotWeights : null,
     subsetSlotConfig,
+    secondFoilExpectedPercentages,
     subsetExpectedPercentages,
     poolSizes: getPoolSizes(set),
     finalCategoryCounts,
     finalRarityCounts,
+    secondFoilCategoryCounts,
     subsetTypeCounts,
     subsetHitCount,
     higherHitCount,
@@ -343,6 +370,11 @@ export function testPullRates(set, packCount = 10000) {
   console.table(mapToRows(finalCategoryCounts, packCount, expectedPercentages));
   console.log("Final slot raw rarity labels:");
   console.table(mapToRows(finalRarityCounts, packCount));
+
+  if (secondFoilSlotWeights) {
+    console.log("Second foil slot:");
+    console.table(mapToRows(secondFoilCategoryCounts, packCount, secondFoilExpectedPercentages));
+  }
 
   if (subsetTypeCounts.size > 0 || hasExpectedSubsetRule(set)) {
     console.log("Special subset slots:");
@@ -481,8 +513,28 @@ export function validateHardcodedPullRates(sets) {
     const setId = getNormalizedSetId(set);
     const config = hardcodedPullRates[setId];
     const pools = getPackPools(set);
-    const diagnostics = getFinalSlotCategoryDiagnostics(pools.finalSlotPool, set);
-    const finalWeights = isMegaSet(set) ? config?.rareSlot || getMegaRareSlotWeights(set) : config?.finalSlot || {};
+    const usesFormatSpecificLegacySlots = Boolean(getVintagePackRule(set)) || isXYSet(set);
+    const diagnostics = usesFormatSpecificLegacySlots
+      ? {
+          activeWeights: {},
+          cardsByCategory: {},
+          categoriesWithoutWeight: [],
+        }
+      : getFinalSlotCategoryDiagnostics(pools.finalSlotPool, set);
+    const finalWeights = usesFormatSpecificLegacySlots
+      ? {}
+      : isMegaSet(set)
+        ? getMegaRareSlotWeights(set)
+        : isModernSVSet(set)
+          ? getModernSVRareSlotWeights(set)
+          : getFinalSlotWeights(getPullRateProfile(set), set);
+    const secondFoilWeights = usesFormatSpecificLegacySlots
+      ? null
+      : isMegaSet(set)
+        ? getMegaSecondFoilSlotWeights(set)
+        : isModernSVSet(set)
+          ? getModernSVSecondFoilSlotWeights(set)
+          : null;
     const subsetConfig = getSubsetSlotConfig(set);
     const seriousWarnings = [];
     const notes = [];
@@ -491,17 +543,32 @@ export function validateHardcodedPullRates(sets) {
       notes.push("No hardcoded rate entry; app will use fallback profile.");
     }
 
-    if (pools.finalSlotPool.length === 0) {
+    if (usesFormatSpecificLegacySlots) {
+      notes.push("Vintage/XY slot structure is validated by its format-specific audit.");
+    }
+
+    if (!usesFormatSpecificLegacySlots && pools.finalSlotPool.length === 0) {
       seriousWarnings.push("finalSlotPool is empty.");
     }
 
-    if (subsetConfig && pools.subsetPool.length === 0) {
+    const configuredSubsetHitRate = Object.entries(subsetConfig?.rates || {})
+      .filter(([category]) => category !== "normal")
+      .reduce((sum, [, weight]) => sum + (Number(weight) || 0), 0);
+    if (configuredSubsetHitRate > 0 && pools.subsetPool.length === 0) {
       seriousWarnings.push("Subset slot configured, but subsetPool is empty.");
     }
 
     for (const category of Object.keys(finalWeights)) {
-      if (!diagnostics.cardsByCategory[category]) {
+      if (category !== "rare" && !diagnostics.cardsByCategory[category]) {
         notes.push(`${category} has a configured rate but no direct card category; aliases may cover it.`);
+      }
+    }
+
+    if (secondFoilWeights) {
+      for (const [category, weight] of Object.entries(secondFoilWeights)) {
+        if (category === "normal" || weight <= 0) continue;
+        const hasCategory = pools.finalSlotPool.some((card) => getRarityCategory(card, set) === category);
+        if (!hasCategory) seriousWarnings.push(`${category} has a second-foil rate but no matching card pool.`);
       }
     }
 
@@ -517,6 +584,9 @@ export function validateHardcodedPullRates(sets) {
       "Final Pool": pools.finalSlotPool.length,
       "Subset Pool": pools.subsetPool.length,
       "Active Final Weights": Object.keys(diagnostics.activeWeights).join(", ") || "None",
+      "Active Second-Foil Weights": secondFoilWeights
+        ? Object.entries(secondFoilWeights).filter(([category, weight]) => category !== "normal" && weight > 0).map(([category]) => category).join(", ") || "None"
+        : "N/A",
       Notes: notes.join(" | ") || "None",
       Warnings: seriousWarnings.join(" | ") || "None",
     };

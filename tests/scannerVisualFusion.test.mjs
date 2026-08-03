@@ -20,7 +20,7 @@ function search(descriptor, limit = 3) {
 test("full visual manifest covers every trusted catalog card", () => {
   const catalog = buildScannerCatalog();
   assert.equal(Object.keys(visualIndex.cards).length, catalog.length);
-  assert.equal(Object.keys(visualIndex.cards).length, 18747);
+  assert.deepEqual(Object.keys(visualIndex.cards).sort(), catalog.map(({ cardId }) => cardId).sort());
   assert.ok(visualIndex.cards[targetId]);
 });
 

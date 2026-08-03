@@ -1,4 +1,4 @@
-import { activeSets, sets } from "../../../src/data/sets.js";
+import { activeSets, getSetCardById, sets } from "../../../src/data/sets.js";
 import {
   generateNormalPackOnly,
   isCardAllowedInPackSlot,
@@ -328,8 +328,11 @@ export function getOnboardingConveyorCards() {
 export function restoreTutorialPack(state) {
   const set = sets.find((candidate) => candidate.id === state?.setId);
   if (!set || !Array.isArray(state?.cardIds)) return { set: null, cards: [] };
-  const byId = new Map(set.cards.map((card) => [String(card.id), card]));
-  const cards = state.cardIds.map((id) => byId.get(String(id))).filter(Boolean);
+  // Recovery is allowed to resolve a quarantined identity that an older app
+  // already persisted. New tutorial generation still reads only set.cards.
+  const cards = state.cardIds
+    .map((id) => getSetCardById(set, id, { includeLegacy: true }))
+    .filter(Boolean);
   if (cards.length !== state.cardIds.length) return { set: null, cards: [] };
   Object.assign(cards, { onboardingTutorial: true, isGodPack: false });
   return { set, cards };

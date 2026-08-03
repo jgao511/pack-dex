@@ -1128,7 +1128,7 @@
   },
   {
     "id": "surging-sparks-162-amulet-of-hope-ace-spec",
-    "name": "Amulet of Hope ACE SPEC",
+    "name": "Amulet of Hope",
     "rarity": "Rare",
     "number": "162",
     "image": "/assets/sets/surging-sparks/cards/162_Amulet_of_Hope_ACE_SPEC_Rare.png"
@@ -1142,7 +1142,7 @@
   },
   {
     "id": "surging-sparks-164-brilliant-blender-ace-spec",
-    "name": "Brilliant Blender ACE SPEC",
+    "name": "Brilliant Blender",
     "rarity": "Rare",
     "number": "164",
     "image": "/assets/sets/surging-sparks/cards/164_Brilliant_Blender_ACE_SPEC_Rare.png"
@@ -1226,7 +1226,7 @@
   },
   {
     "id": "surging-sparks-176-energy-search-pro-ace-spec",
-    "name": "Energy Search Pro ACE SPEC",
+    "name": "Energy Search Pro",
     "rarity": "Rare",
     "number": "176",
     "image": "/assets/sets/surging-sparks/cards/176_Energy_Search_Pro_ACE_SPEC_Rare.png"
@@ -1268,14 +1268,14 @@
   },
   {
     "id": "surging-sparks-182-megaton-blower-ace-spec",
-    "name": "Megaton Blower ACE SPEC",
+    "name": "Megaton Blower",
     "rarity": "Rare",
     "number": "182",
     "image": "/assets/sets/surging-sparks/cards/182_Megaton_Blower_ACE_SPEC_Rare.png"
   },
   {
     "id": "surging-sparks-183-miracle-headset-ace-spec",
-    "name": "Miracle Headset ACE SPEC",
+    "name": "Miracle Headset",
     "rarity": "Rare",
     "number": "183",
     "image": "/assets/sets/surging-sparks/cards/183_Miracle_Headset_ACE_SPEC_Rare.png"
@@ -1289,14 +1289,14 @@
   },
   {
     "id": "surging-sparks-185-precious-trolley-ace-spec",
-    "name": "Precious Trolley ACE SPEC",
+    "name": "Precious Trolley",
     "rarity": "Rare",
     "number": "185",
     "image": "/assets/sets/surging-sparks/cards/185_Precious_Trolley_ACE_SPEC_Rare.png"
   },
   {
     "id": "surging-sparks-186-scramble-switch-ace-spec",
-    "name": "Scramble Switch ACE SPEC",
+    "name": "Scramble Switch",
     "rarity": "Rare",
     "number": "186",
     "image": "/assets/sets/surging-sparks/cards/186_Scramble_Switch_ACE_SPEC_Rare.png"
@@ -1310,7 +1310,7 @@
   },
   {
     "id": "surging-sparks-188-technical-machine-fluorite",
-    "name": "Technical Machine Fluorite",
+    "name": "Technical Machine: Fluorite",
     "rarity": "Uncommon",
     "number": "188",
     "image": "/assets/sets/surging-sparks/cards/188_Technical_Machine_Fluorite_Uncommon.png"
@@ -1331,7 +1331,7 @@
   },
   {
     "id": "surging-sparks-191-enriching-energy-ace-spec",
-    "name": "Enriching Energy ACE SPEC",
+    "name": "Enriching Energy",
     "rarity": "Rare",
     "number": "191",
     "image": "/assets/sets/surging-sparks/cards/191_Enriching_Energy_ACE_SPEC_Rare.png"
@@ -1723,43 +1723,43 @@
   },
   {
     "id": "surging-sparks-247-pikachu-ex-hyper",
-    "name": "Pikachu ex Hyper",
+    "name": "Pikachu ex",
     "rarity": "Rare",
     "number": "247",
     "image": "/assets/sets/surging-sparks/cards/247_Pikachu_ex_Hyper_Rare.png"
   },
   {
     "id": "surging-sparks-248-alolan-exeggutor-ex-hyper",
-    "name": "Alolan Exeggutor ex Hyper",
+    "name": "Alolan Exeggutor ex",
     "rarity": "Rare",
     "number": "248",
     "image": "/assets/sets/surging-sparks/cards/248_Alolan_Exeggutor_ex_Hyper_Rare.png"
   },
   {
     "id": "surging-sparks-249-counter-gain-hyper",
-    "name": "Counter Gain Hyper",
+    "name": "Counter Gain",
     "rarity": "Rare",
     "number": "249",
     "image": "/assets/sets/surging-sparks/cards/249_Counter_Gain_Hyper_Rare.png"
   },
   {
     "id": "surging-sparks-250-gravity-mountain-hyper",
-    "name": "Gravity Mountain Hyper",
+    "name": "Gravity Mountain",
     "rarity": "Rare",
     "number": "250",
     "image": "/assets/sets/surging-sparks/cards/250_Gravity_Mountain_Hyper_Rare.png"
   },
   {
     "id": "surging-sparks-251-night-stretcher-hyper",
-    "name": "Night Stretcher Hyper",
+    "name": "Night Stretcher",
     "rarity": "Rare",
     "number": "251",
     "image": "/assets/sets/surging-sparks/cards/251_Night_Stretcher_Hyper_Rare.png"
   },
   {
     "id": "surging-sparks-252-jet-energy-hyper",
-    "name": "Jet Energy Hyper",
-    "rarity": "Rare",
+    "name": "Jet Energy",
+    "rarity": "Hyper Rare",
     "number": "252",
     "image": "/assets/sets/surging-sparks/cards/252_Jet_Energy_Hyper_Rare.png"
   }

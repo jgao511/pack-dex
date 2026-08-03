@@ -1226,28 +1226,28 @@
   },
   {
     "id": "paradox-rift-176-technical-machine-blindside",
-    "name": "Technical Machine Blindside",
+    "name": "Technical Machine: Blindside",
     "rarity": "Uncommon",
     "number": "176",
     "image": "/assets/sets/paradox-rift/cards/176_Technical_Machine_Blindside_Uncommon.png"
   },
   {
     "id": "paradox-rift-177-technical-machine-devolution",
-    "name": "Technical Machine Devolution",
+    "name": "Technical Machine: Devolution",
     "rarity": "Uncommon",
     "number": "177",
     "image": "/assets/sets/paradox-rift/cards/177_Technical_Machine_Devolution_Uncommon.png"
   },
   {
     "id": "paradox-rift-178-technical-machine-evolution",
-    "name": "Technical Machine Evolution",
+    "name": "Technical Machine: Evolution",
     "rarity": "Uncommon",
     "number": "178",
     "image": "/assets/sets/paradox-rift/cards/178_Technical_Machine_Evolution_Uncommon.png"
   },
   {
     "id": "paradox-rift-179-technical-machine-turbo-energize",
-    "name": "Technical Machine Turbo Energize",
+    "name": "Technical Machine: Turbo Energize",
     "rarity": "Uncommon",
     "number": "179",
     "image": "/assets/sets/paradox-rift/cards/179_Technical_Machine_Turbo_Energize_Uncommon.png"
@@ -1814,50 +1814,50 @@
   },
   {
     "id": "paradox-rift-260-garchomp-ex-hyper",
-    "name": "Garchomp ex Hyper",
+    "name": "Garchomp ex",
     "rarity": "Rare",
     "number": "260",
     "image": "/assets/sets/paradox-rift/cards/260_Garchomp_ex_Hyper_Rare.png"
   },
   {
     "id": "paradox-rift-261-iron-valiant-ex-hyper",
-    "name": "Iron Valiant ex Hyper",
+    "name": "Iron Valiant ex",
     "rarity": "Rare",
     "number": "261",
     "image": "/assets/sets/paradox-rift/cards/261_Iron_Valiant_ex_Hyper_Rare.png"
   },
   {
     "id": "paradox-rift-262-roaring-moon-ex-hyper",
-    "name": "Roaring Moon ex Hyper",
+    "name": "Roaring Moon ex",
     "rarity": "Rare",
     "number": "262",
     "image": "/assets/sets/paradox-rift/cards/262_Roaring_Moon_ex_Hyper_Rare.png"
   },
   {
     "id": "paradox-rift-263-beach-court-hyper",
-    "name": "Beach Court Hyper",
+    "name": "Beach Court",
     "rarity": "Rare",
     "number": "263",
     "image": "/assets/sets/paradox-rift/cards/263_Beach_Court_Hyper_Rare.png"
   },
   {
     "id": "paradox-rift-264-counter-catcher-hyper",
-    "name": "Counter Catcher Hyper",
+    "name": "Counter Catcher",
     "rarity": "Rare",
     "number": "264",
     "image": "/assets/sets/paradox-rift/cards/264_Counter_Catcher_Hyper_Rare.png"
   },
   {
     "id": "paradox-rift-265-luxurious-cape-hyper",
-    "name": "Luxurious Cape Hyper",
+    "name": "Luxurious Cape",
     "rarity": "Rare",
     "number": "265",
     "image": "/assets/sets/paradox-rift/cards/265_Luxurious_Cape_Hyper_Rare.png"
   },
   {
     "id": "paradox-rift-266-reversal-energy-hyper",
-    "name": "Reversal Energy Hyper",
-    "rarity": "Rare",
+    "name": "Reversal Energy",
+    "rarity": "Hyper Rare",
     "number": "266",
     "image": "/assets/sets/paradox-rift/cards/266_Reversal_Energy_Hyper_Rare.png"
   }

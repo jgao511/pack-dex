@@ -123,7 +123,7 @@ const FACTS = {
   "temporal-forces": ["Scarlet & Violet—Temporal Forces marked the return of ACE SPEC cards to English Pokémon TCG expansions."],
   "black-bolt": ["Scarlet & Violet—Black Bolt and Scarlet & Violet—White Flare were released together in English on July 18, 2025. The paired expansions divide their Unova-themed Pokémon and cards across two complementary sets."],
   "white-flare": ["Scarlet & Violet—White Flare and Scarlet & Violet—Black Bolt were released together in English on July 18, 2025. The paired expansions divide their Unova-themed Pokémon and cards across two complementary sets."],
-  "pitch-black": ["Pitch Black is a PackDex custom set with 120 supported cards, including Mega Darkrai ex as its Mega Hyper Rare."],
+  "pitch-black": ["Mega Evolution—Pitch Black is an official 120-card expansion released in English on July 17, 2026."],
 };
 
 // Concise set identities are curated from official expansion pages/checklists and the
@@ -299,7 +299,7 @@ function guideFor(set) {
     mechanics: mechanicsFor(set),
     ...(FEATURED_POKEMON_IDS[set.id] ? { featuredPokemonIds: FEATURED_POKEMON_IDS[set.id] } : {}),
     funFacts: FACTS[set.id] || [],
-    custom: set.id === "pitch-black",
+    custom: false,
     contentStatus: "curated",
   };
 }

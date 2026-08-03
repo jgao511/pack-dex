@@ -10,7 +10,9 @@ function hasCardLevelPriceInfo(card = {}) {
       card.pokemonTcgId ||
       card.pokemon_tcg_id ||
       card.apiId ||
-      card.api_id
+      card.api_id ||
+      card.apiCardId ||
+      card.sourceCardId
   );
 }
 
@@ -19,9 +21,8 @@ function getSetApiId(set, priceSetMap) {
   const explicitMapping = hasExplicitMapping ? priceSetMap[set.id] : undefined;
   const aliasApiSetId = set.priceAlias?.pokemonTcgApiSetId || null;
 
-  if (explicitMapping === null && !aliasApiSetId) return null;
-
   return (
+    set.sourceSetId ||
     set.pokemonTcgApiSetId ||
     set.pokemon_tcg_api_set_id ||
     set.apiSetId ||

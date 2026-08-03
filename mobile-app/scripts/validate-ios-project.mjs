@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 const mobileRoot = new URL("../", import.meta.url);
 const repositoryRoot = new URL("../../", import.meta.url);
 const modelHash = "62f2ff60cfdb09714a01fa74343e4dc1968601c2a43046979cbc548c28027c7c";
-const indexHash = "a851d797aef5c140d8918bb2ffa7dcafa2315cb1f0cbdb6ca4abbd91c3d61edb";
+const hashBytes = (value) => createHash("sha256").update(value).digest("hex");
 
 async function text(relative, root = mobileRoot) {
   return readFile(new URL(relative, root), "utf8");
@@ -27,7 +27,7 @@ function pngMetadata(buffer) {
 }
 
 export async function validateIosProject() {
-  const [info, project, packageSwift, privacy, config, nativeIndex, appIconContents, appIcon, launchScreen] = await Promise.all([
+  const [info, project, packageSwift, privacy, config, nativeIndex, appIconContents, appIcon, launchScreen, repositoryScannerMetadataText, bundledScannerMetadataText] = await Promise.all([
     text("ios/App/App/Info.plist"),
     text("ios/App/App.xcodeproj/project.pbxproj"),
     text("ios/App/CapApp-SPM/Package.swift"),
@@ -37,7 +37,10 @@ export async function validateIosProject() {
     text("ios/App/App/Assets.xcassets/AppIcon.appiconset/Contents.json"),
     readFile(new URL("ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-512@2x.png", mobileRoot)),
     text("ios/App/App/Base.lproj/LaunchScreen.storyboard"),
+    text("public/scanner-ai/catalog-embeddings.meta.json", repositoryRoot),
+    text("ios/App/App/public/scanner-ai/catalog-embeddings.meta.json"),
   ]);
+  const scannerMetadata = JSON.parse(repositoryScannerMetadataText);
 
   assert.match(info, /<key>CFBundleDisplayName<\/key>\s*<string>PackDex<\/string>/);
   assert.match(info, /PackDex uses the camera to scan and identify trading cards\./);
@@ -67,9 +70,17 @@ export async function validateIosProject() {
   await assert.rejects(access(new URL("ios/App/App/Assets.xcassets/Splash.imageset", mobileRoot)));
 
   assert.equal(await sha256("public/scanner-ai/frozen-a-62f2ff60.tflite"), modelHash);
-  assert.equal(await sha256("public/scanner-ai/catalog-embeddings-a851d797.f16"), indexHash);
+  assert.equal(await sha256(`public/scanner-ai/${scannerMetadata.vectorFile}`), scannerMetadata.vectorSha256);
   assert.equal(await sha256("mobile-app/ios/App/App/public/scanner-ai/frozen-a-62f2ff60.tflite"), modelHash);
-  assert.equal(await sha256("mobile-app/ios/App/App/public/scanner-ai/catalog-embeddings-a851d797.f16"), indexHash);
+  assert.equal(
+    hashBytes(bundledScannerMetadataText),
+    hashBytes(repositoryScannerMetadataText),
+    "Bundled scanner metadata is stale; rebuild and sync iOS"
+  );
+  assert.equal(
+    await sha256(`mobile-app/ios/App/App/public/scanner-ai/${scannerMetadata.vectorFile}`),
+    scannerMetadata.vectorSha256
+  );
 
   const scannerFiles = (await readdir(new URL("ios/App/App/public/scanner-ai/", mobileRoot), { recursive: true }))
     .map((name) => name.replaceAll("\\", "/"));

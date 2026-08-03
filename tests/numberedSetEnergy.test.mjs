@@ -39,6 +39,17 @@ const baseBasicEnergy = baseSet.cards.filter(
 const setsWithNumberedEnergy = activeSets
   .map((set) => ({ set, cards: set.cards.filter((card) => isNumberedSetEnergyCard(card, set)) }))
   .filter(({ cards }) => cards.length > 0);
+const correctedModernHyperEnergies = {
+  "scarlet-violet": ["257", "258"],
+  "paldea-evolved": ["278", "279"],
+  "obsidian-flames": ["230"],
+  151: ["207"],
+  "paradox-rift": ["266"],
+  "twilight-masquerade": ["226"],
+  "shrouded-fable": ["98", "99"],
+  "surging-sparks": ["252"],
+  "journey-together": ["190"],
+};
 
 test("Base Set exposes all 102 cards including Basic Energy 97-102", () => {
   assert.equal(getPullableCollectionCards(baseSet).length, 102);
@@ -60,6 +71,24 @@ test("every supported set includes each numbered Energy card in pools, visibilit
         Array.from({ length: 11 }, (_, index) => index).some((index) => isCardAllowedInPackSlot(card, index, set)),
         `${set.id} ${card.number} has no eligible normal pack slot`
       );
+    }
+  }
+});
+
+test("source-verified modern Hyper Rare Energy cannot disappear from the numbered-Energy audit", () => {
+  for (const [setId, numbers] of Object.entries(correctedModernHyperEnergies)) {
+    const set = activeSets.find((candidate) => candidate.id === setId);
+    const visibleIds = new Set(getPullableCollectionCards(set).map((card) => card.id));
+    const finalIds = new Set(getPackPools(set).finalSlotPool.map((card) => card.id));
+
+    for (const number of numbers) {
+      const card = set.cards.find((candidate) => String(candidate.number) === number);
+      assert.ok(card, setId + " #" + number);
+      assert.equal(card.rarity, "Hyper Rare", card.id);
+      assert.equal(getRarityCategory(card, set), "hyperRare", card.id);
+      assert.equal(isNumberedSetEnergyCard(card, set), true, card.id);
+      assert.equal(visibleIds.has(card.id), true, card.id);
+      assert.equal(finalIds.has(card.id), true, card.id);
     }
   }
 });

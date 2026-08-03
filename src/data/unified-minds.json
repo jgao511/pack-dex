@@ -1282,7 +1282,7 @@
   },
   {
     "id": "unified-minds-183-type-null",
-    "name": "Type Null",
+    "name": "Type: Null",
     "rarity": "Uncommon",
     "number": "183",
     "image": "/assets/sets/unified-minds/cards/183_Type_Null_Uncommon.png"
@@ -1373,7 +1373,7 @@
   },
   {
     "id": "unified-minds-195-flyinium-z-air-slash",
-    "name": "Flyinium Z Air Slash",
+    "name": "Flyinium Z: Air Slash",
     "rarity": "Uncommon",
     "number": "195",
     "image": "/assets/sets/unified-minds/cards/195_Flyinium_Z_Air_Slash_Uncommon.png"
@@ -1429,7 +1429,7 @@
   },
   {
     "id": "unified-minds-203-normalium-z-tackle",
-    "name": "Normalium Z Tackle",
+    "name": "Normalium Z: Tackle",
     "rarity": "Uncommon",
     "number": "203",
     "image": "/assets/sets/unified-minds/cards/203_Normalium_Z_Tackle_Uncommon.png"

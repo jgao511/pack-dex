@@ -1891,64 +1891,64 @@
   },
   {
     "id": "paldea-evolved-271-meowscarada-ex-hyper",
-    "name": "Meowscarada ex Hyper",
+    "name": "Meowscarada ex",
     "rarity": "Rare",
     "number": "271",
     "image": "/assets/sets/paldea-evolved/cards/271_Meowscarada_ex_Hyper_Rare.png"
   },
   {
     "id": "paldea-evolved-272-skeledirge-ex-hyper",
-    "name": "Skeledirge ex Hyper",
+    "name": "Skeledirge ex",
     "rarity": "Rare",
     "number": "272",
     "image": "/assets/sets/paldea-evolved/cards/272_Skeledirge_ex_Hyper_Rare.png"
   },
   {
     "id": "paldea-evolved-273-quaquaval-ex-hyper",
-    "name": "Quaquaval ex Hyper",
+    "name": "Quaquaval ex",
     "rarity": "Rare",
     "number": "273",
     "image": "/assets/sets/paldea-evolved/cards/273_Quaquaval_ex_Hyper_Rare.png"
   },
   {
     "id": "paldea-evolved-274-chien-pao-ex-hyper",
-    "name": "Chien-Pao ex Hyper",
+    "name": "Chien-Pao ex",
     "rarity": "Rare",
     "number": "274",
     "image": "/assets/sets/paldea-evolved/cards/274_Chien-Pao_ex_Hyper_Rare.png"
   },
   {
     "id": "paldea-evolved-275-ting-lu-ex-hyper",
-    "name": "Ting-Lu ex Hyper",
+    "name": "Ting-Lu ex",
     "rarity": "Rare",
     "number": "275",
     "image": "/assets/sets/paldea-evolved/cards/275_Ting-Lu_ex_Hyper_Rare.png"
   },
   {
     "id": "paldea-evolved-276-super-rod-hyper",
-    "name": "Super Rod Hyper",
+    "name": "Super Rod",
     "rarity": "Rare",
     "number": "276",
     "image": "/assets/sets/paldea-evolved/cards/276_Super_Rod_Hyper_Rare.png"
   },
   {
     "id": "paldea-evolved-277-superior-energy-retrieval-hyper",
-    "name": "Superior Energy Retrieval Hyper",
+    "name": "Superior Energy Retrieval",
     "rarity": "Rare",
     "number": "277",
     "image": "/assets/sets/paldea-evolved/cards/277_Superior_Energy_Retrieval_Hyper_Rare.png"
   },
   {
     "id": "paldea-evolved-278-basic-grass-energy-hyper",
-    "name": "Basic Grass Energy Hyper",
-    "rarity": "Rare",
+    "name": "Basic Grass Energy",
+    "rarity": "Hyper Rare",
     "number": "278",
     "image": "/assets/sets/paldea-evolved/cards/278_Basic_Grass_Energy_Hyper_Rare.png"
   },
   {
     "id": "paldea-evolved-279-basic-water-energy-hyper",
-    "name": "Basic Water Energy Hyper",
-    "rarity": "Rare",
+    "name": "Basic Water Energy",
+    "rarity": "Hyper Rare",
     "number": "279",
     "image": "/assets/sets/paldea-evolved/cards/279_Basic_Water_Energy_Hyper_Rare.png"
   }

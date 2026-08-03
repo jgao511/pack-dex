@@ -16,6 +16,7 @@ import { selectFeaturedPull } from "../../src/utils/rarityRank.js";
 import {
   getCardCollectionKey,
   getCardCount,
+  getCollectionVisibleCards,
   getPullableCollectionCards,
   getSetCollectionProgress,
   loadCollection,
@@ -581,7 +582,7 @@ function groupSetsByEra(setList) {
 
 function getOwnedCards(collection) {
   return sets.flatMap((set) =>
-    (set.cards || [])
+    getCollectionVisibleCards(set, collection)
       .map((card) => ({
         set,
         card,
@@ -1710,7 +1711,7 @@ function CollectionCards({
     return matchesEra;
   });
   const progress = selectedSet ? getSetCollectionProgress(collection, selectedSet) : { collected: 0, total: 0, percent: 0 };
-  const setCards = selectedSet ? getPullableCollectionCards(selectedSet).sort((a, b) => getSetNumber(a) - getSetNumber(b)) : [];
+  const setCards = selectedSet ? getCollectionVisibleCards(selectedSet, collection).sort((a, b) => getSetNumber(a) - getSetNumber(b)) : [];
   const setValueLoading = Boolean(selectedSet && priceStatus === "loading");
   const setValueCoverage = selectedSet ? getCollectionValueCoverage(setCards.map((card) => ({ card, set: selectedSet })), priceMap) : null;
 

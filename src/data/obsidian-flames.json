@@ -1590,22 +1590,22 @@
   },
   {
     "id": "obsidian-flames-228-charizard-ex-hyper",
-    "name": "Charizard ex Hyper",
+    "name": "Charizard ex",
     "rarity": "Rare",
     "number": "228",
     "image": "/assets/sets/obsidian-flames/cards/228_Charizard_ex_Hyper_Rare.png"
   },
   {
     "id": "obsidian-flames-229-artazon-hyper",
-    "name": "Artazon Hyper",
+    "name": "Artazon",
     "rarity": "Rare",
     "number": "229",
     "image": "/assets/sets/obsidian-flames/cards/229_Artazon_Hyper_Rare.png"
   },
   {
     "id": "obsidian-flames-230-basic-fire-energy-hyper",
-    "name": "Basic Fire Energy Hyper",
-    "rarity": "Rare",
+    "name": "Basic Fire Energy",
+    "rarity": "Hyper Rare",
     "number": "230",
     "image": "/assets/sets/obsidian-flames/cards/230_Basic_Fire_Energy_Hyper_Rare.png"
   }

@@ -21,7 +21,7 @@ iOS deliberately uses the existing browser/WebKit implementation: DOM camera/pho
 The native build copies these scanner resources from `public/scanner-ai` into the Capacitor bundle during `vite build --mode native` and `cap sync ios`:
 
 - `frozen-a-62f2ff60.tflite`
-- `catalog-embeddings-a851d797.f16`
+- the `catalog-embeddings-*.f16` file named by `catalog-embeddings.meta.json`
 - `catalog-embeddings.meta.json` (including card-ID order/model binding)
 - `catalog-metadata.json`
 - TensorFlow.js core, CPU, and TFLite browser runtime scripts
@@ -32,7 +32,7 @@ The asset resolver produces `capacitor://localhost/scanner-ai/...` URLs with a n
 Frozen release hashes:
 
 - Model SHA-256: `62f2ff60cfdb09714a01fa74343e4dc1968601c2a43046979cbc548c28027c7c`
-- Index SHA-256: `a851d797aef5c140d8918bb2ffa7dcafa2315cb1f0cbdb6ca4abbd91c3d61edb`
+- Index SHA-256: `bbd19bdacbce61218fa1e5d6287db9e38e92eb0734fba1ab65a1a5463334330e`
 
 ## Privacy and security audit
 

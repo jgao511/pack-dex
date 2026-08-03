@@ -183,7 +183,7 @@
   },
   {
     "id": "astral-radiance-27-radiant-heatran-radiant",
-    "name": "Radiant Heatran Radiant",
+    "name": "Radiant Heatran",
     "rarity": "Radiant Rare",
     "number": "27",
     "image": "/assets/sets/astral-radiance/cards/27_Radiant_Heatran_Radiant_Rare.png",
@@ -317,7 +317,7 @@
   },
   {
     "id": "astral-radiance-46-radiant-greninja-radiant",
-    "name": "Radiant Greninja Radiant",
+    "name": "Radiant Greninja",
     "rarity": "Radiant Rare",
     "number": "46",
     "image": "/assets/sets/astral-radiance/cards/46_Radiant_Greninja_Radiant_Rare.png",
@@ -563,7 +563,7 @@
   },
   {
     "id": "astral-radiance-81-radiant-hawlucha-radiant",
-    "name": "Radiant Hawlucha Radiant",
+    "name": "Radiant Hawlucha",
     "rarity": "Radiant Rare",
     "number": "81",
     "image": "/assets/sets/astral-radiance/cards/81_Radiant_Hawlucha_Radiant_Rare.png",

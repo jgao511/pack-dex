@@ -1765,43 +1765,43 @@
   },
   {
     "id": "scarlet-violet-253-miraidon-ex-hyper",
-    "name": "Miraidon ex Hyper",
+    "name": "Miraidon ex",
     "rarity": "Rare",
     "number": "253",
     "image": "/assets/sets/scarlet-violet/cards/253_Miraidon_ex_Hyper_Rare.png"
   },
   {
     "id": "scarlet-violet-254-koraidon-ex-hyper",
-    "name": "Koraidon ex Hyper",
+    "name": "Koraidon ex",
     "rarity": "Rare",
     "number": "254",
     "image": "/assets/sets/scarlet-violet/cards/254_Koraidon_ex_Hyper_Rare.png"
   },
   {
     "id": "scarlet-violet-255-nest-ball-hyper",
-    "name": "Nest Ball Hyper",
+    "name": "Nest Ball",
     "rarity": "Rare",
     "number": "255",
     "image": "/assets/sets/scarlet-violet/cards/255_Nest_Ball_Hyper_Rare.png"
   },
   {
     "id": "scarlet-violet-256-rare-candy-hyper",
-    "name": "Rare Candy Hyper",
+    "name": "Rare Candy",
     "rarity": "Rare",
     "number": "256",
     "image": "/assets/sets/scarlet-violet/cards/256_Rare_Candy_Hyper_Rare.png"
   },
   {
     "id": "scarlet-violet-257-basic-lightning-energy-hyper",
-    "name": "Basic Lightning Energy Hyper",
-    "rarity": "Rare",
+    "name": "Basic Lightning Energy",
+    "rarity": "Hyper Rare",
     "number": "257",
     "image": "/assets/sets/scarlet-violet/cards/257_Basic_Lightning_Energy_Hyper_Rare.png"
   },
   {
     "id": "scarlet-violet-258-basic-fighting-energy-hyper",
-    "name": "Basic Fighting Energy Hyper",
-    "rarity": "Rare",
+    "name": "Basic Fighting Energy",
+    "rarity": "Hyper Rare",
     "number": "258",
     "image": "/assets/sets/scarlet-violet/cards/258_Basic_Fighting_Energy_Hyper_Rare.png"
   }

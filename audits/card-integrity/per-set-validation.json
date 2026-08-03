@@ -1,0 +1,6278 @@
+{
+  "schemaVersion": 2,
+  "sourceSnapshot": {
+    "repository": "PokemonTCG/pokemon-tcg-data",
+    "commit": "8b4e387930ead7be6595b4d4c59b7ba7a3a79f08",
+    "cardManifestCount": 137
+  },
+  "auditConfiguration": {
+    "seed": "packdex-card-integrity-v1",
+    "normalPacksPerActiveSet": 100,
+    "deterministicClassification": "Positive reachability is derived from exported pack pools, configured positive weights, special-slot helpers, and explicit forced God-pack formats. Simulation is supplemental and is not used to prove reachability."
+  },
+  "scope": {
+    "activeOfficialSets": 129,
+    "retiredSetsExcluded": 1,
+    "retiredSetsExcludedFromActiveCatalogAndPackAudit": 1,
+    "retiredSetsIncludedInHistoricalValidation": 1,
+    "activeCanonicalCards": 18836,
+    "historicalRuntimeCards": 15
+  },
+  "intentionalExclusions": {
+    "retiredSets": [
+      {
+        "id": "30th-anniversary",
+        "classification": "packdex-custom-preview",
+        "canonicalCardCount": 15,
+        "reason": "Excluded from active catalogs and pack-opening audit; included in historical validation for runtime and saved-collection resolution."
+      }
+    ],
+    "quarantinedLegacyIdentities": [
+      {
+        "setId": "sun-moon",
+        "cardId": "sun-moon-151-moon-sun-badge",
+        "canonicalSetId": "evolving-skies",
+        "canonicalCardId": "evolving-skies-151-moon-sun-badge",
+        "reason": "Historical wrong-set identity retained only for saved-collection resolution."
+      },
+      {
+        "setId": "ultra-prism",
+        "cardId": "ultra-prism-111-prism-tower",
+        "canonicalSetId": "chaos-rising",
+        "canonicalCardId": "chaos-rising-111-prism-tower",
+        "reason": "Historical wrong-set identity retained only for saved-collection resolution."
+      },
+      {
+        "setId": "ultra-prism",
+        "cardId": "ultra-prism-132-amarys",
+        "canonicalSetId": "prismatic-evolutions",
+        "canonicalCardId": "prismatic-evolutions-132-amarys",
+        "reason": "Historical wrong-set identity retained only for saved-collection resolution."
+      },
+      {
+        "setId": "ultra-prism",
+        "cardId": "ultra-prism-133-atticus",
+        "canonicalSetId": "prismatic-evolutions",
+        "canonicalCardId": "prismatic-evolutions-133-atticus",
+        "reason": "Historical wrong-set identity retained only for saved-collection resolution."
+      },
+      {
+        "setId": "ultra-prism",
+        "cardId": "ultra-prism-134-atticus",
+        "canonicalSetId": "prismatic-evolutions",
+        "canonicalCardId": "prismatic-evolutions-134-atticus",
+        "reason": "Historical wrong-set identity retained only for saved-collection resolution."
+      },
+      {
+        "setId": "ultra-prism",
+        "cardId": "ultra-prism-135-brassius",
+        "canonicalSetId": "prismatic-evolutions",
+        "canonicalCardId": "prismatic-evolutions-135-brassius",
+        "reason": "Historical wrong-set identity retained only for saved-collection resolution."
+      },
+      {
+        "setId": "ultra-prism",
+        "cardId": "ultra-prism-136-eri",
+        "canonicalSetId": "prismatic-evolutions",
+        "canonicalCardId": "prismatic-evolutions-136-eri",
+        "reason": "Historical wrong-set identity retained only for saved-collection resolution."
+      },
+      {
+        "setId": "ultra-prism",
+        "cardId": "ultra-prism-137-friends-in-paldea",
+        "canonicalSetId": "prismatic-evolutions",
+        "canonicalCardId": "prismatic-evolutions-137-friends-in-paldea",
+        "reason": "Historical wrong-set identity retained only for saved-collection resolution."
+      },
+      {
+        "setId": "ultra-prism",
+        "cardId": "ultra-prism-138-giacomo",
+        "canonicalSetId": "prismatic-evolutions",
+        "canonicalCardId": "prismatic-evolutions-138-giacomo",
+        "reason": "Historical wrong-set identity retained only for saved-collection resolution."
+      },
+      {
+        "setId": "ultra-prism",
+        "cardId": "ultra-prism-139-larry-s-skill",
+        "canonicalSetId": "prismatic-evolutions",
+        "canonicalCardId": "prismatic-evolutions-139-larry-s-skill",
+        "reason": "Historical wrong-set identity retained only for saved-collection resolution."
+      },
+      {
+        "setId": "ultra-prism",
+        "cardId": "ultra-prism-140-mela",
+        "canonicalSetId": "prismatic-evolutions",
+        "canonicalCardId": "prismatic-evolutions-140-mela",
+        "reason": "Historical wrong-set identity retained only for saved-collection resolution."
+      },
+      {
+        "setId": "ultra-prism",
+        "cardId": "ultra-prism-141-ortega",
+        "canonicalSetId": "prismatic-evolutions",
+        "canonicalCardId": "prismatic-evolutions-141-ortega",
+        "reason": "Historical wrong-set identity retained only for saved-collection resolution."
+      },
+      {
+        "setId": "ultra-prism",
+        "cardId": "ultra-prism-142-raifort",
+        "canonicalSetId": "prismatic-evolutions",
+        "canonicalCardId": "prismatic-evolutions-142-raifort",
+        "reason": "Historical wrong-set identity retained only for saved-collection resolution."
+      },
+      {
+        "setId": "ultra-prism",
+        "cardId": "ultra-prism-143-tyme",
+        "canonicalSetId": "prismatic-evolutions",
+        "canonicalCardId": "prismatic-evolutions-143-tyme",
+        "reason": "Historical wrong-set identity retained only for saved-collection resolution."
+      },
+      {
+        "setId": "team-up",
+        "cardId": "team-up-95-team-rocket-s-pupitar",
+        "canonicalSetId": "destined-rivals",
+        "canonicalCardId": "destined-rivals-95-team-rocket-s-pupitar",
+        "reason": "Historical wrong-set identity retained only for saved-collection resolution."
+      },
+      {
+        "setId": "151",
+        "cardId": "151-151-audino",
+        "canonicalSetId": "black-bolt",
+        "canonicalCardId": "black-bolt-151-audino",
+        "reason": "Historical wrong-set identity retained only for saved-collection resolution."
+      }
+    ],
+    "nonCollectibleCanonicalCards": [
+      {
+        "setId": "sun-moon",
+        "cardId": "sun-moon-164-grass-energy",
+        "reason": "generic bonus Energy without a verified numbered checklist identity"
+      },
+      {
+        "setId": "sun-moon",
+        "cardId": "sun-moon-165-fire-energy",
+        "reason": "generic bonus Energy without a verified numbered checklist identity"
+      },
+      {
+        "setId": "sun-moon",
+        "cardId": "sun-moon-166-water-energy",
+        "reason": "generic bonus Energy without a verified numbered checklist identity"
+      },
+      {
+        "setId": "sun-moon",
+        "cardId": "sun-moon-167-lightning-energy",
+        "reason": "generic bonus Energy without a verified numbered checklist identity"
+      },
+      {
+        "setId": "sun-moon",
+        "cardId": "sun-moon-168-psychic-energy",
+        "reason": "generic bonus Energy without a verified numbered checklist identity"
+      },
+      {
+        "setId": "sun-moon",
+        "cardId": "sun-moon-169-fighting-energy",
+        "reason": "generic bonus Energy without a verified numbered checklist identity"
+      },
+      {
+        "setId": "sun-moon",
+        "cardId": "sun-moon-170-darkness-energy",
+        "reason": "generic bonus Energy without a verified numbered checklist identity"
+      },
+      {
+        "setId": "sun-moon",
+        "cardId": "sun-moon-171-metal-energy",
+        "reason": "generic bonus Energy without a verified numbered checklist identity"
+      },
+      {
+        "setId": "sun-moon",
+        "cardId": "sun-moon-172-fairy-energy",
+        "reason": "generic bonus Energy without a verified numbered checklist identity"
+      }
+    ]
+  },
+  "representationalLimitations": [
+    {
+      "id": "parallel-foil-identity",
+      "statement": "PackDex persists canonical printing IDs. Parallel treatments such as reverse foil, Poke Ball foil, Master Ball foil, and the transient Prismatic God-pack parallelType are not separate canonical rows, so this audit proves canonical-card reachability but cannot prove a distinct catalog identity for every physical parallel foil variant."
+    }
+  ],
+  "historicalValidation": {
+    "statement": "Retired sets are not active, discoverable, openable, simulated, or included in active manifest/scanner/price counts. Their frozen runtime identities remain validated for saved-collection visibility and resolution.",
+    "retiredSetCount": 1,
+    "runtimeCardCount": 15,
+    "sets": [
+      {
+        "id": "30th-anniversary",
+        "name": "Pokemon 30th Anniversary",
+        "classification": "packdex-custom-preview",
+        "counts": {
+          "expectedRegistryCards": 15,
+          "runtimeCards": 15,
+          "collectionChecklistCards": 15,
+          "collectionVisibleCards": 15,
+          "activeManifestCards": 0,
+          "activeScannerCards": 0,
+          "activePriceCards": 0
+        },
+        "checks": {
+          "retiredAndHistoricallyResolvableButNotDiscoverableOrOpenable": true,
+          "excludedFromActiveRuntime": true,
+          "expectedRegistryCountMatchesRuntime": true,
+          "stableIdsUniqueAcrossRuntime": true,
+          "requiredFieldsComplete": true,
+          "everyCardRuntimeResolvable": true,
+          "everyCardCollectionVisibleAndResolvable": true,
+          "absentFromActiveManifestScannerAndPriceCatalogs": true
+        },
+        "reason": "Excluded from active catalogs and pack-opening audit; included in historical validation for runtime and saved-collection resolution."
+      }
+    ]
+  },
+  "summary": {
+    "activeSetCount": 129,
+    "authoritativeSourceCardCount": 18836,
+    "canonicalRuntimeCardCount": 18836,
+    "authoritativeManifestCardCount": 18836,
+    "positivePackPoolCardCount": 18827,
+    "collectionChecklistCardCount": 18827,
+    "scannerCardCount": 18836,
+    "priceCardCount": 18836,
+    "intentionallyNonCollectibleCanonicalCardCount": 9,
+    "simulatedNormalPacks": 12900,
+    "simulatedForcedGodPacks": 6,
+    "simulatedCards": 126300,
+    "sumOfPerSetObservedUniqueCards": 15812,
+    "historicalValidatedSetCount": 1,
+    "historicalRuntimeCardCount": 15,
+    "failureCounts": {
+      "foreignIds": 0,
+      "duplicateIds": 0,
+      "manifestMismatches": 0,
+      "scannerOmissions": 0,
+      "priceOmissions": 0,
+      "imageGaps": 0,
+      "rarityGaps": 0,
+      "pullRouteGaps": 0,
+      "countMismatches": 0,
+      "simulationForeignIds": 0,
+      "simulationDuplicateIds": 0,
+      "simulationSlotFailures": 0,
+      "simulationPackLengthFailures": 0,
+      "historicalLifecycleFailures": 0,
+      "historicalCountMismatches": 0,
+      "historicalDuplicateIds": 0,
+      "historicalFieldGaps": 0,
+      "historicalRuntimeResolutionFailures": 0,
+      "historicalCollectionFailures": 0,
+      "historicalCatalogLeakage": 0
+    },
+    "totalFailures": 0,
+    "result": "pass"
+  },
+  "sets": [
+    {
+      "id": "base-set",
+      "name": "Base Set",
+      "allowedSourceSetIds": [
+        "base1"
+      ],
+      "expectedPackSize": 11,
+      "counts": {
+        "authoritativeSource": 102,
+        "canonicalRuntime": 102,
+        "authoritativeManifest": 102,
+        "positivePackPool": 102,
+        "collectionChecklist": 102,
+        "scanner": 102,
+        "price": 102
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 32,
+        "vintage.final.holoOrChase": 16,
+        "vintage.final.nonHoloRare": 16,
+        "vintage.forcedBasicEnergy": 6,
+        "vintage.reverse": 96,
+        "vintage.uncommon": 32
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1100,
+        "observedUniqueCanonicalCards": 99
+      }
+    },
+    {
+      "id": "jungle",
+      "name": "Jungle",
+      "allowedSourceSetIds": [
+        "base2"
+      ],
+      "expectedPackSize": 11,
+      "counts": {
+        "authoritativeSource": 64,
+        "canonicalRuntime": 64,
+        "authoritativeManifest": 64,
+        "positivePackPool": 64,
+        "collectionChecklist": 64,
+        "scanner": 64,
+        "price": 64
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 16,
+        "vintage.final.holoOrChase": 16,
+        "vintage.final.nonHoloRare": 16,
+        "vintage.reverse": 64,
+        "vintage.uncommon": 16
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1100,
+        "observedUniqueCanonicalCards": 59
+      }
+    },
+    {
+      "id": "fossil",
+      "name": "Fossil",
+      "allowedSourceSetIds": [
+        "base3"
+      ],
+      "expectedPackSize": 11,
+      "counts": {
+        "authoritativeSource": 62,
+        "canonicalRuntime": 62,
+        "authoritativeManifest": 62,
+        "positivePackPool": 62,
+        "collectionChecklist": 62,
+        "scanner": 62,
+        "price": 62
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 16,
+        "vintage.final.holoOrChase": 15,
+        "vintage.final.nonHoloRare": 15,
+        "vintage.reverse": 62,
+        "vintage.uncommon": 16
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1100,
+        "observedUniqueCanonicalCards": 60
+      }
+    },
+    {
+      "id": "base-set-2",
+      "name": "Base Set 2",
+      "allowedSourceSetIds": [
+        "base4"
+      ],
+      "expectedPackSize": 11,
+      "counts": {
+        "authoritativeSource": 130,
+        "canonicalRuntime": 130,
+        "authoritativeManifest": 130,
+        "positivePackPool": 130,
+        "collectionChecklist": 130,
+        "scanner": 130,
+        "price": 130
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 42,
+        "vintage.final.holoOrChase": 20,
+        "vintage.final.nonHoloRare": 20,
+        "vintage.forcedBasicEnergy": 6,
+        "vintage.reverse": 124,
+        "vintage.uncommon": 42
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1100,
+        "observedUniqueCanonicalCards": 124
+      }
+    },
+    {
+      "id": "team-rocket",
+      "name": "Team Rocket",
+      "allowedSourceSetIds": [
+        "base5"
+      ],
+      "expectedPackSize": 11,
+      "counts": {
+        "authoritativeSource": 83,
+        "canonicalRuntime": 83,
+        "authoritativeManifest": 83,
+        "positivePackPool": 83,
+        "collectionChecklist": 83,
+        "scanner": 83,
+        "price": 83
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 24,
+        "vintage.final.holoOrChase": 18,
+        "vintage.final.nonHoloRare": 17,
+        "vintage.reverse": 82,
+        "vintage.uncommon": 24
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1100,
+        "observedUniqueCanonicalCards": 81
+      }
+    },
+    {
+      "id": "gym-heroes",
+      "name": "Gym Heroes",
+      "allowedSourceSetIds": [
+        "gym1"
+      ],
+      "expectedPackSize": 11,
+      "counts": {
+        "authoritativeSource": 132,
+        "canonicalRuntime": 132,
+        "authoritativeManifest": 132,
+        "positivePackPool": 132,
+        "collectionChecklist": 132,
+        "scanner": 132,
+        "price": 132
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 42,
+        "vintage.final.holoOrChase": 19,
+        "vintage.final.nonHoloRare": 23,
+        "vintage.forcedBasicEnergy": 6,
+        "vintage.reverse": 126,
+        "vintage.uncommon": 42
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1100,
+        "observedUniqueCanonicalCards": 128
+      }
+    },
+    {
+      "id": "gym-challenge",
+      "name": "Gym Challenge",
+      "allowedSourceSetIds": [
+        "gym2"
+      ],
+      "expectedPackSize": 11,
+      "counts": {
+        "authoritativeSource": 132,
+        "canonicalRuntime": 132,
+        "authoritativeManifest": 132,
+        "positivePackPool": 132,
+        "collectionChecklist": 132,
+        "scanner": 132,
+        "price": 132
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 43,
+        "vintage.final.holoOrChase": 20,
+        "vintage.final.nonHoloRare": 21,
+        "vintage.forcedBasicEnergy": 6,
+        "vintage.reverse": 126,
+        "vintage.uncommon": 42
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1100,
+        "observedUniqueCanonicalCards": 125
+      }
+    },
+    {
+      "id": "neo-genesis",
+      "name": "Neo Genesis",
+      "allowedSourceSetIds": [
+        "neo1"
+      ],
+      "expectedPackSize": 11,
+      "counts": {
+        "authoritativeSource": 111,
+        "canonicalRuntime": 111,
+        "authoritativeManifest": 111,
+        "positivePackPool": 111,
+        "collectionChecklist": 111,
+        "scanner": 111,
+        "price": 111
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 35,
+        "vintage.final.holoOrChase": 19,
+        "vintage.final.nonHoloRare": 16,
+        "vintage.forcedBasicEnergy": 6,
+        "vintage.reverse": 105,
+        "vintage.uncommon": 35
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1100,
+        "observedUniqueCanonicalCards": 108
+      }
+    },
+    {
+      "id": "neo-discovery",
+      "name": "Neo Discovery",
+      "allowedSourceSetIds": [
+        "neo2"
+      ],
+      "expectedPackSize": 11,
+      "counts": {
+        "authoritativeSource": 75,
+        "canonicalRuntime": 75,
+        "authoritativeManifest": 75,
+        "positivePackPool": 75,
+        "collectionChecklist": 75,
+        "scanner": 75,
+        "price": 75
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 20,
+        "vintage.final.holoOrChase": 17,
+        "vintage.final.nonHoloRare": 19,
+        "vintage.reverse": 75,
+        "vintage.uncommon": 19
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1100,
+        "observedUniqueCanonicalCards": 71
+      }
+    },
+    {
+      "id": "neo-revelation",
+      "name": "Neo Revelation",
+      "allowedSourceSetIds": [
+        "neo3"
+      ],
+      "expectedPackSize": 11,
+      "counts": {
+        "authoritativeSource": 66,
+        "canonicalRuntime": 66,
+        "authoritativeManifest": 66,
+        "positivePackPool": 66,
+        "collectionChecklist": 66,
+        "scanner": 66,
+        "price": 66
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 20,
+        "vintage.final.holoOrChase": 16,
+        "vintage.final.nonHoloRare": 13,
+        "vintage.reverse": 64,
+        "vintage.uncommon": 17
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1100,
+        "observedUniqueCanonicalCards": 63
+      }
+    },
+    {
+      "id": "neo-destiny",
+      "name": "Neo Destiny",
+      "allowedSourceSetIds": [
+        "neo4"
+      ],
+      "expectedPackSize": 11,
+      "counts": {
+        "authoritativeSource": 113,
+        "canonicalRuntime": 113,
+        "authoritativeManifest": 113,
+        "positivePackPool": 113,
+        "collectionChecklist": 113,
+        "scanner": 113,
+        "price": 113
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 33,
+        "vintage.final.holoOrChase": 24,
+        "vintage.final.nonHoloRare": 19,
+        "vintage.reverse": 105,
+        "vintage.uncommon": 37
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1100,
+        "observedUniqueCanonicalCards": 108
+      }
+    },
+    {
+      "id": "legendary-collection",
+      "name": "Legendary Collection",
+      "allowedSourceSetIds": [
+        "base6"
+      ],
+      "expectedPackSize": 11,
+      "counts": {
+        "authoritativeSource": 110,
+        "canonicalRuntime": 110,
+        "authoritativeManifest": 110,
+        "positivePackPool": 110,
+        "collectionChecklist": 110,
+        "scanner": 110,
+        "price": 110
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 36,
+        "vintage.final.holoOrChase": 19,
+        "vintage.final.nonHoloRare": 19,
+        "vintage.reverse": 110,
+        "vintage.uncommon": 36
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1100,
+        "observedUniqueCanonicalCards": 107
+      }
+    },
+    {
+      "id": "expedition-base-set",
+      "name": "Expedition Base Set",
+      "allowedSourceSetIds": [
+        "ecard1"
+      ],
+      "expectedPackSize": 9,
+      "counts": {
+        "authoritativeSource": 165,
+        "canonicalRuntime": 165,
+        "authoritativeManifest": 165,
+        "positivePackPool": 165,
+        "collectionChecklist": 165,
+        "scanner": 165,
+        "price": 165
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 55,
+        "vintage.final.holoOrChase": 32,
+        "vintage.final.nonHoloRare": 40,
+        "vintage.reverse": 165,
+        "vintage.uncommon": 38
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 900,
+        "observedUniqueCanonicalCards": 159
+      }
+    },
+    {
+      "id": "aquapolis",
+      "name": "Aquapolis",
+      "allowedSourceSetIds": [
+        "ecard2"
+      ],
+      "expectedPackSize": 9,
+      "counts": {
+        "authoritativeSource": 182,
+        "canonicalRuntime": 182,
+        "authoritativeManifest": 182,
+        "positivePackPool": 182,
+        "collectionChecklist": 182,
+        "scanner": 182,
+        "price": 182
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 51,
+        "vintage.final.holoOrChase": 35,
+        "vintage.final.nonHoloRare": 48,
+        "vintage.reverse": 179,
+        "vintage.uncommon": 48
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 900,
+        "observedUniqueCanonicalCards": 167
+      }
+    },
+    {
+      "id": "skyridge",
+      "name": "Skyridge",
+      "allowedSourceSetIds": [
+        "ecard3"
+      ],
+      "expectedPackSize": 9,
+      "counts": {
+        "authoritativeSource": 182,
+        "canonicalRuntime": 182,
+        "authoritativeManifest": 182,
+        "positivePackPool": 182,
+        "collectionChecklist": 182,
+        "scanner": 182,
+        "price": 182
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 73,
+        "vintage.final.holoOrChase": 38,
+        "vintage.final.nonHoloRare": 35,
+        "vintage.reverse": 176,
+        "vintage.uncommon": 36
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 900,
+        "observedUniqueCanonicalCards": 171
+      }
+    },
+    {
+      "id": "ex-ruby-sapphire",
+      "name": "EX Ruby & Sapphire",
+      "allowedSourceSetIds": [
+        "ex1"
+      ],
+      "expectedPackSize": 9,
+      "counts": {
+        "authoritativeSource": 109,
+        "canonicalRuntime": 109,
+        "authoritativeManifest": 109,
+        "positivePackPool": 109,
+        "collectionChecklist": 109,
+        "scanner": 109,
+        "price": 109
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 40,
+        "vintage.final.holoOrChase": 22,
+        "vintage.final.nonHoloRare": 13,
+        "vintage.reverse": 101,
+        "vintage.uncommon": 34
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 900,
+        "observedUniqueCanonicalCards": 105
+      }
+    },
+    {
+      "id": "ex-sandstorm",
+      "name": "EX Sandstorm",
+      "allowedSourceSetIds": [
+        "ex2"
+      ],
+      "expectedPackSize": 9,
+      "counts": {
+        "authoritativeSource": 100,
+        "canonicalRuntime": 100,
+        "authoritativeManifest": 100,
+        "positivePackPool": 100,
+        "collectionChecklist": 100,
+        "scanner": 100,
+        "price": 100
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 33,
+        "vintage.final.holoOrChase": 21,
+        "vintage.final.nonHoloRare": 13,
+        "vintage.reverse": 93,
+        "vintage.uncommon": 33
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 900,
+        "observedUniqueCanonicalCards": 95
+      }
+    },
+    {
+      "id": "ex-dragon",
+      "name": "EX Dragon",
+      "allowedSourceSetIds": [
+        "ex3"
+      ],
+      "expectedPackSize": 9,
+      "counts": {
+        "authoritativeSource": 100,
+        "canonicalRuntime": 100,
+        "authoritativeManifest": 100,
+        "positivePackPool": 100,
+        "collectionChecklist": 100,
+        "scanner": 100,
+        "price": 100
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 33,
+        "vintage.final.holoOrChase": 24,
+        "vintage.final.nonHoloRare": 10,
+        "vintage.reverse": 88,
+        "vintage.uncommon": 33
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 900,
+        "observedUniqueCanonicalCards": 95
+      }
+    },
+    {
+      "id": "ex-team-magma-vs-team-aqua",
+      "name": "EX Team Magma vs Team Aqua",
+      "allowedSourceSetIds": [
+        "ex4"
+      ],
+      "expectedPackSize": 9,
+      "counts": {
+        "authoritativeSource": 97,
+        "canonicalRuntime": 97,
+        "authoritativeManifest": 97,
+        "positivePackPool": 97,
+        "collectionChecklist": 97,
+        "scanner": 97,
+        "price": 97
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 32,
+        "vintage.final.holoOrChase": 21,
+        "vintage.final.nonHoloRare": 12,
+        "vintage.reverse": 88,
+        "vintage.uncommon": 32
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 900,
+        "observedUniqueCanonicalCards": 96
+      }
+    },
+    {
+      "id": "ex-hidden-legends",
+      "name": "EX Hidden Legends",
+      "allowedSourceSetIds": [
+        "ex5"
+      ],
+      "expectedPackSize": 9,
+      "counts": {
+        "authoritativeSource": 102,
+        "canonicalRuntime": 102,
+        "authoritativeManifest": 102,
+        "positivePackPool": 102,
+        "collectionChecklist": 102,
+        "scanner": 102,
+        "price": 102
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 32,
+        "vintage.final.holoOrChase": 25,
+        "vintage.final.nonHoloRare": 12,
+        "vintage.reverse": 92,
+        "vintage.uncommon": 33
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 900,
+        "observedUniqueCanonicalCards": 98
+      }
+    },
+    {
+      "id": "ex-firered-leafgreen",
+      "name": "EX FireRed & LeafGreen",
+      "allowedSourceSetIds": [
+        "ex6"
+      ],
+      "expectedPackSize": 9,
+      "counts": {
+        "authoritativeSource": 116,
+        "canonicalRuntime": 116,
+        "authoritativeManifest": 116,
+        "positivePackPool": 116,
+        "collectionChecklist": 116,
+        "scanner": 116,
+        "price": 116
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 36,
+        "vintage.final.holoOrChase": 30,
+        "vintage.final.nonHoloRare": 14,
+        "vintage.reverse": 103,
+        "vintage.uncommon": 36
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 900,
+        "observedUniqueCanonicalCards": 113
+      }
+    },
+    {
+      "id": "ex-team-rocket-returns",
+      "name": "EX Team Rocket Returns",
+      "allowedSourceSetIds": [
+        "ex7"
+      ],
+      "expectedPackSize": 9,
+      "counts": {
+        "authoritativeSource": 111,
+        "canonicalRuntime": 111,
+        "authoritativeManifest": 111,
+        "positivePackPool": 111,
+        "collectionChecklist": 111,
+        "scanner": 111,
+        "price": 111
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 32,
+        "vintage.final.holoOrChase": 30,
+        "vintage.final.nonHoloRare": 14,
+        "vintage.reverse": 95,
+        "vintage.uncommon": 35
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 900,
+        "observedUniqueCanonicalCards": 105
+      }
+    },
+    {
+      "id": "ex-deoxys",
+      "name": "EX Deoxys",
+      "allowedSourceSetIds": [
+        "ex8"
+      ],
+      "expectedPackSize": 9,
+      "counts": {
+        "authoritativeSource": 108,
+        "canonicalRuntime": 108,
+        "authoritativeManifest": 108,
+        "positivePackPool": 108,
+        "collectionChecklist": 108,
+        "scanner": 108,
+        "price": 108
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 32,
+        "vintage.final.holoOrChase": 28,
+        "vintage.final.nonHoloRare": 14,
+        "vintage.reverse": 95,
+        "vintage.uncommon": 34
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 900,
+        "observedUniqueCanonicalCards": 105
+      }
+    },
+    {
+      "id": "ex-emerald",
+      "name": "EX Emerald",
+      "allowedSourceSetIds": [
+        "ex9"
+      ],
+      "expectedPackSize": 9,
+      "counts": {
+        "authoritativeSource": 107,
+        "canonicalRuntime": 107,
+        "authoritativeManifest": 107,
+        "positivePackPool": 107,
+        "collectionChecklist": 107,
+        "scanner": 107,
+        "price": 107
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 32,
+        "vintage.final.holoOrChase": 29,
+        "vintage.final.nonHoloRare": 14,
+        "vintage.reverse": 95,
+        "vintage.uncommon": 32
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 900,
+        "observedUniqueCanonicalCards": 101
+      }
+    },
+    {
+      "id": "ex-unseen-forces",
+      "name": "EX Unseen Forces",
+      "allowedSourceSetIds": [
+        "ex10"
+      ],
+      "expectedPackSize": 9,
+      "counts": {
+        "authoritativeSource": 145,
+        "canonicalRuntime": 145,
+        "authoritativeManifest": 145,
+        "positivePackPool": 145,
+        "collectionChecklist": 145,
+        "scanner": 145,
+        "price": 145
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 31,
+        "vintage.final.holoOrChase": 36,
+        "vintage.final.nonHoloRare": 44,
+        "vintage.reverse": 128,
+        "vintage.uncommon": 34
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 900,
+        "observedUniqueCanonicalCards": 133
+      }
+    },
+    {
+      "id": "ex-delta-species",
+      "name": "EX Delta Species",
+      "allowedSourceSetIds": [
+        "ex11"
+      ],
+      "expectedPackSize": 9,
+      "counts": {
+        "authoritativeSource": 114,
+        "canonicalRuntime": 114,
+        "authoritativeManifest": 114,
+        "positivePackPool": 114,
+        "collectionChecklist": 114,
+        "scanner": 114,
+        "price": 114
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 34,
+        "vintage.final.holoOrChase": 25,
+        "vintage.final.nonHoloRare": 20,
+        "vintage.reverse": 107,
+        "vintage.uncommon": 35
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 900,
+        "observedUniqueCanonicalCards": 108
+      }
+    },
+    {
+      "id": "ex-legend-maker",
+      "name": "EX Legend Maker",
+      "allowedSourceSetIds": [
+        "ex12"
+      ],
+      "expectedPackSize": 9,
+      "counts": {
+        "authoritativeSource": 93,
+        "canonicalRuntime": 93,
+        "authoritativeManifest": 93,
+        "positivePackPool": 93,
+        "collectionChecklist": 93,
+        "scanner": 93,
+        "price": 93
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 27,
+        "vintage.final.holoOrChase": 25,
+        "vintage.final.nonHoloRare": 15,
+        "vintage.reverse": 82,
+        "vintage.uncommon": 26
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 900,
+        "observedUniqueCanonicalCards": 88
+      }
+    },
+    {
+      "id": "ex-holon-phantoms",
+      "name": "EX Holon Phantoms",
+      "allowedSourceSetIds": [
+        "ex13"
+      ],
+      "expectedPackSize": 9,
+      "counts": {
+        "authoritativeSource": 111,
+        "canonicalRuntime": 111,
+        "authoritativeManifest": 111,
+        "positivePackPool": 111,
+        "collectionChecklist": 111,
+        "scanner": 111,
+        "price": 111
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 31,
+        "vintage.final.holoOrChase": 30,
+        "vintage.final.nonHoloRare": 20,
+        "vintage.reverse": 104,
+        "vintage.uncommon": 30
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 900,
+        "observedUniqueCanonicalCards": 106
+      }
+    },
+    {
+      "id": "ex-crystal-guardians",
+      "name": "EX Crystal Guardians",
+      "allowedSourceSetIds": [
+        "ex14"
+      ],
+      "expectedPackSize": 9,
+      "counts": {
+        "authoritativeSource": 100,
+        "canonicalRuntime": 100,
+        "authoritativeManifest": 100,
+        "positivePackPool": 100,
+        "collectionChecklist": 100,
+        "scanner": 100,
+        "price": 100
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 29,
+        "vintage.final.holoOrChase": 25,
+        "vintage.final.nonHoloRare": 16,
+        "vintage.reverse": 88,
+        "vintage.uncommon": 30
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 900,
+        "observedUniqueCanonicalCards": 94
+      }
+    },
+    {
+      "id": "ex-dragon-frontiers",
+      "name": "EX Dragon Frontiers",
+      "allowedSourceSetIds": [
+        "ex15"
+      ],
+      "expectedPackSize": 9,
+      "counts": {
+        "authoritativeSource": 101,
+        "canonicalRuntime": 101,
+        "authoritativeManifest": 101,
+        "positivePackPool": 101,
+        "collectionChecklist": 101,
+        "scanner": 101,
+        "price": 101
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 30,
+        "vintage.final.holoOrChase": 24,
+        "vintage.final.nonHoloRare": 16,
+        "vintage.reverse": 89,
+        "vintage.uncommon": 31
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 900,
+        "observedUniqueCanonicalCards": 93
+      }
+    },
+    {
+      "id": "ex-power-keepers",
+      "name": "EX Power Keepers",
+      "allowedSourceSetIds": [
+        "ex16"
+      ],
+      "expectedPackSize": 9,
+      "counts": {
+        "authoritativeSource": 108,
+        "canonicalRuntime": 108,
+        "authoritativeManifest": 108,
+        "positivePackPool": 108,
+        "collectionChecklist": 108,
+        "scanner": 108,
+        "price": 108
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 32,
+        "vintage.final.holoOrChase": 30,
+        "vintage.final.nonHoloRare": 15,
+        "vintage.reverse": 97,
+        "vintage.uncommon": 31
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 900,
+        "observedUniqueCanonicalCards": 106
+      }
+    },
+    {
+      "id": "diamond-pearl",
+      "name": "Diamond & Pearl",
+      "allowedSourceSetIds": [
+        "dp1"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 130,
+        "canonicalRuntime": 130,
+        "authoritativeManifest": 130,
+        "positivePackPool": 130,
+        "collectionChecklist": 130,
+        "scanner": 130,
+        "price": 130
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 47,
+        "vintage.final.holoOrChase": 20,
+        "vintage.final.nonHoloRare": 25,
+        "vintage.reverse": 127,
+        "vintage.uncommon": 38
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 126
+      }
+    },
+    {
+      "id": "diamond-pearl-mysterious-treasures",
+      "name": "Diamond & Pearl—Mysterious Treasures",
+      "allowedSourceSetIds": [
+        "dp2"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 124,
+        "canonicalRuntime": 124,
+        "authoritativeManifest": 124,
+        "positivePackPool": 124,
+        "collectionChecklist": 124,
+        "scanner": 124,
+        "price": 124
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 42,
+        "vintage.final.holoOrChase": 22,
+        "vintage.final.nonHoloRare": 23,
+        "vintage.reverse": 120,
+        "vintage.uncommon": 37
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 121
+      }
+    },
+    {
+      "id": "diamond-pearl-secret-wonders",
+      "name": "Diamond & Pearl—Secret Wonders",
+      "allowedSourceSetIds": [
+        "dp3"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 132,
+        "canonicalRuntime": 132,
+        "authoritativeManifest": 132,
+        "positivePackPool": 132,
+        "collectionChecklist": 132,
+        "scanner": 132,
+        "price": 132
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 45,
+        "vintage.final.holoOrChase": 22,
+        "vintage.final.nonHoloRare": 24,
+        "vintage.reverse": 130,
+        "vintage.uncommon": 41
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 131
+      }
+    },
+    {
+      "id": "diamond-pearl-great-encounters",
+      "name": "Diamond & Pearl—Great Encounters",
+      "allowedSourceSetIds": [
+        "dp4"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 106,
+        "canonicalRuntime": 106,
+        "authoritativeManifest": 106,
+        "positivePackPool": 106,
+        "collectionChecklist": 106,
+        "scanner": 106,
+        "price": 106
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 38,
+        "vintage.final.holoOrChase": 15,
+        "vintage.final.nonHoloRare": 21,
+        "vintage.reverse": 102,
+        "vintage.uncommon": 32
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 105
+      }
+    },
+    {
+      "id": "diamond-pearl-majestic-dawn",
+      "name": "Diamond & Pearl—Majestic Dawn",
+      "allowedSourceSetIds": [
+        "dp5"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 100,
+        "canonicalRuntime": 100,
+        "authoritativeManifest": 100,
+        "positivePackPool": 100,
+        "collectionChecklist": 100,
+        "scanner": 100,
+        "price": 100
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 32,
+        "vintage.final.holoOrChase": 18,
+        "vintage.final.nonHoloRare": 20,
+        "vintage.reverse": 96,
+        "vintage.uncommon": 30
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 99
+      }
+    },
+    {
+      "id": "diamond-pearl-legends-awakened",
+      "name": "Diamond & Pearl—Legends Awakened",
+      "allowedSourceSetIds": [
+        "dp6"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 146,
+        "canonicalRuntime": 146,
+        "authoritativeManifest": 146,
+        "positivePackPool": 146,
+        "collectionChecklist": 146,
+        "scanner": 146,
+        "price": 146
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 48,
+        "vintage.final.holoOrChase": 24,
+        "vintage.final.nonHoloRare": 28,
+        "vintage.reverse": 139,
+        "vintage.uncommon": 46
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 143
+      }
+    },
+    {
+      "id": "diamond-pearl-stormfront",
+      "name": "Diamond & Pearl—Stormfront",
+      "allowedSourceSetIds": [
+        "dp7"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 106,
+        "canonicalRuntime": 106,
+        "authoritativeManifest": 106,
+        "positivePackPool": 106,
+        "collectionChecklist": 106,
+        "scanner": 106,
+        "price": 106
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 31,
+        "vintage.final.holoOrChase": 19,
+        "vintage.final.nonHoloRare": 23,
+        "vintage.reverse": 98,
+        "vintage.uncommon": 33
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 103
+      }
+    },
+    {
+      "id": "platinum",
+      "name": "Platinum",
+      "allowedSourceSetIds": [
+        "pl1"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 133,
+        "canonicalRuntime": 133,
+        "authoritativeManifest": 133,
+        "positivePackPool": 133,
+        "collectionChecklist": 133,
+        "scanner": 133,
+        "price": 133
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 39,
+        "vintage.final.holoOrChase": 26,
+        "vintage.final.nonHoloRare": 26,
+        "vintage.reverse": 124,
+        "vintage.uncommon": 42
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 127
+      }
+    },
+    {
+      "id": "platinum-rising-rivals",
+      "name": "Platinum—Rising Rivals",
+      "allowedSourceSetIds": [
+        "pl2"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 120,
+        "canonicalRuntime": 120,
+        "authoritativeManifest": 120,
+        "positivePackPool": 120,
+        "collectionChecklist": 120,
+        "scanner": 120,
+        "price": 120
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 33,
+        "vintage.final.holoOrChase": 25,
+        "vintage.final.nonHoloRare": 30,
+        "vintage.reverse": 108,
+        "vintage.uncommon": 32
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 114
+      }
+    },
+    {
+      "id": "platinum-supreme-victors",
+      "name": "Platinum—Supreme Victors",
+      "allowedSourceSetIds": [
+        "pl3"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 153,
+        "canonicalRuntime": 153,
+        "authoritativeManifest": 153,
+        "positivePackPool": 153,
+        "collectionChecklist": 153,
+        "scanner": 153,
+        "price": 153
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 45,
+        "vintage.final.holoOrChase": 24,
+        "vintage.final.nonHoloRare": 37,
+        "vintage.reverse": 143,
+        "vintage.uncommon": 47
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 146
+      }
+    },
+    {
+      "id": "platinum-arceus",
+      "name": "Platinum—Arceus",
+      "allowedSourceSetIds": [
+        "pl4"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 111,
+        "canonicalRuntime": 111,
+        "authoritativeManifest": 111,
+        "positivePackPool": 111,
+        "collectionChecklist": 111,
+        "scanner": 111,
+        "price": 111
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 33,
+        "vintage.final.holoOrChase": 18,
+        "vintage.final.nonHoloRare": 32,
+        "vintage.reverse": 105,
+        "vintage.uncommon": 28
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 109
+      }
+    },
+    {
+      "id": "heartgold-soulsilver",
+      "name": "HeartGold & SoulSilver",
+      "allowedSourceSetIds": [
+        "hgss1"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 124,
+        "canonicalRuntime": 124,
+        "authoritativeManifest": 124,
+        "positivePackPool": 124,
+        "collectionChecklist": 124,
+        "scanner": 124,
+        "price": 124
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 40,
+        "vintage.final.holoOrChase": 25,
+        "vintage.final.nonHoloRare": 21,
+        "vintage.reverse": 113,
+        "vintage.uncommon": 38
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 118
+      }
+    },
+    {
+      "id": "hs-unleashed",
+      "name": "HS—Unleashed",
+      "allowedSourceSetIds": [
+        "hgss2"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 96,
+        "canonicalRuntime": 96,
+        "authoritativeManifest": 96,
+        "positivePackPool": 96,
+        "collectionChecklist": 96,
+        "scanner": 96,
+        "price": 96
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 28,
+        "vintage.final.holoOrChase": 24,
+        "vintage.final.nonHoloRare": 16,
+        "vintage.reverse": 83,
+        "vintage.uncommon": 28
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 90
+      }
+    },
+    {
+      "id": "hs-undaunted",
+      "name": "HS—Undaunted",
+      "allowedSourceSetIds": [
+        "hgss3"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 91,
+        "canonicalRuntime": 91,
+        "authoritativeManifest": 91,
+        "positivePackPool": 91,
+        "collectionChecklist": 91,
+        "scanner": 91,
+        "price": 91
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 29,
+        "vintage.final.holoOrChase": 21,
+        "vintage.final.nonHoloRare": 15,
+        "vintage.reverse": 80,
+        "vintage.uncommon": 26
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 89
+      }
+    },
+    {
+      "id": "hs-triumphant",
+      "name": "HS—Triumphant",
+      "allowedSourceSetIds": [
+        "hgss4"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 103,
+        "canonicalRuntime": 103,
+        "authoritativeManifest": 103,
+        "positivePackPool": 103,
+        "collectionChecklist": 103,
+        "scanner": 103,
+        "price": 103
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 30,
+        "vintage.final.holoOrChase": 25,
+        "vintage.final.nonHoloRare": 19,
+        "vintage.reverse": 90,
+        "vintage.uncommon": 29
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 99
+      }
+    },
+    {
+      "id": "call-of-legends",
+      "name": "Call of Legends",
+      "allowedSourceSetIds": [
+        "col1"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 106,
+        "canonicalRuntime": 106,
+        "authoritativeManifest": 106,
+        "positivePackPool": 106,
+        "collectionChecklist": 106,
+        "scanner": 106,
+        "price": 106
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 31,
+        "vintage.final.holoOrChase": 33,
+        "vintage.final.nonHoloRare": 17,
+        "vintage.reverse": 106,
+        "vintage.uncommon": 25
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 102
+      }
+    },
+    {
+      "id": "black-white",
+      "name": "Black & White",
+      "allowedSourceSetIds": [
+        "bw1"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 115,
+        "canonicalRuntime": 115,
+        "authoritativeManifest": 115,
+        "positivePackPool": 115,
+        "collectionChecklist": 115,
+        "scanner": 115,
+        "price": 115
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 44,
+        "vintage.final.holoOrChase": 15,
+        "vintage.final.nonHoloRare": 19,
+        "vintage.reverse": 112,
+        "vintage.uncommon": 37
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 115
+      }
+    },
+    {
+      "id": "black-white-emerging-powers",
+      "name": "Black & White—Emerging Powers",
+      "allowedSourceSetIds": [
+        "bw2"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 98,
+        "canonicalRuntime": 98,
+        "authoritativeManifest": 98,
+        "positivePackPool": 98,
+        "collectionChecklist": 98,
+        "scanner": 98,
+        "price": 98
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 34,
+        "vintage.final.holoOrChase": 12,
+        "vintage.final.nonHoloRare": 21,
+        "vintage.reverse": 96,
+        "vintage.uncommon": 31
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 96
+      }
+    },
+    {
+      "id": "black-white-noble-victories",
+      "name": "Black & White—Noble Victories",
+      "allowedSourceSetIds": [
+        "bw3"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 102,
+        "canonicalRuntime": 102,
+        "authoritativeManifest": 102,
+        "positivePackPool": 102,
+        "collectionChecklist": 102,
+        "scanner": 102,
+        "price": 102
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 31,
+        "vintage.final.holoOrChase": 19,
+        "vintage.final.nonHoloRare": 22,
+        "vintage.reverse": 96,
+        "vintage.uncommon": 30
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 100
+      }
+    },
+    {
+      "id": "black-white-next-destinies",
+      "name": "Black & White—Next Destinies",
+      "allowedSourceSetIds": [
+        "bw4"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 103,
+        "canonicalRuntime": 103,
+        "authoritativeManifest": 103,
+        "positivePackPool": 103,
+        "collectionChecklist": 103,
+        "scanner": 103,
+        "price": 103
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 29,
+        "vintage.final.holoOrChase": 26,
+        "vintage.final.nonHoloRare": 21,
+        "vintage.reverse": 87,
+        "vintage.uncommon": 27
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 99
+      }
+    },
+    {
+      "id": "black-white-dark-explorers",
+      "name": "Black & White—Dark Explorers",
+      "allowedSourceSetIds": [
+        "bw5"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 111,
+        "canonicalRuntime": 111,
+        "authoritativeManifest": 111,
+        "positivePackPool": 111,
+        "collectionChecklist": 111,
+        "scanner": 111,
+        "price": 111
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 33,
+        "vintage.final.holoOrChase": 24,
+        "vintage.final.nonHoloRare": 19,
+        "vintage.reverse": 96,
+        "vintage.uncommon": 35
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 107
+      }
+    },
+    {
+      "id": "black-white-dragons-exalted",
+      "name": "Black & White—Dragons Exalted",
+      "allowedSourceSetIds": [
+        "bw6"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 128,
+        "canonicalRuntime": 128,
+        "authoritativeManifest": 128,
+        "positivePackPool": 128,
+        "collectionChecklist": 128,
+        "scanner": 128,
+        "price": 128
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 39,
+        "vintage.final.holoOrChase": 29,
+        "vintage.final.nonHoloRare": 24,
+        "vintage.reverse": 112,
+        "vintage.uncommon": 36
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 117
+      }
+    },
+    {
+      "id": "dragon-vault",
+      "name": "Dragon Vault",
+      "allowedSourceSetIds": [
+        "dv1"
+      ],
+      "expectedPackSize": 5,
+      "counts": {
+        "authoritativeSource": 21,
+        "canonicalRuntime": 21,
+        "authoritativeManifest": 21,
+        "positivePackPool": 21,
+        "collectionChecklist": 21,
+        "scanner": 21,
+        "price": 21
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.dragonVault.regular": 21,
+        "vintage.final.dragonVault": 21,
+        "vintage.reverse": 20
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 500,
+        "observedUniqueCanonicalCards": 21
+      }
+    },
+    {
+      "id": "black-white-boundaries-crossed",
+      "name": "Black & White—Boundaries Crossed",
+      "allowedSourceSetIds": [
+        "bw7"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 153,
+        "canonicalRuntime": 153,
+        "authoritativeManifest": 153,
+        "positivePackPool": 153,
+        "collectionChecklist": 153,
+        "scanner": 153,
+        "price": 153
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 50,
+        "vintage.final.holoOrChase": 43,
+        "vintage.final.nonHoloRare": 17,
+        "vintage.reverse": 130,
+        "vintage.uncommon": 43
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 139
+      }
+    },
+    {
+      "id": "black-white-plasma-storm",
+      "name": "Black & White—Plasma Storm",
+      "allowedSourceSetIds": [
+        "bw8"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 138,
+        "canonicalRuntime": 138,
+        "authoritativeManifest": 138,
+        "positivePackPool": 138,
+        "collectionChecklist": 138,
+        "scanner": 138,
+        "price": 138
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 41,
+        "vintage.final.holoOrChase": 29,
+        "vintage.final.nonHoloRare": 26,
+        "vintage.reverse": 119,
+        "vintage.uncommon": 42
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 128
+      }
+    },
+    {
+      "id": "black-white-plasma-freeze",
+      "name": "Black & White—Plasma Freeze",
+      "allowedSourceSetIds": [
+        "bw9"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 122,
+        "canonicalRuntime": 122,
+        "authoritativeManifest": 122,
+        "positivePackPool": 122,
+        "collectionChecklist": 122,
+        "scanner": 122,
+        "price": 122
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 32,
+        "vintage.final.holoOrChase": 36,
+        "vintage.final.nonHoloRare": 22,
+        "vintage.reverse": 100,
+        "vintage.uncommon": 32
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 114
+      }
+    },
+    {
+      "id": "black-white-plasma-blast",
+      "name": "Black & White—Plasma Blast",
+      "allowedSourceSetIds": [
+        "bw10"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 105,
+        "canonicalRuntime": 105,
+        "authoritativeManifest": 105,
+        "positivePackPool": 105,
+        "collectionChecklist": 105,
+        "scanner": 105,
+        "price": 105
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 26,
+        "vintage.final.holoOrChase": 31,
+        "vintage.final.nonHoloRare": 15,
+        "vintage.reverse": 85,
+        "vintage.uncommon": 33
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 94
+      }
+    },
+    {
+      "id": "black-white-legendary-treasures",
+      "name": "Black & White—Legendary Treasures",
+      "allowedSourceSetIds": [
+        "bw11"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 140,
+        "canonicalRuntime": 140,
+        "authoritativeManifest": 140,
+        "positivePackPool": 140,
+        "collectionChecklist": 140,
+        "scanner": 140,
+        "price": 140
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "vintage.common": 27,
+        "vintage.final.holoOrChase": 44,
+        "vintage.final.nonHoloRare": 12,
+        "vintage.radiantCollection": 25,
+        "vintage.reverse": 101,
+        "vintage.uncommon": 32
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 131
+      }
+    },
+    {
+      "id": "xy0",
+      "name": "XY-Kalos Starter Set",
+      "allowedSourceSetIds": [
+        "xy0"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 39,
+        "canonicalRuntime": 39,
+        "authoritativeManifest": 39,
+        "positivePackPool": 39,
+        "collectionChecklist": 39,
+        "scanner": 39,
+        "price": 39
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "xy.common": 39
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 39
+      }
+    },
+    {
+      "id": "xy1",
+      "name": "XY",
+      "allowedSourceSetIds": [
+        "xy1"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 146,
+        "canonicalRuntime": 146,
+        "authoritativeManifest": 146,
+        "positivePackPool": 146,
+        "collectionChecklist": 146,
+        "scanner": 146,
+        "price": 146
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "xy.common": 48,
+        "xy.final.doubleRare": 8,
+        "xy.final.holoRare": 16,
+        "xy.final.rare": 26,
+        "xy.final.ultraRare": 6,
+        "xy.reverse": 116,
+        "xy.uncommon": 42
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 138
+      }
+    },
+    {
+      "id": "xy2",
+      "name": "XY-Flashfire",
+      "allowedSourceSetIds": [
+        "xy2"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 110,
+        "canonicalRuntime": 110,
+        "authoritativeManifest": 110,
+        "positivePackPool": 110,
+        "collectionChecklist": 110,
+        "scanner": 110,
+        "price": 110
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "xy.common": 31,
+        "xy.final.doubleRare": 8,
+        "xy.final.holoRare": 8,
+        "xy.final.rare": 20,
+        "xy.final.secretRare": 3,
+        "xy.final.ultraRare": 8,
+        "xy.reverse": 83,
+        "xy.uncommon": 32
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 106
+      }
+    },
+    {
+      "id": "xy3",
+      "name": "XY-Furious Fists",
+      "allowedSourceSetIds": [
+        "xy3"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 114,
+        "canonicalRuntime": 114,
+        "authoritativeManifest": 114,
+        "positivePackPool": 114,
+        "collectionChecklist": 114,
+        "scanner": 114,
+        "price": 114
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "xy.common": 29,
+        "xy.final.doubleRare": 7,
+        "xy.final.holoRare": 9,
+        "xy.final.rare": 20,
+        "xy.final.secretRare": 2,
+        "xy.final.ultraRare": 8,
+        "xy.reverse": 88,
+        "xy.uncommon": 39
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 110
+      }
+    },
+    {
+      "id": "xy4",
+      "name": "XY-Phantom Forces",
+      "allowedSourceSetIds": [
+        "xy4"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 124,
+        "canonicalRuntime": 124,
+        "authoritativeManifest": 124,
+        "positivePackPool": 124,
+        "collectionChecklist": 124,
+        "scanner": 124,
+        "price": 124
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "xy.common": 34,
+        "xy.final.doubleRare": 8,
+        "xy.final.holoRare": 14,
+        "xy.final.rare": 19,
+        "xy.final.secretRare": 3,
+        "xy.final.ultraRare": 9,
+        "xy.reverse": 90,
+        "xy.uncommon": 37
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 118
+      }
+    },
+    {
+      "id": "xy5",
+      "name": "XY-Primal Clash",
+      "allowedSourceSetIds": [
+        "xy5"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 164,
+        "canonicalRuntime": 164,
+        "authoritativeManifest": 164,
+        "positivePackPool": 164,
+        "collectionChecklist": 164,
+        "scanner": 164,
+        "price": 164
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "xy.common": 39,
+        "xy.final.doubleRare": 12,
+        "xy.final.holoRare": 18,
+        "xy.final.rare": 25,
+        "xy.final.secretRare": 4,
+        "xy.final.ultraRare": 16,
+        "xy.reverse": 114,
+        "xy.uncommon": 50
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 147
+      }
+    },
+    {
+      "id": "dc1",
+      "name": "Double Crisis",
+      "allowedSourceSetIds": [
+        "dc1"
+      ],
+      "expectedPackSize": 7,
+      "counts": {
+        "authoritativeSource": 34,
+        "canonicalRuntime": 34,
+        "authoritativeManifest": 34,
+        "positivePackPool": 34,
+        "collectionChecklist": 34,
+        "scanner": 34,
+        "price": 34
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "xy.common": 14,
+        "xy.final.holoRare": 6,
+        "xy.final.ultraRare": 2,
+        "xy.reverse": 26,
+        "xy.uncommon": 12
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 700,
+        "observedUniqueCanonicalCards": 34
+      }
+    },
+    {
+      "id": "xy6",
+      "name": "XY-Roaring Skies",
+      "allowedSourceSetIds": [
+        "xy6"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 112,
+        "canonicalRuntime": 112,
+        "authoritativeManifest": 112,
+        "positivePackPool": 112,
+        "collectionChecklist": 112,
+        "scanner": 112,
+        "price": 112
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "xy.common": 26,
+        "xy.final.doubleRare": 11,
+        "xy.final.holoRare": 10,
+        "xy.final.rare": 18,
+        "xy.final.secretRare": 2,
+        "xy.final.ultraRare": 12,
+        "xy.reverse": 77,
+        "xy.uncommon": 33
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 102
+      }
+    },
+    {
+      "id": "xy7",
+      "name": "XY-Ancient Origins",
+      "allowedSourceSetIds": [
+        "xy7"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 101,
+        "canonicalRuntime": 101,
+        "authoritativeManifest": 101,
+        "positivePackPool": 101,
+        "collectionChecklist": 101,
+        "scanner": 101,
+        "price": 101
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "xy.common": 23,
+        "xy.final.doubleRare": 11,
+        "xy.final.holoRare": 8,
+        "xy.final.rare": 13,
+        "xy.final.secretRare": 5,
+        "xy.final.ultraRare": 13,
+        "xy.reverse": 64,
+        "xy.uncommon": 28
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 86
+      }
+    },
+    {
+      "id": "xy8",
+      "name": "XY-BREAKthrough",
+      "allowedSourceSetIds": [
+        "xy8"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 165,
+        "canonicalRuntime": 165,
+        "authoritativeManifest": 165,
+        "positivePackPool": 165,
+        "collectionChecklist": 165,
+        "scanner": 165,
+        "price": 165
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "xy.common": 53,
+        "xy.final.doubleRare": 8,
+        "xy.final.holoRare": 16,
+        "xy.final.rare": 21,
+        "xy.final.secretRare": 2,
+        "xy.final.ultraRare": 10,
+        "xy.reverse": 123,
+        "xy.reverse.break": 6,
+        "xy.uncommon": 49
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 156
+      }
+    },
+    {
+      "id": "xy9",
+      "name": "XY-BREAKpoint",
+      "allowedSourceSetIds": [
+        "xy9"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 126,
+        "canonicalRuntime": 126,
+        "authoritativeManifest": 126,
+        "positivePackPool": 126,
+        "collectionChecklist": 126,
+        "scanner": 126,
+        "price": 126
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "xy.common": 33,
+        "xy.final.doubleRare": 11,
+        "xy.final.holoRare": 7,
+        "xy.final.rare": 16,
+        "xy.final.secretRare": 1,
+        "xy.final.ultraRare": 10,
+        "xy.reverse": 92,
+        "xy.reverse.break": 5,
+        "xy.uncommon": 43
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 118
+      }
+    },
+    {
+      "id": "g1",
+      "name": "Generations",
+      "allowedSourceSetIds": [
+        "g1"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 117,
+        "canonicalRuntime": 117,
+        "authoritativeManifest": 117,
+        "positivePackPool": 117,
+        "collectionChecklist": 117,
+        "scanner": 117,
+        "price": 117
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "xy.common": 28,
+        "xy.final.doubleRare": 14,
+        "xy.final.holoRare": 7,
+        "xy.final.rare": 11,
+        "xy.final.ultraRare": 7,
+        "xy.generations.radiantCollection": 32,
+        "xy.reverse": 64,
+        "xy.uncommon": 25
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 111
+      }
+    },
+    {
+      "id": "xy10",
+      "name": "XY-Fates Collide",
+      "allowedSourceSetIds": [
+        "xy10"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 129,
+        "canonicalRuntime": 129,
+        "authoritativeManifest": 129,
+        "positivePackPool": 129,
+        "collectionChecklist": 129,
+        "scanner": 129,
+        "price": 129
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "xy.common": 26,
+        "xy.final.doubleRare": 13,
+        "xy.final.holoRare": 5,
+        "xy.final.rare": 20,
+        "xy.final.secretRare": 1,
+        "xy.final.ultraRare": 13,
+        "xy.reverse": 92,
+        "xy.reverse.break": 5,
+        "xy.uncommon": 46
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 119
+      }
+    },
+    {
+      "id": "xy11",
+      "name": "XY-Steam Siege",
+      "allowedSourceSetIds": [
+        "xy11"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 116,
+        "canonicalRuntime": 116,
+        "authoritativeManifest": 116,
+        "positivePackPool": 116,
+        "collectionChecklist": 116,
+        "scanner": 116,
+        "price": 116
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "xy.common": 31,
+        "xy.final.doubleRare": 6,
+        "xy.final.holoRare": 9,
+        "xy.final.rare": 23,
+        "xy.final.secretRare": 2,
+        "xy.final.ultraRare": 8,
+        "xy.reverse": 84,
+        "xy.reverse.break": 7,
+        "xy.uncommon": 30
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 109
+      }
+    },
+    {
+      "id": "xy12",
+      "name": "XY-Evolutions",
+      "allowedSourceSetIds": [
+        "xy12"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 113,
+        "canonicalRuntime": 113,
+        "authoritativeManifest": 113,
+        "positivePackPool": 113,
+        "collectionChecklist": 113,
+        "scanner": 113,
+        "price": 113
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "xy.common": 33,
+        "xy.evolutions.secretUncommon": 5,
+        "xy.final.doubleRare": 12,
+        "xy.final.holoRare": 13,
+        "xy.final.rare": 9,
+        "xy.final.ultraRare": 9,
+        "xy.reverse": 70,
+        "xy.reverse.break": 4,
+        "xy.uncommon": 28
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 108
+      }
+    },
+    {
+      "id": "sun-moon",
+      "name": "Sun & Moon",
+      "allowedSourceSetIds": [
+        "sm1"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 173,
+        "canonicalRuntime": 173,
+        "authoritativeManifest": 173,
+        "positivePackPool": 164,
+        "collectionChecklist": 164,
+        "scanner": 173,
+        "price": 173
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 9,
+        "nonCollectibleCanonicalIds": [
+          "sun-moon-164-grass-energy",
+          "sun-moon-165-fire-energy",
+          "sun-moon-166-water-energy",
+          "sun-moon-167-lightning-energy",
+          "sun-moon-168-psychic-energy",
+          "sun-moon-169-fighting-energy",
+          "sun-moon-170-darkness-energy",
+          "sun-moon-171-metal-energy",
+          "sun-moon-172-fairy-energy"
+        ],
+        "legacyResolvableCount": 1
+      },
+      "positivePullRoutes": {
+        "normal.common": 45,
+        "normal.final.doubleRare": 11,
+        "normal.final.holoRare": 16,
+        "normal.final.rainbowRare": 8,
+        "normal.final.rare": 17,
+        "normal.final.secretRare": 6,
+        "normal.final.ultraRare": 12,
+        "normal.reverse": 111,
+        "normal.uncommon": 49
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 144
+      }
+    },
+    {
+      "id": "guardians-rising",
+      "name": "Guardians Rising",
+      "allowedSourceSetIds": [
+        "sm2"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 180,
+        "canonicalRuntime": 180,
+        "authoritativeManifest": 180,
+        "positivePackPool": 180,
+        "collectionChecklist": 180,
+        "scanner": 180,
+        "price": 180
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "normal.common": 42,
+        "normal.final.doubleRare": 14,
+        "normal.final.holoRare": 15,
+        "normal.final.rainbowRare": 15,
+        "normal.final.rare": 26,
+        "normal.final.secretRare": 9,
+        "normal.final.ultraRare": 16,
+        "normal.reverse": 111,
+        "normal.uncommon": 43
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 145
+      }
+    },
+    {
+      "id": "burning-shadows",
+      "name": "Burning Shadows",
+      "allowedSourceSetIds": [
+        "sm3"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 177,
+        "canonicalRuntime": 177,
+        "authoritativeManifest": 177,
+        "positivePackPool": 177,
+        "collectionChecklist": 177,
+        "scanner": 177,
+        "price": 177
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "normal.common": 40,
+        "normal.final.doubleRare": 14,
+        "normal.final.holoRare": 14,
+        "normal.final.rainbowRare": 13,
+        "normal.final.rare": 25,
+        "normal.final.secretRare": 9,
+        "normal.final.ultraRare": 19,
+        "normal.reverse": 108,
+        "normal.uncommon": 43
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 141
+      }
+    },
+    {
+      "id": "shining-legends",
+      "name": "Shining Legends",
+      "allowedSourceSetIds": [
+        "sm35"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 81,
+        "canonicalRuntime": 81,
+        "authoritativeManifest": 81,
+        "positivePackPool": 81,
+        "collectionChecklist": 81,
+        "scanner": 81,
+        "price": 81
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "normal.common": 23,
+        "normal.final.doubleRare": 5,
+        "normal.final.holoRare": 12,
+        "normal.final.rainbowRare": 4,
+        "normal.final.secretRare": 1,
+        "normal.final.ultraRare": 10,
+        "normal.reverse": 49,
+        "normal.uncommon": 26
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 74
+      }
+    },
+    {
+      "id": "crimson-invasion",
+      "name": "Crimson Invasion",
+      "allowedSourceSetIds": [
+        "sm4"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 126,
+        "canonicalRuntime": 126,
+        "authoritativeManifest": 126,
+        "positivePackPool": 126,
+        "collectionChecklist": 126,
+        "scanner": 126,
+        "price": 126
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "normal.common": 34,
+        "normal.final.doubleRare": 9,
+        "normal.final.holoRare": 13,
+        "normal.final.rainbowRare": 8,
+        "normal.final.rare": 20,
+        "normal.final.secretRare": 5,
+        "normal.final.ultraRare": 11,
+        "normal.reverse": 80,
+        "normal.uncommon": 26
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 107
+      }
+    },
+    {
+      "id": "ultra-prism",
+      "name": "Ultra Prism",
+      "allowedSourceSetIds": [
+        "sm5"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 178,
+        "canonicalRuntime": 178,
+        "authoritativeManifest": 178,
+        "positivePackPool": 178,
+        "collectionChecklist": 178,
+        "scanner": 178,
+        "price": 178
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 13
+      },
+      "positivePullRoutes": {
+        "normal.common": 45,
+        "normal.final.doubleRare": 7,
+        "normal.final.holoRare": 13,
+        "normal.final.rainbowRare": 9,
+        "normal.final.rare": 23,
+        "normal.final.secretRare": 8,
+        "normal.final.ultraRare": 19,
+        "normal.reverse": 116,
+        "normal.subset.prismStar": 6,
+        "normal.uncommon": 48
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 150
+      }
+    },
+    {
+      "id": "forbidden-light",
+      "name": "Forbidden Light",
+      "allowedSourceSetIds": [
+        "sm6"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 150,
+        "canonicalRuntime": 150,
+        "authoritativeManifest": 150,
+        "positivePackPool": 150,
+        "collectionChecklist": 150,
+        "scanner": 150,
+        "price": 150
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "normal.common": 33,
+        "normal.final.doubleRare": 8,
+        "normal.final.holoRare": 11,
+        "normal.final.rainbowRare": 9,
+        "normal.final.rare": 27,
+        "normal.final.secretRare": 6,
+        "normal.final.ultraRare": 13,
+        "normal.reverse": 98,
+        "normal.subset.prismStar": 5,
+        "normal.uncommon": 38
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 127
+      }
+    },
+    {
+      "id": "celestial-storm",
+      "name": "Celestial Storm",
+      "allowedSourceSetIds": [
+        "sm7"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 187,
+        "canonicalRuntime": 187,
+        "authoritativeManifest": 187,
+        "positivePackPool": 187,
+        "collectionChecklist": 187,
+        "scanner": 187,
+        "price": 187
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "normal.common": 40,
+        "normal.final.doubleRare": 11,
+        "normal.final.holoRare": 19,
+        "normal.final.rainbowRare": 11,
+        "normal.final.rare": 17,
+        "normal.final.secretRare": 4,
+        "normal.final.ultraRare": 18,
+        "normal.reverse": 121,
+        "normal.subset.prismStar": 3,
+        "normal.uncommon": 64
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 161
+      }
+    },
+    {
+      "id": "dragon-majesty",
+      "name": "Dragon Majesty",
+      "allowedSourceSetIds": [
+        "sm75"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 80,
+        "canonicalRuntime": 80,
+        "authoritativeManifest": 80,
+        "positivePackPool": 80,
+        "collectionChecklist": 80,
+        "scanner": 80,
+        "price": 80
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "normal.common": 23,
+        "normal.final.doubleRare": 6,
+        "normal.final.holoRare": 11,
+        "normal.final.rainbowRare": 4,
+        "normal.final.secretRare": 4,
+        "normal.final.ultraRare": 6,
+        "normal.reverse": 47,
+        "normal.subset.prismStar": 2,
+        "normal.uncommon": 24
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 70
+      }
+    },
+    {
+      "id": "lost-thunder",
+      "name": "Lost Thunder",
+      "allowedSourceSetIds": [
+        "sm8"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 240,
+        "canonicalRuntime": 240,
+        "authoritativeManifest": 240,
+        "positivePackPool": 240,
+        "collectionChecklist": 240,
+        "scanner": 240,
+        "price": 240
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "normal.common": 56,
+        "normal.final.doubleRare": 13,
+        "normal.final.holoRare": 21,
+        "normal.final.rainbowRare": 13,
+        "normal.final.rare": 38,
+        "normal.final.secretRare": 9,
+        "normal.final.ultraRare": 20,
+        "normal.reverse": 157,
+        "normal.subset.prismStar": 7,
+        "normal.uncommon": 63
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 195
+      }
+    },
+    {
+      "id": "team-up",
+      "name": "Team Up",
+      "allowedSourceSetIds": [
+        "sm9"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 198,
+        "canonicalRuntime": 198,
+        "authoritativeManifest": 198,
+        "positivePackPool": 198,
+        "collectionChecklist": 198,
+        "scanner": 198,
+        "price": 198
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 1
+      },
+      "positivePullRoutes": {
+        "normal.common": 45,
+        "normal.final.doubleRare": 11,
+        "normal.final.holoRare": 19,
+        "normal.final.rainbowRare": 10,
+        "normal.final.rare": 31,
+        "normal.final.secretRare": 5,
+        "normal.final.ultraRare": 23,
+        "normal.reverse": 126,
+        "normal.subset.prismStar": 4,
+        "normal.uncommon": 50
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 165
+      }
+    },
+    {
+      "id": "detective-pikachu",
+      "name": "Detective Pikachu",
+      "allowedSourceSetIds": [
+        "det1"
+      ],
+      "expectedPackSize": 4,
+      "counts": {
+        "authoritativeSource": 18,
+        "canonicalRuntime": 18,
+        "authoritativeManifest": 18,
+        "positivePackPool": 18,
+        "collectionChecklist": 18,
+        "scanner": 18,
+        "price": 18
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "normal.common": 8,
+        "normal.final.rare": 6,
+        "normal.final.ultraRare": 4,
+        "normal.reverse": 14
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 400,
+        "observedUniqueCanonicalCards": 18
+      }
+    },
+    {
+      "id": "unbroken-bonds",
+      "name": "Unbroken Bonds",
+      "allowedSourceSetIds": [
+        "sm10"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 238,
+        "canonicalRuntime": 238,
+        "authoritativeManifest": 238,
+        "positivePackPool": 238,
+        "collectionChecklist": 238,
+        "scanner": 238,
+        "price": 238
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "normal.common": 62,
+        "normal.final.doubleRare": 14,
+        "normal.final.holoRare": 22,
+        "normal.final.rainbowRare": 14,
+        "normal.final.rare": 39,
+        "normal.final.secretRare": 6,
+        "normal.final.ultraRare": 25,
+        "normal.reverse": 157,
+        "normal.uncommon": 56
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 188
+      }
+    },
+    {
+      "id": "unified-minds",
+      "name": "Unified Minds",
+      "allowedSourceSetIds": [
+        "sm11"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 261,
+        "canonicalRuntime": 261,
+        "authoritativeManifest": 261,
+        "positivePackPool": 261,
+        "collectionChecklist": 261,
+        "scanner": 261,
+        "price": 261
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "normal.common": 65,
+        "normal.final.doubleRare": 17,
+        "normal.final.holoRare": 21,
+        "normal.final.rainbowRare": 13,
+        "normal.final.rare": 38,
+        "normal.final.secretRare": 9,
+        "normal.final.ultraRare": 24,
+        "normal.reverse": 177,
+        "normal.uncommon": 74
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 210
+      }
+    },
+    {
+      "id": "hidden-fates",
+      "name": "Hidden Fates",
+      "allowedSourceSetIds": [
+        "sm115",
+        "sma"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 163,
+        "canonicalRuntime": 163,
+        "authoritativeManifest": 163,
+        "positivePackPool": 163,
+        "collectionChecklist": 163,
+        "scanner": 163,
+        "price": 163
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "normal.common": 18,
+        "normal.final.doubleRare": 9,
+        "normal.final.holoRare": 6,
+        "normal.final.rainbowRare": 1,
+        "normal.final.rare": 15,
+        "normal.final.ultraRare": 3,
+        "normal.reverse": 50,
+        "normal.subset.shinyVault": 94,
+        "normal.uncommon": 17
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 85
+      }
+    },
+    {
+      "id": "cosmic-eclipse",
+      "name": "Cosmic Eclipse",
+      "allowedSourceSetIds": [
+        "sm12"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 272,
+        "canonicalRuntime": 272,
+        "authoritativeManifest": 272,
+        "positivePackPool": 272,
+        "collectionChecklist": 272,
+        "scanner": 272,
+        "price": 272
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "normal.common": 67,
+        "normal.final.doubleRare": 16,
+        "normal.final.holoRare": 22,
+        "normal.final.rainbowRare": 14,
+        "normal.final.rare": 38,
+        "normal.final.secretRare": 9,
+        "normal.final.ultraRare": 28,
+        "normal.reverse": 171,
+        "normal.subset.characterSecret": 12,
+        "normal.uncommon": 66
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 209
+      }
+    },
+    {
+      "id": "sword-shield",
+      "name": "Sword & Shield",
+      "allowedSourceSetIds": [
+        "swsh1"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 216,
+        "canonicalRuntime": 216,
+        "authoritativeManifest": 216,
+        "positivePackPool": 216,
+        "collectionChecklist": 216,
+        "scanner": 216,
+        "price": 216
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "normal.common": 60,
+        "normal.final.doubleRare": 17,
+        "normal.final.holoRare": 17,
+        "normal.final.rainbowRare": 8,
+        "normal.final.rare": 32,
+        "normal.final.secretRare": 6,
+        "normal.final.ultraRare": 20,
+        "normal.reverse": 148,
+        "normal.uncommon": 56
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 183
+      }
+    },
+    {
+      "id": "rebel-clash",
+      "name": "Rebel Clash",
+      "allowedSourceSetIds": [
+        "swsh2"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 209,
+        "canonicalRuntime": 209,
+        "authoritativeManifest": 209,
+        "positivePackPool": 209,
+        "collectionChecklist": 209,
+        "scanner": 209,
+        "price": 209
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "normal.common": 50,
+        "normal.final.doubleRare": 16,
+        "normal.final.holoRare": 18,
+        "normal.final.rainbowRare": 11,
+        "normal.final.rare": 32,
+        "normal.final.secretRare": 6,
+        "normal.final.ultraRare": 25,
+        "normal.reverse": 133,
+        "normal.uncommon": 51
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 161
+      }
+    },
+    {
+      "id": "darkness-ablaze",
+      "name": "Darkness Ablaze",
+      "allowedSourceSetIds": [
+        "swsh3"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 201,
+        "canonicalRuntime": 201,
+        "authoritativeManifest": 201,
+        "positivePackPool": 201,
+        "collectionChecklist": 201,
+        "scanner": 201,
+        "price": 201
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "normal.common": 53,
+        "normal.final.doubleRare": 14,
+        "normal.final.holoRare": 18,
+        "normal.final.rainbowRare": 7,
+        "normal.final.rare": 34,
+        "normal.final.secretRare": 5,
+        "normal.final.ultraRare": 20,
+        "normal.reverse": 137,
+        "normal.uncommon": 50
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 169
+      }
+    },
+    {
+      "id": "champions-path",
+      "name": "Champion's Path",
+      "allowedSourceSetIds": [
+        "swsh35"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 80,
+        "canonicalRuntime": 80,
+        "authoritativeManifest": 80,
+        "positivePackPool": 80,
+        "collectionChecklist": 80,
+        "scanner": 80,
+        "price": 80
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "normal.common": 20,
+        "normal.final.doubleRare": 11,
+        "normal.final.holoRare": 10,
+        "normal.final.rainbowRare": 5,
+        "normal.final.secretRare": 2,
+        "normal.final.ultraRare": 8,
+        "normal.reverse": 44,
+        "normal.uncommon": 24
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 65
+      }
+    },
+    {
+      "id": "vivid-voltage",
+      "name": "Vivid Voltage",
+      "allowedSourceSetIds": [
+        "swsh4"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 203,
+        "canonicalRuntime": 203,
+        "authoritativeManifest": 203,
+        "positivePackPool": 203,
+        "collectionChecklist": 203,
+        "scanner": 203,
+        "price": 203
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "normal.common": 44,
+        "normal.final.doubleRare": 11,
+        "normal.final.holoRare": 19,
+        "normal.final.rainbowRare": 12,
+        "normal.final.rare": 33,
+        "normal.final.secretRare": 6,
+        "normal.final.ultraRare": 32,
+        "normal.reverse": 123,
+        "normal.uncommon": 46
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 148
+      }
+    },
+    {
+      "id": "shining-fates",
+      "name": "Shining Fates",
+      "allowedSourceSetIds": [
+        "swsh45",
+        "swsh45sv"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 195,
+        "canonicalRuntime": 195,
+        "authoritativeManifest": 195,
+        "positivePackPool": 195,
+        "collectionChecklist": 195,
+        "scanner": 195,
+        "price": 195
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "normal.common": 18,
+        "normal.final.doubleRare": 8,
+        "normal.final.holoRare": 7,
+        "normal.final.rainbowRare": 1,
+        "normal.final.rare": 8,
+        "normal.final.ultraRare": 18,
+        "normal.reverse": 39,
+        "normal.subset.shinyVault": 122,
+        "normal.uncommon": 13
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 76
+      }
+    },
+    {
+      "id": "battle-styles",
+      "name": "Battle Styles",
+      "allowedSourceSetIds": [
+        "swsh5"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 183,
+        "canonicalRuntime": 183,
+        "authoritativeManifest": 183,
+        "positivePackPool": 183,
+        "collectionChecklist": 183,
+        "scanner": 183,
+        "price": 183
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "normal.common": 41,
+        "normal.final.doubleRare": 12,
+        "normal.final.holoRare": 16,
+        "normal.final.rainbowRare": 14,
+        "normal.final.rare": 20,
+        "normal.final.secretRare": 6,
+        "normal.final.ultraRare": 28,
+        "normal.reverse": 107,
+        "normal.uncommon": 46
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 140
+      }
+    },
+    {
+      "id": "chilling-reign",
+      "name": "Chilling Reign",
+      "allowedSourceSetIds": [
+        "swsh6"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 233,
+        "canonicalRuntime": 233,
+        "authoritativeManifest": 233,
+        "positivePackPool": 233,
+        "collectionChecklist": 233,
+        "scanner": 233,
+        "price": 233
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "normal.common": 43,
+        "normal.final.doubleRare": 15,
+        "normal.final.holoRare": 24,
+        "normal.final.rainbowRare": 23,
+        "normal.final.rare": 23,
+        "normal.final.secretRare": 12,
+        "normal.final.ultraRare": 47,
+        "normal.reverse": 112,
+        "normal.uncommon": 46
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 153
+      }
+    },
+    {
+      "id": "evolving-skies",
+      "name": "Evolving Skies",
+      "allowedSourceSetIds": [
+        "swsh7"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 237,
+        "canonicalRuntime": 237,
+        "authoritativeManifest": 237,
+        "positivePackPool": 237,
+        "collectionChecklist": 237,
+        "scanner": 237,
+        "price": 237
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "normal.common": 42,
+        "normal.final.doubleRare": 18,
+        "normal.final.holoRare": 20,
+        "normal.final.rainbowRare": 22,
+        "normal.final.rare": 19,
+        "normal.final.secretRare": 12,
+        "normal.final.ultraRare": 53,
+        "normal.reverse": 112,
+        "normal.uncommon": 51
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 149
+      }
+    },
+    {
+      "id": "celebrations",
+      "name": "Celebrations",
+      "allowedSourceSetIds": [
+        "cel25",
+        "cel25c"
+      ],
+      "expectedPackSize": 4,
+      "counts": {
+        "authoritativeSource": 50,
+        "canonicalRuntime": 50,
+        "authoritativeManifest": 50,
+        "positivePackPool": 50,
+        "collectionChecklist": 50,
+        "scanner": 50,
+        "price": 50
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "normal.final.doubleRare": 4,
+        "normal.final.holoRare": 6,
+        "normal.final.rare": 12,
+        "normal.final.ultraRare": 3,
+        "normal.reverse": 12,
+        "normal.subset.classicCollection": 25
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 400,
+        "observedUniqueCanonicalCards": 40
+      }
+    },
+    {
+      "id": "fusion-strike",
+      "name": "Fusion Strike",
+      "allowedSourceSetIds": [
+        "swsh8"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 284,
+        "canonicalRuntime": 284,
+        "authoritativeManifest": 284,
+        "positivePackPool": 284,
+        "collectionChecklist": 284,
+        "scanner": 284,
+        "price": 284
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "normal.common": 89,
+        "normal.final.doubleRare": 19,
+        "normal.final.holoRare": 13,
+        "normal.final.rainbowRare": 15,
+        "normal.final.rare": 32,
+        "normal.final.secretRare": 5,
+        "normal.final.ultraRare": 28,
+        "normal.reverse": 204,
+        "normal.uncommon": 83
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 234
+      }
+    },
+    {
+      "id": "brilliant-stars",
+      "name": "Brilliant Stars",
+      "allowedSourceSetIds": [
+        "swsh9",
+        "swsh9tg"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 216,
+        "canonicalRuntime": 216,
+        "authoritativeManifest": 216,
+        "positivePackPool": 216,
+        "collectionChecklist": 216,
+        "scanner": 216,
+        "price": 216
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "normal.common": 42,
+        "normal.final.doubleRare": 20,
+        "normal.final.holoRare": 10,
+        "normal.final.rainbowRare": 8,
+        "normal.final.rare": 26,
+        "normal.final.secretRare": 6,
+        "normal.final.ultraRare": 28,
+        "normal.reverse": 114,
+        "normal.subset.trainerGallery": 30,
+        "normal.uncommon": 46
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 155
+      }
+    },
+    {
+      "id": "astral-radiance",
+      "name": "Astral Radiance",
+      "allowedSourceSetIds": [
+        "swsh10",
+        "swsh10tg"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 246,
+        "canonicalRuntime": 246,
+        "authoritativeManifest": 246,
+        "positivePackPool": 246,
+        "collectionChecklist": 246,
+        "scanner": 246,
+        "price": 246
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "normal.common": 40,
+        "normal.final.doubleRare": 19,
+        "normal.final.holoRare": 20,
+        "normal.final.rainbowRare": 18,
+        "normal.final.rare": 21,
+        "normal.final.secretRare": 9,
+        "normal.final.ultraRare": 39,
+        "normal.reverse": 108,
+        "normal.subset.radiant": 3,
+        "normal.subset.trainerGallery": 30,
+        "normal.uncommon": 47
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 153
+      }
+    },
+    {
+      "id": "pokemon-go",
+      "name": "Pokemon GO",
+      "allowedSourceSetIds": [
+        "pgo"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 88,
+        "canonicalRuntime": 88,
+        "authoritativeManifest": 88,
+        "positivePackPool": 88,
+        "collectionChecklist": 88,
+        "scanner": 88,
+        "price": 88
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "normal.common": 22,
+        "normal.final.doubleRare": 6,
+        "normal.final.holoRare": 16,
+        "normal.final.rainbowRare": 7,
+        "normal.final.secretRare": 3,
+        "normal.final.ultraRare": 11,
+        "normal.reverse": 42,
+        "normal.subset.radiant": 3,
+        "normal.uncommon": 20
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 70
+      }
+    },
+    {
+      "id": "lost-origin",
+      "name": "Lost Origin",
+      "allowedSourceSetIds": [
+        "swsh11",
+        "swsh11tg"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 247,
+        "canonicalRuntime": 247,
+        "authoritativeManifest": 247,
+        "positivePackPool": 247,
+        "collectionChecklist": 247,
+        "scanner": 247,
+        "price": 247
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "normal.common": 49,
+        "normal.final.doubleRare": 12,
+        "normal.final.holoRare": 22,
+        "normal.final.rainbowRare": 15,
+        "normal.final.rare": 28,
+        "normal.final.secretRare": 6,
+        "normal.final.ultraRare": 32,
+        "normal.reverse": 127,
+        "normal.subset.radiant": 3,
+        "normal.subset.trainerGallery": 30,
+        "normal.uncommon": 50
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 169
+      }
+    },
+    {
+      "id": "silver-tempest",
+      "name": "Silver Tempest",
+      "allowedSourceSetIds": [
+        "swsh12",
+        "swsh12tg"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 245,
+        "canonicalRuntime": 245,
+        "authoritativeManifest": 245,
+        "positivePackPool": 245,
+        "collectionChecklist": 245,
+        "scanner": 245,
+        "price": 245
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "normal.common": 53,
+        "normal.final.doubleRare": 15,
+        "normal.final.holoRare": 14,
+        "normal.final.rainbowRare": 14,
+        "normal.final.rare": 21,
+        "normal.final.secretRare": 6,
+        "normal.final.ultraRare": 33,
+        "normal.reverse": 130,
+        "normal.subset.radiant": 3,
+        "normal.subset.trainerGallery": 30,
+        "normal.uncommon": 56
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 177
+      }
+    },
+    {
+      "id": "crown-zenith",
+      "name": "Crown Zenith",
+      "allowedSourceSetIds": [
+        "swsh12pt5",
+        "swsh12pt5gg"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 230,
+        "canonicalRuntime": 230,
+        "authoritativeManifest": 230,
+        "positivePackPool": 230,
+        "collectionChecklist": 230,
+        "scanner": 230,
+        "price": 230
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "normal.common": 42,
+        "normal.final.doubleRare": 17,
+        "normal.final.holoRare": 20,
+        "normal.final.rare": 22,
+        "normal.final.secretRare": 1,
+        "normal.final.ultraRare": 26,
+        "normal.reverse": 93,
+        "normal.subset.galarianGallery": 70,
+        "normal.subset.radiant": 3,
+        "normal.uncommon": 29
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 151
+      }
+    },
+    {
+      "id": "scarlet-violet",
+      "name": "Scarlet & Violet",
+      "allowedSourceSetIds": [
+        "sv1"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 258,
+        "canonicalRuntime": 258,
+        "authoritativeManifest": 258,
+        "positivePackPool": 258,
+        "collectionChecklist": 258,
+        "scanner": 258,
+        "price": 258
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "modern.preRare.hyperRare": 6,
+        "modern.preRare.illustrationRare": 24,
+        "modern.preRare.specialIllustrationRare": 10,
+        "normal.common": 105,
+        "normal.final.doubleRare": 12,
+        "normal.final.rare": 21,
+        "normal.final.ultraRare": 20,
+        "normal.reverse": 186,
+        "normal.uncommon": 60
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 207
+      }
+    },
+    {
+      "id": "paldea-evolved",
+      "name": "Paldea Evolved",
+      "allowedSourceSetIds": [
+        "sv2"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 279,
+        "canonicalRuntime": 279,
+        "authoritativeManifest": 279,
+        "positivePackPool": 279,
+        "collectionChecklist": 279,
+        "scanner": 279,
+        "price": 279
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "modern.preRare.hyperRare": 9,
+        "modern.preRare.illustrationRare": 36,
+        "modern.preRare.specialIllustrationRare": 15,
+        "normal.common": 81,
+        "normal.final.doubleRare": 17,
+        "normal.final.rare": 25,
+        "normal.final.ultraRare": 26,
+        "normal.reverse": 176,
+        "normal.uncommon": 70
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 199
+      }
+    },
+    {
+      "id": "obsidian-flames",
+      "name": "Obsidian Flames",
+      "allowedSourceSetIds": [
+        "sv3"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 230,
+        "canonicalRuntime": 230,
+        "authoritativeManifest": 230,
+        "positivePackPool": 230,
+        "collectionChecklist": 230,
+        "scanner": 230,
+        "price": 230
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "modern.preRare.hyperRare": 3,
+        "modern.preRare.illustrationRare": 12,
+        "modern.preRare.specialIllustrationRare": 6,
+        "normal.common": 92,
+        "normal.final.doubleRare": 21,
+        "normal.final.rare": 10,
+        "normal.final.ultraRare": 12,
+        "normal.reverse": 176,
+        "normal.uncommon": 74
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 198
+      }
+    },
+    {
+      "id": "151",
+      "name": "151",
+      "allowedSourceSetIds": [
+        "sv3pt5"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 207,
+        "canonicalRuntime": 207,
+        "authoritativeManifest": 207,
+        "positivePackPool": 207,
+        "collectionChecklist": 207,
+        "scanner": 207,
+        "price": 207
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 1
+      },
+      "positivePullRoutes": {
+        "god.151_THREE_CARD_EVOLUTION_LINE": 9,
+        "modern.preRare.hyperRare": 3,
+        "modern.preRare.illustrationRare": 16,
+        "modern.preRare.specialIllustrationRare": 7,
+        "normal.common": 66,
+        "normal.final.doubleRare": 12,
+        "normal.final.rare": 25,
+        "normal.final.ultraRare": 16,
+        "normal.reverse": 153,
+        "normal.uncommon": 62
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 1,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 174
+      }
+    },
+    {
+      "id": "paradox-rift",
+      "name": "Paradox Rift",
+      "allowedSourceSetIds": [
+        "sv4"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 266,
+        "canonicalRuntime": 266,
+        "authoritativeManifest": 266,
+        "positivePackPool": 266,
+        "collectionChecklist": 266,
+        "scanner": 266,
+        "price": 266
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "modern.preRare.hyperRare": 7,
+        "modern.preRare.illustrationRare": 34,
+        "modern.preRare.specialIllustrationRare": 15,
+        "normal.common": 81,
+        "normal.final.doubleRare": 20,
+        "normal.final.rare": 27,
+        "normal.final.ultraRare": 28,
+        "normal.reverse": 162,
+        "normal.uncommon": 54
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 192
+      }
+    },
+    {
+      "id": "paldean-fates",
+      "name": "Paldean Fates",
+      "allowedSourceSetIds": [
+        "sv4pt5"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 245,
+        "canonicalRuntime": 245,
+        "authoritativeManifest": 245,
+        "positivePackPool": 245,
+        "collectionChecklist": 245,
+        "scanner": 245,
+        "price": 245
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "modern.preRare.hyperRare": 6,
+        "modern.preRare.illustrationRare": 3,
+        "modern.preRare.specialIllustrationRare": 8,
+        "normal.common": 40,
+        "normal.final.doubleRare": 10,
+        "normal.final.rare": 16,
+        "normal.final.ultraRare": 5,
+        "normal.reverse": 81,
+        "normal.subset.shinyVault": 132,
+        "normal.uncommon": 25
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 127
+      }
+    },
+    {
+      "id": "temporal-forces",
+      "name": "Temporal Forces",
+      "allowedSourceSetIds": [
+        "sv5"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 218,
+        "canonicalRuntime": 218,
+        "authoritativeManifest": 218,
+        "positivePackPool": 218,
+        "collectionChecklist": 218,
+        "scanner": 218,
+        "price": 218
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "modern.preRare.hyperRare": 6,
+        "modern.preRare.illustrationRare": 22,
+        "modern.preRare.specialIllustrationRare": 10,
+        "normal.common": 71,
+        "normal.final.doubleRare": 15,
+        "normal.final.rare": 14,
+        "normal.final.ultraRare": 18,
+        "normal.reverse": 140,
+        "normal.subset.aceSpec": 7,
+        "normal.uncommon": 55
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 160
+      }
+    },
+    {
+      "id": "twilight-masquerade",
+      "name": "Twilight Masquerade",
+      "allowedSourceSetIds": [
+        "sv6"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 226,
+        "canonicalRuntime": 226,
+        "authoritativeManifest": 226,
+        "positivePackPool": 226,
+        "collectionChecklist": 226,
+        "scanner": 226,
+        "price": 226
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "modern.preRare.hyperRare": 6,
+        "modern.preRare.illustrationRare": 21,
+        "modern.preRare.specialIllustrationRare": 11,
+        "normal.common": 76,
+        "normal.final.doubleRare": 14,
+        "normal.final.rare": 16,
+        "normal.final.ultraRare": 21,
+        "normal.reverse": 147,
+        "normal.subset.aceSpec": 6,
+        "normal.uncommon": 55
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 172
+      }
+    },
+    {
+      "id": "shrouded-fable",
+      "name": "Shrouded Fable",
+      "allowedSourceSetIds": [
+        "sv6pt5"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 99,
+        "canonicalRuntime": 99,
+        "authoritativeManifest": 99,
+        "positivePackPool": 99,
+        "collectionChecklist": 99,
+        "scanner": 99,
+        "price": 99
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "modern.preRare.hyperRare": 5,
+        "modern.preRare.illustrationRare": 15,
+        "modern.preRare.specialIllustrationRare": 5,
+        "normal.common": 28,
+        "normal.final.doubleRare": 6,
+        "normal.final.rare": 7,
+        "normal.final.ultraRare": 10,
+        "normal.reverse": 55,
+        "normal.subset.aceSpec": 3,
+        "normal.uncommon": 20
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 71
+      }
+    },
+    {
+      "id": "stellar-crown",
+      "name": "Stellar Crown",
+      "allowedSourceSetIds": [
+        "sv7"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 175,
+        "canonicalRuntime": 175,
+        "authoritativeManifest": 175,
+        "positivePackPool": 175,
+        "collectionChecklist": 175,
+        "scanner": 175,
+        "price": 175
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "modern.preRare.hyperRare": 3,
+        "modern.preRare.illustrationRare": 13,
+        "modern.preRare.specialIllustrationRare": 6,
+        "normal.common": 71,
+        "normal.final.doubleRare": 14,
+        "normal.final.rare": 15,
+        "normal.final.ultraRare": 11,
+        "normal.reverse": 125,
+        "normal.subset.aceSpec": 3,
+        "normal.uncommon": 39
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 146
+      }
+    },
+    {
+      "id": "surging-sparks",
+      "name": "Surging Sparks",
+      "allowedSourceSetIds": [
+        "sv8"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 252,
+        "canonicalRuntime": 252,
+        "authoritativeManifest": 252,
+        "positivePackPool": 252,
+        "collectionChecklist": 252,
+        "scanner": 252,
+        "price": 252
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "modern.preRare.hyperRare": 6,
+        "modern.preRare.illustrationRare": 23,
+        "modern.preRare.specialIllustrationRare": 11,
+        "normal.common": 88,
+        "normal.final.doubleRare": 18,
+        "normal.final.rare": 16,
+        "normal.final.ultraRare": 21,
+        "normal.reverse": 165,
+        "normal.subset.aceSpec": 8,
+        "normal.uncommon": 61
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 194
+      }
+    },
+    {
+      "id": "prismatic-evolutions",
+      "name": "Prismatic Evolutions",
+      "allowedSourceSetIds": [
+        "sv8pt5"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 180,
+        "canonicalRuntime": 180,
+        "authoritativeManifest": 180,
+        "positivePackPool": 180,
+        "collectionChecklist": 180,
+        "scanner": 180,
+        "price": 180
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "god.PRISMATIC_DEMI_GOD_PACK": 32,
+        "god.PRISMATIC_FULL_EEVEELUTION_PACK": 10,
+        "modern.preRare.hyperRare": 5,
+        "modern.preRare.specialIllustrationRare": 32,
+        "normal.common": 46,
+        "normal.final.doubleRare": 25,
+        "normal.final.rare": 21,
+        "normal.final.ultraRare": 12,
+        "normal.reverse": 100,
+        "normal.subset.aceSpec": 6,
+        "normal.uncommon": 33
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 2,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 129
+      }
+    },
+    {
+      "id": "journey-together",
+      "name": "Journey Together",
+      "allowedSourceSetIds": [
+        "sv9"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 190,
+        "canonicalRuntime": 190,
+        "authoritativeManifest": 190,
+        "positivePackPool": 190,
+        "collectionChecklist": 190,
+        "scanner": 190,
+        "price": 190
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "modern.preRare.hyperRare": 3,
+        "modern.preRare.illustrationRare": 11,
+        "modern.preRare.specialIllustrationRare": 6,
+        "normal.common": 85,
+        "normal.final.doubleRare": 16,
+        "normal.final.rare": 16,
+        "normal.final.ultraRare": 11,
+        "normal.reverse": 143,
+        "normal.uncommon": 42
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 165
+      }
+    },
+    {
+      "id": "destined-rivals",
+      "name": "Destined Rivals",
+      "allowedSourceSetIds": [
+        "sv10"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 244,
+        "canonicalRuntime": 244,
+        "authoritativeManifest": 244,
+        "positivePackPool": 244,
+        "collectionChecklist": 244,
+        "scanner": 244,
+        "price": 244
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "modern.preRare.hyperRare": 6,
+        "modern.preRare.illustrationRare": 23,
+        "modern.preRare.specialIllustrationRare": 11,
+        "normal.common": 85,
+        "normal.final.doubleRare": 17,
+        "normal.final.rare": 18,
+        "normal.final.ultraRare": 22,
+        "normal.reverse": 165,
+        "normal.uncommon": 62
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 192
+      }
+    },
+    {
+      "id": "black-bolt",
+      "name": "Black Bolt",
+      "allowedSourceSetIds": [
+        "zsv10pt5"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 172,
+        "canonicalRuntime": 172,
+        "authoritativeManifest": 172,
+        "positivePackPool": 172,
+        "collectionChecklist": 172,
+        "scanner": 172,
+        "price": 172
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "god.BLACK_BOLT_9_IR_1_SIR": 76,
+        "modern.preRare.illustrationRare": 69,
+        "modern.preRare.specialIllustrationRare": 7,
+        "normal.common": 39,
+        "normal.final.blackWhiteRare": 1,
+        "normal.final.doubleRare": 6,
+        "normal.final.rare": 10,
+        "normal.final.ultraRare": 8,
+        "normal.final.victiniRare": 1,
+        "normal.reverse": 80,
+        "normal.uncommon": 31
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 1,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 101
+      }
+    },
+    {
+      "id": "white-flare",
+      "name": "White Flare",
+      "allowedSourceSetIds": [
+        "rsv10pt5"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 173,
+        "canonicalRuntime": 173,
+        "authoritativeManifest": 173,
+        "positivePackPool": 173,
+        "collectionChecklist": 173,
+        "scanner": 173,
+        "price": 173
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "god.WHITE_FLARE_9_IR_1_SIR": 77,
+        "modern.preRare.illustrationRare": 70,
+        "modern.preRare.specialIllustrationRare": 7,
+        "normal.common": 38,
+        "normal.final.blackWhiteRare": 1,
+        "normal.final.doubleRare": 6,
+        "normal.final.rare": 10,
+        "normal.final.ultraRare": 8,
+        "normal.final.victiniRare": 1,
+        "normal.reverse": 80,
+        "normal.uncommon": 32
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 1,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 95
+      }
+    },
+    {
+      "id": "mega-evolution",
+      "name": "Mega Evolution",
+      "allowedSourceSetIds": [
+        "me1"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 188,
+        "canonicalRuntime": 188,
+        "authoritativeManifest": 188,
+        "positivePackPool": 188,
+        "collectionChecklist": 188,
+        "scanner": 188,
+        "price": 188
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "mega.rare.megaDoubleRare": 10,
+        "mega.rare.rare": 12,
+        "mega.rare.ultraRare": 22,
+        "mega.secondFoil.illustrationRare": 22,
+        "mega.secondFoil.megaHyperRare": 2,
+        "mega.secondFoil.specialIllustrationRare": 10,
+        "normal.common": 67,
+        "normal.final.megaDoubleRare": 10,
+        "normal.final.rare": 12,
+        "normal.final.ultraRare": 22,
+        "normal.reverse": 122,
+        "normal.uncommon": 43
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 141
+      }
+    },
+    {
+      "id": "phantasmal-flames",
+      "name": "Phantasmal Flames",
+      "allowedSourceSetIds": [
+        "me2"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 130,
+        "canonicalRuntime": 130,
+        "authoritativeManifest": 130,
+        "positivePackPool": 130,
+        "collectionChecklist": 130,
+        "scanner": 130,
+        "price": 130
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "mega.rare.doubleRare": 4,
+        "mega.rare.megaDoubleRare": 6,
+        "mega.rare.rare": 10,
+        "mega.rare.ultraRare": 17,
+        "mega.secondFoil.illustrationRare": 13,
+        "mega.secondFoil.megaHyperRare": 1,
+        "mega.secondFoil.specialIllustrationRare": 5,
+        "normal.common": 43,
+        "normal.final.doubleRare": 4,
+        "normal.final.megaDoubleRare": 6,
+        "normal.final.rare": 10,
+        "normal.final.ultraRare": 17,
+        "normal.reverse": 84,
+        "normal.uncommon": 31
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 103
+      }
+    },
+    {
+      "id": "ascended-heroes",
+      "name": "Ascended Heroes",
+      "allowedSourceSetIds": [
+        "me2pt5"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 295,
+        "canonicalRuntime": 295,
+        "authoritativeManifest": 295,
+        "positivePackPool": 295,
+        "collectionChecklist": 295,
+        "scanner": 295,
+        "price": 295
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "god.ASCENDED_HEROES_3_MAR_7_SIR": 29,
+        "mega.rare.doubleRare": 26,
+        "mega.rare.megaAttackRare": 7,
+        "mega.rare.megaDoubleRare": 13,
+        "mega.rare.rare": 25,
+        "mega.rare.ultraRare": 14,
+        "mega.secondFoil.illustrationRare": 33,
+        "mega.secondFoil.megaHyperRare": 2,
+        "mega.secondFoil.specialIllustrationRare": 22,
+        "normal.common": 84,
+        "normal.final.doubleRare": 26,
+        "normal.final.megaAttackRare": 7,
+        "normal.final.megaDoubleRare": 13,
+        "normal.final.rare": 25,
+        "normal.final.ultraRare": 14,
+        "normal.reverse": 178,
+        "normal.uncommon": 69
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 1,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 213
+      }
+    },
+    {
+      "id": "perfect-order",
+      "name": "Perfect Order",
+      "allowedSourceSetIds": [
+        "me3"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 124,
+        "canonicalRuntime": 124,
+        "authoritativeManifest": 124,
+        "positivePackPool": 124,
+        "collectionChecklist": 124,
+        "scanner": 124,
+        "price": 124
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "mega.rare.doubleRare": 5,
+        "mega.rare.megaDoubleRare": 4,
+        "mega.rare.rare": 11,
+        "mega.rare.ultraRare": 18,
+        "mega.secondFoil.illustrationRare": 11,
+        "mega.secondFoil.megaHyperRare": 1,
+        "mega.secondFoil.specialIllustrationRare": 6,
+        "normal.common": 44,
+        "normal.final.doubleRare": 5,
+        "normal.final.megaDoubleRare": 4,
+        "normal.final.rare": 11,
+        "normal.final.ultraRare": 18,
+        "normal.reverse": 79,
+        "normal.uncommon": 24
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 100
+      }
+    },
+    {
+      "id": "chaos-rising",
+      "name": "Chaos Rising",
+      "allowedSourceSetIds": [
+        "me4"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 122,
+        "canonicalRuntime": 122,
+        "authoritativeManifest": 122,
+        "positivePackPool": 122,
+        "collectionChecklist": 122,
+        "scanner": 122,
+        "price": 122
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "mega.rare.doubleRare": 5,
+        "mega.rare.megaDoubleRare": 5,
+        "mega.rare.rare": 12,
+        "mega.rare.ultraRare": 18,
+        "mega.secondFoil.illustrationRare": 11,
+        "mega.secondFoil.megaHyperRare": 1,
+        "mega.secondFoil.specialIllustrationRare": 6,
+        "normal.common": 38,
+        "normal.final.doubleRare": 5,
+        "normal.final.megaDoubleRare": 5,
+        "normal.final.rare": 12,
+        "normal.final.ultraRare": 18,
+        "normal.reverse": 76,
+        "normal.uncommon": 26
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 97
+      }
+    },
+    {
+      "id": "pitch-black",
+      "name": "Pitch Black",
+      "allowedSourceSetIds": [
+        "me5"
+      ],
+      "expectedPackSize": 10,
+      "counts": {
+        "authoritativeSource": 120,
+        "canonicalRuntime": 120,
+        "authoritativeManifest": 120,
+        "positivePackPool": 120,
+        "collectionChecklist": 120,
+        "scanner": 120,
+        "price": 120
+      },
+      "exclusions": {
+        "nonCollectibleCanonicalCount": 0,
+        "nonCollectibleCanonicalIds": [],
+        "legacyResolvableCount": 0
+      },
+      "positivePullRoutes": {
+        "mega.rare.doubleRare": 4,
+        "mega.rare.megaDoubleRare": 6,
+        "mega.rare.rare": 11,
+        "mega.rare.ultraRare": 18,
+        "mega.secondFoil.illustrationRare": 11,
+        "mega.secondFoil.megaHyperRare": 1,
+        "mega.secondFoil.specialIllustrationRare": 6,
+        "normal.common": 37,
+        "normal.final.doubleRare": 4,
+        "normal.final.megaDoubleRare": 6,
+        "normal.final.rare": 11,
+        "normal.final.ultraRare": 18,
+        "normal.reverse": 74,
+        "normal.uncommon": 26
+      },
+      "checks": {
+        "sourceCountMatchesCanonical": true,
+        "manifestMatchesCanonical": true,
+        "packPoolMatchesCollectionChecklist": true,
+        "scannerMatchesCanonical": true,
+        "priceMatchesCanonical": true,
+        "imageAndRarityComplete": true,
+        "canGenerateNormalPack": true
+      },
+      "simulation": {
+        "packsGenerated": 100,
+        "forcedGodPacksValidated": 0,
+        "cardsGenerated": 1000,
+        "observedUniqueCanonicalCards": 99
+      }
+    }
+  ]
+}

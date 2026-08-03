@@ -23,6 +23,17 @@ test("native adapters keep capture temporary and local", async () => {
   for (const forbidden of ["localStorage", "indexedDB", "supabase", "fetch(\"http", "upload", "Filesystem"]) assert.equal(source.toLowerCase().includes(forbidden.toLowerCase()), false, `Unexpected persistence or upload API: ${forbidden}`);
 });
 
+test("Android scanner requires metadata-bound canonical asset names", async () => {
+  const source = await readFile(
+    new URL("../mobile-app/android/app/src/main/java/com/packdex/app/PackDexAiEmbedderPlugin.java", import.meta.url),
+    "utf8"
+  );
+  assert.match(source, /optString\("vectorFile", ""\)/);
+  assert.match(source, /optString\("metadataFile", ""\)/);
+  assert.match(source, /metadata is missing a valid vector filename/);
+  assert.doesNotMatch(source, /catalog-embeddings-a851d797\.f16/);
+});
+
 test("camera permission is requested only for camera source", async () => {
   const source = await readFile(new URL("../src/lib/cardScanner/captureCardImage.js", import.meta.url), "utf8");
   assert.match(source, /if \(source === "camera"\)/);

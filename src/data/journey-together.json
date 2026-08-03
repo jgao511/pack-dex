@@ -1310,22 +1310,22 @@
   },
   {
     "id": "journey-together-188-iono-s-bellibolt-ex-hyper",
-    "name": "Iono's Bellibolt ex Hyper",
+    "name": "Iono's Bellibolt ex",
     "rarity": "Rare",
     "number": "188",
     "image": "/assets/sets/journey-together/cards/188_Iono's_Bellibolt_ex_Hyper_Rare.png"
   },
   {
     "id": "journey-together-189-n-s-zoroark-ex-hyper",
-    "name": "N's Zoroark ex Hyper",
+    "name": "N's Zoroark ex",
     "rarity": "Rare",
     "number": "189",
     "image": "/assets/sets/journey-together/cards/189_N's_Zoroark_ex_Hyper_Rare.png"
   },
   {
     "id": "journey-together-190-spiky-energy-hyper",
-    "name": "Spiky Energy Hyper",
-    "rarity": "Rare",
+    "name": "Spiky Energy",
+    "rarity": "Hyper Rare",
     "number": "190",
     "image": "/assets/sets/journey-together/cards/190_Spiky_Energy_Hyper_Rare.png"
   }

@@ -70,6 +70,8 @@ import xy11Cards from "./xy11.json" with { type: "json" };
 import xy12Cards from "./xy12.json" with { type: "json" };
 import xySetConfig from "./xySetConfig.json" with { type: "json" };
 import vintageSetsData from "./vintageSets.json" with { type: "json" };
+import legacyCardQuarantine from "./legacyCardQuarantine.json" with { type: "json" };
+import officialSetMetadata from "./officialSetMetadata.json" with { type: "json" };
 import { thirtiethAnniversarySetDefinition } from "./special-sets/30th-anniversary/30thAnniversarySet.js";
 
 const pullRateProfilesBySet = {
@@ -200,7 +202,7 @@ const releaseDatesBySet = {
   "phantasmal-flames": "2025-11-14",
   "ascended-heroes": "2026-01-30",
   "perfect-order": "2026-03-13",
-  "chaos-rising": "2026-05-15",
+  "chaos-rising": "2026-05-22",
   "pitch-black": "2026-07-17",
   "30th-anniversary": "2026-06-14",
 };
@@ -265,6 +267,10 @@ function getEraForSet(id, metadata = {}) {
 
 function createSet(id, name, cards, metadata = {}) {
   const setFolder = metadata.setFolder || id;
+  const officialMetadata = officialSetMetadata[id] || {};
+  const legacyCards = legacyCardQuarantine
+    .filter((card) => card.setId === id)
+    .map((card) => ({ ...card, legacyQuarantine: true }));
 
   return {
     id,
@@ -273,11 +279,16 @@ function createSet(id, name, cards, metadata = {}) {
     setFolder,
     era: getEraForSet(id, metadata),
     releaseDate: metadata.releaseDate || releaseDatesBySet[id],
+    sourceSetId: officialMetadata.sourceSetId || metadata.pokemonTcgApiSetId || null,
+    allowedSourceSetIds: officialMetadata.allowedSourceSetIds || [],
+    printedTotal: metadata.printedTotal ?? officialMetadata.printedTotal ?? null,
+    sourceCardCount: officialMetadata.sourceCardCount ?? null,
     isNew: id === NEWEST_SET_ID,
     pullRateProfile: pullRateProfilesBySet[id],
     logoPath: metadata.logoPath || `${setFolder}/logo.png`,
     packArtPath: metadata.packArtPath || `${setFolder}/pack.png`,
     cards,
+    legacyCards,
   };
 }
 
@@ -391,4 +402,15 @@ export function isRetiredSet(setOrId) {
 }
 
 export const activeSets = sets.filter((set) => !isRetiredSet(set));
+
+export const legacyCardsById = new Map(
+  legacyCardQuarantine.map((card) => [String(card.id), { ...card, legacyQuarantine: true }])
+);
+
+export function getSetCardById(set, cardId, { includeLegacy = false } = {}) {
+  const key = String(cardId || "");
+  const canonicalCard = (set?.cards || []).find((card) => String(card.id) === key);
+  if (canonicalCard || !includeLegacy) return canonicalCard || null;
+  return (set?.legacyCards || []).find((card) => String(card.id) === key) || null;
+}
 

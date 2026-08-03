@@ -72,6 +72,7 @@ import {
 import {
   getCardCollectionKey,
   getCardCount,
+  getCollectionVisibleCards,
   getPullableCollectionCards,
   getSetCollectionProgress,
   isCardCollected,
@@ -274,7 +275,7 @@ function removeLegacyProfileStatsStorage() {
 
 function getCollectedCards(collection) {
   return sets.flatMap((set) =>
-    getPullableCollectionCards(set)
+    getCollectionVisibleCards(set, collection)
       .filter((card) => isCardCollected(collection, card, set.id))
       .map((card) => ({
         card,

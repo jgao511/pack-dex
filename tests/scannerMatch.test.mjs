@@ -33,8 +33,14 @@ test("matches Galarian Gallery prefixes", () => expectTop("Mewtwo VSTAR\nGG44/GG
 test("matches a vintage duplicate name using its total", () => expectTop("Pikachu\n58/102", "base-set", "58"));
 test("name-only duplicates do not auto-select", () => { const out = rankCardMatches({ rawText: "Pikachu" }); assert.notEqual(out.confidence, "high"); assert.equal(out.primaryMatch, null); assert.ok(out.results.length > 1); });
 test("copyright noise has no reliable match", () => { const out = rankCardMatches({ rawText: "copyright 2025 pokemon creatures inc" }); assert.equal(out.confidence, "low"); assert.equal(out.results.length, 0); });
-test("set totals support number-only matches", () => expectTop("203/198", "scarlet-violet", "203"));
-test("handles secret-card numbering above the printed total", () => expectTop("205/198", "scarlet-violet", "205"));
+test("ambiguous number-only matches never select a printing by catalog order", () => {
+  for (const rawText of ["203/198", "205/198"]) {
+    const output = rankCardMatches({ rawText });
+    assert.equal(output.confidence, "low");
+    assert.equal(output.primaryMatch, null);
+    assert.deepEqual(new Set(output.results.map((result) => result.setId)), new Set(["chilling-reign", "scarlet-violet"]));
+  }
+});
 test("parses full-width slash, prefixes, promos, and leading zeros", () => {
   assert.deepEqual(extractCollectorNumbers("203／198 TG23/TG30 SWSH262 025/165 2025").map((x) => [x.normalized, x.normalizedTotal]), [["203", "198"], ["TG23", "TG30"], ["25", "165"], ["SWSH262", null]]);
 });

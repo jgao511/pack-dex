@@ -3,17 +3,24 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import {
   generatePack,
+  generateNormalPackOnly,
   getDisplayRarity,
   getMegaRareSlotWeights,
   getMegaSecondFoilSlotWeights,
   getRarityCategory,
+  isCardAllowedInPackSlot,
 } from "../src/utils/packGenerator.js";
 import { getFoilProfile } from "../src/utils/foil.js";
 import { getRarityVisualLevel } from "../mobile-app/src/utils/rarityPresentation.js";
 
 const ORDINARY_CATEGORIES = new Set(["common", "uncommon", "rare"]);
-const SLOT_9_CATEGORIES = new Set([...ORDINARY_CATEGORIES, "illustrationRare", "specialIllustrationRare"]);
-const SLOT_10_CATEGORIES = new Set(["rare", "doubleRare", "megaDoubleRare", "ultraRare", "megaHyperRare"]);
+const SLOT_9_CATEGORIES = new Set([
+  ...ORDINARY_CATEGORIES,
+  "illustrationRare",
+  "specialIllustrationRare",
+  "megaHyperRare",
+]);
+const SLOT_10_CATEGORIES = new Set(["rare", "doubleRare", "megaDoubleRare", "ultraRare"]);
 const EXISTING_MEGA_SET_IDS = [
   "mega-evolution",
   "phantasmal-flames",
@@ -44,13 +51,13 @@ function makePitchBlackFixture(finalCategory, slot9Category = "normal") {
     ...Array.from({ length: 6 }, (_, index) => makeCard(`u${index + 1}`, "uncommon", "Uncommon")),
     makeCard("ir", "illustrationRare", "Illustration Rare", "Fomantis"),
     makeCard("sir", "specialIllustrationRare", "Special Illustration Rare", "Mega Darkrai ex"),
+    makeCard("mhr", "megaHyperRare", "Mega Hyper Rare", "Mega Darkrai ex"),
   ];
   const finalRarities = {
     rare: ["Rare", "Darkrai"],
     doubleRare: ["Double Rare", "Lurantis ex"],
     megaDoubleRare: ["Double Rare", "Mega Delphox ex"],
     ultraRare: ["Ultra Rare", "Misty's Vitality"],
-    megaHyperRare: ["Mega Hyper Rare", "Mega Darkrai ex"],
   };
   const [rarity, name] = finalRarities[finalCategory];
   const finalCount = finalCategory === "rare" ? 3 : 1;
@@ -68,7 +75,13 @@ function makePitchBlackFixture(finalCategory, slot9Category = "normal") {
       pullRateProfile: "megaEvolutionStandard",
       cards,
     },
-    slot9Roll: slot9Category === "illustrationRare" ? 0.9 : slot9Category === "specialIllustrationRare" ? 0.995 : 0.5,
+    slot9Roll: slot9Category === "illustrationRare"
+      ? 0.9
+      : slot9Category === "specialIllustrationRare"
+        ? 0.995
+        : slot9Category === "megaHyperRare"
+          ? 0.9999
+          : 0.5,
   };
 }
 
@@ -110,8 +123,13 @@ test("Pitch Black has exact independent slot-9 and slot-10 fallback weights", ()
   const slot9 = getMegaSecondFoilSlotWeights(set);
   const slot10 = getMegaRareSlotWeights(set);
 
-  assert.deepEqual(slot9, { normal: 87.89, illustrationRare: 11, specialIllustrationRare: 1.11 });
-  assert.deepEqual(slot10, { rare: 71.144, doubleRare: 8.2, megaDoubleRare: 12.3, ultraRare: 8.3, megaHyperRare: 0.056 });
+  assert.deepEqual(slot9, {
+    normal: 87.834,
+    illustrationRare: 11,
+    specialIllustrationRare: 1.11,
+    megaHyperRare: 0.056,
+  });
+  assert.deepEqual(slot10, { rare: 71.2, doubleRare: 8.2, megaDoubleRare: 12.3, ultraRare: 8.3 });
   assert.equal(Object.values(slot9).reduce((sum, value) => sum + value, 0), 100);
   assert.equal(Object.values(slot10).reduce((sum, value) => sum + value, 0), 100);
   assert.equal(slot10.doubleRare + slot10.megaDoubleRare, 20.5);
@@ -140,7 +158,7 @@ for (const finalCategory of SLOT_10_CATEGORIES) {
   });
 }
 
-for (const slot9Category of ["illustrationRare", "specialIllustrationRare"]) {
+for (const slot9Category of ["illustrationRare", "specialIllustrationRare", "megaHyperRare"]) {
   for (const finalCategory of SLOT_10_CATEGORIES) {
     test(`${slot9Category} can coexist with ${finalCategory}`, () => {
       const { set, pack, categories } = generateFixturePack(finalCategory, slot9Category);
@@ -148,19 +166,99 @@ for (const slot9Category of ["illustrationRare", "specialIllustrationRare"]) {
       assertMegaLayout(pack, set);
       assert.equal(categories[8], slot9Category);
       assert.equal(categories[9], finalCategory);
-      assert.equal(categories.filter((category) => ["illustrationRare", "specialIllustrationRare"].includes(category)).length, 1);
+      assert.equal(
+        categories.filter((category) => ["illustrationRare", "specialIllustrationRare", "megaHyperRare"].includes(category)).length,
+        1
+      );
     });
   }
 }
 
-test("slot 9 has one mutually exclusive outcome and slot 10 cannot contain IR or SIR", () => {
-  for (const slot9Category of ["normal", "illustrationRare", "specialIllustrationRare"]) {
+test("slot 9 has one mutually exclusive outcome and slot 10 cannot contain IR, SIR, or MHR", () => {
+  for (const slot9Category of ["normal", "illustrationRare", "specialIllustrationRare", "megaHyperRare"]) {
     const { set, pack, categories } = generateFixturePack("ultraRare", slot9Category);
 
     assertMegaLayout(pack, set);
     assert.equal(categories.slice(8, 9).length, 1);
-    assert.ok(!["illustrationRare", "specialIllustrationRare"].includes(categories[9]));
+    assert.ok(!["illustrationRare", "specialIllustrationRare", "megaHyperRare"].includes(categories[9]));
   }
+});
+
+test("explicit and derived Mega profiles migrate MHR without changing any named hit rate", () => {
+  const pitchBlack = { id: "pitch-black", pullRateProfile: "megaEvolutionStandard" };
+  const ascendedHeroes = { id: "ascended-heroes", pullRateProfile: "megaEvolutionStandard" };
+  const megaEvolution = { id: "mega-evolution", pullRateProfile: "megaEvolutionStandard" };
+
+  assert.deepEqual(getMegaSecondFoilSlotWeights(ascendedHeroes), {
+    normal: 87.12,
+    illustrationRare: 11.25,
+    specialIllustrationRare: 1.44,
+    megaHyperRare: 0.19,
+  });
+  assert.deepEqual(getMegaRareSlotWeights(ascendedHeroes), {
+    rare: 71.35,
+    doubleRare: 13.58,
+    megaDoubleRare: 6.79,
+    ultraRare: 4.81,
+    megaAttackRare: 3.47,
+  });
+  assert.deepEqual(getMegaSecondFoilSlotWeights(pitchBlack), {
+    normal: 87.834,
+    illustrationRare: 11,
+    specialIllustrationRare: 1.11,
+    megaHyperRare: 0.056,
+  });
+  assert.deepEqual(getMegaRareSlotWeights(pitchBlack), {
+    rare: 71.2,
+    doubleRare: 8.2,
+    megaDoubleRare: 12.3,
+    ultraRare: 8.3,
+  });
+  assert.deepEqual(getMegaSecondFoilSlotWeights(megaEvolution), {
+    normal: 91.8,
+    illustrationRare: 6,
+    specialIllustrationRare: 2,
+    megaHyperRare: 0.2,
+  });
+  assert.deepEqual(getMegaRareSlotWeights(megaEvolution), {
+    rare: 76,
+    doubleRare: 0,
+    megaDoubleRare: 18,
+    ultraRare: 6,
+    megaAttackRare: 0,
+  });
+});
+
+test("Mega slot eligibility makes MHR second-foil-only while MAR stays final-only", () => {
+  const set = { id: "ascended-heroes", pullRateProfile: "megaEvolutionStandard" };
+  const mhr = makeCard("mhr", "megaHyperRare", "Mega Hyper Rare");
+  const mar = makeCard("mar", "megaAttackRare", "Mega Attack Rare");
+
+  assert.equal(isCardAllowedInPackSlot(mhr, 8, set), true);
+  assert.equal(isCardAllowedInPackSlot(mhr, 9, set), false);
+  assert.equal(isCardAllowedInPackSlot(mar, 8, set), false);
+  assert.equal(isCardAllowedInPackSlot(mar, 9, set), true);
+});
+
+test("MHR and MAR can occupy their exclusive physical slots in the same Ascended Heroes pack", () => {
+  const cards = [
+    ...Array.from({ length: 8 }, (_, index) => makeCard(`ah-c${index + 1}`, "common", "Common")),
+    ...Array.from({ length: 6 }, (_, index) => makeCard(`ah-u${index + 1}`, "uncommon", "Uncommon")),
+    makeCard("ah-rare", "rare", "Rare"),
+    makeCard("ah-ir", "illustrationRare", "Illustration Rare"),
+    makeCard("ah-sir", "specialIllustrationRare", "Special Illustration Rare"),
+    makeCard("ah-mhr", "megaHyperRare", "Mega Hyper Rare"),
+    makeCard("ah-mar", "megaAttackRare", "Mega Attack Rare"),
+  ];
+  const set = { id: "ascended-heroes", pullRateProfile: "megaEvolutionStandard", cards };
+  const rolls = Array(24).fill(0.5);
+  rolls[8] = 0.9999;
+  rolls[10] = 0.9999;
+  const pack = withRandomSequence(rolls, () => generateNormalPackOnly(set));
+  const categories = pack.map((card) => getRarityCategory(card, set));
+
+  assert.equal(categories[8], "megaHyperRare");
+  assert.equal(categories[9], "megaAttackRare");
 });
 
 test("the Mega correction does not move an older profile's final art hit into slot 9", () => {

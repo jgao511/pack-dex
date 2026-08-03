@@ -6,6 +6,7 @@ import FoilCard from "./FoilCard.jsx";
 import { getRemoteSetLogoUrl, getSetLogoUrl } from "../utils/assetUrls.js";
 import {
   getCardCount,
+  getCollectionVisibleCards,
   getPullableCollectionCards,
   getSetCollectionProgress,
   isCardCollected,
@@ -186,7 +187,7 @@ function CollectionPage({
   const [coverColorId, setCoverColorId] = useState(() => loadMasterBinderCoverColor(set.id));
   const isMobileBinder = useIsMobileBinder();
   const progress = getSetCollectionProgress(collection, set);
-  const cards = useMemo(() => getPullableCollectionCards(set), [set]);
+  const cards = useMemo(() => getCollectionVisibleCards(set, collection), [collection, set]);
   const masterCards = useMemo(() => sortCards(cards, "number", set), [cards, set]);
   const masterPages = useMemo(() => chunkCards(masterCards, MASTER_BINDER_PAGE_SIZE), [masterCards]);
   const masterPageCount = Math.max(1, masterPages.length);

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { getCardImageUrl, getSetLogoUrl } from "../../utils/assetUrls.js";
 import { getDisplayCardName, getDisplayRarity } from "../../utils/packGenerator.js";
-import { getCardCount, getPullableCollectionCards } from "../../utils/collectionStorage.js";
+import { getCardCount, getCollectionVisibleCards, getPullableCollectionCards } from "../../utils/collectionStorage.js";
 import { getBinderCardKey } from "../../utils/binderStorage.js";
 import {
   BINDER_ERA_FILTERS,
@@ -104,7 +104,13 @@ export function OwnedCardPicker({ collection, binder, setList, onClose, onConfir
   const [visibleCount, setVisibleCount] = useState(OWNED_CARD_PAGE_SIZE);
   const existingKeys = useMemo(() => new Set((binder?.cards || []).map((item) => item.key)), [binder?.cards]);
   const ownedCards = useMemo(
-    () => getOwnedBinderCards(setList, collection, getPullableCollectionCards, getCardCount, getBinderCardKey),
+    () => getOwnedBinderCards(
+      setList,
+      collection,
+      (set) => getCollectionVisibleCards(set, collection),
+      getCardCount,
+      getBinderCardKey
+    ),
     [collection, setList]
   );
   const ownedSets = useMemo(

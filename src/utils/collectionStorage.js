@@ -1,4 +1,4 @@
-import { sets } from "../data/sets.js";
+import { getSetCardById, sets } from "../data/sets.js";
 import { isCollectibleSetCard } from "./energyCardPolicy.js";
 
 export const COLLECTION_STORAGE_KEY = "pokemon-pack-simulator-collection";
@@ -25,8 +25,7 @@ function safeParseCollection(value) {
 
 export function getCardCollectionKey(card, setId) {
   if (card?.id) return String(card.id);
-
-  return `${setId}-${card?.number || "unknown"}-${card?.name || "card"}`;
+  throw new Error(`Card ${setId || "unknown-set"} is missing its stable PackDex ID.`);
 }
 
 function getDefaultStorage() {
@@ -49,7 +48,7 @@ export function saveCollection(collection, storage = getDefaultStorage()) {
 
 export function markCardCollected(collection, card, setId, timestamp = Date.now()) {
   const set = sets.find((candidate) => candidate.id === setId) || { id: setId };
-  if (!isCollectibleSetCard(card, set)) return collection;
+  if (card?.legacyQuarantine || !isCollectibleSetCard(card, set)) return collection;
 
   const key = getCardCollectionKey(card, setId);
   const setCollection = collection[setId] || {};
@@ -91,6 +90,18 @@ export function getCardCount(collection, card, setId) {
 
 export function getPullableCollectionCards(set) {
   return (set?.cards || []).filter((card) => !isCodeCard(card) && isCollectibleSetCard(card, set));
+}
+
+export function getLegacyCollectionCards(set, collection) {
+  return (set?.legacyCards || []).filter((card) => getCardCount(collection, card, set.id) > 0);
+}
+
+export function getCollectionVisibleCards(set, collection) {
+  return [...getPullableCollectionCards(set), ...getLegacyCollectionCards(set, collection)];
+}
+
+export function resolveSavedCollectionCard(set, cardId) {
+  return getSetCardById(set, cardId, { includeLegacy: true });
 }
 
 export function getSetCollectionProgress(collection, set) {

@@ -1,4 +1,9 @@
-import { sets } from "../../data/sets.js";
+import { activeSets } from "../../data/sets.js";
+import {
+  getCardPrintedTotalOverride,
+  getCardSourceId,
+  getSetPrefixPrintedTotalOverride,
+} from "../cardSourceIdentity.js";
 import { normalizeCardName, normalizeCollectorNumber } from "./normalizeScannerText.js";
 
 function deriveTotals(cards) {
@@ -19,18 +24,27 @@ function deriveTotals(cards) {
   return derived;
 }
 
-export function buildScannerCatalog(sourceSets = sets) {
+export function buildScannerCatalog(sourceSets = activeSets) {
   return sourceSets.flatMap((set) => {
     const totals = deriveTotals(set.cards || []);
     return (set.cards || []).map((card) => {
       const normalizedNumber = normalizeCollectorNumber(card.number);
       const prefix = normalizedNumber.match(/^[A-Z]+/)?.[0] || "";
+      const printedTotalOverride = getCardPrintedTotalOverride(card);
+      const prefixPrintedTotalOverride = prefix
+        ? getSetPrefixPrintedTotalOverride(set.id, prefix)
+        : null;
       return {
-        cardId: String(card.id), apiCardId: card.apiCardId || card.pokemonTcgId || null,
+        cardId: String(card.id), apiCardId: getCardSourceId(card, set.id),
         card, name: card.name, normalizedName: normalizeCardName(card.name), cardNumber: String(card.number), normalizedNumber,
         // Card faces print the numbered base-set denominator (for example
         // Evolutions 55/108), not the total after secret cards are included.
-        printedSetTotal: String(set.baseCards ?? set.printedTotal ?? totals[prefix] ?? ""), setId: set.id, setName: set.name,
+        printedSetTotal: String(
+          printedTotalOverride ??
+          card.printedTotal ??
+          (prefix ? prefixPrintedTotalOverride ?? "" : set.baseCards ?? set.printedTotal ?? totals[""]) ??
+          ""
+        ), setId: set.id, setName: set.name,
         series: set.series || set.era || null, releaseYear: set.releaseDate ? Number(set.releaseDate.slice(0, 4)) : null,
         rarity: card.rarity || null, imageUrl: card.image || null, priceReferenceIds: [card.id, card.apiCardId].filter(Boolean),
       };

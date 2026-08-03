@@ -806,14 +806,14 @@
   },
   {
     "id": "prismatic-evolutions-116-max-rod-ace-spec",
-    "name": "Max Rod ACE SPEC",
+    "name": "Max Rod",
     "rarity": "Rare",
     "number": "116",
     "image": "/assets/sets/prismatic-evolutions/cards/116_Max_Rod_ACE_SPEC_Rare.png"
   },
   {
     "id": "prismatic-evolutions-117-maximum-belt-ace-spec",
-    "name": "Maximum Belt ACE SPEC",
+    "name": "Maximum Belt",
     "rarity": "Rare",
     "number": "117",
     "image": "/assets/sets/prismatic-evolutions/cards/117_Maximum_Belt_ACE_SPEC_Rare.png"
@@ -827,7 +827,7 @@
   },
   {
     "id": "prismatic-evolutions-119-prime-catcher-ace-spec",
-    "name": "Prime Catcher ACE SPEC",
+    "name": "Prime Catcher",
     "rarity": "Rare",
     "number": "119",
     "image": "/assets/sets/prismatic-evolutions/cards/119_Prime_Catcher_ACE_SPEC_Rare.png"
@@ -890,14 +890,14 @@
   },
   {
     "id": "prismatic-evolutions-128-scoop-up-cyclone-ace-spec",
-    "name": "Scoop Up Cyclone ACE SPEC",
+    "name": "Scoop Up Cyclone",
     "rarity": "Rare",
     "number": "128",
     "image": "/assets/sets/prismatic-evolutions/cards/128_Scoop_Up_Cyclone_ACE_SPEC_Rare.png"
   },
   {
     "id": "prismatic-evolutions-129-sparkling-crystal-ace-spec",
-    "name": "Sparkling Crystal ACE SPEC",
+    "name": "Sparkling Crystal",
     "rarity": "Rare",
     "number": "129",
     "image": "/assets/sets/prismatic-evolutions/cards/129_Sparkling_Crystal_ACE_SPEC_Rare.png"
@@ -911,7 +911,7 @@
   },
   {
     "id": "prismatic-evolutions-131-treasure-tracker-ace-spec",
-    "name": "Treasure Tracker ACE SPEC",
+    "name": "Treasure Tracker",
     "rarity": "Rare",
     "number": "131",
     "image": "/assets/sets/prismatic-evolutions/cards/131_Treasure_Tracker_ACE_SPEC_Rare.png"
@@ -1226,35 +1226,35 @@
   },
   {
     "id": "prismatic-evolutions-176-iron-leaves-ex-hyper",
-    "name": "Iron Leaves ex Hyper",
+    "name": "Iron Leaves ex",
     "rarity": "Rare",
     "number": "176",
     "image": "/assets/sets/prismatic-evolutions/cards/176_Iron_Leaves_ex_Hyper_Rare.png"
   },
   {
     "id": "prismatic-evolutions-177-teal-mask-ogerpon-ex-hyper",
-    "name": "Teal Mask Ogerpon ex Hyper",
+    "name": "Teal Mask Ogerpon ex",
     "rarity": "Rare",
     "number": "177",
     "image": "/assets/sets/prismatic-evolutions/cards/177_Teal_Mask_Ogerpon_ex_Hyper_Rare.png"
   },
   {
     "id": "prismatic-evolutions-178-walking-wake-ex-hyper",
-    "name": "Walking Wake ex Hyper",
+    "name": "Walking Wake ex",
     "rarity": "Rare",
     "number": "178",
     "image": "/assets/sets/prismatic-evolutions/cards/178_Walking_Wake_ex_Hyper_Rare.png"
   },
   {
     "id": "prismatic-evolutions-179-pikachu-ex-hyper",
-    "name": "Pikachu ex Hyper",
+    "name": "Pikachu ex",
     "rarity": "Rare",
     "number": "179",
     "image": "/assets/sets/prismatic-evolutions/cards/179_Pikachu_ex_Hyper_Rare.png"
   },
   {
     "id": "prismatic-evolutions-180-terapagos-ex-hyper",
-    "name": "Terapagos ex Hyper",
+    "name": "Terapagos ex",
     "rarity": "Rare",
     "number": "180",
     "image": "/assets/sets/prismatic-evolutions/cards/180_Terapagos_ex_Hyper_Rare.png"
