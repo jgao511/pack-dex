@@ -37,6 +37,17 @@ test("failed API subsets preserve prior rows while successful subsets can still 
   assert.match(source, /apiErrors/);
 });
 
+test("an explicitly requested exact card can recover a failed subset without scheduled request amplification", async () => {
+  const source = await sourcePromise;
+  assert.match(source, /apiCardIds/);
+  assert.match(source, /\.slice\(0, 50\)/);
+  assert.match(source, /\/cards\/\$\{encodeURIComponent\(apiCardId\)\}/);
+  assert.match(source, /cardBySourceId\.get\(compactId\(apiCardId\)\)/);
+  assert.match(source, /!successfulApiSetIds\.has\(compactId\(appCard\.sourceSetId\)\)/);
+  assert.match(source, /exactFallbackCardsFetched/);
+  assert.doesNotMatch(source, /exactFallbackIds\s*=\s*cards\.map/);
+});
+
 test("read-only audit mode never writes price rows", async () => {
   const source = await sourcePromise;
   assert.match(source, /const dryRun = body\?\.dryRun === true/);

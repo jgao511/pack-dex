@@ -115,6 +115,11 @@ function getRequestedSetIds(body: Record<string, unknown>) {
   return setIds?.map(compactId).filter(Boolean) || [];
 }
 
+function getRequestedApiCardIds(body: Record<string, unknown>) {
+  const cardIds = Array.isArray(body?.apiCardIds) ? body.apiCardIds : Array.isArray(body?.api_card_ids) ? body.api_card_ids : [];
+  return [...new Set(cardIds.map(compactId).filter(Boolean))].slice(0, 50);
+}
+
 function getOverrideMap(body: Record<string, unknown>, key: string) {
   const value = body?.[key];
   return value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {};
@@ -169,6 +174,25 @@ async function fetchPokemonTcgCards(apiSetId: string) {
   return cards;
 }
 
+async function fetchPokemonTcgCard(apiCardId: string) {
+  const apiKey = Deno.env.get("POKEMON_TCG_API_KEY") || Deno.env.get("POKEMONTCG_API_KEY") || "";
+  const response = await fetch(`${POKEMON_TCG_API_BASE_URL}/cards/${encodeURIComponent(apiCardId)}`, {
+    headers: apiKey ? { "X-Api-Key": apiKey } : {},
+  });
+
+  if (!response.ok) {
+    throw new Error(`Pokemon TCG API exact-card request failed for ${apiCardId} with HTTP ${response.status}.`);
+  }
+
+  const body = await response.json();
+  const card = body?.data as PokemonTcgCard | undefined;
+  if (!card || compactId(card.id) !== compactId(apiCardId)) {
+    throw new Error(`Pokemon TCG API returned an unexpected exact-card identity for ${apiCardId}.`);
+  }
+
+  return card;
+}
+
 async function deleteStalePrices(admin: AdminClient, setId: string, cardIds: string[]) {
   const uniqueCardIds = [...new Set(cardIds)];
   if (uniqueCardIds.length === 0) return 0;
@@ -190,6 +214,7 @@ async function syncSet(
   tcgplayerSetSlug: string | null,
   appCardCount: number | null,
   dryRun: boolean,
+  requestedApiCardIds: string[],
 ) {
   const cards = Array.isArray(set.cards) ? set.cards : [];
   const lookup = buildCanonicalCardLookup(cards);
@@ -200,16 +225,34 @@ async function syncSet(
   const successfulFetches = fetchResults
     .filter((result): result is PromiseFulfilledResult<{ apiSetId: string; cards: PokemonTcgCard[] }> => result.status === "fulfilled")
     .map((result) => result.value);
-  const apiErrors = fetchResults
+  const apiErrors: Array<{ apiSetId?: string; apiCardId?: string; error: unknown }> = fetchResults
     .map((result, index) => result.status === "rejected" ? {
       apiSetId: apiSetIds[index],
       error: formatErrorForResponse(result.reason),
     } : null)
-    .filter(Boolean);
-  if (successfulFetches.length === 0) {
+    .filter((error): error is { apiSetId: string; error: unknown } => Boolean(error));
+  const successfulApiSetIds = new Set(successfulFetches.map((result) => compactId(result.apiSetId)));
+  const cardBySourceId = new Map(cards.map((card) => [compactId(card.sourceCardId), card]));
+  const exactFallbackIds = requestedApiCardIds.filter((apiCardId) => {
+    const appCard = cardBySourceId.get(compactId(apiCardId));
+    return appCard && !successfulApiSetIds.has(compactId(appCard.sourceSetId));
+  });
+  const exactFallbackResults = await Promise.allSettled(exactFallbackIds.map(fetchPokemonTcgCard));
+  const exactFallbackCards = exactFallbackResults
+    .filter((result): result is PromiseFulfilledResult<PokemonTcgCard> => result.status === "fulfilled")
+    .map((result) => result.value);
+  exactFallbackResults.forEach((result, index) => {
+    if (result.status === "rejected") {
+      apiErrors.push({
+        apiCardId: exactFallbackIds[index],
+        error: formatErrorForResponse(result.reason),
+      });
+    }
+  });
+  if (successfulFetches.length === 0 && exactFallbackCards.length === 0) {
     throw new Error(`All Pokemon TCG API set requests failed for ${set.id}.`);
   }
-  const apiCards = successfulFetches.flatMap((result) => result.cards);
+  const apiCards = [...successfulFetches.flatMap((result) => result.cards), ...exactFallbackCards];
   const rows = [];
   const staleCardIds = [];
   const matchedAppCardIds = new Set<string>();
@@ -286,8 +329,10 @@ async function syncSet(
   const sourceCardCount = appCardCount ?? cards.length;
   const marketPricesUpserted = rows.filter((row) => row.market_price_usd != null).length;
   const marketCoverage = sourceCardCount > 0 ? marketPricesUpserted / sourceCardCount : 0;
-  const successfulApiSetIds = new Set(successfulFetches.map((result) => result.apiSetId));
-  const cardsEligibleForAudit = cards.filter((card) => successfulApiSetIds.has(compactId(card.sourceSetId)));
+  const exactFallbackCardIds = new Set(exactFallbackCards.map((card) => compactId(card.id)));
+  const cardsEligibleForAudit = cards.filter((card) =>
+    successfulApiSetIds.has(compactId(card.sourceSetId)) || exactFallbackCardIds.has(compactId(card.sourceCardId))
+  );
   const cardsWithNoMapping = cardsEligibleForAudit.filter((card) => {
     const key = compactId(card.id) || compactId(card.sourceCardId);
     return key && !matchedAppCardIds.has(key);
@@ -300,6 +345,7 @@ async function syncSet(
     tcgplayerSetSlug,
     appCardCount: sourceCardCount,
     externalCardsFetched: apiCards.length,
+    exactFallbackCardsFetched: exactFallbackCards.length,
     exactCardMatches: matchedAppCardIds.size,
     exactApiIdMatches,
     setNumberNameMatches,
@@ -341,6 +387,7 @@ Deno.serve(async (req) => {
     debugStep = "parse_body";
     const body = await req.json().catch(() => ({})) as Record<string, unknown>;
     const dryRun = body?.dryRun === true || body?.dry_run === true;
+    const requestedApiCardIds = getRequestedApiCardIds(body);
     const allowOverrides = Deno.env.get("ALLOW_PRICE_SYNC_OVERRIDES") === "true";
     const setApiIds = allowOverrides ? getOverrideMap(body, "setApiIds") : {};
     const setTcgplayerSlugs = allowOverrides ? getOverrideMap(body, "setTcgplayerSlugs") : {};
@@ -375,6 +422,7 @@ Deno.serve(async (req) => {
           selected.tcgplayerSetSlug,
           selected.appCardCount,
           dryRun,
+          requestedApiCardIds,
         );
 
         cardsUpserted += result.identityRowsUpserted;
