@@ -102,9 +102,11 @@ export function indexPriceRows(rows = [], { now = Date.now() } = {}) {
     const normalized = normalizePriceRow(row, now);
     if (!normalized) return;
 
+    // The repaired catalog supplies an exact provider card ID for every active
+    // canonical card. Do not synthesize a local ID from set/name/number here:
+    // complementary sets can share those fields while representing different
+    // printings (for example Black Bolt and White Flare).
     if (normalized.cardId) priceMap.set(String(normalized.cardId), normalized);
-    const packDexPriceKey = getPackDexPriceKeyFromRow(row);
-    if (packDexPriceKey) priceMap.set(packDexPriceKey, normalized);
   });
 
   return priceMap;
@@ -242,7 +244,7 @@ async function fetchCardPricesForCollection(supabaseOrCollectionCards, maybeColl
   rows.forEach((row) => {
     const setId = row.set_id;
     const wantedKeys = keysBySet.get(setId);
-    const rowKeys = [row.card_id, getPackDexPriceKeyFromRow(row)].filter(Boolean);
+    const rowKeys = [row.card_id].filter(Boolean);
 
     if (!wantedKeys || !rowKeys.some((key) => wantedKeys.has(String(key)))) return;
 

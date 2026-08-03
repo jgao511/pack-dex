@@ -62,3 +62,23 @@ test("URL-only identity rows are indexed without becoming zero-dollar prices", (
   assert.equal(price.tcgplayerUrl.endsWith("/api-card"), true);
   assert.equal(getCollectionValueCoverage(owned, { set: priceMap }).isComplete, false);
 });
+
+test("a complementary-set row cannot price a different canonical card through name and number", () => {
+  const priceMap = indexPriceRows([{
+    card_id: "rsv10pt5-32",
+    set_id: "black-bolt",
+    card_number: "32",
+    name: "Eelektross",
+    market_price_usd: 1.25,
+    synced_at: new Date(now).toISOString(),
+  }], { now });
+  const blackBoltCard = {
+    id: "black-bolt-32-eelektross",
+    sourceSetId: "zsv10pt5",
+    sourceCardId: "zsv10pt5-32",
+    number: "32",
+    name: "Eelektross",
+  };
+
+  assert.equal(getCardDisplayPrice(blackBoltCard, priceMap, "black-bolt"), null);
+});
