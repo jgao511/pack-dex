@@ -1,6 +1,16 @@
 import catalog from "./catalog.json" with { type: "json" };
 import { getAdminClient } from "../_shared/auth.ts";
 import { formatErrorForResponse } from "../_shared/http.ts";
+import {
+  buildCanonicalCardLookup,
+  buildMarketplaceRow,
+  compactText,
+  matchCanonicalCard,
+  normalizeCanonicalName,
+  normalizeCollectorNumber,
+  preserveCanonicalMarketplaceIdentity,
+  selectTcgplayerPrice,
+} from "../_shared/cardPricing.js";
 
 // Keep this function deploy-scoped: no imports from src/, public/, dist/, or image assets.
 const corsHeaders = {
@@ -9,7 +19,6 @@ const corsHeaders = {
 };
 
 const POKEMON_TCG_API_BASE_URL = "https://api.pokemontcg.io/v2";
-const ACCEPTED_PRICE_TYPES = ["normal", "holofoil", "reverseHolofoil"];
 
 type AdminClient = ReturnType<typeof getAdminClient>;
 type PackDexSet = {
@@ -28,12 +37,15 @@ type PackDexCard = {
   rarity?: string;
   sourceSetId?: string;
   sourceCardId?: string;
+  tcgplayerPriceType?: string;
+  priceFinish?: string;
 };
 type PokemonTcgCard = {
   id?: string;
   name?: string;
   number?: string | number;
   rarity?: string;
+  set?: { id?: string };
   tcgplayer?: {
     url?: string;
     updatedAt?: string;
@@ -55,30 +67,8 @@ function scopedJsonResponse(body: unknown, status = 200) {
   });
 }
 
-function normalizeCardNumber(value: unknown) {
-  return String(value || "").trim().replace(/^0+(\d)/, "$1").toLowerCase();
-}
-
-function normalizeName(value: unknown) {
-  return String(value || "").trim().toLowerCase();
-}
-
-function slugifyCardName(value: unknown) {
-  return String(value || "")
-    .toLowerCase()
-    .replace(/&/g, "and")
-    .replace(/['']/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
-
 function compactId(value: unknown) {
-  return String(value || "").trim();
-}
-
-function toPositiveNumber(value: unknown) {
-  const numberValue = Number(value);
-  return Number.isFinite(numberValue) && numberValue > 0 ? numberValue : null;
+  return compactText(value);
 }
 
 function getEnvCsv(name: string) {
@@ -144,91 +134,6 @@ function getTcgplayerSetSlug(set: PackDexSet, setTcgplayerSlugs: Record<string, 
   return compactId(setTcgplayerSlugs[set.id]) || compactId(set.tcgplayerSetSlug) || null;
 }
 
-function buildCardLookup(cards: PackDexCard[]) {
-  const bySourceCardId = new Map<string, PackDexCard>();
-  const byNumber = new Map<string, PackDexCard[]>();
-  const byNumberAndName = new Map<string, PackDexCard>();
-
-  cards.forEach((card) => {
-    if (card.sourceCardId) bySourceCardId.set(compactId(card.sourceCardId).toLowerCase(), card);
-    const number = normalizeCardNumber(card.number);
-    if (!number) return;
-
-    byNumber.set(number, [...(byNumber.get(number) || []), card]);
-    byNumberAndName.set(`${number}:${normalizeName(card.name)}`, card);
-  });
-
-  return { bySourceCardId, byNumber, byNumberAndName };
-}
-
-function findAppCard(apiCard: PokemonTcgCard, lookup: ReturnType<typeof buildCardLookup>) {
-  const exactSourceId = lookup.bySourceCardId.get(compactId(apiCard.id).toLowerCase());
-  if (exactSourceId) return exactSourceId;
-  const number = normalizeCardNumber(apiCard.number);
-  const exact = lookup.byNumberAndName.get(`${number}:${normalizeName(apiCard.name)}`);
-  if (exact) return exact;
-
-  const candidates = lookup.byNumber.get(number) || [];
-  return candidates.length === 1 ? candidates[0] : null;
-}
-
-function selectMarketPrice(apiCard: PokemonTcgCard) {
-  const prices = apiCard.tcgplayer?.prices || {};
-
-  for (const priceType of ACCEPTED_PRICE_TYPES) {
-    const price = prices[priceType];
-    const market = toPositiveNumber(price?.market);
-    if (!market) continue;
-
-    return { priceType, price };
-  }
-
-  return null;
-}
-
-function buildPriceRow(set: PackDexSet, appCard: PackDexCard, apiCard: PokemonTcgCard, selectedPrice: {
-  priceType: string;
-  price: PokemonTcgPrice;
-}) {
-  const cardNumber = compactId(appCard.number || apiCard.number);
-  const name = compactId(appCard.name || apiCard.name);
-  const packDexPriceKey = `${set.id}-${normalizeCardNumber(cardNumber)}-${slugifyCardName(name)}`;
-
-  return {
-    card_id: compactId(apiCard.id) || compactId(appCard.id) || packDexPriceKey,
-    set_id: set.id,
-    card_number: cardNumber,
-    name,
-    rarity: compactId(appCard.rarity || apiCard.rarity) || null,
-    price_type: selectedPrice.priceType,
-    market_price_usd: toPositiveNumber(selectedPrice.price.market),
-    low_price_usd: toPositiveNumber(selectedPrice.price.low),
-    mid_price_usd: toPositiveNumber(selectedPrice.price.mid),
-    high_price_usd: toPositiveNumber(selectedPrice.price.high),
-    direct_low_price_usd: toPositiveNumber(selectedPrice.price.directLow),
-    tcgplayer_url: compactId(apiCard.tcgplayer?.url) || null,
-    source_updated_at: compactId(apiCard.tcgplayer?.updatedAt) || null,
-    synced_at: new Date().toISOString(),
-  };
-}
-
-function getStaleCardIds(set: PackDexSet, appCard: PackDexCard, apiCard?: PokemonTcgCard | null) {
-  const cardNumber = compactId(appCard.number || apiCard?.number);
-  const name = compactId(appCard.name || apiCard?.name);
-  const apiSetId = compactId(apiCard?.id).split("-")[0];
-  const generatedApiCardId = apiSetId && cardNumber ? `${apiSetId}-${normalizeCardNumber(cardNumber)}` : "";
-  const packDexPriceKey = `${set.id}-${normalizeCardNumber(cardNumber)}-${slugifyCardName(name)}`;
-
-  return [
-    apiCard?.id,
-    appCard.sourceCardId,
-    generatedApiCardId,
-    appCard.id,
-    appCard.card_id,
-    packDexPriceKey,
-  ].map(compactId).filter(Boolean);
-}
-
 function getApiStaleCardIds(apiCard: PokemonTcgCard) {
   return [apiCard.id].map(compactId).filter(Boolean);
 }
@@ -264,13 +169,14 @@ async function fetchPokemonTcgCards(apiSetId: string) {
   return cards;
 }
 
-async function deleteStalePrices(admin: AdminClient, cardIds: string[]) {
+async function deleteStalePrices(admin: AdminClient, setId: string, cardIds: string[]) {
   const uniqueCardIds = [...new Set(cardIds)];
   if (uniqueCardIds.length === 0) return 0;
 
   const { error, count } = await admin
     .from("card_prices")
     .delete({ count: "exact" })
+    .eq("set_id", setId)
     .in("card_id", uniqueCardIds);
 
   if (error) throw error;
@@ -283,55 +189,109 @@ async function syncSet(
   apiSetIds: string[],
   tcgplayerSetSlug: string | null,
   appCardCount: number | null,
+  dryRun: boolean,
 ) {
   const cards = Array.isArray(set.cards) ? set.cards : [];
-  const lookup = buildCardLookup(cards);
-  const apiCards = (await Promise.all(apiSetIds.map(fetchPokemonTcgCards))).flat();
+  const lookup = buildCanonicalCardLookup(cards);
+  const fetchResults = await Promise.allSettled(apiSetIds.map(async (apiSetId) => ({
+    apiSetId,
+    cards: await fetchPokemonTcgCards(apiSetId),
+  })));
+  const successfulFetches = fetchResults
+    .filter((result): result is PromiseFulfilledResult<{ apiSetId: string; cards: PokemonTcgCard[] }> => result.status === "fulfilled")
+    .map((result) => result.value);
+  const apiErrors = fetchResults
+    .map((result, index) => result.status === "rejected" ? {
+      apiSetId: apiSetIds[index],
+      error: formatErrorForResponse(result.reason),
+    } : null)
+    .filter(Boolean);
+  if (successfulFetches.length === 0) {
+    throw new Error(`All Pokemon TCG API set requests failed for ${set.id}.`);
+  }
+  const apiCards = successfulFetches.flatMap((result) => result.cards);
   const rows = [];
   const staleCardIds = [];
-  const pricedAppCardIds = new Set<string>();
+  const matchedAppCardIds = new Set<string>();
   let skippedNoMarketPrice = 0;
   let skippedExcludedVariant = 0;
+  let ambiguousMatches = 0;
+  let exactApiIdMatches = 0;
+  let setNumberNameMatches = 0;
+  let uniqueNumberMatches = 0;
+  let cardsWithTcgplayer = 0;
+  let cardsWithCanonicalUrl = 0;
+  let cardsWithUrlNoMarketPrice = 0;
+  let suspiciousMappings = 0;
+  let latestSourceUpdatedAt: string | null = null;
 
   for (const apiCard of apiCards) {
-    const appCard = findAppCard(apiCard, lookup);
+    const matched = matchCanonicalCard(apiCard, lookup);
+    const appCard = matched.card as PackDexCard | null;
     if (!appCard) {
+      if (matched.ambiguous) ambiguousMatches += 1;
       skippedExcludedVariant += 1;
       staleCardIds.push(...getApiStaleCardIds(apiCard));
       continue;
     }
 
-    const selectedPrice = selectMarketPrice(apiCard);
-    if (!selectedPrice) {
-      skippedNoMarketPrice += 1;
-      staleCardIds.push(...getStaleCardIds(set, appCard, apiCard));
-      continue;
+    if (apiCard.tcgplayer) cardsWithTcgplayer += 1;
+    if (compactId(apiCard.tcgplayer?.url)) cardsWithCanonicalUrl += 1;
+    const sourceUpdatedAt = compactId(apiCard.tcgplayer?.updatedAt);
+    if (sourceUpdatedAt && (!latestSourceUpdatedAt || sourceUpdatedAt > latestSourceUpdatedAt)) {
+      latestSourceUpdatedAt = sourceUpdatedAt;
     }
 
-    rows.push(buildPriceRow(set, appCard, apiCard, selectedPrice));
-    pricedAppCardIds.add(compactId(appCard.id) || `${normalizeCardNumber(appCard.number)}:${normalizeName(appCard.name)}`);
-  }
+    if (matched.matchType === "api_card_id") exactApiIdMatches += 1;
+    if (matched.matchType === "set_number_name") setNumberNameMatches += 1;
+    if (matched.matchType === "set_unique_number") uniqueNumberMatches += 1;
+    if (
+      matched.matchType === "api_card_id" &&
+      (normalizeCollectorNumber(appCard.number) !== normalizeCollectorNumber(apiCard.number) ||
+        normalizeCanonicalName(appCard.name) !== normalizeCanonicalName(apiCard.name))
+    ) {
+      suspiciousMappings += 1;
+    }
 
-  for (const appCard of cards) {
-    const appCardKey = compactId(appCard.id) || `${normalizeCardNumber(appCard.number)}:${normalizeName(appCard.name)}`;
-    if (!pricedAppCardIds.has(appCardKey)) staleCardIds.push(...getStaleCardIds(set, appCard, null));
+    const selection = selectTcgplayerPrice(apiCard, appCard);
+    if (!selection.priceType) {
+      skippedNoMarketPrice += 1;
+      if (compactId(apiCard.tcgplayer?.url)) cardsWithUrlNoMarketPrice += 1;
+    }
+
+    rows.push(buildMarketplaceRow(set, appCard, apiCard, selection));
+    matchedAppCardIds.add(compactId(appCard.id) || compactId(appCard.sourceCardId));
   }
 
   let stalePricesDeleted = 0;
-  if (staleCardIds.length > 0) {
-    stalePricesDeleted = await deleteStalePrices(admin, staleCardIds);
-  }
-
-  if (rows.length > 0) {
+  if (!dryRun && rows.length > 0) {
+    const rowIds = rows.map((row) => row.card_id).filter(Boolean);
+    const prior = await admin
+      .from("card_prices")
+      .select("card_id,tcgplayer_url,source_updated_at")
+      .in("card_id", rowIds);
+    if (prior.error) throw prior.error;
+    const priorById = new Map((prior.data || []).map((row) => [row.card_id, row]));
+    const rowsWithPreservedIdentity = rows.map((row) => preserveCanonicalMarketplaceIdentity(row, priorById.get(row.card_id)));
     const { error } = await admin
       .from("card_prices")
-      .upsert(rows, { onConflict: "card_id" });
+      .upsert(rowsWithPreservedIdentity, { onConflict: "card_id" });
 
     if (error) throw error;
   }
+  if (!dryRun && staleCardIds.length > 0) {
+    stalePricesDeleted = await deleteStalePrices(admin, set.id, staleCardIds);
+  }
 
   const sourceCardCount = appCardCount ?? cards.length;
-  const marketCoverage = sourceCardCount > 0 ? rows.length / sourceCardCount : 0;
+  const marketPricesUpserted = rows.filter((row) => row.market_price_usd != null).length;
+  const marketCoverage = sourceCardCount > 0 ? marketPricesUpserted / sourceCardCount : 0;
+  const successfulApiSetIds = new Set(successfulFetches.map((result) => result.apiSetId));
+  const cardsEligibleForAudit = cards.filter((card) => successfulApiSetIds.has(compactId(card.sourceSetId)));
+  const cardsWithNoMapping = cardsEligibleForAudit.filter((card) => {
+    const key = compactId(card.id) || compactId(card.sourceCardId);
+    return key && !matchedAppCardIds.has(key);
+  }).length;
 
   return {
     setId: set.id,
@@ -340,12 +300,27 @@ async function syncSet(
     tcgplayerSetSlug,
     appCardCount: sourceCardCount,
     externalCardsFetched: apiCards.length,
+    exactCardMatches: matchedAppCardIds.size,
+    exactApiIdMatches,
+    setNumberNameMatches,
+    uniqueNumberMatches,
+    cardsWithTcgplayer,
+    cardsWithCanonicalUrl,
+    cardsWithUrlNoMarketPrice,
+    cardsWithNoMapping,
     pricesUpserted: rows.length,
+    identityRowsUpserted: rows.length,
+    marketPricesUpserted,
     cardsSkipped: skippedNoMarketPrice + skippedExcludedVariant,
     skippedNoMarketPrice,
     skippedExcludedVariant,
+    ambiguousMatches,
+    suspiciousMappings,
+    latestSourceUpdatedAt,
     stalePricesDeleted,
-    stalePricesPreserved: 0,
+    stalePricesPreserved: apiErrors.length > 0 ? cards.filter((card) => apiErrors.some((error) => error?.apiSetId === card.sourceSetId)).length : 0,
+    dryRun,
+    apiErrors,
     marketCoverage,
   };
 }
@@ -365,6 +340,7 @@ Deno.serve(async (req) => {
 
     debugStep = "parse_body";
     const body = await req.json().catch(() => ({})) as Record<string, unknown>;
+    const dryRun = body?.dryRun === true || body?.dry_run === true;
     const allowOverrides = Deno.env.get("ALLOW_PRICE_SYNC_OVERRIDES") === "true";
     const setApiIds = allowOverrides ? getOverrideMap(body, "setApiIds") : {};
     const setTcgplayerSlugs = allowOverrides ? getOverrideMap(body, "setTcgplayerSlugs") : {};
@@ -384,6 +360,8 @@ Deno.serve(async (req) => {
     let skippedNoMarketPrice = 0;
     let skippedExcludedVariant = 0;
     let stalePricesDeleted = 0;
+    let stalePricesPreserved = 0;
+    let marketPricesUpserted = 0;
     const setResults = [];
     const errors = [];
 
@@ -396,12 +374,15 @@ Deno.serve(async (req) => {
           selected.apiSetIds,
           selected.tcgplayerSetSlug,
           selected.appCardCount,
+          dryRun,
         );
 
-        cardsUpserted += result.pricesUpserted;
+        cardsUpserted += result.identityRowsUpserted;
         skippedNoMarketPrice += result.skippedNoMarketPrice;
         skippedExcludedVariant += result.skippedExcludedVariant;
         stalePricesDeleted += result.stalePricesDeleted;
+        stalePricesPreserved += result.stalePricesPreserved;
+        marketPricesUpserted += result.marketPricesUpserted;
         setResults.push(result);
       } catch (error) {
         errors.push({
@@ -421,11 +402,14 @@ Deno.serve(async (req) => {
       success: errors.length === 0,
       setsAttempted: selectedSets.length,
       cardsUpserted,
+      identityRowsUpserted: cardsUpserted,
+      marketPricesUpserted,
       skippedNoPrice: skippedNoMarketPrice + skippedExcludedVariant,
       skippedNoMarketPrice,
       skippedExcludedVariant,
       stalePricesDeleted,
-      stalePricesPreserved: 0,
+      stalePricesPreserved,
+      dryRun,
       setResults,
       errors,
     });

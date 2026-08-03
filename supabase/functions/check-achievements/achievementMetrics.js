@@ -62,21 +62,41 @@ export function makeProgressRows(milestones, current, category, sourceTable) {
   }));
 }
 
-export function calculateEstimatedCollectionValue(collectionRows = [], priceRows = []) {
+export function calculateEstimatedCollectionValue(collectionRows = [], priceRows = [], now = Date.now()) {
   const prices = new Map();
 
   priceRows.forEach((row) => {
     const marketPrice = safeNonnegativeNumber(row?.market_price_usd);
-    if (!marketPrice || !row?.card_id) return;
+    if (!marketPrice || !row?.card_id || !isTrustedCurrentPriceRow(row, now)) return;
     prices.set(String(row.card_id), marketPrice);
   });
 
   return collectionRows.reduce((total, row) => {
     const quantity = safeNonnegativeNumber(row?.quantity);
-    if (!quantity || !row?.card_id) return total;
-    const marketPrice = prices.get(String(row.card_id)) || 0;
+    const priceCardId = row?.price_card_id || row?.card_id;
+    if (!quantity || !priceCardId) return total;
+    const marketPrice = prices.get(String(priceCardId)) || 0;
     return total + marketPrice * quantity;
   }, 0);
+}
+
+export function attachCollectionPriceIdentities(collectionRows = [], priceCatalog = []) {
+  const identityByCollectionKey = new Map();
+  priceCatalog.forEach((set) => {
+    const setId = String(set?.id || "");
+    (set?.cards || []).forEach((card) => {
+      const sourceCardId = String(card?.sourceCardId || card?.id || "");
+      if (!setId || !sourceCardId) return;
+      for (const collectionCardId of [card?.id, card?.sourceCardId].filter(Boolean)) {
+        identityByCollectionKey.set(`${setId}:${collectionCardId}`, sourceCardId);
+      }
+    });
+  });
+
+  return collectionRows.map((row) => ({
+    ...row,
+    price_card_id: identityByCollectionKey.get(`${row?.set_id || ""}:${row?.card_id || ""}`) || row?.card_id || null,
+  }));
 }
 
 export function calculateCompletedSetCount(collectionRows = [], setCatalog = []) {
@@ -96,3 +116,4 @@ export function calculateCompletedSetCount(collectionRows = [], setCatalog = [])
     return requiredCardIds.every((cardId) => ownedCardIds.has(String(cardId))) ? completed + 1 : completed;
   }, 0);
 }
+import { isTrustedCurrentPriceRow } from "../_shared/cardPricing.js";

@@ -15,6 +15,7 @@ function compactCard(card = {}, manifestCard) {
     rarity: card.rarity || "",
     sourceSetId: manifestCard.sourceSetId,
     sourceCardId: manifestCard.sourceCardId,
+    tcgplayerPriceType: card.tcgplayerPriceType || undefined,
   };
 }
 

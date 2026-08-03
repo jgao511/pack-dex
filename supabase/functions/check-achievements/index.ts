@@ -1,11 +1,13 @@
 import { getAuthenticatedUser } from "../_shared/auth.ts";
 import { corsHeaders, formatErrorForResponse, jsonResponse } from "../_shared/http.ts";
+import priceCatalog from "../sync-card-prices/catalog.json" with { type: "json" };
 import setCompletionCatalog from "./setCompletionCatalog.js";
 import {
   VALUE_MILESTONES,
   SET_MASTERY_MILESTONES,
   calculateCompletedSetCount,
   calculateEstimatedCollectionValue,
+  attachCollectionPriceIdentities,
   createAchievementCandidate,
   makeProgressRows,
 } from "./achievementMetrics.js";
@@ -84,22 +86,23 @@ async function loadTrustedCollectionMetrics(
     from += COLLECTION_PAGE_SIZE;
   }
 
+  const collectionPriceRows = attachCollectionPriceIdentities(collectionRows, priceCatalog);
   const ownedCardIds = [...new Set(
-    collectionRows.map((row) => String(row.card_id || "")).filter(Boolean)
+    collectionPriceRows.map((row) => String(row.price_card_id || "")).filter(Boolean)
   )];
   const priceRows: Record<string, unknown>[] = [];
 
   for (const cardIds of chunkValues(ownedCardIds, PRICE_CHUNK_SIZE)) {
     const { data, error } = await admin
       .from("card_prices")
-      .select("set_id,card_id,market_price_usd")
+      .select("set_id,card_id,market_price_usd,synced_at")
       .in("card_id", cardIds);
     if (error) throw error;
     priceRows.push(...(data || []));
   }
 
   return {
-    collectionValue: calculateEstimatedCollectionValue(collectionRows, priceRows),
+    collectionValue: calculateEstimatedCollectionValue(collectionPriceRows, priceRows),
     completedSets: calculateCompletedSetCount(collectionRows, setCompletionCatalog),
   };
 }
