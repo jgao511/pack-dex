@@ -2,7 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./base.css";
 import "./landing.css";
-import { loadDesktopPage, loadWelcomePage } from "./pageLoaders.js";
+import App from "./App.jsx";
+import { loadWelcomePage } from "./pageLoaders.js";
 import {
   getWelcomeEntryDecision,
   isLikelyMobileVisitor,
@@ -49,6 +50,6 @@ if (entryDecision === "mobile-app") {
   if (entryDecision === "welcome") {
     loadWelcomePage().then(renderPage);
   } else {
-    loadDesktopPage().then(renderPage);
+    renderPage({ default: App });
   }
 }

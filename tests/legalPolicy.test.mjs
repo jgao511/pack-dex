@@ -54,7 +54,8 @@ test("website and mobile surfaces use canonical legal links and Privacy Choices"
   assert.match(main, /entryDecision === "mobile-app"/);
   assert.match(main, /entryDecision === "welcome"/);
   assert.match(pageLoaders, /import\("\.\/LandingPage\.jsx"\)/);
-  assert.match(pageLoaders, /import\("\.\/App\.jsx"\)/);
+  assert.doesNotMatch(pageLoaders, /import\("\.\/App\.jsx"\)/);
+  assert.match(main, /import App from "\.\/App\.jsx"/);
   assert.doesNotMatch(index, /window\.location\.replace/);
 });
 
