@@ -201,10 +201,16 @@ test("acknowledgement overlay closes the cloud-refresh race exactly once", async
   });
   assert.equal(getAcknowledgedCompletedPackOverlays(PENDING_CLOUD_PULLS_KEY, "user-1", storage).length, 1);
   assert.equal(reconcileAcknowledgedCompletedPackOverlays(
-    PENDING_CLOUD_PULLS_KEY, "user-1", requestStartedAt, storage
+    PENDING_CLOUD_PULLS_KEY, "user-1", requestStartedAt, storage, () => true
   ), 0);
   assert.equal(reconcileAcknowledgedCompletedPackOverlays(
-    PENDING_CLOUD_PULLS_KEY, "user-1", 3_000, storage
+    PENDING_CLOUD_PULLS_KEY, "user-1", 3_000, storage, () => false
+  ), 0);
+  assert.equal(getAcknowledgedCompletedPackOverlays(PENDING_CLOUD_PULLS_KEY, "user-1", storage).length, 1);
+  assert.equal(reconcileAcknowledgedCompletedPackOverlays(
+    PENDING_CLOUD_PULLS_KEY, "user-1", 3_000, storage, (setId, card) => (
+      setId === "base-set" && card.id === "base-set-4"
+    )
   ), 1);
 });
 

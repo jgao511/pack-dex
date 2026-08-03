@@ -141,16 +141,25 @@ export function reconcileAcknowledgedCompletedPackOverlays(
   storageKey,
   userId,
   cloudRequestStartedAt,
-  storage
+  storage,
+  isOverlayCardPresent = null
 ) {
   const normalizedUserId = String(userId || "");
   const requestStartedAt = Number(cloudRequestStartedAt || 0);
-  if (!storage || !normalizedUserId || !requestStartedAt) return 0;
+  if (
+    !storage ||
+    !normalizedUserId ||
+    !requestStartedAt ||
+    typeof isOverlayCardPresent !== "function"
+  ) return 0;
   const key = acknowledgedOverlayKey(storageKey);
   const current = readJsonArray(storage, key);
   const next = current.filter((entry) => !(
     String(entry.userId || "") === normalizedUserId &&
-    Number(entry.acknowledgedAt || 0) <= requestStartedAt
+    Number(entry.acknowledgedAt || 0) <= requestStartedAt &&
+    Array.isArray(entry.cards) &&
+    entry.cards.length > 0 &&
+    entry.cards.every((card) => isOverlayCardPresent(entry.setId, card))
   ));
   if (next.length !== current.length) writeJsonArray(storage, key, next);
   return current.length - next.length;

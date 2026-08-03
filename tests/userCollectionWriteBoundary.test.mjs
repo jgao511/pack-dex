@@ -35,21 +35,25 @@ test("the migration preserves each supported server-authoritative write boundary
 });
 
 test("current desktop and mobile clients read collection rows and submit mutations through RPCs", async () => {
-  const [desktopCollection, mobileCollection, queue, scanner, onboarding] = await Promise.all([
+  const [desktopCollection, mobileCollection, snapshotLoader, queue, scanner, onboarding] = await Promise.all([
     source("../src/lib/cloudCollection.js"),
     source("../mobile-app/src/lib/cloudCollection.js"),
+    source("../src/lib/collectionSnapshotLoader.js"),
     source("../src/lib/completedPackQueue.js"),
     source("../mobile-app/src/lib/scannerCardActions.js"),
     source("../supabase/functions/complete-mobile-onboarding/index.ts"),
   ]);
 
   for (const clientSource of [desktopCollection, mobileCollection]) {
-    assert.match(clientSource, /\.from\(USER_COLLECTION_TABLE\)[\s\S]*?\.select\(/);
+    assert.match(clientSource, /collectionSnapshotLoader\.load\([\s\S]*?table: USER_COLLECTION_TABLE/);
     assert.doesNotMatch(
       clientSource,
       /\.from\(USER_COLLECTION_TABLE\)[\s\S]{0,240}?\.(?:insert|update|upsert|delete)\(/
     );
   }
+  assert.match(snapshotLoader, /client[\s\S]*?\.from\(table\)[\s\S]*?\.select\(/);
+  assert.match(snapshotLoader, /\.eq\("user_id", normalizedUserId\)/);
+  assert.doesNotMatch(snapshotLoader, /\.(?:insert|update|upsert|delete)\(/);
 
   assert.match(queue, /client\.rpc\(ATOMIC_PACK_RPC_NAME, payload\)/);
   assert.match(queue, /ATOMIC_PACK_RPC_NAME/);

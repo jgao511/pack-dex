@@ -5,6 +5,10 @@ import { isCollectibleSetCard } from "../../../src/utils/energyCardPolicy.js";
 import { countDevRequest } from "../utils/requestDiagnostics.js";
 import { getCachedSupabaseUser } from "../../../src/lib/sessionUserCache.js";
 import {
+  COLLECTION_SNAPSHOT_PAGE_SIZE,
+  createCollectionSnapshotLoader,
+} from "../../../src/lib/collectionSnapshotLoader.js";
+import {
   ATOMIC_PACK_SUBMISSION_VERSION,
   PackSubmissionValidationError,
 } from "../../../src/lib/packSubmissionPolicy.js";
@@ -22,6 +26,8 @@ import {
 const USER_COLLECTION_TABLE = "user_collection";
 export const PENDING_CLOUD_PULLS_KEY = "packdex-mobile-pending-cloud-pulls";
 const CLOUD_SYNC_REQUEST_TIMEOUT_MS = 15_000;
+const collectionSnapshotLoader = createCollectionSnapshotLoader();
+const collectionSnapshotMetadata = new WeakMap();
 
 export const PACK_RATE_LIMIT_ERROR_CODE = "PACK_RATE_LIMITED";
 
@@ -152,32 +158,49 @@ export async function getCurrentUser(client = supabase, { force = false } = {}) 
   }
 }
 
-export async function loadCloudCollection() {
+export function invalidateCloudCollectionLoads() {
+  collectionSnapshotLoader.invalidate();
+}
+
+export function isCloudCollectionSnapshotCurrent(collection, userId) {
+  const snapshot = collectionSnapshotMetadata.get(collection);
+  return collectionSnapshotLoader.isCurrent(snapshot) && snapshot?.userId === String(userId || "");
+}
+
+export async function loadCloudCollection({
+  client = supabase,
+  user: providedUser = null,
+  storage = getDefaultStorage(),
+  pageSize = COLLECTION_SNAPSHOT_PAGE_SIZE,
+  onPageRequest = null,
+} = {}) {
   countDevRequest("loadCloudCollection");
-  const user = await getCurrentUser();
+  const user = providedUser || await getCurrentUser(client);
 
   if (!user) return {};
 
-  const cloudRequestStartedAt = Date.now();
-  const { data, error } = await supabase
-    .from(USER_COLLECTION_TABLE)
-    .select("set_id,card_id,quantity,created_at,updated_at")
-    .eq("user_id", user.id);
-
-  if (error) {
-    console.warn("Unable to load mobile cloud collection", error);
-    throw error;
-  }
-
+  const snapshot = await collectionSnapshotLoader.load({
+    client,
+    userId: user.id,
+    table: USER_COLLECTION_TABLE,
+    pageSize,
+    onPageRequest,
+  });
+  const collectionKeys = new Set(
+    snapshot.rows.map((row) => `${String(row.set_id)}\u0000${String(row.card_id)}`)
+  );
 
   reconcileAcknowledgedCompletedPackOverlays(
     PENDING_CLOUD_PULLS_KEY,
     user.id,
-    cloudRequestStartedAt,
-    getDefaultStorage()
+    snapshot.requestStartedAt,
+    storage,
+    (setId, card) => collectionKeys.has(`${String(setId || "")}\u0000${getCardCollectionKey(card, setId)}`)
   );
 
-  return cloudRowsToCollection(data || []);
+  const collection = cloudRowsToCollection(snapshot.rows);
+  collectionSnapshotMetadata.set(collection, snapshot);
+  return collection;
 }
 
 function compactCardRow(card, setId, quantity = 1) {

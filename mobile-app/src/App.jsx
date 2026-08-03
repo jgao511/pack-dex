@@ -42,10 +42,12 @@ import {
 import { getPublicPackDexStats } from "../../src/lib/publicPackDexStats.js";
 import {
   cancelPendingCloudPullSync,
-  loadCloudCollection,
   enqueuePendingCloudPull,
   getPendingCloudPullCount,
   getPendingCloudPulls,
+  invalidateCloudCollectionLoads,
+  isCloudCollectionSnapshotCurrent,
+  loadCloudCollection,
   mergePendingCloudPullsIntoCollection,
   syncPendingCloudPulls,
 } from "./lib/cloudCollection.js";
@@ -2824,7 +2826,7 @@ function MobileAuthCallbackPage() {
         allowNoPending: true,
         refreshData: async (currentUser) => {
           await Promise.all([
-            loadCloudCollection(),
+            loadCloudCollection({ user: currentUser }),
             loadCloudProfileStats(currentUser.id),
             loadWelcomeRewardStatus(currentUser, { force: true }),
           ]);
@@ -2949,6 +2951,7 @@ function MobileApp() {
   const [isPackSavePending, setIsPackSavePending] = useState(false);
   const [isOpenAnotherLocked, setIsOpenAnotherLocked] = useState(false);
   const [packSaveMessage, setPackSaveMessage] = useState("");
+  const [cloudCollectionWarning, setCloudCollectionWarning] = useState("");
   const [packInstanceId, setPackInstanceId] = useState(0);
   const [newPullKeys, setNewPullKeys] = useState(() => new Set());
   const [hasSavedCurrentPack, setHasSavedCurrentPack] = useState(false);
@@ -2985,6 +2988,7 @@ function MobileApp() {
   const lastAccountScopedUserIdRef = useRef("");
   const accountLoadPromisesRef = useRef(new Map());
   const accountLoadedAtRef = useRef(new Map());
+  const accountStateLoadGenerationRef = useRef(0);
   const authRefreshPromiseRef = useRef(null);
   const authRequestInFlightRef = useRef(false);
   const initialHydrationCompleteRef = useRef(false);
@@ -3546,9 +3550,13 @@ function MobileApp() {
   function clearAccountScopedState() {
     const previousUserId = currentUserRef.current?.id || lastAccountScopedUserIdRef.current;
     if (previousUserId) cancelPendingCloudPullSync(previousUserId);
+    accountStateLoadGenerationRef.current += 1;
+    invalidateCloudCollectionLoads();
     clearCachedSupabaseUser(supabase);
+    accountLoadPromisesRef.current.clear();
     accountLoadedAtRef.current.clear();
     setUser(null);
+    setCloudCollectionWarning("");
     setCollection(loadCollection());
     setStats({ ...EMPTY_STATS, packsOpened: loadGuestLifetimePacks() });
     setBinders(loadBinders());
@@ -3724,8 +3732,10 @@ function MobileApp() {
   async function performAccountScopedStateLoad(currentUser) {
     if (!currentUser?.id) {
       clearAccountScopedState();
-      return;
+      return { collectionLoaded: false, stale: false };
     }
+
+    const loadGeneration = ++accountStateLoadGenerationRef.current;
 
     const isSameAccount = lastAccountScopedUserIdRef.current === currentUser.id;
     if (lastAccountScopedUserIdRef.current && !isSameAccount) {
@@ -3737,6 +3747,10 @@ function MobileApp() {
         setIsAchievementsLoading(false);
     }
     lastAccountScopedUserIdRef.current = currentUser.id;
+    const isCurrentAccountLoad = () => (
+      accountStateLoadGenerationRef.current === loadGeneration &&
+      lastAccountScopedUserIdRef.current === currentUser.id
+    );
 
     const localPendingCollection = mergePendingCloudPullsIntoCollection({}, currentUser.id);
     setUser(currentUser);
@@ -3752,15 +3766,23 @@ function MobileApp() {
       });
     }
 
-    let mergedCollection = localPendingCollection;
+    let mergedCollection = null;
+    let collectionLoaded = false;
     try {
-      const cloudCollection = await loadCloudCollection();
+      const cloudCollection = await loadCloudCollection({ user: currentUser });
+      if (!isCurrentAccountLoad() || !isCloudCollectionSnapshotCurrent(cloudCollection, currentUser.id)) {
+        return { collectionLoaded: false, stale: true };
+      }
       mergedCollection = mergePendingCloudPullsIntoCollection(cloudCollection, currentUser.id);
+      collectionLoaded = true;
     } catch (error) {
-      console.warn("Unable to load mobile cloud collection; showing durable pending pulls", {
+      console.warn("Unable to load complete mobile cloud collection; retaining the last complete snapshot", {
         userId: currentUser.id,
         error,
       });
+      if (isCurrentAccountLoad()) {
+        setCloudCollectionWarning("Your last complete collection is still shown. The cloud refresh was incomplete; tap Retry.");
+      }
     }
 
     let persistedBinders = [];
@@ -3773,7 +3795,8 @@ function MobileApp() {
       });
     }
 
-    const mergedCardCount = Object.values(mergedCollection).reduce(
+    const collectionForStats = collectionLoaded ? mergedCollection : localPendingCollection;
+    const mergedCardCount = Object.values(collectionForStats).reduce(
       (total, setCollection) => total + Object.values(setCollection || {}).reduce((setTotal, entry) => setTotal + Number(entry?.count || 0), 0),
       0
     );
@@ -3850,11 +3873,17 @@ function MobileApp() {
       }
     }
 
+    if (!isCurrentAccountLoad()) return { collectionLoaded: false, stale: true };
+
     setUser(currentUser);
-    setCollection(mergedCollection);
+    if (collectionLoaded) {
+      setCollection(mergedCollection);
+      setCloudCollectionWarning("");
+    }
     setStats(cloudStats || EMPTY_STATS);
     setBinders(persistedBinders);
     refreshWishlist(currentUser);
+    return { collectionLoaded, stale: false };
   }
 
   function loadAccountScopedState(currentUser, { force = false } = {}) {
@@ -3874,8 +3903,17 @@ function MobileApp() {
 
     countDevRequest("loadAccountScopedState");
     const promise = performAccountScopedStateLoad(currentUser)
-      .then(() => accountLoadedAtRef.current.set(userId, Date.now()))
-      .finally(() => accountLoadPromisesRef.current.delete(userId));
+      .then((result) => {
+        if (result?.collectionLoaded && !result?.stale) {
+          accountLoadedAtRef.current.set(userId, Date.now());
+        }
+        return result;
+      })
+      .finally(() => {
+        if (accountLoadPromisesRef.current.get(userId) === promise) {
+          accountLoadPromisesRef.current.delete(userId);
+        }
+      });
     accountLoadPromisesRef.current.set(userId, promise);
     return promise;
   }
@@ -4410,12 +4448,16 @@ function MobileApp() {
         if (syncResult.stats) setStats(syncResult.stats);
 
         try {
-          const refreshedCollection = await loadCloudCollection();
-          if (active) {
+          const refreshedCollection = await loadCloudCollection({ user });
+          if (active && isCloudCollectionSnapshotCurrent(refreshedCollection, user.id)) {
             setCollection(mergePendingCloudPullsIntoCollection(refreshedCollection, user.id));
+            setCloudCollectionWarning("");
           }
         } catch (error) {
           console.warn("Unable to refresh mobile collection after pending pull sync", error);
+          if (active) {
+            setCloudCollectionWarning("Your last complete collection is still shown. The cloud refresh was incomplete; tap Retry.");
+          }
         }
 
         try {
@@ -4779,16 +4821,20 @@ function MobileApp() {
 
         try {
           const [cloudCollection, cloudStats] = await Promise.all([
-            loadCloudCollection(),
+            loadCloudCollection({ user }),
             loadCloudProfileStats(user.id),
           ]);
-          setCollection(mergePendingCloudPullsIntoCollection(cloudCollection, user.id));
+          if (isCloudCollectionSnapshotCurrent(cloudCollection, user.id)) {
+            setCollection(mergePendingCloudPullsIntoCollection(cloudCollection, user.id));
+            setCloudCollectionWarning("");
+          }
           setStats(cloudStats);
         } catch (error) {
           console.warn("Unable to refresh mobile PackDex state after a rate-limited pack", {
             userId: user.id,
             error,
           });
+          setCloudCollectionWarning("Your last complete collection is still shown. The cloud refresh was incomplete; tap Retry.");
         }
         return;
       }
@@ -5047,10 +5093,14 @@ function MobileApp() {
       if (result.stats) setStats(result.stats);
 
       try {
-        const refreshedCollection = await loadCloudCollection();
-        setCollection(mergePendingCloudPullsIntoCollection(refreshedCollection, user.id));
+        const refreshedCollection = await loadCloudCollection({ user });
+        if (isCloudCollectionSnapshotCurrent(refreshedCollection, user.id)) {
+          setCollection(mergePendingCloudPullsIntoCollection(refreshedCollection, user.id));
+          setCloudCollectionWarning("");
+        }
       } catch (collectionError) {
         console.warn("Unable to refresh collection after welcome reward claim", collectionError);
+        setCloudCollectionWarning("Your last complete collection is still shown. The cloud refresh was incomplete; tap Retry.");
       }
 
       try {
@@ -5310,6 +5360,14 @@ function MobileApp() {
           inert={isOnboardingActive}
         >
           {startupPhase === "complete" && <MobileBrandHeader />}
+          {startupPhase === "complete" && cloudCollectionWarning && user?.id && (
+            <div className="account-notice" role="status">
+              <span>{cloudCollectionWarning}</span>
+              <button type="button" onClick={() => loadAccountScopedState(user, { force: true })}>
+                Retry
+              </button>
+            </div>
+          )}
           {startupPhase !== "complete" ? <PackDexStartupAnimation phase={startupPhase} /> : <>
           {activeTab === "open" &&
             (packStage === "sets" ? (

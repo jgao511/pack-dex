@@ -27,6 +27,8 @@ import {
   cancelPendingCloudPullSync,
   enqueuePendingCloudPull,
   getPendingCloudPullCount,
+  invalidateCloudCollectionLoads,
+  isCloudCollectionSnapshotCurrent,
   isPackRateLimitError,
   loadCloudCollection,
   mergePendingCloudPullsIntoCollection,
@@ -1496,9 +1498,9 @@ function App() {
     setProfileStatsError("");
     setAreProfileStatsLoading(!hasLoadedStats);
 
-    loadCloudCollection()
+    loadCloudCollection({ user: authUser })
       .then(async (cloudCollection) => {
-        if (!isMounted) return;
+        if (!isMounted || !isCloudCollectionSnapshotCurrent(cloudCollection, userId)) return;
 
         setCollection(mergePendingCloudPullsIntoCollection(cloudCollection, userId));
 
@@ -1535,8 +1537,7 @@ function App() {
         console.warn("Cloud collection load failed", error);
         if (!isMounted) return;
 
-        setCollection(mergePendingCloudPullsIntoCollection({}, userId));
-        setCloudWarning("Account collection could not be loaded yet. Guest pulls stay local on this device.");
+        setCloudWarning("Your last complete collection is still shown. The cloud refresh was incomplete; please retry.");
       });
 
     loadPersistedBinders(userId)
@@ -1577,6 +1578,7 @@ function App() {
 
     return () => {
       isMounted = false;
+      invalidateCloudCollectionLoads();
     };
   }, [authUser?.id]);
 
@@ -1861,10 +1863,12 @@ function App() {
 
             try {
               const [cloudCollection, cloudStats] = await Promise.all([
-                loadCloudCollection(),
+                loadCloudCollection({ user: savingUser }),
                 loadCloudProfileStats(savingUser.id),
               ]);
-              setCollection(mergePendingCloudPullsIntoCollection(cloudCollection, savingUser.id));
+              if (isCloudCollectionSnapshotCurrent(cloudCollection, savingUser.id)) {
+                setCollection(mergePendingCloudPullsIntoCollection(cloudCollection, savingUser.id));
+              }
               setProfileStats(cloudStats);
             } catch (refreshError) {
               console.warn("Unable to refresh PackDex state after a rate-limited pack", {
