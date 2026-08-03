@@ -28,6 +28,7 @@
     "test:scanner-visual-index": "node --test tests/scannerVisualIndex.test.mjs",
     "audit:vintage": "node scripts/audit-vintage-sets.mjs",
     "build:price-sync-catalog": "node scripts/build-price-sync-catalog.mjs",
+    "audit:live-price-coverage": "node scripts/audit-live-card-price-coverage.mjs",
     "check:price-sync-deploy-scope": "node scripts/assert-price-sync-deploy-scope.mjs",
     "deploy:sync-card-prices": "npm run build:price-sync-catalog && npm run check:price-sync-deploy-scope && supabase functions deploy sync-card-prices",
     "sync:card-prices": "node scripts/sync-card-prices-batches.mjs",

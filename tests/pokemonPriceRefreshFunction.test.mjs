@@ -16,14 +16,19 @@ test("consumer price function validates a bounded catalog-backed batch", async (
 
 test("consumer price function rechecks only requested rows and returns compact partial results", async () => {
   const source = await readFile(new URL("../supabase/functions/refresh-pokemon-prices/index.ts", import.meta.url), "utf8");
-  assert.match(source, /\.from\("card_prices"\)\.select\(PRICE_COLUMNS\)\.in\("card_id", requestedIds\)\.gte\("synced_at", freshSince\)/);
+  assert.match(source, /\.from\("card_prices"\)\.select\(PRICE_COLUMNS\)\.in\("card_id", requestedIds\)/);
+  assert.match(source, /existingRows\.filter\(\(row\) => String\(row\.synced_at/);
   assert.match(source, /runBoundedGroups\(groups/);
   assert.match(source, /updatedPrices: returnedRows/);
   assert.match(source, /failedSets: uniqueFailedSets/);
   assert.match(source, /const freshKeys = new Set/);
   assert.match(source, /const pending = validated\.filter/);
+  assert.match(source, /missingRequestedCount/);
+  assert.match(source, /reason: "no_canonical_match"/);
+  assert.match(source, /preserveCanonicalMarketplaceIdentity/);
   assert.match(source, /const groups = new Map<string, UpstreamGroup>/);
-  assert.match(source, /groups\.get\(set\.apiSetId\)/);
+  assert.match(source, /item\.card\.sourceSetId/);
+  assert.match(source, /groups\.get\(apiSetId\)/);
   assert.match(source, /partial_success/);
   assert.match(source, /total_failure/);
   assert.match(source, /maxConcurrentGroups/);

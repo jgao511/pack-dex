@@ -9,11 +9,27 @@ import {
 import setCompletionCatalog from "../supabase/functions/check-achievements/setCompletionCatalog.js";
 import {
   VALUE_MILESTONES,
+  attachCollectionPriceIdentities,
   calculateCompletedSetCount,
   calculateEstimatedCollectionValue,
   createAchievementCandidate,
   getReachedMilestoneIds,
 } from "../supabase/functions/check-achievements/achievementMetrics.js";
+
+test("collection value resolves PackDex IDs to exact API source IDs without rewriting persistence", () => {
+  const collection = [{ set_id: "celebrations", card_id: "celebrations-17-umbreon", quantity: 2 }];
+  const mapped = attachCollectionPriceIdentities(collection, [{
+    id: "celebrations",
+    cards: [{ id: "celebrations-17-umbreon", sourceCardId: "cel25c-17_A" }],
+  }]);
+  assert.equal(collection[0].card_id, "celebrations-17-umbreon");
+  assert.equal(mapped[0].price_card_id, "cel25c-17_A");
+  assert.equal(calculateEstimatedCollectionValue(mapped, [{
+    card_id: "cel25c-17_A",
+    market_price_usd: 40,
+    synced_at: "2026-08-03T00:00:00Z",
+  }], Date.parse("2026-08-03T12:00:00Z")), 80);
+});
 
 test("authoritative collection value reaches the $10, $100, and $500 milestones", () => {
   const collectionRows = [{
@@ -27,6 +43,7 @@ test("authoritative collection value reaches the $10, $100, and $500 milestones"
       set_id: "manual-grant-set",
       card_id: "manual-grant-card",
       market_price_usd: threshold,
+      synced_at: new Date().toISOString(),
     }]);
 
     assert.equal(value, threshold);
@@ -42,9 +59,9 @@ test("collection value safely ignores missing, invalid, zero, and negative price
     { set_id: "set-a", card_id: "negative", quantity: 1 },
   ];
   const priceRows = [
-    { set_id: "set-a", card_id: "priced", market_price_usd: "6.25" },
-    { set_id: "set-a", card_id: "invalid", market_price_usd: "not-a-price" },
-    { set_id: "set-a", card_id: "negative", market_price_usd: -50 },
+    { set_id: "set-a", card_id: "priced", market_price_usd: "6.25", synced_at: new Date().toISOString() },
+    { set_id: "set-a", card_id: "invalid", market_price_usd: "not-a-price", synced_at: new Date().toISOString() },
+    { set_id: "set-a", card_id: "negative", market_price_usd: -50, synced_at: new Date().toISOString() },
   ];
 
   assert.equal(calculateEstimatedCollectionValue(collectionRows, priceRows), 12.5);
@@ -53,14 +70,14 @@ test("collection value safely ignores missing, invalid, zero, and negative price
 test("collection value matches prices by canonical card id across pricing set aliases", () => {
   const value = calculateEstimatedCollectionValue(
     [{ set_id: "base-set", card_id: "base1-4", quantity: 2 }],
-    [{ set_id: "base1", card_id: "base1-4", market_price_usd: 7.5 }]
+    [{ set_id: "base1", card_id: "base1-4", market_price_usd: 7.5, synced_at: new Date().toISOString() }]
   );
 
   assert.equal(value, 15);
 });
 
 test("backend and manual quantity grants contribute to authoritative value", () => {
-  const priceRows = [{ card_id: "grant-card", market_price_usd: 2.5 }];
+  const priceRows = [{ card_id: "grant-card", market_price_usd: 2.5, synced_at: new Date().toISOString() }];
 
   assert.equal(
     calculateEstimatedCollectionValue(
@@ -76,6 +93,15 @@ test("backend and manual quantity grants contribute to authoritative value", () 
     ),
     12.5
   );
+});
+
+test("stale and unavailable price rows do not contribute to value achievements", () => {
+  const now = Date.parse("2026-08-03T20:00:00Z");
+  const collectionRows = [{ set_id: "set", card_id: "card", quantity: 1 }];
+  const stale = [{ card_id: "card", market_price_usd: 500, synced_at: "2026-07-01T00:00:00Z" }];
+  const unavailable = [{ card_id: "card", market_price_usd: null, synced_at: "2026-08-03T19:00:00Z" }];
+  assert.equal(calculateEstimatedCollectionValue(collectionRows, stale, now), 0);
+  assert.equal(calculateEstimatedCollectionValue(collectionRows, unavailable, now), 0);
 });
 
 test("completed-set evaluation distinguishes incomplete, one-set, and five-set collections", () => {

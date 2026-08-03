@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { sets } from "../src/data/sets.js";
 import { getPokemonTcgApiSetId } from "../src/lib/priceSetMap.js";
-import { getTcgplayerCardUrl, getTcgplayerSearchNumber, getTcgplayerSearchUrl } from "../src/utils/tcgplayerSearch.js";
+import { getCanonicalTcgplayerSearchName, getTcgplayerCardUrl, getTcgplayerDestination, getTcgplayerSearchNumber, getTcgplayerSearchUrl } from "../src/utils/tcgplayerSearch.js";
 
 function findCard(setId, name, number) {
   const set = sets.find((item) => item.id === setId);
@@ -32,7 +32,7 @@ test("builds card-specific searches for reported and representative sets", () =>
     const set = sets.find((item) => item.id === setId);
     const card = set.cards.find((item) => item.name && item.number);
     const url = new URL(getTcgplayerSearchUrl({ cardName: card.name, setName: set.name, cardNumber: card.number }));
-    assert.equal(url.searchParams.get("q"), `${card.name} ${set.name} ${getTcgplayerSearchNumber(card.number)}`);
+    assert.equal(url.searchParams.get("q"), `${getCanonicalTcgplayerSearchName(card.name)} ${set.name} ${getTcgplayerSearchNumber(card.number)}`);
   }
 });
 
@@ -42,8 +42,8 @@ test("Black Bolt and White Flare use their matching upstream API sets", () => {
 });
 
 test("normalizes numbered cards and preserves special identifiers", () => {
-  assert.equal(getTcgplayerSearchNumber("039/088"), "#39");
-  assert.equal(getTcgplayerSearchNumber("075"), "#75");
+  assert.equal(getTcgplayerSearchNumber("039/088"), "#039/088");
+  assert.equal(getTcgplayerSearchNumber("075"), "#075");
   assert.equal(getTcgplayerSearchNumber("SWSH001"), "#SWSH001");
   assert.equal(getTcgplayerSearchNumber("TG01/TG30"), "#TG01/TG30");
 });
@@ -57,7 +57,7 @@ test("fails safely when a reliable search cannot be built", () => {
 test("encodes punctuation and international card names safely", () => {
   const result = getTcgplayerSearchUrl({ cardName: "Pokémon's Ampersand & Mega ex", setName: "Mega Evolution", cardNumber: "001" });
   const url = new URL(result);
-  assert.equal(url.searchParams.get("q"), "Pokémon's Ampersand & Mega ex Mega Evolution #1");
+  assert.equal(url.searchParams.get("q"), "Pokémon's Ampersand & Mega ex Mega Evolution #001");
   assert.match(result, /%26/);
 });
 
@@ -66,6 +66,23 @@ test("preserves trusted exact TCGplayer URLs and falls back from unsafe URLs", (
   assert.equal(getTcgplayerCardUrl({ exactUrl: exact, cardName: "Ignored", setName: "Ignored", cardNumber: "1" }), exact);
   const fallback = getTcgplayerCardUrl({ exactUrl: "https://example.com/wrong", cardName: "Mew ex", setName: "151", cardNumber: "151" });
   assert.equal(new URL(fallback).searchParams.get("q"), "Mew ex 151 #151");
+
+  const apiCanonical = "https://prices.pokemontcg.io/tcgplayer/cel25c-17_A";
+  assert.equal(getTcgplayerCardUrl({ exactUrl: apiCanonical }), apiCanonical);
+  assert.deepEqual(getTcgplayerDestination({ exactUrl: apiCanonical }), {
+    url: apiCanonical,
+    isExact: true,
+    label: "View on TCGplayer",
+  });
+});
+
+test("never sends decorated Star display text to TCGplayer search", () => {
+  assert.equal(getCanonicalTcgplayerSearchName("Umbreon ⭐"), "Umbreon Star");
+  const destination = getTcgplayerDestination({ cardName: "Umbreon ★", setName: "Celebrations", cardNumber: "17" });
+  assert.equal(destination.isExact, false);
+  assert.equal(destination.label, "Search on TCGplayer");
+  assert.equal(new URL(destination.url).searchParams.get("q"), "Umbreon Star Celebrations #17");
+  assert.equal(getTcgplayerSearchUrl({ cardName: "Umbreon ✨", setName: "Celebrations", cardNumber: "17" }), null);
 });
 
 test("every catalog card produces a search tied to its own name, set, and number", () => {
@@ -76,7 +93,7 @@ test("every catalog card produces a search tied to its own name, set, and number
       assert.ok(url, `Missing reliable TCGplayer search data for ${set.id}/${card.id}`);
       assert.equal(
         new URL(url).searchParams.get("q"),
-        `${card.name.trim()} ${set.name.trim()} ${getTcgplayerSearchNumber(card.number)}`,
+        `${getCanonicalTcgplayerSearchName(card.name)} ${set.name.trim()} ${getTcgplayerSearchNumber(card.number)}`,
         `Wrong search identity for ${set.id}/${card.id}`
       );
       checked += 1;
