@@ -6,7 +6,7 @@ import { decideScannerAcceptance, SCANNER_ACCEPTANCE_MODES } from "../../src/lib
 import { recognizeCardText } from "../../src/lib/cardScanner/recognizeCardText.js";
 import { confirmTrustedCandidate, releaseTemporaryImage } from "../../src/lib/cardScanner/scannerSession.js";
 import { formatUsd } from "../../src/lib/cardPrices.js";
-import { getTcgplayerCardUrl } from "../../src/utils/tcgplayerSearch.js";
+import { getTcgplayerDestination } from "../../src/utils/tcgplayerSearch.js";
 import { captureBrowserFrame, chooseBrowserFile, getBrowserCameraCapability, recognizeBrowserImage, startBrowserCamera, stopBrowserCamera } from "./lib/browserScannerCamera.js";
 import { isAndroidNative } from "./lib/platform.js";
 
@@ -65,15 +65,15 @@ function ScannerActionButton({ kind, state, onClick }) {
 }
 
 export function ScannerConfirmedResult({ confirmed, marketPrice, priceState, collectionActionState, wishlistActionState, actionError, onCollectionAction, onWishlistAction, onScanAnother }) {
-  const tcgplayerCardUrl = getTcgplayerCardUrl({
+  const tcgplayerDestination = getTcgplayerDestination({
     exactUrl: marketPrice?.tcgplayerUrl,
-    cardName: confirmed.card?.name,
+    cardName: marketPrice?.name || confirmed.card?.name,
     setName: confirmed.setName,
-    cardNumber: confirmed.card?.number,
+    cardNumber: marketPrice?.cardNumber || confirmed.card?.number,
   });
   const hasMarketPrice = priceState === "available" && Number(marketPrice?.marketPriceUsd) > 0;
   const isPriceLoading = priceState === "loading";
-  const showPricePanel = isPriceLoading || hasMarketPrice || Boolean(tcgplayerCardUrl);
+  const showPricePanel = true;
 
   return <section className="scanner-beta-confirmed" aria-live="polite" data-card-id={confirmed.cardId}>
     <img src={getCardImageUrl(confirmed.card)} alt={confirmed.card?.name || "Confirmed card"} />
@@ -85,7 +85,8 @@ export function ScannerConfirmedResult({ confirmed, marketPrice, priceState, col
           <span className="scanner-beta-price-label">Market Price</span>
           {isPriceLoading ? <span className="scanner-beta-price-loading"><span className="scanner-beta-price-spinner" aria-hidden="true" /><span>Loading price</span></span> : <strong>{formatUsd(marketPrice.marketPriceUsd)}</strong>}
         </>}
-        {tcgplayerCardUrl && <a className="scanner-beta-tcgplayer-link" href={tcgplayerCardUrl} target="_blank" rel="noopener noreferrer">View on TCGplayer</a>}
+        {!isPriceLoading && !hasMarketPrice && <strong>Price unavailable</strong>}
+        {tcgplayerDestination && <a className="scanner-beta-tcgplayer-link" href={tcgplayerDestination.url} target="_blank" rel="noopener noreferrer">{tcgplayerDestination.label}</a>}
       </section>}
       <div className="scanner-beta-actions">
         <ScannerActionButton kind="collection" state={collectionActionState} onClick={onCollectionAction} />

@@ -6,6 +6,9 @@ import { countDevRequest } from "../../mobile-app/src/utils/requestDiagnostics.j
 import { calculateValueCoverage } from "./priceCoverage.js";
 
 export const VALUE_COUNT_THRESHOLD_USD = 1;
+// Scheduled syncs run every other day. After seven days, retain the marketplace
+// identity but stop presenting the cached price as current.
+export const TRUSTED_PRICE_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000;
 const PRICE_SELECT_COLUMNS =
   "card_id,set_id,card_number,name,rarity,price_type,market_price_usd,low_price_usd,mid_price_usd,high_price_usd,direct_low_price_usd,tcgplayer_url,source_updated_at,synced_at";
 const setPriceResults = new Map();
@@ -61,10 +64,17 @@ export function resolveCardPriceIds(card, setId) {
   return getCardPriceLookupKeys(card, setId);
 }
 
-function normalizePriceRow(row) {
+export function isTrustedCurrentPriceRow(row, now = Date.now()) {
+  const marketPrice = Number(getBestPrice(row));
+  const syncedAt = Date.parse(row?.synced_at || row?.syncedAt || "");
+  return Number.isFinite(marketPrice) && marketPrice > 0 && Number.isFinite(syncedAt) && syncedAt <= now && now - syncedAt <= TRUSTED_PRICE_MAX_AGE_MS;
+}
+
+function normalizePriceRow(row, now = Date.now()) {
   if (!row) return null;
   const rawMarketPrice = Number(getBestPrice(row));
-  const marketPrice = Number.isFinite(rawMarketPrice) && rawMarketPrice > 0 ? rawMarketPrice : null;
+  const isCurrentPrice = isTrustedCurrentPriceRow(row, now);
+  const marketPrice = isCurrentPrice && Number.isFinite(rawMarketPrice) && rawMarketPrice > 0 ? rawMarketPrice : null;
 
   return {
     cardId: row.card_id,
@@ -74,21 +84,22 @@ function normalizePriceRow(row) {
     rarity: row.rarity,
     priceType: row.price_type,
     marketPriceUsd: marketPrice,
-    lowPriceUsd: row.low_price_usd == null ? null : Number(row.low_price_usd),
-    midPriceUsd: row.mid_price_usd == null ? null : Number(row.mid_price_usd),
-    highPriceUsd: row.high_price_usd == null ? null : Number(row.high_price_usd),
-    directLowPriceUsd: row.direct_low_price_usd == null ? null : Number(row.direct_low_price_usd),
+    lowPriceUsd: isCurrentPrice && row.low_price_usd != null ? Number(row.low_price_usd) : null,
+    midPriceUsd: isCurrentPrice && row.mid_price_usd != null ? Number(row.mid_price_usd) : null,
+    highPriceUsd: isCurrentPrice && row.high_price_usd != null ? Number(row.high_price_usd) : null,
+    directLowPriceUsd: isCurrentPrice && row.direct_low_price_usd != null ? Number(row.direct_low_price_usd) : null,
     tcgplayerUrl: row.tcgplayer_url || "",
     sourceUpdatedAt: row.source_updated_at || null,
     syncedAt: row.synced_at || null,
+    isCurrentPrice,
   };
 }
 
-export function indexPriceRows(rows = []) {
+export function indexPriceRows(rows = [], { now = Date.now() } = {}) {
   const priceMap = new Map();
 
   rows.forEach((row) => {
-    const normalized = normalizePriceRow(row);
+    const normalized = normalizePriceRow(row, now);
     if (!normalized) return;
 
     if (normalized.cardId) priceMap.set(String(normalized.cardId), normalized);

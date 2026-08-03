@@ -67,7 +67,7 @@ import {
   getMobileResetPasswordUrl,
   getSiteOrigin,
 } from "../../src/utils/authRedirects.js";
-import { getTcgplayerCardUrl } from "../../src/utils/tcgplayerSearch.js";
+import { getTcgplayerDestination } from "../../src/utils/tcgplayerSearch.js";
 import {
   formatUsd,
   getCardDisplayPrice,
@@ -2146,11 +2146,11 @@ function CardInspectModal({ item, collection, user, wishlistKeys, wishlistPendin
   const { card, set } = item;
   const marketPrice = getCardDisplayPrice(card, priceMap, set.id);
   const hasMarketPrice = Number(marketPrice?.marketPriceUsd) > 0;
-  const tcgplayerCardUrl = getTcgplayerCardUrl({
+  const tcgplayerDestination = getTcgplayerDestination({
     exactUrl: marketPrice?.tcgplayerUrl,
-    cardName: getDisplayCardName(card, set),
+    cardName: marketPrice?.name || card.name,
     setName: set.name,
-    cardNumber: card.number,
+    cardNumber: marketPrice?.cardNumber || card.number,
   });
   const ownedCount = getCardCount(collection, card, set.id);
   const wishlistKey = getWishlistKey(set.id, card.id);
@@ -2320,9 +2320,10 @@ function CardInspectModal({ item, collection, user, wishlistKeys, wishlistPendin
             Estimated Market Value: <strong>{formatUsd(marketPrice.marketPriceUsd)}</strong>
             <TcgplayerSourceBadge compact />
           </p>}
-          {!minimalPreview && tcgplayerCardUrl && (
-            <a className="tcgplayer-card-link" href={tcgplayerCardUrl} target="_blank" rel="noopener noreferrer">
-              View on TCGplayer
+          {!minimalPreview && !hasMarketPrice && <p className="market-price-line">Price unavailable</p>}
+          {!minimalPreview && tcgplayerDestination && (
+            <a className="tcgplayer-card-link" href={tcgplayerDestination.url} target="_blank" rel="noopener noreferrer">
+              {tcgplayerDestination.label}
             </a>
           )}
           {!minimalPreview && contextualActions.length > 0 && <div className={`inspect-explore-links ${getCardActionLayoutClass(contextualActions.length)}`}>{contextualActions}</div>}
@@ -2388,7 +2389,13 @@ function ValueScreen({
       </div>
       <section className="value-hero">
         <span className="eyebrow">{valueCoverage.isComplete ? "Estimated Virtual Collection Value" : "Known Value"}</span>
-        {isValueLoading ? <strong>Loading...</strong> : <strong>{formatUsd(valueCoverage.totalValue)}</strong>}
+        {isValueLoading
+          ? <strong>Loading...</strong>
+          : valueCoverage.pricedCards > 0
+            ? <strong>{formatUsd(valueCoverage.totalValue)}</strong>
+            : valueCoverage.totalCards > 0
+              ? <strong>Price unavailable</strong>
+              : null}
         {!isValueLoading && valueCoverage.totalCards === 0 && <p>No owned cards yet.</p>}
         {!isValueLoading && valueCoverage.totalCards > 0 && <p>Based on {valueCoverage.pricedCards} of {valueCoverage.totalCards} priced cards.</p>}
         {valueCoverage.pricedCards > 0 && <TcgplayerSourceBadge />}
