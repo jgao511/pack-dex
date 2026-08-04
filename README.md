@@ -8,10 +8,6 @@ PackDex has three connected surfaces:
 * **PackDex Desktop** — the existing fully playable desktop app loaded at `/` after the welcome
 * **PackDex Mobile** — the primary, most actively updated product at `/mobile-app/`
 
-## Main Website
-
-The main PackDex website introduces the product, then sends collectors into the existing desktop app or the mobile app. The local `packdex_welcome_seen_v1` preference prevents a returning visit to `/` from flashing the welcome again. The desktop app's mobile-feature notice uses the separate `packdex_desktop_mobile_notice_dismissed_v1` preference.
-
 ### Features
 
 * Responsive product overview for desktop, tablet, and mobile browsers
