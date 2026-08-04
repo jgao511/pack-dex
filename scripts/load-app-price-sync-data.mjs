@@ -37,7 +37,7 @@ export async function loadAppPriceSyncData(rootDir = process.cwd()) {
   const setsModule = await import(pathToFileURL(path.join(rootDir, "src", "data", "sets.js")).href);
   const priceMapModule = await import(pathToFileURL(path.join(rootDir, "src", "lib", "priceSetMap.js")).href);
   const priceAliasModule = await import(pathToFileURL(path.join(rootDir, "src", "lib", "priceSetAliases.js")).href);
-  const appSets = Array.isArray(setsModule.sets) ? setsModule.sets : [];
+  const appSets = Array.isArray(setsModule.activeSets) ? setsModule.activeSets : [];
   const priceSetMap = priceMapModule.PRICE_SET_MAP || {};
   const priceSetAliases = priceAliasModule.PRICE_SET_ALIASES || {};
 

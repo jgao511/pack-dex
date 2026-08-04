@@ -8,7 +8,9 @@ test("sync uses the shared canonical matcher and stores identity rows without re
   const source = await sourcePromise;
   assert.match(source, /buildCanonicalCardLookup/);
   assert.match(source, /matchCanonicalCard/);
+  assert.match(source, /isCanonicalIdentityConsistent/);
   assert.match(source, /selectTcgplayerPrice/);
+  assert.match(source, /requireVerifiedProduct: true/);
   assert.match(source, /rows\.push\(buildMarketplaceRow/);
   assert.doesNotMatch(source, /if \(!selectedPrice\)[\s\S]{0,180}continue;/);
   assert.doesNotMatch(source, /ACCEPTED_PRICE_TYPES/);
@@ -35,6 +37,10 @@ test("failed API subsets preserve prior rows while successful subsets can still 
   assert.match(source, /successfulFetches/);
   assert.match(source, /stalePricesPreserved/);
   assert.match(source, /apiErrors/);
+  assert.match(source, /UPSTREAM_TIMEOUT_MS/);
+  assert.match(source, /UPSTREAM_MAX_ATTEMPTS/);
+  assert.match(source, /shouldRetryUpstreamStatus/);
+  assert.match(source, /AbortSignal\.timeout/);
 });
 
 test("an explicitly requested exact card can recover a failed subset without scheduled request amplification", async () => {
@@ -66,6 +72,7 @@ test("production metrics distinguish identity coverage from accepted market cove
     "marketPricesUpserted",
     "suspiciousMappings",
     "latestSourceUpdatedAt",
+    "selectionReasonCounts",
   ]) {
     assert.match(source, new RegExp(`\\b${field}\\b`));
   }

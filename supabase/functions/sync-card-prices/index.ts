@@ -5,9 +5,8 @@ import {
   buildCanonicalCardLookup,
   buildMarketplaceRow,
   compactText,
+  isCanonicalIdentityConsistent,
   matchCanonicalCard,
-  normalizeCanonicalName,
-  normalizeCollectorNumber,
   preserveCanonicalMarketplaceIdentity,
   selectTcgplayerPrice,
 } from "../_shared/cardPricing.js";
@@ -19,6 +18,8 @@ const corsHeaders = {
 };
 
 const POKEMON_TCG_API_BASE_URL = "https://api.pokemontcg.io/v2";
+const UPSTREAM_TIMEOUT_MS = 25_000;
+const UPSTREAM_MAX_ATTEMPTS = 2;
 
 type AdminClient = ReturnType<typeof getAdminClient>;
 type PackDexSet = {
@@ -39,6 +40,8 @@ type PackDexCard = {
   sourceCardId?: string;
   tcgplayerPriceType?: string;
   priceFinish?: string;
+  verifiedTcgplayerUrl?: string;
+  verifiedTcgplayerProductId?: string;
 };
 type PokemonTcgCard = {
   id?: string;
@@ -143,8 +146,39 @@ function getApiStaleCardIds(apiCard: PokemonTcgCard) {
   return [apiCard.id].map(compactId).filter(Boolean);
 }
 
-async function fetchPokemonTcgCards(apiSetId: string) {
+function shouldRetryUpstreamStatus(status: number) {
+  return status === 429 || status === 500 || status === 502 || status === 503 || status === 504;
+}
+
+function retryDelayMs(response: Response, attempt: number) {
+  const retryAfterSeconds = Number(response.headers.get("retry-after"));
+  if (Number.isFinite(retryAfterSeconds) && retryAfterSeconds > 0) return Math.min(4_000, retryAfterSeconds * 1_000);
+  return 750 * 2 ** attempt;
+}
+
+async function fetchPokemonTcgResponse(url: URL | string, label: string) {
   const apiKey = Deno.env.get("POKEMON_TCG_API_KEY") || Deno.env.get("POKEMONTCG_API_KEY") || "";
+  let lastError: unknown = null;
+  for (let attempt = 0; attempt < UPSTREAM_MAX_ATTEMPTS; attempt += 1) {
+    try {
+      const response = await fetch(url, {
+        headers: apiKey ? { "X-Api-Key": apiKey } : {},
+        signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
+      });
+      if (response.ok || !shouldRetryUpstreamStatus(response.status) || attempt === UPSTREAM_MAX_ATTEMPTS - 1) return response;
+      const delay = retryDelayMs(response, attempt);
+      await response.body?.cancel();
+      await new Promise((resolve) => setTimeout(resolve, delay));
+    } catch (error) {
+      lastError = error;
+      if (attempt === UPSTREAM_MAX_ATTEMPTS - 1) throw error;
+      await new Promise((resolve) => setTimeout(resolve, 750 * 2 ** attempt));
+    }
+  }
+  throw lastError || new Error(`Pokemon TCG API request failed for ${label}.`);
+}
+
+async function fetchPokemonTcgCards(apiSetId: string) {
   const cards: PokemonTcgCard[] = [];
   let page = 1;
 
@@ -154,9 +188,7 @@ async function fetchPokemonTcgCards(apiSetId: string) {
     url.searchParams.set("pageSize", "250");
     url.searchParams.set("page", String(page));
 
-    const response = await fetch(url, {
-      headers: apiKey ? { "X-Api-Key": apiKey } : {},
-    });
+    const response = await fetchPokemonTcgResponse(url, apiSetId);
 
     if (!response.ok) {
       throw new Error(`Pokemon TCG API request failed for ${apiSetId} with HTTP ${response.status}.`);
@@ -175,10 +207,7 @@ async function fetchPokemonTcgCards(apiSetId: string) {
 }
 
 async function fetchPokemonTcgCard(apiCardId: string) {
-  const apiKey = Deno.env.get("POKEMON_TCG_API_KEY") || Deno.env.get("POKEMONTCG_API_KEY") || "";
-  const response = await fetch(`${POKEMON_TCG_API_BASE_URL}/cards/${encodeURIComponent(apiCardId)}`, {
-    headers: apiKey ? { "X-Api-Key": apiKey } : {},
-  });
+  const response = await fetchPokemonTcgResponse(`${POKEMON_TCG_API_BASE_URL}/cards/${encodeURIComponent(apiCardId)}`, apiCardId);
 
   if (!response.ok) {
     throw new Error(`Pokemon TCG API exact-card request failed for ${apiCardId} with HTTP ${response.status}.`);
@@ -266,6 +295,7 @@ async function syncSet(
   let cardsWithCanonicalUrl = 0;
   let cardsWithUrlNoMarketPrice = 0;
   let suspiciousMappings = 0;
+  const selectionReasonCounts: Record<string, number> = {};
   let latestSourceUpdatedAt: string | null = null;
 
   for (const apiCard of apiCards) {
@@ -275,6 +305,12 @@ async function syncSet(
       if (matched.ambiguous) ambiguousMatches += 1;
       skippedExcludedVariant += 1;
       staleCardIds.push(...getApiStaleCardIds(apiCard));
+      continue;
+    }
+
+    if (!isCanonicalIdentityConsistent(apiCard, appCard)) {
+      suspiciousMappings += 1;
+      skippedExcludedVariant += 1;
       continue;
     }
 
@@ -288,15 +324,8 @@ async function syncSet(
     if (matched.matchType === "api_card_id") exactApiIdMatches += 1;
     if (matched.matchType === "set_number_name") setNumberNameMatches += 1;
     if (matched.matchType === "set_unique_number") uniqueNumberMatches += 1;
-    if (
-      matched.matchType === "api_card_id" &&
-      (normalizeCollectorNumber(appCard.number) !== normalizeCollectorNumber(apiCard.number) ||
-        normalizeCanonicalName(appCard.name) !== normalizeCanonicalName(apiCard.name))
-    ) {
-      suspiciousMappings += 1;
-    }
-
-    const selection = selectTcgplayerPrice(apiCard, appCard);
+    const selection = selectTcgplayerPrice(apiCard, appCard, { requireVerifiedProduct: true });
+    selectionReasonCounts[selection.reason] = (selectionReasonCounts[selection.reason] || 0) + 1;
     if (!selection.priceType) {
       skippedNoMarketPrice += 1;
       if (compactId(apiCard.tcgplayer?.url)) cardsWithUrlNoMarketPrice += 1;
@@ -362,6 +391,7 @@ async function syncSet(
     skippedExcludedVariant,
     ambiguousMatches,
     suspiciousMappings,
+    selectionReasonCounts,
     latestSourceUpdatedAt,
     stalePricesDeleted,
     stalePricesPreserved: apiErrors.length > 0 ? cards.filter((card) => apiErrors.some((error) => error?.apiSetId === card.sourceSetId)).length : 0,

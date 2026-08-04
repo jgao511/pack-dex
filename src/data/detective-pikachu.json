@@ -4,6 +4,7 @@
     "name": "Bulbasaur",
     "rarity": "Common",
     "number": "1",
+    "tcgplayerPriceType": "holofoil",
     "image": "/assets/sets/detective-pikachu/cards/1_Bulbasaur_Common.png"
   },
   {
@@ -11,6 +12,7 @@
     "name": "Ludicolo",
     "rarity": "Rare",
     "number": "2",
+    "tcgplayerPriceType": "holofoil",
     "image": "/assets/sets/detective-pikachu/cards/2_Ludicolo_Rare.png"
   },
   {
@@ -18,6 +20,7 @@
     "name": "Morelull",
     "rarity": "Common",
     "number": "3",
+    "tcgplayerPriceType": "holofoil",
     "image": "/assets/sets/detective-pikachu/cards/3_Morelull_Common.png"
   },
   {
@@ -25,6 +28,7 @@
     "name": "Charmander",
     "rarity": "Common",
     "number": "4",
+    "tcgplayerPriceType": "holofoil",
     "image": "/assets/sets/detective-pikachu/cards/4_Charmander_Common.png"
   },
   {
@@ -32,6 +36,7 @@
     "name": "Charizard",
     "rarity": "Ultra Rare",
     "number": "5",
+    "tcgplayerPriceType": "holofoil",
     "image": "/assets/sets/detective-pikachu/cards/5_Charizard_Rare_Ultra.png"
   },
   {
@@ -39,6 +44,7 @@
     "name": "Arcanine",
     "rarity": "Rare",
     "number": "6",
+    "tcgplayerPriceType": "holofoil",
     "image": "/assets/sets/detective-pikachu/cards/6_Arcanine_Rare.png"
   },
   {
@@ -46,6 +52,7 @@
     "name": "Psyduck",
     "rarity": "Common",
     "number": "7",
+    "tcgplayerPriceType": "holofoil",
     "image": "/assets/sets/detective-pikachu/cards/7_Psyduck_Common.png"
   },
   {
@@ -53,6 +60,7 @@
     "name": "Magikarp",
     "rarity": "Common",
     "number": "8",
+    "tcgplayerPriceType": "holofoil",
     "image": "/assets/sets/detective-pikachu/cards/8_Magikarp_Common.png"
   },
   {
@@ -60,6 +68,7 @@
     "name": "Greninja",
     "rarity": "Ultra Rare",
     "number": "9",
+    "tcgplayerPriceType": "holofoil",
     "image": "/assets/sets/detective-pikachu/cards/9_Greninja_Rare_Ultra.png"
   },
   {
@@ -67,6 +76,7 @@
     "name": "Detective Pikachu",
     "rarity": "Rare",
     "number": "10",
+    "tcgplayerPriceType": "holofoil",
     "image": "/assets/sets/detective-pikachu/cards/10_Detective_Pikachu_Rare.png"
   },
   {
@@ -74,6 +84,7 @@
     "name": "Mr. Mime",
     "rarity": "Rare",
     "number": "11",
+    "tcgplayerPriceType": "holofoil",
     "image": "/assets/sets/detective-pikachu/cards/11_Mr._Mime_Rare.png"
   },
   {
@@ -81,6 +92,7 @@
     "name": "Mewtwo",
     "rarity": "Ultra Rare",
     "number": "12",
+    "tcgplayerPriceType": "holofoil",
     "image": "/assets/sets/detective-pikachu/cards/12_Mewtwo_Rare_Ultra.png"
   },
   {
@@ -88,6 +100,7 @@
     "name": "Machamp",
     "rarity": "Rare",
     "number": "13",
+    "tcgplayerPriceType": "holofoil",
     "image": "/assets/sets/detective-pikachu/cards/13_Machamp_Rare.png"
   },
   {
@@ -95,6 +108,7 @@
     "name": "Jigglypuff",
     "rarity": "Common",
     "number": "14",
+    "tcgplayerPriceType": "holofoil",
     "image": "/assets/sets/detective-pikachu/cards/14_Jigglypuff_Common.png"
   },
   {
@@ -102,6 +116,7 @@
     "name": "Snubbull",
     "rarity": "Common",
     "number": "15",
+    "tcgplayerPriceType": "holofoil",
     "image": "/assets/sets/detective-pikachu/cards/15_Snubbull_Common.png"
   },
   {
@@ -109,6 +124,7 @@
     "name": "Lickitung",
     "rarity": "Common",
     "number": "16",
+    "tcgplayerPriceType": "holofoil",
     "image": "/assets/sets/detective-pikachu/cards/16_Lickitung_Common.png"
   },
   {
@@ -116,6 +132,7 @@
     "name": "Ditto",
     "rarity": "Ultra Rare",
     "number": "17",
+    "tcgplayerPriceType": "holofoil",
     "image": "/assets/sets/detective-pikachu/cards/17_Ditto_Rare_Ultra.png"
   },
   {
@@ -123,6 +140,7 @@
     "name": "Slaking",
     "rarity": "Rare",
     "number": "18",
+    "tcgplayerPriceType": "holofoil",
     "image": "/assets/sets/detective-pikachu/cards/18_Slaking_Rare.png"
   }
 ]

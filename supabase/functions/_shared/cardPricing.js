@@ -2,8 +2,9 @@
 // after that the price is unavailable while the canonical marketplace identity remains.
 export const TRUSTED_PRICE_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000;
 
-const REGULAR_PRICE_TYPES = ["normal", "holofoil", "reverseHolofoil"];
+const REVERSE_PRICE_TYPE = "reverseHolofoil";
 const INHERENT_HOLO_RARITY = /(?:holo|classic collection|double rare|ultra rare|secret rare|rare secret|illustration rare|hyper rare|amazing rare|radiant rare|shiny rare|ace spec|prism star|rare prime|rare break|legend)/i;
+const SINGLE_PRINTING_SPECIAL_RARITY = /(?:classic collection|double rare|ultra rare|secret rare|rare secret|illustration rare|hyper rare|amazing rare|radiant rare|shiny rare|ace spec|prism star|rare holo (?:star|ex|gx|v|max|vstar)|rare prime|rare break|legend|trainer gallery|galarian gallery)/i;
 
 export function compactText(value) {
   return String(value ?? "").trim();
@@ -38,6 +39,17 @@ export function getCollectorNumberAliases(value) {
     if (prefix && prefix === denominatorPrefix && ["h", "sh", "sv", "tg", "gg"].includes(prefix)) aliases.add(numerator);
   }
   return [...aliases];
+}
+
+export function collectorNumbersDescribeSamePrinting(left, right) {
+  const normalizedLeft = normalizeCollectorNumber(left);
+  const normalizedRight = normalizeCollectorNumber(right);
+  if (!normalizedLeft || !normalizedRight) return false;
+  if (normalizedLeft === normalizedRight) return true;
+  if (getCollectorNumberAliases(left).includes(normalizedRight) || getCollectorNumberAliases(right).includes(normalizedLeft)) return true;
+  const [leftNumerator, leftDenominator, ...leftExtra] = normalizedLeft.split("/");
+  const [rightNumerator, rightDenominator, ...rightExtra] = normalizedRight.split("/");
+  return leftNumerator === rightNumerator && leftExtra.length === 0 && rightExtra.length === 0 && Boolean(leftDenominator) !== Boolean(rightDenominator);
 }
 
 export function normalizeCanonicalName(value) {
@@ -125,80 +137,148 @@ export function inferPrintingFinish(appCard, apiCard) {
   return null;
 }
 
+export function isSinglePrintingSpecialCard(appCard, apiCard) {
+  return SINGLE_PRINTING_SPECIAL_RARITY.test(compactText(apiCard?.rarity || appCard?.rarity));
+}
+
+export function isCanonicalIdentityConsistent(apiCard, appCard) {
+  const apiSetId = getApiCardSetId(apiCard).toLowerCase();
+  const sourceSetId = compactText(appCard?.sourceSetId).toLowerCase();
+  const sourceCardId = compactText(appCard?.sourceCardId).toLowerCase();
+  const apiCardId = compactText(apiCard?.id).toLowerCase();
+  const hasAuditedNumberOverride = Boolean(
+    compactText(appCard?.verifiedTcgplayerProductId) &&
+    compactText(appCard?.verifiedTcgplayerUrl) &&
+    compactText(appCard?.verifiedTcgplayerUrl) === compactText(apiCard?.tcgplayer?.url)
+  );
+  return Boolean(
+    apiCardId &&
+    sourceCardId === apiCardId &&
+    (!sourceSetId || sourceSetId === apiSetId) &&
+    normalizeCanonicalName(appCard?.name) === normalizeCanonicalName(apiCard?.name) &&
+    (collectorNumbersDescribeSamePrinting(appCard?.number, apiCard?.number) || hasAuditedNumberOverride)
+  );
+}
+
 function isModeledBucket(bucket) {
   if (!bucket || typeof bucket !== "object") return false;
   return ["market", "low", "mid", "high", "directLow"].some((key) => bucket[key] != null);
 }
 
-export function selectTcgplayerPrice(apiCard, appCard) {
+export function selectTcgplayerPrice(apiCard, appCard, options = {}) {
   const prices = apiCard?.tcgplayer?.prices || {};
-  const modeledPriceTypes = REGULAR_PRICE_TYPES.filter((priceType) => isModeledBucket(prices[priceType]));
+  const modeledPriceTypes = Object.keys(prices).filter((priceType) => isModeledBucket(prices[priceType]));
+  const positiveMarketTypes = modeledPriceTypes.filter((priceType) => positiveNumber(prices[priceType]?.market) != null);
+  const positiveNonReverseTypes = positiveMarketTypes.filter((priceType) => priceType !== REVERSE_PRICE_TYPE);
   const expectedPriceType = inferPrintingFinish(appCard, apiCard);
   const explicitPriceType = compactText(appCard?.tcgplayerPriceType || appCard?.priceFinish);
+  const verifiedUrl = compactText(appCard?.verifiedTcgplayerUrl);
+  const hasVerifiedExactProduct = Boolean(
+    compactText(appCard?.verifiedTcgplayerProductId) &&
+    verifiedUrl &&
+    verifiedUrl === compactText(apiCard?.tcgplayer?.url)
+  );
+
+  const unavailable = (reason) => ({
+    priceType: null,
+    price: null,
+    reason,
+    expectedPriceType,
+    modeledPriceTypes,
+    positiveMarketTypes,
+    hasVerifiedExactProduct,
+  });
 
   const select = (priceType, reason) => {
     const price = prices[priceType];
     if (positiveNumber(price?.market) == null) {
-      return { priceType: null, price: null, reason: "no_positive_market", expectedPriceType, modeledPriceTypes };
+      return unavailable("no_positive_market");
     }
-    return { priceType, price, reason, expectedPriceType, modeledPriceTypes };
+    return { priceType, price, reason, expectedPriceType, modeledPriceTypes, positiveMarketTypes, hasVerifiedExactProduct };
   };
 
+  if (options?.requireVerifiedProduct === true && !hasVerifiedExactProduct) {
+    return unavailable("marketplace_product_unverified");
+  }
+
   if (explicitPriceType) {
-    if (REGULAR_PRICE_TYPES.includes(explicitPriceType) && modeledPriceTypes.includes(explicitPriceType)) {
+    if (modeledPriceTypes.includes(explicitPriceType)) {
       return select(explicitPriceType, "explicit_catalog_finish");
     }
-    return { priceType: null, price: null, reason: "explicit_finish_missing", expectedPriceType, modeledPriceTypes };
+    return unavailable("explicit_finish_missing");
   }
-  if (expectedPriceType === "holofoil" && modeledPriceTypes.includes("holofoil")) {
+  if (expectedPriceType === "holofoil" && positiveMarketTypes.includes("holofoil")) {
     return select("holofoil", "rarity_evidence");
   }
   if (expectedPriceType === "holofoil") {
-    return { priceType: null, price: null, reason: "expected_holofoil_missing", expectedPriceType, modeledPriceTypes };
+    if (
+      isSinglePrintingSpecialCard(appCard, apiCard) &&
+      hasVerifiedExactProduct &&
+      positiveNonReverseTypes.length === 1 &&
+      ["normal", "holofoil"].includes(positiveNonReverseTypes[0])
+    ) {
+      return select(positiveNonReverseTypes[0], "single_verified_non_reverse_bucket");
+    }
+    return unavailable("expected_holofoil_missing");
   }
-  if (expectedPriceType === "normal" && modeledPriceTypes.includes("normal")) {
+  if (expectedPriceType === "normal" && positiveMarketTypes.includes("normal")) {
     return select("normal", "rarity_evidence");
   }
   if (expectedPriceType === "normal") {
-    return { priceType: null, price: null, reason: "expected_normal_missing", expectedPriceType, modeledPriceTypes };
-  }
-  if (expectedPriceType === "rare-era-dependent" && modeledPriceTypes.includes("normal")) {
-    return select("normal", "rare_normal_printing");
-  }
-  if (expectedPriceType === "rare-era-dependent" && modeledPriceTypes.includes("holofoil")) {
-    return select("holofoil", "rare_holo_printing");
+    return unavailable("expected_normal_missing");
   }
   if (expectedPriceType === "rare-era-dependent") {
-    return { priceType: null, price: null, reason: "rare_finish_unproven", expectedPriceType, modeledPriceTypes };
+    const standardTypes = positiveNonReverseTypes.filter((priceType) => ["normal", "holofoil"].includes(priceType));
+    if (standardTypes.length === 1) return select(standardTypes[0], standardTypes[0] === "normal" ? "rare_normal_printing" : "rare_holo_printing");
+    return unavailable(standardTypes.length > 1 ? "multiple_non_reverse_ambiguity" : "rare_finish_unproven");
   }
-  const nonReverseModeledTypes = modeledPriceTypes.filter((priceType) => priceType !== "reverseHolofoil");
-  if (nonReverseModeledTypes.length === 1 && modeledPriceTypes.length === 1) {
-    return select(modeledPriceTypes[0], "single_modeled_variant");
+  if (positiveMarketTypes.length === 1 && positiveNonReverseTypes.length === 1 && ["normal", "holofoil"].includes(positiveNonReverseTypes[0])) {
+    return select(positiveNonReverseTypes[0], "single_modeled_variant");
+  }
+  if (hasVerifiedExactProduct && positiveNonReverseTypes.length === 1 && ["normal", "holofoil"].includes(positiveNonReverseTypes[0])) {
+    return select(positiveNonReverseTypes[0], "single_verified_non_reverse_bucket");
   }
   if (modeledPriceTypes.length === 0) {
-    return { priceType: null, price: null, reason: "no_tcgplayer_price_bucket", expectedPriceType, modeledPriceTypes };
+    return unavailable("no_tcgplayer_price_bucket");
   }
-  return { priceType: null, price: null, reason: "ambiguous_variant", expectedPriceType, modeledPriceTypes };
+  if (positiveMarketTypes.length === 0) return unavailable("no_positive_market");
+  return unavailable(positiveNonReverseTypes.length > 1 ? "multiple_non_reverse_ambiguity" : "ambiguous_variant");
 }
 
 export function buildMarketplaceRow(set, appCard, apiCard, selection, syncedAt = new Date().toISOString()) {
-  const selectedPrice = selection?.price || null;
-  return {
+  const apiMarketplaceUrl = compactText(apiCard?.tcgplayer?.url);
+  const verifiedMarketplaceUrl = compactText(appCard?.verifiedTcgplayerUrl);
+  const hasAuditedMarketplaceIdentity = Boolean(compactText(appCard?.verifiedTcgplayerProductId) && verifiedMarketplaceUrl);
+  const hasVerifiedMarketplaceIdentity = Boolean(
+    hasAuditedMarketplaceIdentity &&
+    apiMarketplaceUrl &&
+    verifiedMarketplaceUrl === apiMarketplaceUrl
+  );
+  // Price fields and direct links share one proof boundary. This prevents an
+  // incorrect provider redirect from contributing value even if its API card
+  // ID otherwise looks canonical.
+  const selectedPrice = hasVerifiedMarketplaceIdentity ? selection?.price || null : null;
+  const row = {
     card_id: compactText(apiCard?.id),
     set_id: compactText(set?.id),
     card_number: compactText(appCard?.number || apiCard?.number) || null,
     name: compactText(apiCard?.name || appCard?.name) || null,
     rarity: compactText(apiCard?.rarity || appCard?.rarity) || null,
-    price_type: selection?.priceType || null,
+    price_type: hasVerifiedMarketplaceIdentity ? selection?.priceType || null : null,
     market_price_usd: positiveNumber(selectedPrice?.market),
     low_price_usd: positiveNumber(selectedPrice?.low),
     mid_price_usd: positiveNumber(selectedPrice?.mid),
     high_price_usd: positiveNumber(selectedPrice?.high),
     direct_low_price_usd: positiveNumber(selectedPrice?.directLow),
-    tcgplayer_url: compactText(apiCard?.tcgplayer?.url) || null,
+    tcgplayer_url: hasVerifiedMarketplaceIdentity ? apiMarketplaceUrl : null,
     source_updated_at: compactText(apiCard?.tcgplayer?.updatedAt) || null,
     synced_at: syncedAt,
   };
+  Object.defineProperty(row, "verifiedMarketplaceUrl", {
+    value: hasAuditedMarketplaceIdentity ? verifiedMarketplaceUrl : null,
+    enumerable: false,
+  });
+  return row;
 }
 
 export function isCanonicalMarketplaceUrl(value) {
@@ -212,7 +292,13 @@ export function isCanonicalMarketplaceUrl(value) {
 
 export function preserveCanonicalMarketplaceIdentity(currentRow, previousRow) {
   if (!currentRow || !previousRow || compactText(currentRow.card_id) !== compactText(previousRow.card_id)) return currentRow;
-  if (currentRow.tcgplayer_url || !isCanonicalMarketplaceUrl(previousRow.tcgplayer_url)) return currentRow;
+  const verifiedMarketplaceUrl = compactText(currentRow.verifiedMarketplaceUrl);
+  if (
+    currentRow.tcgplayer_url ||
+    !verifiedMarketplaceUrl ||
+    verifiedMarketplaceUrl !== compactText(previousRow.tcgplayer_url) ||
+    !isCanonicalMarketplaceUrl(previousRow.tcgplayer_url)
+  ) return currentRow;
   return {
     ...currentRow,
     tcgplayer_url: previousRow.tcgplayer_url,

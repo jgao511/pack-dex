@@ -9,6 +9,8 @@ test("consumer price function validates a bounded catalog-backed batch", async (
   assert.match(source, /new Map\(requested\.map/);
   assert.match(source, /catalogById\.get\(item\.setId\)/);
   assert.match(source, /validateRequestedCards/);
+  assert.match(source, /isCanonicalIdentityConsistent/);
+  assert.match(source, /requireVerifiedProduct: true/);
   assert.match(source, /consume_public_pull_share_rate_limit/);
   assert.match(source, /\.upsert\(uniqueRefreshedRows/);
   assert.doesNotMatch(source, /for \(const[^)]*requested[^)]*\)[\s\S]{0,500}\.from\("card_prices"\)/);
