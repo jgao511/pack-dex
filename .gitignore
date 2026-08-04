@@ -5,3 +5,5 @@ supabase/.temp/
 .env.*
 !.env.example
 tests/fixtures/scanner/local-pixel/
+.cache/price-audit/
+.wrangler/
