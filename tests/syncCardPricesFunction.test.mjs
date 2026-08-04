@@ -21,14 +21,21 @@ test("temporary no-price responses do not delete a matched canonical identity", 
   const noPriceBranch = source.match(/if \(!selection\.priceType\) \{[\s\S]*?\n    \}/)?.[0] || "";
   assert.match(noPriceBranch, /skippedNoMarketPrice/);
   assert.doesNotMatch(noPriceBranch, /staleCardIds|delete/);
-  assert.match(source, /\.eq\("set_id", setId\)[\s\S]*?\.in\("card_id", uniqueCardIds\)/);
   assert.match(source, /preserveCanonicalMarketplaceIdentity/);
   assert.match(source, /select\("card_id,tcgplayer_url,source_updated_at"\)/);
 });
 
-test("replacement identities are written before stale incorrect rows are deleted", async () => {
+test("replacement identities and stale deletions use one database transaction", async () => {
   const source = await sourcePromise;
-  assert.ok(source.indexOf(".upsert(rowsWithPreservedIdentity") < source.indexOf("deleteStalePrices(admin, set.id"));
+  assert.match(source, /admin\.rpc\("packdex_apply_card_price_sync"/);
+  assert.match(source, /p_rows: rowsWithPreservedIdentity/);
+  assert.match(source, /p_stale_card_ids: uniqueStaleCardIds/);
+  const migration = await readFile(new URL("../supabase/migrations/20260804010000_atomic_card_price_sync.sql", import.meta.url), "utf8");
+  assert.match(migration, /insert into public\.card_prices[\s\S]*?delete from public\.card_prices/);
+  assert.match(migration, /security definer/);
+  assert.match(migration, /set search_path = pg_catalog, public/);
+  assert.match(migration, /revoke all on function[\s\S]*?from public/);
+  assert.match(migration, /grant execute on function[\s\S]*?to service_role/);
 });
 
 test("failed API subsets preserve prior rows while successful subsets can still sync", async () => {
@@ -57,8 +64,8 @@ test("an explicitly requested exact card can recover a failed subset without sch
 test("read-only audit mode never writes price rows", async () => {
   const source = await sourcePromise;
   assert.match(source, /const dryRun = body\?\.dryRun === true/);
-  assert.match(source, /if \(!dryRun && staleCardIds\.length > 0\)/);
   assert.match(source, /if \(!dryRun && rows\.length > 0\)/);
+  assert.doesNotMatch(source, /admin\.rpc\("packdex_apply_card_price_sync"[\s\S]*?if \(dryRun\)/);
 });
 
 test("production metrics distinguish identity coverage from accepted market coverage", async () => {

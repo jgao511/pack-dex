@@ -111,11 +111,12 @@ test("partial response rows merge directly without a second database fetch", asy
 test("total function failure still returns bounded cached values and clears the active attempt", async () => {
   const storage = memoryStorage();
   const cards = [entry("cached-on-failure")];
+  const now = Date.parse("2026-08-03T12:00:00.000Z");
   const client = {
-    from: () => ({ select() { return this; }, in: async () => ({ data: [{ card_id: "cached-on-failure", set_id: "set-cached-on-failure", card_number: "cached-on-failure", name: "cached-on-failure", market_price_usd: 7, synced_at: new Date(Date.now() - POKEMON_PRICE_REFRESH_MS - 1).toISOString() }], error: null }) }),
+    from: () => ({ select() { return this; }, in: async () => ({ data: [{ card_id: "cached-on-failure", set_id: "set-cached-on-failure", card_number: "cached-on-failure", name: "cached-on-failure", market_price_usd: 7, synced_at: new Date(now - POKEMON_PRICE_REFRESH_MS - 5_000).toISOString() }], error: null }) }),
     functions: { invoke: async () => ({ data: { status: "total_failure", updatedPrices: [], failedSetCount: 1 }, error: null }) },
   };
-  const result = await refreshPokemonPrices({ speciesId: 718, cards, supabaseClient: client, storage });
+  const result = await refreshPokemonPrices({ speciesId: 718, cards, supabaseClient: client, storage, now });
   assert.equal(result.status, "failure");
   assert.equal(result.priceMapsBySet["set-cached-on-failure"].get("cached-on-failure").marketPriceUsd, 7);
   assert.equal(JSON.parse(storage.getItem(POKEMON_PRICE_REFRESH_STORAGE_KEY))["718"].status, "failure");

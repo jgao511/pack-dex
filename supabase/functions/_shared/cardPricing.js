@@ -141,15 +141,26 @@ export function isSinglePrintingSpecialCard(appCard, apiCard) {
   return SINGLE_PRINTING_SPECIAL_RARITY.test(compactText(apiCard?.rarity || appCard?.rarity));
 }
 
+export function getVerifiedMarketplaceUrl(appCard) {
+  const explicitUrl = compactText(appCard?.verifiedTcgplayerUrl);
+  if (explicitUrl) return explicitUrl;
+  const productId = compactText(appCard?.verifiedTcgplayerProductId);
+  const sourceCardId = compactText(appCard?.sourceCardId);
+  if (!productId || !sourceCardId) return "";
+  return `https://prices.pokemontcg.io/tcgplayer/${encodeURIComponent(sourceCardId)}`;
+}
+
 export function isCanonicalIdentityConsistent(apiCard, appCard) {
   const apiSetId = getApiCardSetId(apiCard).toLowerCase();
   const sourceSetId = compactText(appCard?.sourceSetId).toLowerCase();
   const sourceCardId = compactText(appCard?.sourceCardId).toLowerCase();
   const apiCardId = compactText(apiCard?.id).toLowerCase();
+  const verifiedMarketplaceUrl = getVerifiedMarketplaceUrl(appCard);
   const hasAuditedNumberOverride = Boolean(
+    appCard?.allowVerifiedNumberOverride === true &&
     compactText(appCard?.verifiedTcgplayerProductId) &&
-    compactText(appCard?.verifiedTcgplayerUrl) &&
-    compactText(appCard?.verifiedTcgplayerUrl) === compactText(apiCard?.tcgplayer?.url)
+    verifiedMarketplaceUrl &&
+    verifiedMarketplaceUrl === compactText(apiCard?.tcgplayer?.url)
   );
   return Boolean(
     apiCardId &&
@@ -172,7 +183,8 @@ export function selectTcgplayerPrice(apiCard, appCard, options = {}) {
   const positiveNonReverseTypes = positiveMarketTypes.filter((priceType) => priceType !== REVERSE_PRICE_TYPE);
   const expectedPriceType = inferPrintingFinish(appCard, apiCard);
   const explicitPriceType = compactText(appCard?.tcgplayerPriceType || appCard?.priceFinish);
-  const verifiedUrl = compactText(appCard?.verifiedTcgplayerUrl);
+  const verifiedFallbackPriceType = compactText(appCard?.verifiedFallbackPriceType);
+  const verifiedUrl = getVerifiedMarketplaceUrl(appCard);
   const hasVerifiedExactProduct = Boolean(
     compactText(appCard?.verifiedTcgplayerProductId) &&
     verifiedUrl &&
@@ -215,6 +227,7 @@ export function selectTcgplayerPrice(apiCard, appCard, options = {}) {
       isSinglePrintingSpecialCard(appCard, apiCard) &&
       hasVerifiedExactProduct &&
       positiveNonReverseTypes.length === 1 &&
+      verifiedFallbackPriceType === positiveNonReverseTypes[0] &&
       ["normal", "holofoil"].includes(positiveNonReverseTypes[0])
     ) {
       return select(positiveNonReverseTypes[0], "single_verified_non_reverse_bucket");
@@ -235,9 +248,6 @@ export function selectTcgplayerPrice(apiCard, appCard, options = {}) {
   if (positiveMarketTypes.length === 1 && positiveNonReverseTypes.length === 1 && ["normal", "holofoil"].includes(positiveNonReverseTypes[0])) {
     return select(positiveNonReverseTypes[0], "single_modeled_variant");
   }
-  if (hasVerifiedExactProduct && positiveNonReverseTypes.length === 1 && ["normal", "holofoil"].includes(positiveNonReverseTypes[0])) {
-    return select(positiveNonReverseTypes[0], "single_verified_non_reverse_bucket");
-  }
   if (modeledPriceTypes.length === 0) {
     return unavailable("no_tcgplayer_price_bucket");
   }
@@ -247,7 +257,7 @@ export function selectTcgplayerPrice(apiCard, appCard, options = {}) {
 
 export function buildMarketplaceRow(set, appCard, apiCard, selection, syncedAt = new Date().toISOString()) {
   const apiMarketplaceUrl = compactText(apiCard?.tcgplayer?.url);
-  const verifiedMarketplaceUrl = compactText(appCard?.verifiedTcgplayerUrl);
+  const verifiedMarketplaceUrl = getVerifiedMarketplaceUrl(appCard);
   const hasAuditedMarketplaceIdentity = Boolean(compactText(appCard?.verifiedTcgplayerProductId) && verifiedMarketplaceUrl);
   const hasVerifiedMarketplaceIdentity = Boolean(
     hasAuditedMarketplaceIdentity &&

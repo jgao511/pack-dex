@@ -25,7 +25,7 @@ const PRICE_FRESHNESS_MS = 48 * 60 * 60 * 1_000;
 const POKEMON_TCG_API_BASE_URL = "https://api.pokemontcg.io/v2";
 const PRICE_COLUMNS = "card_id,set_id,card_number,name,market_price_usd,tcgplayer_url,source_updated_at,synced_at";
 
-type PackDexCard = { id?: string; name?: string; number?: string | number; rarity?: string; sourceSetId?: string; sourceCardId?: string; tcgplayerPriceType?: string; priceFinish?: string; verifiedTcgplayerUrl?: string; verifiedTcgplayerProductId?: string };
+type PackDexCard = { id?: string; name?: string; number?: string | number; rarity?: string; sourceSetId?: string; sourceCardId?: string; tcgplayerPriceType?: string; priceFinish?: string; verifiedTcgplayerUrl?: string; verifiedTcgplayerProductId?: string; verifiedFallbackPriceType?: string; allowVerifiedNumberOverride?: boolean };
 type PackDexSet = { id: string; apiSetId?: string | null; apiSetIds?: string[]; cards?: PackDexCard[] };
 type RequestedCard = { setId: string; cardId: string };
 type ValidatedCard = RequestedCard & { set: PackDexSet; card: PackDexCard };

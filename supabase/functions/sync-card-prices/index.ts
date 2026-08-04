@@ -42,6 +42,8 @@ type PackDexCard = {
   priceFinish?: string;
   verifiedTcgplayerUrl?: string;
   verifiedTcgplayerProductId?: string;
+  verifiedFallbackPriceType?: string;
+  allowVerifiedNumberOverride?: boolean;
 };
 type PokemonTcgCard = {
   id?: string;
@@ -222,20 +224,6 @@ async function fetchPokemonTcgCard(apiCardId: string) {
   return card;
 }
 
-async function deleteStalePrices(admin: AdminClient, setId: string, cardIds: string[]) {
-  const uniqueCardIds = [...new Set(cardIds)];
-  if (uniqueCardIds.length === 0) return 0;
-
-  const { error, count } = await admin
-    .from("card_prices")
-    .delete({ count: "exact" })
-    .eq("set_id", setId)
-    .in("card_id", uniqueCardIds);
-
-  if (error) throw error;
-  return count || 0;
-}
-
 async function syncSet(
   admin: AdminClient,
   set: PackDexSet,
@@ -336,6 +324,10 @@ async function syncSet(
   }
 
   let stalePricesDeleted = 0;
+  const rowIdSet = new Set(rows.map((row) => row.card_id).filter(Boolean));
+  const uniqueStaleCardIds = rows.length > 0
+    ? [...new Set(staleCardIds)].filter((cardId) => cardId && !rowIdSet.has(cardId))
+    : [];
   if (!dryRun && rows.length > 0) {
     const rowIds = rows.map((row) => row.card_id).filter(Boolean);
     const prior = await admin
@@ -345,14 +337,13 @@ async function syncSet(
     if (prior.error) throw prior.error;
     const priorById = new Map((prior.data || []).map((row) => [row.card_id, row]));
     const rowsWithPreservedIdentity = rows.map((row) => preserveCanonicalMarketplaceIdentity(row, priorById.get(row.card_id)));
-    const { error } = await admin
-      .from("card_prices")
-      .upsert(rowsWithPreservedIdentity, { onConflict: "card_id" });
-
+    const { data, error } = await admin.rpc("packdex_apply_card_price_sync", {
+      p_rows: rowsWithPreservedIdentity,
+      p_set_id: set.id,
+      p_stale_card_ids: uniqueStaleCardIds,
+    });
     if (error) throw error;
-  }
-  if (!dryRun && staleCardIds.length > 0) {
-    stalePricesDeleted = await deleteStalePrices(admin, set.id, staleCardIds);
+    stalePricesDeleted = Number(data?.stalePricesDeleted || 0);
   }
 
   const sourceCardCount = appCardCount ?? cards.length;
@@ -394,6 +385,7 @@ async function syncSet(
     selectionReasonCounts,
     latestSourceUpdatedAt,
     stalePricesDeleted,
+    stalePricesWouldDelete: uniqueStaleCardIds.length,
     stalePricesPreserved: apiErrors.length > 0 ? cards.filter((card) => apiErrors.some((error) => error?.apiSetId === card.sourceSetId)).length : 0,
     dryRun,
     apiErrors,

@@ -30,5 +30,12 @@ const catalogText = JSON.stringify(catalog);
 if (/assets\/sets\/|set-logos\/|\.png|\.jpg|\.webp/i.test(catalogText)) {
   throw new Error("sync-card-prices catalog contains image or asset paths.");
 }
+if (catalogText.includes("verifiedTcgplayerUrl")) {
+  throw new Error("sync-card-prices catalog contains redundant marketplace URLs; regenerate the compact catalog.");
+}
+const catalogBytes = Buffer.byteLength(catalogText);
+if (catalogBytes >= 3_500_000) {
+  throw new Error(`sync-card-prices catalog is ${catalogBytes} bytes and leaves insufficient server-bundle headroom.`);
+}
 
-console.log("sync-card-prices deploy scope ok: no app/image asset imports.");
+console.log(`sync-card-prices deploy scope ok: no app/image asset imports; compact catalog is ${catalogBytes} bytes.`);

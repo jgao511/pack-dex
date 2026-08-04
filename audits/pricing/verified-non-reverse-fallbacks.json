@@ -1,0 +1,38 @@
+[
+  {
+    "packDexCardId": "ex8-107",
+    "pokemonTcgApiCardId": "ex8-107",
+    "tcgplayerProductId": "88636",
+    "priceType": "normal"
+  },
+  {
+    "packDexCardId": "xy12-109-exeggutor",
+    "pokemonTcgApiCardId": "xy12-109",
+    "tcgplayerProductId": "124122",
+    "priceType": "normal"
+  },
+  {
+    "packDexCardId": "xy12-110-flying_pikachu",
+    "pokemonTcgApiCardId": "xy12-110",
+    "tcgplayerProductId": "124123",
+    "priceType": "normal"
+  },
+  {
+    "packDexCardId": "xy12-111-surfing_pikachu",
+    "pokemonTcgApiCardId": "xy12-111",
+    "tcgplayerProductId": "124124",
+    "priceType": "normal"
+  },
+  {
+    "packDexCardId": "xy12-112-imakunis_doduo",
+    "pokemonTcgApiCardId": "xy12-112",
+    "tcgplayerProductId": "124125",
+    "priceType": "normal"
+  },
+  {
+    "packDexCardId": "xy12-113-here_comes_team_rocket",
+    "pokemonTcgApiCardId": "xy12-113",
+    "tcgplayerProductId": "124126",
+    "priceType": "normal"
+  }
+]

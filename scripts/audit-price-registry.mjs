@@ -4,6 +4,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
   buildCanonicalCardLookup,
+  buildMarketplaceRow,
   collectorNumbersDescribeSamePrinting,
   getApiCardSetId,
   isCanonicalMarketplaceUrl,
@@ -12,6 +13,7 @@ import {
   matchCanonicalCard,
   normalizeCanonicalName,
   positiveNumber,
+  preserveCanonicalMarketplaceIdentity,
   selectTcgplayerPrice,
 } from "../supabase/functions/_shared/cardPricing.js";
 import {
@@ -23,6 +25,8 @@ import {
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const CATALOG_PATH = path.join(ROOT, "supabase", "functions", "sync-card-prices", "catalog.json");
+const VERIFIED_PRODUCTS_PATH = path.join(ROOT, "audits", "pricing", "verified-marketplace-products.json");
+const VERIFIED_FALLBACKS_PATH = path.join(ROOT, "audits", "pricing", "verified-non-reverse-fallbacks.json");
 const QUARANTINE_PATH = path.join(ROOT, "src", "data", "legacyCardQuarantine.json");
 const GENERATED_DATE = new Date().toISOString().slice(0, 10);
 
@@ -371,21 +375,20 @@ function normalizedComparable(value) {
   return Number.isFinite(numeric) ? numeric : String(value);
 }
 
-function classifyDryRunAction(record, identityState, marketplace, finalSelection) {
-  if (identityState !== "exact" || !record._apiCard) return "rejected_preserve_existing";
-  const proposed = {
-    price_type: finalSelection?.priceType || null,
-    market_price_usd: positiveNumber(finalSelection?.price?.market ?? finalSelection?.market),
-    tcgplayer_url: marketplace?.classification === "A" ? record.canonicalMarketplaceUrl : null,
-    source_updated_at: record.apiCard?.sourceUpdatedAt || null,
-  };
+function classifyDryRunAction(record, identityState, proposed) {
+  if (identityState !== "exact" || !record._apiCard || !proposed) return "rejected_preserve_existing";
   if (!record.storedPriceRow) return "add";
-  const changed = Object.entries(proposed).some(([key, value]) => normalizedComparable(record.storedPriceRow[key]) !== normalizedComparable(value));
+  const changed = [
+    "card_id", "set_id", "card_number", "name", "rarity", "price_type",
+    "market_price_usd", "low_price_usd", "mid_price_usd", "high_price_usd",
+    "direct_low_price_usd", "tcgplayer_url", "source_updated_at",
+  ].some((key) => normalizedComparable(record.storedPriceRow[key]) !== normalizedComparable(proposed[key]));
   return changed ? "change" : "preserve";
 }
 
 function hasProvisionalExactIdWithProviderNumberMismatch(apiCard, appCard, match) {
   return Boolean(
+    appCard?.allowVerifiedNumberOverride === true &&
     apiCard &&
     match?.card?.id === appCard?.id &&
     match?.matchType === "api_card_id" &&
@@ -396,7 +399,15 @@ function hasProvisionalExactIdWithProviderNumberMismatch(apiCard, appCard, match
   );
 }
 
-const catalog = JSON.parse(await fs.readFile(CATALOG_PATH, "utf8"));
+const catalogSource = await fs.readFile(CATALOG_PATH, "utf8");
+const catalog = JSON.parse(catalogSource);
+const verifiedProductsSource = await fs.readFile(VERIFIED_PRODUCTS_PATH, "utf8");
+const verifiedFallbacksSource = await fs.readFile(VERIFIED_FALLBACKS_PATH, "utf8");
+const inputHashes = {
+  catalogSha256: stableHash(catalogSource),
+  verifiedProductsSha256: stableHash(verifiedProductsSource),
+  verifiedFallbacksSha256: stableHash(verifiedFallbacksSource),
+};
 const selectedCatalog = SET_FILTER.size ? catalog.filter((set) => SET_FILTER.has(set.id)) : catalog;
 const quarantine = await readJson(QUARANTINE_PATH, []);
 const apiSetIds = [...new Set(selectedCatalog.flatMap((set) => set.apiSetIds || [set.apiSetId]).filter(Boolean))];
@@ -438,6 +449,11 @@ for (const set of selectedCatalog) {
     const match = apiCard ? matchCanonicalCard(apiCard, lookup) : { card: null, matchType: null, ambiguous: false };
     const consistentIdentity = Boolean(apiCard && match.card?.id === appCard.id && isCanonicalIdentityConsistent(apiCard, appCard));
     const provisionalNumberMismatch = hasProvisionalExactIdWithProviderNumberMismatch(apiCard, appCard, match);
+    const usedVerifiedNumberOverride = Boolean(
+      consistentIdentity &&
+      apiCard &&
+      !collectorNumbersDescribeSamePrinting(apiCard.number, appCard.number)
+    );
     if (consistentIdentity || provisionalNumberMismatch) matchedApiIds.add(compact(apiCard.id));
     const identityState = !apiCard
       ? "upstream_card_unavailable"
@@ -463,6 +479,7 @@ for (const set of selectedCatalog) {
       pokemonTcgApiCardId: appCard.sourceCardId || null,
       apiIdentityState: identityState,
       apiMatchType: match.matchType || null,
+      apiIdentityNote: usedVerifiedNumberOverride ? "provider_number_corrected_by_exact_tcgplayer_product" : null,
       apiCard: apiCard ? {
         id: apiCard.id,
         name: apiCard.name,
@@ -532,16 +549,21 @@ const records = baseRecords.map((record) => {
     : null;
   const newlyAcceptedVerifiedFallback = Boolean(
     finalSelection?.priceType &&
-    finalSelection.reason === "single_verified_non_reverse_bucket" &&
-    !record.currentSelection?.priceType
+    finalSelection.reason === "single_verified_non_reverse_bucket"
   );
+  const proposedRow = record._apiCard
+    ? preserveCanonicalMarketplaceIdentity(
+      buildMarketplaceRow({ id: record.packDexSetId }, verifiedAppCard, record._apiCard, finalSelection),
+      record.storedPriceRow,
+    )
+    : null;
   const { _apiCard, _appCard, ...publicRecord } = record;
-  const dryRunAction = classifyDryRunAction(record, resolvedIdentityState, marketplace, finalSelection);
+  const dryRunAction = classifyDryRunAction(record, resolvedIdentityState, proposedRow);
   return {
     ...publicRecord,
     apiPriceBuckets: record._apiCard ? bucketAudit(record._apiCard.tcgplayer?.prices || {}, finalSelection) : [],
     apiIdentityState: resolvedIdentityState,
-    apiIdentityNote: productVerifiedNumberOverride ? "provider_number_corrected_by_exact_tcgplayer_product" : null,
+    apiIdentityNote: productVerifiedNumberOverride ? "provider_number_corrected_by_exact_tcgplayer_product" : publicRecord.apiIdentityNote,
     marketplaceDestination: marketplace,
     correctedSelection: finalSelection ? {
       priceType: finalSelection.priceType,
@@ -575,6 +597,7 @@ const setSummaries = selectedCatalog.map((set) => {
     noMarket: count((record) => !record.apiPriceBuckets.some((bucket) => bucket.market !== null)),
     rejectedForAmbiguity: count((record) => ["ambiguous_variant", "rare_finish_unproven"].includes(record.currentSelection?.reason)),
     newlyAcceptedByCorrectedFinishLogic: count((record) => record.newlyAcceptedByVerifiedFallback),
+    verifiedNonReverseFallbacks: count((record) => record.correctedSelection?.reason === "single_verified_non_reverse_bucket"),
     acceptedPrices: accepted,
     stillUnavailable: total - accepted,
     trustedCurrentStoredPrices: count((record) => record.currentFreshnessState === "trusted_current"),
@@ -586,7 +609,7 @@ const setSummaries = selectedCatalog.map((set) => {
 const totals = setSummaries.reduce((sum, set) => {
   for (const key of [
     "totalCanonicalCards", "exactApiIdentities", "exactVerifiedTcgplayerProducts", "positiveNonReverseMarkets",
-    "reverseOnlyMarkets", "noMarket", "rejectedForAmbiguity", "newlyAcceptedByCorrectedFinishLogic",
+    "reverseOnlyMarkets", "noMarket", "rejectedForAmbiguity", "newlyAcceptedByCorrectedFinishLogic", "verifiedNonReverseFallbacks",
     "acceptedPrices", "stillUnavailable", "trustedCurrentStoredPrices", "staleStoredPrices",
   ]) sum[key] = (sum[key] || 0) + set[key];
   return sum;
@@ -628,6 +651,7 @@ const summary = {
   generatedAt: new Date().toISOString(),
   source: {
     catalog: path.relative(ROOT, CATALOG_PATH),
+    inputHashes,
     pokemonTcgApi: "Pokemon TCG API v2 live cards endpoint with resumable cache",
     liveCardPrices: SKIP_LIVE_ROWS
       ? { skipped: true }
@@ -648,6 +672,7 @@ const summary = {
   urlCounts,
   totals,
   verifiedFallbackCount: verifiedFallbacks.length,
+  offlineDryRunEstimateLimitations: "This comparison replays the shared row builder against a live REST snapshot. Production write authorization, RPC transaction execution, and deletion counts must be verified by the deployed Edge dry-run response before writes.",
   dryRunDiff,
   sets: setSummaries,
   outputFiles: {

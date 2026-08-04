@@ -92,7 +92,7 @@ test("an exact source ID is blocked when its canonical name or number conflicts"
     number: "185",
     verifiedTcgplayerUrl: "https://prices.pokemontcg.io/tcgplayer/me1-186",
     verifiedTcgplayerProductId: "654525",
-  }), true);
+  }), false);
   assert.equal(isCanonicalIdentityConsistent(upstream, { ...consistent, sourceSetId: "rsv10pt5" }), false);
 });
 
@@ -117,6 +117,7 @@ test("Black Bolt Antique Cover Fossil keeps collector number 80 despite the prov
     ...canonical,
     verifiedTcgplayerUrl: url,
     verifiedTcgplayerProductId: "642529",
+    allowVerifiedNumberOverride: true,
   }), true);
 });
 
@@ -193,7 +194,7 @@ test("Detective Pikachu commons use their explicit holo-only printing metadata",
   assert.equal(selection.reason, "explicit_catalog_finish");
 });
 
-test("accepts a special card's sole non-reverse market only with exact audited product proof", () => {
+test("accepts a special card's sole non-reverse market only with exact reviewed fallback proof", () => {
   const url = "https://prices.pokemontcg.io/tcgplayer/xy12-109";
   const upstream = apiCard({
     id: "xy12-109",
@@ -208,11 +209,17 @@ test("accepts a special card's sole non-reverse market only with exact audited p
   const verified = selectTcgplayerPrice(upstream, {
     verifiedTcgplayerUrl: url,
     verifiedTcgplayerProductId: "123456",
+    verifiedFallbackPriceType: "normal",
   });
   assert.equal(verified.priceType, "normal");
   assert.equal(verified.reason, "single_verified_non_reverse_bucket");
   assert.equal(selectTcgplayerPrice(upstream, {
     verifiedTcgplayerUrl: `${url}-wrong`,
+    verifiedTcgplayerProductId: "123456",
+    verifiedFallbackPriceType: "normal",
+  }).priceType, null);
+  assert.equal(selectTcgplayerPrice(upstream, {
+    verifiedTcgplayerUrl: url,
     verifiedTcgplayerProductId: "123456",
   }).priceType, null);
 });
@@ -282,6 +289,34 @@ test("Wally's Compassion selects its current holofoil bucket without relaxed fal
   const selection = selectTcgplayerPrice(upstream, {});
   assert.equal(selection.priceType, "holofoil");
   assert.equal(selection.reason, "rarity_evidence");
+});
+
+test("compact release proof derives the exact marketplace URL from the pinned API identity", () => {
+  const appCard = {
+    id: "mega-evolution-186-wallys-compassion",
+    name: "Wally's Compassion",
+    number: "186",
+    rarity: "Special Illustration Rare",
+    sourceSetId: "me1",
+    sourceCardId: "me1-186",
+    verifiedTcgplayerProductId: "654525",
+  };
+  const apiCard = {
+    id: "me1-186",
+    name: "Wally's Compassion",
+    number: "186",
+    rarity: "Special Illustration Rare",
+    set: { id: "me1" },
+    tcgplayer: {
+      url: "https://prices.pokemontcg.io/tcgplayer/me1-186",
+      prices: { holofoil: { market: 19.31 } },
+    },
+  };
+
+  assert.equal(isCanonicalIdentityConsistent(apiCard, appCard), true);
+  const selection = selectTcgplayerPrice(apiCard, appCard, { requireVerifiedProduct: true });
+  assert.equal(selection.priceType, "holofoil");
+  assert.equal(selection.hasVerifiedExactProduct, true);
 });
 
 test("stores canonical marketplace identity even when market price is unavailable", () => {
