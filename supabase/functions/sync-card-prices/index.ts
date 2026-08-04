@@ -21,6 +21,8 @@ const POKEMON_TCG_API_BASE_URL = "https://api.pokemontcg.io/v2";
 // Large 250-card pages can exceed 25 seconds at the provider even when healthy.
 const UPSTREAM_TIMEOUT_MS = 45_000;
 const UPSTREAM_MAX_ATTEMPTS = 2;
+// Unified Minds repeatedly times out on its 11-card second page at pageSize 250.
+const REDUCED_PAGE_SIZE_API_SETS = new Set(["sm11"]);
 
 type AdminClient = ReturnType<typeof getAdminClient>;
 type PackDexSet = {
@@ -183,12 +185,13 @@ async function fetchPokemonTcgResponse(url: URL | string, label: string) {
 
 async function fetchPokemonTcgCards(apiSetId: string) {
   const cards: PokemonTcgCard[] = [];
+  const pageSize = REDUCED_PAGE_SIZE_API_SETS.has(apiSetId) ? 100 : 250;
   let page = 1;
 
   while (true) {
     const url = new URL(`${POKEMON_TCG_API_BASE_URL}/cards`);
     url.searchParams.set("q", `set.id:${apiSetId}`);
-    url.searchParams.set("pageSize", "250");
+    url.searchParams.set("pageSize", String(pageSize));
     url.searchParams.set("page", String(page));
 
     const response = await fetchPokemonTcgResponse(url, apiSetId);
