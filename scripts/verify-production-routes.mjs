@@ -6,6 +6,7 @@ const root = process.cwd();
 const dist = path.join(root, "dist");
 const desktopEntry = path.join(dist, "index.html");
 const mobileEntry = path.join(dist, "mobile-app", "index.html");
+const notFoundEntry = path.join(dist, "404.html");
 const redirectsPath = path.join(dist, "_redirects");
 const headersPath = path.join(dist, "_headers");
 const publicAdsPath = path.join(root, "public", "ads.txt");
@@ -38,12 +39,17 @@ function resolveEntry(pathname, rules) {
   if (fs.existsSync(exactFile) && fs.statSync(exactFile).isFile()) return exactFile;
 
   const directoryEntry = path.join(exactFile, "index.html");
+  if (pathname.endsWith("/") && fs.existsSync(directoryEntry)) return directoryEntry;
+
+  const cleanUrlFile = `${exactFile.replace(/[\\/]$/, "")}.html`;
+  if (fs.existsSync(cleanUrlFile)) return cleanUrlFile;
+
   if (fs.existsSync(directoryEntry)) return directoryEntry;
 
   const rule = rules.find((candidate) => matches(candidate.from, pathname));
   if (!rule) {
-    assert.ok(!fs.existsSync(path.join(dist, "404.html")), `No Cloudflare fallback matches ${pathname}`);
-    return desktopEntry;
+    assert.ok(fs.existsSync(notFoundEntry), `No Cloudflare fallback or 404 page matches ${pathname}`);
+    return notFoundEntry;
   }
   assert.equal(rule.status, "200", `Fallback for ${pathname} must be an internal rewrite`);
   return path.join(dist, rule.to.replace(/^\/+/, ""));
@@ -87,16 +93,18 @@ assert.ok(!fs.existsSync(path.join(dist, "mobile-app", "sw.js")), "The mobile ap
 const headers = read(headersPath);
 assert.match(headers, /\/sw\.js[\s\S]*Cache-Control: no-store/);
 assert.doesNotMatch(headers, /^\/mobile-app\/\*\s*\r?\n\s*Cache-Control:\s*no-store/m);
-assert.match(headers, /\/assets\/\*[\s\S]*Cache-Control: public, max-age=31536000, immutable/);
-assert.match(headers, /\/mobile-app\/assets\/\*[\s\S]*Cache-Control: public, max-age=31536000, immutable/);
+assert.doesNotMatch(headers, /\/assets\/\*[\s\S]*immutable/, "Missing desktop assets must not inherit an immutable SPA fallback response");
+assert.doesNotMatch(headers, /\/mobile-app\/assets\/\*[\s\S]*immutable/, "Missing mobile assets must not inherit an immutable SPA fallback response");
 
 const routeCases = [
   ["/", desktopEntry],
-  ["/welcome", desktopEntry],
-  ["/privacy", desktopEntry],
-  ["/privacy/", desktopEntry],
-  ["/terms", desktopEntry],
-  ["/terms/", desktopEntry],
+  ["/welcome", path.join(dist, "welcome.html")],
+  ["/privacy", path.join(dist, "privacy.html")],
+  ["/privacy/", path.join(dist, "privacy", "index.html")],
+  ["/terms", path.join(dist, "terms.html")],
+  ["/terms/", path.join(dist, "terms", "index.html")],
+  ["/auth/callback", path.join(dist, "auth", "callback.html")],
+  ["/reset-password", path.join(dist, "reset-password.html")],
   ["/mobile-app", mobileEntry],
   ["/mobile-app/", mobileEntry],
   ["/mobile-app/share/VALID_SHARE_CODE", mobileEntry],
@@ -114,7 +122,14 @@ for (const [pathname, expected] of routeCases) {
   assert.equal(path.resolve(resolveEntry(pathname, redirects)), path.resolve(expected), `${pathname} resolves to the wrong HTML entry`);
 }
 
+assert.equal(path.resolve(resolveEntry("/assets/definitely-missing-packdex-audit.js", redirects)), path.resolve(notFoundEntry));
+assert.doesNotMatch(read(notFoundEntry), /<meta\s+name=["']packdex-entry["']/i, "The 404 response must not be a PackDex SPA shell");
+
 assertEntryAssets(desktopEntry, "/assets/");
+for (const route of ["welcome", "privacy", "terms", "auth/callback", "reset-password"]) {
+  assertEntryAssets(path.join(dist, `${route}.html`), "/assets/");
+  assertEntryAssets(path.join(dist, route, "index.html"), "/assets/");
+}
 assertEntryAssets(mobileEntry, "/mobile-app/assets/");
 assertEntryAssets(path.join(dist, "mobile-app", "reset-password", "index.html"), "/mobile-app/assets/");
 assertEntryAssets(path.join(dist, "mobile-app", "auth", "callback", "index.html"), "/mobile-app/assets/");
