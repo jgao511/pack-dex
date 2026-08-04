@@ -18,7 +18,8 @@ const corsHeaders = {
 };
 
 const POKEMON_TCG_API_BASE_URL = "https://api.pokemontcg.io/v2";
-const UPSTREAM_TIMEOUT_MS = 25_000;
+// Large 250-card pages can exceed 25 seconds at the provider even when healthy.
+const UPSTREAM_TIMEOUT_MS = 45_000;
 const UPSTREAM_MAX_ATTEMPTS = 2;
 
 type AdminClient = ReturnType<typeof getAdminClient>;

@@ -46,6 +46,8 @@ test("failed API subsets preserve prior rows while successful subsets can still 
   assert.match(source, /apiErrors/);
   assert.match(source, /UPSTREAM_TIMEOUT_MS/);
   assert.match(source, /UPSTREAM_MAX_ATTEMPTS/);
+  const upstreamTimeout = Number(source.match(/const UPSTREAM_TIMEOUT_MS = ([\d_]+);/)?.[1].replaceAll("_", ""));
+  assert.ok(upstreamTimeout >= 45_000, "250-card provider pages need at least a 45-second timeout");
   assert.match(source, /shouldRetryUpstreamStatus/);
   assert.match(source, /AbortSignal\.timeout/);
 });
