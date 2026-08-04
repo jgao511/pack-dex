@@ -271,7 +271,7 @@ async function syncSet(
     }
   });
   if (successfulFetches.length === 0 && exactFallbackCards.length === 0) {
-    throw new Error(`All Pokemon TCG API set requests failed for ${set.id}.`);
+    throw new Error(`All Pokemon TCG API set requests failed for ${set.id}: ${JSON.stringify(apiErrors)}`);
   }
   const apiCards = [...successfulFetches.flatMap((result) => result.cards), ...exactFallbackCards];
   const rows = [];

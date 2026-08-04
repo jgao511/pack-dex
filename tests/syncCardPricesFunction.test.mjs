@@ -52,6 +52,7 @@ test("failed API subsets preserve prior rows while successful subsets can still 
   assert.match(source, /REDUCED_PAGE_SIZE_API_SETS\.has\(apiSetId\) \? 100 : 250/);
   assert.match(source, /shouldRetryUpstreamStatus/);
   assert.match(source, /AbortSignal\.timeout/);
+  assert.match(source, /JSON\.stringify\(apiErrors\)/);
 });
 
 test("an explicitly requested exact card can recover a failed subset without scheduled request amplification", async () => {
