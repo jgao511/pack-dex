@@ -1,2 +1,2 @@
-/mobile-app/share/* /mobile-app/index.html 200
-/mobile-app/* /mobile-app/index.html 200
+# Mobile deep links are served by Pages Functions. Keeping the SPA fallback out
+# of this file prevents missing JavaScript and CSS from being rewritten to HTML.

@@ -298,7 +298,8 @@ test("stale service-worker and client-version states fail safely", async () => {
   assert.match(swSource, /clients\.claim\(\)/);
   assert.match(swSource, /cache: "no-store"/);
   assert.match(headersSource, /\/sw\.js[\s\S]*Cache-Control: no-store/);
-  assert.match(headersSource, /\/mobile-app\/assets\/\*[\s\S]*immutable/);
+  assert.doesNotMatch(headersSource, /\/(?:mobile-app\/)?assets\/\*[\s\S]*immutable/);
+  assert.match(headersSource, /\/mobile-app\/404\.html[\s\S]*Cache-Control: no-store/);
 });
 
 test("only local validation is permanent; server, auth, skew, and unknown failures retry", () => {

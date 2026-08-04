@@ -1220,7 +1220,7 @@ function App() {
   const legalPagePath = pagePath.length > 1 ? pagePath.replace(/\/+$/, "") : pagePath;
   const legalPageType = legalPagePath === "/terms" ? "terms" : legalPagePath === "/privacy" ? "privacy" : "";
 
-  if (pagePath === "/auth/callback") {
+  if (legalPagePath === "/auth/callback") {
     return (
       <main className="app-shell">
         <AuthCallbackPage />
@@ -1229,7 +1229,7 @@ function App() {
     );
   }
 
-  if (pagePath === "/reset-password") {
+  if (legalPagePath === "/reset-password") {
     return (
       <main className="app-shell">
         <ResetPasswordPage />

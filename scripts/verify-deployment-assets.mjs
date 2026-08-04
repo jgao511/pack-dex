@@ -30,8 +30,10 @@ async function inspectEntry(pathname, assetPrefix) {
     .filter((url) => url.origin === origin && url.pathname.startsWith(assetPrefix));
   const queue = [...initialAssets.filter((url) => url.pathname.endsWith(".js"))];
   const visited = new Set();
+  const visitedStyles = new Set();
   const assets = [];
   for (const stylesheet of initialAssets.filter((url) => url.pathname.endsWith(".css"))) {
+    visitedStyles.add(stylesheet.href);
     const result = await fetchChecked(stylesheet.href, "CSS");
     assets.push({ url: stylesheet.href, kind: "CSS", ...result, body: undefined });
   }
@@ -49,30 +51,56 @@ async function inspectEntry(pathname, assetPrefix) {
       const imported = new URL(match[1], url);
       if (imported.origin === origin && imported.pathname.startsWith(assetPrefix) && !visited.has(imported.href)) queue.push(imported);
     }
+    const stylesheets = [...result.body.matchAll(/["'`]([^"'`]+\.css)["'`]/gu)];
+    for (const match of stylesheets) {
+      const stylesheet = match[1].startsWith("assets/")
+        ? new URL(`${assetPrefix}${match[1].slice("assets/".length)}`, origin)
+        : new URL(match[1], url);
+      if (
+        stylesheet.origin !== origin ||
+        !stylesheet.pathname.startsWith(assetPrefix) ||
+        visitedStyles.has(stylesheet.href)
+      ) continue;
+      visitedStyles.add(stylesheet.href);
+      const stylesheetResult = await fetchChecked(stylesheet.href, "CSS");
+      assets.push({ url: stylesheet.href, kind: "CSS", ...stylesheetResult, body: undefined });
+    }
   }
   return { entryUrl, assets };
 }
 
 const desktop = await inspectEntry("/?desktop=1", "/assets/");
 const mobile = await inspectEntry("/mobile-app/", "/mobile-app/assets/");
-const missingUrl = new URL(`/assets/definitely-missing-packdex-audit-${Date.now()}.js`, origin);
-const missing = await fetch(missingUrl, { redirect: "manual", headers: { "User-Agent": "PackDex production asset verification/1.0" }, signal: AbortSignal.timeout(30_000) });
-const missingBody = await missing.text();
-assert.equal(missing.status, 404, `${missingUrl.href} must return 404, not an SPA fallback`);
-assert.doesNotMatch(missingBody, /<meta\s+name=["']packdex-entry["']/i, `${missingUrl.href} returned the PackDex SPA shell`);
-assert.doesNotMatch(String(missing.headers.get("cache-control") || ""), /immutable/i, `${missingUrl.href} returned an immutable missing-asset response`);
+
+async function inspectMissingAsset(pathname) {
+  const url = new URL(pathname, origin);
+  const response = await fetch(url, {
+    redirect: "manual",
+    headers: { "User-Agent": "PackDex production asset verification/1.0" },
+    signal: AbortSignal.timeout(30_000),
+  });
+  const body = await response.text();
+  assert.equal(response.status, 404, `${url.href} must return 404, not an SPA fallback`);
+  assert.doesNotMatch(body, /<meta\s+name=["']packdex-entry["']/i, `${url.href} returned a PackDex SPA shell`);
+  assert.doesNotMatch(String(response.headers.get("cache-control") || ""), /immutable/i, `${url.href} returned an immutable missing-asset response`);
+  return {
+    url: url.href,
+    status: response.status,
+    contentType: response.headers.get("content-type"),
+    cacheControl: response.headers.get("cache-control"),
+    isSpaShell: /<meta\s+name=["']packdex-entry["']/i.test(body),
+  };
+}
+
+const missingNonce = Date.now();
+const missingDesktopAsset = await inspectMissingAsset(`/assets/definitely-missing-packdex-audit-${missingNonce}.js`);
+const missingMobileAsset = await inspectMissingAsset(`/mobile-app/assets/definitely-missing-packdex-audit-${missingNonce}.js`);
 
 const report = {
   verifiedAt: new Date().toISOString(),
   origin,
   desktopAssets: desktop.assets,
   mobileAssets: mobile.assets,
-  negativeMissingAsset: {
-    url: missingUrl.href,
-    status: missing.status,
-    contentType: missing.headers.get("content-type"),
-    cacheControl: missing.headers.get("cache-control"),
-    isSpaShell: /<meta\s+name=["']packdex-entry["']/i.test(missingBody),
-  },
+  negativeMissingAssets: [missingDesktopAsset, missingMobileAsset],
 };
 console.log(JSON.stringify(report, null, 2));

@@ -11,6 +11,7 @@ const redirectsPath = path.join(dist, "_redirects");
 const headersPath = path.join(dist, "_headers");
 const publicAdsPath = path.join(root, "public", "ads.txt");
 const builtAdsPath = path.join(dist, "ads.txt");
+const mobileFallbackFunctionPath = path.join(root, "functions", "mobile-app", "[[path]].js");
 
 function read(file) {
   assert.ok(fs.existsSync(file), `Missing production artifact: ${path.relative(root, file)}`);
@@ -83,10 +84,7 @@ function assertEntryMarker(entry, expectedMarker) {
 }
 
 const redirects = parseRedirects(read(redirectsPath));
-assert.deepEqual(redirects, [
-  { from: "/mobile-app/share/*", to: "/mobile-app/index.html", status: "200" },
-  { from: "/mobile-app/*", to: "/mobile-app/index.html", status: "200" },
-]);
+assert.deepEqual(redirects, [], "SPA fallbacks must use Pages Functions, not HTML-rewriting redirects");
 assert.ok(!fs.existsSync(path.join(dist, "mobile-app", "_redirects")), "Nested mobile _redirects must not be deployed");
 assert.ok(!fs.existsSync(path.join(dist, "mobile-app", "_headers")), "Nested mobile _headers must not be deployed");
 assert.ok(!fs.existsSync(path.join(dist, "mobile-app", "sw.js")), "The mobile app must use the root update worker");
@@ -95,6 +93,55 @@ assert.match(headers, /\/sw\.js[\s\S]*Cache-Control: no-store/);
 assert.doesNotMatch(headers, /^\/mobile-app\/\*\s*\r?\n\s*Cache-Control:\s*no-store/m);
 assert.doesNotMatch(headers, /\/assets\/\*[\s\S]*immutable/, "Missing desktop assets must not inherit an immutable SPA fallback response");
 assert.doesNotMatch(headers, /\/mobile-app\/assets\/\*[\s\S]*immutable/, "Missing mobile assets must not inherit an immutable SPA fallback response");
+
+const mobileFallbackSource = read(mobileFallbackFunctionPath);
+const mobileFallbackModuleUrl = `data:text/javascript;base64,${Buffer.from(mobileFallbackSource).toString("base64")}`;
+const { onRequest: mobileFallback } = await import(mobileFallbackModuleUrl);
+
+async function invokeMobileFallback(pathname, { method = "GET", nextStatus = 404 } = {}) {
+  let entryFetches = 0;
+  const result = await mobileFallback({
+    request: new Request(`https://packdex.test${pathname}`, { method }),
+    next: async () => new Response("mobile 404", { status: nextStatus, headers: { "Cache-Control": "no-store" } }),
+    env: {
+      ASSETS: {
+        fetch: async (request) => {
+          entryFetches += 1;
+          assert.equal(new URL(request.url).pathname, "/mobile-app/");
+          return new Response(method === "HEAD" ? null : read(mobileEntry), {
+            status: 200,
+            headers: { "Content-Type": "text/html; charset=utf-8" },
+          });
+        },
+      },
+    },
+  });
+  return { result, entryFetches };
+}
+
+for (const pathname of [
+  "/mobile-app/explore",
+  "/mobile-app/explore/search",
+  "/mobile-app/explore/pokemon/94",
+  "/mobile-app/explore/sets/base-set",
+  "/mobile-app/explore/eras/sword-shield",
+]) {
+  const { result, entryFetches } = await invokeMobileFallback(pathname);
+  assert.equal(result.status, 200, `${pathname} must receive the mobile entry`);
+  assert.equal(entryFetches, 1, `${pathname} must fetch the mobile entry exactly once`);
+  assert.equal(result.headers.get("X-PackDex-Entry"), "mobile-app-fallback");
+}
+
+for (const pathname of [
+  "/mobile-app/assets/missing.js",
+  "/mobile-app/scanner-ai/missing.wasm",
+  "/mobile-app/set-logos/missing.png",
+  "/mobile-app/missing.css",
+]) {
+  const { result, entryFetches } = await invokeMobileFallback(pathname);
+  assert.equal(result.status, 404, `${pathname} must remain a true 404`);
+  assert.equal(entryFetches, 0, `${pathname} must not fetch the mobile entry`);
+}
 
 const routeCases = [
   ["/", desktopEntry],
@@ -107,15 +154,8 @@ const routeCases = [
   ["/reset-password", path.join(dist, "reset-password.html")],
   ["/mobile-app", mobileEntry],
   ["/mobile-app/", mobileEntry],
-  ["/mobile-app/share/VALID_SHARE_CODE", mobileEntry],
-  ["/mobile-app/share/INVALID_SHARE_CODE", mobileEntry],
   ["/mobile-app/reset-password", path.join(dist, "mobile-app", "reset-password", "index.html")],
   ["/mobile-app/auth/callback", path.join(dist, "mobile-app", "auth", "callback", "index.html")],
-  ["/mobile-app/explore", mobileEntry],
-  ["/mobile-app/explore/search", mobileEntry],
-  ["/mobile-app/explore/pokemon/94", mobileEntry],
-  ["/mobile-app/explore/sets/base-set", mobileEntry],
-  ["/mobile-app/explore/eras/sword-shield", mobileEntry],
 ];
 
 for (const [pathname, expected] of routeCases) {
@@ -123,6 +163,7 @@ for (const [pathname, expected] of routeCases) {
 }
 
 assert.equal(path.resolve(resolveEntry("/assets/definitely-missing-packdex-audit.js", redirects)), path.resolve(notFoundEntry));
+assert.equal(path.resolve(resolveEntry("/mobile-app/assets/definitely-missing-packdex-audit.js", redirects)), path.resolve(notFoundEntry));
 assert.doesNotMatch(read(notFoundEntry), /<meta\s+name=["']packdex-entry["']/i, "The 404 response must not be a PackDex SPA shell");
 
 assertEntryAssets(desktopEntry, "/assets/");
