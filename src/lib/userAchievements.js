@@ -2,15 +2,15 @@ import { supabase } from "./supabaseClient.js";
 import { countDevRequest } from "../../mobile-app/src/utils/requestDiagnostics.js";
 import { getCachedSupabaseUser } from "./sessionUserCache.js";
 import {
-  clearAchievementReconciliationCache,
-  invalidateAchievementReconciliation,
-  runAchievementReconciliation,
-} from "./achievementReconciliationCache.js";
+  clearAchievementCheckScheduler,
+  scheduleAchievementCheck,
+  subscribeAchievementCheckResults,
+} from "./achievementCheckScheduler.js";
 
 export {
-  clearAchievementReconciliationCache,
-  invalidateAchievementReconciliation,
-} from "./achievementReconciliationCache.js";
+  clearAchievementCheckScheduler,
+  subscribeAchievementCheckResults,
+} from "./achievementCheckScheduler.js";
 
 const USER_ACHIEVEMENTS_TABLE = "user_achievements";
 const ACHIEVEMENT_SELECT_COLUMNS =
@@ -109,33 +109,18 @@ function normalizeAchievementProgressRow(row = {}) {
   };
 }
 
-export async function reconcileCurrentUserAchievements(expectedUserId = "") {
-  if (!supabase) return { progress: [], awarded: [] };
-
-  const user = expectedUserId ? { id: String(expectedUserId) } : await getCurrentAchievementUser();
-
-  if (!user?.id) return { progress: [], awarded: [] };
-  if (expectedUserId && String(expectedUserId) !== String(user.id)) {
-    return { progress: [], awarded: [] };
-  }
-
-  return runAchievementReconciliation({
-    userId: user.id,
-    load: async () => {
-      const { data, error } = await supabase.functions.invoke("check-achievements", {
-        body: { scope: "profile_reconcile" },
-      });
-
-      if (error) throw error;
-
-      return {
-        progress: Array.isArray(data?.progress)
-          ? data.progress.map(normalizeAchievementProgressRow).filter((row) => row.achievementId)
-          : [],
-        awarded: normalizeAchievementList(data?.awarded),
-      };
-    },
+export async function reconcileCurrentUserAchievements(expectedUserId = "", options = {}) {
+  const result = await scheduleServerAchievementCheck(expectedUserId, {
+    ...options,
+    scope: "profile_reconcile",
+    reason: options.reason || "explicit_achievement_progress_open",
   });
+  return {
+    ...result,
+    progress: Array.isArray(result?.progress)
+      ? result.progress.map(normalizeAchievementProgressRow).filter((row) => row.achievementId)
+      : [],
+  };
 }
 
 function normalizeAchievementList(rows = []) {
@@ -155,11 +140,17 @@ export function mergeUserAchievementRows(existingRows = [], awardedRows = []) {
   );
 }
 
-export async function requestServerAchievementAward(expectedUserId = "") {
+export async function scheduleServerAchievementCheck(expectedUserId = "", {
+  progression = {},
+  scope = "pack_and_collection",
+  reason = "durable_progression_mutation",
+  client = supabase,
+  ...schedulerOptions
+} = {}) {
   // This intentionally does not accept achievement ids, award keys, card data, or
   // metadata from the browser. The Edge Function decides what can be awarded from
   // trusted persisted account data and writes with the service role server-side.
-  if (!supabase) {
+  if (!client) {
     return {
       awarded: [],
       alreadyEarned: [],
@@ -185,29 +176,22 @@ export async function requestServerAchievementAward(expectedUserId = "") {
     };
   }
 
-  invalidateAchievementReconciliation(user.id);
-
-  const { data, error } = await supabase.functions.invoke("check-achievements", {
-    body: { scope: "pack_and_collection" },
+  const data = await scheduleAchievementCheck({
+    userId: user.id,
+    progression,
+    scope,
+    reason,
+    client,
+    ...schedulerOptions,
   });
 
-  if (error) {
-    console.warn("Unable to check PackDex achievements", {
-      userId: user.id,
-      error,
-    });
-
-    return {
-      awarded: [],
-      alreadyEarned: [],
-      skipped: [{ reason: "edge_function_error" }],
-      error,
-    };
-  }
-
   return {
+    ...data,
     awarded: normalizeAchievementList(data?.awarded),
+    progress: Array.isArray(data?.progress)
+      ? data.progress.map(normalizeAchievementProgressRow).filter((row) => row.achievementId)
+      : [],
     alreadyEarned: [],
-    skipped: [],
+    skipped: Array.isArray(data?.skipped) ? data.skipped : [],
   };
 }

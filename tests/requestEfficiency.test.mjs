@@ -28,22 +28,23 @@ test("newly awarded achievements merge into cached rows without duplicates", () 
   assert.equal(merged[0].achievementId, "packs_opened_10");
 });
 
-test("pack achievement flow merges awards instead of reloading the achievement table", async () => {
+test("durable pack queue schedules centrally and fresh results merge without reloading", async () => {
   const mobileApp = await readFile(new URL("../mobile-app/src/App.jsx", import.meta.url), "utf8");
+  const cloudCollection = await readFile(new URL("../mobile-app/src/lib/cloudCollection.js", import.meta.url), "utf8");
   const edgeFunction = await readFile(
     new URL("../supabase/functions/check-achievements/index.ts", import.meta.url),
     "utf8"
   );
 
-  const postPackFlow = mobileApp.match(
-    /async function runPostPackAchievementFlow[\s\S]*?return \{ packEvent: null, achievements: achievementResult \};/
+  const resultSubscription = mobileApp.match(
+    /useEffect\(\(\) => subscribeAchievementCheckResults[\s\S]*?\), \[\]\);/
   )?.[0] || "";
 
-  assert.match(postPackFlow, /mergeAwardedAchievements/);
-  assert.doesNotMatch(postPackFlow, /loadUserAchievements/);
-  assert.doesNotMatch(postPackFlow, /recordPackOpenEvent/);
+  assert.match(cloudCollection, /result\.saved > 0[\s\S]*scheduleAchievementCheck/);
+  assert.match(resultSubscription, /mergeAwardedAchievements/);
+  assert.doesNotMatch(resultSubscription, /loadUserAchievements|recordPackOpenEvent/);
   assert.match(edgeFunction, /\.select\("award_key"\)/);
-  assert.match(edgeFunction, /return jsonResponse\(\{ awarded \}\)/);
+  assert.match(edgeFunction, /return jsonResponse\(responseBody\)/);
   assert.doesNotMatch(edgeFunction, /alreadyEarned:/);
 });
 

@@ -22,6 +22,7 @@ import {
   scheduleCompletedPackQueueDrain,
   syncCompletedPackQueue,
 } from "../../../src/lib/completedPackQueue.js";
+import { scheduleAchievementCheck } from "../../../src/lib/achievementCheckScheduler.js";
 
 const USER_COLLECTION_TABLE = "user_collection";
 export const PENDING_CLOUD_PULLS_KEY = "packdex-mobile-pending-cloud-pulls";
@@ -360,6 +361,21 @@ export function syncPendingCloudPulls(userId, options = {}) {
   };
   return run().then((result) => {
     if (result.failed > 0) scheduleRetry();
+    if (result.saved > 0 && result.stats) {
+      scheduleAchievementCheck({
+        userId: normalizedUserId,
+        progression: result.stats,
+        reason: result.saved > 1 ? "completed_pack_queue_batch" : "completed_pack_save",
+        client,
+        ...(options.achievementSchedulerOptions || {}),
+      }).catch((error) => {
+        console.warn("PackDex achievement check remains eligible after durable queue sync", {
+          userId: normalizedUserId,
+          savedPackCount: result.saved,
+          error,
+        });
+      });
+    }
     return result;
   }).catch((error) => {
     if (error?.packSyncCategory !== "authentication") scheduleRetry();

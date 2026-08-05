@@ -35,6 +35,9 @@ const TOTAL_MILESTONES = [
 
 const PROFILE_RECONCILIATION_SCOPE = "profile_reconcile";
 const COLLECTION_PAGE_SIZE = 1000;
+const CHECK_DEDUP_TABLE = "achievement_check_dedup";
+const CHECK_LEASE_MS = 30_000;
+const ACHIEVEMENT_EVALUATOR_VERSION = 2;
 // Keep PostgREST `in` filter URLs comfortably below proxy/HTTP2 limits even
 // when canonical card IDs are long. Large collections are processed in
 // bounded server-side batches and still produce one reconciliation response.
@@ -62,6 +65,136 @@ function chunkValues<T>(values: T[], size: number) {
     chunks.push(values.slice(index, index + size));
   }
   return chunks;
+}
+
+function makeProgressionFingerprint({
+  userId,
+  scope,
+  packsOpened,
+  totalCards,
+  uniqueCards,
+  collectionValue = null,
+  completedSets = null,
+}: {
+  userId: string;
+  scope: string;
+  packsOpened: number;
+  totalCards: number;
+  uniqueCards: number;
+  collectionValue?: number | null;
+  completedSets?: number | null;
+}) {
+  return [
+    `v${ACHIEVEMENT_EVALUATOR_VERSION}`,
+    userId,
+    scope,
+    packsOpened,
+    totalCards,
+    uniqueCards,
+    collectionValue === null ? "-" : Math.round(collectionValue * 100),
+    completedSets === null ? "-" : completedSets,
+  ].join(":");
+}
+
+async function claimAchievementCheck(
+  admin: Awaited<ReturnType<typeof getAuthenticatedUser>>["admin"],
+  {
+    userId,
+    scope,
+    progressionFingerprint,
+    requestId,
+  }: {
+    userId: string;
+    scope: string;
+    progressionFingerprint: string;
+    requestId: string;
+  },
+) {
+  const startedAt = new Date();
+  const leaseExpiresAt = new Date(startedAt.getTime() + CHECK_LEASE_MS).toISOString();
+  const claimRow = {
+    user_id: userId,
+    scope,
+    progression_fingerprint: progressionFingerprint,
+    request_id: requestId,
+    response_body: null,
+    started_at: startedAt.toISOString(),
+    completed_at: null,
+    lease_expires_at: leaseExpiresAt,
+  };
+  const { data: inserted, error: insertError } = await admin
+    .from(CHECK_DEDUP_TABLE)
+    .upsert(claimRow, {
+      onConflict: "user_id,scope,progression_fingerprint",
+      ignoreDuplicates: true,
+    })
+    .select("request_id,response_body,lease_expires_at")
+    .maybeSingle();
+  if (insertError) throw insertError;
+  if (inserted?.request_id === requestId) return { ownsClaim: true, cachedResponse: null };
+
+  const { data: existing, error: existingError } = await admin
+    .from(CHECK_DEDUP_TABLE)
+    .select("request_id,response_body,lease_expires_at")
+    .eq("user_id", userId)
+    .eq("scope", scope)
+    .eq("progression_fingerprint", progressionFingerprint)
+    .maybeSingle();
+  if (existingError) throw existingError;
+  if (existing?.response_body && typeof existing.response_body === "object") {
+    return {
+      ownsClaim: false,
+      cachedResponse: {
+        ...existing.response_body,
+        awarded: [],
+        deduplicated: true,
+        deduplicationSource: "server_progression_cache",
+        requestId,
+        originalRequestId: existing.request_id,
+      },
+    };
+  }
+
+  const leaseTime = Date.parse(String(existing?.lease_expires_at || ""));
+  if (Number.isFinite(leaseTime) && leaseTime > Date.now()) {
+    return {
+      ownsClaim: false,
+      cachedResponse: {
+        awarded: [],
+        deduplicated: true,
+        pending: true,
+        deduplicationSource: "server_in_flight",
+        progressionFingerprint,
+        requestId,
+        originalRequestId: existing?.request_id || null,
+      },
+    };
+  }
+
+  const { data: reclaimed, error: reclaimError } = await admin
+    .from(CHECK_DEDUP_TABLE)
+    .update(claimRow)
+    .eq("user_id", userId)
+    .eq("scope", scope)
+    .eq("progression_fingerprint", progressionFingerprint)
+    .is("response_body", null)
+    .lte("lease_expires_at", startedAt.toISOString())
+    .select("request_id")
+    .maybeSingle();
+  if (reclaimError) throw reclaimError;
+  return reclaimed?.request_id === requestId
+    ? { ownsClaim: true, cachedResponse: null }
+    : {
+      ownsClaim: false,
+      cachedResponse: {
+        awarded: [],
+        deduplicated: true,
+        pending: true,
+        deduplicationSource: "server_in_flight",
+        progressionFingerprint,
+        requestId,
+      },
+    };
 }
 
 async function loadTrustedCollectionMetrics(
@@ -109,12 +242,24 @@ async function loadTrustedCollectionMetrics(
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
+  if (req.method !== "POST") return jsonResponse({ error: "Method not allowed." }, 405);
 
   let debugStep = "authenticate";
+  let ownedClaim: {
+    admin: Awaited<ReturnType<typeof getAuthenticatedUser>>["admin"];
+    userId: string;
+    scope: string;
+    progressionFingerprint: string;
+    requestId: string;
+  } | null = null;
   try {
     const { admin, user } = await getAuthenticatedUser(req);
     const body = await req.json().catch(() => ({}));
-    const scope = String(body?.scope || "pack_and_collection");
+    const requestedScope = String(body?.scope || "pack_and_collection");
+    const scope = requestedScope === PROFILE_RECONCILIATION_SCOPE
+      ? PROFILE_RECONCILIATION_SCOPE
+      : "pack_and_collection";
+    const requestId = String(body?.request_id || crypto.randomUUID()).slice(0, 160);
 
     debugStep = "load_compact_profile_stats";
     const { data: stats, error: statsError } = await admin
@@ -124,24 +269,41 @@ Deno.serve(async (req) => {
       .maybeSingle();
     if (statsError) throw statsError;
 
-    const candidates: Candidate[] = [candidate(user.id, "account_created", "special", 1, 1)];
     const packsOpened = Math.max(0, Number(stats?.packs_opened || 0));
     const totalCards = Math.max(0, Number(stats?.total_cards_pulled || 0));
     const uniqueCards = Math.max(0, Number(stats?.unique_cards || 0));
     const isProfileReconciliation = scope === PROFILE_RECONCILIATION_SCOPE;
 
-    if (scope === "pack" || scope === "pack_and_collection" || isProfileReconciliation) {
-      addReached(candidates, user.id, PACK_MILESTONES, "packs", packsOpened);
-    }
-    if (scope === "collection" || scope === "pack_and_collection" || isProfileReconciliation) {
-      addReached(candidates, user.id, UNIQUE_MILESTONES, "collection", uniqueCards);
-      addReached(candidates, user.id, TOTAL_MILESTONES, "collection", totalCards);
-    }
-
     let trustedCollectionMetrics = { collectionValue: 0, completedSets: 0 };
     if (isProfileReconciliation) {
       debugStep = "load_trusted_collection_achievement_metrics";
       trustedCollectionMetrics = await loadTrustedCollectionMetrics(admin, user.id);
+    }
+
+    const progressionFingerprint = makeProgressionFingerprint({
+      userId: user.id,
+      scope,
+      packsOpened,
+      totalCards,
+      uniqueCards,
+      collectionValue: isProfileReconciliation ? trustedCollectionMetrics.collectionValue : null,
+      completedSets: isProfileReconciliation ? trustedCollectionMetrics.completedSets : null,
+    });
+    debugStep = "claim_progression_check";
+    const claim = await claimAchievementCheck(admin, {
+      userId: user.id,
+      scope,
+      progressionFingerprint,
+      requestId,
+    });
+    if (!claim.ownsClaim) return jsonResponse(claim.cachedResponse);
+    ownedClaim = { admin, userId: user.id, scope, progressionFingerprint, requestId };
+
+    const candidates: Candidate[] = [candidate(user.id, "account_created", "special", 1, 1)];
+    addReached(candidates, user.id, PACK_MILESTONES, "packs", packsOpened);
+    addReached(candidates, user.id, UNIQUE_MILESTONES, "collection", uniqueCards);
+    addReached(candidates, user.id, TOTAL_MILESTONES, "collection", totalCards);
+    if (isProfileReconciliation) {
       addReached(candidates, user.id, VALUE_MILESTONES, "value", trustedCollectionMetrics.collectionValue);
       addReached(candidates, user.id, SET_MASTERY_MILESTONES, "set_mastery", trustedCollectionMetrics.completedSets);
     }
@@ -171,8 +333,8 @@ Deno.serve(async (req) => {
       awarded = data || [];
     }
 
-    if (isProfileReconciliation) {
-      return jsonResponse({
+    const responseBody = isProfileReconciliation
+      ? {
         awarded,
         progress: [
           ...makeProgressRows(PACK_MILESTONES, packsOpened, "packs", "user_profile_stats"),
@@ -181,11 +343,55 @@ Deno.serve(async (req) => {
           ...makeProgressRows(VALUE_MILESTONES, trustedCollectionMetrics.collectionValue, "value", "user_collection,card_prices"),
           ...makeProgressRows(SET_MASTERY_MILESTONES, trustedCollectionMetrics.completedSets, "set_mastery", "user_collection,achievement_set_catalog"),
         ],
+        progressionFingerprint,
+        requestId,
+        deduplicated: false,
+      }
+      : { awarded, progressionFingerprint, requestId, deduplicated: false };
+
+    debugStep = "complete_progression_check";
+    const { error: completionError } = await admin
+      .from(CHECK_DEDUP_TABLE)
+      .update({
+        response_body: responseBody,
+        completed_at: new Date().toISOString(),
+        lease_expires_at: new Date().toISOString(),
+      })
+      .eq("user_id", user.id)
+      .eq("scope", scope)
+      .eq("progression_fingerprint", progressionFingerprint)
+      .eq("request_id", requestId);
+    if (completionError) throw completionError;
+    ownedClaim = null;
+
+    // Keep the defense-in-depth table bounded to the latest completed state per
+    // user/scope. A concurrent active lease is left untouched.
+    const { error: cleanupError } = await admin
+      .from(CHECK_DEDUP_TABLE)
+      .delete()
+      .eq("user_id", user.id)
+      .eq("scope", scope)
+      .neq("progression_fingerprint", progressionFingerprint)
+      .not("completed_at", "is", null);
+    if (cleanupError) {
+      console.warn("Unable to prune prior achievement check fingerprints", {
+        userId: user.id,
+        scope,
+        error: formatErrorForResponse(cleanupError),
       });
     }
 
-    return jsonResponse({ awarded });
+    return jsonResponse(responseBody);
   } catch (error) {
+    if (ownedClaim) {
+      await ownedClaim.admin
+        .from(CHECK_DEDUP_TABLE)
+        .delete()
+        .eq("user_id", ownedClaim.userId)
+        .eq("scope", ownedClaim.scope)
+        .eq("progression_fingerprint", ownedClaim.progressionFingerprint)
+        .eq("request_id", ownedClaim.requestId);
+    }
     const formattedError = formatErrorForResponse(error);
     console.error("check-achievements failed", { step: debugStep, error: formattedError });
     return jsonResponse({ error: "Unable to check achievements securely.", step: debugStep, ...formattedError }, 500);

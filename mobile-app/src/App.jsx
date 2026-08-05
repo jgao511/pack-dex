@@ -55,12 +55,12 @@ import {
 import { preloadImages } from "./utils/imageCache.js";
 import SharePullButton from "./components/SharePullButton.jsx";
 import {
-  clearAchievementReconciliationCache,
-  invalidateAchievementReconciliation,
+  clearAchievementCheckScheduler,
   loadCurrentUserAchievements,
   mergeUserAchievementRows,
   reconcileCurrentUserAchievements,
-  requestServerAchievementAward,
+  scheduleServerAchievementCheck,
+  subscribeAchievementCheckResults,
 } from "../../src/lib/userAchievements.js";
 import {
   getMobileAuthCallbackUrl,
@@ -3276,16 +3276,16 @@ function MobileApp() {
     await loadAccountScopedState(currentUser, { force: true });
     await refreshWelcomeRewardStatus(currentUser, { autoOpen: false, force: true });
 
-    try {
-      const achievementResult = await requestServerAchievementAward(currentUser.id);
-      enqueueAchievementUnlocks(achievementResult?.awarded);
-      mergeAwardedAchievements(currentUser, achievementResult?.awarded);
-    } catch (error) {
+    scheduleServerAchievementCheck(currentUser.id, {
+      progression: result?.stats || {},
+      reason: "mobile_onboarding_completion",
+      client: supabase,
+    }).catch((error) => {
       console.warn("Unable to refresh achievements after onboarding", {
         userId: currentUser.id,
         error,
       });
-    }
+    });
   }
 
   function runMobileOnboardingFinalizer({ allowNoPending = false } = {}) {
@@ -3391,7 +3391,6 @@ function MobileApp() {
     const outcome = await addScannedCardOnce(supabase, { cardId: String(card.id), setId: set.id });
     if (validatedScannerUserIdRef.current !== actionUserId) throw new Error("Your account session changed. Please try again.");
     if (outcome.added) {
-      invalidateAchievementReconciliation(actionUserId);
       const timestamp = Date.now();
       const key = getCardCollectionKey(card, set.id);
       setCollection((current) => {
@@ -3409,7 +3408,21 @@ function MobileApp() {
           },
         };
       });
-      setStats((current) => ({ ...current, totalCardsPulled: Number(current.totalCardsPulled || 0) + 1 }));
+      const nextProgression = {
+        ...stats,
+        totalCardsPulled: Number(stats.totalCardsPulled || 0) + 1,
+      };
+      setStats(nextProgression);
+      scheduleServerAchievementCheck(actionUserId, {
+        progression: nextProgression,
+        reason: "durable_scanner_collection_addition",
+        client: supabase,
+      }).catch((error) => {
+        console.warn("Unable to check achievements after scanner collection addition", {
+          userId: actionUserId,
+          error,
+        });
+      });
     }
     return outcome;
   }
@@ -3558,6 +3571,7 @@ function MobileApp() {
   function clearAccountScopedState() {
     const previousUserId = currentUserRef.current?.id || lastAccountScopedUserIdRef.current;
     if (previousUserId) cancelPendingCloudPullSync(previousUserId);
+    if (previousUserId) clearAchievementCheckScheduler(previousUserId);
     accountStateLoadGenerationRef.current += 1;
     invalidateCloudCollectionLoads();
     clearCachedSupabaseUser(supabase);
@@ -3581,7 +3595,6 @@ function MobileApp() {
     setIsAchievementsLoading(false);
     setAchievementToastQueue([]);
     setActiveAchievementToast(null);
-    clearAchievementReconciliationCache();
     setWishlistEntries([]);
     setWishlistStatus("idle");
     setWishlistError("");
@@ -3666,17 +3679,18 @@ function MobileApp() {
     }
   }
 
-  async function loadUserAchievementProgress(currentUser = user) {
+  async function loadUserAchievementProgress(currentUser = user, progression = stats) {
     if (!currentUser?.id) {
       setAchievementProgress([]);
       return [];
     }
 
     try {
-      const reconciliation = await reconcileCurrentUserAchievements(currentUser.id);
+      const reconciliation = await reconcileCurrentUserAchievements(currentUser.id, {
+        progression,
+        client: supabase,
+      });
       const cloudProgress = reconciliation?.progress || [];
-      enqueueAchievementUnlocks(reconciliation?.awarded);
-      mergeAwardedAchievements(currentUser, reconciliation?.awarded || []);
       setAchievementProgress(cloudProgress);
       return cloudProgress;
     } catch (error) {
@@ -3727,16 +3741,6 @@ function MobileApp() {
     setAchievements(mergedAchievements);
   }
 
-  async function runPostPackAchievementFlow({ currentUser = user, set, cards } = {}) {
-    if (!currentUser?.id || !set?.id || !cards?.length) return null;
-
-    const achievementResult = await requestServerAchievementAward(currentUser.id);
-    enqueueAchievementUnlocks(achievementResult?.awarded);
-    mergeAwardedAchievements(currentUser, achievementResult?.awarded);
-
-    return { packEvent: null, achievements: achievementResult };
-  }
-
   async function performAccountScopedStateLoad(currentUser) {
     if (!currentUser?.id) {
       clearAccountScopedState();
@@ -3747,7 +3751,7 @@ function MobileApp() {
 
     const isSameAccount = lastAccountScopedUserIdRef.current === currentUser.id;
     if (lastAccountScopedUserIdRef.current && !isSameAccount) {
-      clearAchievementReconciliationCache();
+      clearAchievementCheckScheduler(lastAccountScopedUserIdRef.current);
       achievementCacheByUserIdRef.current.clear();
       lastAchievementsLoadedUserIdRef.current = "";
       setAchievements([]);
@@ -3847,18 +3851,6 @@ function MobileApp() {
         userId: currentUser.id,
         error,
       });
-    }
-
-    if (pendingSyncResult?.saved > 0) {
-      try {
-        const achievementResult = await requestServerAchievementAward(currentUser.id);
-        enqueueAchievementUnlocks(achievementResult?.awarded);
-      } catch (error) {
-        console.warn("Unable to refresh achievements after pending pull recovery", {
-          userId: currentUser.id,
-          error,
-        });
-      }
     }
 
     const cachedAchievements = achievementCacheByUserIdRef.current.get(currentUser.id);
@@ -4354,6 +4346,13 @@ function MobileApp() {
     return () => window.clearTimeout(timer);
   }, [activeAchievementToast]);
 
+  useEffect(() => subscribeAchievementCheckResults(({ userId, result }) => {
+    const currentUser = currentUserRef.current;
+    if (!currentUser?.id || String(currentUser.id) !== String(userId)) return;
+    enqueueAchievementUnlocks(result?.awarded);
+    mergeAwardedAchievements(currentUser, result?.awarded || []);
+  }), []);
+
   useEffect(() => {
     let mounted = true;
 
@@ -4468,17 +4467,6 @@ function MobileApp() {
           }
         }
 
-        try {
-          const achievementResult = await requestServerAchievementAward(user.id);
-          if (!active) return;
-          enqueueAchievementUnlocks(achievementResult?.awarded);
-          mergeAwardedAchievements(user, achievementResult?.awarded);
-        } catch (error) {
-          console.warn("Unable to refresh achievements after pending pull sync", {
-            userId: user.id,
-            error,
-          });
-        }
       } catch (error) {
         console.warn("Pending mobile collection retry will remain queued", {
           userId: user.id,
@@ -4858,19 +4846,6 @@ function MobileApp() {
         } : current);
       }
 
-      try {
-        await runPostPackAchievementFlow({
-          currentUser: user,
-          set,
-          cards,
-        });
-      } catch (error) {
-        console.warn("Mobile PackDex achievement refresh failed after durable pack sync", {
-          setId: set.id,
-          cardCount: cards.length,
-          error,
-        });
-      }
     }
   }
 
@@ -5111,20 +5086,17 @@ function MobileApp() {
         setCloudCollectionWarning("Your last complete collection is still shown. The cloud refresh was incomplete; tap Retry.");
       }
 
-      try {
-        await runPostPackAchievementFlow({
-          currentUser: user,
-          set: choice.set,
-          cards: rewardPack,
-          openedAt: result.rewardStatus?.claimedAt || result.status?.claimedAt || new Date().toISOString(),
-        });
-      } catch (achievementError) {
+      scheduleServerAchievementCheck(user.id, {
+        progression: result.stats || {},
+        reason: "durable_welcome_reward_claim",
+        client: supabase,
+      }).catch((achievementError) => {
         console.warn("Unable to sync achievements after welcome reward claim", {
           setId: choice.set.id,
           cardCount: rewardPack.length,
           error: achievementError,
         });
-      }
+      });
 
       preparePackImages(rewardPack, choice.set);
       setIsWelcomeRewardModalOpen(false);
@@ -5489,7 +5461,7 @@ function MobileApp() {
               achievements={achievements}
               achievementProgress={achievementProgress}
               isAchievementsLoading={isAchievementsLoading}
-              onLoadAchievementProgress={() => loadUserAchievementProgress(user)}
+              onLoadAchievementProgress={() => loadUserAchievementProgress(user, stats)}
               welcomeRewardStatus={displayedWelcomeRewardStatus}
               onboardingSyncError={onboardingSyncError}
               onRetryOnboarding={() => finishAccountOnboarding(user)}

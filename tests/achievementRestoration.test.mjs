@@ -168,25 +168,24 @@ test("Rare+ achievements remain defined but are hidden from rendering and percen
   assert.match(mobileSource, /MOBILE_ACHIEVEMENTS\.find\(\(achievement\) => achievement\.id === achievementId\)/);
 });
 
-test("trusted reconciliation is profile-only and leaves the post-pack request scope unchanged", async () => {
+test("trusted reconciliation and pack checks share the centralized scheduler", async () => {
   const mobileSource = await readFile(new URL("../mobile-app/src/App.jsx", import.meta.url), "utf8");
   const achievementClient = await readFile(new URL("../src/lib/userAchievements.js", import.meta.url), "utf8");
+  const schedulerSource = await readFile(new URL("../src/lib/achievementCheckScheduler.js", import.meta.url), "utf8");
+  const queueSource = await readFile(new URL("../mobile-app/src/lib/cloudCollection.js", import.meta.url), "utf8");
   const edgeSource = await readFile(
     new URL("../supabase/functions/check-achievements/index.ts", import.meta.url),
     "utf8"
   );
-  const postPackFlow = mobileSource.match(
-    /async function runPostPackAchievementFlow[\s\S]*?return \{ packEvent: null, achievements: achievementResult \};/
-  )?.[0] || "";
-
-  assert.match(postPackFlow, /requestServerAchievementAward\(currentUser\.id\)/);
-  assert.doesNotMatch(postPackFlow, /reconcileCurrentUserAchievements|loadTrustedCollectionMetrics/);
-  assert.match(achievementClient, /body: \{ scope: "pack_and_collection" \}/);
-  assert.match(achievementClient, /body: \{ scope: "profile_reconcile" \}/);
+  assert.equal((schedulerSource.match(/functions\.invoke\("check-achievements"/g) || []).length, 1);
+  assert.doesNotMatch(achievementClient, /functions\.invoke\("check-achievements"/);
+  assert.doesNotMatch(mobileSource, /functions\.invoke\("check-achievements"/);
+  assert.match(queueSource, /result\.saved > 0[\s\S]*scheduleAchievementCheck/);
+  assert.match(achievementClient, /scope: "profile_reconcile"/);
   assert.match(edgeSource, /if \(isProfileReconciliation\) \{[\s\S]*loadTrustedCollectionMetrics/);
   assert.match(edgeSource, /const PRICE_CHUNK_SIZE = 100;/);
   assert.doesNotMatch(edgeSource, /select\("packs_opened,total_cards_pulled,unique_cards,sets_completed"\)/);
-  assert.match(edgeSource, /return jsonResponse\(\{ awarded \}\);/);
+  assert.match(edgeSource, /progressionFingerprint/);
 });
 
 test("profile refresh and account changes reload or clear achievement state", async () => {
@@ -204,25 +203,22 @@ test("profile refresh and account changes reload or clear achievement state", as
   assert.match(clearAccountState, /setAchievements\(\[\]\)/);
   assert.match(clearAccountState, /setAchievementProgress\(\[\]\)/);
   assert.match(clearAccountState, /achievementCacheByUserIdRef\.current\.clear\(\)/);
-  assert.match(clearAccountState, /clearAchievementReconciliationCache\(\)/);
+  assert.match(clearAccountState, /clearAchievementCheckScheduler\(previousUserId\)/);
   assert.match(accountLoad, /await loadUserAchievements\(currentUser\)/);
   assert.match(openAchievements, /onLoadAchievementProgress\?\.\(\)/);
 });
 
-test("successful collection-changing achievement flows invalidate reconciliation without adding requests", async () => {
+test("successful scanner collection changes schedule one durable progression check", async () => {
   const mobileSource = await readFile(new URL("../mobile-app/src/App.jsx", import.meta.url), "utf8");
   const achievementClient = await readFile(new URL("../src/lib/userAchievements.js", import.meta.url), "utf8");
-  const awardRequest = achievementClient.match(
-    /export async function requestServerAchievementAward[\s\S]*?\n\}/
-  )?.[0] || "";
   const scannerCollectionChange = mobileSource.match(
     /async function addScannedCardToCollection[\s\S]*?\n  \}/
   )?.[0] || "";
 
+  assert.doesNotMatch(achievementClient, /functions\.invoke\("check-achievements"/);
+  assert.match(scannerCollectionChange, /if \(outcome\.added\) \{[\s\S]*scheduleServerAchievementCheck\(actionUserId/);
   assert.ok(
-    awardRequest.indexOf("invalidateAchievementReconciliation(user.id)") <
-      awardRequest.indexOf('body: { scope: "pack_and_collection" }')
+    scannerCollectionChange.indexOf("await addScannedCardOnce") <
+      scannerCollectionChange.indexOf("scheduleServerAchievementCheck(actionUserId")
   );
-  assert.equal((awardRequest.match(/functions\.invoke/g) || []).length, 1);
-  assert.match(scannerCollectionChange, /if \(outcome\.added\) \{\s*invalidateAchievementReconciliation\(actionUserId\)/);
 });
