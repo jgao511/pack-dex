@@ -27,8 +27,8 @@ function SupabaseAuthBadge() {
   );
 }
 
-function AuthForm({ onAuthenticated }) {
-  const [mode, setMode] = useState("login");
+function AuthForm({ onAuthenticated, initialMode = "login" }) {
+  const [mode, setMode] = useState(initialMode);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -446,7 +446,7 @@ function AuthPanel({ user, isAuthLoading = false, onOpenAuth }) {
   );
 }
 
-export function AuthModal({ isOpen, onClose }) {
+export function AuthModal({ isOpen, onClose, initialMode = "login" }) {
   const pointerStartedInsideRef = useRef(false);
 
   useEffect(() => {
@@ -496,7 +496,7 @@ export function AuthModal({ isOpen, onClose }) {
         <button className="auth-modal-close" type="button" onClick={onClose} aria-label="Close account modal">
           <X size={22} aria-hidden="true" />
         </button>
-        <AuthForm onAuthenticated={onClose} />
+        <AuthForm key={initialMode} initialMode={initialMode} onAuthenticated={onClose} />
       </section>
     </div>
   );

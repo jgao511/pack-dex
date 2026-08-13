@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { ChevronRight, Mail, Settings2, X } from "lucide-react";
 import "./App.css";
 import "./DesktopTheme.css";
@@ -16,6 +16,7 @@ import BinderSystem from "./components/binders/BinderSystem.jsx";
 import PullSummary from "./components/PullSummary.jsx";
 import PrivacyChoicesDialog from "./components/PrivacyChoicesDialog.jsx";
 import SetSelect from "./components/SetSelect.jsx";
+import { AdSlot, AD_PLACEMENTS, adsenseConfig } from "./ads/index.js";
 import {
   LEGAL_DOCUMENTS,
   LEGAL_LAST_UPDATED,
@@ -97,12 +98,39 @@ import {
 import { BUY_ME_A_COFFEE_URL, isBuyMeACoffeeEnabled } from "./config/support.js";
 import { markPackGenerationComplete, markPackGenerationStart } from "./utils/imageDebug.js";
 import { markCardBackPreloadFinish, markCardBackPreloadStart } from "./utils/cardBackDebug.js";
+import { getNoindexSeoDescriptor, getSetSeoDescriptor } from "./lib/publicSeo.js";
+import { getStaticPublicSeoDescriptor } from "./lib/staticPublicSeo.js";
+import { parseRuntimeSiteRoute } from "./lib/runtimeRoutes.js";
+import { getCanonicalSetPath } from "./lib/setRouteCatalog.js";
+import { createCanonicalRevealSession, isCanonicalPhoneRevealViewport } from "./lib/canonicalRevealSession.js";
+import { loadRevealStyle, saveRevealStyle } from "./lib/revealStyle.js";
+import useSeoMetadata from "./lib/useSeoMetadata.js";
 import {
   clearImageWarmupQueue,
   pauseImageWarmup,
   resumeImageWarmup,
-  scheduleSelectedSetImageWarmup,
 } from "./utils/imageWarmup.js";
+import { preloadPackReadyAssets } from "./utils/staticOpenPackAssets.js";
+
+if (typeof window !== "undefined") {
+  const atMs = Number(performance.now().toFixed(1));
+  const timeline = window.__packdexPerformance?.timeline || [];
+  window.__packdexPerformance = {
+    ...(window.__packdexPerformance || {}),
+    appModuleEvaluated: atMs,
+    timeline: [...timeline, { name: "appModuleEvaluated", atMs }],
+  };
+  performance.mark?.("packdex-app-module-evaluated");
+}
+
+let publicSetPagePromise = null;
+
+function loadPublicSetPage() {
+  publicSetPagePromise ||= import("./public/PublicSetPage.jsx");
+  return publicSetPagePromise;
+}
+
+const PublicSetPage = lazy(loadPublicSetPage);
 
 const POKEBALL_LOADING_SRC = getPokeballLoadingUrl();
 const SUPPORT_EMAIL = PACKDEX_SUPPORT_EMAIL;
@@ -154,6 +182,90 @@ function applyDesktopTheme() {
 
 if (typeof window !== "undefined") {
   applyDesktopTheme();
+}
+
+function NoindexMetadata({ title }) {
+  const descriptor = useMemo(() => getNoindexSeoDescriptor({ title }), [title]);
+  useSeoMetadata(descriptor);
+  return null;
+}
+
+function PublicSetContentSkeleton() {
+  return (
+    <div className="public-set-deferred-skeleton" aria-hidden="true">
+      <span className="public-set-deferred-skeleton__eyebrow packdex-skeleton" />
+      <span className="public-set-deferred-skeleton__title packdex-skeleton" />
+      <span className="public-set-deferred-skeleton__line packdex-skeleton" />
+      <span className="public-set-deferred-skeleton__line is-short packdex-skeleton" />
+      <div className="public-set-deferred-skeleton__cards">
+        {Array.from({ length: 4 }, (_, index) => (
+          <span className="packdex-skeleton" key={index} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function DeferredPublicSetPage({ set, ...props }) {
+  const hostRef = useRef(null);
+  const [shouldRender, setShouldRender] = useState(false);
+
+  useEffect(() => {
+    let firstFrame = 0;
+    let secondFrame = 0;
+    let observer = null;
+    let idleHandle = null;
+    let timeoutHandle = null;
+
+    const reveal = () => setShouldRender(true);
+    const startWatching = () => {
+      if (typeof IntersectionObserver !== "undefined" && hostRef.current) {
+        observer = new IntersectionObserver(
+          (entries) => {
+            if (!entries.some((entry) => entry.isIntersecting)) return;
+            observer?.disconnect();
+            observer = null;
+            reveal();
+          },
+          { rootMargin: "700px 0px" }
+        );
+        observer.observe(hostRef.current);
+        return;
+      }
+
+      if ("requestIdleCallback" in window) {
+        idleHandle = window.requestIdleCallback(reveal, { timeout: 700 });
+      } else {
+        timeoutHandle = window.setTimeout(reveal, 180);
+      }
+    };
+
+    // Give Pack Ready two paint opportunities before hydrating its below-fold
+    // content. The production snapshots remain complete and crawlable.
+    firstFrame = window.requestAnimationFrame(() => {
+      secondFrame = window.requestAnimationFrame(startWatching);
+    });
+
+    return () => {
+      window.cancelAnimationFrame(firstFrame);
+      window.cancelAnimationFrame(secondFrame);
+      observer?.disconnect();
+      if (idleHandle !== null) window.cancelIdleCallback?.(idleHandle);
+      if (timeoutHandle !== null) window.clearTimeout(timeoutHandle);
+    };
+  }, [set.id]);
+
+  return (
+    <div className="public-set-deferred" ref={hostRef}>
+      {shouldRender ? (
+        <Suspense fallback={<PublicSetContentSkeleton />}>
+          <PublicSetPage set={set} {...props} />
+        </Suspense>
+      ) : (
+        <PublicSetContentSkeleton />
+      )}
+    </div>
+  );
 }
 
 function TabLoadingOverlay({ text = "Loading...", subtext = "" }) {
@@ -238,7 +350,7 @@ function resetPageScroll() {
   }, 0);
 }
 
-function pushAppHistory(state) {
+function pushAppHistory(state, url = null) {
   if (typeof window === "undefined") return;
 
   window.history.pushState(
@@ -248,11 +360,11 @@ function pushAppHistory(state) {
       ...state,
     },
     "",
-    window.location.pathname
+    url || `${window.location.pathname}${window.location.search}`
   );
 }
 
-function replaceAppHistory(state) {
+function replaceAppHistory(state, url = null) {
   if (typeof window === "undefined") return;
 
   window.history.replaceState(
@@ -261,7 +373,7 @@ function replaceAppHistory(state) {
       ...state,
     },
     "",
-    window.location.pathname
+    url || `${window.location.pathname}${window.location.search}`
   );
 }
 
@@ -878,7 +990,10 @@ function SiteFooter() {
         </a>
       </div>
       <nav className="site-footer__legal" aria-label="Legal and privacy links">
-        <a href="/welcome">About PackDex</a>
+        <a href="/sets">Sets</a>
+        <a href="/how-it-works">How It Works</a>
+        <a href="/faq">FAQ</a>
+        <a href="/about">About PackDex</a>
         <a href={LEGAL_ROUTES.privacy}>Privacy</a>
         <a href={LEGAL_ROUTES.terms}>Terms</a>
         <button type="button" onClick={(event) => openPrivacyChoices(event.currentTarget)}>
@@ -1052,6 +1167,7 @@ function ProfilePage({
   onOpenAuth,
   onOpenWelcomeReward,
   onDeleteAccount,
+  settingsOpen = false,
 }) {
   const collectedCards = useMemo(() => getCollectedCards(collection), [collection]);
   const completedSets = sets.filter((set) => getSetCollectionProgress(collection, set).percent === 100).length;
@@ -1094,7 +1210,7 @@ function ProfilePage({
               {profileStatsError}
             </p>
           )}
-          <details className="profile-settings">
+          <details className="profile-settings" open={settingsOpen || undefined}>
             <summary>
               <span className="profile-settings__icon" aria-hidden="true">
                 <Settings2 size={19} />
@@ -1138,6 +1254,35 @@ function ProfilePage({
         <a href={`mailto:${SUPPORT_EMAIL}`}>Email Support</a>
       </section>
 
+    </section>
+  );
+}
+
+function SetsCatalogContext({ pathname }) {
+  return (
+    <section className="sets-catalog-context" aria-labelledby="sets-catalog-context-title">
+      <div>
+        <span className="set-mark">Explore across eras</span>
+        <h2 id="sets-catalog-context-title">A PackDex set selector and collection index</h2>
+        <p>
+          Every set above opens a virtual PackDex booster experience with its supported card catalog, collection
+          progress, factual set highlights, and card checklist.
+        </p>
+        <p>
+          PackDex openings are entirely virtual. They do not predict physical products, and virtual cards cannot be
+          redeemed for cash, prizes, or physical cards.
+        </p>
+        <nav aria-label="Learn more about PackDex">
+          <a href="/how-it-works">How PackDex Works</a>
+          <a href="/faq">Frequently Asked Questions</a>
+          <a href="/about">About PackDex</a>
+        </nav>
+      </div>
+      <AdSlot
+        placement={AD_PLACEMENTS.CONTENT}
+        pathname={pathname}
+        context={{ contentReady: true, screen: "sets-catalog" }}
+      />
     </section>
   );
 }
@@ -1215,7 +1360,14 @@ function DevGodPackAnimationPreview() {
   );
 }
 
-function App() {
+function resolveFullRuntimeRoute(route) {
+  if (route?.kind !== "set") return route;
+  const setId = route.setId || route.set?.id;
+  const set = activeSets.find((candidate) => String(candidate.id) === String(setId || "")) || null;
+  return set ? { ...route, set, setId: set.id } : { ...route, kind: "not-found", page: "notFound", set: null, setId: null };
+}
+
+function App({ route: initialRoute = null }) {
   const pagePath = typeof window === "undefined" ? "/" : window.location.pathname;
   const legalPagePath = pagePath.length > 1 ? pagePath.replace(/\/+$/, "") : pagePath;
   const legalPageType = legalPagePath === "/terms" ? "terms" : legalPagePath === "/privacy" ? "privacy" : "";
@@ -1223,6 +1375,7 @@ function App() {
   if (legalPagePath === "/auth/callback") {
     return (
       <main className="app-shell">
+        <NoindexMetadata title="Completing Sign In | PackDex" />
         <AuthCallbackPage />
         <SiteFooter />
       </main>
@@ -1232,6 +1385,7 @@ function App() {
   if (legalPagePath === "/reset-password") {
     return (
       <main className="app-shell">
+        <NoindexMetadata title="Reset Password | PackDex" />
         <ResetPasswordPage />
         <SiteFooter />
       </main>
@@ -1256,10 +1410,35 @@ function App() {
     );
   }
 
-  const [activeTab, setActiveTab] = useState("open");
-  const [screen, setScreen] = useState("home");
-  const [selectedSet, setSelectedSet] = useState(null);
+  const [route, setRoute] = useState(() => resolveFullRuntimeRoute(initialRoute));
+  const isPublicSetRoute = route?.kind === "set" && Boolean(route.set);
+  const isSetsRoute = route?.kind === "public" && route?.page === "sets";
+  const collectionRouteSetId = route?.page === "collection"
+    ? new URLSearchParams(window.location.search).get("set")
+    : "";
+  const collectionRouteSet = collectionRouteSetId
+    ? activeSets.find((candidateSet) => candidateSet.id === collectionRouteSetId) || null
+    : null;
+  const initialTab = isPublicSetRoute
+    ? "open"
+    : route?.page === "collection"
+      ? "collection"
+      : ["profile", "settings"].includes(route?.page)
+        ? "profile"
+        : "open";
+  const initialScreen = isPublicSetRoute
+    ? "opening"
+    : initialTab === "collection"
+      ? collectionRouteSet ? "setCollection" : "collection"
+      : initialTab === "profile"
+        ? "profile"
+        : "home";
+  const [activeTab, setActiveTab] = useState(initialTab);
+  const [screen, setScreen] = useState(initialScreen);
+  const [selectedSet, setSelectedSet] = useState(isPublicSetRoute ? route.set : collectionRouteSet);
   const [pulledCards, setPulledCards] = useState([]);
+  const [preferredRevealStyle, setPreferredRevealStyle] = useState(() => loadRevealStyle());
+  const [activeRevealSession, setActiveRevealSession] = useState(() => createCanonicalRevealSession());
   const [collection, setCollection] = useState(() => loadCollection());
   const [binders, setBinders] = useState(() => loadBinders());
   const [profileStats, setProfileStats] = useState(() => emptyProfileStats());
@@ -1284,6 +1463,7 @@ function App() {
   const [buyMeACoffeePromptUserId, setBuyMeACoffeePromptUserId] = useState("");
   const [collectionDashboardSubtabRequest, setCollectionDashboardSubtabRequest] = useState("");
   const [binderOpenRequestId, setBinderOpenRequestId] = useState("");
+  const [isPublicSetOverlayOpen, setIsPublicSetOverlayOpen] = useState(false);
   const [showDesktopMobileNotice, setShowDesktopMobileNotice] = useState(
     () => !readStorageFlag(DESKTOP_MOBILE_NOTICE_DISMISSED_KEY, window)
   );
@@ -1296,8 +1476,41 @@ function App() {
   const packSavePromiseRef = useRef(null);
   const persistedPackEventIdsRef = useRef(new Set());
   const pendingBuyMeACoffeePackCountRef = useRef(0);
+  const revealSessionSequenceRef = useRef(0);
+  const pendingInitialOpenIntentRef = useRef(Boolean(isPublicSetRoute && initialRoute?.openOnReady));
   const isPackFlow = activeTab === "open" && ["opening", "reveal", "summary"].includes(screen);
   const authUser = authSession?.user || null;
+  const unsafeSetAdState =
+    isAuthLoading ||
+    isAuthModalOpen ||
+    isDeleteAccountOpen ||
+    isWelcomeBetaOpen ||
+    isWelcomeRewardModalOpen ||
+    isBuyMeACoffeePromptOpen ||
+    isClaimingWelcomeReward ||
+    isPublicSetOverlayOpen;
+  const hasSetRail = import.meta.env.DEV || Boolean(adsenseConfig.slots?.[AD_PLACEMENTS.SET_RAIL]);
+  const routeSeoDescriptor = useMemo(
+    () => isPublicSetRoute
+      ? getSetSeoDescriptor(route.set)
+      : isSetsRoute
+        ? getStaticPublicSeoDescriptor("/sets")
+      : getNoindexSeoDescriptor({
+          title: route?.page === "collection"
+            ? "Your Collection | PackDex"
+            : route?.page === "login"
+              ? "Log In | PackDex"
+              : route?.page === "signup"
+                ? "Create Account | PackDex"
+            : route?.page === "settings"
+              ? "Settings | PackDex"
+              : route?.page === "profile"
+                ? "Profile | PackDex"
+                : "PackDex App",
+        }),
+    [isPublicSetRoute, isSetsRoute, route?.page, route?.set]
+  );
+  useSeoMetadata(routeSeoDescriptor);
 
   useEffect(() => {
     if (
@@ -1331,10 +1544,21 @@ function App() {
   }, []);
 
   useEffect(() => {
-    replaceAppHistory({ activeTab: "open", screen: "home" });
+    replaceAppHistory({
+      activeTab: initialTab,
+      screen: initialScreen,
+      selectedSetId: isPublicSetRoute ? route.set.id : collectionRouteSet?.id,
+      collectionSubtab: initialTab === "collection" ? "sets" : undefined,
+    });
   }, []);
 
   useEffect(() => {
+    if (["login", "signup"].includes(route?.page)) setIsAuthModalOpen(true);
+  }, [route?.page]);
+
+  useEffect(() => {
+    if (!selectedSet || screen !== "opening") return;
+
     preloadImage(CARD_BACK_URL, {
       timeoutMs: 0,
       onStart: (detail) => markCardBackPreloadStart(CARD_BACK_URL, detail),
@@ -1356,13 +1580,14 @@ function App() {
 
     if (screen === "summary") {
       resumeImageWarmup();
-      scheduleSelectedSetImageWarmup(selectedSet, { source: "summary" });
       return;
     }
 
     if (screen === "opening") {
       resumeImageWarmup();
-      scheduleSelectedSetImageWarmup(selectedSet, { source: "selected-set" });
+      // Pack Ready only needs its logo/pack/card-back assets. Bulk card-image
+      // warmup here competed with the critical render path and consumed R2
+      // egress before a user had chosen to open a pack.
       return;
     }
 
@@ -1620,11 +1845,37 @@ function App() {
   useEffect(() => {
     function handlePopState(event) {
       const state = event.state;
+      const nextRoute = resolveFullRuntimeRoute(parseRuntimeSiteRoute(window.location.pathname));
+      const nextCollectionSetId = nextRoute?.page === "collection"
+        ? new URLSearchParams(window.location.search).get("set")
+        : "";
+      const routeSelectedSet = nextRoute?.kind === "set"
+        ? nextRoute.set
+        : nextCollectionSetId
+          ? activeSets.find((candidateSet) => candidateSet.id === nextCollectionSetId) || null
+          : null;
+
+      setRoute(nextRoute);
 
       if (!state?.packdexApp) {
-        setActiveTab("open");
-        setScreen("home");
-        setSelectedSet(null);
+        const fallbackTab = nextRoute?.kind === "set"
+          ? "open"
+          : nextRoute?.page === "collection"
+            ? "collection"
+            : ["profile", "settings"].includes(nextRoute?.page)
+              ? "profile"
+              : "open";
+        const fallbackScreen = nextRoute?.kind === "set"
+          ? "opening"
+          : fallbackTab === "collection"
+            ? routeSelectedSet ? "setCollection" : "collection"
+            : fallbackTab === "profile"
+              ? "profile"
+              : "home";
+
+        setActiveTab(fallbackTab);
+        setScreen(fallbackScreen);
+        setSelectedSet(routeSelectedSet);
         setPulledCards([]);
         resetPageScroll();
         return;
@@ -1634,7 +1885,7 @@ function App() {
       const nextScreen = state.screen || (nextTab === "open" ? "home" : nextTab);
       const nextSet = state.selectedSetId
         ? activeSets.find((candidateSet) => candidateSet.id === state.selectedSetId) || null
-        : null;
+        : routeSelectedSet;
 
       setActiveTab(nextTab);
       setScreen(nextScreen);
@@ -1654,13 +1905,29 @@ function App() {
     return () => {
       window.removeEventListener("popstate", handlePopState);
     };
-  }, []);
+  }, [screen, selectedSet?.id]);
 
   function selectMainTab(tab) {
-    const nextScreen = tab === "open" ? "home" : tab;
+    const nextScreen = tab === "open" ? (isPublicSetRoute ? "opening" : "home") : tab;
 
     if (tab === activeTab && screen === nextScreen) {
       resetPageScroll();
+      return;
+    }
+
+    if (isPublicSetRoute && tab === "open") {
+      pushAppHistory({ activeTab: "open", screen: "opening", selectedSetId: route.set.id }, pagePath);
+      setActiveTab("open");
+      setScreen("opening");
+      setSelectedSet(route.set);
+      setPulledCards([]);
+      resetPageScroll();
+      return;
+    }
+
+    const nextUrl = tab === "collection" ? "/collection" : tab === "profile" ? "/profile" : "/sets";
+    if (isPublicSetRoute || isSetsRoute || route?.kind === "utility") {
+      window.location.assign(nextUrl);
       return;
     }
 
@@ -1670,7 +1937,7 @@ function App() {
     setPulledCards([]);
     setCollectionDashboardSubtabRequest(tab === "collection" ? "sets" : "");
     setBinderOpenRequestId("");
-    pushAppHistory({ activeTab: tab, screen: nextScreen });
+    pushAppHistory({ activeTab: tab, screen: nextScreen }, nextUrl);
     resetPageScroll();
   }
 
@@ -1716,12 +1983,59 @@ function App() {
     setIsDeleteAccountOpen(false);
   }
 
+  function changePreferredRevealStyle(nextStyle) {
+    setPreferredRevealStyle(saveRevealStyle(nextStyle));
+  }
+
+  function lockRevealSessionForNextPack() {
+    const nextSession = createCanonicalRevealSession({
+      phoneViewport: isPublicSetRoute && isCanonicalPhoneRevealViewport(window),
+      preferredStyle: preferredRevealStyle,
+      sequence: revealSessionSequenceRef.current + 1,
+    });
+    revealSessionSequenceRef.current = nextSession.sequence;
+    setActiveRevealSession(nextSession);
+    return nextSession;
+  }
+
+  function prefetchPublicSetExperience(set) {
+    if (!set || isRetiredSet(set)) return;
+    preloadPackReadyAssets(set);
+  }
+
+  function navigateToPublicSet(set, requestedPath = "") {
+    if (!set || isRetiredSet(set)) return;
+
+    const canonicalPath = requestedPath || getCanonicalSetPath(set);
+    if (!canonicalPath) return;
+
+    performance.mark?.("packdex-set-navigation-start");
+    preloadPackReadyAssets(set);
+    pushAppHistory({ activeTab: "open", screen: "opening", selectedSetId: set.id }, canonicalPath);
+    setRoute(resolveFullRuntimeRoute(parseRuntimeSiteRoute(canonicalPath)));
+    setActiveTab("open");
+    setCollectionDashboardSubtabRequest("");
+    setBinderOpenRequestId("");
+    setSelectedSet(set);
+    setPulledCards([]);
+    setIsPackStartLocked(false);
+    setIsOpenAnotherLocked(false);
+    setScreen("opening");
+    resetPageScroll();
+  }
+
   function startPackOpening(set = selectedSet) {
     if (!set || isRetiredSet(set)) return;
     if (packOperationRef.current || packSavePromiseRef.current) return;
 
-    if (!(activeTab === "open" && screen === "home")) {
-      pushAppHistory({ activeTab: "open", screen: "home" });
+    if (isPublicSetRoute && activeTab === "open" && screen === "opening") {
+      resetPageScroll();
+      return;
+    }
+
+    const baseScreen = isPublicSetRoute ? "opening" : "home";
+    if (!(activeTab === "open" && screen === baseScreen)) {
+      pushAppHistory({ activeTab: "open", screen: baseScreen, selectedSetId: isPublicSetRoute ? set.id : undefined });
     }
 
     pushAppHistory({ activeTab: "open", screen: "opening", selectedSetId: set.id });
@@ -1750,6 +2064,7 @@ function App() {
     ensurePackOpenClientEventId(nextPack, selectedSet.id);
     markPackGenerationComplete(selectedSet, nextPack, generationStart);
 
+    lockRevealSessionForNextPack();
     setPulledCards(nextPack);
     setScreen("reveal");
   }
@@ -1777,15 +2092,37 @@ function App() {
     ensurePackOpenClientEventId(nextPack, selectedSet.id);
     markPackGenerationComplete(selectedSet, nextPack, generationStart);
 
+    lockRevealSessionForNextPack();
     setPulledCards(nextPack);
     setScreen("reveal");
   }
 
+  useEffect(() => {
+    if (!pendingInitialOpenIntentRef.current || screen !== "opening" || !selectedSet) return;
+    pendingInitialOpenIntentRef.current = false;
+    revealPack();
+  }, [screen, selectedSet?.id]);
+
   function viewCollection(set = selectedSet) {
     if (!set) return;
 
+    if (isSetsRoute) {
+      window.location.assign(`/collection?set=${encodeURIComponent(set.id)}`);
+      return;
+    }
+
+    if (isPublicSetRoute) {
+      pushAppHistory({ activeTab: "collection", screen: "setCollection", selectedSetId: set.id }, pagePath);
+      setActiveTab("collection");
+      setSelectedSet(set);
+      setScreen("setCollection");
+      setPulledCards([]);
+      resetPageScroll();
+      return;
+    }
+
     if (!(activeTab === "collection" && screen === "collection")) {
-      pushAppHistory({ activeTab: "collection", screen: "collection" });
+      pushAppHistory({ activeTab: "collection", screen: "collection" }, "/collection");
     }
 
     pushAppHistory({ activeTab: "collection", screen: "setCollection", selectedSetId: set.id });
@@ -1798,7 +2135,7 @@ function App() {
   }
 
   function returnToCollectionList() {
-    pushAppHistory({ activeTab: "collection", screen: "collection", collectionSubtab: "sets" });
+    pushAppHistory({ activeTab: "collection", screen: "collection", collectionSubtab: "sets" }, "/collection");
     setActiveTab("collection");
     setScreen("collection");
     setSelectedSet(null);
@@ -1809,10 +2146,18 @@ function App() {
   }
 
   function returnToOpenSetList() {
-    pushAppHistory({ activeTab: "open", screen: "home" });
+    const nextScreen = isPublicSetRoute ? "opening" : "home";
+    pushAppHistory(
+      {
+        activeTab: "open",
+        screen: nextScreen,
+        selectedSetId: isPublicSetRoute ? route.set.id : undefined,
+      },
+      isPublicSetRoute ? pagePath : "/sets"
+    );
     setActiveTab("open");
-    setScreen("home");
-    setSelectedSet(null);
+    setScreen(nextScreen);
+    setSelectedSet(isPublicSetRoute ? route.set : null);
     setPulledCards([]);
     setCollectionDashboardSubtabRequest("");
     setBinderOpenRequestId("");
@@ -2056,6 +2401,7 @@ function App() {
       setIsWelcomeRewardModalOpen(false);
       setActiveTab("open");
       setSelectedSet(choice.set);
+      lockRevealSessionForNextPack();
       setPulledCards(rewardPack);
       setScreen("reveal");
       resetPageScroll();
@@ -2108,12 +2454,50 @@ function App() {
     setSelectedSet(null);
     setActiveTab("open");
     setScreen("home");
-    pushAppHistory({ activeTab: "open", screen: "home" });
+    pushAppHistory({ activeTab: "open", screen: "home" }, isSetsRoute ? "/sets" : "/?desktop=1");
     resetPageScroll();
   }
 
+  function backToSetReady() {
+    clearImageWarmupQueue();
+    setPulledCards([]);
+    packOperationRef.current = false;
+    setIsPackStartLocked(false);
+    setIsOpenAnotherLocked(false);
+    setSelectedSet(route.set);
+    setActiveTab("open");
+    setScreen("opening");
+    pushAppHistory({ activeTab: "open", screen: "opening", selectedSetId: route.set.id }, pagePath);
+    resetPageScroll();
+  }
+
+  function navigateToSets() {
+    performance.mark?.("packdex-sets-navigation-start");
+    clearImageWarmupQueue();
+    pushAppHistory({ activeTab: "open", screen: "home" }, "/sets");
+    setRoute(parseRuntimeSiteRoute("/sets"));
+    setPulledCards([]);
+    packOperationRef.current = false;
+    setIsPackStartLocked(false);
+    setIsOpenAnotherLocked(false);
+    setSelectedSet(null);
+    setActiveTab("open");
+    setScreen("home");
+    resetPageScroll();
+  }
+
+  const publicSetAdContext = {
+    contentReady: true,
+    screen: screen === "opening" ? "pack-ready" : `pack-${screen}`,
+    disabled: unsafeSetAdState || screen !== "opening",
+    isPackReveal: screen === "reveal",
+    isPackSummary: screen === "summary",
+    isFullscreenInteraction: ["reveal", "summary"].includes(screen),
+    allowDesktopRailDuringInteraction: true,
+  };
+
   return (
-    <main className={`app-shell ${isPackFlow ? "is-pack-flow" : ""}`.trim()}>
+    <main className={`app-shell ${isPackFlow ? "is-pack-flow" : ""} ${isPublicSetRoute ? "app-shell--public-set" : ""}`.trim()}>
       <header className="site-header">
         <div className="site-brand">
           <img className="site-brand__icon" src="/packdex-icon-192.png" alt="" />
@@ -2160,7 +2544,7 @@ function App() {
         />
       )}
 
-      {!isPackFlow && showDesktopMobileNotice && (
+      {!isPublicSetRoute && !isPackFlow && showDesktopMobileNotice && (
         <aside className="mobile-experience-notice" aria-label="PackDex mobile experience">
           <span>
             PackDex is fully playable on desktop. For the newest features and most actively updated experience, try the
@@ -2188,27 +2572,55 @@ function App() {
         </div>
       )}
 
-      <div className="desktop-screen-cache" hidden={!(activeTab === "open" && screen === "home")}>
+      {!isPublicSetRoute && <div className="desktop-screen-cache" hidden={!(activeTab === "open" && screen === "home")}>
         <SetSelect
           sets={activeSets}
           collection={collection}
           onSelectSet={startPackOpening}
           onViewCollection={viewCollection}
-          footer={<SiteFooter />}
+          getSetHref={isSetsRoute ? getCanonicalSetPath : null}
+          onNavigateSet={isSetsRoute ? navigateToPublicSet : null}
+          onPrefetchSet={prefetchPublicSetExperience}
+          title={isSetsRoute ? "Choose a Pokémon TCG Set" : "Choose a set"}
+          intro={isSetsRoute
+            ? "Open virtual packs from every English-language Pokémon TCG set supported by PackDex. Browse across eras, choose a set, and start building your virtual collection."
+            : ""}
+          footer={(
+            <>
+              {isSetsRoute && <SetsCatalogContext pathname={pagePath} />}
+              <SiteFooter />
+            </>
+          )}
         />
-      </div>
+      </div>}
 
       {activeTab === "open" && screen !== "home" && (
-        <>
+        <div className={`public-set-experience ${isPublicSetRoute && hasSetRail ? "has-ad-rail" : ""}`}>
+          <div className="public-set-experience__stage">
+          {isPublicSetRoute && hasSetRail && (
+            <AdSlot
+              className="public-set-rail-ad public-set-rail-ad--left"
+              placement={AD_PLACEMENTS.SET_RAIL}
+              pathname={pagePath}
+              context={publicSetAdContext}
+              developmentLabel="Left ad rail"
+              minViewportWidth={1360}
+            />
+          )}
+          <div className="public-set-experience__main">
           {screen === "opening" && selectedSet && (
             <PackOpening
               set={selectedSet}
               onOpened={revealPack}
-              onBackToSets={backToSets}
+              onBackToSets={isPublicSetRoute ? navigateToSets : backToSets}
               onViewCollection={viewCollection}
               user={authUser}
               onOpenAuth={openAuthModal}
               isOpening={isPackStartLocked}
+              backLabel="Back to Sets"
+              showRevealStyle={isPublicSetRoute}
+              revealStyle={preferredRevealStyle}
+              onRevealStyleChange={changePreferredRevealStyle}
             />
           )}
 
@@ -2218,7 +2630,10 @@ function App() {
               set={selectedSet}
               onCardsRevealed={handleCardsRevealed}
               onComplete={handleRevealComplete}
-              onBackToSets={backToSets}
+              onBackToSets={isPublicSetRoute ? backToSetReady : backToSets}
+              backLabel={isPublicSetRoute ? "Back to Pack Ready" : "Back to Sets"}
+              revealStyle={activeRevealSession.revealStyle}
+              interactionSurface={activeRevealSession.interactionSurface}
             />
           )}
 
@@ -2230,14 +2645,46 @@ function App() {
               user={authUser}
               onOpenAuth={openAuthModal}
               onOpenAnother={openAnotherPack}
-              onBackToSets={backToSets}
+              onBackToSets={isPublicSetRoute ? backToSetReady : backToSets}
               onViewCollection={viewCollection}
               isOpeningAnother={isPackSavePending || isOpenAnotherLocked}
               isSaving={isPackSavePending}
+              backLabel={isPublicSetRoute ? "Back to Pack Ready" : "Back to Sets"}
             />
           )}
 
-        </>
+          </div>
+          {isPublicSetRoute && hasSetRail && (
+            <AdSlot
+              className="public-set-rail-ad public-set-rail-ad--right"
+              placement={AD_PLACEMENTS.SET_RAIL}
+              pathname={pagePath}
+              context={publicSetAdContext}
+              developmentLabel="Right ad rail"
+              minViewportWidth={1280}
+            />
+          )}
+          </div>
+
+          {isPublicSetRoute && selectedSet && (
+            <DeferredPublicSetPage
+              key={selectedSet.id}
+              set={selectedSet}
+              collection={collection}
+              binders={binders}
+              user={authUser}
+              pathname={pagePath}
+              onOpenPack={startPackOpening}
+              onOpenAuth={openAuthModal}
+              onAddToBinder={handleAddToBinder}
+              onRemoveFromBinder={handleRemoveFromBinder}
+              onOpenMasterSetBinder={openMasterSetBinder}
+              onOverlayStateChange={setIsPublicSetOverlayOpen}
+              adsDisabled={unsafeSetAdState || screen !== "opening"}
+              primaryHeading={screen === "opening"}
+            />
+          )}
+        </div>
       )}
 
       {activeTab === "collection" && screen === "collection" && (
@@ -2271,8 +2718,12 @@ function App() {
           onOpenAuth={openAuthModal}
           onAddToBinder={handleAddToBinder}
           onRemoveFromBinder={handleRemoveFromBinder}
-          onOpenPacks={returnToOpenSetList}
-          onBackToSets={returnToOpenSetList}
+          onOpenPacks={isPublicSetRoute
+            ? returnToOpenSetList
+            : () => window.location.assign(getCanonicalSetPath(selectedSet))}
+          onBackToSets={isPublicSetRoute
+            ? returnToOpenSetList
+            : () => window.location.assign("/sets")}
           onOpenMasterSetBinder={openMasterSetBinder}
         />
       )}
@@ -2292,11 +2743,16 @@ function App() {
             setIsWelcomeRewardModalOpen(true);
           }}
           onDeleteAccount={() => setIsDeleteAccountOpen(true)}
+          settingsOpen={route?.page === "settings"}
         />
       )}
 
       {!(activeTab === "open" && screen === "home") && <SiteFooter />}
-      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        initialMode={route?.page === "signup" ? "signup" : "login"}
+        onClose={() => setIsAuthModalOpen(false)}
+      />
       <DeleteAccountDialog
         isOpen={isDeleteAccountOpen}
         onClose={() => setIsDeleteAccountOpen(false)}

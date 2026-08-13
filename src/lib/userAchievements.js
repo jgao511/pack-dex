@@ -195,3 +195,7 @@ export async function scheduleServerAchievementCheck(expectedUserId = "", {
     skipped: Array.isArray(data?.skipped) ? data.skipped : [],
   };
 }
+
+export function requestServerAchievementAward(expectedUserId = "", options = {}) {
+  return scheduleServerAchievementCheck(expectedUserId, options);
+}

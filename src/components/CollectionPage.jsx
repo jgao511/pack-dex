@@ -175,6 +175,8 @@ function CollectionPage({
   onOpenPacks,
   onBackToSets,
   onOpenMasterSetBinder,
+  embedded = false,
+  onOverlayStateChange,
 }) {
   const [filter, setFilter] = useState("all");
   const [sortMode, setSortMode] = useState("number");
@@ -248,6 +250,12 @@ function CollectionPage({
     setMasterBinderPage((currentPage) => Math.min(currentPage, masterPageCount - 1));
   }, [masterPageCount]);
 
+  useEffect(() => {
+    onOverlayStateChange?.(Boolean(selectedCard));
+
+    return () => onOverlayStateChange?.(false);
+  }, [onOverlayStateChange, selectedCard]);
+
   function openMasterBinderCover() {
     setViewMode("masterBinder");
     setIsMasterBinderOpen(false);
@@ -307,8 +315,8 @@ function CollectionPage({
   }
 
   return (
-    <section className="collection-screen">
-      <header className="collection-header">
+    <section className={`collection-screen ${embedded ? "collection-screen--embedded" : ""}`}>
+      {!embedded && <header className="collection-header">
         <div className="collection-title">
           <span className="set-mark">Collection</span>
           <SetLogo set={set} />
@@ -339,7 +347,7 @@ function CollectionPage({
             </button>
           </div>
         </div>
-      </header>
+      </header>}
 
       {!user && <AccountSaveNotice onOpenAuth={onOpenAuth} message="to save your pulls across devices." />}
 

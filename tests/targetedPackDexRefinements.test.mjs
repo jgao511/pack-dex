@@ -57,7 +57,7 @@ test("inspection glow eligibility is centralized and excludes ordinary cards", (
   assert.equal(getInspectionGlowStrength({ rarityCategory: "specialIllustrationRare" }), "chase");
 });
 
-test("Explore uses optical logo centering and delays its lazy fallback", async () => {
+test("Explore uses optical logo centering and the shared branded fallback", async () => {
   const [app, explore, exploreCss] = await Promise.all([
     readFile(new URL("../mobile-app/src/App.jsx", import.meta.url), "utf8"),
     readFile(new URL("../mobile-app/src/explore/ExploreScreen.jsx", import.meta.url), "utf8"),
@@ -68,8 +68,9 @@ test("Explore uses optical logo centering and delays its lazy fallback", async (
   assert.match(explore, /measureVisibleImageCenter/);
   assert.match(explore, /className="set-logo-frame"/);
   assert.match(exploreCss, /\.set-logo-frame\s*\{[\s\S]*grid-column: 1 \/ -1/);
-  assert.match(app, /DelayedExploreFallback\(\{ message = "Loading Explore…", delay = 240 \}\)/);
-  assert.match(app, /window\.clearTimeout\(timer\)/);
+  assert.match(app, /function DelayedExploreFallback\(\)/);
+  assert.match(app, /return <PackDexStartupAnimation delayed \/>/);
+  assert.doesNotMatch(app, /if \(!isVisible\) return <section className="explore-loading-placeholder"/);
   assert.match(app, /loadExploreScreenModule\(\)\.catch/);
 });
 
@@ -81,16 +82,25 @@ test("mobile auth refresh preserves the mounted route after initial hydration", 
   assert.match(app, /visibleUserId === nextUserId && event !== "PASSWORD_RECOVERY"/);
   assert.match(app, /refreshAuthSession\(\{ showLoading: false, autoOpenWelcomeReward: false \}\)/);
   assert.match(app, /finishInitialHydration\(\)/);
-  assert.match(app, /<PackDexStartupAnimation phase=\{startupPhase\}/);
+  assert.match(app, /<MobileBrandHeader \/>/);
+  assert.doesNotMatch(app, /startupPhase !== "complete" \? <PackDexStartupAnimation/);
 });
 
-test("mobile startup uses one PackDex logo and the collection message", async () => {
-  const app = await readFile(new URL("../mobile-app/src/App.jsx", import.meta.url), "utf8");
-  const startupMarkup = app.match(/function PackDexStartupAnimation[\s\S]*?\n\}/)?.[0] || "";
+test("mobile startup HTML provides the original branded loader before the application bundle parses", async () => {
+  const [app, index] = await Promise.all([
+    readFile(new URL("../mobile-app/src/App.jsx", import.meta.url), "utf8"),
+    readFile(new URL("../mobile-app/index.html", import.meta.url), "utf8"),
+  ]);
 
-  assert.match(startupMarkup, /<img src="\/packdex-icon-192\.png"/);
-  assert.doesNotMatch(startupMarkup, /<span \/>/);
-  assert.match(startupMarkup, /<small>Preparing your collection<\/small>/);
+  assert.match(index, /data-packdex-boot-shell/);
+  assert.match(index, /data-packdex-branded-loader/);
+  assert.match(index, /class="packdex-startup__cards"/);
+  assert.match(index, /class="packdex-startup__wordmark"/);
+  assert.match(index, /prefers-reduced-motion: reduce/);
+  assert.match(index, /Preparing your collection/);
+  assert.doesNotMatch(index, /packdex-boot-geometry|packdex-boot-nav/);
+  assert.match(app, /setStartupPhase\("complete"\)/);
+  assert.doesNotMatch(app, /setTimeout\([\s\S]{0,160}setStartupPhase\("complete"\)/);
 });
 
 test("mobile inspected cards use stable pointer geometry and browser-action guards", async () => {

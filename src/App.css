@@ -71,7 +71,7 @@ html {
 
 body {
   margin: 0;
-  min-width: 320px;
+  min-width: 0;
   min-height: 100svh;
 }
 
@@ -192,7 +192,98 @@ button {
   padding-inline: 16px;
 }
 
+.public-set-deferred {
+  min-height: 390px;
+}
+
+.public-set-deferred-skeleton {
+  width: min(1180px, calc(100% - 48px));
+  min-height: 390px;
+  margin-inline: auto;
+  padding: 58px 0 72px;
+  border-top: 1px solid rgba(167, 139, 250, 0.16);
+}
+
+.packdex-skeleton {
+  display: block;
+  overflow: hidden;
+  border-radius: 9px;
+  background: #171a2b;
+  position: relative;
+}
+
+.packdex-skeleton::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.045), transparent);
+  transform: translateX(-100%);
+  animation: packdex-skeleton-shimmer 1.8s ease-in-out infinite;
+}
+
+.public-set-deferred-skeleton__eyebrow {
+  width: 104px;
+  height: 10px;
+}
+
+.public-set-deferred-skeleton__title {
+  width: min(330px, 58%);
+  height: 38px;
+  margin-top: 18px;
+}
+
+.public-set-deferred-skeleton__line {
+  width: min(670px, 82%);
+  height: 13px;
+  margin-top: 20px;
+}
+
+.public-set-deferred-skeleton__line.is-short {
+  width: min(480px, 64%);
+  margin-top: 9px;
+}
+
+.public-set-deferred-skeleton__cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.public-set-deferred-skeleton__cards > span {
+  height: 104px;
+  border-radius: 12px;
+}
+
+@keyframes packdex-skeleton-shimmer {
+  to { transform: translateX(100%); }
+}
+
+@media (max-width: 720px) {
+  .public-set-deferred,
+  .public-set-deferred-skeleton {
+    min-height: 330px;
+  }
+
+  .public-set-deferred-skeleton {
+    width: min(100% - 28px, 1180px);
+    padding-block: 38px 56px;
+  }
+
+  .public-set-deferred-skeleton__cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .packdex-skeleton::after {
+    animation: none;
+  }
+}
+
 .mobile-experience-notice {
+  position: relative;
+  z-index: 1;
   width: min(100%, 1040px);
   display: flex;
   align-items: center;

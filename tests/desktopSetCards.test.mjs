@@ -6,8 +6,10 @@ const setSelect = fs.readFileSync(new URL("../src/components/SetSelect.jsx", imp
 const desktopTheme = fs.readFileSync(new URL("../src/DesktopTheme.css", import.meta.url), "utf8");
 
 test("the entire desktop set card is the primary pack action", () => {
-  assert.match(setSelect, /aria-label=\{isReady \? `Open \$\{set\.name\} pack`/);
+  assert.match(setSelect, /aria-label=\{`Open \$\{set\.name\} pack`\}/);
   assert.match(setSelect, /className="set-card-primary-action"/);
+  assert.match(setSelect, /href=\{setHref\}/);
+  assert.match(setSelect, /onClick=\{\(event\) => handleSetLinkClick\(event, set, setHref\)\}/);
   assert.doesNotMatch(setSelect, /set-open-pill/);
   assert.doesNotMatch(setSelect, />Open Pack</);
 });
@@ -39,8 +41,7 @@ test("responsive grids stay left aligned without horizontal overflow", () => {
   assert.match(desktopTheme, /@media \(max-width:\s*430px\)[\s\S]*?grid-template-columns:\s*minmax\(0,\s*300px\)[\s\S]*?justify-content:\s*start/);
 });
 
-test("set readiness is cached across grid remounts", () => {
-  assert.match(setSelect, /const SET_READINESS_CACHE = new WeakMap\(\)/);
-  assert.match(setSelect, /SET_READINESS_CACHE\.set\(set,\s*canGeneratePack\(set\)\)/);
-  assert.match(setSelect, /sets\.map\(\(set\) => \[set\.id,\s*getSetReadiness\(set\)\]\)/);
+test("set-card rendering does not regenerate every pack pool", () => {
+  assert.doesNotMatch(setSelect, /canGeneratePack|SET_READINESS_CACHE|getSetReadiness/);
+  assert.match(setSelect, /sets\.map\(\(set\) => \[set\.id, getSetCollectionProgress\(collection, set\)\]\)/);
 });

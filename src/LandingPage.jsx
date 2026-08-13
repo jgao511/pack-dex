@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import "./landing.css";
 import { ArrowRight, BookOpen, Layers3, Mail, PackageOpen, Search, Sparkles } from "lucide-react";
 import PrivacyChoicesDialog from "./components/PrivacyChoicesDialog.jsx";
 import { LEGAL_ROUTES, PACKDEX_SUPPORT_EMAIL } from "./content/legalDocuments.js";
@@ -12,10 +13,34 @@ import { useAnimatedCount } from "./hooks/useAnimatedCount.js";
 import { getSetAssetUrl } from "./utils/assetUrls.js";
 import { markWelcomeSeen } from "./welcomeEntry.js";
 import { BUY_ME_A_COFFEE_URL, isBuyMeACoffeeEnabled } from "./config/support.js";
+import { AdSlot, AD_PLACEMENTS } from "./ads/index.js";
+import { applySeoMetadata } from "./lib/useSeoMetadata.js";
 
 const APP_PATH = "/mobile-app/";
-const DESKTOP_APP_PATH = "/?desktop=1";
+const DESKTOP_APP_PATH = "/sets";
 const HERO_ROTATION_MS = 8500;
+const SITE_ORIGIN = "https://www.pack-dex.com";
+
+function getLandingMetadata(pathname = "/") {
+  const canonicalPath = pathname === "/welcome" ? "/welcome" : "/";
+  const canonicalUrl = `${SITE_ORIGIN}${canonicalPath}`;
+  const title = "PackDex — Free Pokémon TCG Pack Opening & Collection";
+  const description = "Open virtual Pokémon TCG packs, explore English-language sets, and track a digital collection with PackDex, a free fan-made collector companion.";
+  const image = `${SITE_ORIGIN}/packdex-icon-192.png`;
+
+  return {
+    title,
+    description,
+    robots: "index, follow",
+    canonicalUrl,
+    openGraph: { type: "website", siteName: "PackDex", title, description, url: canonicalUrl, image },
+    twitter: { card: "summary", title, description, image },
+    jsonLd: [
+      { "@context": "https://schema.org", "@type": "WebSite", name: "PackDex", url: `${SITE_ORIGIN}/`, description },
+      { "@context": "https://schema.org", "@type": "WebApplication", name: "PackDex", url: `${SITE_ORIGIN}/`, applicationCategory: "GameApplication", operatingSystem: "Any modern web browser", description },
+    ],
+  };
+}
 
 const card = (name, path) => ({ name, src: getSetAssetUrl(path) });
 
@@ -108,10 +133,85 @@ const featureCards = [
 ];
 
 const featuredSets = [
-  { name: "Pitch Black", meta: "Mega Evolution", badge: "New", logo: "/set-logos/pitch-black.png" },
-  { name: "151", meta: "Scarlet & Violet", badge: "Popular", logo: "/set-logos/151.png" },
-  { name: "Prismatic Evolutions", meta: "Scarlet & Violet", badge: "Fan favorite", logo: "/set-logos/prismatic-evolutions.png" },
+  {
+    id: "pitch-black",
+    name: "Pitch Black",
+    meta: "Mega Evolution",
+    badge: "New",
+    logo: "/set-logos/pitch-black.png",
+    href: "/set/pitch-black",
+  },
+  {
+    id: "151",
+    name: "151",
+    meta: "Scarlet & Violet",
+    badge: "Popular",
+    logo: "/set-logos/151.png",
+    href: "/set/pokemon-151",
+  },
+  {
+    id: "prismatic-evolutions",
+    name: "Prismatic Evolutions",
+    meta: "Scarlet & Violet",
+    badge: "Fan favorite",
+    logo: "/set-logos/prismatic-evolutions.png",
+    href: "/set/prismatic-evolutions",
+  },
 ];
+
+const howItWorksSteps = [
+  {
+    title: "Choose a Set",
+    description:
+      "Browse every English Pokémon TCG set across different eras and choose the one you want to explore. Move between generations, revisit old favorites, or discover sets you may have missed.",
+  },
+  {
+    title: "Open a Virtual Pack",
+    description:
+      "Start an opening and reveal your cards one at a time. PackDex uses set-specific pack configurations to create a virtual opening experience while keeping every result entirely digital.",
+  },
+  {
+    title: "Build Your Collection",
+    description:
+      "Cards you pull are added directly to your PackDex collection. Track progress by set, revisit cards you have already discovered, and see what you are still missing as you work toward your own collection goals.",
+  },
+  {
+    title: "Find Your Next Chase",
+    description:
+      "Use your wishlist to keep track of cards you want to find, explore card information and available market estimates, and return to your favorite sets as your collection grows.",
+  },
+];
+
+const faqPreview = [
+  {
+    question: "Is PackDex free to play?",
+    answer:
+      "Yes. PackDex is 100% free to play. You can open virtual packs and explore the platform without purchasing physical cards or virtual currency. Cards obtained through PackDex exist only within the simulator and have no redeemable cash value.",
+  },
+  {
+    question: "Are the cards I pull real?",
+    answer:
+      "No. Every PackDex opening is virtual. Cards pulled on PackDex cannot be shipped, redeemed, exchanged for money, converted into prizes, or sold through PackDex.",
+  },
+  {
+    question: "Do I need an account?",
+    answer:
+      "No. You can explore PackDex and open packs as a guest. Creating an account allows you to maintain a persistent PackDex collection and use account-based collection features across supported devices.",
+  },
+  {
+    question: "Are PackDex openings the same as physical Pokémon TCG packs?",
+    answer:
+      "No. PackDex is an independent simulator designed to recreate the fun of opening and collecting cards digitally. Virtual results should not be interpreted as a guarantee or prediction of what a particular physical Pokémon TCG pack will contain.",
+  },
+];
+
+function isNativeCapacitorRuntime() {
+  try {
+    return globalThis.Capacitor?.isNativePlatform?.() === true;
+  } catch {
+    return false;
+  }
+}
 
 function useReducedMotion() {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(
@@ -141,7 +241,7 @@ function Brand({ footer = false }) {
 }
 
 function EntryButton({ mobile, compact = false }) {
-  const href = mobile ? APP_PATH : DESKTOP_APP_PATH;
+  const href = DESKTOP_APP_PATH;
   const label = mobile ? "Open PackDex" : "Play PackDex on Desktop";
 
   return (
@@ -151,7 +251,7 @@ function EntryButton({ mobile, compact = false }) {
       onClick={() => markWelcomeSeen(window)}
     >
       <span className="landing-button__wide-label">{label}</span>
-      <span className="landing-button__short-label">{mobile ? "Open app" : "Play"}</span>
+      <span className="landing-button__short-label">{mobile ? "Open" : "Play"}</span>
       <ArrowRight size={compact ? 17 : 18} aria-hidden="true" />
     </a>
   );
@@ -415,7 +515,10 @@ function LandingFooter() {
           <strong>PackDex</strong>
           <a href={DESKTOP_APP_PATH} onClick={() => markWelcomeSeen(window)}>Play on desktop</a>
           <a href={APP_PATH} onClick={() => markWelcomeSeen(window)}>Open mobile app</a>
-          <a href="/welcome">About PackDex</a>
+          <a href="/sets">Sets</a>
+          <a href="/how-it-works">How It Works</a>
+          <a href="/faq">FAQ</a>
+          <a href="/about">About</a>
         </nav>
 
         <nav className="landing-footer__links" aria-label="Legal links">
@@ -449,6 +552,10 @@ function LandingFooter() {
 export default function LandingPage({ isMobileVisitor = false }) {
   const reducedMotion = useReducedMotion();
 
+  useEffect(() => {
+    applySeoMetadata(getLandingMetadata(window.location.pathname));
+  }, []);
+
   return (
     <div className="landing-site">
       <a className="landing-skip-link" href="#main-content">Skip to content</a>
@@ -457,9 +564,10 @@ export default function LandingPage({ isMobileVisitor = false }) {
         <div className="landing-container landing-header__inner">
           <Brand />
           <nav className="landing-nav" aria-label="Main navigation">
-            <a href="#experience">Experience</a>
-            <a href="#collection">Collection</a>
-            <a href="#explore">Explore</a>
+            <a href="/sets">Sets</a>
+            <a href="/how-it-works">How It Works</a>
+            <a href="/faq">FAQ</a>
+            <a href="/about">About</a>
           </nav>
           <EntryButton mobile={isMobileVisitor} compact />
         </div>
@@ -481,11 +589,9 @@ export default function LandingPage({ isMobileVisitor = false }) {
               </div>
               <div className="landing-hero__actions">
                 <EntryButton mobile={isMobileVisitor} />
-                {!isMobileVisitor && (
-                  <a className="landing-button landing-button--secondary" href={APP_PATH} onClick={() => markWelcomeSeen(window)}>
-                    Open the Mobile App
-                  </a>
-                )}
+                <a className="landing-button landing-button--secondary" href={APP_PATH} onClick={() => markWelcomeSeen(window)}>
+                  Open the Mobile App
+                </a>
               </div>
               <PublicActivityCounter reducedMotion={reducedMotion} />
             </div>
@@ -514,6 +620,42 @@ export default function LandingPage({ isMobileVisitor = false }) {
           </div>
         </section>
 
+        <section className="landing-section landing-section--about" id="what-is-packdex" aria-labelledby="what-is-packdex-title">
+          <div className="landing-container landing-about">
+            <div className="landing-about__heading">
+              <span className="landing-eyebrow">A collector companion</span>
+              <h2 id="what-is-packdex-title">What is PackDex?</h2>
+            </div>
+
+            <div className="landing-about__copy">
+              <p>
+                PackDex is an unofficial, fan-made Pokémon TCG pack-opening simulator and collector companion built for
+                fans who want to explore the franchise, learn more about different sets, and enjoy the collecting
+                experience online.
+              </p>
+              <p>
+                Anyone who has tried to get back into Pokémon cards lately knows how hard it can be to find packs in
+                stores. PackDex gives you another way to explore the hobby: choose an English Pokémon TCG set and open a
+                virtual pack directly in your browser.
+              </p>
+              <p>
+                Each opening adds cards to your PackDex collection, where you can revisit your pulls, track progress
+                toward completing sets, build a wishlist, and see which cards you are still missing.
+              </p>
+              <p>
+                PackDex is designed as a collecting experience and companion rather than a marketplace or gambling
+                platform. Virtual cards have no cash value, cannot be redeemed for physical cards or prizes, and cannot
+                be bought or sold through PackDex.
+              </p>
+              <p className="landing-about__closing">
+                Whether you want to revisit an older era, learn more about a set you never opened, or simply enjoy
+                chasing a favorite card, PackDex gives you a free way to explore the Pokémon TCG and build a virtual
+                collection at your own pace.
+              </p>
+            </div>
+          </div>
+        </section>
+
         <section className="landing-section landing-section--collection" id="collection" aria-labelledby="collection-title">
           <div className="landing-container landing-collection">
             <CollectionShowcase reducedMotion={reducedMotion} />
@@ -531,26 +673,81 @@ export default function LandingPage({ isMobileVisitor = false }) {
                 <li>Wishlist and collection-value tracking</li>
                 <li>Sync across supported devices</li>
               </ul>
-              <a className="landing-inline-link" href={isMobileVisitor ? APP_PATH : DESKTOP_APP_PATH} onClick={() => markWelcomeSeen(window)}>
+              <a className="landing-inline-link" href={DESKTOP_APP_PATH} onClick={() => markWelcomeSeen(window)}>
                 Start your collection <ArrowRight size={17} aria-hidden="true" />
               </a>
             </div>
           </div>
         </section>
 
+        <section className="landing-section landing-section--process" id="how-it-works" aria-labelledby="how-it-works-title">
+          <div className="landing-container">
+            <div className="landing-section-heading">
+              <span className="landing-eyebrow">From set to collection</span>
+              <h2 id="how-it-works-title">How PackDex Works</h2>
+              <p>Choose what to explore, enjoy the reveal, and keep building a collection that is yours.</p>
+            </div>
+
+            <ol className="landing-process-grid">
+              {howItWorksSteps.map((step, index) => (
+                <li className="landing-process-card" key={step.title}>
+                  <span className="landing-process-card__number" aria-hidden="true">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <h3>{step.title}</h3>
+                  <p>{step.description}</p>
+                </li>
+              ))}
+            </ol>
+
+            <div className="landing-process-note">
+              <p>
+                PackDex is a simulator and collector companion, not a prediction of what will appear in a physical
+                Pokémon TCG product. Virtual results exist only within PackDex.
+              </p>
+              <a className="landing-inline-link" href="/how-it-works">
+                Learn more about how PackDex works <ArrowRight size={17} aria-hidden="true" />
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <AdSlot
+          className="landing-container landing-ad-zone"
+          placement={AD_PLACEMENTS.CONTENT}
+          context={{ contentReady: true, screen: "welcome-content" }}
+          isNative={isNativeCapacitorRuntime()}
+        />
+
         <section className="landing-section" id="explore" aria-labelledby="explore-title">
           <div className="landing-container">
-            <div className="landing-section-heading landing-section-heading--split">
-              <div>
-                <span className="landing-eyebrow">Explore the catalog</span>
-                <h2 id="explore-title">Move through eras, sets, and favorites.</h2>
+            <div className="landing-section-heading landing-section-heading--explore">
+              <span className="landing-eyebrow">Explore the catalog</span>
+              <h2 id="explore-title">Explore the Pokémon TCG Across Eras</h2>
+              <div className="landing-explore-copy">
+                <p>
+                  Pokémon cards have changed significantly across generations, and part of the fun of PackDex is moving
+                  between them. Explore sets from different eras, compare their cards and rarities, and build separate
+                  collection progress for the sets you care about most.
+                </p>
+                <p>
+                  Jump into a familiar favorite or discover cards from an era you may have missed. Each set gives you
+                  another collection to work toward, giving you a reason to revisit older releases even after you begin
+                  exploring newer ones.
+                </p>
+                <p>
+                  PackDex brings English-language sets together in one collection experience so your virtual collection
+                  can grow across generations.
+                </p>
               </div>
-              <p>Browse every English Pokémon TCG set, from classic eras to the newest releases.</p>
+              <a className="landing-inline-link landing-inline-link--catalog" href="/sets">
+                Explore All Sets <ArrowRight size={17} aria-hidden="true" />
+              </a>
             </div>
 
             <div className="landing-set-grid">
               {featuredSets.map((set) => (
-                <a className="landing-set-card" href={isMobileVisitor ? APP_PATH : DESKTOP_APP_PATH} onClick={() => markWelcomeSeen(window)} key={set.name}>
+                <a className="landing-set-card" href={set.href} key={set.id}>
                   <div className="landing-set-card__logo">
                     <span className="landing-set-card__badge">{set.badge}</span>
                     <img src={set.logo} width="200" height="92" alt={`${set.name} set logo`} loading="lazy" />
@@ -563,6 +760,29 @@ export default function LandingPage({ isMobileVisitor = false }) {
                 </a>
               ))}
             </div>
+          </div>
+        </section>
+
+        <section className="landing-section landing-section--faq" id="faq-preview" aria-labelledby="faq-preview-title">
+          <div className="landing-container">
+            <div className="landing-section-heading">
+              <span className="landing-eyebrow">Questions, answered</span>
+              <h2 id="faq-preview-title">PackDex FAQ</h2>
+              <p>The essentials about virtual cards, accounts, and what a PackDex opening represents.</p>
+            </div>
+
+            <div className="landing-faq-grid">
+              {faqPreview.map((item) => (
+                <article className="landing-faq-card" key={item.question}>
+                  <h3>{item.question}</h3>
+                  <p>{item.answer}</p>
+                </article>
+              ))}
+            </div>
+
+            <a className="landing-inline-link landing-inline-link--faq" href="/faq">
+              View All FAQs <ArrowRight size={17} aria-hidden="true" />
+            </a>
           </div>
         </section>
 

@@ -30,7 +30,7 @@ test("Profile removes the two standalone notice boxes while preserving footer le
 });
 
 test("Delete Account is hidden in Settings and still opens the deliberate confirmation flow", () => {
-  assert.match(profileSource, /<details className="profile-settings">[\s\S]*?<summary>[\s\S]*?Manage your PackDex account/);
+  assert.match(profileSource, /<details className="profile-settings" open=\{settingsOpen \|\| undefined\}>[\s\S]*?<summary>[\s\S]*?Manage your PackDex account/);
   assert.match(profileSource, /profile-settings__content[\s\S]*?Danger Zone[\s\S]*?Delete Account/);
   assert.doesNotMatch(profileSource, /profile-settings-section/);
   assert.match(appSource, /onDeleteAccount=\{\(\) => setIsDeleteAccountOpen\(true\)\}/);

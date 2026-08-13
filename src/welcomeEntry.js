@@ -37,8 +37,6 @@ export function isLikelyMobileVisitor({
 export function getWelcomeEntryDecision({
   pathname = "/",
   search = "",
-  isMobile = false,
-  storageHost = globalThis,
 } = {}) {
   const path = normalizeEntryPath(pathname);
 
@@ -47,9 +45,7 @@ export function getWelcomeEntryDecision({
 
   const forceDesktop = new URLSearchParams(String(search)).get("desktop") === "1";
   if (forceDesktop) return "desktop-app";
-
-  if (isMobile) return "mobile-app";
-  return readStorageFlag(WELCOME_SEEN_KEY, storageHost) ? "desktop-app" : "welcome";
+  return "welcome";
 }
 
 export function markWelcomeSeen(host = globalThis) {

@@ -11,13 +11,46 @@ import { openPrivacyChoices, PRIVACY_CHOICES_OPEN_EVENT } from "../src/lib/priva
 
 const read = (path) => readFile(new URL(path, import.meta.url), "utf8");
 
-test("canonical legal documents use the required routes, date, and pre-advertising language", () => {
+test("canonical legal documents describe the controlled web-advertising architecture accurately", () => {
   assert.deepEqual(LEGAL_ROUTES, { privacy: "/privacy", terms: "/terms" });
-  assert.equal(LEGAL_LAST_UPDATED, "July 21, 2026");
+  assert.equal(LEGAL_LAST_UPDATED, "August 12, 2026");
   assert.equal(PACKDEX_SUPPORT_EMAIL, "packdexsupport@gmail.com");
 
   const legalText = JSON.stringify(LEGAL_DOCUMENTS);
-  assert.match(legalText, /PackDex does not currently display advertising/);
+  const privacyAdvertisingSections = LEGAL_DOCUMENTS.privacy.sections.filter(
+    (section) => section.title === "Advertising and Cookies"
+  );
+  assert.equal(privacyAdvertisingSections.length, 1);
+  const privacyAdvertisingText = privacyAdvertisingSections[0].paragraphs.join(" ");
+  assert.match(privacyAdvertisingText, /Google AdSense/);
+  assert.match(privacyAdvertisingText, /eligible content pages in the web version/);
+  assert.match(privacyAdvertisingText, /cookies, web beacons, IP addresses, advertising identifiers/);
+  assert.match(privacyAdvertisingText, /subject to applicable privacy and consent requirements/);
+  assert.match(privacyAdvertisingText, /personalized or non-personalized/);
+  assert.match(privacyAdvertisingText, /PackDex does not control how those third parties process information/);
+  assert.match(privacyAdvertisingText, /no cash value/);
+  assert.match(privacyAdvertisingText, /physical products, physical cards, money, or prizes/);
+  assert.match(privacyAdvertisingText, /native Android and iOS builds do not currently load browser AdSense/);
+  assert.match(privacyAdvertisingText, /native Google AdMob implementation/);
+
+  const privacyChoices = LEGAL_DOCUMENTS.privacy.sections.find(
+    (section) => section.title === "Privacy Choices"
+  );
+  assert.match(privacyChoices.paragraphs.join(" "), /not itself a certified consent-management platform/);
+  assert.match(privacyChoices.paragraphs.join(" "), /Google-certified consent-management flow/);
+
+  const termsAdvertising = LEGAL_DOCUMENTS.terms.sections.find(
+    (section) => section.title === "Advertising"
+  );
+  assert.match(termsAdvertising.paragraphs.join(" "), /Google AdSense/);
+  assert.match(termsAdvertising.paragraphs.join(" "), /eligible content pages in the web version/);
+  assert.match(termsAdvertising.paragraphs.join(" "), /do not currently load browser AdSense/);
+  assert.match(termsAdvertising.paragraphs.join(" "), /does not grant virtual or physical cards, cash value, prizes/);
+
+  assert.doesNotMatch(legalText, /PackDex does not currently display advertising/);
+  assert.doesNotMatch(legalText, /advertising-related storage is not currently active/);
+  assert.doesNotMatch(legalText, /advertising is inactive/i);
+  assert.doesNotMatch(legalText, /Google AdSense[^.]*not currently active/);
   assert.match(legalText, /Supabase/);
   assert.match(legalText, /Cloudflare/);
   assert.match(legalText, /Turnstile/);
@@ -51,11 +84,14 @@ test("website and mobile surfaces use canonical legal links and Privacy Choices"
   assert.match(mobileApp, /privacy: `\$\{getSiteOrigin\(\)\}\$\{LEGAL_ROUTES\.privacy\}`/);
   assert.match(mobileApp, />\s*Privacy Choices\s*<\/button>/);
   assert.match(app, /pagePath\.replace\(\/\\\/\+\$\/, ""\)/);
-  assert.match(main, /entryDecision === "mobile-app"/);
-  assert.match(main, /entryDecision === "welcome"/);
+  assert.match(main, /const isPublicLanding = !forceDesktop/);
+  assert.match(main, /loadWelcomePage\(\)/);
+  assert.match(main, /parseRuntimeSiteRoute\(normalizedPath\)/);
+  assert.doesNotMatch(main, /window\.location\.replace\("\/mobile-app\/"\)/);
   assert.match(pageLoaders, /import\("\.\/LandingPage\.jsx"\)/);
   assert.doesNotMatch(pageLoaders, /import\("\.\/App\.jsx"\)/);
-  assert.match(main, /import App from "\.\/App\.jsx"/);
+  assert.match(main, /const loadDesktopPage = \(\) => import\("\.\/App\.jsx"\)/);
+  assert.doesNotMatch(main, /import App from "\.\/App\.jsx"/);
   assert.doesNotMatch(index, /window\.location\.replace/);
 });
 

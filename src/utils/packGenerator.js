@@ -1219,7 +1219,7 @@ function getExperienceTunedFinalSlotWeights(set = {}) {
   );
 }
 
-function getPackSize(set = {}) {
+export function getPackSize(set = {}) {
   const vintageRule = getVintagePackRule(set);
 
   if (vintageRule) return vintageRule.packSize;

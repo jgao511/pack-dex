@@ -15,6 +15,9 @@ test("welcome copy, curated groups, and app destinations match the product brief
   assert.match(page, /Open virtual Pokémon TCG packs from every English set/);
   assert.match(page, /100% free/i);
   assert.match(page, /Play PackDex on Desktop/);
+  assert.match(page, /const DESKTOP_APP_PATH = "\/sets"/);
+  assert.match(page, /function EntryButton[\s\S]*?const href = DESKTOP_APP_PATH/);
+  assert.doesNotMatch(page, /const href = mobile \? APP_PATH : DESKTOP_APP_PATH/);
   assert.match(page, /Open the Mobile App/);
   assert.match(page, /Crown Zenith/);
   assert.match(page, /Prismatic Evolutions/);
@@ -24,7 +27,8 @@ test("welcome copy, curated groups, and app destinations match the product brief
   assert.match(page, /badge: "Popular"/);
   assert.match(page, /badge: "Fan favorite"/);
   assert.match(app, /PackDex is fully playable on desktop/);
-  assert.match(app, /href="\/welcome"/);
+  assert.match(app, /href="\/sets"/);
+  assert.match(app, /href="\/about"/);
   assert.doesNotMatch(mobileApp, /packdex_welcome_seen_v1|packdex_desktop_mobile_notice_dismissed_v1/);
 });
 
@@ -59,4 +63,50 @@ test("welcome page renders the cached public activity counter without blocking t
   assert.doesNotMatch(stats, /\.from\("user_/);
   assert.match(css, /\.landing-activity__skeleton/);
   assert.match(css, /font-variant-numeric: tabular-nums/);
+});
+
+test("welcome page exposes substantive public content and crawlable public routes", async () => {
+  const page = await read("../src/LandingPage.jsx");
+
+  const orderedSections = [
+    'className="landing-hero"',
+    'id="experience"',
+    'id="what-is-packdex"',
+    'id="collection"',
+    'id="how-it-works"',
+    'id="explore"',
+    'id="faq-preview"',
+    'className="landing-cta"',
+  ];
+  let previousIndex = -1;
+  for (const section of orderedSections) {
+    const sectionIndex = page.indexOf(section);
+    assert.ok(sectionIndex > previousIndex, `${section} should appear in the requested landing-page order`);
+    previousIndex = sectionIndex;
+  }
+
+  assert.match(page, /What is PackDex\?/);
+  assert.match(page, /How PackDex Works/);
+  assert.match(page, /Choose a Set/);
+  assert.match(page, /Open a Virtual Pack/);
+  assert.match(page, /Build Your Collection/);
+  assert.match(page, /Find Your Next Chase/);
+  assert.match(page, /Explore the Pok\u00e9mon TCG Across Eras/);
+  assert.match(page, /Is PackDex free to play\?/);
+  assert.match(page, /View All FAQs/);
+
+  for (const href of ["/sets", "/how-it-works", "/faq", "/about"]) {
+    assert.match(page, new RegExp(`href="${href}"`));
+  }
+  assert.match(page, /id: "pitch-black"/);
+  assert.match(page, /id: "151"/);
+  assert.match(page, /id: "prismatic-evolutions"/);
+  assert.match(page, /href: "\/set\/pitch-black"/);
+  assert.match(page, /href: "\/set\/pokemon-151"/);
+  assert.match(page, /href: "\/set\/prismatic-evolutions"/);
+  assert.doesNotMatch(page, /className="landing-set-card" href=\{isMobileVisitor/);
+  assert.match(page, /<AdSlot[\s\S]*placement=\{AD_PLACEMENTS\.CONTENT\}/);
+  assert.match(page, /contentReady: true, screen: "welcome-content"/);
+  assert.match(page, /isNative=\{isNativeCapacitorRuntime\(\)\}/);
+  assert.equal((page.match(/<AdSlot\b/g) || []).length, 1);
 });

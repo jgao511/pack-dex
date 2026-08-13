@@ -7,6 +7,7 @@
     <meta name="application-name" content="PackDex" />
     <meta name="apple-mobile-web-app-title" content="PackDex" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="robots" content="noindex, follow" />
     <meta
       name="description"
       content="PackDex is a fan-made Pokemon TCG pack-opening simulator and virtual collection tracker. Not affiliated with Nintendo, Creatures, Game Freak, or The Pokemon Company."
@@ -19,11 +20,57 @@
     <meta name="theme-color" content="#0d1224" />
     <link rel="icon" type="image/png" href="%BASE_URL%packdex-icon-192.png" />
     <link rel="apple-touch-icon" href="%BASE_URL%apple-touch-icon.png" />
+    <link rel="preload" href="%BASE_URL%packdex-icon-192.png" as="image" />
     <link rel="manifest" href="%BASE_URL%mobile-manifest.webmanifest" />
     <title>PackDex</title>
+    <style>
+      html, body, #root { width: 100%; min-height: 100%; height: 100%; }
+      body { margin: 0; background: #08091a; color: #f8fbff; font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+      .packdex-boot-app { box-sizing: border-box; width: 100%; height: 100dvh; display: grid; place-items: center; overflow: hidden; background: radial-gradient(circle at 50% -18%, rgba(122,42,255,.2), transparent 46%), #08091a; }
+      .packdex-startup { position: relative; width: min(100%,430px); min-height: min(68dvh,580px); display: grid; place-items: center; overflow: hidden; color: #f8fbff; isolation: isolate; visibility: hidden; opacity: 0; animation: packdex-startup-delay 0s linear 120ms forwards; }
+      .packdex-startup__ambient { position: absolute; inset: 0; pointer-events: none; }
+      .packdex-startup__ambient i { position: absolute; width: 82px; aspect-ratio: .716; border: 1px solid rgba(138,108,255,.12); border-radius: 10px; opacity: 0; animation: startup-card-drift 4.8s ease-in-out infinite; }
+      .packdex-startup__ambient i:first-child { left: 7%; top: 18%; transform: rotate(-13deg); }
+      .packdex-startup__ambient i:nth-child(2) { right: 6%; top: 29%; animation-delay: -1.6s; transform: rotate(11deg) scale(.82); }
+      .packdex-startup__ambient i:last-child { left: 21%; bottom: 12%; animation-delay: -3.2s; transform: rotate(7deg) scale(.64); }
+      .packdex-startup__brand { position: relative; z-index: 1; display: grid; justify-items: center; gap: 12px; }
+      .packdex-startup__cards { position: relative; width: 92px; height: 88px; animation: startup-stack-resolve 880ms cubic-bezier(.2,.85,.2,1) both; }
+      .packdex-startup__cards img { position: absolute; left: 50%; top: 50%; width: 68px; height: 68px; border-radius: 14px; transform: translate(-50%,-50%); object-fit: contain; filter: drop-shadow(0 16px 26px rgba(64,35,170,.28)); }
+      .packdex-startup__wordmark { display: inline-flex; align-items: baseline; font-size: 1.9rem; font-weight: 680; letter-spacing: -.045em; line-height: 1; animation: startup-wordmark-in 520ms ease-out 280ms both; }
+      .packdex-startup__wordmark > span:last-child { color: #8253ff; }
+      .packdex-startup__brand small { color: #8f99b5; font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; animation: startup-wordmark-in 520ms ease-out 420ms both; }
+      @keyframes packdex-startup-delay { to { visibility: visible; opacity: 1; } }
+      @keyframes startup-stack-resolve { from { opacity: 0; transform: translateY(16px) scale(.88) rotate(-5deg); } 65% { opacity: 1; transform: translateY(-3px) scale(1.035) rotate(1deg); } to { opacity: 1; transform: translateY(0) scale(1) rotate(0); } }
+      @keyframes startup-wordmark-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+      @keyframes startup-card-drift { 0%,100% { opacity: .12; margin-top: 0; } 50% { opacity: .24; margin-top: -10px; } }
+      @media (prefers-reduced-motion: reduce) { .packdex-startup, .packdex-startup__cards, .packdex-startup__wordmark, .packdex-startup__brand small, .packdex-startup__ambient i { animation-duration: 0s; transition: none; } .packdex-startup { animation-delay: 120ms; } .packdex-startup__ambient { display: none; } }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <script>
+      window.__packdexPerformance = window.__packdexPerformance || {};
+      window.__packdexPerformance.navigationStart = performance.timeOrigin || Date.now();
+      window.__packdexPerformance.mobileHtmlShellReady = performance.now();
+      document.documentElement.dataset.packdexMobileHtmlShellReady = String(window.__packdexPerformance.mobileHtmlShellReady);
+      performance.mark?.("packdex-mobile-html-shell-ready");
+    </script>
+    <div id="root">
+      <main class="packdex-boot-app" data-packdex-boot-shell aria-label="PackDex is loading">
+        <section class="packdex-startup is-loading" data-packdex-branded-loader role="status" aria-live="polite" aria-label="Loading PackDex">
+          <div class="packdex-startup__ambient" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="packdex-startup__brand">
+            <div class="packdex-startup__cards" aria-hidden="true"><img src="%BASE_URL%packdex-icon-192.png" alt="" draggable="false" /></div>
+            <span class="packdex-startup__wordmark"><span>Pack</span><span>Dex</span></span>
+            <small>Preparing your collection</small>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script>
+      window.__packdexPerformance.mobileMainRequestStart = performance.now();
+      document.documentElement.dataset.packdexMobileMainRequestStart = String(window.__packdexPerformance.mobileMainRequestStart);
+      performance.mark?.("packdex-mobile-main-request-start");
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

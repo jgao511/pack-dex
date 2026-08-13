@@ -286,7 +286,10 @@ function createSet(id, name, cards, metadata = {}) {
     isNew: id === NEWEST_SET_ID,
     pullRateProfile: pullRateProfilesBySet[id],
     logoPath: metadata.logoPath || `${setFolder}/logo.png`,
-    packArtPath: metadata.packArtPath || `${setFolder}/pack.png`,
+    // Pack artwork is optional. Do not synthesize a remote path: most sets do
+    // not have a corresponding pack.png, and probing it adds a guaranteed 404
+    // before falling back to the shared card back.
+    packArtPath: metadata.packArtPath || "",
     cards,
     legacyCards,
   };

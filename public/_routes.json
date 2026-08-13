@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "include": [
+    "/mobile-app",
+    "/mobile-app/*"
+  ],
+  "exclude": [
+    "/mobile-app/assets/*",
+    "/mobile-app/generated/*",
+    "/mobile-app/scanner-ai/*",
+    "/mobile-app/set-logos/*",
+    "/mobile-app/index.html",
+    "/mobile-app/404.html",
+    "/mobile-app/reset-password",
+    "/mobile-app/reset-password/*",
+    "/mobile-app/auth/callback",
+    "/mobile-app/auth/callback/*",
+    "/mobile-app/apple-touch-icon.png",
+    "/mobile-app/card-back.png",
+    "/mobile-app/card-back.webp",
+    "/mobile-app/favicon.png",
+    "/mobile-app/image-credits.html",
+    "/mobile-app/mobile-manifest.webmanifest",
+    "/mobile-app/packdex-icon-192.png",
+    "/mobile-app/packdex-icon-512.png",
+    "/mobile-app/packdex-large.png",
+    "/mobile-app/packdex-small.png"
+  ]
+}

@@ -101,20 +101,17 @@ export function getSetPackArtUrl(set = {}) {
     return getSetAssetUrl(explicitPath);
   }
 
-  const setFolder = set.setFolder || set.id || set.code || set.setCode;
-
-  if (!setFolder) {
-    return "";
-  }
-
-  return getSetAssetUrl(`${setFolder}/pack.png`);
+  return "";
 }
 
 export function getSoundUrl(fileName) {
   return getAssetUrl(`sounds/${fileName}`);
 }
 
-export const CARD_BACK_URL = "/card-back.png";
+// The original high-resolution PNG remains available as a compatibility asset,
+// while gameplay uses this display-sized WebP to avoid a multi-megabyte decode
+// on Pack Ready and reveal screens.
+export const CARD_BACK_URL = "/card-back.webp";
 
 export function getCardBackUrl() {
   return CARD_BACK_URL;

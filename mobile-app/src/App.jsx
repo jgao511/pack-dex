@@ -1,8 +1,8 @@
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { Turnstile } from "react-turnstile";
-import MobileResetPasswordPage from "./MobileResetPasswordPage.jsx";
 import DeleteAccountDialog from "./components/DeleteAccountDialog.jsx";
 import MobileOnboarding from "./components/MobileOnboarding.jsx";
+import PackDexStartupAnimation from "./components/PackDexStartupAnimation.jsx";
 import BinderSystem from "../../src/components/binders/BinderSystem.jsx";
 import BuyMeACoffeeCard from "../../src/components/BuyMeACoffeeCard.jsx";
 import BuyMeACoffeePrompt from "../../src/components/BuyMeACoffeePrompt.jsx";
@@ -10,6 +10,8 @@ import PrivacyChoicesDialog from "../../src/components/PrivacyChoicesDialog.jsx"
 import { LEGAL_ROUTES, PACKDEX_SUPPORT_EMAIL } from "../../src/content/legalDocuments.js";
 import { buildExplorePath } from "./explore/exploreRouting.js";
 import { activeSets, isRetiredSet, sets } from "../../src/data/sets.js";
+import { getCanonicalSetPath } from "../../src/lib/publicSetRoutes.js";
+import { AdSlot, AD_PLACEMENTS } from "../../src/ads/index.js";
 import { getCardBackUrl, getCardImageUrl, getPokeballLoadingUrl, getSetLogoUrl } from "../../src/utils/assetUrls.js";
 import { generatePack, getDisplayCardName, getDisplayRarity, isHigherThanRare } from "../../src/utils/packGenerator.js";
 import { selectFeaturedPull } from "../../src/utils/rarityRank.js";
@@ -95,6 +97,7 @@ import {
 } from "./utils/mobileSounds.js";
 import { getRarityVisualClass, isRarePlusVisual } from "./utils/rarityPresentation.js";
 import InspectionBorderGlow from "../../src/components/InspectionBorderGlow.jsx";
+import SwipeRevealSurface from "../../src/components/reveal/SwipeRevealSurface.jsx";
 import { getInspectionGlowStrength } from "../../src/utils/inspectionGlow.js";
 import { loadHapticsEnabled, saveHapticsEnabled, triggerRevealHaptic } from "./utils/mobileHaptics.js";
 import { addWishlistCard, getWishlistKey, loadWishlist, removeWishlistCard, resolveCatalogWishlistItem } from "./lib/wishlist.js";
@@ -104,8 +107,6 @@ import {
 } from "./lib/packRevealLifecycle.js";
 import {
   claimTapRevealInput,
-  getSwipeReleaseAction,
-  getSwipeTransform,
   loadRevealStyle,
   normalizeRevealStyle,
   revealCardAtIndex,
@@ -145,6 +146,22 @@ import {
   getInitialMobileTab,
   getMobileTabPath,
 } from "./lib/mobileRouting.js";
+import { shouldSuppressBrowserAds } from "./lib/platform.js";
+import {
+  isMobilePackReadyAdContextAllowed,
+  isMobileSetAdContextAllowed,
+} from "./lib/mobileAdEligibility.js";
+import { MOBILE_BOOTSTRAP_ONBOARDING_EVENT } from "./lib/mobileBootstrapIntent.js";
+
+if (typeof window !== "undefined") {
+  const evaluatedAt = performance.now();
+  window.__packdexPerformance = {
+    ...(window.__packdexPerformance || {}),
+    mobileHeavyAppEvaluated: evaluatedAt,
+  };
+  document.documentElement.dataset.packdexMobileHeavyAppEvaluated = String(evaluatedAt);
+  performance.mark?.("packdex-mobile-heavy-app-evaluated");
+}
 
 const loadExploreScreenModule = () => import("./explore/ExploreScreen.jsx");
 const ExploreScreen = lazy(loadExploreScreenModule);
@@ -175,7 +192,6 @@ const SUPPORT_EMAIL = PACKDEX_SUPPORT_EMAIL;
 const MOBILE_DISCLAIMER_SEEN_KEY = "packdex-mobile-intro-seen";
 const SETS_WITHOUT_MARKET_PRICE_DATA = new Set(["ascended-heroes", "perfect-order", "chaos-rising", "pitch-black"]);
 const PRELOAD_SET_LIMIT = 3;
-const PRELOAD_CARD_LIMIT_PER_SET = 45;
 const ACHIEVEMENT_TOAST_AUTO_DISMISS_MS = 3400;
 const ACCOUNT_STATE_FRESH_MS = 5 * 60 * 1000;
 const MOBILE_ACHIEVEMENTS = [
@@ -607,8 +623,23 @@ function getPackCardImageUrl(card, set) {
   return getCardImageUrl({ ...card, setFolder: card.setFolder || set?.setFolder || set?.id });
 }
 
-function SetLogo({ set, className = "" }) {
-  return <img className={className} src={getSetLogoUrl(set)} alt={`${set.name} logo`} loading="lazy" />;
+function SetLogo({ set, className = "", loading = "lazy", fetchPriority = "auto" }) {
+  const src = getSetLogoUrl(set);
+  const [isDecoded, setIsDecoded] = useState(false);
+
+  useEffect(() => setIsDecoded(false), [src]);
+
+  return (
+    <img
+      className={`${className} ${isDecoded ? "is-decoded" : "is-image-loading"}`.trim()}
+      src={src}
+      alt={`${set.name} logo`}
+      loading={loading}
+      decoding="async"
+      fetchPriority={fetchPriority}
+      onLoad={() => setIsDecoded(true)}
+    />
+  );
 }
 
 function isFoilHit(card, set) {
@@ -667,8 +698,17 @@ function CardBackImage({ className = "" }) {
   return <img className={className} src={getCardBackUrl()} alt="" decoding="async" loading="eager" draggable={false} onContextMenu={preventCardImageBrowserAction} onDragStart={preventCardImageBrowserAction} />;
 }
 
-function AccountNotice({ user, onLogin, onCreateAccount }) {
+function AccountNotice({ user, authValidationState, onLogin, onCreateAccount }) {
   if (user) return null;
+
+  if (authValidationState === "validating") {
+    return (
+      <p className="account-notice is-skeleton" role="status" aria-label="Loading account status">
+        <span className="mobile-skeleton-block is-account-line" aria-hidden="true" />
+        <span className="mobile-skeleton-block is-account-line-short" aria-hidden="true" />
+      </p>
+    );
+  }
 
   return (
     <p className="account-notice">
@@ -1269,22 +1309,6 @@ function RevealStyleOptions({ value, onChange, compact = false }) {
   );
 }
 
-function usePrefersReducedMotion() {
-  const [reducedMotion, setReducedMotion] = useState(() => (
-    typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
-  ));
-
-  useEffect(() => {
-    const media = window.matchMedia?.("(prefers-reduced-motion: reduce)");
-    if (!media) return undefined;
-    const update = () => setReducedMotion(media.matches);
-    media.addEventListener?.("change", update);
-    return () => media.removeEventListener?.("change", update);
-  }, []);
-
-  return reducedMotion;
-}
-
 function SwipeRevealDeck({
   pack,
   selectedSet,
@@ -1292,175 +1316,38 @@ function SwipeRevealDeck({
   isAnimating,
   onDismiss,
 }) {
-  const reducedMotion = usePrefersReducedMotion();
-  const pointerRef = useRef(null);
-  const exitTimerRef = useRef(null);
-  const repositionFrameRef = useRef(null);
-  const [drag, setDrag] = useState({ x: 0, y: 0 });
-  const [isDragging, setIsDragging] = useState(false);
-  const [isRepositioning, setIsRepositioning] = useState(false);
-  const [exitDirection, setExitDirection] = useState("");
-  const card = pack[activeIndex];
-  const nextCard = pack[activeIndex + 1];
-
-  useEffect(() => {
-    pointerRef.current = null;
-    setDrag({ x: 0, y: 0 });
-    setIsDragging(false);
-    setExitDirection("");
-  }, [activeIndex]);
-
-  useEffect(() => () => {
-    window.clearTimeout(exitTimerRef.current);
-    window.cancelAnimationFrame(repositionFrameRef.current);
-  }, []);
-
-  useEffect(() => {
-    if (!isRepositioning) return undefined;
-    repositionFrameRef.current = window.requestAnimationFrame(() => setIsRepositioning(false));
-    return () => window.cancelAnimationFrame(repositionFrameRef.current);
-  }, [activeIndex, isRepositioning]);
-
-  if (!card) return null;
-
-  const isFinal = activeIndex === pack.length - 1;
-  const isHit = isFoilHit(card, selectedSet);
-  const exitTransform = exitDirection === "left"
-    ? "translate3d(-135vw, -4vh, 0) rotateZ(-18deg)"
-    : exitDirection === "up"
-      ? "translate3d(0, -125vh, 0) rotateZ(4deg)"
-      : "translate3d(135vw, -4vh, 0) rotateZ(18deg)";
-  const transform = exitDirection
-    ? exitTransform
-    : getSwipeTransform({ deltaX: drag.x, deltaY: drag.y, reducedMotion });
-
-  function resetCard() {
-    pointerRef.current = null;
-    setIsDragging(false);
-    setDrag({ x: 0, y: 0 });
-  }
-
-  function requestDismiss(direction = "right") {
-    if (isAnimating || exitDirection) return;
-    setIsDragging(false);
-    setExitDirection(direction);
-    exitTimerRef.current = window.setTimeout(() => {
-      setIsRepositioning(true);
-      setExitDirection("");
-      setDrag({ x: 0, y: 0 });
-      onDismiss?.(activeIndex);
-    }, reducedMotion ? 20 : 260);
-  }
-
-  function handlePointerDown(event) {
-    if (isAnimating || exitDirection || (event.pointerType === "mouse" && event.button !== 0)) return;
-    event.preventDefault();
-    event.currentTarget.setPointerCapture?.(event.pointerId);
-    pointerRef.current = {
-      id: event.pointerId,
-      startX: event.clientX,
-      startY: event.clientY,
-      startedAt: performance.now(),
-    };
-    setIsDragging(true);
-  }
-
-  function handlePointerMove(event) {
-    const pointer = pointerRef.current;
-    if (!pointer || pointer.id !== event.pointerId) return;
-    event.preventDefault();
-    setDrag({
-      x: event.clientX - pointer.startX,
-      y: Math.max(-220, Math.min(70, event.clientY - pointer.startY)),
-    });
-  }
-
-  function finishPointer(event, cancelled = false) {
-    const pointer = pointerRef.current;
-    if (!pointer || pointer.id !== event.pointerId) return;
-    event.preventDefault();
-    event.currentTarget.releasePointerCapture?.(event.pointerId);
-    const deltaX = event.clientX - pointer.startX;
-    const deltaY = Math.max(-220, Math.min(70, event.clientY - pointer.startY));
-    const elapsedMs = performance.now() - pointer.startedAt;
-    pointerRef.current = null;
-    setIsDragging(false);
-
-    if (cancelled) {
-      setDrag({ x: 0, y: 0 });
-      return;
-    }
-
-    const decision = getSwipeReleaseAction({ deltaX, deltaY, elapsedMs });
-    if (decision.action === "dismiss") {
-      setDrag({ x: deltaX, y: deltaY });
-      requestDismiss(decision.direction);
-    } else {
-      resetCard();
-    }
-  }
-
   return (
-    <section className="swipe-reveal-mode" aria-live="polite">
-      <p className="swipe-reveal-progress" role="status">{activeIndex + 1} / {pack.length}</p>
-      <div className="swipe-deck-stage">
-        {nextCard && (
-          <span className={`swipe-under-card ${getRarityVisualClass(nextCard, selectedSet)}`} aria-hidden="true">
-            <span className="swipe-card-face">
-              <CardImage
-                card={nextCard}
-                set={selectedSet}
-                withEffects={isFoilHit(nextCard, selectedSet)}
-                celebrateReveal={false}
-                isFinal={activeIndex + 1 === pack.length - 1}
-                loading="eager"
-                fetchPriority="high"
-              />
-            </span>
-          </span>
-        )}
-        <button
-          className={`reveal-card swipe-primary-card ${getRarityVisualClass(card, selectedSet)} ${isFinal ? "is-final" : ""} ${isHit ? "is-hit" : ""} ${isDragging ? "is-dragging" : ""} ${isRepositioning ? "is-repositioning" : ""} ${exitDirection ? "is-exiting" : ""}`}
-          type="button"
-          aria-label={`Card ${activeIndex + 1} of ${pack.length}. Swipe left, right, or up${isFinal ? " to finish the pack" : " to reveal the next card"}.`}
-          style={{
-            transform,
-            "--foil-shift-x": `${50 + Math.max(-35, Math.min(35, drag.x / 5))}%`,
-            "--foil-shift-y": `${50 + Math.max(-30, Math.min(30, drag.y / 5))}%`,
-          }}
-          onClick={(event) => event.preventDefault()}
-          onKeyDown={(event) => {
-            if (!["Enter", " "].includes(event.key)) return;
-            event.preventDefault();
-            requestDismiss("right");
-          }}
-          onPointerDown={handlePointerDown}
-          onPointerMove={handlePointerMove}
-          onPointerUp={(event) => finishPointer(event)}
-          onPointerCancel={(event) => finishPointer(event, true)}
-        >
-          <span className="swipe-card-face">
-            <CardImage
-              card={card}
-              set={selectedSet}
-              withEffects={isHit}
-              celebrateReveal={false}
-              isFinal={isFinal}
-              loading="eager"
-              fetchPriority="high"
-            />
-          </span>
-        </button>
-      </div>
-      <p className="swipe-reveal-instruction">
-        {isFinal ? "Swipe the final card to finish" : "Swipe the card to reveal the next card"}
-      </p>
-    </section>
+    <SwipeRevealSurface
+      cards={pack}
+      activeIndex={activeIndex}
+      isAnimating={isAnimating}
+      onDismiss={onDismiss}
+      className="swipe-reveal-mode"
+      progressClassName="swipe-reveal-progress"
+      instructionClassName="swipe-reveal-instruction"
+      stageClassName="swipe-deck-stage"
+      underCardClassName="swipe-under-card"
+      primaryCardClassName="reveal-card swipe-primary-card"
+      cardFaceClassName="swipe-card-face"
+      getCardClassName={(card) => `${getRarityVisualClass(card, selectedSet)} ${isFoilHit(card, selectedSet) ? "is-hit" : ""}`}
+      renderCard={(card, index, { isFinal }) => (
+        <CardImage
+          card={card}
+          set={selectedSet}
+          withEffects={isFoilHit(card, selectedSet)}
+          celebrateReveal={false}
+          isFinal={isFinal}
+          loading="eager"
+          fetchPriority="high"
+        />
+      )}
+    />
   );
 }
 
 function PackScreen({
   user,
+  authValidationState,
   pack,
   packInstanceId,
   selectedSet,
@@ -1488,9 +1375,32 @@ function PackScreen({
   soundEnabled,
   newPullKeys,
   priceMap,
+  allowPackReadyWebAd = false,
+  suppressBrowserAds = false,
   tutorialMode = false,
   onTutorialContinue,
 }) {
+  useEffect(() => {
+    if (stage !== "ready" || !selectedSet || !pack?.length) return undefined;
+    const frame = window.requestAnimationFrame(() => {
+      const openButton = document.querySelector(".pack-stage .primary-action");
+      if (!openButton || openButton.disabled) return;
+      const readyAt = performance.now();
+      const startedAt = Number(window.__packdexPerformance?.mobileSetTapStart);
+      window.__packdexPerformance = {
+        ...(window.__packdexPerformance || {}),
+        mobilePackReadyInteractive: readyAt,
+        mobileSetTapToPackReadyMs: Number.isFinite(startedAt) ? readyAt - startedAt : null,
+      };
+      document.documentElement.dataset.packdexMobilePackReadyInteractive = String(readyAt);
+      if (Number.isFinite(startedAt)) {
+        document.documentElement.dataset.packdexMobileSetTapToPackReadyMs = String(readyAt - startedAt);
+      }
+      performance.mark?.("packdex-mobile-pack-ready-interactive");
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [pack?.length, selectedSet?.id, stage]);
+
   if (!selectedSet || (!pack?.length && stage !== "ready" && stage !== "preloading")) return null;
 
   const isRevealing = stage === "revealing";
@@ -1514,7 +1424,7 @@ function PackScreen({
         <>
           <div className="pack-ready-artwork">
             <span className="eyebrow">Pack Ready</span>
-            <SetLogo set={selectedSet} className="pack-logo" />
+            <SetLogo set={selectedSet} className="pack-logo" loading="eager" fetchPriority="high" />
             <div className="card-stack is-floating" aria-hidden="true">
               <div><CardBackImage /></div>
               <div><CardBackImage /></div>
@@ -1522,7 +1432,7 @@ function PackScreen({
             </div>
           </div>
           <div className="pack-ready-actions">
-            <AccountNotice user={user} onLogin={onLogin} onCreateAccount={onCreateAccount} />
+            <AccountNotice user={user} authValidationState={authValidationState} onLogin={onLogin} onCreateAccount={onCreateAccount} />
             {!tutorialMode && (
               <select
                 className="pack-ready-reveal-select"
@@ -1556,6 +1466,23 @@ function PackScreen({
               </button>
             </div>
           </div>
+          {allowPackReadyWebAd && (
+            <div className="pack-ready-mobile-ad-space">
+              <AdSlot
+                placement={AD_PLACEMENTS.MOBILE_INLINE}
+                pathname={getCanonicalSetPath(selectedSet) || "/sets"}
+                isNative={suppressBrowserAds}
+                className="pack-ready-mobile-ad-slot"
+                developmentLabel="Mobile ad placement"
+                context={{
+                  canonicalPath: getCanonicalSetPath(selectedSet),
+                  contentReady: true,
+                  screen: "mobile-pack-ready",
+                  isMobile: true,
+                }}
+              />
+            </div>
+          )}
         </>
       ) : isSummary ? (
         <>
@@ -2018,43 +1945,8 @@ function isOnboardingCardPreview(item) {
   return ["onboarding-summary", "onboarding-collection"].includes(item?.context?.origin || item?.origin || "");
 }
 
-function PackDexStartupAnimation({ phase = "loading" }) {
-  return (
-    <section className={`packdex-startup is-${phase}`} role="status" aria-live="polite" aria-label="Loading PackDex account">
-      <div className="packdex-startup__ambient" aria-hidden="true">
-        <i />
-        <i />
-        <i />
-      </div>
-      <div className="packdex-startup__brand">
-        <div className="packdex-startup__cards" aria-hidden="true">
-          <img src="/packdex-icon-192.png" alt="" draggable={false} />
-        </div>
-        <span className="packdex-startup__wordmark">
-          <span>Pack</span><span>Dex</span>
-        </span>
-        <small>Preparing your collection</small>
-      </div>
-    </section>
-  );
-}
-
-export function DelayedExploreFallback({ message = "Loading Explore…", delay = 240 }) {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const timer = window.setTimeout(() => setIsVisible(true), delay);
-    return () => window.clearTimeout(timer);
-  }, [delay]);
-
-  if (!isVisible) return <section className="explore-loading-placeholder" aria-hidden="true" />;
-
-  return (
-    <section className="mobile-auth-validation explore-delayed-loader" role="status" aria-live="polite">
-      <img src={POKEBALL_LOADING_SRC} alt="" />
-      <strong>{message}</strong>
-    </section>
-  );
+export function DelayedExploreFallback() {
+  return <PackDexStartupAnimation delayed />;
 }
 
 function CardInspectModal({ item, collection, user, wishlistKeys, wishlistPendingKeys, wishlistMessage, onToggleWishlist, onLogin, onClose, priceMap, onLoadSpecies, onViewPokemon, onViewSet, onViewEra }) {
@@ -2882,7 +2774,35 @@ function MobileAuthCallbackPage() {
   );
 }
 
-function MobileApp() {
+function getMobileViewportHeight() {
+  if (typeof window === "undefined") return 0;
+  return Math.round(window.visualViewport?.height || window.innerHeight || 0);
+}
+
+function useMobileViewportHeight() {
+  const [height, setHeight] = useState(getMobileViewportHeight);
+
+  useEffect(() => {
+    const updateHeight = () => setHeight(getMobileViewportHeight());
+    const viewport = window.visualViewport;
+    window.addEventListener("resize", updateHeight, { passive: true });
+    viewport?.addEventListener("resize", updateHeight, { passive: true });
+    return () => {
+      window.removeEventListener("resize", updateHeight);
+      viewport?.removeEventListener("resize", updateHeight);
+    };
+  }, []);
+
+  return height;
+}
+
+function MobileApp({
+  bootstrapSetId = "",
+  bootstrapTab = "",
+  bootstrapCollectionSetId = "",
+  bootstrapOpenRequested = false,
+  bootstrapOnboardingIntent = null,
+}) {
   const onboardingTestMode = useMemo(() => isOnboardingTestMode(), []);
   const mobileOnboardingEligible = useMemo(() => isMobileOnboardingEligible(), []);
   const tutorialSets = useMemo(() => getTutorialSets(), []);
@@ -2894,6 +2814,8 @@ function MobileApp() {
       : onboardingDevRequestedStep;
   const onboardingDevSummary = onboardingDevRequestedStep === "summary";
   const onboardingDevScenario = useMemo(() => getOnboardingDevScenario(), []);
+  const mobileViewportHeight = useMobileViewportHeight();
+  const suppressBrowserAds = useMemo(() => shouldSuppressBrowserAds(), []);
   const initialOnboardingState = useMemo(() => {
     const saved = readMobileOnboardingState();
     if (!onboardingDevStartStep) return saved;
@@ -2909,7 +2831,17 @@ function MobileApp() {
     };
   }, [onboardingDevStartStep, tutorialSets]);
   const restoredTutorial = useMemo(() => restoreTutorialPack(initialOnboardingState), [initialOnboardingState]);
-  const [activeTab, setActiveTab] = useState(() => getInitialMobileTab());
+  const bootstrapSet = useMemo(
+    () => activeSets.find((candidate) => candidate.id === bootstrapSetId) || null,
+    [bootstrapSetId]
+  );
+  const bootstrapPack = useMemo(() => {
+    if (!bootstrapSet) return [];
+    const cards = generatePack(bootstrapSet);
+    ensurePackOpenClientEventId(cards, bootstrapSet.id);
+    return cards;
+  }, [bootstrapSet]);
+  const [activeTab, setActiveTab] = useState(() => bootstrapTab || getInitialMobileTab());
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [hapticsEnabled, setHapticsEnabled] = useState(loadHapticsEnabled);
   const [revealStyle, setRevealStyle] = useState(loadRevealStyle);
@@ -2939,9 +2871,9 @@ function MobileApp() {
   const [onboardingSyncError, setOnboardingSyncError] = useState(null);
   const [isFinishingOnboarding, setIsFinishingOnboarding] = useState(false);
   const [onboardingAuthIntent, setOnboardingAuthIntent] = useState(false);
-  const [selectedSet, setSelectedSet] = useState(restoredTutorial.set);
-  const [selectedCollectionSetId, setSelectedCollectionSetId] = useState("");
-  const [collectionReturnSource, setCollectionReturnSource] = useState("collection");
+  const [selectedSet, setSelectedSet] = useState(restoredTutorial.set || bootstrapSet);
+  const [selectedCollectionSetId, setSelectedCollectionSetId] = useState(bootstrapCollectionSetId);
+  const [collectionReturnSource, setCollectionReturnSource] = useState(bootstrapCollectionSetId ? "open" : "collection");
   const [collectionEraFilter, setCollectionEraFilter] = useState(() => {
     if (typeof window === "undefined") return "All Eras";
 
@@ -2949,8 +2881,13 @@ function MobileApp() {
     return savedEra === "All Eras" || activeSets.some((set) => set.era === savedEra) ? savedEra : "All Eras";
   });
   const [collectionSetSearch, setCollectionSetSearch] = useState("");
-  const [pack, setPack] = useState(restoredTutorial.cards);
-  const [packStage, setPackStage] = useState(() => initialOnboardingState?.step === "pack" && restoredTutorial.cards.length ? (onboardingDevSummary ? "summary" : "revealing") : "sets");
+  const [pack, setPack] = useState(restoredTutorial.cards.length ? restoredTutorial.cards : bootstrapPack);
+  const [packStage, setPackStage] = useState(() => {
+    if (initialOnboardingState?.step === "pack" && restoredTutorial.cards.length) {
+      return onboardingDevSummary ? "summary" : "revealing";
+    }
+    return bootstrapSet && bootstrapPack.length ? "ready" : "sets";
+  });
   const [revealedCount, setRevealedCount] = useState(0);
   const [revealedCardIndexes, setRevealedCardIndexes] = useState(() => new Set());
   const [swipeDismissedCount, setSwipeDismissedCount] = useState(0);
@@ -3000,12 +2937,13 @@ function MobileApp() {
   const authRefreshPromiseRef = useRef(null);
   const authRequestInFlightRef = useRef(false);
   const initialHydrationCompleteRef = useRef(false);
-  const startupResolveTimerRef = useRef(null);
   const currentUserRef = useRef(null);
   const onboardingFinalizePromiseRef = useRef(null);
   const skipOnboardingInProgressRef = useRef(false);
   const onboardingStepRef = useRef(onboardingStep);
   const authValidationAttemptRef = useRef(0);
+  const bootstrapOnboardingIntentRef = useRef(bootstrapOnboardingIntent);
+  const bootstrapOpenRequestedRef = useRef(bootstrapOpenRequested);
   const validatedScannerUserIdRef = useRef("");
   const [priceMapsBySet, setPriceMapsBySet] = useState({});
   const [fullSetPriceMapsBySet, setFullSetPriceMapsBySet] = useState({});
@@ -3041,6 +2979,26 @@ function MobileApp() {
   onboardingStepRef.current = onboardingStep;
   currentUserRef.current = user;
   validatedScannerUserIdRef.current = authValidationState === "authenticated" ? String(user?.id || "") : "";
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      const hasRealScreen = Boolean(
+        document.querySelector(".mobile-set-main, .pack-stage, .collection-screen-mobile, .profile-screen-mobile, .explore-screen")
+      );
+      if (!hasRealScreen) return;
+      const readyAt = performance.now();
+      window.__packdexPerformance = {
+        ...(window.__packdexPerformance || {}),
+        mobileAppRealScreen: readyAt,
+        mobileInteractionReady: readyAt,
+      };
+      document.documentElement.dataset.packdexMobileAppRealScreen = String(readyAt);
+      document.documentElement.dataset.packdexMobileInteractionReady = String(readyAt);
+      performance.mark?.("packdex-mobile-app-real-screen");
+      window.dispatchEvent(new CustomEvent("packdex:mobile-real-screen"));
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
 
   useEffect(() => {
     if (
@@ -3091,7 +3049,10 @@ function MobileApp() {
   );
   const ownedCards = useMemo(() => getOwnedCards(collection), [collection]);
   const isPackOpening = activeTab === "open" && (packStage === "revealing" || packStage === "preloading");
-  const isOnboardingActive = Boolean(onboardingStep) && authValidationState !== "validating";
+  // Onboarding is guest-capable and must remain mounted while an existing
+  // account session is checked. Remote completion can still dismiss it once
+  // validation resolves, but auth must never create an empty-screen flash.
+  const isOnboardingActive = Boolean(onboardingStep);
   const displayedWelcomeRewardStatus = useMemo(() => {
     const devState = getDevRewardState();
     if (!devState) return welcomeRewardStatus;
@@ -3109,11 +3070,7 @@ function MobileApp() {
   function finishInitialHydration() {
     if (initialHydrationCompleteRef.current) return;
     initialHydrationCompleteRef.current = true;
-    setStartupPhase("resolving");
-    startupResolveTimerRef.current = window.setTimeout(() => {
-      startupResolveTimerRef.current = null;
-      setStartupPhase("complete");
-    }, 180);
+    setStartupPhase("complete");
   }
 
   function resetOnboardingScroll() {
@@ -3213,8 +3170,9 @@ function MobileApp() {
     }
   }
 
-  function startTutorialPack() {
-    const set = tutorialSets.find((candidate) => candidate.id === onboardingSelectedSetId);
+  function startTutorialPack(setIdOverride = "") {
+    const requestedSetId = setIdOverride || onboardingSelectedSetId;
+    const set = tutorialSets.find((candidate) => candidate.id === requestedSetId);
     if (!set) return;
     const cards = createTutorialPack(set, getOnboardingDeviceId());
     preparePackImages(cards, set);
@@ -3230,6 +3188,42 @@ function MobileApp() {
     savePendingMobileOnboarding({ setId: set.id, cards });
     persistOnboarding("pack", { setId: set.id, cardIds: cards.map((card) => String(card.id || "")) });
   }
+
+  function applyBootstrapOnboardingIntent(intent) {
+    if (!intent?.action) return;
+    if (intent.action === "start") {
+      bootstrapOnboardingIntentRef.current = null;
+      if (intent.setId) setOnboardingSelectedSetId(intent.setId);
+      setOnboardingStep("choose-set");
+      return;
+    }
+    if (intent.action === "open") {
+      bootstrapOnboardingIntentRef.current = null;
+      startTutorialPack(intent.setId);
+      return;
+    }
+    if (intent.action === "skip") {
+      if (authValidationState === "validating") {
+        bootstrapOnboardingIntentRef.current = intent;
+        return;
+      }
+      bootstrapOnboardingIntentRef.current = null;
+      void skipOnboarding();
+    }
+  }
+
+  useEffect(() => {
+    const handleBootstrapOnboarding = (event) => applyBootstrapOnboardingIntent(event.detail);
+    window.addEventListener(MOBILE_BOOTSTRAP_ONBOARDING_EVENT, handleBootstrapOnboarding);
+    applyBootstrapOnboardingIntent(bootstrapOnboardingIntentRef.current);
+    return () => window.removeEventListener(MOBILE_BOOTSTRAP_ONBOARDING_EVENT, handleBootstrapOnboarding);
+  }, [authValidationState]);
+
+  useEffect(() => {
+    if (!bootstrapOpenRequestedRef.current || !bootstrapSet || packStage !== "ready") return;
+    bootstrapOpenRequestedRef.current = false;
+    startReveal();
+  }, []);
 
   function chooseOnboardingPokemon(pokemon) {
     setOnboardingPokemon(pokemon);
@@ -3928,6 +3922,11 @@ function MobileApp() {
   }, []);
 
   useEffect(() => {
+    if (!bootstrapSet || bootstrapPack.length === 0 || restoredTutorial.cards.length > 0) return;
+    preparePackImages(bootstrapPack, bootstrapSet);
+  }, []);
+
+  useEffect(() => {
     if (!restoredTutorial.set || restoredTutorial.cards.length === 0) return;
     if (!["pack", "collection", "pokemon", "explore", "community"].includes(initialOnboardingState?.step)) return;
     preparePackImages(restoredTutorial.cards, restoredTutorial.set);
@@ -4161,13 +4160,7 @@ function MobileApp() {
       .slice(0, PRELOAD_SET_LIMIT);
 
     const urls = [
-      getCardBackUrl(),
-      ...candidateSets.flatMap((set) => [
-        getSetLogoUrl(set),
-        ...getPullableCollectionCards(set)
-          .slice(0, PRELOAD_CARD_LIMIT_PER_SET)
-          .map((card) => getPackCardImageUrl(card, set)),
-      ]),
+      ...candidateSets.map((set) => getSetLogoUrl(set)),
     ].filter((url) => url && !preloadedAssetUrlsRef.current.has(url));
 
     if (urls.length === 0) return undefined;
@@ -4179,14 +4172,6 @@ function MobileApp() {
 
     return () => cancelIdleTask(idleHandle);
   }, [activeTab, isAuthSubmitting, isValueLoading, loadingMessage, packStage, selectedCollectionSetId, selectedSet?.id]);
-
-  useEffect(() => {
-    if (startupPhase !== "complete") return undefined;
-    const idleHandle = scheduleIdleTask(() => {
-      loadExploreScreenModule().catch(() => {});
-    });
-    return () => cancelIdleTask(idleHandle);
-  }, [startupPhase]);
 
   async function refreshWelcomeRewardStatus(currentUser, { autoOpen = false, force = false } = {}) {
     if (!currentUser?.id) {
@@ -4366,10 +4351,6 @@ function MobileApp() {
     if (!supabase) {
       return () => {
         mounted = false;
-        if (startupResolveTimerRef.current) {
-          window.clearTimeout(startupResolveTimerRef.current);
-          startupResolveTimerRef.current = null;
-        }
       };
     }
 
@@ -4432,10 +4413,6 @@ function MobileApp() {
       window.removeEventListener("storage", handleAuthStorage);
       document.removeEventListener("visibilitychange", refreshIfActive);
       data.subscription.unsubscribe();
-      if (startupResolveTimerRef.current) {
-        window.clearTimeout(startupResolveTimerRef.current);
-        startupResolveTimerRef.current = null;
-      }
     };
   }, []);
 
@@ -5330,6 +5307,49 @@ function MobileApp() {
     setIsDeleteAccountOpen(false);
   }
 
+  const allowExploreWebAds = isMobileSetAdContextAllowed({
+    activeTab,
+    startupPhase,
+    packStage,
+    authValidationState,
+    onboardingStep,
+    loadingMessage,
+    isPackSavePending,
+    revealAnimationRunning,
+    isAuthSubmitting,
+    isAuthPanelOpen,
+    isDeleteAccountOpen,
+    isSignupVerificationOpen,
+    isWelcomeDisclaimerOpen,
+    isWelcomeRewardModalOpen,
+    isClaimingWelcomeReward,
+    isBuyMeACoffeePromptOpen,
+    inspectedCard,
+    cardDestinationOverlay,
+  });
+  const allowPackReadyWebAd = isMobilePackReadyAdContextAllowed({
+    activeTab,
+    startupPhase,
+    packStage,
+    viewportHeight: mobileViewportHeight,
+    isNative: suppressBrowserAds,
+    authValidationState,
+    onboardingStep,
+    loadingMessage,
+    isPackSavePending,
+    revealAnimationRunning,
+    isAuthSubmitting,
+    isAuthPanelOpen,
+    isDeleteAccountOpen,
+    isSignupVerificationOpen,
+    isWelcomeDisclaimerOpen,
+    isWelcomeRewardModalOpen,
+    isClaimingWelcomeReward,
+    isBuyMeACoffeePromptOpen,
+    inspectedCard,
+    cardDestinationOverlay,
+  });
+
   return (
     <main className="mobile-app theme-dark">
       <section className="phone-shell" aria-label="PackDex mobile app">
@@ -5339,8 +5359,8 @@ function MobileApp() {
           aria-hidden={isOnboardingActive || undefined}
           inert={isOnboardingActive}
         >
-          {startupPhase === "complete" && <MobileBrandHeader />}
-          {startupPhase === "complete" && cloudCollectionWarning && user?.id && (
+          <MobileBrandHeader />
+          {cloudCollectionWarning && user?.id && (
             <div className="account-notice" role="status">
               <span>{cloudCollectionWarning}</span>
               <button type="button" onClick={() => loadAccountScopedState(user, { force: true })}>
@@ -5348,13 +5368,13 @@ function MobileApp() {
               </button>
             </div>
           )}
-          {startupPhase !== "complete" ? <PackDexStartupAnimation phase={startupPhase} /> : <>
           {activeTab === "open" &&
             (packStage === "sets" ? (
               <OpenSetSelector collection={collection} onOpenPack={openPack} />
             ) : (
               <PackScreen
                 user={user}
+                authValidationState={authValidationState}
                 pack={pack}
                 packInstanceId={packInstanceId}
                 selectedSet={selectedSet}
@@ -5382,6 +5402,8 @@ function MobileApp() {
                 soundEnabled={soundEnabled}
                 newPullKeys={newPullKeys}
                 priceMap={selectedSet ? fullSetPriceMapsBySet[selectedSet.id] || priceMapsBySet[selectedSet.id] : null}
+                allowPackReadyWebAd={allowPackReadyWebAd}
+                suppressBrowserAds={suppressBrowserAds}
               />
             ))}
           {activeTab === "collection" && (
@@ -5411,7 +5433,28 @@ function MobileApp() {
               valueScreenProps={{ user, collection, priceMapsBySet, estimatedCollectionValue, isValueLoading, onInspectCard: inspectCard, onOpenLogin: () => openAuthProfile("login"), onOpenSignup: () => openAuthProfile("signup") }}
             />
           )}
-          {activeTab === "explore" && <Suspense fallback={<DelayedExploreFallback />}><ExploreScreen collection={collection} wishlistEntries={wishlistEntries} priceMapsBySet={{ ...priceMapsBySet, ...fullSetPriceMapsBySet }} onInspectCard={inspectCard} onOpenPack={(set) => { setActiveTab("open"); window.history.replaceState({}, "", window.location.pathname.startsWith("/mobile-app") ? "/mobile-app/" : "/"); openPack(set); }} onViewSetCollection={(set) => { selectCollectionSet(set, "collection"); setActiveTab("collection"); window.history.replaceState({}, "", window.location.pathname.startsWith("/mobile-app") ? "/mobile-app/" : "/"); }} /></Suspense>}
+          {activeTab === "explore" && (
+            <Suspense fallback={<DelayedExploreFallback />}>
+              <ExploreScreen
+                collection={collection}
+                wishlistEntries={wishlistEntries}
+                priceMapsBySet={{ ...priceMapsBySet, ...fullSetPriceMapsBySet }}
+                allowWebAds={allowExploreWebAds}
+                manageMobileSeo
+                onInspectCard={inspectCard}
+                onOpenPack={(set) => {
+                  setActiveTab("open");
+                  window.history.replaceState({}, "", window.location.pathname.startsWith("/mobile-app") ? "/mobile-app/" : "/");
+                  openPack(set);
+                }}
+                onViewSetCollection={(set) => {
+                  selectCollectionSet(set, "collection");
+                  setActiveTab("collection");
+                  window.history.replaceState({}, "", window.location.pathname.startsWith("/mobile-app") ? "/mobile-app/" : "/");
+                }}
+              />
+            </Suspense>
+          )}
           {__PACKDEX_SCANNER_TEST__ && activeTab === "scanner" && MobileScannerPage && <Suspense fallback={null}><MobileScannerPage authState={authValidationState} authUserId={authValidationState === "authenticated" ? user?.id || "" : ""} onRequireAuth={openScannerAuth} onLoadActionState={loadScannedCardActionState} onAddToCollection={addScannedCardToCollection} onAddToWishlist={addScannedCardToWishlist} onSearchManually={openScannerSearchInCollection} onLoadCardPrice={loadScannerCardPrice} /></Suspense>}
           {activeTab === "value" && (
             <ValueScreen
@@ -5473,7 +5516,6 @@ function MobileApp() {
               }}
             />
           )}
-          </>}
         </div>
 
         {isOnboardingActive && (
@@ -5482,6 +5524,7 @@ function MobileApp() {
               <div className="onboarding-page onboarding-tutorial-pack">
                 <PackScreen
                   user={user}
+                  authValidationState={authValidationState}
                   pack={pack}
                   packInstanceId={packInstanceId}
                   selectedSet={selectedSet}
@@ -5500,6 +5543,8 @@ function MobileApp() {
                   soundEnabled={soundEnabled}
                   newPullKeys={newPullKeys}
                   priceMap={null}
+                  allowPackReadyWebAd={false}
+                  suppressBrowserAds={suppressBrowserAds}
                   tutorialMode
                   onTutorialContinue={() => persistOnboarding("collection")}
                 />
@@ -5585,7 +5630,7 @@ function MobileApp() {
           }}
         />
 
-        {startupPhase === "complete" && !isOnboardingActive && <nav className={`bottom-tabs ${isPackOpening ? "is-pack-locked" : ""}`} aria-label="Mobile app sections">
+        {!onboardingStep && <nav className={`bottom-tabs ${isPackOpening ? "is-pack-locked" : ""}`} aria-label="Mobile app sections">
           {tabs.map((tab) => {
             const isNavigationLocked = isPackOpening && tab.id !== "open";
 
@@ -5596,6 +5641,12 @@ function MobileApp() {
                 type="button"
                 disabled={isNavigationLocked}
                 aria-disabled={isNavigationLocked}
+                onPointerDown={() => {
+                  if (tab.id === "explore") loadExploreScreenModule().catch(() => {});
+                }}
+                onFocus={() => {
+                  if (tab.id === "explore") loadExploreScreenModule().catch(() => {});
+                }}
                 onClick={() => switchMobileTab(tab.id)}
               >
                 <TabIcon icon={tab.icon} />
@@ -5680,20 +5731,29 @@ function MobileApp() {
   );
 }
 
-function App() {
+function App({
+  bootstrapSetId = "",
+  bootstrapTab = "",
+  bootstrapCollectionSetId = "",
+  bootstrapOpenRequested = false,
+  bootstrapOnboardingIntent = null,
+}) {
   const normalizedPath = typeof window === "undefined" ? "" : window.location.pathname.replace(/\/+$/, "");
-  const isResetPasswordRoute =
-    normalizedPath === "/mobile-app/reset-password" || normalizedPath === "/reset-password";
   const isMobileAuthCallbackRoute = normalizedPath === "/mobile-app/auth/callback";
 
-  if (isResetPasswordRoute) {
-    return <MobileResetPasswordPage supabase={supabase} />;
-  }
   if (isMobileAuthCallbackRoute) {
     return <MobileAuthCallbackPage />;
   }
 
-  return <MobileApp />;
+  return (
+    <MobileApp
+      bootstrapSetId={bootstrapSetId}
+      bootstrapTab={bootstrapTab}
+      bootstrapCollectionSetId={bootstrapCollectionSetId}
+      bootstrapOpenRequested={bootstrapOpenRequested}
+      bootstrapOnboardingIntent={bootstrapOnboardingIntent}
+    />
+  );
 }
 
 export default App;

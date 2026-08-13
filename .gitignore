@@ -7,3 +7,9 @@ supabase/.temp/
 tests/fixtures/scanner/local-pixel/
 .cache/price-audit/
 .wrangler/
+.codex-*
+/dist/
+artifacts/ad-rail-qa/
+artifacts/mobile-performance-qa/
+artifacts/performance-deep-qa/
+artifacts/performance-qa/

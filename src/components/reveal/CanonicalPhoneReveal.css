@@ -1,0 +1,144 @@
+.canonical-phone-reveal-style {
+  width: min(100%, 260px);
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-inline: auto;
+  border: 1px solid var(--pd-border, rgba(185, 174, 230, 0.2));
+  border-radius: 12px;
+  padding: 7px 8px 7px 12px;
+  color: var(--pd-muted, #c4cbe0);
+  background: var(--pd-surface-soft, rgba(255, 255, 255, 0.045));
+  font-size: 0.76rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.canonical-phone-reveal-style select {
+  min-width: 112px;
+  min-height: 34px;
+  box-sizing: border-box;
+  border: 1px solid var(--pd-border, rgba(185, 174, 230, 0.2));
+  border-radius: 9px;
+  padding: 5px 30px 5px 9px;
+  color: var(--pd-text, #f5f6fb);
+  background: var(--pd-surface, #151828);
+  font: inherit;
+}
+
+.canonical-phone-reveal-style select:focus-visible {
+  outline: 2px solid var(--pd-accent, #a98cff);
+  outline-offset: 2px;
+}
+
+.reveal-screen.uses-phone-interaction .canonical-phone-reveal-instruction {
+  margin: 0;
+  color: var(--pd-muted, #c4cbe0);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.reveal-screen.uses-phone-interaction .grid-card-flip {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.reveal-screen.uses-phone-interaction.reveal-mode-tap .grid-card-flip:not(.is-revealed) {
+  cursor: pointer;
+}
+
+.reveal-screen.uses-phone-interaction.reveal-mode-tap .grid-card-flip:not(.is-revealed):active {
+  scale: 0.97;
+}
+
+.canonical-phone-swipe-reveal {
+  color: var(--pd-text, #f5f6fb);
+}
+
+.canonical-phone-swipe-reveal__progress,
+.canonical-phone-swipe-reveal__instruction {
+  color: var(--pd-muted, #c4cbe0);
+}
+
+.canonical-phone-swipe-reveal__stage {
+  width: clamp(184px, min(72vw, 46dvh), 274px);
+}
+
+.canonical-phone-swipe-reveal__under-card,
+.canonical-phone-swipe-reveal__primary-card,
+.canonical-phone-swipe-reveal__card-face {
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--pd-page, #080b15);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.32);
+}
+
+.canonical-phone-swipe-reveal__card-face .foil-card,
+.canonical-phone-swipe-reveal__card-face .tilt-card-shell,
+.canonical-phone-swipe-reveal__card-face .tilt-card-frame {
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 720px) {
+  .canonical-phone-reveal-style {
+    display: flex;
+  }
+
+  .reveal-screen.uses-phone-interaction {
+    min-height: calc(100svh - 118px);
+    align-content: start;
+    gap: 12px;
+    padding-top: 4px;
+  }
+
+  .reveal-screen.uses-phone-interaction .reveal-heading {
+    gap: 5px;
+  }
+
+  .reveal-screen.uses-phone-interaction .reveal-heading h1 {
+    font-size: clamp(1.65rem, 8vw, 2.3rem);
+  }
+
+  .reveal-screen.uses-phone-interaction .reveal-grid {
+    --reveal-card-width: min(18vw, 68px);
+    width: 100%;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: clamp(4px, 1.5vw, 7px);
+    padding-inline: 0;
+    overflow: visible;
+  }
+
+  .reveal-screen.uses-phone-interaction .grid-card-face {
+    border-radius: 5px;
+  }
+
+  .reveal-screen.uses-phone-interaction .reveal-actions {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 340px) {
+  .canonical-phone-reveal-style {
+    width: calc(100% - 8px);
+  }
+
+  .canonical-phone-reveal-style select {
+    min-width: 104px;
+  }
+
+  .canonical-phone-swipe-reveal__stage {
+    width: min(67vw, 210px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-screen.uses-phone-interaction .grid-card-flip,
+  .reveal-screen.uses-phone-interaction .grid-card-inner {
+    transition: none;
+  }
+}

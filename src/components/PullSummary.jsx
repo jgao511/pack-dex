@@ -17,6 +17,7 @@ function PullSummary({
   onViewCollection,
   isOpeningAnother = false,
   isSaving = false,
+  backLabel = "Back to Sets",
 }) {
   const [inspectedCard, setInspectedCard] = useState(null);
 
@@ -53,7 +54,7 @@ function PullSummary({
         </div>
         <div className="summary-actions">
           <button className="secondary-button" onClick={onBackToSets} disabled={isOpeningAnother}>
-            Back to Sets
+            {backLabel}
           </button>
           <button className="secondary-button" onClick={() => onViewCollection(set)} disabled={isOpeningAnother}>
             <Library size={20} aria-hidden="true" />

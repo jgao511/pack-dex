@@ -1,2 +1,23 @@
-# Mobile deep links are served by Pages Functions. Keeping the SPA fallback out
-# of this file prevents missing JavaScript and CSS from being rewritten to HTML.
+# Canonical publisher routes are exact static snapshots. Account and utility
+# deep links use narrow rewrites so the root 404 can keep missing assets and
+# unknown set slugs from becoming successful SPA-shell responses.
+/collection /index.html 200
+/profile /index.html 200
+/settings /index.html 200
+/login /index.html 200
+/signup /index.html 200
+/reset-password /index.html 200
+/auth/callback /index.html 200
+/onboarding /index.html 200
+
+/collection/* /index.html 200
+/profile/* /index.html 200
+/settings/* /index.html 200
+/login/* /index.html 200
+/signup/* /index.html 200
+/reset-password/* /index.html 200
+/auth/callback/* /index.html 200
+/onboarding/* /index.html 200
+
+# Mobile deep links are handled by the scoped Pages Function. Do not add a root,
+# set-route, or mobile catch-all that could swallow static assets.

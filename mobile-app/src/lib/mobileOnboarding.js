@@ -5,10 +5,18 @@ import {
 } from "../../../src/utils/packGenerator.js";
 import { isLikelyMobileVisitor } from "../../../src/welcomeEntry.js";
 import { supabase } from "./supabaseClient.js";
+import {
+  MOBILE_ONBOARDING_STATE_KEY,
+  MOBILE_ONBOARDING_VERSION,
+  MOBILE_ONBOARDING_VERSION_KEY,
+} from "./mobileOnboardingBootstrap.js";
 
-export const MOBILE_ONBOARDING_VERSION = 1;
-export const MOBILE_ONBOARDING_VERSION_KEY = "packdex_mobile_onboarding_version";
-export const MOBILE_ONBOARDING_STATE_KEY = "packdex_mobile_onboarding_state_v1";
+export {
+  MOBILE_ONBOARDING_STATE_KEY,
+  MOBILE_ONBOARDING_VERSION,
+  MOBILE_ONBOARDING_VERSION_KEY,
+} from "./mobileOnboardingBootstrap.js";
+
 export const MOBILE_ONBOARDING_PENDING_KEY = "packdex_mobile_onboarding_pending_v1";
 export const MOBILE_ONBOARDING_DEVICE_KEY = "packdex_mobile_onboarding_device_id";
 export const MOBILE_ONBOARDING_GUEST_PACK_KEY = "packdex_mobile_onboarding_guest_pack_v1";

@@ -15,6 +15,8 @@ import {
 
 const appUrl = new URL("../mobile-app/src/App.jsx", import.meta.url);
 const cssUrl = new URL("../mobile-app/src/App.css", import.meta.url);
+const sharedSwipeUrl = new URL("../src/components/reveal/SwipeRevealSurface.jsx", import.meta.url);
+const sharedSwipeCssUrl = new URL("../src/components/reveal/SwipeRevealSurface.css", import.meta.url);
 
 function createStorage(initial = {}) {
   const values = new Map(Object.entries(initial));
@@ -127,30 +129,40 @@ test("interactive modes persist only after completion and complete the final car
 });
 
 test("swipe mode is a face-up stacked deck with no reveal or next-card buttons", async () => {
-  const [source, css] = await Promise.all([readFile(appUrl, "utf8"), readFile(cssUrl, "utf8")]);
+  const [source, css, sharedSwipe, sharedSwipeCss] = await Promise.all([
+    readFile(appUrl, "utf8"),
+    readFile(cssUrl, "utf8"),
+    readFile(sharedSwipeUrl, "utf8"),
+    readFile(sharedSwipeCssUrl, "utf8"),
+  ]);
   const swipeDeck = functionSource(source, "SwipeRevealDeck", "PackScreen");
-  assert.match(source, /onPointerDown=\{handlePointerDown\}/);
-  assert.match(source, /onPointerMove=\{handlePointerMove\}/);
-  assert.match(source, /onPointerCancel=/);
-  assert.match(source, /onKeyDown=/);
-  assert.match(swipeDeck, /const nextCard = pack\[activeIndex \+ 1\]/);
-  assert.match(swipeDeck, /Swipe the card to reveal the next card/);
-  assert.match(swipeDeck, /is-repositioning/);
+  assert.match(source, /import SwipeRevealSurface from "\.\.\/\.\.\/src\/components\/reveal\/SwipeRevealSurface\.jsx"/);
+  assert.match(sharedSwipe, /onPointerDown=\{handlePointerDown\}/);
+  assert.match(sharedSwipe, /onPointerMove=\{handlePointerMove\}/);
+  assert.match(sharedSwipe, /onPointerCancel=/);
+  assert.match(sharedSwipe, /onLostPointerCapture=/);
+  assert.match(sharedSwipe, /onKeyDown=/);
+  assert.match(sharedSwipe, /const nextCard = cards\[activeIndex \+ 1\]/);
+  assert.match(sharedSwipe, /Swipe the card to reveal the next card/);
+  assert.match(sharedSwipe, /is-repositioning/);
   assert.doesNotMatch(swipeDeck, /CardBackImage|Reveal Card|Next Card|Tap the card/);
   assert.doesNotMatch(swipeDeck, /is-reveal-celebration|celebrateReveal=\{true\}/);
   assert.match(css, /\.swipe-reveal-mode[\s\S]*?overscroll-behavior:\s*none;[\s\S]*?touch-action:\s*none;/);
   assert.match(css, /\.swipe-primary-card[\s\S]*?will-change:\s*transform;/);
   assert.match(css, /\.swipe-primary-card\.is-repositioning\s*\{[\s\S]*?transition:\s*none;/);
+  assert.match(sharedSwipeCss, /\.packdex-swipe-reveal__primary-card[\s\S]*?will-change:\s*transform;/);
+  assert.match(sharedSwipeCss, /\.packdex-swipe-reveal__primary-card\.is-repositioning\s*\{[\s\S]*?transition:\s*none;/);
   assert.doesNotMatch(css.match(/\.swipe-primary-card\s*\{[\s\S]*?\}/)?.[0] || "", /\b(top|left):/);
 });
 
 test("second-to-last exposes the final card and the final card renders no under-card", async () => {
-  const source = await readFile(appUrl, "utf8");
+  const [source, sharedSwipe] = await Promise.all([readFile(appUrl, "utf8"), readFile(sharedSwipeUrl, "utf8")]);
   const swipeDeck = functionSource(source, "SwipeRevealDeck", "PackScreen");
-  assert.match(swipeDeck, /const nextCard = pack\[activeIndex \+ 1\]/);
-  assert.match(swipeDeck, /\{nextCard && \(/);
-  assert.match(swipeDeck, /activeIndex \+ 1 === pack\.length - 1/);
-  assert.match(swipeDeck, /Swipe the final card to finish/);
+  assert.match(swipeDeck, /<SwipeRevealSurface/);
+  assert.match(sharedSwipe, /const nextCard = cards\[activeIndex \+ 1\]/);
+  assert.match(sharedSwipe, /\{nextCard && \(/);
+  assert.match(sharedSwipe, /activeIndex \+ 1 === cards\.length - 1/);
+  assert.match(sharedSwipe, /Swipe the final card to finish/);
 });
 
 test("style selector is limited to Settings and the Pack Ready card-back screen", async () => {

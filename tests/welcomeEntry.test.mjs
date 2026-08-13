@@ -20,14 +20,14 @@ function storageHost(initial = {}) {
   };
 }
 
-test("first and returning root visits choose the expected welcome destination", () => {
+test("root is always the public landing page unless desktop app mode is explicit", () => {
   const firstVisit = storageHost();
   assert.equal(getWelcomeEntryDecision({ pathname: "/", storageHost: firstVisit }), "welcome");
-  assert.equal(getWelcomeEntryDecision({ pathname: "/", isMobile: true, storageHost: firstVisit }), "mobile-app");
+  assert.equal(getWelcomeEntryDecision({ pathname: "/", isMobile: true, storageHost: firstVisit }), "welcome");
 
   const returning = storageHost({ [WELCOME_SEEN_KEY]: "1" });
-  assert.equal(getWelcomeEntryDecision({ pathname: "/", storageHost: returning }), "desktop-app");
-  assert.equal(getWelcomeEntryDecision({ pathname: "/", isMobile: true, storageHost: returning }), "mobile-app");
+  assert.equal(getWelcomeEntryDecision({ pathname: "/", storageHost: returning }), "welcome");
+  assert.equal(getWelcomeEntryDecision({ pathname: "/", isMobile: true, storageHost: returning }), "welcome");
 });
 
 test("welcome is always available and non-root desktop routes are never intercepted", () => {

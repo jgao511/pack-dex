@@ -1,0 +1,45 @@
+.packdex-ad-slot {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+  overflow: hidden;
+  width: 100%;
+}
+.packdex-ad-slot > .adsbygoogle {
+  display: block;
+  max-width: 100%;
+  width: 100%;
+}
+
+.packdex-ad-slot--loading,
+.packdex-ad-slot--requested {
+  min-height: 90px;
+}
+
+.packdex-ad-slot[data-ad-placement="setRail"] {
+  min-height: 250px;
+  min-width: 160px;
+}
+
+.packdex-ad-slot--development {
+  align-items: center;
+  border: 1px dashed rgb(148 163 184 / 35%);
+  color: rgb(148 163 184 / 75%);
+  font: 500 0.6875rem/1.2 system-ui, sans-serif;
+  justify-content: center;
+  letter-spacing: 0.08em;
+  min-height: 64px;
+  padding: 0.75rem;
+  text-transform: uppercase;
+}
+
+.packdex-ad-slot--development[data-ad-placement="setRail"] {
+  min-height: 250px;
+}
+
+@media (max-width: 767px) {
+  .packdex-ad-slot {
+    min-width: 0;
+  }
+}

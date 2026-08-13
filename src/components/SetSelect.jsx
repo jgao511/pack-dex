@@ -1,12 +1,9 @@
 import { Library } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { getRemoteSetLogoUrl, getSetLogoUrl } from "../utils/assetUrls.js";
-import { canGeneratePack } from "../utils/packGenerator.js";
 import { getSetCollectionProgress } from "../utils/collectionStorage.js";
-import { preloadStaticOpenPackAssets } from "../utils/staticOpenPackAssets.js";
 
 const ALL_ERAS = "All Eras";
-const SET_READINESS_CACHE = new WeakMap();
 const ERA_ORDER = [
   "Mega Evolution",
   "Scarlet & Violet",
@@ -81,14 +78,6 @@ function isNewSet(set) {
   return Boolean(set.isNew);
 }
 
-function getSetReadiness(set) {
-  if (!SET_READINESS_CACHE.has(set)) {
-    SET_READINESS_CACHE.set(set, canGeneratePack(set));
-  }
-
-  return SET_READINESS_CACHE.get(set);
-}
-
 function getEraLogo(era, sets) {
   const baseSet = getEraLogoSet(era, sets);
 
@@ -147,11 +136,22 @@ function SetLogo({ set }) {
   return <SetLogoImage set={set} fallback={<span className="set-logo-fallback">{set.name}</span>} />;
 }
 
-function SetSelect({ sets, collection, onSelectSet, onViewCollection, footer = null }) {
+function SetSelect({
+  sets,
+  collection,
+  onSelectSet,
+  onViewCollection,
+  getSetHref = null,
+  onNavigateSet = null,
+  onPrefetchSet = null,
+  title = "Choose a set",
+  intro = "",
+  footer = null,
+}) {
   const [selectedEra, setSelectedEra] = useState(ALL_ERAS);
   const [activeEraBgClass, setActiveEraBgClass] = useState("era-bg-default");
   const pageRef = useRef(null);
-  const setReadiness = useMemo(() => new Map(sets.map((set) => [set.id, getSetReadiness(set)])), [sets]);
+  const prefetchedSetIdsRef = useRef(new Set());
   const collectionProgress = useMemo(
     () => new Map(sets.map((set) => [set.id, getSetCollectionProgress(collection, set)])),
     [sets, collection]
@@ -164,23 +164,29 @@ function SetSelect({ sets, collection, onSelectSet, onViewCollection, footer = n
   const sortedFilteredSets = sortNewestFirst(filteredSets);
   const eraGroups = groupSetsByEra(sortedFilteredSets);
   const openPackBgClass = selectedEra === ALL_ERAS ? activeEraBgClass : getEraBgClassName(selectedEra);
-  const staticPreloadKey = `${selectedEra}:${sortedFilteredSets.map((set) => set.id).join("|")}`;
 
-  useEffect(() => {
-    const prioritySets =
-      selectedEra === ALL_ERAS
-        ? [
-            ...eraGroups.map(([era]) => getEraLogoSet(era, sets)).filter(Boolean),
-            ...(eraGroups[0]?.[1] || []).slice(0, 8),
-          ]
-        : sortedFilteredSets.slice(0, 10);
+  useLayoutEffect(() => {
+    const navigationMark = performance.getEntriesByName?.("packdex-sets-navigation-start", "mark").at(-1);
+    const bootstrapMark = performance.getEntriesByName?.("packdex-product-bootstrap-start", "mark").at(-1);
+    const now = performance.now();
 
-    preloadStaticOpenPackAssets(prioritySets, {
-      additionalSets: sortedFilteredSets.slice(0, 24),
-      immediateLogoLimit: 10,
-      idleLogoLimit: 12,
-    });
-  }, [staticPreloadKey, eraGroups.length]);
+    window.__packdexPerformance = {
+      ...(window.__packdexPerformance || {}),
+      setSelectorInteractive: Number(now.toFixed(1)),
+      timeline: [
+        ...(window.__packdexPerformance?.timeline || []),
+        { name: "setSelectorInteractive", atMs: Number(now.toFixed(1)) },
+      ],
+      ...(navigationMark
+        ? { setsNavigationToSelectorMs: Number(Math.max(0, now - navigationMark.startTime).toFixed(1)) }
+        : {}),
+      ...(bootstrapMark
+        ? { productBootstrapToSelectorMs: Number(Math.max(0, now - bootstrapMark.startTime).toFixed(1)) }
+        : {}),
+    };
+    performance.clearMarks?.("packdex-sets-navigation-start");
+    performance.clearMarks?.("packdex-product-bootstrap-start");
+  }, []);
 
   useEffect(() => {
     if (selectedEra !== ALL_ERAS) {
@@ -230,51 +236,85 @@ function SetSelect({ sets, collection, onSelectSet, onViewCollection, footer = n
     };
   }, [selectedEra, eraGroups.length, sortedFilteredSets.length]);
 
+  function prefetchSet(set) {
+    if (!set?.id || prefetchedSetIdsRef.current.has(set.id)) return;
+    prefetchedSetIdsRef.current.add(set.id);
+    onPrefetchSet?.(set);
+  }
+
+  function handleSetLinkClick(event, set, setHref) {
+    if (
+      !onNavigateSet ||
+      event.defaultPrevented ||
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey
+    ) return;
+
+    event.preventDefault();
+    onNavigateSet(set, setHref);
+  }
+
   function renderSetCard(set) {
-    const isReady = setReadiness.get(set.id);
     const progress = collectionProgress.get(set.id) || { collected: 0, total: 0 };
+    const setHref = getSetHref ? getSetHref(set) : "";
 
     return (
-      <article className={`set-tile ${isReady ? "" : "is-disabled"}`} key={set.id}>
-        <button
-          aria-label={isReady ? `Open ${set.name} pack` : `${set.name} pack unavailable`}
-          className="set-card-primary-action"
-          onClick={() => isReady && onSelectSet(set)}
-          disabled={!isReady}
-          type="button"
-        />
+      <article className="set-tile" key={set.id}>
+        {setHref ? (
+          <a
+            aria-label={`Open ${set.name} pack`}
+            className="set-card-primary-action"
+            href={setHref}
+            onClick={(event) => handleSetLinkClick(event, set, setHref)}
+            onFocus={() => prefetchSet(set)}
+            onPointerDown={() => prefetchSet(set)}
+            onPointerEnter={() => prefetchSet(set)}
+          />
+        ) : (
+          <button
+            aria-label={`Open ${set.name} pack`}
+            className="set-card-primary-action"
+            onClick={() => onSelectSet(set)}
+            onFocus={() => prefetchSet(set)}
+            onPointerDown={() => prefetchSet(set)}
+            onPointerEnter={() => prefetchSet(set)}
+            type="button"
+          />
+        )}
         {isNewSet(set) && <span className="set-card__badge-new">New</span>}
         <div className="set-logo-box">
           <SetLogo set={set} />
         </div>
         <div className="set-tile-info">
           <h2>{set.name}</h2>
-          <span>{isReady ? `${progress.collected} / ${progress.total} cards collected` : "Pack rules unavailable"}</span>
+          <span>{progress.collected} / {progress.total} cards collected</span>
         </div>
-        {isReady && (
-          <button
-            aria-label={`View ${set.name} collection`}
-            className="set-collection-button"
-            onClick={(event) => {
-              event.stopPropagation();
-              onViewCollection(set);
-            }}
-            type="button"
-          >
-            <Library size={17} aria-hidden="true" />
-            <span>View collection</span>
-          </button>
-        )}
+        <button
+          aria-label={`View ${set.name} collection`}
+          className="set-collection-button"
+          onClick={(event) => {
+            event.stopPropagation();
+            onViewCollection(set);
+          }}
+          type="button"
+        >
+          <Library size={17} aria-hidden="true" />
+          <span>View collection</span>
+        </button>
       </article>
     );
   }
 
   return (
-    <section className={`set-select-screen open-pack-page ${openPackBgClass}`} ref={pageRef}>
+    <section className={`set-select-screen open-pack-page ${openPackBgClass}`} data-packdex-real-content="sets" ref={pageRef}>
       <div className="set-select-heading">
         <div className="set-select-heading__copy">
           <span className="set-mark">Open a Pack</span>
-          <h1>Choose a set</h1>
+          <h1>{title}</h1>
+          {intro && <p>{intro}</p>}
         </div>
         <label className="era-filter">
           <span>Era</span>

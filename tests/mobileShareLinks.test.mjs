@@ -41,10 +41,15 @@ test("sharing is absent from the legacy desktop entry and abandoned redirects", 
   assert.doesNotMatch(desktopMain, /PublicPullSharePage|shareRouteMatch|shortShareRouteMatch|legacyShareRouteMatch/);
 
   const redirects = fs.readFileSync("public/_redirects", "utf8");
-  assert.equal(
-    redirects.replace(/\r\n/g, "\n").trim(),
-    "/mobile-app/share/* /mobile-app/index.html 200\n/mobile-app/* /mobile-app/index.html 200"
-  );
+  assert.doesNotMatch(redirects, /\/mobile-app\/\*/);
+
+  const routes = JSON.parse(fs.readFileSync("public/_routes.json", "utf8"));
+  assert.ok(routes.include.includes("/mobile-app/*"));
+  assert.ok(routes.exclude.includes("/mobile-app/assets/*"));
+
+  const mobileFallback = fs.readFileSync("functions/mobile-app/[[path]].js", "utf8");
+  assert.match(mobileFallback, /entryUrl\.pathname = "\/mobile-app\/"/);
+  assert.match(mobileFallback, /X-Robots-Tag", "noindex, follow"/);
 });
 
 test("the public share client and Edge Function depend on the new database-code contract", () => {

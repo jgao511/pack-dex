@@ -3,7 +3,12 @@ import { getCardCount, getSetCollectionProgress } from "../../../src/utils/colle
 import { getCardImageUrl, getSetLogoUrl } from "../../../src/utils/assetUrls.js";
 import { compareCardsByRarity } from "../../../src/utils/rarityRank.js";
 import { getCardDisplayPrice } from "../../../src/lib/cardPrices.js";
+import { getSetExploreDetails } from "../../../src/lib/setExploreDetails.js";
+import { AdSlot, AD_PLACEMENTS } from "../../../src/ads/index.js";
+import { getCanonicalSetPath } from "../../../src/lib/publicSetRoutes.js";
 import { supabase } from "../lib/supabaseClient.js";
+import { shouldSuppressBrowserAds } from "../lib/platform.js";
+import { applyMobileRouteSeo } from "../lib/mobileRouteSeo.js";
 import {
   cardsBySpeciesId,
   catalogCards,
@@ -416,23 +421,39 @@ function SetBrowse({ collection, navigate, goBack }) {
   return <section className="explore-screen"><PageHeader title="Sets" onBack={goBack}><p>{filtered.length} supported sets</p></PageHeader><SearchField value={query} onChange={setQuery} /><div className="explore-filters is-single"><label>Era<select value={era} onChange={(event) => setEra(event.target.value)}><option value="all">All eras</option>{exploreEras.map((item) => <option key={item.id} value={item.name}>{item.name}</option>)}</select></label></div><div className="explore-list">{filtered.map((set) => <SetTile key={set.id} set={set} collection={collection} onOpen={(item) => navigate({ kind: "set", id: item.id })} />)}</div>{!filtered.length && <div className="explore-empty"><strong>No matching sets</strong><span>Try another name or era.</span></div>}</section>;
 }
 
-function SetDetail({ id, collection, wishlistKeys, navigate, goBack, onInspectCard, onOpenPack, onViewSetCollection }) {
+function SetDetail({ id, collection, wishlistKeys, navigate, goBack, onInspectCard, onOpenPack, onViewSetCollection, allowWebAds, isNative }) {
   const set = setById.get(id);
   if (!set) return <NotFound title="Set unavailable" goBack={goBack} />;
   const progress = getSetCollectionProgress(collection, set);
-  const guide = getSetGuide(set.id);
+  const setDetails = getSetExploreDetails(set, { catalogEntries: catalogCards });
+  const guide = setDetails.guide;
   const era = exploreEras.find((entry) => entry.name === set.era);
   const related = era?.sets.filter((entry) => entry.id !== set.id) || [];
-  const cardEntries = catalogCards.filter((entry) => entry.set.id === set.id);
-  const species = [...cardsBySpeciesId.entries()].map(([speciesId, cards]) => ({ species: speciesById.get(speciesId), count: cards.filter((entry) => entry.set.id === set.id).length })).filter((entry) => entry.count).sort((a, b) => b.count - a.count || a.species.id - b.species.id).slice(0, 8);
-  const featured = [...cardEntries].sort((a, b) => compareCardsByRarity(a.card, b.card, set, set)).slice(0, 8);
+  const cardEntries = setDetails.cardEntries;
+  const species = setDetails.featuredPokemon;
+  const featured = setDetails.featuredCards;
   const wishlistCount = cardEntries.filter((entry) => wishlistKeys.has(`${set.id}:${entry.card.id}`)).length;
+  const canonicalPath = getCanonicalSetPath(set);
+  const hasMeaningfulOverview = Boolean(guide.summary) && cardEntries.length > 0;
   const inspectSetCard = (card, cardSet) => onInspectCard(card, cardSet, { origin: "set-detail", setId: set.id });
   return <section className="explore-screen"><PageHeader title={set.name} onBack={goBack} />
     <section className="set-detail-hero"><OpticallyCenteredSetLogo set={set} /><div><span>{guide.custom ? "PackDex-created preview" : set.era}</span><strong>{set.releaseDate ? new Date(`${set.releaseDate}T00:00:00`).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" }) : "Release date unavailable"}</strong><em>{cardEntries.length} supported cards</em></div></section>
     {guide.summary && <section className="explore-detail-section"><span className="eyebrow">About This Set</span><p className="explore-description">{guide.summary}</p></section>}
     {guide.themes?.length > 0 && <section className="explore-detail-section"><span className="eyebrow">Themes</span><div className="mechanic-list">{guide.themes.map((item) => <span key={item}>{item}</span>)}</div></section>}
     {guide.mechanics?.length > 0 && <section className="explore-detail-section"><span className="eyebrow">Verified Mechanics</span><div className="mechanic-list">{guide.mechanics.map((item) => <span key={item}>{item}</span>)}</div></section>}
+    {setDetails.specialFeature && <p className="explore-special-feature">{setDetails.specialFeature}</p>}
+    <AdSlot
+      placement={AD_PLACEMENTS.MOBILE_INLINE}
+      pathname={window.location.pathname}
+      isNative={isNative}
+      className="explore-mobile-ad-slot"
+      context={{
+        canonicalPath,
+        contentReady: Boolean(allowWebAds && canonicalPath && hasMeaningfulOverview),
+        screen: "mobile-set-detail",
+        isMobile: true,
+      }}
+    />
     {species.length > 0 && <section className="explore-detail-section"><div className="explore-section-heading"><span>Pokémon represented in this set</span><h2>Featured Pokémon</h2></div><div className="explore-pokemon-grid is-small is-set-featured">{species.map((entry) => <PokemonTile key={entry.species.id} species={entry.species} collection={collection} showProgress={false} onOpen={(item) => navigate({ kind: "pokemon", id: item.id })} />)}</div></section>}
     {featured.length > 0 && <section className="explore-detail-section"><div className="explore-section-heading"><span>Selected high-rarity cards</span><h2>Featured Cards</h2></div><div className="explore-card-grid">{featured.map((entry) => <CardTile key={entry.card.id} entry={entry} collection={collection} wishlistKeys={wishlistKeys} onOpen={inspectSetCard} />)}</div></section>}
     {guide.funFacts?.length > 0 && <section className="explore-detail-section"><span className="eyebrow">Set Fun Facts</span><ul className="explore-fact-list">{guide.funFacts.map((fact) => <li key={fact}>{fact}</li>)}</ul></section>}
@@ -471,11 +492,17 @@ function NotFound({ title, goBack }) {
   return <section className="explore-screen"><PageHeader title={title} onBack={goBack} /><div className="explore-empty"><strong>This Explore page is unavailable.</strong><span>The local catalog may not contain this item.</span></div></section>;
 }
 
-export default function ExploreScreen({ collection = {}, wishlistEntries = [], priceMapsBySet = {}, onInspectCard, onOpenPack, onViewSetCollection, onboardingPriceScenario = "", onboardingMode = false }) {
+export default function ExploreScreen({ collection = {}, wishlistEntries = [], priceMapsBySet = {}, onInspectCard, onOpenPack, onViewSetCollection, onboardingPriceScenario = "", onboardingMode = false, allowWebAds = false, manageMobileSeo = false }) {
   const [route, setRoute] = useState(() => parseExploreRoute(window.location));
   const [homeQuery, setHomeQuery] = useState("");
   const [recentRefs, setRecentRefs] = useState(loadRecentExploreRefs);
   const wishlistKeys = useMemo(() => new Set(wishlistEntries.map((entry) => `${entry.setId}:${entry.cardId}`)), [wishlistEntries]);
+  const suppressBrowserAds = useMemo(() => shouldSuppressBrowserAds(), []);
+  useEffect(() => {
+    if (!manageMobileSeo) return undefined;
+    applyMobileRouteSeo(window.location.pathname);
+    return () => applyMobileRouteSeo("/mobile-app/");
+  }, [manageMobileSeo, route.id, route.kind]);
   useEffect(() => {
     const onPopState = () => {
       setRoute(parseExploreRoute(window.location));
@@ -512,7 +539,7 @@ export default function ExploreScreen({ collection = {}, wishlistEntries = [], p
   if (route.kind === "pokemonBrowse") return <PokemonBrowse {...shared} />;
   if (route.kind === "pokemon") return <PokemonDetail {...shared} id={route.id} onboardingPriceScenario={onboardingPriceScenario} onboardingMode={onboardingMode} />;
   if (route.kind === "setBrowse") return <SetBrowse {...shared} />;
-  if (route.kind === "set") return <SetDetail {...shared} id={route.id} onOpenPack={onOpenPack} onViewSetCollection={onViewSetCollection} />;
+  if (route.kind === "set") return <SetDetail {...shared} id={route.id} onOpenPack={onOpenPack} onViewSetCollection={onViewSetCollection} allowWebAds={allowWebAds} isNative={suppressBrowserAds} />;
   if (route.kind === "eraBrowse") return <EraBrowse {...shared} />;
   if (route.kind === "era") return <EraDetail {...shared} id={route.id} />;
   return <ExploreHome collection={collection} wishlistEntries={wishlistEntries} query={homeQuery} onQueryChange={setHomeQuery} navigate={navigate} onInspectCard={onInspectCard} onOpenPack={onOpenPack} />;

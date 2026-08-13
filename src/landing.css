@@ -557,6 +557,15 @@ body:has(.landing-site) {
   background: #0b101b;
 }
 
+.landing-section--about {
+  border-top: 1px solid rgba(185, 205, 255, 0.1);
+}
+
+.landing-section--faq {
+  border-block: 1px solid rgba(185, 205, 255, 0.1);
+  background: #0b101b;
+}
+
 .landing-section-heading {
   max-width: 760px;
   display: grid;
@@ -565,6 +574,7 @@ body:has(.landing-site) {
 }
 
 .landing-section-heading h2,
+.landing-about__heading h2,
 .landing-collection__copy h2,
 .landing-cta h2 {
   margin: 0;
@@ -594,6 +604,47 @@ body:has(.landing-site) {
 .landing-section-heading--split > div {
   display: grid;
   gap: 14px;
+}
+
+.landing-section-heading--explore {
+  max-width: 980px;
+  gap: 18px;
+}
+
+.landing-about {
+  display: grid;
+  grid-template-columns: minmax(250px, 0.6fr) minmax(0, 1.4fr);
+  align-items: start;
+  gap: clamp(48px, 8vw, 104px);
+}
+
+.landing-about__heading {
+  display: grid;
+  gap: 16px;
+}
+
+.landing-about__copy {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px 28px;
+}
+
+.landing-about__copy p {
+  margin: 0;
+  border-top: 1px solid var(--landing-border);
+  padding-top: 18px;
+  color: var(--landing-text-secondary);
+  font-size: 0.93rem;
+  line-height: 1.7;
+}
+
+.landing-about__copy .landing-about__closing {
+  grid-column: 1 / -1;
+  border: 1px solid rgba(151, 129, 255, 0.22);
+  border-radius: var(--landing-radius-medium);
+  padding: 20px 22px;
+  color: var(--landing-text-primary);
+  background: var(--landing-surface);
 }
 
 .landing-feature-grid {
@@ -655,6 +706,88 @@ body:has(.landing-site) {
   color: var(--landing-text-secondary);
   font-size: 0.88rem;
   line-height: 1.55;
+}
+
+.landing-process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.landing-process-card {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border: 1px solid var(--landing-border);
+  border-radius: var(--landing-radius-medium);
+  padding: 22px;
+  background: var(--landing-surface);
+}
+
+.landing-process-card__number {
+  min-width: 44px;
+  min-height: 34px;
+  display: inline-grid;
+  place-items: center;
+  margin-bottom: auto;
+  border: 1px solid rgba(151, 129, 255, 0.28);
+  border-radius: 10px;
+  color: #b7a7ff;
+  background: rgba(113, 64, 255, 0.1);
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+}
+
+.landing-process-card h3 {
+  margin: 40px 0 12px;
+  color: var(--landing-text-primary);
+  font-size: 1.2rem;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.landing-process-card p {
+  margin: 0;
+  color: var(--landing-text-secondary);
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+
+.landing-process-note {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  margin-top: 20px;
+  border: 1px solid rgba(151, 129, 255, 0.2);
+  border-radius: var(--landing-radius-medium);
+  padding: 20px 22px;
+  background: #121827;
+}
+
+.landing-process-note p {
+  max-width: 760px;
+  margin: 0;
+  color: var(--landing-text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.landing-process-note .landing-inline-link {
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.landing-ad-zone {
+  margin-block: clamp(28px, 4vw, 52px);
+  border-block: 1px solid rgba(185, 205, 255, 0.08);
+  padding-block: 18px;
 }
 
 .landing-collection {
@@ -784,6 +917,26 @@ body:has(.landing-site) {
   color: #c3b8ff !important;
 }
 
+.landing-inline-link--catalog {
+  margin-top: 2px;
+}
+
+.landing-explore-copy {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 4px;
+}
+
+.landing-explore-copy p {
+  margin: 0;
+  border-top: 1px solid var(--landing-border);
+  padding-top: 18px;
+  color: var(--landing-text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
 .landing-set-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -865,6 +1018,39 @@ body:has(.landing-site) {
 
 .landing-set-card > svg {
   color: #a998ff;
+}
+
+.landing-faq-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.landing-faq-card {
+  min-height: 220px;
+  border: 1px solid var(--landing-border);
+  border-radius: var(--landing-radius-medium);
+  padding: 24px;
+  background: var(--landing-surface);
+}
+
+.landing-faq-card h3 {
+  margin: 0 0 14px;
+  color: var(--landing-text-primary);
+  font-size: 1.08rem;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+}
+
+.landing-faq-card p {
+  margin: 0;
+  color: var(--landing-text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+
+.landing-inline-link--faq {
+  margin-top: 24px;
 }
 
 .landing-cta {
@@ -1045,6 +1231,10 @@ body:has(.landing-site) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .landing-process-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .landing-feature-card {
     min-height: 250px;
   }
@@ -1076,6 +1266,16 @@ body:has(.landing-site) {
   }
 }
 
+@media (max-width: 900px) {
+  .landing-header__inner {
+    grid-template-columns: 1fr auto;
+  }
+
+  .landing-nav {
+    display: none;
+  }
+}
+
 @media (max-width: 760px) {
   .landing-container {
     width: min(calc(100% - 32px), var(--landing-content-max-width));
@@ -1084,14 +1284,6 @@ body:has(.landing-site) {
   .landing-header__inner {
     min-height: 68px;
     gap: 14px;
-  }
-
-  .landing-nav {
-    display: none;
-  }
-
-  .landing-header__inner {
-    grid-template-columns: 1fr auto;
   }
 
   .landing-hero {
@@ -1117,6 +1309,27 @@ body:has(.landing-site) {
   .landing-section-heading--split {
     grid-template-columns: 1fr;
     gap: 16px;
+  }
+
+  .landing-about {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .landing-about__copy,
+  .landing-explore-copy,
+  .landing-faq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .landing-process-note {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .landing-process-note .landing-inline-link {
+    flex: initial;
   }
 
   .landing-set-grid {
@@ -1203,6 +1416,10 @@ body:has(.landing-site) {
   }
 
   .landing-feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .landing-process-grid {
     grid-template-columns: 1fr;
   }
 

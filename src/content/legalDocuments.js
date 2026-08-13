@@ -1,5 +1,5 @@
 export const PACKDEX_SUPPORT_EMAIL = "packdexsupport@gmail.com";
-export const LEGAL_LAST_UPDATED = "July 21, 2026";
+export const LEGAL_LAST_UPDATED = "August 12, 2026";
 
 export const LEGAL_ROUTES = {
   privacy: "/privacy",
@@ -12,7 +12,7 @@ export const LEGAL_DOCUMENTS = {
     title: "Privacy Policy",
     pageTitle: "Privacy Policy | PackDex",
     metaDescription:
-      "Learn how PackDex handles account, collection, app, sharing, technical, and privacy-choice information.",
+      "Learn how PackDex handles account, collection, app, sharing, advertising, technical, and privacy-choice information.",
     introduction: [
       "This Privacy Policy explains how PackDex handles information when you use the PackDex website, web application, or native mobile application.",
       "PackDex is a fan-made, unofficial Pokémon TCG pack-opening simulator and collection-tracking service. It is not affiliated with or endorsed by Nintendo, Creatures, GAME FREAK, or The Pokémon Company.",
@@ -43,7 +43,7 @@ export const LEGAL_DOCUMENTS = {
         title: "Cookies, local storage, and similar technologies",
         paragraphs: [
           "PackDex uses browser or device storage for authentication and session continuity, security, guest collections and binders, pending synchronization, preferences, interface settings, recent in-app activity, and other core application state. Authentication libraries and service providers may also use storage needed to maintain a secure session.",
-          "This essential storage supports core functionality. Optional measurement or advertising storage may be introduced in the future, but advertising-related storage is not currently active. Disabling or clearing essential storage may sign you out or remove locally saved guest data and preferences.",
+          "This essential storage supports core functionality. The web version may also use advertising-related cookies or similar technologies when advertising is served, subject to applicable privacy and consent requirements. Disabling or clearing essential storage may sign you out or remove locally saved guest data and preferences.",
         ],
       },
       {
@@ -59,24 +59,25 @@ export const LEGAL_DOCUMENTS = {
         ],
       },
       {
-        title: "Advertising",
+        title: "Advertising and Cookies",
         paragraphs: [
-          "PackDex does not currently display advertising. PackDex may display advertising provided by third-party advertising partners in the future, and those providers may include Google once advertising is enabled.",
-          "Where permitted, advertising partners may process information such as IP address, browser or device information, approximate location, advertising identifiers, consent preferences, and interactions with advertisements. Advertising may be contextual or personalized depending on user choices, regional requirements, platform permissions, and applicable law.",
-          "Optional advertising technologies will be enabled only as permitted and subject to applicable consent or privacy controls. Available advertising and consent choices will be presented through PackDex's Privacy Choices control where required. Google AdSense, Google AdMob, personalized advertising, and Google consent tools are not currently active in PackDex.",
+          "PackDex may use Google AdSense to display advertising on eligible content pages in the web version of the service. Google and its advertising partners may use cookies, web beacons, IP addresses, advertising identifiers, or other technologies to serve, personalize, measure, and report advertising, subject to applicable privacy and consent requirements.",
+          "Depending on your location, applicable law, and consent choices, advertising may be personalized or non-personalized. Google and its advertising partners control their own data practices under their respective policies; PackDex does not control how those third parties process information.",
+          "PackDex does not sell virtual cards. Cards and other virtual records obtained through the simulator have no cash value and cannot be redeemed for physical products, physical cards, money, or prizes.",
+          "PackDex's native Android and iOS builds do not currently load browser AdSense or use a native Google AdMob implementation. Advertising availability and consent controls may therefore differ between the web version and native applications.",
         ],
       },
       {
         title: "Privacy Choices",
         paragraphs: [
-          "PackDex provides a Privacy Choices control for available privacy and advertising choices. While advertising is inactive, that control is informational. Additional options may appear if advertising is enabled.",
-          "Available controls may vary by region, platform, applicable law, whether advertising is active, and whether you use the website or a native app.",
+          "PackDex provides a Privacy Choices control with information about available privacy and advertising choices. The PackDex control is not itself a certified consent-management platform and does not replace consent choices that may be presented through a Google-certified consent-management flow where required.",
+          "Available controls may vary by region, platform, applicable law, advertising availability, and whether you use the website or a native app.",
         ],
       },
       {
         title: "Third-party services",
         paragraphs: [
-          "PackDex relies on third parties that may process information under their own terms and privacy practices. Confirmed services include Supabase for authentication, databases, and server functions; Cloudflare for deployed web routing, delivery, security, and Turnstile abuse prevention; Google-hosted fonts and Gmail-based support communications; the Pokémon TCG API for server-side card and pricing data; and TCGplayer for pricing references and outbound marketplace links.",
+          "PackDex relies on third parties that may process information under their own terms and privacy practices. Confirmed services include Supabase for authentication, databases, and server functions; Cloudflare for deployed web routing, delivery, security, and Turnstile abuse prevention; Google-hosted fonts and Gmail-based support communications; the Pokémon TCG API for server-side card and pricing data; and TCGplayer for pricing references and outbound marketplace links. Google AdSense may provide advertising on eligible web content when configured.",
           "PackDex also links to external social, video, and marketplace services. PackDex does not control those services, their availability, their content, their privacy practices, or transactions made through them. A link or advertisement does not imply PackDex's endorsement.",
         ],
       },
@@ -204,14 +205,14 @@ export const LEGAL_DOCUMENTS = {
           "Scrape, extract, reverse engineer where prohibited, or automate access in a way that burdens or violates the service.",
           "Upload or transmit malicious code, impersonate another person, use PackDex unlawfully, or abuse public share links.",
           "Exploit bugs or manipulate accounts, simulated records, rewards, statistics, or service activity at scale.",
-          "If advertising is enabled, generate fraudulent impressions or clicks, encourage clicks merely to support PackDex, use bots for ad activity, or interfere with ad delivery or measurement.",
+          "Where advertising is displayed, generate fraudulent impressions or clicks, encourage clicks merely to support PackDex, use bots for ad activity, or interfere with ad delivery or measurement.",
         ],
       },
       {
         title: "Advertising",
         paragraphs: [
-          "PackDex does not currently display advertising but may show third-party advertisements in the future. Ad formats and availability may change, and advertising may help support PackDex.",
-          "An advertisement does not imply PackDex's endorsement. PackDex does not control advertised products, services, claims, or external destinations, and you interact with advertisers at your own discretion. Advertising will not grant physical cards, cash value, or ownership rights. PackDex may consider paid or ad-free options later but does not promise that such options will be offered.",
+          "PackDex may display third-party advertising, including Google AdSense, on eligible content pages in the web version. Ad formats and availability may change. PackDex's native Android and iOS builds do not currently load browser AdSense or use a native Google AdMob implementation.",
+          "An advertisement does not imply PackDex's endorsement. PackDex does not control advertised products, services, claims, or external destinations, and you interact with advertisers at your own discretion. Viewing or interacting with advertising does not grant virtual or physical cards, cash value, prizes, or ownership rights.",
         ],
       },
       {

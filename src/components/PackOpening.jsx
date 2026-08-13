@@ -1,10 +1,11 @@
 import { Library, PackageOpen } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import AccountSaveNotice from "./AccountSaveNotice.jsx";
 import { getCardBackUrl, getRemoteSetLogoUrl, getSetLogoUrl, getSetPackArtUrl } from "../utils/assetUrls.js";
 import { markIdleCardBackLoad, markIdleCardBackRenderStart } from "../utils/cardBackDebug.js";
 import { markOpenPackClick } from "../utils/imageDebug.js";
 import { pauseImageWarmup } from "../utils/imageWarmup.js";
+import "./reveal/CanonicalPhoneReveal.css";
 
 function SetLogo({ set }) {
   const [logoSource, setLogoSource] = useState("local");
@@ -17,7 +18,7 @@ function SetLogo({ set }) {
   }, [logoUrl]);
 
   if (!displayLogoUrl || logoSource === "failed") {
-    return <h1 className="brand-title">{set.name}</h1>;
+    return <p className="brand-title opening-set-name">{set.name}</p>;
   }
 
   return (
@@ -30,7 +31,19 @@ function SetLogo({ set }) {
   );
 }
 
-function PackOpening({ set, onOpened, onBackToSets, onViewCollection, user = null, onOpenAuth, isOpening = false }) {
+function PackOpening({
+  set,
+  onOpened,
+  onBackToSets,
+  onViewCollection,
+  user = null,
+  onOpenAuth,
+  isOpening = false,
+  backLabel = "Back to Sets",
+  showRevealStyle = false,
+  revealStyle = "tap",
+  onRevealStyleChange,
+}) {
   const [packArtFailed, setPackArtFailed] = useState(false);
   const cardBack = getCardBackUrl();
   const packArt = getSetPackArtUrl(set);
@@ -41,6 +54,30 @@ function PackOpening({ set, onOpened, onBackToSets, onViewCollection, user = nul
     markIdleCardBackRenderStart("idle-bobbing-mid-card", cardBack);
   }, [cardBack]);
 
+  useLayoutEffect(() => {
+    const startMark = performance.getEntriesByName?.("packdex-set-navigation-start", "mark").at(-1);
+    const bootstrapMark = performance.getEntriesByName?.("packdex-product-bootstrap-start", "mark").at(-1);
+    if (!startMark && !bootstrapMark) return;
+
+    const now = performance.now();
+    window.__packdexPerformance = {
+      ...(window.__packdexPerformance || {}),
+      packReadyInteractive: Number(now.toFixed(1)),
+      timeline: [
+        ...(window.__packdexPerformance?.timeline || []),
+        { name: "packReadyInteractive", atMs: Number(now.toFixed(1)), setId: set.id },
+      ],
+      ...(startMark
+        ? { setNavigationToPackReadyMs: Number(Math.max(0, now - startMark.startTime).toFixed(1)) }
+        : {}),
+      ...(bootstrapMark
+        ? { productBootstrapToPackReadyMs: Number(Math.max(0, now - bootstrapMark.startTime).toFixed(1)) }
+        : {}),
+    };
+    performance.clearMarks?.("packdex-set-navigation-start");
+    performance.clearMarks?.("packdex-product-bootstrap-start");
+  }, [set.id]);
+
   const handleOpen = () => {
     pauseImageWarmup({ packOpening: true });
     markOpenPackClick(set);
@@ -48,7 +85,7 @@ function PackOpening({ set, onOpened, onBackToSets, onViewCollection, user = nul
   };
 
   return (
-    <section className="opening-screen">
+    <section className="opening-screen" data-packdex-real-content="pack-ready">
       <div className="opening-title">
         <span className="set-mark">Pack Ready</span>
         <SetLogo set={set} />
@@ -88,9 +125,24 @@ function PackOpening({ set, onOpened, onBackToSets, onViewCollection, user = nul
           message="before opening packs to save your pulls and progress."
         />
       )}
+      {showRevealStyle && (
+        <label className="canonical-phone-reveal-style">
+          <span>Reveal Style</span>
+          <select
+            aria-label="Reveal Style"
+            value={revealStyle}
+            onChange={(event) => onRevealStyleChange?.(event.target.value)}
+            disabled={isOpening}
+          >
+            <option value="automatic">Automatic</option>
+            <option value="tap">Tap</option>
+            <option value="swipe">Swipe</option>
+          </select>
+        </label>
+      )}
       <div className="screen-actions">
         <button className="secondary-button" onClick={onBackToSets} disabled={isOpening}>
-          Back to Sets
+          {backLabel}
         </button>
         <button className="secondary-button" onClick={() => onViewCollection(set)} disabled={isOpening}>
           <Library size={20} aria-hidden="true" />

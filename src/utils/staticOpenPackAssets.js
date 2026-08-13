@@ -1,4 +1,4 @@
-import { CARD_BACK_URL, getSetLogoUrl } from "./assetUrls.js";
+import { CARD_BACK_URL, getSetLogoUrl, getSetPackArtUrl } from "./assetUrls.js";
 import { preloadImage } from "./imageCache.js";
 
 const warmedStaticUrls = new Set();
@@ -10,6 +10,7 @@ const staticStats = {
   skippedDuplicate: 0,
   cardBackPreloads: 0,
   logoPreloads: 0,
+  packArtPreloads: 0,
   remoteLogoUrls: 0,
 };
 
@@ -47,6 +48,7 @@ function rememberStaticUrl(url, type) {
 
   if (type === "card-back") staticStats.cardBackPreloads += 1;
   if (type === "logo") staticStats.logoPreloads += 1;
+  if (type === "pack-art") staticStats.packArtPreloads += 1;
   if (type === "logo" && /^https?:\/\//i.test(url)) staticStats.remoteLogoUrls += 1;
 
   return true;
@@ -92,7 +94,7 @@ function preloadStaticUrl(url, type) {
 }
 
 function scheduleIdle(callback) {
-  if (typeof window === "undefined" || idleHandle || timeoutHandle) return;
+  if (typeof window === "undefined" || idleHandle || timeoutHandle) return () => {};
 
   const run = () => {
     idleHandle = null;
@@ -105,10 +107,16 @@ function scheduleIdle(callback) {
 
   if ("requestIdleCallback" in window) {
     idleHandle = window.requestIdleCallback(run, { timeout: 2000 });
-    return;
+  } else {
+    timeoutHandle = window.setTimeout(run, 900);
   }
 
-  timeoutHandle = window.setTimeout(run, 900);
+  return () => {
+    if (idleHandle && "cancelIdleCallback" in window) window.cancelIdleCallback(idleHandle);
+    if (timeoutHandle) window.clearTimeout(timeoutHandle);
+    idleHandle = null;
+    timeoutHandle = null;
+  };
 }
 
 function uniqueLogoUrls(sets) {
@@ -124,12 +132,21 @@ export function preloadStaticOpenPackAssets(prioritySets = [], options = {}) {
   const priorityLogoUrls = uniqueLogoUrls(prioritySets);
   const additionalLogoUrls = uniqueLogoUrls(additionalSets).filter((url) => !priorityLogoUrls.includes(url));
 
-  preloadStaticUrl(CARD_BACK_URL, "card-back");
   priorityLogoUrls.slice(0, immediateLogoLimit).forEach((url) => preloadStaticUrl(url, "logo"));
 
-  scheduleIdle(() => {
+  return scheduleIdle(() => {
     additionalLogoUrls.slice(0, idleLogoLimit).forEach((url) => preloadStaticUrl(url, "logo"));
   });
+}
+
+// This is intentionally targeted to one set. It is used only after a user
+// expresses intent (pointer/focus/touch) and never walks the full card catalog.
+export function preloadPackReadyAssets(set) {
+  if (typeof window === "undefined" || !set) return;
+
+  preloadStaticUrl(CARD_BACK_URL, "card-back");
+  preloadStaticUrl(getSetLogoUrl(set), "logo");
+  preloadStaticUrl(getSetPackArtUrl(set), "pack-art");
 }
 
 export function getStaticOpenPackAssetDebug() {

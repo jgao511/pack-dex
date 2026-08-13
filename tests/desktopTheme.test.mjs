@@ -34,13 +34,15 @@ test("the desktop theme keeps the mobile-inspired dark system and responsive bou
 test("Open Packs uses the compact product hierarchy and shell-level guest notice", () => {
   assert.doesNotMatch(setSelectSource, /Pokémon TCG Pack Opening Simulator/);
   assert.match(setSelectSource, /<span className="set-mark">Open a Pack<\/span>/);
-  assert.match(setSelectSource, /<h1>Choose a set<\/h1>/);
+  assert.match(setSelectSource, /title = "Choose a set"/);
+  assert.match(setSelectSource, /<h1>\{title\}<\/h1>/);
+  assert.match(appSource, /title=\{isSetsRoute \? "Choose a Pok[^\"]+TCG Set" : "Choose a set"\}/);
   assert.doesNotMatch(setSelectSource, /AccountSaveNotice/);
   assert.match(appSource, /className="account-save-notice--shell"/);
   assert.match(appSource, /<span className="site-wordmark">[\s\S]*?<span>Pack<\/span>[\s\S]*?<span>Dex<\/span>/);
 });
 
-test("desktop metadata remains text-only and describes the complete product", () => {
+test("desktop metadata describes the complete product and includes social preview imagery", () => {
   assert.match(documentSource, /<title>PackDex — Free Pokémon TCG Pack Opening &amp; Collection<\/title>/);
   assert.match(documentSource, /free, fan-made Pokémon TCG experience/);
   assert.match(documentSource, /every English set/);
@@ -49,5 +51,6 @@ test("desktop metadata remains text-only and describes the complete product", ()
   assert.match(documentSource, /property="og:type" content="website"/);
   assert.match(documentSource, /property="og:site_name" content="PackDex"/);
   assert.match(documentSource, /name="twitter:card" content="summary"/);
-  assert.doesNotMatch(documentSource, /(?:og:image|twitter:image)/);
+  assert.match(documentSource, /property="og:image" content="https:\/\/www\.pack-dex\.com\/packdex-icon-192\.png"/);
+  assert.match(documentSource, /name="twitter:image" content="https:\/\/www\.pack-dex\.com\/packdex-icon-192\.png"/);
 });

@@ -6,6 +6,7 @@ export async function onRequest(context) {
       status: 405,
       headers: {
         Allow: "GET, HEAD",
+        "X-Robots-Tag": "noindex, follow",
       },
     });
   }
@@ -22,6 +23,7 @@ export async function onRequest(context) {
   const headers = new Headers(assetResponse.headers);
 
   headers.set("X-PackDex-Entry", "mobile-share");
+  headers.set("X-Robots-Tag", "noindex, follow");
   headers.set("Cache-Control", "no-cache");
 
   return new Response(method === "HEAD" ? null : assetResponse.body, {
