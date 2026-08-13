@@ -43,7 +43,7 @@ export function getSetSeoDescriptor(set) {
   const title = `${set.name} Virtual Packs & Collection | PackDex`;
   const cardPhrase = supportedCardCount ? `browse ${supportedCardCount} supported cards` : "browse its supported catalog";
   const description =
-    `Explore ${set.name} in PackDex. Open virtual packs, ${cardPhrase}, review simulation notes, and track your digital collection.`;
+    `Explore ${set.name} in PackDex. Open virtual packs, ${cardPhrase}, discover set highlights, and track your digital collection.`;
 
   return createSeoDescriptor({
     title,

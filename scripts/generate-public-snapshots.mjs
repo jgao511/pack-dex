@@ -3,7 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { LEGAL_DOCUMENTS, LEGAL_LAST_UPDATED, PACKDEX_SUPPORT_EMAIL } from "../src/content/legalDocuments.js";
 import { getPublicSeoDescriptor } from "../src/lib/publicSeo.js";
-import { PUBLIC_ROUTE_PATHS } from "../src/lib/publicRoutes.js";
+import { PUBLIC_ROUTE_PATHS, UTILITY_ROUTE_PATHS } from "../src/lib/publicRoutes.js";
 import { canonicalSetCatalog } from "../src/lib/publicSetRoutes.js";
 import { getSetExploreDetails } from "../src/lib/setExploreDetails.js";
 import { getSetPublicContent } from "../src/lib/setContent.js";
@@ -313,7 +313,7 @@ function renderSetSnapshot(entry) {
 
 function renderHowItWorksSnapshot() {
   const sections = [
-    ["1. Choose a Set", "Start with the public set catalog and browse supported English-language Pokémon TCG sets by era. Each set page combines factual PackDex catalog information, set-specific simulation notes, a virtual pack-opening entry point, and collection tools."],
+    ["1. Choose a Set", "Start with the public set catalog and browse supported English-language Pokémon TCG sets by era. Each set page combines factual PackDex catalog information, collector-focused set highlights, a virtual pack-opening entry point, and collection tools."],
     ["2. Open a Virtual Pack", "PackDex uses its implemented set-specific pack configuration to assemble an entirely digital opening. Depending on the interface and selected reveal style, cards can be revealed one at a time or through the supported pack flow. The cards are virtual records and no physical product is opened, shipped, or awarded."],
     ["3. Build and Review Your Collection", "Cards from completed openings can be added to your PackDex collection. Set views organize collected and missing cards, quantities, completion progress, and card information so you can return to a set and continue your own collection goals."],
     ["4. Keep a Wishlist", "Wishlist controls keep cards you want to find separate from cards already collected. A wishlist is a personal chase list within PackDex; it is not an order, marketplace listing, or promise that a future opening will contain the card."],
@@ -407,12 +407,18 @@ function applySeoMetadata(template, pathname) {
   html = replaceHeadElement(html, /<title>[^<]*<\/title>/i, `<title>${escapeHtml(seo.title)}</title>`);
   html = replaceHeadElement(html, /<meta\s+[^>]*name=["']description["'][^>]*>/i, `<meta name="description" content="${escapeHtml(seo.description)}" />`);
   html = replaceHeadElement(html, /<meta\s+[^>]*name=["']robots["'][^>]*>/i, `<meta name="robots" content="${escapeHtml(seo.robots)}" />`);
-  html = replaceHeadElement(html, /<link\s+[^>]*rel=["']canonical["'][^>]*>/i, `<link rel="canonical" href="${escapeHtml(seo.canonicalUrl)}" />`);
+  const canonicalMatcher = /<link\s+[^>]*rel=["']canonical["'][^>]*>/i;
+  html = seo.canonicalUrl
+    ? replaceHeadElement(html, canonicalMatcher, `<link rel="canonical" href="${escapeHtml(seo.canonicalUrl)}" />`)
+    : html.replace(canonicalMatcher, "");
   html = replaceHeadElement(html, /<meta\s+[^>]*property=["']og:type["'][^>]*>/i, `<meta property="og:type" content="${escapeHtml(seo.openGraph.type)}" />`);
   html = replaceHeadElement(html, /<meta\s+[^>]*property=["']og:site_name["'][^>]*>/i, `<meta property="og:site_name" content="PackDex" />`);
   html = replaceHeadElement(html, /<meta\s+[^>]*property=["']og:title["'][^>]*>/i, `<meta property="og:title" content="${escapeHtml(seo.openGraph.title)}" />`);
   html = replaceHeadElement(html, /<meta\s+[^>]*property=["']og:description["'][^>]*>/i, `<meta property="og:description" content="${escapeHtml(seo.openGraph.description)}" />`);
-  html = replaceHeadElement(html, /<meta\s+[^>]*property=["']og:url["'][^>]*>/i, `<meta property="og:url" content="${escapeHtml(seo.openGraph.url)}" />`);
+  const openGraphUrlMatcher = /<meta\s+[^>]*property=["']og:url["'][^>]*>/i;
+  html = seo.openGraph.url
+    ? replaceHeadElement(html, openGraphUrlMatcher, `<meta property="og:url" content="${escapeHtml(seo.openGraph.url)}" />`)
+    : html.replace(openGraphUrlMatcher, "");
   html = replaceHeadElement(html, /<meta\s+[^>]*property=["']og:image["'][^>]*>/i, `<meta property="og:image" content="${escapeHtml(seo.openGraph.image)}" />`);
   html = replaceHeadElement(html, /<meta\s+[^>]*name=["']twitter:card["'][^>]*>/i, `<meta name="twitter:card" content="${escapeHtml(seo.twitter.card)}" />`);
   html = replaceHeadElement(html, /<meta\s+[^>]*name=["']twitter:title["'][^>]*>/i, `<meta name="twitter:title" content="${escapeHtml(seo.twitter.title)}" />`);
@@ -486,6 +492,12 @@ export function getEmptyRootTemplate(html) {
   return `${html.slice(0, openingEnd)}</div>${html.slice(rootClosingIndex + "</div>".length)}`;
 }
 
+export function renderUtilityEntryHtml(template, pathname) {
+  return applySeoMetadata(getEmptyRootTemplate(template), pathname)
+    .replace(/\r\r\n/g, "\r\n")
+    .replace(/[ \t]+(?=\r?$)/gm, "");
+}
+
 function snapshotDefinitions() {
   return [
     { pathname: "/", body: renderWelcomeSnapshot("/") },
@@ -526,9 +538,18 @@ export async function generatePublicSnapshots({ dist = defaultDist } = {}) {
     ]);
   }
 
+  const utilityPaths = Object.values(UTILITY_ROUTE_PATHS);
+  for (const pathname of utilityPaths) {
+    const routePath = pathname.replace(/^\/+|\/+$/g, "");
+    const outputPath = path.join(dist, `${routePath}.html`);
+    await fs.mkdir(path.dirname(outputPath), { recursive: true });
+    await fs.writeFile(outputPath, renderUtilityEntryHtml(template, pathname), "utf8");
+  }
+
   return Object.freeze({
     snapshotCount: definitions.length,
     setSnapshotCount: canonicalSetCatalog.length,
+    utilityEntryCount: utilityPaths.length,
     dist,
   });
 }
@@ -539,7 +560,7 @@ const isDirectRun = process.argv[1]
 if (isDirectRun) {
   const result = await generatePublicSnapshots();
   console.log(
-    `Generated ${result.snapshotCount} public crawl snapshots (${result.setSnapshotCount} set pages) in ${path.relative(repoRoot, result.dist)}.`
+    `Generated ${result.snapshotCount} public crawl snapshots (${result.setSnapshotCount} set pages) and ${result.utilityEntryCount} noindex utility entries in ${path.relative(repoRoot, result.dist)}.`
   );
 }
 

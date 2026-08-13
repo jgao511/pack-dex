@@ -1,4 +1,7 @@
-import { createClient } from "@supabase/supabase-js";
+import {
+  isSupabaseConfigured,
+  supabase,
+} from "../../../src/lib/supabaseClient.js";
 
 const viteEnv = import.meta.env || {};
 const supabaseUrl = String(viteEnv.VITE_SUPABASE_URL || "").trim();
@@ -8,10 +11,8 @@ const missingSupabaseEnvVars = [
   !supabaseAnonKey ? "VITE_SUPABASE_ANON_KEY" : null,
 ].filter(Boolean);
 
-export const isSupabaseConfigured = Boolean(supabaseUrl && supabaseAnonKey);
 export const missingSupabaseEnv = missingSupabaseEnvVars;
-
-export const supabase = isSupabaseConfigured ? createClient(supabaseUrl, supabaseAnonKey) : null;
+export { isSupabaseConfigured, supabase };
 
 if (viteEnv.DEV) {
   console.info("[PackDex mobile] Supabase env status", {

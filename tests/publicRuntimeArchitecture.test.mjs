@@ -114,6 +114,8 @@ test("public and utility metadata use the expected canonical and indexing policy
   assert.equal(sets.robots, "index, follow");
   assert.equal(set.canonicalUrl, "https://www.pack-dex.com/set/pokemon-151");
   assert.match(set.title, /^151 Virtual Packs & Collection/);
+  assert.match(set.description, /discover set highlights/);
+  assert.doesNotMatch(set.description, /simulation notes/i);
   assert.equal(missing.robots, "noindex, follow");
   assert.equal(missing.canonicalUrl, null);
   assert.equal(login.robots, "noindex, follow");

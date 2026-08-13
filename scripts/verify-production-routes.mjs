@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { getPublicSeoDescriptor } from "../src/lib/publicSeo.js";
-import { INDEXABLE_PUBLIC_PATHS, PACKDEX_SITE_ORIGIN } from "../src/lib/publicRoutes.js";
+import { INDEXABLE_PUBLIC_PATHS, PACKDEX_SITE_ORIGIN, UTILITY_ROUTE_PATHS } from "../src/lib/publicRoutes.js";
 import { canonicalSetCatalog } from "../src/lib/publicSetRoutes.js";
 
 const root = process.cwd();
@@ -110,26 +110,10 @@ function assertEntryMarker(entry, expectedMarker) {
   );
 }
 
-const utilityRoutes = [
-  "collection",
-  "profile",
-  "settings",
-  "login",
-  "signup",
-  "reset-password",
-  "auth/callback",
-  "onboarding",
-];
-const expectedUtilityRedirects = [
-  ...utilityRoutes.map((route) => ({ from: `/${route}`, to: "/index.html", status: "200" })),
-  ...utilityRoutes.map((route) => ({ from: `/${route}/*`, to: "/index.html", status: "200" })),
-];
+const utilityPaths = Object.values(UTILITY_ROUTE_PATHS);
+const utilityRoutes = utilityPaths.map((pathname) => pathname.replace(/^\/+|\/+$/g, ""));
 const redirects = parseRedirects(read(redirectsPath));
-assert.deepEqual(
-  redirects,
-  expectedUtilityRedirects,
-  "Only narrowly scoped account and utility routes may rewrite to the desktop entry"
-);
+assert.deepEqual(redirects, [], "All desktop routes must use exact build artifacts instead of HTML rewrites");
 assert.ok(
   !redirects.some((rule) => rule.from === "/*"),
   "Do not add a root catch-all to _redirects: Cloudflare would apply it even when a real static asset exists"
@@ -279,13 +263,14 @@ const routeCases = [
   ["/set/pokemon-151", snapshotEntry("/set/pokemon-151")],
   ["/set/151", notFoundEntry],
   ["/set/not-a-real-packdex-set", notFoundEntry],
-  ["/collection", desktopEntry],
-  ["/profile", desktopEntry],
-  ["/settings", desktopEntry],
-  ["/login", desktopEntry],
-  ["/signup", desktopEntry],
-  ["/reset-password", desktopEntry],
-  ["/auth/callback", desktopEntry],
+  ["/collection", utilityEntry("/collection")],
+  ["/profile", utilityEntry("/profile")],
+  ["/settings", utilityEntry("/settings")],
+  ["/login", utilityEntry("/login")],
+  ["/signup", utilityEntry("/signup")],
+  ["/reset-password", utilityEntry("/reset-password")],
+  ["/auth/callback", utilityEntry("/auth/callback")],
+  ["/onboarding", utilityEntry("/onboarding")],
   ["/mobile-app", mobileFallbackFunction],
   ["/mobile-app/", mobileFallbackFunction],
   ["/mobile-app/share/VALID_SHARE_CODE", mobileShareFunction],
@@ -309,6 +294,10 @@ function snapshotEntry(pathname) {
 
 function trailingSlashSnapshotEntry(pathname) {
   return path.join(dist, pathname.replace(/^\/+|\/+$/g, ""), "index.html");
+}
+
+function utilityEntry(pathname) {
+  return path.join(dist, `${pathname.replace(/^\/+|\/+$/g, "")}.html`);
 }
 
 function escapeRegExp(value) {
@@ -344,12 +333,25 @@ function assertPublicSnapshot(pathname, entry) {
   assertEntryMarker(entry, "welcome-controller");
 }
 
+function assertUtilityEntry(pathname, entry) {
+  const html = read(entry);
+  assert.match(html, /<meta\s+name=["']robots["']\s+content=["']noindex, follow["']/i);
+  assert.match(html, /<div\s+id=["']root["']\s*><\/div>/i, `${pathname} must start from the empty desktop app shell`);
+  assert.doesNotMatch(html, /<link\s+[^>]*rel=["']canonical["']/i, `${pathname} must not publish a canonical URL`);
+  assert.doesNotMatch(html, /data-packdex-static-snapshot/i, `${pathname} must not contain publisher snapshot content`);
+  assertEntryAssets(entry, "/assets/");
+  assertEntryMarker(entry, "welcome-controller");
+}
+
 for (const entry of canonicalSetCatalog) {
   assert.equal(
     path.resolve(resolveEntry(entry.path, redirects, routesConfig)),
     path.resolve(snapshotEntry(entry.path)),
     `${entry.path} does not use its exact public snapshot entry`
   );
+}
+for (const pathname of utilityPaths) {
+  assertUtilityEntry(pathname, utilityEntry(pathname));
 }
 
 assertPublicSnapshot("/", desktopEntry);
@@ -384,7 +386,7 @@ assert.doesNotMatch(pokemon151Snapshot, /PackDex Simulation Notes|Rarities in (?
 assert.match(pokemon151Snapshot, /151 Card Catalog and Checklist/);
 assert.match(pokemon151Snapshot, /207 supported cards/);
 assert.match(pokemon151Snapshot, /data-packdex-static-json-ld/);
-for (const utilityPath of ["collection", "profile", "settings", "login", "signup", "onboarding"]) {
+for (const utilityPath of utilityRoutes) {
   assert.ok(!fs.existsSync(path.join(dist, utilityPath, "index.html")), `Do not generate an indexable snapshot for /${utilityPath}`);
 }
 

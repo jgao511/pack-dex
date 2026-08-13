@@ -28,9 +28,11 @@ import {
   getEmptyRootTemplate,
   generatePublicSnapshots,
   renderFaqSnapshot,
+  renderHowItWorksSnapshot,
   renderSetSnapshot,
   renderSetsSnapshot,
   renderSnapshotHtml,
+  renderUtilityEntryHtml,
   renderWelcomeSnapshot,
 } from "../scripts/generate-public-snapshots.mjs";
 import { getPublicSeoDescriptor } from "../src/lib/publicSeo.js";
@@ -72,6 +74,8 @@ test("every active set has one unique, deterministic canonical public route", ()
       `${entry.path} SEO count must match the live public set content`
     );
     assert.ok(descriptor.description.length <= 165, `${entry.path} has an overly long meta description`);
+    assert.match(descriptor.description, /discover set highlights/);
+    assert.doesNotMatch(descriptor.description, /simulation notes/i);
   }
 
   assert.equal(getSetSlug("151"), "pokemon-151");
@@ -197,13 +201,7 @@ test("crawler files and Cloudflare fallback configuration preserve real static a
   assert.match(robots, /^Sitemap:\s*https:\/\/www\.pack-dex\.com\/sitemap\.xml$/m);
   assert.equal(ads.trim(), "google.com, pub-4828542760410446, DIRECT, f08c47fec0942fa0");
   const redirectRules = redirects.split(/\r?\n/).map((line) => line.trim()).filter((line) => line && !line.startsWith("#"));
-  const utilityRoutes = ["collection", "profile", "settings", "login", "signup", "reset-password", "auth/callback", "onboarding"];
-  assert.deepEqual(redirectRules, [
-    ...utilityRoutes.map((route) => `/${route} /index.html 200`),
-    ...utilityRoutes.map((route) => `/${route}/* /index.html 200`),
-  ]);
-  assert.ok(!redirectRules.some((rule) => rule.startsWith("/* ")));
-  assert.ok(!redirectRules.some((rule) => /^\/(?:set|mobile-app)(?:\/|\s)/.test(rule)));
+  assert.deepEqual(redirectRules, []);
   const routesConfig = JSON.parse(routesJson);
   assert.deepEqual(routesConfig.include, ["/mobile-app", "/mobile-app/*"]);
   for (const exclusion of [
@@ -343,6 +341,10 @@ test("public crawl snapshots expose substantive visible content and normal set l
   const faq = renderFaqSnapshot();
   assert.equal([...faq.matchAll(/<article>/g)].length, 9);
   assert.match(faq, /Is PackDex free to play\?/);
+
+  const howItWorks = renderHowItWorksSnapshot();
+  assert.match(howItWorks, /collector-focused set highlights/);
+  assert.doesNotMatch(howItWorks, /simulation notes/i);
 });
 
 test("snapshot HTML keeps built scripts while replacing head metadata and initial root content", () => {
@@ -371,6 +373,13 @@ test("snapshot HTML keeps built scripts while replacing head metadata and initia
   const regenerated = renderSnapshotHtml(getEmptyRootTemplate(html), "/faq", body);
   assert.equal([...regenerated.matchAll(/data-packdex-static-snapshot-style/g)].length, 1);
   assert.equal([...regenerated.matchAll(/id="root"/g)].length, 1);
+
+  const utilityHtml = renderUtilityEntryHtml(template, "/collection");
+  assert.match(utilityHtml, /<meta name="robots" content="noindex, follow" \/>/);
+  assert.match(utilityHtml, /<div id="root"><\/div>/);
+  assert.match(utilityHtml, /src="\/assets\/app\.js"/);
+  assert.doesNotMatch(utilityHtml, /rel="canonical"/);
+  assert.doesNotMatch(utilityHtml, /data-packdex-static-snapshot/);
 });
 
 test("snapshot generation gives canonical no-slash URLs exact Cloudflare HTML entries", async () => {
@@ -385,11 +394,21 @@ test("snapshot generation gives canonical no-slash URLs exact Cloudflare HTML en
     const result = await generatePublicSnapshots({ dist: tempDist });
     assert.equal(result.snapshotCount, 137);
     assert.equal(result.setSnapshotCount, 129);
+    assert.equal(result.utilityEntryCount, 8);
 
     for (const routePath of ["faq", "sets", "set/pokemon-151"]) {
       const canonicalEntry = await readFile(path.join(tempDist, `${routePath}.html`), "utf8");
       const trailingSlashEntry = await readFile(path.join(tempDist, routePath, "index.html"), "utf8");
       assert.equal(trailingSlashEntry, canonicalEntry);
+    }
+
+    for (const pathname of Object.values(UTILITY_ROUTE_PATHS)) {
+      const routePath = pathname.replace(/^\/+|\/+$/g, "");
+      const utilityEntry = await readFile(path.join(tempDist, `${routePath}.html`), "utf8");
+      assert.match(utilityEntry, /<meta name="robots" content="noindex, follow" \/>/);
+      assert.match(utilityEntry, /<div id="root"><\/div>/);
+      assert.doesNotMatch(utilityEntry, /rel="canonical"/);
+      assert.doesNotMatch(utilityEntry, /data-packdex-static-snapshot/);
     }
   } finally {
     await rm(tempDist, { recursive: true, force: true });
