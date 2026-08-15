@@ -14,6 +14,7 @@ import {
 import { getInitialMobileTab } from "./lib/mobileRouting.js";
 import { isMobileOnboardingComplete } from "./lib/mobileOnboardingBootstrap.js";
 import { normalizeCanonicalProductionLocation } from "../../src/utils/authRedirects.js";
+import { isLikelyMobileVisitor } from "../../src/welcomeEntry.js";
 import "./App.css";
 
 const perf = window.__packdexPerformance || (window.__packdexPerformance = {});
@@ -31,6 +32,10 @@ const shareRouteMatch = normalizedPath.match(/^\/mobile-app\/share\/([A-Za-z0-9_
 const scannerTestEnabled = import.meta.env.DEV || __PACKDEX_SCANNER_TEST__;
 const isScannerDevRoute = scannerTestEnabled && (normalizedPath === "/mobile-app/dev/card-scanner" ||
   new URLSearchParams(window.location.search).get("scanner-test") === "1"
+);
+const isOnboardingDevRoute = import.meta.env.DEV && (
+  normalizedPath.includes("/dev/onboarding") ||
+  new URLSearchParams(window.location.search).get("onboardingTest") === "1"
 );
 
 let heavyAppPromise;
@@ -66,14 +71,26 @@ function isReturningOrDesktopGuest() {
   const search = new URLSearchParams(window.location.search);
   if (search.get("desktop") === "1") return true;
   if (isMobileOnboardingComplete()) return true;
-  const mobileUa = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent || "");
-  const mobileHint = Boolean(navigator.userAgentData?.mobile);
-  const coarsePointer = window.matchMedia?.("(pointer: coarse)")?.matches || false;
-  return !(mobileUa || mobileHint || coarsePointer || window.innerWidth <= 768);
+  return !isLikelyMobileVisitor({
+    userAgent: navigator.userAgent,
+    userAgentMobile: navigator.userAgentData?.mobile,
+    coarsePointer: window.matchMedia?.("(pointer: coarse)")?.matches,
+    viewportWidth: window.innerWidth,
+  });
+}
+
+function MobilePostCommit() {
+  React.useEffect(() => scheduleServiceWorkerRegistration(), []);
+  return null;
 }
 
 function renderStrict(root, node) {
-  root.render(<React.StrictMode>{node}</React.StrictMode>);
+  root.render(
+    <React.StrictMode>
+      <MobilePostCommit />
+      {node}
+    </React.StrictMode>
+  );
 }
 
 function MobileStartupError() {
@@ -114,8 +131,9 @@ async function renderRoute(root) {
   }
 
   const initialTab = getInitialMobileTab();
-  const isReturningVisitor = isReturningOrDesktopGuest();
-  const bootstrapMode = !isReturningVisitor
+  const isReturningVisitor = !isOnboardingDevRoute && isReturningOrDesktopGuest();
+  const bootstrapOnboardingRequired = !isReturningVisitor;
+  const bootstrapMode = bootstrapOnboardingRequired
     ? "onboarding"
     : initialTab === "open"
       ? "selector"
@@ -126,7 +144,10 @@ async function renderRoute(root) {
   };
 
   flushSync(() => root.render(
-    <MobileBootstrap mode={bootstrapMode} onNeedApp={requestApp} />
+    <>
+      <MobilePostCommit />
+      <MobileBootstrap mode={bootstrapMode} onNeedApp={requestApp} />
+    </>
   ));
 
   const App = await requestApp();
@@ -140,12 +161,14 @@ async function renderRoute(root) {
   performance.mark?.("packdex-mobile-heavy-app-render-start");
   flushSync(() => root.render(
     <React.StrictMode>
+      <MobilePostCommit />
       <App
         bootstrapSetId={bootstrapSetId}
         bootstrapTab={bootstrapTab}
         bootstrapCollectionSetId={bootstrapCollectionSetId}
         bootstrapOpenRequested={bootstrapOpenRequested}
         bootstrapOnboardingIntent={bootstrapOnboardingIntent}
+        bootstrapOnboardingRequired={bootstrapOnboardingRequired}
       />
     </React.StrictMode>
   ));

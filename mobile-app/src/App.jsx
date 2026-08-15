@@ -2802,9 +2802,13 @@ function MobileApp({
   bootstrapCollectionSetId = "",
   bootstrapOpenRequested = false,
   bootstrapOnboardingIntent = null,
+  bootstrapOnboardingRequired = false,
 }) {
   const onboardingTestMode = useMemo(() => isOnboardingTestMode(), []);
-  const mobileOnboardingEligible = useMemo(() => isMobileOnboardingEligible(), []);
+  const mobileOnboardingEligible = useMemo(
+    () => bootstrapOnboardingRequired || isMobileOnboardingEligible(),
+    [bootstrapOnboardingRequired]
+  );
   const tutorialSets = useMemo(() => getTutorialSets(), []);
   const onboardingDevRequestedStep = useMemo(() => getOnboardingDevStartStep(), []);
   const onboardingDevStartStep = onboardingDevRequestedStep === "summary"
@@ -5359,8 +5363,10 @@ function MobileApp({
           aria-hidden={isOnboardingActive || undefined}
           inert={isOnboardingActive}
         >
-          <MobileBrandHeader />
-          {cloudCollectionWarning && user?.id && (
+          {!isOnboardingActive && (
+            <>
+              <MobileBrandHeader />
+              {cloudCollectionWarning && user?.id && (
             <div className="account-notice" role="status">
               <span>{cloudCollectionWarning}</span>
               <button type="button" onClick={() => loadAccountScopedState(user, { force: true })}>
@@ -5515,6 +5521,8 @@ function MobileApp({
                 setIsWelcomeRewardModalOpen(true);
               }}
             />
+              )}
+            </>
           )}
         </div>
 
@@ -5737,6 +5745,7 @@ function App({
   bootstrapCollectionSetId = "",
   bootstrapOpenRequested = false,
   bootstrapOnboardingIntent = null,
+  bootstrapOnboardingRequired = false,
 }) {
   const normalizedPath = typeof window === "undefined" ? "" : window.location.pathname.replace(/\/+$/, "");
   const isMobileAuthCallbackRoute = normalizedPath === "/mobile-app/auth/callback";
@@ -5752,6 +5761,7 @@ function App({
       bootstrapCollectionSetId={bootstrapCollectionSetId}
       bootstrapOpenRequested={bootstrapOpenRequested}
       bootstrapOnboardingIntent={bootstrapOnboardingIntent}
+      bootstrapOnboardingRequired={bootstrapOnboardingRequired}
     />
   );
 }

@@ -241,7 +241,7 @@ function Brand({ footer = false }) {
 }
 
 function EntryButton({ mobile, compact = false }) {
-  const href = DESKTOP_APP_PATH;
+  const href = mobile ? APP_PATH : DESKTOP_APP_PATH;
   const label = mobile ? "Open PackDex" : "Play PackDex on Desktop";
 
   return (
@@ -483,7 +483,7 @@ function CollectionShowcase({ reducedMotion }) {
   );
 }
 
-function LandingFooter() {
+function LandingFooter({ mobile = false }) {
   return (
     <footer className="landing-footer">
       <PrivacyChoicesDialog />
@@ -513,8 +513,12 @@ function LandingFooter() {
 
         <nav className="landing-footer__links" aria-label="Product links">
           <strong>PackDex</strong>
-          <a href={DESKTOP_APP_PATH} onClick={() => markWelcomeSeen(window)}>Play on desktop</a>
-          <a href={APP_PATH} onClick={() => markWelcomeSeen(window)}>Open mobile app</a>
+          {!mobile && (
+            <>
+              <a href={DESKTOP_APP_PATH} onClick={() => markWelcomeSeen(window)}>Play on desktop</a>
+              <a href={APP_PATH} onClick={() => markWelcomeSeen(window)}>Open mobile app</a>
+            </>
+          )}
           <a href="/sets">Sets</a>
           <a href="/how-it-works">How It Works</a>
           <a href="/faq">FAQ</a>
@@ -589,8 +593,8 @@ export default function LandingPage({ isMobileVisitor = false }) {
               </div>
               <div className="landing-hero__actions">
                 <EntryButton mobile={isMobileVisitor} />
-                <a className="landing-button landing-button--secondary" href={APP_PATH} onClick={() => markWelcomeSeen(window)}>
-                  Open the Mobile App
+                <a className="landing-button landing-button--secondary" href={isMobileVisitor ? DESKTOP_APP_PATH : APP_PATH} onClick={() => markWelcomeSeen(window)}>
+                  {isMobileVisitor ? "Open PackDex for Desktop" : "Open the Mobile App"}
                 </a>
               </div>
               <PublicActivityCounter reducedMotion={reducedMotion} />
@@ -673,7 +677,7 @@ export default function LandingPage({ isMobileVisitor = false }) {
                 <li>Wishlist and collection-value tracking</li>
                 <li>Sync across supported devices</li>
               </ul>
-              <a className="landing-inline-link" href={DESKTOP_APP_PATH} onClick={() => markWelcomeSeen(window)}>
+              <a className="landing-inline-link" href={isMobileVisitor ? APP_PATH : DESKTOP_APP_PATH} onClick={() => markWelcomeSeen(window)}>
                 Start your collection <ArrowRight size={17} aria-hidden="true" />
               </a>
             </div>
@@ -799,7 +803,7 @@ export default function LandingPage({ isMobileVisitor = false }) {
         </section>
       </main>
 
-      <LandingFooter />
+      <LandingFooter mobile={isMobileVisitor} />
     </div>
   );
 }

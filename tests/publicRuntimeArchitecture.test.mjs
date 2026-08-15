@@ -11,10 +11,14 @@ const read = (path) => readFile(new URL(path, import.meta.url), "utf8");
 const setById = (id) => activeSets.find((set) => set.id === id);
 
 test("runtime entry keeps root public, lazily routes content, and preserves explicit desktop compatibility", async () => {
-  const [main, entry] = await Promise.all([read("../src/main.jsx"), read("../src/welcomeEntry.js")]);
+  const [index, main, entry] = await Promise.all([
+    read("../index.html"),
+    read("../src/main.jsx"),
+    read("../src/welcomeEntry.js"),
+  ]);
 
-  assert.match(main, /const isPublicLanding = !forceDesktop/);
-  assert.match(main, /\["\/", "\/welcome"\]\.includes\(normalizedPath\)/);
+  assert.match(main, /getWelcomeEntryDecision/);
+  assert.match(main, /const isPublicLanding = entryDecision === "welcome"/);
   assert.match(main, /from "\.\/lib\/runtimeRoutes\.js"/);
   assert.match(main, /from "\.\/lib\/setRouteCatalog\.js"/);
   assert.doesNotMatch(main, /import\("\.\/lib\/publicRoutes\.js"\)/);
@@ -23,9 +27,13 @@ test("runtime entry keeps root public, lazily routes content, and preserves expl
   assert.match(main, /import\("\.\/PublicPages\.jsx"\)/);
   assert.match(main, /window\.history\.replaceState[\s\S]*?activeRoute\.canonicalPath/);
   assert.match(main, /props: \{ route: activeRoute \}/);
-  assert.doesNotMatch(main, /window\.location\.replace\("\/mobile-app\/"\)/);
+  assert.match(main, /if \(isMobileAppEntry\) \{\s*window\.location\.replace\("\/mobile-app\/"\)/);
   assert.match(entry, /if \(forceDesktop\) return "desktop-app"/);
+  assert.match(entry, /if \(isMobile\) return "mobile-app"/);
   assert.match(entry, /return "welcome"/);
+  assert.match(index, /data-packdex-mobile-root-handoff/);
+  assert.ok(index.indexOf("data-packdex-mobile-root-handoff") < index.indexOf("<body>"));
+  assert.match(index, /crawler[\s\S]*mobile[\s\S]*window\.location\.replace\("\/mobile-app\/"\)/);
 });
 
 test("public content pages expose the approved copy, one H1, and crawlable set links", async () => {

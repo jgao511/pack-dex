@@ -15,6 +15,10 @@ import {
   writeMobileOnboardingState,
 } from "../mobile-app/src/lib/mobileOnboarding.js";
 import { isCardAllowedInPackSlot } from "../src/utils/packGenerator.js";
+import {
+  MOBILE_ONBOARDING_STATE_KEY,
+  readMobileOnboardingBootstrapState,
+} from "../mobile-app/src/lib/mobileOnboardingBootstrap.js";
 
 function memoryStorage() {
   const values = new Map();
@@ -65,6 +69,15 @@ test("versioned completion and replay touch only onboarding keys", () => {
   resetMobileOnboarding(storage);
   assert.equal(hasCompletedMobileOnboarding(storage), false);
   assert.equal(storage.getItem("unrelated"), "keep");
+});
+
+test("lightweight startup reads only valid resumable onboarding state", () => {
+  const storage = memoryStorage();
+  storage.setItem(MOBILE_ONBOARDING_STATE_KEY, JSON.stringify({ version: MOBILE_ONBOARDING_VERSION, step: "collection", setId: "151" }));
+  assert.equal(readMobileOnboardingBootstrapState(storage)?.step, "collection");
+
+  storage.setItem(MOBILE_ONBOARDING_STATE_KEY, "not-json");
+  assert.equal(readMobileOnboardingBootstrapState(storage), null);
 });
 
 test("the onboarding guard accepts phones and rejects desktop or explicit desktop mode", () => {

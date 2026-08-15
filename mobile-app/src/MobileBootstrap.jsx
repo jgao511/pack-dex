@@ -9,7 +9,10 @@ import {
   setPendingMobileBootstrapSetId,
   setPendingMobileBootstrapTab,
 } from "./lib/mobileBootstrapIntent.js";
-import { writeMobileOnboardingBootstrapState } from "./lib/mobileOnboardingBootstrap.js";
+import {
+  readMobileOnboardingBootstrapState,
+  writeMobileOnboardingBootstrapState,
+} from "./lib/mobileOnboardingBootstrap.js";
 import { loadRevealStyle, saveRevealStyle } from "./lib/revealStyle.js";
 import PackDexStartupAnimation from "./components/PackDexStartupAnimation.jsx";
 import "./components/MobileOnboarding.css";
@@ -228,8 +231,15 @@ function BootstrapHeroCards() {
 
 function MobileOnboardingBootstrap({ onNeedApp }) {
   const tutorialSets = useMemo(getTutorialMetadata, []);
-  const [step, setStep] = useState("welcome");
-  const [selectedSetId, setSelectedSetId] = useState(tutorialSets[0]?.id || "");
+  const savedState = useMemo(readMobileOnboardingBootstrapState, []);
+  const resumableStep = ["welcome", "choose-set"].includes(savedState?.step) ? savedState.step : "";
+  const initialSetId = tutorialSets.some((set) => set.id === savedState?.setId)
+    ? savedState.setId
+    : tutorialSets[0]?.id || "";
+  const [step, setStep] = useState(resumableStep || "welcome");
+  const [selectedSetId, setSelectedSetId] = useState(initialSetId);
+
+  if (savedState && !resumableStep) return <MobileTabBootstrap tab="open" />;
 
   const writeChoiceState = (setId = selectedSetId) => writeMobileOnboardingBootstrapState({
     step: "choose-set",

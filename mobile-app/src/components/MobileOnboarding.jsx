@@ -175,7 +175,7 @@ function SetChoiceStep({ tutorialSets, selectedSetId, onSelect, onOpen, onSkip, 
           </button>
         ))}
       </div>
-      <button className="primary-action onboarding-sticky-action" type="button" disabled={!selectedSetId} onClick={onOpen}>Open This Pack</button>
+      <button className="primary-action onboarding-sticky-action" type="button" disabled={!selectedSetId} onClick={() => onOpen()}>Open This Pack</button>
     </section>
   );
 }

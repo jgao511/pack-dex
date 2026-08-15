@@ -16,9 +16,10 @@ test("welcome copy, curated groups, and app destinations match the product brief
   assert.match(page, /100% free/i);
   assert.match(page, /Play PackDex on Desktop/);
   assert.match(page, /const DESKTOP_APP_PATH = "\/sets"/);
-  assert.match(page, /function EntryButton[\s\S]*?const href = DESKTOP_APP_PATH/);
-  assert.doesNotMatch(page, /const href = mobile \? APP_PATH : DESKTOP_APP_PATH/);
-  assert.match(page, /Open the Mobile App/);
+  assert.match(page, /function EntryButton[\s\S]*?const href = mobile \? APP_PATH : DESKTOP_APP_PATH/);
+  assert.match(page, /isMobileVisitor \? "Open PackDex for Desktop" : "Open the Mobile App"/);
+  assert.match(page, /href=\{isMobileVisitor \? APP_PATH : DESKTOP_APP_PATH\}/);
+  assert.match(page, /!mobile && \([\s\S]*?<a href=\{DESKTOP_APP_PATH\}[\s\S]*?<a href=\{APP_PATH\}/);
   assert.match(page, /Crown Zenith/);
   assert.match(page, /Prismatic Evolutions/);
   assert.match(page, /Mega Evolution—Pitch Black/);

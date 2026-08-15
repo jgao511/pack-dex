@@ -34,9 +34,14 @@ export function isLikelyMobileVisitor({
   return Boolean(coarsePointer && Number(viewportWidth) <= 900);
 }
 
+export function isLikelyCrawlerVisitor({ userAgent = "" } = {}) {
+  return /bot|crawler|spider|slurp|Google-InspectionTool/i.test(String(userAgent));
+}
+
 export function getWelcomeEntryDecision({
   pathname = "/",
   search = "",
+  isMobile = false,
 } = {}) {
   const path = normalizeEntryPath(pathname);
 
@@ -45,6 +50,7 @@ export function getWelcomeEntryDecision({
 
   const forceDesktop = new URLSearchParams(String(search)).get("desktop") === "1";
   if (forceDesktop) return "desktop-app";
+  if (isMobile) return "mobile-app";
   return "welcome";
 }
 

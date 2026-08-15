@@ -80,6 +80,8 @@ test("mobile startup renders a real lightweight destination before requesting th
   assert.doesNotMatch(main, /^import .*MobileResetPasswordPage/m);
   assert.doesNotMatch(main, /^import .*PublicPullSharePage/m);
   assert.match(main, /packdex:mobile-real-screen[\s\S]*scheduleServiceWorkerRegistration/);
+  assert.match(main, /function MobilePostCommit\(\)[\s\S]*scheduleServiceWorkerRegistration/);
+  assert.match(main, /function renderStrict\(root, node\)[\s\S]*<MobilePostCommit \/>/);
   assert.match(bootstrap, /setCatalogMetadata/);
   assert.match(bootstrap, /data-packdex-real-mobile-selector/);
   assert.match(bootstrap, /Choose a set/);
@@ -140,13 +142,22 @@ test("first-time phone startup preserves the real onboarding entry instead of by
   ]);
 
   assert.match(main, /isMobileOnboardingComplete\(\)/);
-  assert.match(main, /const bootstrapMode = !isReturningVisitor/);
+  assert.match(main, /isLikelyMobileVisitor/);
+  assert.doesNotMatch(main, /window\.innerWidth <= 768/);
+  assert.match(main, /const bootstrapOnboardingRequired = !isReturningVisitor/);
+  assert.match(main, /const bootstrapMode = bootstrapOnboardingRequired/);
   assert.match(main, /<MobileBootstrap mode=\{bootstrapMode\}/);
+  assert.match(main, /bootstrapOnboardingRequired=\{bootstrapOnboardingRequired\}/);
   assert.match(bootstrap, /data-packdex-onboarding-bootstrap/);
   assert.match(bootstrap, /Open packs\. Build your collection\. Chase every card\./);
   assert.match(bootstrap, /Choose your first pack/);
   assert.match(bootstrap, /setPendingMobileBootstrapOnboardingAction/);
+  assert.match(bootstrap, /readMobileOnboardingBootstrapState/);
+  assert.match(bootstrap, /savedState && !resumableStep/);
+  assert.match(bootstrap, /<MobileTabBootstrap tab="open" \/>/);
   assert.match(app, /const isOnboardingActive = Boolean\(onboardingStep\);/);
+  assert.match(app, /bootstrapOnboardingRequired \|\| isMobileOnboardingEligible\(\)/);
+  assert.match(app, /\{!isOnboardingActive && \([\s\S]*?<OpenSetSelector/);
   assert.doesNotMatch(app, /Boolean\(onboardingStep\) && authValidationState !== "validating"/);
 });
 

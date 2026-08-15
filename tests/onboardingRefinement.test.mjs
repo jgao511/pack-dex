@@ -50,6 +50,12 @@ test("normal pack reveal has no skip affordance while onboarding keeps its separ
   assert.match(source, /onSkip=\{skipOnboarding\}/);
 });
 
+test("Open This Pack does not forward the React click event as a set id", async () => {
+  const source = await readFile(onboardingUrl, "utf8");
+  assert.match(source, /onClick=\{\(\) => onOpen\(\)\}>Open This Pack/);
+  assert.doesNotMatch(source, /onClick=\{onOpen\}>Open This Pack/);
+});
+
 test("onboarding uses the shared Explore search, a three-step real-page tour, and shared public counters", async () => {
   const [onboarding, app, explore, priceRefresh] = await Promise.all([
     readFile(onboardingUrl, "utf8"),

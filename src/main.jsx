@@ -4,6 +4,8 @@ import ReactDOM from "react-dom/client";
 import "./base.css";
 import { loadWelcomePage } from "./pageLoaders.js";
 import {
+  getWelcomeEntryDecision,
+  isLikelyCrawlerVisitor,
   isLikelyMobileVisitor,
   markWelcomeSeen,
   normalizeEntryPath,
@@ -45,14 +47,20 @@ function schedulePackDexServiceWorker() {
 
 const pathname = window.location.pathname || "/";
 const normalizedPath = normalizeEntryPath(pathname);
-const isMobileVisitor = isLikelyMobileVisitor({
-  userAgent: window.navigator.userAgent,
+const userAgent = window.navigator.userAgent;
+const isMobileVisitor = !isLikelyCrawlerVisitor({ userAgent }) && isLikelyMobileVisitor({
+  userAgent,
   userAgentMobile: window.navigator.userAgentData?.mobile,
   coarsePointer: window.matchMedia?.("(pointer: coarse)")?.matches,
   viewportWidth: window.innerWidth,
 });
-const forceDesktop = normalizedPath === "/" && new URLSearchParams(window.location.search).get("desktop") === "1";
-const isPublicLanding = !forceDesktop && ["/", "/welcome"].includes(normalizedPath);
+const entryDecision = getWelcomeEntryDecision({
+  pathname,
+  search: window.location.search,
+  isMobile: isMobileVisitor,
+});
+const isMobileAppEntry = entryDecision === "mobile-app";
+const isPublicLanding = entryDecision === "welcome";
 const rootElement = document.getElementById("root");
 let reactRoot = null;
 
@@ -206,7 +214,9 @@ function renderInitialProductContent(route, onNavigateSet = () => {}, onOpenSet 
   recordStartup("initialRealContentRendered", { screen: route?.kind === "set" ? "pack-ready" : route?.page || "shell" });
 }
 
-if (isPublicLanding) {
+if (isMobileAppEntry) {
+  window.location.replace("/mobile-app/");
+} else if (isPublicLanding) {
   renderDelayedDesktopFallback();
   recordStartup("pageModuleImportStart", { screen: "welcome" });
   loadWelcomePage().then(({ default: Page }) => {

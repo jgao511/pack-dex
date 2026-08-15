@@ -4,6 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="packdex-entry" content="welcome-controller" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script data-packdex-mobile-root-handoff>
+      (() => {
+        const path = window.location.pathname.replace(/\/+$/, "") || "/";
+        const params = new URLSearchParams(window.location.search);
+        const userAgent = window.navigator.userAgent || "";
+        const crawler = /bot|crawler|spider|slurp|Google-InspectionTool/i.test(userAgent);
+        const mobile = Boolean(
+          window.navigator.userAgentData?.mobile ||
+          /Android|iPhone|iPod|IEMobile|Opera Mini|Mobile/i.test(userAgent) ||
+          (window.matchMedia?.("(pointer: coarse)")?.matches && window.innerWidth <= 900)
+        );
+
+        if (path === "/" && params.get("desktop") !== "1" && mobile && !crawler) {
+          document.documentElement.style.visibility = "hidden";
+          window.location.replace("/mobile-app/");
+        }
+      })();
+    </script>
     <meta name="application-name" content="PackDex" />
     <meta name="google-adsense-account" content="ca-pub-4828542760410446" />
     <meta name="robots" content="index, follow" />
