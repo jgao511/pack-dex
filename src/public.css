@@ -252,8 +252,100 @@ body {
 .public-faq,
 .public-prose,
 .public-how-list,
-.public-legal {
+.public-legal,
+.public-support {
   padding-bottom: 110px;
+}
+
+.public-support {
+  display: grid;
+  gap: 18px;
+}
+
+.public-support-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.public-support-card {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 20px;
+  border: 1px solid var(--public-border);
+  border-radius: 18px;
+  padding: clamp(24px, 4vw, 34px);
+  background: var(--public-panel);
+}
+
+.public-support-card--primary {
+  border-color: rgba(169, 140, 255, 0.42);
+  background: linear-gradient(135deg, rgba(124, 77, 255, 0.14), var(--public-panel) 60%);
+}
+
+.public-support-card__icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(169, 140, 255, 0.28);
+  border-radius: 14px;
+  background: rgba(124, 77, 255, 0.1);
+  color: var(--public-gold);
+}
+
+.public-support-card__icon svg {
+  width: 23px;
+  height: 23px;
+}
+
+.public-support-card__eyebrow {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--public-gold);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.public-support-card h2 {
+  margin: 0 0 10px;
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  letter-spacing: -0.035em;
+}
+
+.public-support-card p,
+.public-support-card li {
+  color: #b9bdc6;
+  line-height: 1.7;
+}
+
+.public-support-card p {
+  margin: 0 0 16px;
+}
+
+.public-support-card p:last-child {
+  margin-bottom: 0;
+}
+
+.public-support-card ol {
+  margin: 0 0 20px;
+  padding-left: 21px;
+}
+
+.public-support-card a:not(.public-primary-link) {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--public-gold);
+  font-weight: 700;
+}
+
+.public-support-card--policies nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 22px;
 }
 
 .public-faq details {
@@ -1012,6 +1104,15 @@ body {
     grid-template-columns: 1fr;
     gap: 14px;
     padding: 38px 0;
+  }
+
+  .public-support-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .public-support-card {
+    grid-template-columns: 1fr;
+    gap: 15px;
   }
 
   .public-how-list__icon {

@@ -1,19 +1,13 @@
 import assert from "node:assert/strict";
-import { createHash } from "node:crypto";
 import { access, readFile, readdir } from "node:fs/promises";
+import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const mobileRoot = new URL("../", import.meta.url);
-const repositoryRoot = new URL("../../", import.meta.url);
-const modelHash = "62f2ff60cfdb09714a01fa74343e4dc1968601c2a43046979cbc548c28027c7c";
-const hashBytes = (value) => createHash("sha256").update(value).digest("hex");
+const mobileRootPath = fileURLToPath(mobileRoot);
 
-async function text(relative, root = mobileRoot) {
-  return readFile(new URL(relative, root), "utf8");
-}
-
-async function sha256(relative, root = repositoryRoot) {
-  return createHash("sha256").update(await readFile(new URL(relative, root))).digest("hex");
+async function text(relative) {
+  return readFile(new URL(relative, mobileRoot), "utf8");
 }
 
 function pngMetadata(buffer) {
@@ -26,39 +20,73 @@ function pngMetadata(buffer) {
   };
 }
 
+async function inspectPublicBundle() {
+  const publicRoot = path.resolve(mobileRootPath, "ios/App/App/public");
+  const bannedPath = /scanner|camera|photo|ocr|ml-kit|text-recognition|buymeacoffee/i;
+  const bannedText = /buymeacoffee|buy me a coffee|scanner-ai|cardscanner|camerapreview|capacitorcamera|mlkit|textrecognition|scanner-camera-active|scanner-beta|scanner-dev|mobile-icon-scanner|add packdex to your home screen|Ri6i8fEIdrU/i;
+  const textExtensions = new Set([".css", ".html", ".js", ".json", ".map", ".mjs", ".txt"]);
+
+  async function visit(directory) {
+    for (const entry of await readdir(directory, { withFileTypes: true })) {
+      const absolute = path.join(directory, entry.name);
+      const relative = path.relative(publicRoot, absolute).replaceAll("\\", "/");
+      assert.doesNotMatch(relative, bannedPath, `Private feature path is present in iOS: ${relative}`);
+      if (entry.isDirectory()) await visit(absolute);
+      else if (textExtensions.has(path.extname(entry.name).toLowerCase())) {
+        assert.doesNotMatch(await readFile(absolute, "utf8"), bannedText, `Private feature leaked into iOS file: ${relative}`);
+      }
+    }
+  }
+
+  await visit(publicRoot);
+}
+
 export async function validateIosProject() {
-  const [info, project, packageSwift, privacy, config, nativeIndex, appIconContents, appIcon, launchScreen, repositoryScannerMetadataText, bundledScannerMetadataText] = await Promise.all([
+  const [info, project, packageSwift, privacy, config, generatedConfig, nativeIndex, appIconContents, appIcon, launchScreen] = await Promise.all([
     text("ios/App/App/Info.plist"),
     text("ios/App/App.xcodeproj/project.pbxproj"),
     text("ios/App/CapApp-SPM/Package.swift"),
     text("ios/App/App/PrivacyInfo.xcprivacy"),
     text("capacitor.config.json"),
+    text("ios/App/App/capacitor.config.json"),
     text("ios/App/App/public/index.html"),
     text("ios/App/App/Assets.xcassets/AppIcon.appiconset/Contents.json"),
     readFile(new URL("ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-512@2x.png", mobileRoot)),
     text("ios/App/App/Base.lproj/LaunchScreen.storyboard"),
-    text("public/scanner-ai/catalog-embeddings.meta.json", repositoryRoot),
-    text("ios/App/App/public/scanner-ai/catalog-embeddings.meta.json"),
   ]);
-  const scannerMetadata = JSON.parse(repositoryScannerMetadataText);
 
   assert.match(info, /<key>CFBundleDisplayName<\/key>\s*<string>PackDex<\/string>/);
-  assert.match(info, /PackDex uses the camera to scan and identify trading cards\./);
-  assert.match(info, /PackDex uses selected photos to identify trading cards\./);
-  assert.doesNotMatch(info, /NSMicrophoneUsageDescription|NSUserTrackingUsageDescription|NSAllowsArbitraryLoads/);
-  assert.match(project, /PRODUCT_BUNDLE_IDENTIFIER = com\.packdex\.app;/);
+  assert.doesNotMatch(info, /NSCameraUsageDescription|NSPhotoLibraryUsageDescription|NSMicrophoneUsageDescription|NSUserTrackingUsageDescription|NSAllowsArbitraryLoads/);
+  assert.match(config, /"appId"\s*:\s*"com\.packdex\.mobile"/);
+  assert.match(project, /PRODUCT_BUNDLE_IDENTIFIER = com\.packdex\.mobile;/);
   assert.match(project, /IPHONEOS_DEPLOYMENT_TARGET = 15\.0;/);
   assert.equal((project.match(/TARGETED_DEVICE_FAMILY = 1;/g) || []).length, 2);
   assert.equal((project.match(/PRODUCT_NAME = PackDex;/g) || []).length, 2);
-  assert.match(project, /MARKETING_VERSION = 1\.0\.1;/);
-  assert.match(project, /CURRENT_PROJECT_VERSION = 2;/);
+  assert.equal((project.match(/MARKETING_VERSION = 1\.0;/g) || []).length, 2);
+  assert.equal((project.match(/CURRENT_PROJECT_VERSION = 2;/g) || []).length, 2);
+  assert.equal((project.match(/DEVELOPMENT_TEAM = TM9KXB4QWR;/g) || []).length, 2);
   assert.match(project, /PrivacyInfo\.xcprivacy in Resources/);
-  assert.doesNotMatch(project, /DEVELOPMENT_TEAM|PROVISIONING_PROFILE_SPECIFIER/);
-  assert.doesNotMatch(packageSwift, /path: "[^"\n]*\\/);
+  assert.doesNotMatch(project, /PROVISIONING_PROFILE_SPECIFIER/);
+
+  assert.doesNotMatch(packageSwift, /Camera|Photo|MLKit|TextRecognition|Scanner/i);
   assert.match(packageSwift, /capacitor-swift-pm\.git", exact: "8\.4\.1"/);
+  assert.match(packageSwift, /CapacitorApp/);
+  assert.match(packageSwift, /CapacitorBrowser/);
+  assert.doesNotMatch(generatedConfig, /Camera|Photo|MLKit|TextRecognition|Scanner/i);
+
+  const nativeAssetNames = await readdir(new URL("ios/App/App/public/assets/", mobileRoot));
+  const supabaseAssets = nativeAssetNames.filter((name) => /^supabaseClient-.*\.js$/i.test(name));
+  assert.equal(supabaseAssets.length, 1, "Expected one configured Supabase client bundle");
+  const supabaseAsset = await text(`ios/App/App/public/assets/${supabaseAssets[0]}`);
+  assert.match(supabaseAsset, /https:\/\/yoaesrgnrkkiibmfnuwg\.supabase\.co/);
+  assert.match(supabaseAsset, /sb_publishable_gjskuCm_3YLQh_ox8qxE2g_5rnL3-Wq/);
+
   assert.match(privacy, /NSPrivacyCollectedDataTypeEmailAddress/);
   assert.match(privacy, /NSPrivacyCollectedDataTypeUserID/);
   assert.match(privacy, /NSPrivacyCollectedDataTypeGameplayContent/);
+  assert.match(privacy, /NSPrivacyCollectedDataTypeCoarseLocation/);
+  assert.match(privacy, /NSPrivacyCollectedDataTypeProductInteraction/);
+  assert.match(privacy, /NSPrivacyCollectedDataTypeOtherDiagnosticData/);
   assert.match(privacy, /<key>NSPrivacyTracking<\/key>\s*<false\/>/);
   assert.doesNotMatch(config, /localhost|127\.0\.0\.1|server\s*:/i);
   assert.doesNotMatch(nativeIndex, /https?:\/\/localhost|https?:\/\/127\.0\.0\.1/i);
@@ -69,33 +97,7 @@ export async function validateIosProject() {
   assert.doesNotMatch(launchScreen, /Capacitor|Splash|image name=/i);
   await assert.rejects(access(new URL("ios/App/App/Assets.xcassets/Splash.imageset", mobileRoot)));
 
-  assert.equal(await sha256("public/scanner-ai/frozen-a-62f2ff60.tflite"), modelHash);
-  assert.equal(await sha256(`public/scanner-ai/${scannerMetadata.vectorFile}`), scannerMetadata.vectorSha256);
-  assert.equal(await sha256("mobile-app/ios/App/App/public/scanner-ai/frozen-a-62f2ff60.tflite"), modelHash);
-  assert.equal(
-    hashBytes(bundledScannerMetadataText),
-    hashBytes(repositoryScannerMetadataText),
-    "Bundled scanner metadata is stale; rebuild and sync iOS"
-  );
-  assert.equal(
-    await sha256(`mobile-app/ios/App/App/public/scanner-ai/${scannerMetadata.vectorFile}`),
-    scannerMetadata.vectorSha256
-  );
-
-  const scannerFiles = (await readdir(new URL("ios/App/App/public/scanner-ai/", mobileRoot), { recursive: true }))
-    .map((name) => name.replaceAll("\\", "/"));
-  for (const required of [
-    "catalog-embeddings.meta.json",
-    "catalog-metadata.json",
-    "tf-core.min.js",
-    "tf-backend-cpu.min.js",
-    "tf-tflite.min.js",
-    "wasm/tflite_web_api_cc.wasm",
-    "wasm/tflite_web_api_cc_threaded.worker.js",
-    "wasm/tflite_web_api_cc_simd_threaded.worker.js",
-  ]) assert.ok(scannerFiles.includes(required), `Missing bundled scanner asset: ${required}`);
-  assert.equal(scannerFiles.filter((name) => /frozen-a-.*\.tflite$/i.test(name)).length, 1);
-  assert.equal(scannerFiles.some((name) => /(?:model|frozen)[-_]?c|training|fixture|holdout/i.test(name)), false);
+  await inspectPublicBundle();
 
   for (const relative of [
     "ios/App/App/AppDelegate.swift",
@@ -104,7 +106,7 @@ export async function validateIosProject() {
     "ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-512@2x.png",
   ]) await access(new URL(relative, mobileRoot));
 
-  console.info("Capacitor iOS static validation passed (iOS 15, PackDex 1.0.1 build 2)." );
+  console.info("Capacitor iOS App Store validation passed (iOS 15, PackDex 1.0 build 2).");
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) await validateIosProject();

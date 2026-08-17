@@ -37,6 +37,11 @@ export const PUBLIC_PAGE_SEO = Object.freeze({
     description:
       "Read why Jonathan created PackDex as an independent fan-made Pokémon TCG pack-opening simulator and collector companion.",
   },
+  support: {
+    title: "PackDex Support | Help, Contact & Account Deletion",
+    description:
+      "Contact PackDex support, find answers, send feedback, request features, and learn how to permanently delete your PackDex account.",
+  },
   privacy: {
     title: "Privacy Policy | PackDex",
     description:

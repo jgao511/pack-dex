@@ -5,10 +5,6 @@ import { isCollectibleSetCard } from "../../../src/utils/energyCardPolicy.js";
 import { countDevRequest } from "../utils/requestDiagnostics.js";
 import { getCachedSupabaseUser } from "../../../src/lib/sessionUserCache.js";
 import {
-  COLLECTION_SNAPSHOT_PAGE_SIZE,
-  createCollectionSnapshotLoader,
-} from "../../../src/lib/collectionSnapshotLoader.js";
-import {
   ATOMIC_PACK_SUBMISSION_VERSION,
   PackSubmissionValidationError,
 } from "../../../src/lib/packSubmissionPolicy.js";
@@ -23,12 +19,10 @@ import {
   syncCompletedPackQueue,
 } from "../../../src/lib/completedPackQueue.js";
 import { scheduleAchievementCheck } from "../../../src/lib/achievementCheckScheduler.js";
+import { loadCloudCollectionPages } from "../../../src/lib/cloudCollectionPagination.js";
 
-const USER_COLLECTION_TABLE = "user_collection";
 export const PENDING_CLOUD_PULLS_KEY = "packdex-mobile-pending-cloud-pulls";
 const CLOUD_SYNC_REQUEST_TIMEOUT_MS = 15_000;
-const collectionSnapshotLoader = createCollectionSnapshotLoader();
-const collectionSnapshotMetadata = new WeakMap();
 
 export const PACK_RATE_LIMIT_ERROR_CODE = "PACK_RATE_LIMITED";
 
@@ -159,48 +153,32 @@ export async function getCurrentUser(client = supabase, { force = false } = {}) 
   }
 }
 
-export function invalidateCloudCollectionLoads() {
-  collectionSnapshotLoader.invalidate();
-}
-
-export function isCloudCollectionSnapshotCurrent(collection, userId) {
-  const snapshot = collectionSnapshotMetadata.get(collection);
-  return collectionSnapshotLoader.isCurrent(snapshot) && snapshot?.userId === String(userId || "");
-}
-
-export async function loadCloudCollection({
-  client = supabase,
-  user: providedUser = null,
-  storage = getDefaultStorage(),
-  pageSize = COLLECTION_SNAPSHOT_PAGE_SIZE,
-  onPageRequest = null,
-} = {}) {
+export async function loadCloudCollection() {
   countDevRequest("loadCloudCollection");
-  const user = providedUser || await getCurrentUser(client);
+  const user = await getCurrentUser();
 
   if (!user) return {};
 
-  const snapshot = await collectionSnapshotLoader.load({
-    client,
-    userId: user.id,
-    table: USER_COLLECTION_TABLE,
-    pageSize,
-    onPageRequest,
-  });
-  const collectionKeys = new Set(
-    snapshot.rows.map((row) => `${String(row.set_id)}\u0000${String(row.card_id)}`)
-  );
+  const cloudRequestStartedAt = Date.now();
+  const collection = {};
+
+  try {
+    await loadCloudCollectionPages(supabase, user.id, (rows) => {
+      appendCloudRowsToCollection(collection, rows);
+    });
+  } catch (error) {
+    console.warn("Unable to load mobile cloud collection", error);
+    throw error;
+  }
+
 
   reconcileAcknowledgedCompletedPackOverlays(
     PENDING_CLOUD_PULLS_KEY,
     user.id,
-    snapshot.requestStartedAt,
-    storage,
-    (setId, card) => collectionKeys.has(`${String(setId || "")}\u0000${getCardCollectionKey(card, setId)}`)
+    cloudRequestStartedAt,
+    getDefaultStorage()
   );
 
-  const collection = cloudRowsToCollection(snapshot.rows);
-  collectionSnapshotMetadata.set(collection, snapshot);
   return collection;
 }
 
@@ -425,27 +403,29 @@ export async function savePulledCardsToCloud(
   return result;
 }
 
-export function cloudRowsToCollection(rows) {
-  return rows.reduce((collection, row) => {
+export function appendCloudRowsToCollection(collection, rows) {
+  const nextCollection = collection && typeof collection === "object" ? collection : {};
+
+  for (const row of rows || []) {
     const setId = String(row.set_id || "");
     const cardId = String(row.card_id || "");
 
-    if (!setId || !cardId) return collection;
+    if (!setId || !cardId) continue;
 
-    const setCollection = collection[setId] || {};
+    const setCollection = nextCollection[setId] || (nextCollection[setId] = {});
     const createdAt = row.created_at ? Date.parse(row.created_at) : Date.now();
     const updatedAt = row.updated_at ? Date.parse(row.updated_at) : createdAt;
 
-    return {
-      ...collection,
-      [setId]: {
-        ...setCollection,
-        [cardId]: {
-          count: Number(row.quantity || 0),
-          firstCollectedAt: Number.isFinite(createdAt) ? createdAt : Date.now(),
-          lastCollectedAt: Number.isFinite(updatedAt) ? updatedAt : Date.now(),
-        },
-      },
+    setCollection[cardId] = {
+      count: Number(row.quantity || 0),
+      firstCollectedAt: Number.isFinite(createdAt) ? createdAt : Date.now(),
+      lastCollectedAt: Number.isFinite(updatedAt) ? updatedAt : Date.now(),
     };
-  }, {});
+  }
+
+  return nextCollection;
+}
+
+export function cloudRowsToCollection(rows) {
+  return appendCloudRowsToCollection({}, rows);
 }

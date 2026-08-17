@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import "./landing.css";
 import { ArrowRight, BookOpen, Layers3, Mail, PackageOpen, Search, Sparkles } from "lucide-react";
 import PrivacyChoicesDialog from "./components/PrivacyChoicesDialog.jsx";
-import { LEGAL_ROUTES, PACKDEX_SUPPORT_EMAIL } from "./content/legalDocuments.js";
+import { LEGAL_ROUTES } from "./content/legalDocuments.js";
 import { openPrivacyChoices } from "./lib/privacyChoices.js";
 import {
   formatPublicStat,
@@ -504,9 +504,9 @@ function LandingFooter({ mobile = false }) {
                 Buy Me a Coffee
               </a>
             )}
-            <a className="landing-footer__support" href={`mailto:${PACKDEX_SUPPORT_EMAIL}`}>
+            <a className="landing-footer__support" href="/support">
               <Mail size={16} aria-hidden="true" />
-              <span>Contact Support · {PACKDEX_SUPPORT_EMAIL}</span>
+              <span>PackDex Support</span>
             </a>
           </div>
         </div>
@@ -523,6 +523,7 @@ function LandingFooter({ mobile = false }) {
           <a href="/how-it-works">How It Works</a>
           <a href="/faq">FAQ</a>
           <a href="/about">About</a>
+          <a href="/support">Support</a>
         </nav>
 
         <nav className="landing-footer__links" aria-label="Legal links">

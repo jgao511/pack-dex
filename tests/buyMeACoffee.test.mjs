@@ -11,6 +11,11 @@ import {
   readBuyMeACoffeePromptState,
   recordGuestCompletedPack,
 } from "../src/lib/buyMeACoffeePrompt.js";
+import {
+  GUEST_LIFETIME_PACKS_KEY,
+  loadGuestLifetimePacks as loadMobileGuestLifetimePacks,
+  recordGuestCompletedPack as recordMobileGuestCompletedPack,
+} from "../mobile-app/src/lib/guestPackStats.js";
 
 function createStorage(initial = {}) {
   const values = new Map(Object.entries(initial));
@@ -83,7 +88,7 @@ test("guest lifetime count is durable and malformed or unavailable storage fails
   } }));
 });
 
-test("desktop and mobile surfaces keep financial and customer support actions distinct", async () => {
+test("website keeps optional contributions while the App Store code omits them", async () => {
   const [desktop, landing, mobile, mobileCss, card, prompt, mobileMain] = await Promise.all([
     readFile(new URL("../src/App.jsx", import.meta.url), "utf8"),
     readFile(new URL("../src/LandingPage.jsx", import.meta.url), "utf8"),
@@ -98,20 +103,10 @@ test("desktop and mobile surfaces keep financial and customer support actions di
   assert.match(desktop, /Contact Support/);
   assert.match(desktop, /mailto:\$\{SUPPORT_EMAIL\}/);
   assert.match(landing, /Buy Me a Coffee/);
-  assert.match(landing, /Contact Support/);
-  const mobileCards = [...mobile.matchAll(/<BuyMeACoffeeCard\b[^>]*\/>/g)];
-  assert.equal(mobileCards.length, 1);
-  assert.match(mobileCards[0][0], /className="mobile-profile-support-card" source="profile"/);
-  assert.doesNotMatch(mobile, /<BuyMeACoffeeCard[^>]*source="settings"/);
+  assert.match(landing, /PackDex Support/);
   assert.match(mobile, /Contact Support/);
-  const mobileProfileStart = mobile.indexOf("function ProfileScreen");
-  const mobileSupportCard = mobile.indexOf('<BuyMeACoffeeCard className="mobile-profile-support-card"', mobileProfileStart);
-  const mobileDisclaimer = mobile.indexOf('<section className="content-section">', mobileSupportCard);
-  assert.ok(mobileProfileStart >= 0 && mobileSupportCard > mobileProfileStart);
-  assert.ok(mobileDisclaimer > mobileSupportCard);
-  assert.match(mobileCss, /\.mobile-profile-support-card[\s\S]*border-radius: 20px/);
-  assert.match(mobileCss, /\.mobile-profile-support-card \.buy-me-a-coffee-card__action[\s\S]*width: 100%/);
-  assert.doesNotMatch(mobileCss, /\.mobile-profile-support-card\s*\{[^}]*position:\s*(?:fixed|sticky)/);
+  assert.doesNotMatch(mobile, /BuyMeACoffee|buyMeACoffee|BUY_ME_A_COFFEE|buymeacoffee|Buy Me a Coffee/);
+  assert.doesNotMatch(mobileCss, /buy-me-a-coffee|Buy Me a Coffee|buymeacoffee/);
   assert.match(card, /target="_blank"/);
   assert.match(card, /rel="noopener noreferrer"/);
   assert.match(prompt, /target="_blank"/);
@@ -121,7 +116,7 @@ test("desktop and mobile surfaces keep financial and customer support actions di
   assert.doesNotMatch(mobile, />Support</);
 });
 
-test("milestone candidates are assigned only from successful completed-pack persistence", async () => {
+test("website milestone candidates remain intact while mobile tracks guest packs without contribution prompts", async () => {
   const [desktop, mobile] = await Promise.all([
     readFile(new URL("../src/App.jsx", import.meta.url), "utf8"),
     readFile(new URL("../mobile-app/src/App.jsx", import.meta.url), "utf8"),
@@ -130,19 +125,20 @@ test("milestone candidates are assigned only from successful completed-pack pers
   assert.match(desktop, /result\?\.saved > 0 && result\?\.stats[\s\S]*pendingBuyMeACoffeePackCountRef/);
   assert.match(desktop, /saveCollection\(nextCollection\);[\s\S]*recordGuestCompletedPack\(\)/);
   assert.match(mobile, /persistSessionCollection\(nextCollection\);[\s\S]*recordGuestCompletedPack\(\)/);
-  assert.match(mobile, /syncResult\.saved > 0[\s\S]*pendingBuyMeACoffeePackCountRef/);
   assert.match(desktop, /screen !== "summary"/);
-  assert.match(mobile, /packStage !== "summary"/);
-  assert.match(mobile, /onboardingStep/);
+  assert.doesNotMatch(mobile, /pendingBuyMeACoffeePackCountRef|claimBuyMeACoffeePrompt|dismissBuyMeACoffeePrompt/);
 
   const desktopEligibilityEffect = desktop.slice(
     desktop.indexOf("const packsOpened = pendingBuyMeACoffeePackCountRef.current"),
     desktop.indexOf("function commitAuthSession")
   );
-  const mobileEligibilityEffect = mobile.slice(
-    mobile.indexOf("const packsOpened = pendingBuyMeACoffeePackCountRef.current"),
-    mobile.indexOf("const setsCompleted")
-  );
   assert.doesNotMatch(desktopEligibilityEffect, /loadCloud(?:Collection|ProfileStats)|supabase\.|await /);
-  assert.doesNotMatch(mobileEligibilityEffect, /loadCloud(?:Collection|ProfileStats)|supabase\.|await /);
+});
+
+test("mobile guest pack counts use an App Store-neutral storage key", () => {
+  const storage = createStorage({ [GUEST_LIFETIME_PACKS_KEY]: "49" });
+  assert.equal(loadMobileGuestLifetimePacks(storage), 49);
+  assert.equal(recordMobileGuestCompletedPack(storage), 50);
+  assert.equal(loadMobileGuestLifetimePacks(storage), 50);
+  assert.doesNotMatch(GUEST_LIFETIME_PACKS_KEY, /coffee|donat|support/i);
 });

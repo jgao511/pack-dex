@@ -1,30 +1,37 @@
 import assert from "node:assert/strict";
-import { createHash } from "node:crypto";
 import { readFile, readdir } from "node:fs/promises";
+import path from "node:path";
 import test from "node:test";
-import { BUY_ME_A_COFFEE_URL } from "../src/config/support.js";
+import { fileURLToPath } from "node:url";
 import { getExternalHttpUrl, installNativeExternalLinkRouting } from "../mobile-app/src/lib/externalLinks.js";
-import { getScannerRuntime, isAndroidNative, isIosNative } from "../mobile-app/src/lib/platform.js";
-import { resolveScannerAssetUrl } from "../mobile-app/src/lib/scannerAssetUrl.js";
+import { isAndroidNative, isIosNative } from "../mobile-app/src/lib/platform.js";
 
 const capacitor = (platform, native = true) => ({ isNativePlatform: () => native, getPlatform: () => platform });
+const repositoryRoot = fileURLToPath(new URL("../", import.meta.url));
 
-test("scanner runtime selection is explicit for Android, iOS, and web", () => {
+async function read(relative) {
+  return readFile(path.join(repositoryRoot, relative), "utf8");
+}
+
+async function walk(directory) {
+  const files = [];
+  for (const entry of await readdir(directory, { withFileTypes: true })) {
+    const absolute = path.join(directory, entry.name);
+    if (entry.isDirectory()) files.push(...await walk(absolute));
+    else files.push(absolute);
+  }
+  return files;
+}
+
+test("native platform detection remains explicit for Android, iOS, and web", () => {
   assert.equal(isAndroidNative(capacitor("android")), true);
   assert.equal(isIosNative(capacitor("android")), false);
-  assert.equal(getScannerRuntime(capacitor("android")), "android-native");
   assert.equal(isIosNative(capacitor("ios")), true);
   assert.equal(isAndroidNative(capacitor("ios")), false);
-  assert.equal(getScannerRuntime(capacitor("ios")), "browser-wasm");
-  assert.equal(getScannerRuntime(capacitor("web", false)), "browser-wasm");
+  assert.equal(isIosNative(capacitor("web", false)), false);
 });
 
-test("iOS uses bundled browser scanner URLs under the Capacitor scheme", () => {
-  assert.equal(resolveScannerAssetUrl("frozen-a-62f2ff60.tflite", { baseUrl: "./", origin: "capacitor://localhost" }), "capacitor://localhost/scanner-ai/frozen-a-62f2ff60.tflite");
-  assert.equal(resolveScannerAssetUrl("wasm/", { baseUrl: "./", origin: "capacitor://localhost" }), "capacitor://localhost/scanner-ai/wasm/");
-});
-
-test("native routing opens external HTTP links without intercepting internal or mail links", async () => {
+test("native routing opens allowed external web links without intercepting internal or mail links", async () => {
   const locationRef = { href: "capacitor://localhost/index.html", origin: "null" };
   const anchor = (href) => ({ getAttribute: () => href });
   assert.equal(getExternalHttpUrl(anchor("https://www.tcgplayer.com/card"), locationRef), "https://www.tcgplayer.com/card");
@@ -32,7 +39,8 @@ test("native routing opens external HTTP links without intercepting internal or 
   assert.equal(getExternalHttpUrl(anchor("mailto:packdexsupport@gmail.com"), locationRef), null);
   assert.equal(getExternalHttpUrl(anchor("http://[invalid"), locationRef), null);
 
-  let listener; const opened = [];
+  let listener;
+  const opened = [];
   const documentRef = { addEventListener: (_name, callback) => { listener = callback; }, removeEventListener() {} };
   installNativeExternalLinkRouting({ capacitor: capacitor("ios"), documentRef, locationRef, openBrowser: async (url) => opened.push(url) });
   let prevented = false;
@@ -40,59 +48,77 @@ test("native routing opens external HTTP links without intercepting internal or 
   await new Promise((resolve) => setImmediate(resolve));
   assert.equal(prevented, true);
   assert.deepEqual(opened, ["https://youtube.com/watch?v=test"]);
-
-  installNativeExternalLinkRouting({ capacitor: capacitor("android"), documentRef, locationRef, openBrowser: async (url) => opened.push(url) });
-  listener({ target: { closest: () => anchor(BUY_ME_A_COFFEE_URL) }, button: 0, preventDefault() {} });
-  await new Promise((resolve) => setImmediate(resolve));
-  assert.equal(opened.at(-1), BUY_ME_A_COFFEE_URL);
 });
 
-test("iOS cannot import or call Android scanner adapters through platform selection", async () => {
-  const [page, frozen, adapters] = await Promise.all([
-    readFile(new URL("../mobile-app/src/MobileScannerPage.jsx", import.meta.url), "utf8"),
-    readFile(new URL("../mobile-app/src/lib/frozenAScanner.js", import.meta.url), "utf8"),
-    readFile(new URL("../mobile-app/src/lib/nativeScannerAdapters.js", import.meta.url), "utf8"),
+test("public iOS dependencies and permissions exclude scanner, camera, photos, and OCR", async () => {
+  const [packageJson, packageLock, info, packageSwift, generatedConfig, appSource] = await Promise.all([
+    read("mobile-app/package.json"),
+    read("mobile-app/package-lock.json"),
+    read("mobile-app/ios/App/App/Info.plist"),
+    read("mobile-app/ios/App/CapApp-SPM/Package.swift"),
+    read("mobile-app/ios/App/App/capacitor.config.json"),
+    read("mobile-app/src/App.jsx"),
   ]);
-  assert.match(page, /if \(!usesAndroidNativeScanner\(\)\) return null;/);
-  assert.match(page, /import\("\.\/lib\/nativeScannerAdapters\.js"\)/);
-  assert.doesNotMatch(page, /Capacitor\.isNativePlatform/);
-  assert.match(frozen, /isAndroidNative\(Capacitor\) \? createNativeEmbedder\(\) : createBrowserEmbedder\(\)/);
-  assert.match(adapters, /isAvailable: \(\) => isAndroidNative\(\)/);
-  assert.equal((adapters.match(/CameraPreview\.(?:start|capture|stop)/g) || []).length > 0, true);
+  const bannedDependency = /@capacitor-community\/camera-preview|@capacitor\/camera|ml-kit-text-recognition/i;
+  assert.doesNotMatch(packageJson, bannedDependency);
+  assert.doesNotMatch(packageLock, bannedDependency);
+  assert.doesNotMatch(info, /NSCameraUsageDescription|NSPhotoLibraryUsageDescription|NSMicrophoneUsageDescription/);
+  assert.doesNotMatch(packageSwift, /Camera|Photo|MLKit|TextRecognition|Scanner/i);
+  assert.doesNotMatch(generatedConfig, /Camera|Photo|MLKit|TextRecognition|Scanner/i);
+  assert.doesNotMatch(appSource, /MobileScannerPage|mobile-icon-scanner|screen-scanner|scannerTestEnabled/);
 });
 
-test("iOS configuration contains only scoped permissions and a valid privacy manifest", async () => {
+test("the synced iOS web bundle contains no private scanner or donation artifacts", async () => {
+  const publicRoot = path.join(repositoryRoot, "mobile-app/ios/App/App/public");
+  const files = await walk(publicRoot);
+  const relativePaths = files.map((file) => path.relative(publicRoot, file).replaceAll("\\", "/"));
+  assert.equal(relativePaths.some((relative) => /scanner|camera|photo|ocr|ml-kit|text-recognition|buymeacoffee/i.test(relative)), false);
+
+  const bannedText = /buymeacoffee|buy me a coffee|scanner-ai|cardscanner|camerapreview|capacitorcamera|mlkit|textrecognition|scanner-camera-active|scanner-beta|scanner-dev|mobile-icon-scanner|add packdex to your home screen|Ri6i8fEIdrU/i;
+  const textExtensions = new Set([".css", ".html", ".js", ".json", ".map", ".mjs", ".txt"]);
+  for (const file of files) {
+    if (textExtensions.has(path.extname(file).toLowerCase())) {
+      assert.doesNotMatch(await readFile(file, "utf8"), bannedText, `Private feature leaked into ${path.relative(publicRoot, file)}`);
+    }
+  }
+});
+
+test("the synced iOS bundle contains the public production Supabase configuration", async () => {
+  const assetRoot = path.join(repositoryRoot, "mobile-app/ios/App/App/public/assets");
+  const names = await readdir(assetRoot);
+  const supabaseAssets = names.filter((name) => /^supabaseClient-.*\.js$/i.test(name));
+  assert.equal(supabaseAssets.length, 1);
+  const source = await readFile(path.join(assetRoot, supabaseAssets[0]), "utf8");
+  assert.match(source, /https:\/\/yoaesrgnrkkiibmfnuwg\.supabase\.co/);
+  assert.match(source, /sb_publishable_gjskuCm_3YLQh_ox8qxE2g_5rnL3-Wq/);
+});
+
+test("iOS configuration has the App Store identity, signing team, and privacy manifest", async () => {
   const [info, project, privacy, css] = await Promise.all([
-    readFile(new URL("../mobile-app/ios/App/App/Info.plist", import.meta.url), "utf8"),
-    readFile(new URL("../mobile-app/ios/App/App.xcodeproj/project.pbxproj", import.meta.url), "utf8"),
-    readFile(new URL("../mobile-app/ios/App/App/PrivacyInfo.xcprivacy", import.meta.url), "utf8"),
-    readFile(new URL("../mobile-app/src/App.css", import.meta.url), "utf8"),
+    read("mobile-app/ios/App/App/Info.plist"),
+    read("mobile-app/ios/App/App.xcodeproj/project.pbxproj"),
+    read("mobile-app/ios/App/App/PrivacyInfo.xcprivacy"),
+    read("mobile-app/src/App.css"),
   ]);
-  assert.match(info, /NSCameraUsageDescription[\s\S]*PackDex uses the camera to scan and identify trading cards\./);
-  assert.match(info, /NSPhotoLibraryUsageDescription[\s\S]*PackDex uses selected photos to identify trading cards\./);
-  assert.doesNotMatch(info, /Microphone|Location|Bluetooth|Tracking|NSAllowsArbitraryLoads/);
-  assert.match(project, /TARGETED_DEVICE_FAMILY = 1;/);
+  assert.doesNotMatch(info, /Camera|Photo|Microphone|Location|Bluetooth|Tracking|NSAllowsArbitraryLoads/);
+  assert.equal((project.match(/PRODUCT_BUNDLE_IDENTIFIER = com\.packdex\.mobile;/g) || []).length, 2);
+  assert.equal((project.match(/MARKETING_VERSION = 1\.0;/g) || []).length, 2);
+  assert.equal((project.match(/CURRENT_PROJECT_VERSION = 2;/g) || []).length, 2);
+  assert.equal((project.match(/DEVELOPMENT_TEAM = TM9KXB4QWR;/g) || []).length, 2);
   assert.match(project, /PrivacyInfo\.xcprivacy in Resources/);
   assert.match(privacy, /NSPrivacyTracking<\/key>\s*<false\/>/);
   assert.match(css, /env\(safe-area-inset-top\)/);
   assert.match(css, /env\(safe-area-inset-bottom\)/);
 });
 
-test("scanner camera lifecycle still stops on teardown and restarts once through its epoch", async () => {
-  const page = await readFile(new URL("../mobile-app/src/MobileScannerPage.jsx", import.meta.url), "utf8");
-  assert.match(page, /return \(\) => \{ mountedRef\.current = false;[\s\S]*void stopCamera\(\); \};/);
-  assert.match(page, /if \(document\.hidden\) void stopCamera\(\); else setCameraEpoch\(\(value\) => value \+ 1\);/);
-  assert.match(page, /startingRef\.current\) return startingRef\.current/);
-});
-
-test("frozen-A release source follows its metadata binding and model C is absent from the iOS scanner bundle", async () => {
-  const hash = async (url) => createHash("sha256").update(await readFile(url)).digest("hex");
-  const scannerMetadata = JSON.parse(await readFile(new URL("../public/scanner-ai/catalog-embeddings.meta.json", import.meta.url), "utf8"));
-  assert.equal(await hash(new URL("../public/scanner-ai/frozen-a-62f2ff60.tflite", import.meta.url)), "62f2ff60cfdb09714a01fa74343e4dc1968601c2a43046979cbc548c28027c7c");
-  assert.equal(
-    await hash(new URL(`../public/scanner-ai/${scannerMetadata.vectorFile}`, import.meta.url)),
-    scannerMetadata.vectorSha256
-  );
-  const files = await readdir(new URL("../mobile-app/ios/App/App/public/scanner-ai/", import.meta.url), { recursive: true });
-  assert.equal(files.some((name) => /(?:model|frozen)[-_]?c/i.test(name)), false);
+test("private scanner development entry is compile-time disabled for the App Store mode", async () => {
+  const [main, vite] = await Promise.all([
+    read("mobile-app/src/main.jsx"),
+    read("mobile-app/vite.config.js"),
+  ]);
+  assert.match(main, /__PACKDEX_SCANNER_TEST__/);
+  assert.match(main, /import\("\.\/CardScannerDevPage\.jsx"\)/);
+  assert.match(vite, /__PACKDEX_SCANNER_TEST__:\s*JSON\.stringify\(mode === "native-scanner"\)/);
+  assert.match(vite, /__PACKDEX_NATIVE_BUILD__:\s*JSON\.stringify\(mode\.startsWith\("native"\)\)/);
+  assert.match(vite, /stripPrivateScannerStyles\(mode\)/);
 });

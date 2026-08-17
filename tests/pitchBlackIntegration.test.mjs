@@ -167,16 +167,17 @@ test("price sync discovers me5 safely without a guessed marketplace slug", async
 });
 
 test("mobile surfaces use the shared registry for New state and generic set workflows", async () => {
-  const [mobileSource, desktopSource] = await Promise.all([
+  const [mobileSource, desktopSource, cloudCollectionSource] = await Promise.all([
     readFile(new URL("../mobile-app/src/App.jsx", import.meta.url), "utf8"),
     readFile(new URL("../src/App.jsx", import.meta.url), "utf8"),
+    readFile(new URL("../mobile-app/src/lib/cloudCollection.js", import.meta.url), "utf8"),
   ]);
   assert.match(mobileSource, /set\.isNew && <small className="mobile-set-new-badge">New<\/small>/);
   assert.match(mobileSource, /const nextPack = generatePack\(selectedSet\)/);
   assert.match(mobileSource, /getSetCollectionProgress\(collection, selectedSet\)/);
   assert.match(mobileSource, /resolveCatalogWishlistItem/);
   assert.match(mobileSource, /syncPendingCloudPulls\(user\.id\)/);
-  assert.match(mobileSource, /subscribeAchievementCheckResults/);
+  assert.match(cloudCollectionSource, /if \(result\.saved > 0 && result\.stats\)[\s\S]*scheduleAchievementCheck\(\{[\s\S]*reason: result\.saved > 1 \? "completed_pack_queue_batch" : "completed_pack_save"/);
   assert.doesNotMatch(mobileSource, /recordPackOpenEvent\(/);
   assert.match(mobileSource, /<SharePullButton[\s\S]*setId=\{selectedSet\.id\}/);
   assert.match(desktopSource, /href="\/mobile-app\/"/);

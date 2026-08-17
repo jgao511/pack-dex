@@ -29,6 +29,7 @@ import {
   generatePublicSnapshots,
   renderFaqSnapshot,
   renderHowItWorksSnapshot,
+  renderSupportSnapshot,
   renderSetSnapshot,
   renderSetsSnapshot,
   renderSnapshotHtml,
@@ -117,6 +118,7 @@ test("the shared route parser indexes only substantive public routes", () => {
     "/how-it-works",
     "/faq",
     "/about",
+    "/support",
     "/privacy",
     "/terms",
   ]);
@@ -168,8 +170,8 @@ test("the shared route parser indexes only substantive public routes", () => {
 
 test("the generated sitemap contains every canonical set and no utility routes", async () => {
   const sitemapPaths = getSitemapPaths();
-  assert.equal(sitemapPaths.length, 137);
-  assert.equal(new Set(sitemapPaths).size, 137);
+  assert.equal(sitemapPaths.length, 138);
+  assert.equal(new Set(sitemapPaths).size, 138);
 
   for (const entry of canonicalSetCatalog) assert.ok(sitemapPaths.includes(entry.path));
   for (const pathname of Object.values(UTILITY_ROUTE_PATHS)) assert.ok(!sitemapPaths.includes(pathname));
@@ -178,7 +180,7 @@ test("the generated sitemap contains every canonical set and no utility routes",
 
   const expectedXml = renderSitemapXml();
   assert.equal((await read("../public/sitemap.xml")).replace(/\r\n/g, "\n"), expectedXml);
-  assert.equal([...expectedXml.matchAll(/<loc>/g)].length, 137);
+  assert.equal([...expectedXml.matchAll(/<loc>/g)].length, 138);
   assert.match(expectedXml, /<loc>https:\/\/www\.pack-dex\.com\/set\/pokemon-151<\/loc>/);
   assert.doesNotMatch(expectedXml, /\/(?:collection|profile|settings|login|signup|reset-password|auth\/callback|onboarding)<\/loc>/);
 });
@@ -342,6 +344,12 @@ test("public crawl snapshots expose substantive visible content and normal set l
   assert.equal([...faq.matchAll(/<article>/g)].length, 9);
   assert.match(faq, /Is PackDex free to play\?/);
 
+  const support = renderSupportSnapshot();
+  assert.match(support, /<h1>PackDex Support<\/h1>/);
+  assert.match(support, /packdexsupport@gmail\.com/);
+  assert.match(support, /Delete your PackDex account/);
+  assert.match(support, /Permanently Delete Account/);
+
   const howItWorks = renderHowItWorksSnapshot();
   assert.match(howItWorks, /collector-focused set highlights/);
   assert.doesNotMatch(howItWorks, /simulation notes/i);
@@ -392,11 +400,11 @@ test("snapshot generation gives canonical no-slash URLs exact Cloudflare HTML en
   try {
     await writeFile(path.join(tempDist, "index.html"), template, "utf8");
     const result = await generatePublicSnapshots({ dist: tempDist });
-    assert.equal(result.snapshotCount, 137);
+    assert.equal(result.snapshotCount, 138);
     assert.equal(result.setSnapshotCount, 129);
     assert.equal(result.utilityEntryCount, 8);
 
-    for (const routePath of ["faq", "sets", "set/pokemon-151"]) {
+    for (const routePath of ["faq", "support", "sets", "set/pokemon-151"]) {
       const canonicalEntry = await readFile(path.join(tempDist, `${routePath}.html`), "utf8");
       const trailingSlashEntry = await readFile(path.join(tempDist, routePath, "index.html"), "utf8");
       assert.equal(trailingSlashEntry, canonicalEntry);

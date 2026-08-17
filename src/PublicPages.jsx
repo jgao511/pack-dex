@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { ArrowRight, Check, CircleHelp, Heart, Layers3, PackageOpen, Search } from "lucide-react";
+import { ArrowRight, Check, CircleHelp, Heart, Layers3, LifeBuoy, Mail, PackageOpen, Search, ShieldCheck, Trash2 } from "lucide-react";
 import PublicLayout from "./public/PublicLayout.jsx";
 import { getStaticPublicSeoDescriptor } from "./lib/staticPublicSeo.js";
 import useSeoMetadata from "./lib/useSeoMetadata.js";
@@ -138,6 +138,72 @@ function AboutPage({ pathname }) {
   );
 }
 
+function SupportPage() {
+  return (
+    <PublicLayout hideDonations>
+      <PageIntro eyebrow="Help and contact" title="PackDex Support">
+        <p>Get help with the PackDex website or mobile app, send feedback, request a feature, or learn how to manage and delete your account.</p>
+      </PageIntro>
+      <article className="public-shell public-reading-width public-support">
+        <section className="public-support-card public-support-card--primary">
+          <div className="public-support-card__icon"><Mail aria-hidden="true" /></div>
+          <div>
+            <span className="public-support-card__eyebrow">Contact PackDex</span>
+            <h2>Email support</h2>
+            <p>For app issues, general feedback, feature requests, privacy questions, or account help, contact PackDex support.</p>
+            <a className="public-primary-link" href={`mailto:${PACKDEX_SUPPORT_EMAIL}`}>Email {PACKDEX_SUPPORT_EMAIL}</a>
+          </div>
+        </section>
+
+        <div className="public-support-grid">
+          <section className="public-support-card">
+            <div className="public-support-card__icon"><CircleHelp aria-hidden="true" /></div>
+            <div>
+              <h2>Quick answers</h2>
+              <p>Find answers about accounts, virtual cards, collection tracking, wishlists, card values, and PackDex's unofficial fan-made status.</p>
+              <a href="/faq">Read the PackDex FAQ <ArrowRight size={16} aria-hidden="true" /></a>
+            </div>
+          </section>
+
+          <section className="public-support-card">
+            <div className="public-support-card__icon"><LifeBuoy aria-hidden="true" /></div>
+            <div>
+              <h2>Before emailing</h2>
+              <p>Include the device or browser you use, what you expected to happen, what happened instead, and any error message you saw. Never send your password.</p>
+            </div>
+          </section>
+        </div>
+
+        <section className="public-support-card public-support-card--account" id="delete-account">
+          <div className="public-support-card__icon"><Trash2 aria-hidden="true" /></div>
+          <div>
+            <span className="public-support-card__eyebrow">Account management</span>
+            <h2>Delete your PackDex account</h2>
+            <p>You can permanently delete your account from inside PackDex:</p>
+            <ol>
+              <li>Sign in to the account you want to delete.</li>
+              <li>Open <strong>Profile</strong>.</li>
+              <li>Open <strong>Settings</strong>, then choose <strong>Delete Account</strong>.</li>
+              <li>Enter the requested confirmation and select <strong>Permanently Delete Account</strong>.</li>
+            </ol>
+            <p>Deletion removes the Supabase authentication user and account-owned PackDex records, including the associated collection, wishlist, achievements, saved binders, pack history, and saved progress. The action cannot be reversed. Some information may remain temporarily in backups, security records, or operational logs as described in the Privacy Policy.</p>
+            <p>If you cannot access the in-app deletion control, email <a href={`mailto:${PACKDEX_SUPPORT_EMAIL}?subject=PackDex%20account%20deletion%20help`}>{PACKDEX_SUPPORT_EMAIL}</a> from the address associated with your PackDex account.</p>
+          </div>
+        </section>
+
+        <section className="public-support-card public-support-card--policies">
+          <div className="public-support-card__icon"><ShieldCheck aria-hidden="true" /></div>
+          <div>
+            <h2>Privacy and terms</h2>
+            <p>Review how PackDex handles account and app information, or read the terms that govern use of the service.</p>
+            <nav aria-label="PackDex policies"><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a></nav>
+          </div>
+        </section>
+      </article>
+    </PublicLayout>
+  );
+}
+
 function HowItWorksPage({ pathname }) {
   return (
     <PublicLayout>
@@ -210,6 +276,7 @@ export default function PublicPages({ pathname = window.location.pathname, page 
 
   if (page === "faq") return <FaqPage pathname={pathname} />;
   if (page === "about") return <AboutPage pathname={pathname} />;
+  if (page === "support") return <SupportPage />;
   if (page === "howItWorks") return <HowItWorksPage pathname={pathname} />;
   if (page === "privacy" || page === "terms") return <LegalPage page={page} />;
   return <NotFoundPage />;

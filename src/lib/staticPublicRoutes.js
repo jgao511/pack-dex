@@ -7,6 +7,7 @@ export const PUBLIC_ROUTE_PATHS = Object.freeze({
   howItWorks: "/how-it-works",
   faq: "/faq",
   about: "/about",
+  support: "/support",
   privacy: "/privacy",
   terms: "/terms",
 });
@@ -21,6 +22,7 @@ export const EDITORIAL_PUBLIC_PATHS = Object.freeze([
   PUBLIC_ROUTE_PATHS.howItWorks,
   PUBLIC_ROUTE_PATHS.faq,
   PUBLIC_ROUTE_PATHS.about,
+  PUBLIC_ROUTE_PATHS.support,
   PUBLIC_ROUTE_PATHS.privacy,
   PUBLIC_ROUTE_PATHS.terms,
 ]);

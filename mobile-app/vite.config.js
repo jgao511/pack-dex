@@ -37,12 +37,32 @@ function mobileBundleReport() {
   };
 }
 
+function stripPrivateScannerStyles(mode) {
+  if (mode !== "native") return null;
+
+  return {
+    name: "packdex-strip-private-scanner-styles",
+    enforce: "pre",
+    transform(source, id) {
+      const normalizedId = id.replaceAll("\\", "/").split("?", 1)[0];
+      if (!normalizedId.endsWith("/src/App.css")) return null;
+
+      const stripped = source.replace(
+        /\/\* PACKDEX_PRIVATE_SCANNER_START \*\/[\s\S]*?\/\* PACKDEX_PRIVATE_SCANNER_END \*\//g,
+        ""
+      );
+      return stripped === source ? null : { code: stripped, map: null };
+    },
+  };
+}
+
 export default defineConfig(({ command, mode }) => ({
   base: command === "build" ? (mode.startsWith("native") ? "./" : "/mobile-app/") : "/",
   define: {
     __PACKDEX_SCANNER_TEST__: JSON.stringify(mode === "native-scanner"),
+    __PACKDEX_NATIVE_BUILD__: JSON.stringify(mode.startsWith("native")),
   },
-  plugins: [react(), mobileBundleReport()].filter(Boolean),
+  plugins: [stripPrivateScannerStyles(mode), react(), mobileBundleReport()].filter(Boolean),
   resolve: {
     dedupe: [
       "react",

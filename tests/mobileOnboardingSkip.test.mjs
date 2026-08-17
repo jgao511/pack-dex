@@ -86,6 +86,12 @@ test("tutorial pack Skip stays unavailable and existing onboarding actions remai
   assert.match(onboarding, /onExploreContinue/);
 });
 
+test("Open This Pack does not forward its click event as a set id", async () => {
+  const onboarding = await readFile(onboardingUrl, "utf8");
+  assert.match(onboarding, /disabled=\{!selectedSetId\} onClick=\{\(\) => onOpen\(\)\}/);
+  assert.doesNotMatch(onboarding, /disabled=\{!selectedSetId\} onClick=\{onOpen\}/);
+});
+
 test("Skip claims pointer-down, keeps keyboard click fallback, and cannot bubble underneath", async () => {
   const onboarding = await readFile(onboardingUrl, "utf8");
   assert.match(onboarding, /onPointerDown=\{claimPointer\}/);

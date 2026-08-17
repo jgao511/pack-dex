@@ -131,7 +131,7 @@ export function refreshPokemonPrices({
   priceMapsBySet = {},
   supabaseClient,
   storage = globalThis.localStorage,
-  now = Date.now(),
+  now,
 }) {
   const key = String(speciesId || "");
   if (!key || !supabaseClient) {
@@ -153,16 +153,20 @@ export function refreshPokemonPrices({
     }
     const cacheReadMs = Date.now() - cacheStartedAt;
     const availablePriceMaps = mergePokemonPriceMaps(priceMapsBySet, cachedPriceMaps);
-    if (!supabaseClient?.functions || !canAttemptPokemonPriceRefresh(key, storage, now)) {
+    // A bounded cache read can take long enough for a row sitting on the
+    // freshness boundary to cross it. Use the current time after that read
+    // unless a deterministic clock was supplied by the caller.
+    const refreshNow = Number.isFinite(now) ? now : Date.now();
+    if (!supabaseClient?.functions || !canAttemptPokemonPriceRefresh(key, storage, refreshNow)) {
       return { attempted: false, status: "cooldown", priceMapsBySet: availablePriceMaps, timings: { cacheReadMs, totalMs: Date.now() - startedAt } };
     }
 
-    const selectedCards = selectPokemonPriceRefreshCards(cards, collection, availablePriceMaps, now);
+    const selectedCards = selectPokemonPriceRefreshCards(cards, collection, availablePriceMaps, refreshNow);
     if (selectedCards.length === 0) {
       return { attempted: false, status: "fresh", priceMapsBySet: availablePriceMaps, timings: { cacheReadMs, totalMs: Date.now() - startedAt } };
     }
 
-    markPokemonPriceRefreshAttempt(key, storage, now);
+    markPokemonPriceRefreshAttempt(key, storage, refreshNow);
     const edgeStartedAt = Date.now();
     try {
       const { data, error } = await supabaseClient.functions.invoke("refresh-pokemon-prices", { body: { speciesId: key, cards: selectedCards } });

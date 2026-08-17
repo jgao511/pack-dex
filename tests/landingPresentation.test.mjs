@@ -96,7 +96,7 @@ test("welcome page exposes substantive public content and crawlable public route
   assert.match(page, /Is PackDex free to play\?/);
   assert.match(page, /View All FAQs/);
 
-  for (const href of ["/sets", "/how-it-works", "/faq", "/about"]) {
+  for (const href of ["/sets", "/how-it-works", "/faq", "/about", "/support"]) {
     assert.match(page, new RegExp(`href="${href}"`));
   }
   assert.match(page, /id: "pitch-black"/);

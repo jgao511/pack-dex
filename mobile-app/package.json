@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1 --port 5174",
     "build": "vite build",
-    "build:native": "vite build --mode native",
+    "build:native": "vite build --mode native && node scripts/prepare-app-store-dist.mjs",
     "build:native:scanner": "vite build --mode native-scanner",
     "cap:sync:android": "npm run build:native && cap sync android",
     "cap:sync:android:scanner": "npm run build:native:scanner && cap sync android",
@@ -20,14 +20,11 @@
     "preview": "vite preview --host 127.0.0.1 --port 4174"
   },
   "dependencies": {
-    "@capacitor-community/camera-preview": "^8.0.1",
     "@capacitor/android": "8.4.1",
     "@capacitor/app": "8.1.0",
     "@capacitor/browser": "8.0.4",
-    "@capacitor/camera": "8.2.1",
     "@capacitor/core": "8.4.1",
     "@capacitor/ios": "8.4.1",
-    "@pantrist/capacitor-plugin-ml-kit-text-recognition": "8.0.0",
     "@supabase/supabase-js": "^2.106.2",
     "@vitejs/plugin-react": "latest",
     "react": "latest",
@@ -37,5 +34,8 @@
   },
   "devDependencies": {
     "@capacitor/cli": "8.4.1"
+  },
+  "overrides": {
+    "nanoid": "3.3.18"
   }
 }

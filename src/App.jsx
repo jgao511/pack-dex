@@ -28,8 +28,6 @@ import {
   cancelPendingCloudPullSync,
   enqueuePendingCloudPull,
   getPendingCloudPullCount,
-  invalidateCloudCollectionLoads,
-  isCloudCollectionSnapshotCurrent,
   isPackRateLimitError,
   loadCloudCollection,
   mergePendingCloudPullsIntoCollection,
@@ -1372,7 +1370,7 @@ function App({ route: initialRoute = null }) {
   const legalPagePath = pagePath.length > 1 ? pagePath.replace(/\/+$/, "") : pagePath;
   const legalPageType = legalPagePath === "/terms" ? "terms" : legalPagePath === "/privacy" ? "privacy" : "";
 
-  if (legalPagePath === "/auth/callback") {
+  if (pagePath === "/auth/callback") {
     return (
       <main className="app-shell">
         <NoindexMetadata title="Completing Sign In | PackDex" />
@@ -1382,7 +1380,7 @@ function App({ route: initialRoute = null }) {
     );
   }
 
-  if (legalPagePath === "/reset-password") {
+  if (pagePath === "/reset-password") {
     return (
       <main className="app-shell">
         <NoindexMetadata title="Reset Password | PackDex" />
@@ -1724,9 +1722,9 @@ function App({ route: initialRoute = null }) {
     setProfileStatsError("");
     setAreProfileStatsLoading(!hasLoadedStats);
 
-    loadCloudCollection({ user: authUser })
+    loadCloudCollection()
       .then(async (cloudCollection) => {
-        if (!isMounted || !isCloudCollectionSnapshotCurrent(cloudCollection, userId)) return;
+        if (!isMounted) return;
 
         setCollection(mergePendingCloudPullsIntoCollection(cloudCollection, userId));
 
@@ -1763,7 +1761,8 @@ function App({ route: initialRoute = null }) {
         console.warn("Cloud collection load failed", error);
         if (!isMounted) return;
 
-        setCloudWarning("Your last complete collection is still shown. The cloud refresh was incomplete; please retry.");
+        setCollection(mergePendingCloudPullsIntoCollection({}, userId));
+        setCloudWarning("Account collection could not be loaded yet. Guest pulls stay local on this device.");
       });
 
     loadPersistedBinders(userId)
@@ -1804,7 +1803,6 @@ function App({ route: initialRoute = null }) {
 
     return () => {
       isMounted = false;
-      invalidateCloudCollectionLoads();
     };
   }, [authUser?.id]);
 
@@ -2209,12 +2207,10 @@ function App({ route: initialRoute = null }) {
 
             try {
               const [cloudCollection, cloudStats] = await Promise.all([
-                loadCloudCollection({ user: savingUser }),
+                loadCloudCollection(),
                 loadCloudProfileStats(savingUser.id),
               ]);
-              if (isCloudCollectionSnapshotCurrent(cloudCollection, savingUser.id)) {
-                setCollection(mergePendingCloudPullsIntoCollection(cloudCollection, savingUser.id));
-              }
+              setCollection(mergePendingCloudPullsIntoCollection(cloudCollection, savingUser.id));
               setProfileStats(cloudStats);
             } catch (refreshError) {
               console.warn("Unable to refresh PackDex state after a rate-limited pack", {

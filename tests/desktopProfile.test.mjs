@@ -12,8 +12,8 @@ const profileSource = appSource.slice(
   appSource.indexOf("function DevGodPackAnimationPreview(")
 );
 const profileDataEffect = appSource.slice(
-  appSource.lastIndexOf("useEffect(() => {", appSource.indexOf("loadCloudCollection(")),
-  appSource.indexOf("}, [authUser?.id]);", appSource.indexOf("loadCloudCollection(")) + "}, [authUser?.id]);".length
+  appSource.lastIndexOf("useEffect(() => {", appSource.indexOf("loadCloudCollection()")),
+  appSource.indexOf("}, [authUser?.id]);", appSource.indexOf("loadCloudCollection()")) + "}, [authUser?.id]);".length
 );
 
 test("desktop is dark-only without retaining a light-mode control", () => {

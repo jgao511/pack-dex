@@ -15,7 +15,6 @@ function hasUnsafeMobileAdState({
   isWelcomeDisclaimerOpen,
   isWelcomeRewardModalOpen,
   isClaimingWelcomeReward,
-  isBuyMeACoffeePromptOpen,
   inspectedCard,
   cardDestinationOverlay,
 } = {}) {
@@ -33,7 +32,6 @@ function hasUnsafeMobileAdState({
       isWelcomeDisclaimerOpen ||
       isWelcomeRewardModalOpen ||
       isClaimingWelcomeReward ||
-      isBuyMeACoffeePromptOpen ||
       inspectedCard ||
       cardDestinationOverlay
   );
@@ -55,7 +53,6 @@ export function isMobileSetAdContextAllowed({
   isWelcomeDisclaimerOpen,
   isWelcomeRewardModalOpen,
   isClaimingWelcomeReward,
-  isBuyMeACoffeePromptOpen,
   inspectedCard,
   cardDestinationOverlay,
 } = {}) {
@@ -76,7 +73,6 @@ export function isMobileSetAdContextAllowed({
         isWelcomeDisclaimerOpen,
         isWelcomeRewardModalOpen,
         isClaimingWelcomeReward,
-        isBuyMeACoffeePromptOpen,
         inspectedCard,
         cardDestinationOverlay,
       })

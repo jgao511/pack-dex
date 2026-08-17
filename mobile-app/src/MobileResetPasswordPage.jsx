@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 const RESET_PATH = "/mobile-app/reset-password";
 const MOBILE_HOME_PATH = "/mobile-app/";
@@ -10,7 +10,7 @@ export default function MobileResetPasswordPage({ supabase }) {
   const [error, setError] = useState("");
   const [isReady, setIsReady] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const redirectTimerRef = useRef(0);
+  const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
     let mounted = true;
@@ -58,7 +58,6 @@ export default function MobileResetPasswordPage({ supabase }) {
 
     return () => {
       mounted = false;
-      if (redirectTimerRef.current) window.clearTimeout(redirectTimerRef.current);
     };
   }, []);
 
@@ -100,10 +99,9 @@ export default function MobileResetPasswordPage({ supabase }) {
       setNewPassword("");
       setConfirmPassword("");
       setIsReady(false);
-      setStatus("Password updated. Opening your profile...");
-      redirectTimerRef.current = window.setTimeout(() => {
-        window.location.replace(`${MOBILE_HOME_PATH}?tab=profile`);
-      }, 700);
+      await supabase.auth.signOut({ scope: "local" }).catch(() => {});
+      setIsComplete(true);
+      setStatus("Password updated successfully.");
     } catch {
       setError("Unable to update your password. Please check your connection and try again.");
     } finally {
@@ -128,7 +126,7 @@ export default function MobileResetPasswordPage({ supabase }) {
               <h1>Reset password</h1>
               {status && <p>{status}</p>}
             </div>
-            <form className="auth-form" onSubmit={handleSubmit}>
+            {!isComplete ? <form className="auth-form" onSubmit={handleSubmit}>
               <label>
                 New password
                 <input
@@ -157,10 +155,12 @@ export default function MobileResetPasswordPage({ supabase }) {
                 {isSubmitting ? "Updating..." : "Update password"}
               </button>
               {error && <p className="auth-message is-error">{error}</p>}
-            </form>
-            <a className="auth-switch-link" href={MOBILE_HOME_PATH}>
+            </form> : (
+              <p className="auth-message is-success">You can close this window, return to the PackDex app, and sign in with your new password.</p>
+            )}
+            {!isComplete && <a className="auth-switch-link" href={MOBILE_HOME_PATH}>
               Back to PackDex
-            </a>
+            </a>}
           </section>
         </div>
       </section>

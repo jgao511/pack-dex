@@ -302,8 +302,9 @@ test("canonical mobile auth URLs and URL-driven Profile routing are exact", () =
 });
 
 test("signup, callback, cleanup, Profile reward, and reset routes use the shared safe flow", async () => {
-  const [appSource, resetSource, onboardingSource, rewardSource, copyBuildSource, routeCheckSource] = await Promise.all([
+  const [appSource, websiteSource, resetSource, onboardingSource, rewardSource, copyBuildSource, routeCheckSource] = await Promise.all([
     readFile(new URL("../mobile-app/src/App.jsx", import.meta.url), "utf8"),
+    readFile(new URL("../src/App.jsx", import.meta.url), "utf8"),
     readFile(new URL("../mobile-app/src/MobileResetPasswordPage.jsx", import.meta.url), "utf8"),
     readFile(new URL("../mobile-app/src/lib/mobileOnboarding.js", import.meta.url), "utf8"),
     readFile(new URL("../src/lib/welcomeReward.js", import.meta.url), "utf8"),
@@ -313,8 +314,19 @@ test("signup, callback, cleanup, Profile reward, and reset routes use the shared
 
   assert.match(appSource, /emailRedirectTo:\s*getMobileAuthCallbackUrl\(\)/);
   assert.match(appSource, /establishMobileAuthCallbackSession\(supabase/);
+  assert.match(appSource, /withAsyncTimeout\(authRequest/);
+  assert.match(appSource, /label:\s*isCreateMode \? "Account creation" : "Sign in"/);
+  assert.match(appSource, /Check your email for a verification link before trying again/);
+  assert.match(appSource, /return to the PackDex app and sign in with the same credentials/);
   assert.match(appSource, /finalizeMobileOnboarding\(\{/);
-  assert.match(appSource, /window\.location\.replace\("\/mobile-app\/\?tab=profile&onboardingComplete=1"\)/);
+  const mobileCallbackSource = appSource.match(/function MobileAuthCallbackPage\(\) \{[\s\S]*?function getMobileViewportHeight/)?.[0] || "";
+  assert.match(mobileCallbackSource, /waitForAuthenticatedMobileSession\(supabase\)/);
+  assert.match(mobileCallbackSource, /supabase\.auth\.signOut\(\{ scope: "local" \}\)/);
+  assert.match(mobileCallbackSource, /Account verified\./);
+  assert.match(mobileCallbackSource, /return to the PackDex app/);
+  assert.doesNotMatch(mobileCallbackSource, /finalizeMobileOnboarding|window\.location\.(?:replace|assign)/);
+  assert.match(websiteSource, /Account confirmed! Redirecting to PackDex/);
+  assert.match(websiteSource, /window\.location\.assign\("\/"\)/);
   assert.doesNotMatch(appSource.match(/function clearAccountScopedState\(\)[\s\S]*?\n  \}/)?.[0] || "", /MOBILE_ONBOARDING_PENDING_KEY|clearPendingMobileOnboarding/);
   assert.match(appSource, /isLoggedIn && welcomeRewardStatus\?\.isEligible && !welcomeRewardStatus\?\.isClaimed/);
   assert.match(rewardSource, /if \(!user\) return \{ isEligible: false, isClaimed: true/);
@@ -322,8 +334,9 @@ test("signup, callback, cleanup, Profile reward, and reset routes use the shared
   assert.match(resetSource, /token_hash: tokenHash/);
   assert.match(resetSource, /type: "recovery"/);
   assert.match(resetSource, /supabase\.auth\.updateUser\(\{ password: newPassword \}\)/);
-  assert.match(resetSource, /window\.location\.replace\(`\$\{MOBILE_HOME_PATH\}\?tab=profile`\)/);
-  assert.doesNotMatch(resetSource, /auth\.signOut|window\.location\.assign|href="\/"/);
+  assert.match(resetSource, /supabase\.auth\.signOut\(\{ scope: "local" \}\)/);
+  assert.match(resetSource, /close this window, return to the PackDex app/);
+  assert.doesNotMatch(resetSource, /window\.location\.replace\(`\$\{MOBILE_HOME_PATH\}\?tab=profile`\)|window\.location\.assign|href="\/"/);
 
   assert.match(onboardingSource, /clearPendingMobileOnboarding/);
   assert.match(onboardingSource, /MOBILE_ONBOARDING_PENDING_KEY/);

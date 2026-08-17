@@ -9,6 +9,7 @@ const PUBLIC_LINKS = [
   ["How It Works", "/how-it-works"],
   ["FAQ", "/faq"],
   ["About", "/about"],
+  ["Support", "/support"],
 ];
 
 export function PublicBrand() {
@@ -37,7 +38,7 @@ export function PublicHeader() {
   );
 }
 
-export function PublicFooter() {
+export function PublicFooter({ hideDonations = false }) {
   return (
     <footer className="public-footer">
       <PrivacyChoicesDialog />
@@ -45,7 +46,7 @@ export function PublicFooter() {
         <div className="public-footer__intro">
           <PublicBrand />
           <p>An unofficial, fan-made Pokémon TCG simulator and collector companion.</p>
-          <a href={`mailto:${PACKDEX_SUPPORT_EMAIL}`}><Mail size={16} aria-hidden="true" /> Contact Support</a>
+          <a href="/support"><Mail size={16} aria-hidden="true" /> Contact Support</a>
         </div>
         <nav aria-label="Explore PackDex">
           <strong>Explore</strong>
@@ -60,9 +61,11 @@ export function PublicFooter() {
         </nav>
         <nav aria-label="Support and social links">
           <strong>Connect</strong>
+          <a href="/support">Support</a>
+          <a href={`mailto:${PACKDEX_SUPPORT_EMAIL}`}>Email PackDex</a>
           <a href="https://www.youtube.com/@pack-dex" target="_blank" rel="noopener noreferrer">YouTube</a>
           <a href="https://www.instagram.com/pack.dex/" target="_blank" rel="noopener noreferrer">Instagram</a>
-          {isBuyMeACoffeeEnabled() && (
+          {!hideDonations && isBuyMeACoffeeEnabled() && (
             <a href={BUY_ME_A_COFFEE_URL} target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>
           )}
         </nav>
@@ -78,12 +81,12 @@ export function PublicFooter() {
   );
 }
 
-export default function PublicLayout({ children }) {
+export default function PublicLayout({ children, hideDonations = false }) {
   return (
     <div className="public-site">
       <PublicHeader />
       <main>{children}</main>
-      <PublicFooter />
+      <PublicFooter hideDonations={hideDonations} />
     </div>
   );
 }

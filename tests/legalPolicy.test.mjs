@@ -84,15 +84,16 @@ test("website and mobile surfaces use canonical legal links and Privacy Choices"
   assert.match(mobileApp, /privacy: `\$\{getSiteOrigin\(\)\}\$\{LEGAL_ROUTES\.privacy\}`/);
   assert.match(mobileApp, />\s*Privacy Choices\s*<\/button>/);
   assert.match(app, /pagePath\.replace\(\/\\\/\+\$\/, ""\)/);
-  assert.match(main, /const isPublicLanding = !forceDesktop/);
+  assert.match(main, /const isPublicLanding = entryDecision === "welcome"/);
   assert.match(main, /loadWelcomePage\(\)/);
   assert.match(main, /parseRuntimeSiteRoute\(normalizedPath\)/);
-  assert.doesNotMatch(main, /window\.location\.replace\("\/mobile-app\/"\)/);
+  assert.match(main, /if \(isMobileAppEntry\) \{\s*window\.location\.replace\("\/mobile-app\/"\)/);
   assert.match(pageLoaders, /import\("\.\/LandingPage\.jsx"\)/);
   assert.doesNotMatch(pageLoaders, /import\("\.\/App\.jsx"\)/);
   assert.match(main, /const loadDesktopPage = \(\) => import\("\.\/App\.jsx"\)/);
   assert.doesNotMatch(main, /import App from "\.\/App\.jsx"/);
-  assert.doesNotMatch(index, /window\.location\.replace/);
+  assert.match(index, /data-packdex-mobile-root-handoff/);
+  assert.match(index, /window\.location\.replace\("\/mobile-app\/"\)/);
 });
 
 test("Privacy Choices stays informational and includes modal keyboard and focus handling", async () => {

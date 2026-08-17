@@ -136,7 +136,6 @@ test("mobile advertising is limited to the idle substantive Explore context", ()
     isWelcomeDisclaimerOpen: true,
     isWelcomeRewardModalOpen: true,
     isClaimingWelcomeReward: true,
-    isBuyMeACoffeePromptOpen: true,
     inspectedCard: { id: "card" },
     cardDestinationOverlay: true,
   })) {
@@ -179,7 +178,6 @@ test("mobile Pack Ready advertising uses safe tall-browser space only", () => {
     isWelcomeDisclaimerOpen: true,
     isWelcomeRewardModalOpen: true,
     isClaimingWelcomeReward: true,
-    isBuyMeACoffeePromptOpen: true,
     inspectedCard: { id: "card" },
     cardDestinationOverlay: true,
   })) {

@@ -4,8 +4,6 @@ import DeleteAccountDialog from "./components/DeleteAccountDialog.jsx";
 import MobileOnboarding from "./components/MobileOnboarding.jsx";
 import PackDexStartupAnimation from "./components/PackDexStartupAnimation.jsx";
 import BinderSystem from "../../src/components/binders/BinderSystem.jsx";
-import BuyMeACoffeeCard from "../../src/components/BuyMeACoffeeCard.jsx";
-import BuyMeACoffeePrompt from "../../src/components/BuyMeACoffeePrompt.jsx";
 import PrivacyChoicesDialog from "../../src/components/PrivacyChoicesDialog.jsx";
 import { LEGAL_ROUTES, PACKDEX_SUPPORT_EMAIL } from "../../src/content/legalDocuments.js";
 import { buildExplorePath } from "./explore/exploreRouting.js";
@@ -45,12 +43,10 @@ import {
 import { getPublicPackDexStats } from "../../src/lib/publicPackDexStats.js";
 import {
   cancelPendingCloudPullSync,
+  loadCloudCollection,
   enqueuePendingCloudPull,
   getPendingCloudPullCount,
   getPendingCloudPulls,
-  invalidateCloudCollectionLoads,
-  isCloudCollectionSnapshotCurrent,
-  loadCloudCollection,
   mergePendingCloudPullsIntoCollection,
   syncPendingCloudPulls,
 } from "./lib/cloudCollection.js";
@@ -69,7 +65,7 @@ import {
   getMobileResetPasswordUrl,
   getSiteOrigin,
 } from "../../src/utils/authRedirects.js";
-import { getTcgplayerDestination } from "../../src/utils/tcgplayerSearch.js";
+import { getTcgplayerCardUrl } from "../../src/utils/tcgplayerSearch.js";
 import {
   formatUsd,
   getCardDisplayPrice,
@@ -84,12 +80,7 @@ import { clearCachedSupabaseUser } from "../../src/lib/sessionUserCache.js";
 import { isSupabaseAuthStorageKey, validateSupabaseIdentity } from "../../src/lib/authIdentityValidation.js";
 import { clearDeletedAccountLocalState, deleteCurrentAccount } from "../../src/lib/accountDeletion.js";
 import { openPrivacyChoices } from "../../src/lib/privacyChoices.js";
-import {
-  claimBuyMeACoffeePrompt,
-  dismissBuyMeACoffeePrompt,
-  loadGuestLifetimePacks,
-  recordGuestCompletedPack,
-} from "../../src/lib/buyMeACoffeePrompt.js";
+import { loadGuestLifetimePacks, recordGuestCompletedPack } from "./lib/guestPackStats.js";
 import {
   playAchievementUnlockSound,
   preloadMobileSounds,
@@ -101,7 +92,6 @@ import SwipeRevealSurface from "../../src/components/reveal/SwipeRevealSurface.j
 import { getInspectionGlowStrength } from "../../src/utils/inspectionGlow.js";
 import { loadHapticsEnabled, saveHapticsEnabled, triggerRevealHaptic } from "./utils/mobileHaptics.js";
 import { addWishlistCard, getWishlistKey, loadWishlist, removeWishlistCard, resolveCatalogWishlistItem } from "./lib/wishlist.js";
-import { addScannedCardOnce, loadScannerCardActionState } from "./lib/scannerCardActions.js";
 import {
   claimPackPersistence,
 } from "./lib/packRevealLifecycle.js";
@@ -138,6 +128,7 @@ import {
 import {
   finalizeMobileOnboarding,
   getMobileOnboardingErrorPresentation,
+  waitForAuthenticatedMobileSession,
 } from "./lib/mobileOnboardingFinalizer.js";
 import { runMobileOnboardingSkip } from "./lib/mobileOnboardingSkip.js";
 import { establishMobileAuthCallbackSession } from "./lib/mobileAuthCallback.js";
@@ -152,6 +143,7 @@ import {
   isMobileSetAdContextAllowed,
 } from "./lib/mobileAdEligibility.js";
 import { MOBILE_BOOTSTRAP_ONBOARDING_EVENT } from "./lib/mobileBootstrapIntent.js";
+import { withAsyncTimeout } from "./lib/asyncTimeout.js";
 
 if (typeof window !== "undefined") {
   const evaluatedAt = performance.now();
@@ -165,14 +157,10 @@ if (typeof window !== "undefined") {
 
 const loadExploreScreenModule = () => import("./explore/ExploreScreen.jsx");
 const ExploreScreen = lazy(loadExploreScreenModule);
-const MobileScannerPage = __PACKDEX_SCANNER_TEST__ ? lazy(() => import("./MobileScannerPage.jsx")) : null;
-
 const tabs = [
   { id: "open", label: "Open", title: "Open a Pack", icon: "open" },
   { id: "collection", label: "Collection", title: "Collection", icon: "collection" },
-  __PACKDEX_SCANNER_TEST__
-    ? { id: "scanner", label: "Scanner", title: "Scanner", icon: "scanner" }
-    : { id: "explore", label: "Explore", title: "Explore", icon: "explore" },
+  { id: "explore", label: "Explore", title: "Explore", icon: "explore" },
   { id: "profile", label: "Profile", title: "Profile", icon: "profile" },
 ];
 
@@ -188,12 +176,14 @@ const CARD_FLIP_ANIMATION_MS = 620;
 const SUMMARY_AFTER_LAST_CARD_MS = 250;
 const POKEBALL_LOADING_SRC = getPokeballLoadingUrl();
 const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY;
+const AUTH_REQUEST_TIMEOUT_MS = 15000;
 const SUPPORT_EMAIL = PACKDEX_SUPPORT_EMAIL;
 const MOBILE_DISCLAIMER_SEEN_KEY = "packdex-mobile-intro-seen";
 const SETS_WITHOUT_MARKET_PRICE_DATA = new Set(["ascended-heroes", "perfect-order", "chaos-rising", "pitch-black"]);
 const PRELOAD_SET_LIMIT = 3;
 const ACHIEVEMENT_TOAST_AUTO_DISMISS_MS = 3400;
 const ACCOUNT_STATE_FRESH_MS = 5 * 60 * 1000;
+const ACCOUNT_HYDRATION_TIMEOUT_MS = 12000;
 const MOBILE_ACHIEVEMENTS = [
   {
     id: "account_created",
@@ -762,7 +752,8 @@ function WelcomeDisclaimerModal({ isOpen, onDismiss }) {
         <span className="eyebrow">Disclaimer</span>
         <h2 id="mobile-disclaimer-title">Welcome to PackDex</h2>
         <div className="mobile-disclaimer-copy">
-          <p>PackDex is a fan-made Pokemon TCG pack-opening simulator and collection tracker.</p>
+          <p>PackDex is an unofficial collector companion for exploring Pokémon TCG history, cards, sets, and eras.</p>
+          <p>Virtual pack openings are an optional way to experience cards from different eras and build a digital collection.</p>
           <p>Pack openings are simulated and do not award physical cards, money, prizes, or redeemable items.</p>
           <p>PackDex is not affiliated with Nintendo, Creatures, Game Freak, or The Pokemon Company.</p>
           <p>Card names, artwork, set names, and related trademarks belong to their respective owners.</p>
@@ -771,14 +762,16 @@ function WelcomeDisclaimerModal({ isOpen, onDismiss }) {
             <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
           </p>
         </div>
-        <a
-          className="mobile-install-tutorial-link"
-          href="https://youtube.com/shorts/Ri6i8fEIdrU"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Watch how to add PackDex to your Home Screen (Apple &amp; Android)
-        </a>
+        {!__PACKDEX_NATIVE_BUILD__ && (
+          <a
+            className="mobile-install-tutorial-link"
+            href="https://youtube.com/shorts/Ri6i8fEIdrU"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Watch how to add PackDex to your Home Screen (Apple &amp; Android)
+          </a>
+        )}
         <button className="primary-action" type="button" onClick={handleDismiss}>
           Got it
         </button>
@@ -877,7 +870,7 @@ function SignupVerificationModal({ isOpen, email, onClose }) {
           <span className="eyebrow">Verify Email</span>
           <h2 id="signup-verification-title">Check your email</h2>
           <p>
-            We sent a verification link{email ? ` to ${email}` : ""}. Open it to finish signup, then PackDex mobile will sign you in.
+            We sent a verification link{email ? ` to ${email}` : ""}. Open it to verify your email. When confirmation is complete, return to the PackDex app and sign in with the same credentials.
           </p>
         </div>
         <button className="primary-action compact-auth-submit" type="button" onClick={onClose}>
@@ -1042,7 +1035,7 @@ function MobileAuthModal({
         <form className="auth-form" onSubmit={onAuthSubmit}>
           <label>
             Email
-            <input value={authEmail} type="email" autoComplete="email" onChange={(event) => onAuthEmail(event.target.value)} />
+            <input value={authEmail} type="email" autoComplete="email" required onChange={(event) => onAuthEmail(event.target.value)} />
           </label>
           <label>
             Password
@@ -1052,6 +1045,7 @@ function MobileAuthModal({
                 type={isPasswordVisible ? "text" : "password"}
                 autoComplete={isCreateMode ? "new-password" : "current-password"}
                 minLength={8}
+                required
                 onChange={(event) => onAuthPassword(event.target.value)}
               />
               <button
@@ -1080,6 +1074,7 @@ function MobileAuthModal({
                     type={isConfirmPasswordVisible ? "text" : "password"}
                     autoComplete="new-password"
                     minLength={8}
+                    required
                     onChange={(event) => onAuthConfirmPassword(event.target.value)}
                   />
                   <button
@@ -1161,17 +1156,6 @@ function TabIcon({ icon }) {
   if (icon === "open") {
     return (
       <span className="mobile-icon mobile-icon-pack" aria-hidden="true">
-        <i />
-        <i />
-        <i />
-      </span>
-    );
-  }
-
-  if (icon === "scanner") {
-    return (
-      <span className="mobile-icon mobile-icon-scanner" aria-hidden="true">
-        <i />
         <i />
         <i />
         <i />
@@ -2038,11 +2022,11 @@ function CardInspectModal({ item, collection, user, wishlistKeys, wishlistPendin
   const { card, set } = item;
   const marketPrice = getCardDisplayPrice(card, priceMap, set.id);
   const hasMarketPrice = Number(marketPrice?.marketPriceUsd) > 0;
-  const tcgplayerDestination = getTcgplayerDestination({
+  const tcgplayerCardUrl = getTcgplayerCardUrl({
     exactUrl: marketPrice?.tcgplayerUrl,
-    cardName: marketPrice?.name || card.name,
+    cardName: getDisplayCardName(card, set),
     setName: set.name,
-    cardNumber: marketPrice?.cardNumber || card.number,
+    cardNumber: card.number,
   });
   const ownedCount = getCardCount(collection, card, set.id);
   const wishlistKey = getWishlistKey(set.id, card.id);
@@ -2212,10 +2196,9 @@ function CardInspectModal({ item, collection, user, wishlistKeys, wishlistPendin
             Estimated Market Value: <strong>{formatUsd(marketPrice.marketPriceUsd)}</strong>
             <TcgplayerSourceBadge compact />
           </p>}
-          {!minimalPreview && !hasMarketPrice && <p className="market-price-line">Price unavailable</p>}
-          {!minimalPreview && tcgplayerDestination && (
-            <a className="tcgplayer-card-link" href={tcgplayerDestination.url} target="_blank" rel="noopener noreferrer">
-              {tcgplayerDestination.label}
+          {!minimalPreview && tcgplayerCardUrl && (
+            <a className="tcgplayer-card-link" href={tcgplayerCardUrl} target="_blank" rel="noopener noreferrer">
+              View on TCGplayer
             </a>
           )}
           {!minimalPreview && contextualActions.length > 0 && <div className={`inspect-explore-links ${getCardActionLayoutClass(contextualActions.length)}`}>{contextualActions}</div>}
@@ -2281,13 +2264,7 @@ function ValueScreen({
       </div>
       <section className="value-hero">
         <span className="eyebrow">{valueCoverage.isComplete ? "Estimated Virtual Collection Value" : "Known Value"}</span>
-        {isValueLoading
-          ? <strong>Loading...</strong>
-          : valueCoverage.pricedCards > 0
-            ? <strong>{formatUsd(valueCoverage.totalValue)}</strong>
-            : valueCoverage.totalCards > 0
-              ? <strong>Price unavailable</strong>
-              : null}
+        {isValueLoading ? <strong>Loading...</strong> : <strong>{formatUsd(valueCoverage.totalValue)}</strong>}
         {!isValueLoading && valueCoverage.totalCards === 0 && <p>No owned cards yet.</p>}
         {!isValueLoading && valueCoverage.totalCards > 0 && <p>Based on {valueCoverage.pricedCards} of {valueCoverage.totalCards} priced cards.</p>}
         {valueCoverage.pricedCards > 0 && <TcgplayerSourceBadge />}
@@ -2387,7 +2364,6 @@ function SettingsModal({
   onToggleSound,
   onToggleHaptics,
   onRevealStyleChange,
-  scannerTestEnabled = false,
   onReplayOnboarding,
 }) {
   if (!isOpen) return null;
@@ -2436,8 +2412,6 @@ function SettingsModal({
           <strong className="settings-field-label">Reveal Style</strong>
           <RevealStyleOptions value={revealStyle} onChange={onRevealStyleChange} />
         </section>
-
-        {__PACKDEX_SCANNER_TEST__ && scannerTestEnabled && <section className="settings-section"><span className="eyebrow">Development</span><button className="settings-link" type="button" onClick={() => window.location.assign("/?scanner-test=1")}>Scanner Test</button></section>}
 
         <section className="settings-section settings-contact-section">
           <span className="eyebrow">Customer assistance</span>
@@ -2662,8 +2636,6 @@ function ProfileScreen({
         </section>
       )}
 
-      <BuyMeACoffeeCard className="mobile-profile-support-card" source="profile" />
-
       <section className="content-section">
         <p className="section-copy">
           Fan-made Pokemon TCG pack-opening simulator. Not affiliated with Nintendo, Creatures, Game Freak, or The
@@ -2689,7 +2661,6 @@ function ProfileScreen({
         onToggleSound={onToggleSound}
         onToggleHaptics={onToggleHaptics}
         onRevealStyleChange={onRevealStyleChange}
-        scannerTestEnabled={__PACKDEX_SCANNER_TEST__}
         onReplayOnboarding={onReplayOnboarding ? () => {
           setIsSettingsOpen(false);
           onReplayOnboarding?.();
@@ -2702,6 +2673,7 @@ function ProfileScreen({
 function MobileAuthCallbackPage() {
   const [status, setStatus] = useState("Confirming your PackDex account...");
   const [error, setError] = useState(null);
+  const [isComplete, setIsComplete] = useState(false);
   const isSessionEstablishedRef = useRef(false);
   const isCallbackRunningRef = useRef(false);
 
@@ -2713,29 +2685,23 @@ function MobileAuthCallbackPage() {
 
     try {
       if (!isSessionEstablishedRef.current) {
-        const callback = await establishMobileAuthCallbackSession(supabase, window.location);
+        const callback = await withAsyncTimeout(
+          establishMobileAuthCallbackSession(supabase, window.location),
+          { timeoutMs: AUTH_REQUEST_TIMEOUT_MS, label: "Email verification" }
+        );
         isSessionEstablishedRef.current = true;
         if (callback.code) {
           window.history.replaceState({}, document.title, "/mobile-app/auth/callback");
         }
       }
 
-      setStatus("Saving your first pack...");
-      await finalizeMobileOnboarding({
-        client: supabase,
-        allowNoPending: true,
-        refreshData: async (currentUser) => {
-          await Promise.all([
-            loadCloudCollection({ user: currentUser }),
-            loadCloudProfileStats(currentUser.id),
-            loadWelcomeRewardStatus(currentUser, { force: true }),
-          ]);
-        },
-        navigate: () => {
-          setStatus("Opening your profile...");
-          window.location.replace("/mobile-app/?tab=profile&onboardingComplete=1");
-        },
+      await withAsyncTimeout(waitForAuthenticatedMobileSession(supabase), {
+        timeoutMs: AUTH_REQUEST_TIMEOUT_MS,
+        label: "Verified account session",
       });
+      await supabase.auth.signOut({ scope: "local" }).catch(() => {});
+      setStatus("Account verified.");
+      setIsComplete(true);
     } catch (callbackError) {
       const presentation = getMobileOnboardingErrorPresentation(callbackError);
       setStatus("");
@@ -2760,11 +2726,14 @@ function MobileAuthCallbackPage() {
               <span className="eyebrow">Account</span>
               <h1>Email verification</h1>
               {status && <p>{status}</p>}
+              {isComplete && (
+                <p>You can close this page, return to the PackDex app, and sign in with your new account.</p>
+              )}
               {error && <p className="auth-message is-error">{error.message}</p>}
             </div>
-            {error?.retryable && (
+            {!isComplete && error?.retryable && (
               <button className="primary-action compact-auth-submit" type="button" onClick={finishCallback}>
-                Retry Saving First Pack
+                Retry Verification
               </button>
             )}
           </section>
@@ -2900,7 +2869,6 @@ function MobileApp({
   const [isPackSavePending, setIsPackSavePending] = useState(false);
   const [isOpenAnotherLocked, setIsOpenAnotherLocked] = useState(false);
   const [packSaveMessage, setPackSaveMessage] = useState("");
-  const [cloudCollectionWarning, setCloudCollectionWarning] = useState("");
   const [packInstanceId, setPackInstanceId] = useState(0);
   const [newPullKeys, setNewPullKeys] = useState(() => new Set());
   const [hasSavedCurrentPack, setHasSavedCurrentPack] = useState(false);
@@ -2925,8 +2893,6 @@ function MobileApp({
   const [isWelcomeRewardModalOpen, setIsWelcomeRewardModalOpen] = useState(false);
   const [isClaimingWelcomeReward, setIsClaimingWelcomeReward] = useState(false);
   const [welcomeRewardError, setWelcomeRewardError] = useState("");
-  const [isBuyMeACoffeePromptOpen, setIsBuyMeACoffeePromptOpen] = useState(false);
-  const [buyMeACoffeePromptUserId, setBuyMeACoffeePromptUserId] = useState("");
   const [achievements, setAchievements] = useState([]);
   const [achievementProgress, setAchievementProgress] = useState([]);
   const [isAchievementsLoading, setIsAchievementsLoading] = useState(false);
@@ -2937,7 +2903,6 @@ function MobileApp({
   const lastAccountScopedUserIdRef = useRef("");
   const accountLoadPromisesRef = useRef(new Map());
   const accountLoadedAtRef = useRef(new Map());
-  const accountStateLoadGenerationRef = useRef(0);
   const authRefreshPromiseRef = useRef(null);
   const authRequestInFlightRef = useRef(false);
   const initialHydrationCompleteRef = useRef(false);
@@ -2948,7 +2913,6 @@ function MobileApp({
   const authValidationAttemptRef = useRef(0);
   const bootstrapOnboardingIntentRef = useRef(bootstrapOnboardingIntent);
   const bootstrapOpenRequestedRef = useRef(bootstrapOpenRequested);
-  const validatedScannerUserIdRef = useRef("");
   const [priceMapsBySet, setPriceMapsBySet] = useState({});
   const [fullSetPriceMapsBySet, setFullSetPriceMapsBySet] = useState({});
   const [fullSetPriceStatusBySet, setFullSetPriceStatusBySet] = useState({});
@@ -2970,7 +2934,6 @@ function MobileApp({
   const revealAnimationLockRef = useRef(false);
   const packSavePendingRef = useRef(false);
   const packSavePromiseRef = useRef(null);
-  const pendingBuyMeACoffeePackCountRef = useRef(0);
   const openAnotherLockRef = useRef(false);
   const packOpeningOperationRef = useRef(false);
   const wishlistScrollRef = useRef(0);
@@ -2982,7 +2945,6 @@ function MobileApp({
   const screenContentRef = useRef(null);
   onboardingStepRef.current = onboardingStep;
   currentUserRef.current = user;
-  validatedScannerUserIdRef.current = authValidationState === "authenticated" ? String(user?.id || "") : "";
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
@@ -3003,44 +2965,6 @@ function MobileApp({
     });
     return () => window.cancelAnimationFrame(frame);
   }, []);
-
-  useEffect(() => {
-    if (
-      isBuyMeACoffeePromptOpen ||
-      pendingBuyMeACoffeePackCountRef.current < 50 ||
-      startupPhase !== "complete" ||
-      onboardingStep ||
-      packStage !== "summary" ||
-      isPackSavePending ||
-      revealAnimationRunning ||
-      packOpeningOperationRef.current ||
-      isAuthPanelOpen ||
-      isSignupVerificationOpen ||
-      isWelcomeRewardModalOpen ||
-      inspectedCard
-    ) return;
-
-    const packsOpened = pendingBuyMeACoffeePackCountRef.current;
-    pendingBuyMeACoffeePackCountRef.current = 0;
-    const userId = user?.id || "";
-    const result = claimBuyMeACoffeePrompt({ packsOpened, userId });
-    if (result.shouldShow) {
-      setBuyMeACoffeePromptUserId(userId);
-      setIsBuyMeACoffeePromptOpen(true);
-    }
-  }, [
-    inspectedCard,
-    isAuthPanelOpen,
-    isBuyMeACoffeePromptOpen,
-    isPackSavePending,
-    isSignupVerificationOpen,
-    isWelcomeRewardModalOpen,
-    onboardingStep,
-    packStage,
-    revealAnimationRunning,
-    startupPhase,
-    user?.id,
-  ]);
 
   const setsCompleted = useMemo(
     () =>
@@ -3379,92 +3303,6 @@ function MobileApp({
     return (entry?.speciesIds || []).map((id) => speciesById.get(id)).filter(Boolean);
   }
 
-  async function addScannedCardToCollection(result) {
-    const set = sets.find((item) => item.id === result?.setId);
-    const card = set?.cards?.find((item) => String(item.id) === String(result?.cardId || result?.card?.id));
-    const actionUserId = validatedScannerUserIdRef.current;
-    if (!actionUserId || !supabase) throw new Error("Sign in to add this card to your Collection.");
-    if (!set || !card) throw new Error("This card is unavailable in the PackDex catalog.");
-
-    const outcome = await addScannedCardOnce(supabase, { cardId: String(card.id), setId: set.id });
-    if (validatedScannerUserIdRef.current !== actionUserId) throw new Error("Your account session changed. Please try again.");
-    if (outcome.added) {
-      const timestamp = Date.now();
-      const key = getCardCollectionKey(card, set.id);
-      setCollection((current) => {
-        const setCollection = current[set.id] || {};
-        const existing = setCollection[key];
-        return {
-          ...current,
-          [set.id]: {
-            ...setCollection,
-            [key]: {
-              count: outcome.quantity,
-              firstCollectedAt: existing?.firstCollectedAt || timestamp,
-              lastCollectedAt: timestamp,
-            },
-          },
-        };
-      });
-      const nextProgression = {
-        ...stats,
-        totalCardsPulled: Number(stats.totalCardsPulled || 0) + 1,
-      };
-      setStats(nextProgression);
-      scheduleServerAchievementCheck(actionUserId, {
-        progression: nextProgression,
-        reason: "durable_scanner_collection_addition",
-        client: supabase,
-      }).catch((error) => {
-        console.warn("Unable to check achievements after scanner collection addition", {
-          userId: actionUserId,
-          error,
-        });
-      });
-    }
-    return outcome;
-  }
-
-  async function addScannedCardToWishlist(result) {
-    const set = sets.find((item) => item.id === result?.setId);
-    const card = set?.cards?.find((item) => String(item.id) === String(result?.cardId || result?.card?.id));
-    const actionUserId = validatedScannerUserIdRef.current;
-    if (!actionUserId || !supabase) throw new Error("Sign in to add this card to your Wishlist.");
-    if (!set || !card) throw new Error("This card is unavailable in the PackDex catalog.");
-
-    const key = getWishlistKey(set.id, card.id);
-    if (wishlistEntries.some((entry) => getWishlistKey(entry.setId, entry.cardId) === key)) {
-      return { added: false, alreadyAdded: true };
-    }
-
-    setWishlistPendingKeys((current) => new Set(current).add(key));
-    try {
-      await addWishlistCard(supabase, actionUserId, set.id, card.id);
-      if (validatedScannerUserIdRef.current !== actionUserId) throw new Error("Your account session changed. Please try again.");
-      setWishlistEntries((current) => current.some((entry) => getWishlistKey(entry.setId, entry.cardId) === key)
-        ? current
-        : [...current, { setId: set.id, cardId: String(card.id), createdAt: new Date().toISOString() }]);
-      return { added: true, alreadyAdded: false };
-    } finally {
-      setWishlistPendingKeys((current) => { const next = new Set(current); next.delete(key); return next; });
-    }
-  }
-
-  async function loadScannedCardActionState(result) {
-    const actionUserId = validatedScannerUserIdRef.current;
-    if (!actionUserId || !supabase) return { collectionAdded: false, wishlisted: false };
-    const state = await loadScannerCardActionState(supabase, { cardId: result?.cardId, setId: result?.setId });
-    if (validatedScannerUserIdRef.current !== actionUserId) throw new Error("Your account session changed.");
-    return state;
-  }
-
-  function openScannerSearchInCollection() {
-    setSelectedCollectionSetId("");
-    setCollectionReturnSource("collection");
-    setActiveTab("collection");
-    scrollScreenToTop();
-  }
-
   function openWishlist() {
     setActiveTab("wishlist");
     window.requestAnimationFrame(() => screenContentRef.current?.scrollTo({ top: wishlistScrollRef.current, behavior: "auto" }));
@@ -3546,11 +3384,6 @@ function MobileApp({
     scrollScreenToTop();
   }
 
-  function openScannerAuth() {
-    setAuthModeClean("login");
-    setIsAuthPanelOpen(true);
-  }
-
   function closeAuthProfile() {
     setIsAuthPanelOpen(false);
     setAuthMessage("");
@@ -3570,13 +3403,9 @@ function MobileApp({
     const previousUserId = currentUserRef.current?.id || lastAccountScopedUserIdRef.current;
     if (previousUserId) cancelPendingCloudPullSync(previousUserId);
     if (previousUserId) clearAchievementCheckScheduler(previousUserId);
-    accountStateLoadGenerationRef.current += 1;
-    invalidateCloudCollectionLoads();
     clearCachedSupabaseUser(supabase);
-    accountLoadPromisesRef.current.clear();
     accountLoadedAtRef.current.clear();
     setUser(null);
-    setCloudCollectionWarning("");
     setCollection(loadCollection());
     setStats({ ...EMPTY_STATS, packsOpened: loadGuestLifetimePacks() });
     setBinders(loadBinders());
@@ -3587,7 +3416,6 @@ function MobileApp({
     setWelcomeRewardStatus(null);
     setIsWelcomeRewardModalOpen(false);
     setWelcomeRewardError("");
-    setIsBuyMeACoffeePromptOpen(false);
     setAchievements([]);
     setAchievementProgress([]);
     setIsAchievementsLoading(false);
@@ -3742,10 +3570,8 @@ function MobileApp({
   async function performAccountScopedStateLoad(currentUser) {
     if (!currentUser?.id) {
       clearAccountScopedState();
-      return { collectionLoaded: false, stale: false };
+      return;
     }
-
-    const loadGeneration = ++accountStateLoadGenerationRef.current;
 
     const isSameAccount = lastAccountScopedUserIdRef.current === currentUser.id;
     if (lastAccountScopedUserIdRef.current && !isSameAccount) {
@@ -3757,10 +3583,6 @@ function MobileApp({
         setIsAchievementsLoading(false);
     }
     lastAccountScopedUserIdRef.current = currentUser.id;
-    const isCurrentAccountLoad = () => (
-      accountStateLoadGenerationRef.current === loadGeneration &&
-      lastAccountScopedUserIdRef.current === currentUser.id
-    );
 
     const localPendingCollection = mergePendingCloudPullsIntoCollection({}, currentUser.id);
     setUser(currentUser);
@@ -3776,23 +3598,15 @@ function MobileApp({
       });
     }
 
-    let mergedCollection = null;
-    let collectionLoaded = false;
+    let mergedCollection = localPendingCollection;
     try {
-      const cloudCollection = await loadCloudCollection({ user: currentUser });
-      if (!isCurrentAccountLoad() || !isCloudCollectionSnapshotCurrent(cloudCollection, currentUser.id)) {
-        return { collectionLoaded: false, stale: true };
-      }
+      const cloudCollection = await loadCloudCollection();
       mergedCollection = mergePendingCloudPullsIntoCollection(cloudCollection, currentUser.id);
-      collectionLoaded = true;
     } catch (error) {
-      console.warn("Unable to load complete mobile cloud collection; retaining the last complete snapshot", {
+      console.warn("Unable to load mobile cloud collection; showing durable pending pulls", {
         userId: currentUser.id,
         error,
       });
-      if (isCurrentAccountLoad()) {
-        setCloudCollectionWarning("Your last complete collection is still shown. The cloud refresh was incomplete; tap Retry.");
-      }
     }
 
     let persistedBinders = [];
@@ -3805,8 +3619,7 @@ function MobileApp({
       });
     }
 
-    const collectionForStats = collectionLoaded ? mergedCollection : localPendingCollection;
-    const mergedCardCount = Object.values(collectionForStats).reduce(
+    const mergedCardCount = Object.values(mergedCollection).reduce(
       (total, setCollection) => total + Object.values(setCollection || {}).reduce((setTotal, entry) => setTotal + Number(entry?.count || 0), 0),
       0
     );
@@ -3871,17 +3684,11 @@ function MobileApp({
       }
     }
 
-    if (!isCurrentAccountLoad()) return { collectionLoaded: false, stale: true };
-
     setUser(currentUser);
-    if (collectionLoaded) {
-      setCollection(mergedCollection);
-      setCloudCollectionWarning("");
-    }
+    setCollection(mergedCollection);
     setStats(cloudStats || EMPTY_STATS);
     setBinders(persistedBinders);
     refreshWishlist(currentUser);
-    return { collectionLoaded, stale: false };
   }
 
   function loadAccountScopedState(currentUser, { force = false } = {}) {
@@ -3901,17 +3708,8 @@ function MobileApp({
 
     countDevRequest("loadAccountScopedState");
     const promise = performAccountScopedStateLoad(currentUser)
-      .then((result) => {
-        if (result?.collectionLoaded && !result?.stale) {
-          accountLoadedAtRef.current.set(userId, Date.now());
-        }
-        return result;
-      })
-      .finally(() => {
-        if (accountLoadPromisesRef.current.get(userId) === promise) {
-          accountLoadPromisesRef.current.delete(userId);
-        }
-      });
+      .then(() => accountLoadedAtRef.current.set(userId, Date.now()))
+      .finally(() => accountLoadPromisesRef.current.delete(userId));
     accountLoadPromisesRef.current.set(userId, promise);
     return promise;
   }
@@ -4249,7 +4047,10 @@ function MobileApp({
         setAuthValidationState("authenticated");
         setIsSignupVerificationOpen(false);
         setSignupVerificationEmail("");
-        await loadAccountScopedState(sessionUser);
+        await withAsyncTimeout(loadAccountScopedState(sessionUser), {
+          timeoutMs: ACCOUNT_HYDRATION_TIMEOUT_MS,
+          label: "Account collection loading",
+        });
         if (validationAttempt !== authValidationAttemptRef.current) return null;
         const accountOnboardingVersion = await loadAccountOnboardingVersion(sessionUser.id).catch(() => 0);
         if (!manualOnboardingReplayRef.current && accountOnboardingVersion >= MOBILE_ONBOARDING_VERSION) {
@@ -4436,16 +4237,12 @@ function MobileApp({
         if (syncResult.stats) setStats(syncResult.stats);
 
         try {
-          const refreshedCollection = await loadCloudCollection({ user });
-          if (active && isCloudCollectionSnapshotCurrent(refreshedCollection, user.id)) {
+          const refreshedCollection = await loadCloudCollection();
+          if (active) {
             setCollection(mergePendingCloudPullsIntoCollection(refreshedCollection, user.id));
-            setCloudCollectionWarning("");
           }
         } catch (error) {
           console.warn("Unable to refresh mobile collection after pending pull sync", error);
-          if (active) {
-            setCloudCollectionWarning("Your last complete collection is still shown. The cloud refresh was incomplete; tap Retry.");
-          }
         }
 
       } catch (error) {
@@ -4760,7 +4557,6 @@ function MobileApp({
     persistSessionCollection(nextCollection);
     if (!user) {
       nextStats = { ...nextStats, packsOpened: recordGuestCompletedPack() };
-      pendingBuyMeACoffeePackCountRef.current = nextStats.packsOpened;
     }
     setStats(nextStats);
 
@@ -4798,27 +4594,22 @@ function MobileApp({
 
         try {
           const [cloudCollection, cloudStats] = await Promise.all([
-            loadCloudCollection({ user }),
+            loadCloudCollection(),
             loadCloudProfileStats(user.id),
           ]);
-          if (isCloudCollectionSnapshotCurrent(cloudCollection, user.id)) {
-            setCollection(mergePendingCloudPullsIntoCollection(cloudCollection, user.id));
-            setCloudCollectionWarning("");
-          }
+          setCollection(mergePendingCloudPullsIntoCollection(cloudCollection, user.id));
           setStats(cloudStats);
         } catch (error) {
           console.warn("Unable to refresh mobile PackDex state after a rate-limited pack", {
             userId: user.id,
             error,
           });
-          setCloudCollectionWarning("Your last complete collection is still shown. The cloud refresh was incomplete; tap Retry.");
         }
         return;
       }
 
       if (syncResult?.stats) {
         const eligiblePacks = Number(syncResult.stats.packsOpened || 0);
-        if (syncResult.saved > 0) pendingBuyMeACoffeePackCountRef.current = eligiblePacks;
         setWelcomeRewardStatus((current) => current ? {
           ...current,
           eligiblePacks,
@@ -4945,26 +4736,6 @@ function MobileApp({
     }
   }
 
-  async function loadScannerCardPrice(card, set) {
-    const cachedPriceMap = fullSetPriceMapsBySet[set?.id] || priceMapsBySet[set?.id];
-    const cachedPrice = getCardDisplayPrice(card, cachedPriceMap, set?.id);
-
-    if (cachedPrice || !supabase || !set?.id || SETS_WITHOUT_MARKET_PRICE_DATA.has(set.id)) return cachedPrice;
-
-    try {
-      const priceMap = await loadCardPricesForCards(supabase, set, [card]);
-      setPriceMapsBySet((current) => {
-        const merged = new Map(current[set.id] || []);
-        priceMap.forEach((value, key) => merged.set(key, value));
-        return { ...current, [set.id]: merged };
-      });
-      return getCardDisplayPrice(card, priceMap, set.id);
-    } catch (error) {
-      console.warn("[PackDex prices] Unable to load scanner card prices", { setId: set.id, setName: set.name, error });
-      throw error;
-    }
-  }
-
   function persistMobileBinderState(nextBinders, changedBinderId = "") {
     persistBindersForUser({
       userId: user?.id,
@@ -5057,14 +4828,10 @@ function MobileApp({
       if (result.stats) setStats(result.stats);
 
       try {
-        const refreshedCollection = await loadCloudCollection({ user });
-        if (isCloudCollectionSnapshotCurrent(refreshedCollection, user.id)) {
-          setCollection(mergePendingCloudPullsIntoCollection(refreshedCollection, user.id));
-          setCloudCollectionWarning("");
-        }
+        const refreshedCollection = await loadCloudCollection();
+        setCollection(mergePendingCloudPullsIntoCollection(refreshedCollection, user.id));
       } catch (collectionError) {
         console.warn("Unable to refresh collection after welcome reward claim", collectionError);
-        setCloudCollectionWarning("Your last complete collection is still shown. The cloud refresh was incomplete; tap Retry.");
       }
 
       scheduleServerAchievementCheck(user.id, {
@@ -5188,15 +4955,19 @@ function MobileApp({
         email: authEmail.trim(),
         password: authPassword,
       };
-      const { data, error } = isCreateMode
-        ? await supabase.auth.signUp({
+      const authRequest = isCreateMode
+        ? supabase.auth.signUp({
             ...credentials,
             options: {
               captchaToken: turnstileToken,
               emailRedirectTo: getMobileAuthCallbackUrl(),
             },
           })
-        : await supabase.auth.signInWithPassword(credentials);
+        : supabase.auth.signInWithPassword(credentials);
+      const { data, error } = await withAsyncTimeout(authRequest, {
+        timeoutMs: AUTH_REQUEST_TIMEOUT_MS,
+        label: isCreateMode ? "Account creation" : "Sign in",
+      });
 
      if (error) {
        const message = String(error.message || "");
@@ -5265,7 +5036,12 @@ function MobileApp({
       }
     } catch (error) {
       console.warn("Unable to load account data after mobile auth", error);
-      setAuthMessage("Unable to sign in. Please check your connection and try again.");
+      const timedOut = String(error?.message || "").toLowerCase().includes("timed out");
+      setAuthMessage(
+        isCreateMode && timedOut
+          ? "Account creation is taking longer than expected. Check your email for a verification link before trying again."
+          : "Unable to sign in. Please check your connection and try again."
+      );
     } finally {
       authRequestInFlightRef.current = false;
       setIsAuthSubmitting(false);
@@ -5327,7 +5103,6 @@ function MobileApp({
     isWelcomeDisclaimerOpen,
     isWelcomeRewardModalOpen,
     isClaimingWelcomeReward,
-    isBuyMeACoffeePromptOpen,
     inspectedCard,
     cardDestinationOverlay,
   });
@@ -5349,7 +5124,6 @@ function MobileApp({
     isWelcomeDisclaimerOpen,
     isWelcomeRewardModalOpen,
     isClaimingWelcomeReward,
-    isBuyMeACoffeePromptOpen,
     inspectedCard,
     cardDestinationOverlay,
   });
@@ -5366,14 +5140,6 @@ function MobileApp({
           {!isOnboardingActive && (
             <>
               <MobileBrandHeader />
-              {cloudCollectionWarning && user?.id && (
-            <div className="account-notice" role="status">
-              <span>{cloudCollectionWarning}</span>
-              <button type="button" onClick={() => loadAccountScopedState(user, { force: true })}>
-                Retry
-              </button>
-            </div>
-          )}
           {activeTab === "open" &&
             (packStage === "sets" ? (
               <OpenSetSelector collection={collection} onOpenPack={openPack} />
@@ -5461,7 +5227,6 @@ function MobileApp({
               />
             </Suspense>
           )}
-          {__PACKDEX_SCANNER_TEST__ && activeTab === "scanner" && MobileScannerPage && <Suspense fallback={null}><MobileScannerPage authState={authValidationState} authUserId={authValidationState === "authenticated" ? user?.id || "" : ""} onRequireAuth={openScannerAuth} onLoadActionState={loadScannedCardActionState} onAddToCollection={addScannedCardToCollection} onAddToWishlist={addScannedCardToWishlist} onSearchManually={openScannerSearchInCollection} onLoadCardPrice={loadScannerCardPrice} /></Suspense>}
           {activeTab === "value" && (
             <ValueScreen
               user={user}
@@ -5521,7 +5286,7 @@ function MobileApp({
                 setIsWelcomeRewardModalOpen(true);
               }}
             />
-              )}
+          )}
             </>
           )}
         </div>
@@ -5628,15 +5393,6 @@ function MobileApp({
             </Suspense>
           </div>
         )}
-
-        <BuyMeACoffeePrompt
-          isOpen={isBuyMeACoffeePromptOpen}
-          mobile
-          onDismiss={() => {
-            dismissBuyMeACoffeePrompt({ userId: buyMeACoffeePromptUserId });
-            setIsBuyMeACoffeePromptOpen(false);
-          }}
-        />
 
         {!onboardingStep && <nav className={`bottom-tabs ${isPackOpening ? "is-pack-locked" : ""}`} aria-label="Mobile app sections">
           {tabs.map((tab) => {
@@ -5758,11 +5514,11 @@ function App({
     <MobileApp
       bootstrapSetId={bootstrapSetId}
       bootstrapTab={bootstrapTab}
-      bootstrapCollectionSetId={bootstrapCollectionSetId}
-      bootstrapOpenRequested={bootstrapOpenRequested}
-      bootstrapOnboardingIntent={bootstrapOnboardingIntent}
-      bootstrapOnboardingRequired={bootstrapOnboardingRequired}
-    />
+        bootstrapCollectionSetId={bootstrapCollectionSetId}
+        bootstrapOpenRequested={bootstrapOpenRequested}
+        bootstrapOnboardingIntent={bootstrapOnboardingIntent}
+        bootstrapOnboardingRequired={bootstrapOnboardingRequired}
+      />
   );
 }
 

@@ -63,6 +63,8 @@ test("public content pages expose the approved copy, one H1, and crawlable set l
   assert.match(layout, /\["How It Works", "\/how-it-works"\]/);
   assert.match(layout, /\["FAQ", "\/faq"\]/);
   assert.match(layout, /\["About", "\/about"\]/);
+  assert.match(layout, /\["Support", "\/support"\]/);
+  assert.match(layout, /!hideDonations && isBuyMeACoffeeEnabled\(\)/);
   assert.match(layout, /PUBLIC_LINKS\.map\(\(\[label, href\]\) => <a key=\{href\} href=\{href\}>/);
 });
 

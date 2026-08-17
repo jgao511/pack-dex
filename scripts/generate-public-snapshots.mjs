@@ -82,6 +82,7 @@ function publicHeader() {
         <a href="/how-it-works">How It Works</a>
         <a href="/faq">FAQ</a>
         <a href="/about">About</a>
+        <a href="/support">Support</a>
       </nav>
     </header>`;
 }
@@ -109,6 +110,7 @@ function publicFooter() {
         <a href="/how-it-works">How It Works</a>
         <a href="/faq">FAQ</a>
         <a href="/about">About</a>
+        <a href="/support">Support</a>
         <a href="/privacy">Privacy</a>
         <a href="/terms">Terms</a>
       </nav>
@@ -370,6 +372,30 @@ function renderAboutSnapshot() {
   });
 }
 
+function renderSupportSnapshot() {
+  const content = `
+    <section class="public-snapshot__section public-snapshot__prose">
+      <h2>Email support</h2>
+      <p>For app issues, general feedback, feature requests, privacy questions, or account help, email <a href="mailto:${escapeHtml(PACKDEX_SUPPORT_EMAIL)}">${escapeHtml(PACKDEX_SUPPORT_EMAIL)}</a>.</p>
+      <h2>Quick answers</h2>
+      <p>Visit the <a href="/faq">PackDex FAQ</a> for help with accounts, virtual cards, collection tracking, wishlists, card values, and PackDex's unofficial fan-made status.</p>
+      <h2 id="delete-account">Delete your PackDex account</h2>
+      <p>Sign in, open Profile, open Settings, choose Delete Account, enter the requested confirmation, and select Permanently Delete Account.</p>
+      <p>Deletion removes the Supabase authentication user and account-owned PackDex records, including the associated collection, wishlist, achievements, saved binders, pack history, and saved progress. The action cannot be reversed. Some information may remain temporarily in backups, security records, or operational logs as described in the Privacy Policy.</p>
+      <p>If you cannot access the in-app deletion control, email <a href="mailto:${escapeHtml(PACKDEX_SUPPORT_EMAIL)}?subject=PackDex%20account%20deletion%20help">${escapeHtml(PACKDEX_SUPPORT_EMAIL)}</a> from the address associated with your PackDex account.</p>
+      <h2>Privacy and terms</h2>
+      <p>Read the <a href="/privacy">Privacy Policy</a> and <a href="/terms">Terms of Service</a>.</p>
+    </section>`;
+
+  return pageShell({
+    pathname: PUBLIC_ROUTE_PATHS.support,
+    eyebrow: "Help and contact",
+    title: "PackDex Support",
+    intro: "Get help with the PackDex website or mobile app, send feedback, request a feature, or learn how to manage and delete your account.",
+    content,
+  });
+}
+
 function renderLegalDocument(type) {
   const document = LEGAL_DOCUMENTS[type];
   const content = `
@@ -506,6 +532,7 @@ function snapshotDefinitions() {
     { pathname: PUBLIC_ROUTE_PATHS.howItWorks, body: renderHowItWorksSnapshot() },
     { pathname: PUBLIC_ROUTE_PATHS.faq, body: renderFaqSnapshot() },
     { pathname: PUBLIC_ROUTE_PATHS.about, body: renderAboutSnapshot() },
+    { pathname: PUBLIC_ROUTE_PATHS.support, body: renderSupportSnapshot() },
     { pathname: PUBLIC_ROUTE_PATHS.privacy, body: renderLegalDocument("privacy") },
     { pathname: PUBLIC_ROUTE_PATHS.terms, body: renderLegalDocument("terms") },
     ...canonicalSetCatalog.map((entry) => ({ pathname: entry.path, body: renderSetSnapshot(entry) })),
@@ -569,6 +596,7 @@ export {
   renderAboutSnapshot,
   renderFaqSnapshot,
   renderHowItWorksSnapshot,
+  renderSupportSnapshot,
   renderSetSnapshot,
   renderSetsSnapshot,
   renderWelcomeSnapshot,
