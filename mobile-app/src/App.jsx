@@ -63,7 +63,7 @@ import {
 import {
   getMobileAuthCallbackUrl,
   getMobileResetPasswordUrl,
-  getSiteOrigin,
+  PUBLIC_SITE_URL,
 } from "../../src/utils/authRedirects.js";
 import { getTcgplayerCardUrl } from "../../src/utils/tcgplayerSearch.js";
 import {
@@ -81,16 +81,10 @@ import { isSupabaseAuthStorageKey, validateSupabaseIdentity } from "../../src/li
 import { clearDeletedAccountLocalState, deleteCurrentAccount } from "../../src/lib/accountDeletion.js";
 import { openPrivacyChoices } from "../../src/lib/privacyChoices.js";
 import { loadGuestLifetimePacks, recordGuestCompletedPack } from "./lib/guestPackStats.js";
-import {
-  playAchievementUnlockSound,
-  preloadMobileSounds,
-  stopAllMobileSounds,
-} from "./utils/mobileSounds.js";
 import { getRarityVisualClass, isRarePlusVisual } from "./utils/rarityPresentation.js";
 import InspectionBorderGlow from "../../src/components/InspectionBorderGlow.jsx";
 import SwipeRevealSurface from "../../src/components/reveal/SwipeRevealSurface.jsx";
 import { getInspectionGlowStrength } from "../../src/utils/inspectionGlow.js";
-import { loadHapticsEnabled, saveHapticsEnabled, triggerRevealHaptic } from "./utils/mobileHaptics.js";
 import { addWishlistCard, getWishlistKey, loadWishlist, removeWishlistCard, resolveCatalogWishlistItem } from "./lib/wishlist.js";
 import {
   claimPackPersistence,
@@ -435,8 +429,8 @@ const WELCOME_REWARD_CHOICES = [
   { setId: "151", title: "151", description: "A starter evolution line demi-god pack." },
 ];
 const LEGAL_URLS = {
-  terms: `${getSiteOrigin()}${LEGAL_ROUTES.terms}`,
-  privacy: `${getSiteOrigin()}${LEGAL_ROUTES.privacy}`,
+  terms: `${PUBLIC_SITE_URL}${LEGAL_ROUTES.terms}`,
+  privacy: `${PUBLIC_SITE_URL}${LEGAL_ROUTES.privacy}`,
 };
 
 function getWelcomeRewardChoices() {
@@ -1356,7 +1350,6 @@ function PackScreen({
   onLogin,
   onCreateAccount,
   onInspectCard,
-  soundEnabled,
   newPullKeys,
   priceMap,
   allowPackReadyWebAd = false,
@@ -2355,14 +2348,10 @@ function WishlistScreen({ entries, status, error, pendingKeys, onRetry, onBack, 
 function SettingsModal({
   isOpen,
   user,
-  soundEnabled,
-  hapticsEnabled,
   revealStyle,
   onClose,
   onLogout,
   onDeleteAccount,
-  onToggleSound,
-  onToggleHaptics,
   onRevealStyleChange,
   onReplayOnboarding,
 }) {
@@ -2391,21 +2380,6 @@ function SettingsModal({
             </button>
           </section>
         )}
-
-        <section className="settings-section">
-          <span className="eyebrow">Preferences</span>
-          <button className="settings-toggle" type="button" onClick={onToggleSound} aria-pressed={soundEnabled}>
-            <span>
-              <strong>Sound Effects</strong>
-              <em>{soundEnabled ? "Enabled" : "Muted"}</em>
-            </span>
-            <i className={soundEnabled ? "is-on" : ""} />
-          </button>
-          <button className="settings-toggle" type="button" onClick={onToggleHaptics} aria-pressed={hapticsEnabled}>
-            <span><strong>Haptics</strong><em>{hapticsEnabled ? "Enabled" : "Disabled"}</em></span>
-            <i className={hapticsEnabled ? "is-on" : ""} />
-          </button>
-        </section>
 
         <section className="settings-section settings-reveal-section">
           <span className="eyebrow">Pack Opening</span>
@@ -2454,10 +2428,6 @@ function ProfileScreen({
   onOpenSignup,
   onLogout,
   onDeleteAccount,
-  soundEnabled,
-  onToggleSound,
-  hapticsEnabled,
-  onToggleHaptics,
   revealStyle,
   onRevealStyleChange,
   wishlistCount,
@@ -2646,8 +2616,6 @@ function ProfileScreen({
       <SettingsModal
         isOpen={isSettingsOpen}
         user={user}
-        soundEnabled={soundEnabled}
-        hapticsEnabled={hapticsEnabled}
         revealStyle={revealStyle}
         onClose={() => setIsSettingsOpen(false)}
         onLogout={() => {
@@ -2658,8 +2626,6 @@ function ProfileScreen({
           setIsSettingsOpen(false);
           onDeleteAccount?.();
         }}
-        onToggleSound={onToggleSound}
-        onToggleHaptics={onToggleHaptics}
         onRevealStyleChange={onRevealStyleChange}
         onReplayOnboarding={onReplayOnboarding ? () => {
           setIsSettingsOpen(false);
@@ -2815,8 +2781,6 @@ function MobileApp({
     return cards;
   }, [bootstrapSet]);
   const [activeTab, setActiveTab] = useState(() => bootstrapTab || getInitialMobileTab());
-  const [soundEnabled, setSoundEnabled] = useState(true);
-  const [hapticsEnabled, setHapticsEnabled] = useState(loadHapticsEnabled);
   const [revealStyle, setRevealStyle] = useState(loadRevealStyle);
   const [activeRevealStyle, setActiveRevealStyle] = useState(loadRevealStyle);
   const [wishlistEntries, setWishlistEntries] = useState([]);
@@ -2925,8 +2889,6 @@ function MobileApp({
   const preloadedAssetUrlsRef = useRef(new Set());
   const shownWelcomeRewardUserRef = useRef("");
   const manualOnboardingReplayRef = useRef(onboardingTestMode);
-  const soundEnabledRef = useRef(soundEnabled);
-  const hapticsEnabledRef = useRef(hapticsEnabled);
   const revealStyleRef = useRef(revealStyle);
   const lastTapRevealTimestampRef = useRef(Number.NEGATIVE_INFINITY);
   const revealedCardIndexesRef = useRef(revealedCardIndexes);
@@ -3714,13 +3676,9 @@ function MobileApp({
     return promise;
   }
 
-  useEffect(() => {
-    preloadMobileSounds();
-    return () => {
-      clearRevealTimers();
-      finishActiveRevealCycle();
-      stopAllMobileSounds();
-    };
+  useEffect(() => () => {
+    clearRevealTimers();
+    finishActiveRevealCycle();
   }, []);
 
   useEffect(() => {
@@ -4094,16 +4052,6 @@ function MobileApp({
   }, [onboardingStep]);
 
   useEffect(() => {
-    soundEnabledRef.current = soundEnabled;
-    if (!soundEnabled) stopAllMobileSounds();
-  }, [soundEnabled]);
-
-  useEffect(() => {
-    hapticsEnabledRef.current = hapticsEnabled;
-    saveHapticsEnabled(hapticsEnabled);
-  }, [hapticsEnabled]);
-
-  useEffect(() => {
     revealStyleRef.current = revealStyle;
     saveRevealStyle(revealStyle);
   }, [revealStyle]);
@@ -4125,10 +4073,6 @@ function MobileApp({
   useEffect(() => {
     if (!activeAchievementToast) return undefined;
 
-    const packSurfaceIsQuiet = packStage === "summary" || Boolean(inspectedCard);
-    if (soundEnabledRef.current && !packSurfaceIsQuiet) {
-      playAchievementUnlockSound(soundEnabledRef.current);
-    }
     const timer = window.setTimeout(() => {
       setActiveAchievementToast(null);
     }, ACHIEVEMENT_TOAST_AUTO_DISMISS_MS);
@@ -4302,7 +4246,6 @@ function MobileApp({
       scheduleRevealTimer(cycle, () => {
         setRevealedCount(index + 1);
         markCardRevealed(index, pack.length);
-        runCardRevealHaptic(card, index, cycle);
       }, revealDelay);
     });
 
@@ -4398,7 +4341,6 @@ function MobileApp({
     const cycle = {
       id: [revealCycleCounterRef.current, getPackSaveKey(cards, set)].join(":"),
       phase: "revealing",
-      hapticKeys: new Set(),
       completionClaimed: false,
     };
     revealCycleRef.current = cycle;
@@ -4406,20 +4348,11 @@ function MobileApp({
     if (normalizedStyle === "swipe" && cards.length > 0) {
       markCardRevealed(0, cards.length);
       setRevealedCount(1);
-      runCardRevealHaptic(cards[0], 0, cycle);
     }
   }
 
   function finishActiveRevealCycle() {
     if (revealCycleRef.current) revealCycleRef.current.phase = "closed";
-  }
-
-  function runCardRevealHaptic(card, index, cycle = revealCycleRef.current) {
-    if (!card || !selectedSet || cycle !== revealCycleRef.current || cycle?.phase !== "revealing") return;
-    const cardKey = `${index}:${card.id || card.name || "card"}`;
-    if (cycle.hapticKeys.has(cardKey)) return;
-    cycle.hapticKeys.add(cardKey);
-    triggerRevealHaptic(card, selectedSet, hapticsEnabledRef.current);
   }
 
   function finishInteractiveCardAnimation(cycle, callback, delay) {
@@ -4448,7 +4381,6 @@ function MobileApp({
     const result = markCardRevealed(index, pack.length);
     if (!result.changed) return false;
 
-    runCardRevealHaptic(pack[index], index, cycle);
     if (!result.isComplete) return true;
 
     revealAnimationLockRef.current = true;
@@ -4494,7 +4426,6 @@ function MobileApp({
     swipeDismissedCountRef.current = nextIndex;
     setSwipeDismissedCount(nextIndex);
     setRevealedCount(nextIndex + 1);
-    runCardRevealHaptic(pack[nextIndex], nextIndex, cycle);
     revealAnimationLockRef.current = false;
     setRevealAnimationRunning(false);
     return true;
@@ -5071,8 +5002,6 @@ function MobileApp({
     authValidationAttemptRef.current += 1;
     clearAccountScopedState();
     setAuthValidationState("guest");
-    setSoundEnabled(true);
-    setHapticsEnabled(true);
     setCollectionEraFilter("All Eras");
     setActiveTab("open");
     returnToSets();
@@ -5171,7 +5100,6 @@ function MobileApp({
                 onLogin={() => openAuthProfile("login")}
                 onCreateAccount={() => openAuthProfile("signup")}
                 onInspectCard={inspectCard}
-                soundEnabled={soundEnabled}
                 newPullKeys={newPullKeys}
                 priceMap={selectedSet ? fullSetPriceMapsBySet[selectedSet.id] || priceMapsBySet[selectedSet.id] : null}
                 allowPackReadyWebAd={allowPackReadyWebAd}
@@ -5258,15 +5186,11 @@ function MobileApp({
               stats={stats}
               setsCompleted={setsCompleted}
               isAuthPanelOpen={isAuthPanelOpen}
-              soundEnabled={soundEnabled}
-              hapticsEnabled={hapticsEnabled}
               revealStyle={revealStyle}
               onOpenLogin={() => openAuthProfile("login")}
               onOpenSignup={() => openAuthProfile("signup")}
               onLogout={handleLogout}
               onDeleteAccount={() => setIsDeleteAccountOpen(true)}
-              onToggleSound={() => setSoundEnabled((value) => !value)}
-              onToggleHaptics={() => setHapticsEnabled((value) => !value)}
               onRevealStyleChange={changeRevealStyle}
               wishlistCount={wishlistEntries.length}
               onOpenWishlist={openWishlist}
@@ -5313,7 +5237,6 @@ function MobileApp({
                   isOpenAnotherLocked={false}
                   packSaveMessage=""
                   onInspectCard={(card, set) => inspectCard(card, set, { origin: "onboarding-summary" })}
-                  soundEnabled={soundEnabled}
                   newPullKeys={newPullKeys}
                   priceMap={null}
                   allowPackReadyWebAd={false}

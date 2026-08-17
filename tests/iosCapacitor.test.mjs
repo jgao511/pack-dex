@@ -50,6 +50,13 @@ test("native routing opens allowed external web links without intercepting inter
   assert.deepEqual(opened, ["https://youtube.com/watch?v=test"]);
 });
 
+test("native legal links use the public PackDex website instead of the Capacitor origin", async () => {
+  const appSource = await read("mobile-app/src/App.jsx");
+  assert.match(appSource, /terms:\s*`\$\{PUBLIC_SITE_URL\}\$\{LEGAL_ROUTES\.terms\}`/);
+  assert.match(appSource, /privacy:\s*`\$\{PUBLIC_SITE_URL\}\$\{LEGAL_ROUTES\.privacy\}`/);
+  assert.doesNotMatch(appSource, /getSiteOrigin\(\).*LEGAL_ROUTES/);
+});
+
 test("public iOS dependencies and permissions exclude scanner, camera, photos, and OCR", async () => {
   const [packageJson, packageLock, info, packageSwift, generatedConfig, appSource] = await Promise.all([
     read("mobile-app/package.json"),

@@ -34,7 +34,7 @@ function functionSource(source, name, nextName) {
   return source.slice(start, end === -1 ? source.length : end);
 }
 
-test("normal, onboarding, God Pack, and welcome-reward flows schedule no pack audio", async () => {
+test("normal, onboarding, God Pack, and welcome-reward flows schedule no pack audio or haptics", async () => {
   const source = await readFile(mobileAppUrl, "utf8");
   const flows = [
     functionSource(source, "startTutorialPack", "chooseOnboardingPokemon"),
@@ -48,7 +48,8 @@ test("normal, onboarding, God Pack, and welcome-reward flows schedule no pack au
       assert.equal(flow.includes(identifier), false, `${identifier} must not appear in a pack flow`);
     }
   }
-  assert.match(source, /function runCardRevealHaptic/);
+  assert.doesNotMatch(source, /function runCardRevealHaptic/);
+  assert.doesNotMatch(source, /mobileHaptics|triggerRevealHaptic|hapticKeys/);
   assert.doesNotMatch(source, /function runCardRevealEffects/);
   assert.doesNotMatch(source, /function playTrackedRevealSound/);
 });
@@ -74,12 +75,14 @@ test("summary, card details, and thirty seconds of reveal timers have zero audio
   assert.equal(typeof schedule, "function");
 });
 
-test("the retained sound setting controls only the unrelated achievement notification", async () => {
+test("the release UI does not expose sound or haptic settings", async () => {
+  const mobileSource = await readFile(mobileAppUrl, "utf8");
   const [mobileSounds, foil] = await Promise.all([
     readFile(mobileSoundsUrl, "utf8"),
     readFile(foilUrl, "utf8"),
   ]);
 
+  assert.doesNotMatch(mobileSource, /Sound Effects|Haptics|mobileSounds|playAchievementUnlockSound/);
   assert.match(mobileSounds, /achievement-badge-pop-sound\.mp3/);
   assert.match(mobileSounds, /playAchievementUnlockSound/);
   assert.doesNotMatch(mobileSounds, /pack-open|scheduled-deal|scheduled-flip|final-card|rarity-hit|big-hit\.mp3|hit\.mp3|AudioContext/);
