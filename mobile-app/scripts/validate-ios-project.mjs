@@ -76,10 +76,25 @@ export async function validateIosProject() {
 
   const nativeAssetNames = await readdir(new URL("ios/App/App/public/assets/", mobileRoot));
   const supabaseAssets = nativeAssetNames.filter((name) => /^supabaseClient-.*\.js$/i.test(name));
-  assert.equal(supabaseAssets.length, 1, "Expected one configured Supabase client bundle");
-  const supabaseAsset = await text(`ios/App/App/public/assets/${supabaseAssets[0]}`);
-  assert.match(supabaseAsset, /https:\/\/yoaesrgnrkkiibmfnuwg\.supabase\.co/);
-  assert.match(supabaseAsset, /sb_publishable_gjskuCm_3YLQh_ox8qxE2g_5rnL3-Wq/);
+  const supabaseAssetSources = await Promise.all(
+    supabaseAssets.map((name) => text(`ios/App/App/public/assets/${name}`))
+  );
+  const configuredSupabaseAssets = supabaseAssetSources.filter(
+    (source) =>
+      /https:\/\/yoaesrgnrkkiibmfnuwg\.supabase\.co/.test(source) &&
+      /sb_publishable_gjskuCm_3YLQh_ox8qxE2g_5rnL3-Wq/.test(source)
+  );
+  assert.ok(configuredSupabaseAssets.length >= 1, "Expected the configured Supabase client bundle");
+  const combinedSupabaseSource = supabaseAssetSources.join("\n");
+  assert.deepEqual(
+    [...new Set(combinedSupabaseSource.match(/https:\/\/[a-z0-9]+\.supabase\.co/gi) || [])],
+    ["https://yoaesrgnrkkiibmfnuwg.supabase.co"]
+  );
+  assert.deepEqual(
+    [...new Set(combinedSupabaseSource.match(/sb_publishable_[A-Za-z0-9_-]+/g) || [])],
+    ["sb_publishable_gjskuCm_3YLQh_ox8qxE2g_5rnL3-Wq"]
+  );
+  assert.doesNotMatch(combinedSupabaseSource, /sb_secret_|service_role/i);
 
   assert.match(privacy, /NSPrivacyCollectedDataTypeEmailAddress/);
   assert.match(privacy, /NSPrivacyCollectedDataTypeUserID/);

@@ -87,10 +87,25 @@ test("the synced iOS bundle contains the public production Supabase configuratio
   const assetRoot = path.join(repositoryRoot, "mobile-app/ios/App/App/public/assets");
   const names = await readdir(assetRoot);
   const supabaseAssets = names.filter((name) => /^supabaseClient-.*\.js$/i.test(name));
-  assert.equal(supabaseAssets.length, 1);
-  const source = await readFile(path.join(assetRoot, supabaseAssets[0]), "utf8");
-  assert.match(source, /https:\/\/yoaesrgnrkkiibmfnuwg\.supabase\.co/);
-  assert.match(source, /sb_publishable_gjskuCm_3YLQh_ox8qxE2g_5rnL3-Wq/);
+  const sources = await Promise.all(
+    supabaseAssets.map((name) => readFile(path.join(assetRoot, name), "utf8"))
+  );
+  const configuredSources = sources.filter(
+    (source) =>
+      /https:\/\/yoaesrgnrkkiibmfnuwg\.supabase\.co/.test(source) &&
+      /sb_publishable_gjskuCm_3YLQh_ox8qxE2g_5rnL3-Wq/.test(source)
+  );
+  assert.ok(configuredSources.length >= 1);
+  const combinedSource = sources.join("\n");
+  assert.deepEqual(
+    [...new Set(combinedSource.match(/https:\/\/[a-z0-9]+\.supabase\.co/gi) || [])],
+    ["https://yoaesrgnrkkiibmfnuwg.supabase.co"]
+  );
+  assert.deepEqual(
+    [...new Set(combinedSource.match(/sb_publishable_[A-Za-z0-9_-]+/g) || [])],
+    ["sb_publishable_gjskuCm_3YLQh_ox8qxE2g_5rnL3-Wq"]
+  );
+  assert.doesNotMatch(combinedSource, /sb_secret_|service_role/i);
 });
 
 test("iOS configuration has the App Store identity, signing team, and privacy manifest", async () => {
