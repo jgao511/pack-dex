@@ -76,27 +76,37 @@ class CollectionClient {
   }
 }
 
-test("collection pagination restores every row beyond Supabase's first 1,000", async () => {
-  const client = new CollectionClient(1151);
-  let loadedRows = 0;
+test("collection pagination covers every App Store release boundary without truncation", async () => {
+  const cases = [
+    { rows: 0, ranges: [[0, 999]] },
+    { rows: 999, ranges: [[0, 999]] },
+    { rows: 1000, ranges: [[0, 999], [1000, 1999]] },
+    { rows: 1001, ranges: [[0, 999], [1000, 1999]] },
+    { rows: 1151, ranges: [[0, 999], [1000, 1999]] },
+  ];
 
-  const totalRows = await loadCloudCollectionPages(client, "support-account", (page) => {
-    loadedRows += page.length;
-  });
+  for (const { rows, ranges } of cases) {
+    const client = new CollectionClient(rows);
+    let loadedRows = 0;
 
-  assert.equal(totalRows, 1151);
-  assert.equal(loadedRows, 1151);
-  assert.deepEqual(client.calls.map(({ from, to }) => [from, to]), [
-    [0, 999],
-    [1000, 1999],
-  ]);
-  assert.equal(client.calls[0].table, "user_collection");
-  assert.equal(client.calls[0].columns, CLOUD_COLLECTION_COLUMNS);
-  assert.deepEqual(client.calls[0].filter, ["user_id", "support-account"]);
-  assert.deepEqual(client.calls[0].orders, [
-    ["created_at", { ascending: true }],
-    ["id", { ascending: true }],
-  ]);
+    const totalRows = await loadCloudCollectionPages(client, "support-account", (page) => {
+      loadedRows += page.length;
+    });
+
+    assert.equal(totalRows, rows, `${rows} total rows`);
+    assert.equal(loadedRows, rows, `${rows} streamed rows`);
+    assert.deepEqual(client.calls.map(({ from, to }) => [from, to]), ranges, `${rows} requested ranges`);
+
+    for (const call of client.calls) {
+      assert.equal(call.table, "user_collection");
+      assert.equal(call.columns, CLOUD_COLLECTION_COLUMNS);
+      assert.deepEqual(call.filter, ["user_id", "support-account"]);
+      assert.deepEqual(call.orders, [
+        ["created_at", { ascending: true }],
+        ["id", { ascending: true }],
+      ]);
+    }
+  }
 });
 
 test("an exact page multiple fetches the terminating empty page without truncation", async () => {
