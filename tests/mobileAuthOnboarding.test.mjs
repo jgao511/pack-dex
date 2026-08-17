@@ -24,6 +24,7 @@ import {
   getInitialMobileTab,
 } from "../mobile-app/src/lib/mobileRouting.js";
 import {
+  getAuthCallbackUrl,
   getMobileAuthCallbackUrl,
   getMobileResetPasswordUrl,
   normalizeCanonicalProductionLocation,
@@ -277,7 +278,8 @@ test("callback parses query and fragment errors and exchanges an authorization c
 });
 
 test("canonical mobile auth URLs and URL-driven Profile routing are exact", () => {
-  assert.equal(getMobileAuthCallbackUrl(), "https://www.pack-dex.com/mobile-app/auth/callback");
+  assert.equal(getAuthCallbackUrl(), "https://www.pack-dex.com/auth/callback");
+  assert.equal(getMobileAuthCallbackUrl(), "https://www.pack-dex.com/auth/callback");
   assert.equal(getMobileResetPasswordUrl(), "https://www.pack-dex.com/mobile-app/reset-password");
   assert.equal(getInitialMobileTab({ pathname: "/mobile-app/", search: "?tab=profile&onboardingComplete=1" }), "profile");
 
@@ -325,8 +327,11 @@ test("signup, callback, cleanup, Profile reward, and reset routes use the shared
   assert.match(mobileCallbackSource, /Account verified\./);
   assert.match(mobileCallbackSource, /return to the PackDex app/);
   assert.doesNotMatch(mobileCallbackSource, /finalizeMobileOnboarding|window\.location\.(?:replace|assign)/);
-  assert.match(websiteSource, /Account confirmed! Redirecting to PackDex/);
-  assert.match(websiteSource, /window\.location\.assign\("\/"\)/);
+  const websiteCallbackSource = websiteSource.match(/function AuthCallbackPage\(\) \{[\s\S]*?function CollectionDashboard/)?.[0] || "";
+  assert.match(websiteCallbackSource, /confirmEmailAndSignOut\(supabase, window\.location\)/);
+  assert.match(websiteCallbackSource, /Email verified\./);
+  assert.match(websiteCallbackSource, /sign in with the same email and password/);
+  assert.doesNotMatch(websiteCallbackSource, /Account confirmed! Redirecting to PackDex|window\.location\.assign\("\/"\)/);
   assert.doesNotMatch(appSource.match(/function clearAccountScopedState\(\)[\s\S]*?\n  \}/)?.[0] || "", /MOBILE_ONBOARDING_PENDING_KEY|clearPendingMobileOnboarding/);
   assert.match(appSource, /isLoggedIn && welcomeRewardStatus\?\.isEligible && !welcomeRewardStatus\?\.isClaimed/);
   assert.match(rewardSource, /if \(!user\) return \{ isEligible: false, isClaimed: true/);

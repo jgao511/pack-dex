@@ -87,6 +87,7 @@ import { claimWelcomeGodPack } from "./lib/securePackOpening.js";
 import { clearDeletedAccountLocalState, deleteCurrentAccount } from "./lib/accountDeletion.js";
 import { isSupabaseAuthStorageKey, validateSupabaseIdentity } from "./lib/authIdentityValidation.js";
 import { clearCachedSupabaseUser } from "./lib/sessionUserCache.js";
+import { confirmEmailAndSignOut } from "./lib/emailConfirmation.js";
 import { openPrivacyChoices } from "./lib/privacyChoices.js";
 import {
   claimBuyMeACoffeePrompt,
@@ -613,6 +614,7 @@ function ResetPasswordPage() {
 function AuthCallbackPage() {
   const [status, setStatus] = useState("Confirming your PackDex account...");
   const [error, setError] = useState("");
+  const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -624,45 +626,14 @@ function AuthCallbackPage() {
         return;
       }
 
-      const searchParams = new URLSearchParams(window.location.search);
-      const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ""));
-      const authError = searchParams.get("error_description") || hashParams.get("error_description");
-      const code = searchParams.get("code");
-
-      if (authError) {
-        if (!isMounted) return;
-        setError(authError);
-        setStatus("");
-        window.history.replaceState({}, document.title, "/auth/callback");
-        return;
-      }
-
       try {
-        if (code) {
-          const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
-
-          if (exchangeError) {
-            throw exchangeError;
-          }
-        } else {
-          const { data, error: sessionError } = await supabase.auth.getSession();
-
-          if (sessionError) {
-            throw sessionError;
-          }
-
-          if (!data.session) {
-            throw new Error("Confirmation link is missing or has expired.");
-          }
-        }
+        await confirmEmailAndSignOut(supabase, window.location);
 
         if (!isMounted) return;
 
-        window.history.replaceState({}, document.title, "/");
-        setStatus("Account confirmed! Redirecting to PackDex...");
-        window.setTimeout(() => {
-          window.location.assign("/");
-        }, 900);
+        window.history.replaceState({}, document.title, "/auth/callback");
+        setStatus("Email verified.");
+        setIsComplete(true);
       } catch (callbackError) {
         if (!isMounted) return;
 
@@ -685,10 +656,13 @@ function AuthCallbackPage() {
       <span className="set-mark">Account</span>
       <h1>Email Confirmation</h1>
       {status && <div className="auth-message">{status}</div>}
+      {isComplete && (
+        <p>Your PackDex account is ready. Return to PackDex and sign in with the same email and password.</p>
+      )}
       {error && <div className="auth-message is-error">{error}</div>}
-      {error && (
+      {(isComplete || error) && (
         <a className="secondary-button" href="/">
-          Back to PackDex
+          Return to PackDex
         </a>
       )}
     </section>

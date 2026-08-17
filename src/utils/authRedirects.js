@@ -16,7 +16,7 @@ export function getSiteOrigin() {
 }
 
 export function getAuthCallbackUrl() {
-  return `${getSiteOrigin()}/auth/callback`;
+  return `${PUBLIC_SITE_URL}/auth/callback`;
 }
 
 export function getResetPasswordUrl() {
@@ -24,7 +24,7 @@ export function getResetPasswordUrl() {
 }
 
 export function getMobileAuthCallbackUrl() {
-  return `${getSiteOrigin()}/mobile-app/auth/callback`;
+  return getAuthCallbackUrl();
 }
 
 export function getMobileResetPasswordUrl() {
