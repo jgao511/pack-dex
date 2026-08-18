@@ -122,6 +122,7 @@ import {
 import {
   finalizeMobileOnboarding,
   getMobileOnboardingErrorPresentation,
+  shouldFinalizeMobileOnboardingAfterAuth,
   waitForAuthenticatedMobileSession,
 } from "./lib/mobileOnboardingFinalizer.js";
 import { runMobileOnboardingSkip } from "./lib/mobileOnboardingSkip.js";
@@ -130,8 +131,9 @@ import {
   consumeOnboardingCompleteParam,
   getInitialMobileTab,
   getMobileTabPath,
+  navigateAfterMobileOnboarding,
 } from "./lib/mobileRouting.js";
-import { shouldSuppressBrowserAds } from "./lib/platform.js";
+import { isIosNative, shouldSuppressBrowserAds } from "./lib/platform.js";
 import {
   isMobilePackReadyAdContextAllowed,
   isMobileSetAdContextAllowed,
@@ -2754,6 +2756,7 @@ function MobileApp({
   const onboardingDevSummary = onboardingDevRequestedStep === "summary";
   const onboardingDevScenario = useMemo(() => getOnboardingDevScenario(), []);
   const mobileViewportHeight = useMobileViewportHeight();
+  const isAppStoreRuntime = useMemo(() => isIosNative(), []);
   const suppressBrowserAds = useMemo(() => shouldSuppressBrowserAds(), []);
   const initialOnboardingState = useMemo(() => {
     const saved = readMobileOnboardingState();
@@ -3188,9 +3191,10 @@ function MobileApp({
         clearTutorialPackState();
         setActiveTab("profile");
       },
-      navigate: () => {
-        window.location.replace("/mobile-app/?tab=profile&onboardingComplete=1");
-      },
+      navigate: (destination) => navigateAfterMobileOnboarding({
+        destination,
+        native: isAppStoreRuntime,
+      }),
     }).catch((error) => {
       const presentation = getMobileOnboardingErrorPresentation(error);
       console.warn("Unable to finish account onboarding", presentation);
@@ -4951,7 +4955,10 @@ function MobileApp({
             });
           }
         }
-        if (onboardingAuthIntent || readPendingMobileOnboarding()) {
+        if (shouldFinalizeMobileOnboardingAfterAuth({
+          onboardingAuthIntent,
+          pendingOnboarding: readPendingMobileOnboarding(),
+        })) {
           setOnboardingAuthIntent(false);
           setIsFinishingOnboarding(true);
           try {

@@ -1,4 +1,5 @@
 const MOBILE_TABS = new Set(["open", "collection", "explore", "profile"]);
+const NATIVE_ONBOARDING_COMPLETE_PATH = "/?tab=profile";
 
 export function getInitialMobileTab(location = globalThis.location) {
   const path = String(location?.pathname || "");
@@ -23,4 +24,24 @@ export function consumeOnboardingCompleteParam({
 
 export function getMobileTabPath(tab) {
   return tab === "profile" ? "/mobile-app/?tab=profile" : "/mobile-app/";
+}
+
+export function navigateAfterMobileOnboarding({
+  destination = "/mobile-app/?tab=profile",
+  native = false,
+  location = globalThis.location,
+  history = globalThis.history,
+  title = globalThis.document?.title || "",
+} = {}) {
+  if (native) {
+    // Capacitor serves the bundled app from its root. Reloading the website's
+    // /mobile-app/ route makes relative JS and image assets resolve beneath a
+    // directory that does not exist in the native bundle, leaving only the
+    // static startup shell on screen.
+    history?.replaceState?.({}, title, NATIVE_ONBOARDING_COMPLETE_PATH);
+    return NATIVE_ONBOARDING_COMPLETE_PATH;
+  }
+
+  location?.replace?.(destination);
+  return destination;
 }

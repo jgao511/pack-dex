@@ -13,6 +13,7 @@ import {
 import {
   finalizeMobileOnboarding,
   getMobileOnboardingErrorPresentation,
+  shouldFinalizeMobileOnboardingAfterAuth,
   waitForAuthenticatedMobileSession,
 } from "../mobile-app/src/lib/mobileOnboardingFinalizer.js";
 import {
@@ -22,6 +23,7 @@ import {
 import {
   consumeOnboardingCompleteParam,
   getInitialMobileTab,
+  navigateAfterMobileOnboarding,
 } from "../mobile-app/src/lib/mobileRouting.js";
 import {
   getAuthCallbackUrl,
@@ -301,6 +303,50 @@ test("canonical mobile auth URLs and URL-driven Profile routing are exact", () =
   assert.deepEqual(canonicalReplacements, [
     "https://www.pack-dex.com/mobile-app/auth/callback?code=abc#state",
   ]);
+});
+
+test("App Store onboarding completion stays inside the iOS bundle instead of reloading the web route", () => {
+  const nativeReplacements = [];
+  let nativeReloads = 0;
+  const nativePath = navigateAfterMobileOnboarding({
+    destination: "/mobile-app/?tab=profile",
+    native: true,
+    location: { replace: () => { nativeReloads += 1; } },
+    history: { replaceState: (...args) => nativeReplacements.push(args) },
+    title: "PackDex",
+  });
+
+  assert.equal(nativePath, "/?tab=profile");
+  assert.equal(nativeReloads, 0);
+  assert.deepEqual(nativeReplacements, [[{}, "PackDex", "/?tab=profile"]]);
+
+  const webReloads = [];
+  const webPath = navigateAfterMobileOnboarding({
+    destination: "/mobile-app/?tab=profile",
+    native: false,
+    location: { replace: (path) => webReloads.push(path) },
+    history: { replaceState: () => assert.fail("web completion must not rewrite native history") },
+  });
+
+  assert.equal(webPath, "/mobile-app/?tab=profile");
+  assert.deepEqual(webReloads, ["/mobile-app/?tab=profile"]);
+});
+
+test("profile authentication after skipping onboarding never enters tutorial collection saving", () => {
+  assert.equal(shouldFinalizeMobileOnboardingAfterAuth({
+    onboardingAuthIntent: false,
+    pendingOnboarding: null,
+  }), false);
+
+  assert.equal(shouldFinalizeMobileOnboardingAfterAuth({
+    onboardingAuthIntent: true,
+    pendingOnboarding: null,
+  }), true);
+
+  assert.equal(shouldFinalizeMobileOnboardingAfterAuth({
+    onboardingAuthIntent: false,
+    pendingOnboarding: { migrationStatus: "pending" },
+  }), true);
 });
 
 test("signup, callback, cleanup, Profile reward, and reset routes use the shared safe flow", async () => {

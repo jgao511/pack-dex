@@ -10,6 +10,13 @@ import {
 const DEFAULT_SESSION_ATTEMPTS = 8;
 const DEFAULT_SESSION_INTERVAL_MS = 75;
 
+export function shouldFinalizeMobileOnboardingAfterAuth({
+  onboardingAuthIntent = false,
+  pendingOnboarding = null,
+} = {}) {
+  return Boolean(onboardingAuthIntent || pendingOnboarding);
+}
+
 export class MobileOnboardingError extends Error {
   constructor(message, {
     code = "onboarding_sync_failed",
