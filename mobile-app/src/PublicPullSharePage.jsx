@@ -3,7 +3,11 @@ import { getSetCardById, sets } from "../../src/data/sets.js";
 import { getCardImageUrl } from "../../src/utils/assetUrls.js";
 import { getPublicPullShare } from "../../src/lib/publicPullShares.js";
 import { selectFeaturedPull } from "../../src/utils/rarityRank.js";
+import { buildPublicSiteUrl } from "../../src/utils/authRedirects.js";
+import { buildMobileShareUrl } from "./utils/mobileShareUrl.js";
 import "./PublicPullSharePage.css";
+
+const MOBILE_HOME_URL = buildPublicSiteUrl("/mobile-app/");
 
 function ShareCardImage({ card, className = "" }) {
   const [failed, setFailed] = useState(false);
@@ -52,7 +56,7 @@ export default function PublicPullSharePage({ shareCode }) {
     });
     let link = document.head.querySelector('link[rel="canonical"]');
     if (!link) { link = document.createElement("link"); link.rel = "canonical"; document.head.appendChild(link); }
-    link.href = `${window.location.origin}/mobile-app/share/${encodeURIComponent(shareCode)}`;
+    link.href = buildMobileShareUrl({ share_code: shareCode }, { native: true });
   }, [state.share, shareCode]);
 
   const bestPullIndex = state.share?.cards?.length ? selectFeaturedPull(state.share.cards, sets.find((candidate) => candidate.id === (state.share.set_id || state.share.setId)))?.index ?? state.share.cards.length - 1 : -1;
@@ -60,13 +64,13 @@ export default function PublicPullSharePage({ shareCode }) {
   const others = useMemo(() => state.share?.cards?.filter((_, index) => index !== bestPullIndex) || [], [bestPullIndex, state.share]);
 
   if (state.status === "loading") return <main className="public-share-page"><section className="public-share-loading" role="status" aria-live="polite"><ShareBrand /><p>Loading shared pull...</p></section></main>;
-  if (state.status === "not-found" || !bestPull) return <main className="public-share-page"><section className="public-share-not-found"><ShareBrand /><h1>Shared pull not found</h1><p>This link may be invalid or unavailable.</p><a href="/mobile-app">Try PackDex</a></section></main>;
+  if (state.status === "not-found" || !bestPull) return <main className="public-share-page"><section className="public-share-not-found"><ShareBrand /><h1>Shared pull not found</h1><p>This link may be invalid or unavailable.</p><a href={MOBILE_HOME_URL}>Try PackDex</a></section></main>;
 
   const gridRemainder = others.length % 3;
   return <main className="public-share-page">
     <header className="public-share-header"><ShareBrand /><h1>LOOK WHAT I PULLED!</h1><p>{state.share.setName}{state.share.pack_number ? ` · Pack #${state.share.pack_number}` : ""}</p></header>
     <section className="public-share-hero"><ShareCardImage card={bestPull} /></section>
     {others.length > 0 && <section className={`public-share-card-grid remainder-${gridRemainder}`}>{others.map((card, index) => <ShareCardImage key={`${card.id}-${index}`} card={card} />)}</section>}
-    <footer className="public-share-page-footer"><p>Opened on PackDex.</p><a href="/mobile-app">Open a Pack</a></footer>
+    <footer className="public-share-page-footer"><p>Opened on PackDex.</p><a href={MOBILE_HOME_URL}>Open a Pack</a></footer>
   </main>;
 }

@@ -15,8 +15,10 @@ https://www.pack-dex.com
 Add these exact production **Redirect URLs**:
 
 ```text
+https://www.pack-dex.com/auth/callback
 https://www.pack-dex.com/mobile-app/auth/callback
 https://www.pack-dex.com/mobile-app/reset-password
+https://pack-dex.com/auth/callback
 https://pack-dex.com/mobile-app/auth/callback
 https://pack-dex.com/mobile-app/reset-password
 ```
@@ -41,8 +43,12 @@ Keep the verification token in both links:
 The fallback text link must also use `{{ .ConfirmationURL }}`. Mobile signup supplies:
 
 ```js
-emailRedirectTo: `${PUBLIC_SITE_URL}/mobile-app/auth/callback`
+emailRedirectTo: `${PUBLIC_SITE_URL}/auth/callback`
 ```
+
+The shared browser callback confirms the email, then tells native users to
+return to the PackDex app and sign in. The Capacitor bundle must never be used
+as an email redirect target.
 
 Do not replace `{{ .ConfirmationURL }}` with `{{ .SiteURL }}`.
 
@@ -63,5 +69,5 @@ https://www.pack-dex.com/mobile-app/reset-password?token_hash={{ .TokenHash }}&t
 ```
 
 The mobile reset route verifies that token with `verifyOtp`, updates the password
-with `updateUser`, and returns the authenticated recovery session to
-`/mobile-app/?tab=profile`.
+with `updateUser`, signs the browser recovery session out, and tells the user to
+return to the PackDex app and sign in with the new password.

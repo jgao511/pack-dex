@@ -3,11 +3,22 @@ export const PUBLIC_SITE_URL = String(
   import.meta.env?.VITE_PUBLIC_SITE_URL || PRODUCTION_SITE_URL
 ).replace(/\/+$/, "");
 
-export function getSiteOrigin() {
-  if (typeof window !== "undefined") {
-    const { origin, hostname } = window.location;
+export function buildPublicSiteUrl(pathname = "/", origin = PUBLIC_SITE_URL) {
+  const normalizedPath = String(pathname || "/");
+  if (!normalizedPath.startsWith("/") || normalizedPath.startsWith("//")) {
+    throw new Error("Public PackDex URLs require a root-relative path.");
+  }
+  return `${String(origin || PUBLIC_SITE_URL).replace(/\/+$/, "")}${normalizedPath}`;
+}
 
-    if (hostname === "localhost" || hostname === "127.0.0.1") {
+export function getSiteOrigin(location = globalThis.window?.location) {
+  if (location) {
+    const { origin, hostname, protocol } = location;
+
+    if (
+      (protocol === "http:" || protocol === "https:") &&
+      (hostname === "localhost" || hostname === "127.0.0.1")
+    ) {
       return origin;
     }
   }
@@ -16,7 +27,7 @@ export function getSiteOrigin() {
 }
 
 export function getAuthCallbackUrl() {
-  return `${PUBLIC_SITE_URL}/auth/callback`;
+  return buildPublicSiteUrl("/auth/callback");
 }
 
 export function getResetPasswordUrl() {
@@ -27,8 +38,12 @@ export function getMobileAuthCallbackUrl() {
   return getAuthCallbackUrl();
 }
 
-export function getMobileResetPasswordUrl() {
-  return `${getSiteOrigin()}/mobile-app/reset-password`;
+export function getMobileResetPasswordUrl({
+  native = false,
+  location = globalThis.window?.location,
+} = {}) {
+  const origin = native ? PRODUCTION_SITE_URL : getSiteOrigin(location);
+  return buildPublicSiteUrl("/mobile-app/reset-password", origin);
 }
 
 export function normalizeCanonicalProductionLocation(location = globalThis.location) {

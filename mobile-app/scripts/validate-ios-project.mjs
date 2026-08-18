@@ -72,6 +72,7 @@ export async function validateIosProject() {
   assert.match(packageSwift, /capacitor-swift-pm\.git", exact: "8\.4\.1"/);
   assert.match(packageSwift, /CapacitorApp/);
   assert.match(packageSwift, /CapacitorBrowser/);
+  assert.match(packageSwift, /CapacitorShare/);
   assert.doesNotMatch(generatedConfig, /Camera|Photo|MLKit|TextRecognition|Scanner/i);
 
   const nativeAssetNames = await readdir(new URL("ios/App/App/public/assets/", mobileRoot));

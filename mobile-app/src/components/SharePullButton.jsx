@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createPublicPullShare } from "../../../src/lib/publicPullShares.js";
+import { isNativeRuntime } from "../lib/platform.js";
+import { presentPullShare, SHARE_RESULT } from "../lib/sharePull.js";
 import { buildMobileShareUrl } from "../utils/mobileShareUrl.js";
 
 export default function SharePullButton({ cards, setId, packNumber = null }) {
@@ -34,16 +36,14 @@ export default function SharePullButton({ cards, setId, packNumber = null }) {
         cardIds: cards.map((card) => String(card.id)),
         packNumber,
       });
-      const mobileShareUrl = buildMobileShareUrl(result, window.location.origin);
+      const native = isNativeRuntime();
+      const mobileShareUrl = buildMobileShareUrl(result, {
+        native,
+        origin: window.location.origin,
+      });
       const shareData = { title: "My PackDex Pull", text: "Look what I pulled on PackDex!", url: mobileShareUrl };
-      if (navigator.share) {
-        try {
-          await navigator.share(shareData);
-          return;
-        } catch (shareError) {
-          if (shareError?.name === "AbortError") return;
-        }
-      }
+      const shareResult = await presentPullShare(shareData, { native });
+      if (shareResult === SHARE_RESULT.shared || shareResult === SHARE_RESULT.cancelled) return;
       if (await copyShareUrl(mobileShareUrl)) setError("Link copied.");
       else setError(mobileShareUrl);
     } catch (shareError) {

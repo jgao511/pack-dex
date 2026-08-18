@@ -3306,6 +3306,14 @@ body.scanner-camera-active,
   color: #f8fbff;
 }
 
+.inspect-card-copy .market-price-line small {
+  display: block;
+  margin-top: 4px;
+  color: #98a6c8;
+  font-size: 0.68rem;
+  font-weight: 750;
+}
+
 .tcgplayer-card-link {
   display: inline-flex;
   align-items: center;

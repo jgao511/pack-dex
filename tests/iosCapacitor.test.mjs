@@ -57,6 +57,26 @@ test("native legal links use the public PackDex website instead of the Capacitor
   assert.doesNotMatch(appSource, /getSiteOrigin\(\).*LEGAL_ROUTES/);
 });
 
+test("native account recovery and public share links cannot resolve against localhost", async () => {
+  const [appSource, resetSource, shareSource] = await Promise.all([
+    read("mobile-app/src/App.jsx"),
+    read("mobile-app/src/MobileResetPasswordPage.jsx"),
+    read("mobile-app/src/PublicPullSharePage.jsx"),
+  ]);
+  assert.match(appSource, /getMobileResetPasswordUrl\(\{ native: isNativeRuntime\(\) \}\)/);
+  assert.match(resetSource, /buildPublicSiteUrl\("\/mobile-app\/"\)/);
+  assert.match(shareSource, /buildMobileShareUrl\(\{ share_code: shareCode \}, \{ native: true \}\)/);
+  assert.doesNotMatch(`${resetSource}\n${shareSource}`, /window\.location\.origin|href="\/mobile-app/);
+});
+
+test("App Store price references disclose that simulated cards have no cash value", async () => {
+  const appSource = await read("mobile-app/src/App.jsx");
+  assert.match(appSource, /nativeValueDisclosure \? "Real-world pack reference" : "Estimated Pull Value"/);
+  assert.match(appSource, /nativeValueDisclosure \? "Real-world market reference" : "Estimated Market Value"/);
+  assert.match(appSource, /Simulation only · no cash value/);
+  assert.equal((appSource.match(/nativeValueDisclosure=\{isAppStoreRuntime\}/g) || []).length, 2);
+});
+
 test("public iOS dependencies and permissions exclude scanner, camera, photos, and OCR", async () => {
   const [packageJson, packageLock, info, packageSwift, generatedConfig, appSource] = await Promise.all([
     read("mobile-app/package.json"),
@@ -71,6 +91,7 @@ test("public iOS dependencies and permissions exclude scanner, camera, photos, a
   assert.doesNotMatch(packageLock, bannedDependency);
   assert.doesNotMatch(info, /NSCameraUsageDescription|NSPhotoLibraryUsageDescription|NSMicrophoneUsageDescription/);
   assert.doesNotMatch(packageSwift, /Camera|Photo|MLKit|TextRecognition|Scanner/i);
+  assert.match(packageSwift, /CapacitorShare/);
   assert.doesNotMatch(generatedConfig, /Camera|Photo|MLKit|TextRecognition|Scanner/i);
   assert.doesNotMatch(appSource, /MobileScannerPage|mobile-icon-scanner|screen-scanner|scannerTestEnabled/);
 });

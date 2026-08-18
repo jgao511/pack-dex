@@ -133,7 +133,7 @@ import {
   getMobileTabPath,
   navigateAfterMobileOnboarding,
 } from "./lib/mobileRouting.js";
-import { isIosNative, shouldSuppressBrowserAds } from "./lib/platform.js";
+import { isIosNative, isNativeRuntime, shouldSuppressBrowserAds } from "./lib/platform.js";
 import {
   isMobilePackReadyAdContextAllowed,
   isMobileSetAdContextAllowed,
@@ -1356,6 +1356,7 @@ function PackScreen({
   priceMap,
   allowPackReadyWebAd = false,
   suppressBrowserAds = false,
+  nativeValueDisclosure = false,
   tutorialMode = false,
   onTutorialContinue,
 }) {
@@ -1468,8 +1469,9 @@ function PackScreen({
           <SetLogo set={selectedSet} className="pack-logo pack-logo-compact" />
           {pullValueCoverage?.isComplete && pullValueCoverage.totalCards > 0 && (
             <section className="value-note compact-value-note">
-              <span>Estimated Pull Value</span>
+              <span>{nativeValueDisclosure ? "Real-world pack reference" : "Estimated Pull Value"}</span>
               <strong>{formatUsd(pullValueCoverage.totalValue)}</strong>
+              {nativeValueDisclosure && <em>Simulation only · no cash value</em>}
             </section>
           )}
           {featuredPull?.card && <p className="pack-featured-pull"><span>Featured Pull</span><strong>{getDisplayCardName(featuredPull.card)} · {getDisplayRarity(featuredPull.card)}</strong></p>}
@@ -1928,7 +1930,7 @@ export function DelayedExploreFallback() {
   return <PackDexStartupAnimation delayed />;
 }
 
-function CardInspectModal({ item, collection, user, wishlistKeys, wishlistPendingKeys, wishlistMessage, onToggleWishlist, onLogin, onClose, priceMap, onLoadSpecies, onViewPokemon, onViewSet, onViewEra }) {
+function CardInspectModal({ item, collection, user, wishlistKeys, wishlistPendingKeys, wishlistMessage, onToggleWishlist, onLogin, onClose, priceMap, nativeValueDisclosure = false, onLoadSpecies, onViewPokemon, onViewSet, onViewEra }) {
   const [linkedSpecies, setLinkedSpecies] = useState([]);
   const inspectTiltFrameRef = useRef(null);
   const activeInspectPointerRef = useRef(null);
@@ -2188,8 +2190,9 @@ function CardInspectModal({ item, collection, user, wishlistKeys, wishlistPendin
           )}
           {!minimalPreview && ownedCount === 0 && wishlistMessage?.key === wishlistKey && <p className={`wishlist-inline-message ${wishlistMessage.isError ? "is-error" : ""}`}>{wishlistMessage.text}</p>}
           {!minimalPreview && hasMarketPrice && <p className="market-price-line">
-            Estimated Market Value: <strong>{formatUsd(marketPrice.marketPriceUsd)}</strong>
+            {nativeValueDisclosure ? "Real-world market reference" : "Estimated Market Value"}: <strong>{formatUsd(marketPrice.marketPriceUsd)}</strong>
             <TcgplayerSourceBadge compact />
+            {nativeValueDisclosure && <small>Simulation only · no cash value</small>}
           </p>}
           {!minimalPreview && tcgplayerCardUrl && (
             <a className="tcgplayer-card-link" href={tcgplayerCardUrl} target="_blank" rel="noopener noreferrer">
@@ -4831,7 +4834,7 @@ function MobileApp({
 
       try {
         const { error: resetError } = await supabase.auth.resetPasswordForEmail(authEmail.trim(), {
-          redirectTo: getMobileResetPasswordUrl(),
+          redirectTo: getMobileResetPasswordUrl({ native: isNativeRuntime() }),
           captchaToken: turnstileToken,
         });
 
@@ -5111,6 +5114,7 @@ function MobileApp({
                 priceMap={selectedSet ? fullSetPriceMapsBySet[selectedSet.id] || priceMapsBySet[selectedSet.id] : null}
                 allowPackReadyWebAd={allowPackReadyWebAd}
                 suppressBrowserAds={suppressBrowserAds}
+                nativeValueDisclosure={isAppStoreRuntime}
               />
             ))}
           {activeTab === "collection" && (
@@ -5362,6 +5366,7 @@ function MobileApp({
           onToggleWishlist={toggleWishlistCard}
           onLogin={() => openAuthProfile("login")}
           priceMap={inspectedCard?.set ? fullSetPriceMapsBySet[inspectedCard.set.id] || priceMapsBySet[inspectedCard.set.id] : null}
+          nativeValueDisclosure={isAppStoreRuntime}
           onLoadSpecies={loadExploreSpeciesForCard}
           onViewPokemon={openPokemonFromInspect}
           onViewSet={(id) => openCardDestination({ kind: "set", id })}

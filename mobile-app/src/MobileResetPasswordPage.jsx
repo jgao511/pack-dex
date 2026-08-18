@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import { buildPublicSiteUrl } from "../../src/utils/authRedirects.js";
 
 const RESET_PATH = "/mobile-app/reset-password";
-const MOBILE_HOME_PATH = "/mobile-app/";
+const MOBILE_HOME_URL = buildPublicSiteUrl("/mobile-app/");
 
 export default function MobileResetPasswordPage({ supabase }) {
   const [newPassword, setNewPassword] = useState("");
@@ -158,7 +159,7 @@ export default function MobileResetPasswordPage({ supabase }) {
             </form> : (
               <p className="auth-message is-success">You can close this window, return to the PackDex app, and sign in with your new password.</p>
             )}
-            {!isComplete && <a className="auth-switch-link" href={MOBILE_HOME_PATH}>
+            {!isComplete && <a className="auth-switch-link" href={MOBILE_HOME_URL}>
               Back to PackDex
             </a>}
           </section>

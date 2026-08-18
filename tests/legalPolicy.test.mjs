@@ -80,8 +80,8 @@ test("website and mobile surfaces use canonical legal links and Privacy Choices"
   assert.match(landingPage, /openPrivacyChoices\(event\.currentTarget\)/);
   assert.match(authPanel, /href=\{LEGAL_ROUTES\.privacy\}/);
   assert.match(authPanel, /href=\{LEGAL_ROUTES\.terms\}/);
-  assert.match(mobileApp, /terms: `\$\{getSiteOrigin\(\)\}\$\{LEGAL_ROUTES\.terms\}`/);
-  assert.match(mobileApp, /privacy: `\$\{getSiteOrigin\(\)\}\$\{LEGAL_ROUTES\.privacy\}`/);
+  assert.match(mobileApp, /terms: `\$\{PUBLIC_SITE_URL\}\$\{LEGAL_ROUTES\.terms\}`/);
+  assert.match(mobileApp, /privacy: `\$\{PUBLIC_SITE_URL\}\$\{LEGAL_ROUTES\.privacy\}`/);
   assert.match(mobileApp, />\s*Privacy Choices\s*<\/button>/);
   assert.match(app, /pagePath\.replace\(\/\\\/\+\$\/, ""\)/);
   assert.match(main, /const isPublicLanding = entryDecision === "welcome"/);

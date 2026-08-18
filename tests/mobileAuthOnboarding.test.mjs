@@ -29,6 +29,7 @@ import {
   getAuthCallbackUrl,
   getMobileAuthCallbackUrl,
   getMobileResetPasswordUrl,
+  getSiteOrigin,
   normalizeCanonicalProductionLocation,
 } from "../src/utils/authRedirects.js";
 
@@ -283,6 +284,12 @@ test("canonical mobile auth URLs and URL-driven Profile routing are exact", () =
   assert.equal(getAuthCallbackUrl(), "https://www.pack-dex.com/auth/callback");
   assert.equal(getMobileAuthCallbackUrl(), "https://www.pack-dex.com/auth/callback");
   assert.equal(getMobileResetPasswordUrl(), "https://www.pack-dex.com/mobile-app/reset-password");
+  assert.equal(getSiteOrigin({ protocol: "http:", hostname: "localhost", origin: "http://localhost:5174" }), "http://localhost:5174");
+  assert.equal(getSiteOrigin({ protocol: "capacitor:", hostname: "localhost", origin: "capacitor://localhost" }), "https://www.pack-dex.com");
+  assert.equal(getMobileResetPasswordUrl({
+    native: true,
+    location: { protocol: "http:", hostname: "localhost", origin: "http://localhost" },
+  }), "https://www.pack-dex.com/mobile-app/reset-password");
   assert.equal(getInitialMobileTab({ pathname: "/mobile-app/", search: "?tab=profile&onboardingComplete=1" }), "profile");
 
   const replacements = [];

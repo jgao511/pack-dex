@@ -3,7 +3,7 @@ import { corsHeaders, formatErrorForResponse, jsonResponse } from "../_shared/ht
 
 const MAX_CARDS = 20;
 const MAX_ID_LENGTH = 180;
-const SHARE_ORIGIN = Deno.env.get("PUBLIC_SHARE_ORIGIN") || "https://pack-dex.com";
+const SHARE_ORIGIN = Deno.env.get("PUBLIC_SHARE_ORIGIN") || "https://www.pack-dex.com";
 
 function text(value: unknown, maxLength: number) {
   const normalized = typeof value === "string" ? value.trim() : "";
