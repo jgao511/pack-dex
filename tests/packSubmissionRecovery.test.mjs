@@ -218,6 +218,100 @@ test("desktop pending packs use the same sequential atomic path", async () => {
   assert.equal(storage.getItem(DESKTOP_PENDING_CLOUD_PULLS_KEY), "[]");
 });
 
+test("desktop transient retries keep scheduling until the queued pack is acknowledged", async (t) => {
+  const storage = new MemoryStorage();
+  enqueueDesktopPendingCloudPull([CARD], "base-set", "desktop-user", "desktop-retry-pack", { storage });
+  const originalWindow = globalThis.window;
+  let now = Date.now();
+  let timerId = 0;
+  const scheduledEntries = [];
+  const dispatchedEvents = [];
+  globalThis.window = {
+    localStorage: storage,
+    CustomEvent: class {
+      constructor(type, init) {
+        this.type = type;
+        this.detail = init?.detail;
+      }
+    },
+    dispatchEvent(event) {
+      dispatchedEvents.push(event);
+      return true;
+    },
+    setTimeout(callback, delay) {
+      const [entry] = JSON.parse(storage.getItem(DESKTOP_PENDING_CLOUD_PULLS_KEY));
+      scheduledEntries.push({
+        attempts: entry.attempts,
+        retryDelay: entry.nextRetryAt - now,
+        state: entry.state,
+      });
+      const id = ++timerId;
+      queueMicrotask(() => {
+        now = Math.max(now + Number(delay) + 1, entry.nextRetryAt);
+        callback();
+      });
+      return id;
+    },
+  };
+  t.after(() => {
+    if (originalWindow === undefined) delete globalThis.window;
+    else globalThis.window = originalWindow;
+  });
+
+  let calls = 0;
+  let serverWrites = 0;
+  const submittedEventIds = [];
+  const queuedCountsDuringAttempts = [];
+  let resolveThirdAttempt;
+  const thirdAttempt = new Promise((resolve) => { resolveThirdAttempt = resolve; });
+  const client = {
+    async rpc(_name, payload) {
+      calls += 1;
+      submittedEventIds.push(payload.batches[0].client_event_id);
+      queuedCountsDuringAttempts.push(getDesktopPendingCloudPullCount("desktop-user", storage));
+      if (calls < 3) return { data: null, error: new Error(`transient failure ${calls}`) };
+      serverWrites += 1;
+      resolveThirdAttempt();
+      return { data: successfulRow(payload), error: null };
+    },
+  };
+
+  const firstAttempt = syncDesktopPendingCloudPulls("desktop-user", {
+    client,
+    storage,
+    validateUser: false,
+    requestTimeoutMs: 0,
+    now: () => now,
+    random: () => 0,
+    autoRetry: true,
+  });
+  await assert.rejects(firstAttempt, /transient failure 1/);
+  await Promise.race([
+    thirdAttempt,
+    new Promise((_, reject) => setTimeout(() => reject(new Error("automatic third retry was not scheduled")), 250)),
+  ]);
+  await new Promise((resolve) => setImmediate(resolve));
+
+  assert.equal(calls, 3);
+  assert.deepEqual(submittedEventIds, [
+    "desktop-retry-pack",
+    "desktop-retry-pack",
+    "desktop-retry-pack",
+  ]);
+  assert.deepEqual(queuedCountsDuringAttempts, [1, 1, 1]);
+  assert.deepEqual(scheduledEntries, [
+    { attempts: 1, retryDelay: 6_000, state: "waiting_retry" },
+    { attempts: 2, retryDelay: 12_000, state: "waiting_retry" },
+  ]);
+  assert.equal(serverWrites, 1);
+  assert.equal(getDesktopPendingCloudPullCount("desktop-user", storage), 0);
+  assert.equal(storage.getItem(DESKTOP_PENDING_CLOUD_PULLS_KEY), "[]");
+  assert.deepEqual(dispatchedEvents.map((event) => [event.type, event.detail]), [[
+    "packdex-cloud-pull-sync",
+    { userId: "desktop-user" },
+  ]]);
+});
+
 test("duplicate UI completion claims cannot persist the same pack twice", () => {
   const first = claimPackPersistence("", "pack-open:base-set:stable-event");
   const duplicatePointer = claimPackPersistence(first.saveKey, "pack-open:base-set:stable-event");

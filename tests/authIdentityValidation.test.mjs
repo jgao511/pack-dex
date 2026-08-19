@@ -106,5 +106,7 @@ test("web and mobile auth restoration validate before account loads or welcome r
     assert.match(source, /addEventListener\("focus"/);
     assert.match(source, /addEventListener\("storage"/);
   }
+  assert.match(webApp, /addEventListener\("online", retryPendingPulls\)/);
+  assert.match(webApp, /addEventListener\(CLOUD_PULL_SYNC_EVENT, handleBackgroundSync\)/);
   assert.match(mobileApp, /validateSupabaseIdentity[\s\S]*?loadAccountScopedState[\s\S]*?refreshWelcomeRewardStatus/);
 });

@@ -20,6 +20,7 @@ import {
 import { loadCloudCollectionPages } from "./cloudCollectionPagination.js";
 
 export const PENDING_CLOUD_PULLS_KEY = "packdex-pending-cloud-pulls";
+export const CLOUD_PULL_SYNC_EVENT = "packdex-cloud-pull-sync";
 const CLOUD_SYNC_REQUEST_TIMEOUT_MS = 15_000;
 
 export const PACK_RATE_LIMIT_ERROR_CODE = "PACK_RATE_LIMITED";
@@ -68,6 +69,17 @@ function getDefaultStorage() {
 
 function loadPendingCloudPulls(storage = getDefaultStorage()) {
   return readCompletedPackQueue(PENDING_CLOUD_PULLS_KEY, storage);
+}
+
+function notifyCloudPullSync(userId) {
+  if (
+    typeof window === "undefined" ||
+    typeof window.dispatchEvent !== "function" ||
+    typeof window.CustomEvent !== "function"
+  ) return;
+  window.dispatchEvent(new window.CustomEvent(CLOUD_PULL_SYNC_EVENT, {
+    detail: { userId: String(userId || "") },
+  }));
 }
 
 function compactPendingCard(card) {
@@ -231,6 +243,9 @@ export function syncPendingCloudPulls(userId, options = {}) {
   const storage = options.storage || getDefaultStorage();
   const validateUser = options.validateUser ?? client === supabase;
   const requestTimeoutMs = options.requestTimeoutMs ?? CLOUD_SYNC_REQUEST_TIMEOUT_MS;
+  const shouldScheduleRetry = options.autoRetry === true || (
+    client === supabase && storage === getDefaultStorage()
+  );
   const run = () => syncCompletedPackQueue({
     storageKey: PENDING_CLOUD_PULLS_KEY,
     userId,
@@ -243,25 +258,31 @@ export function syncPendingCloudPulls(userId, options = {}) {
     random: options.random || Math.random,
     source: "desktop",
   });
-  return run().then((result) => {
-    if (client === supabase && storage === getDefaultStorage() && result.failed > 0) {
-      const nextRetryAt = Math.min(...getCompletedPackQueueEntries(PENDING_CLOUD_PULLS_KEY, userId, storage)
-        .map((entry) => Number(entry.nextRetryAt || Infinity)));
-      if (Number.isFinite(nextRetryAt)) {
-        scheduleCompletedPackQueueDrain(PENDING_CLOUD_PULLS_KEY, userId, () => run().catch(() => {}), nextRetryAt);
-      }
+  const scheduleRetry = () => {
+    if (!shouldScheduleRetry) return;
+    const nextRetryAt = Math.min(...getCompletedPackQueueEntries(PENDING_CLOUD_PULLS_KEY, userId, storage)
+      .map((entry) => Number(entry.nextRetryAt || Infinity)));
+    if (Number.isFinite(nextRetryAt)) {
+      scheduleCompletedPackQueueDrain(
+        PENDING_CLOUD_PULLS_KEY,
+        userId,
+        () => syncWithRetryScheduling()
+          .then((result) => {
+            if (result.saved > 0) notifyCloudPullSync(userId);
+          })
+          .catch(() => {}),
+        nextRetryAt
+      );
     }
+  };
+  const syncWithRetryScheduling = () => run().then((result) => {
+    if (result.failed > 0) scheduleRetry();
     return result;
   }).catch((error) => {
-    if (error?.packSyncCategory !== "authentication" && client === supabase && storage === getDefaultStorage()) {
-      const nextRetryAt = Math.min(...getCompletedPackQueueEntries(PENDING_CLOUD_PULLS_KEY, userId, storage)
-        .map((entry) => Number(entry.nextRetryAt || Infinity)));
-      if (Number.isFinite(nextRetryAt)) {
-        scheduleCompletedPackQueueDrain(PENDING_CLOUD_PULLS_KEY, userId, () => run().catch(() => {}), nextRetryAt);
-      }
-    }
+    if (error?.packSyncCategory !== "authentication") scheduleRetry();
     throw error;
   });
+  return syncWithRetryScheduling();
 }
 
 export function cancelPendingCloudPullSync(userId) {

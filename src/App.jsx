@@ -26,6 +26,7 @@ import {
 import { activeSets, isRetiredSet, sets } from "./data/sets.js";
 import {
   cancelPendingCloudPullSync,
+  CLOUD_PULL_SYNC_EVENT,
   enqueuePendingCloudPull,
   getPendingCloudPullCount,
   isPackRateLimitError,
@@ -1777,6 +1778,61 @@ function App({ route: initialRoute = null }) {
 
     return () => {
       isMounted = false;
+    };
+  }, [authUser?.id]);
+
+  useEffect(() => {
+    if (!authUser) return undefined;
+
+    let isMounted = true;
+    const userId = authUser.id;
+    const clearSyncedWarning = () => {
+      if (!isMounted || getPendingCloudPullCount(userId) > 0) return;
+      setCloudWarning((currentWarning) => (
+        /waiting to sync|saved locally|retry automatically|rate-limit window/i.test(currentWarning)
+          ? ""
+          : currentWarning
+      ));
+    };
+    const retryPendingPulls = async () => {
+      if (!isMounted || getPendingCloudPullCount(userId) === 0) {
+        clearSyncedWarning();
+        return;
+      }
+
+      try {
+        const result = await syncPendingCloudPulls(userId);
+        if (!isMounted) return;
+        if (result.failed > 0) {
+          setCloudWarning("Some saved pulls are waiting to sync. PackDex will retry automatically.");
+          return;
+        }
+        clearSyncedWarning();
+      } catch (error) {
+        console.warn("Pending PackDex cloud pull recovery remains queued", { userId, error });
+        if (isMounted) {
+          setCloudWarning("Some saved pulls are waiting to sync. PackDex will retry automatically.");
+        }
+      }
+    };
+    const retryIfVisible = () => {
+      if (document.visibilityState !== "hidden") retryPendingPulls();
+    };
+    const handleBackgroundSync = (event) => {
+      if (String(event.detail?.userId || "") === userId) clearSyncedWarning();
+    };
+
+    window.addEventListener("online", retryPendingPulls);
+    window.addEventListener("focus", retryIfVisible);
+    document.addEventListener("visibilitychange", retryIfVisible);
+    window.addEventListener(CLOUD_PULL_SYNC_EVENT, handleBackgroundSync);
+
+    return () => {
+      isMounted = false;
+      window.removeEventListener("online", retryPendingPulls);
+      window.removeEventListener("focus", retryIfVisible);
+      document.removeEventListener("visibilitychange", retryIfVisible);
+      window.removeEventListener(CLOUD_PULL_SYNC_EVENT, handleBackgroundSync);
     };
   }, [authUser?.id]);
 
