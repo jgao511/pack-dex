@@ -17,6 +17,11 @@ export const PUBLIC_PAGE_SEO = Object.freeze({
     description:
       "Discover PackDex, a free fan-made Pokémon TCG simulator and collector companion for virtual pack opening, set exploration, wishlists, and collection tracking.",
   },
+  install: {
+    title: "Download PackDex for iPhone | PackDex",
+    description:
+      "Download PackDex for iPhone to explore Pokémon TCG sets, discover cards, open virtual packs, and build your digital collection.",
+  },
   sets: {
     title: "Explore Pokémon TCG Sets | PackDex",
     description:

@@ -214,7 +214,14 @@ function renderInitialProductContent(route, onNavigateSet = () => {}, onOpenSet 
   recordStartup("initialRealContentRendered", { screen: route?.kind === "set" ? "pack-ready" : route?.page || "shell" });
 }
 
-if (isMobileAppEntry) {
+if (normalizedPath === "/install") {
+  renderDelayedDesktopFallback();
+  recordStartup("pageModuleImportStart", { screen: "install" });
+  import("./InstallPage.jsx").then(({ default: Page }) => {
+    recordStartup("pageModuleImportEnd", { screen: "install" });
+    renderPage({ Page, screen: "install" });
+  }).catch(renderDesktopStartupError);
+} else if (isMobileAppEntry) {
   window.location.replace("/mobile-app/");
 } else if (isPublicLanding) {
   renderDelayedDesktopFallback();

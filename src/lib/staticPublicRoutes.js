@@ -3,6 +3,7 @@ export const PACKDEX_SITE_ORIGIN = "https://www.pack-dex.com";
 export const PUBLIC_ROUTE_PATHS = Object.freeze({
   home: "/",
   welcome: "/welcome",
+  install: "/install",
   sets: "/sets",
   howItWorks: "/how-it-works",
   faq: "/faq",

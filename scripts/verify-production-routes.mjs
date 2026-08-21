@@ -140,6 +140,7 @@ assert.deepEqual(routesConfig.include, ["/mobile-app", "/mobile-app/*"]);
 for (const requiredExclusion of [
   "/mobile-app/assets/*",
   "/mobile-app/generated/*",
+  "/mobile-app/install/*",
   "/mobile-app/scanner-ai/*",
   "/mobile-app/set-logos/*",
   "/mobile-app/index.html",
@@ -252,6 +253,8 @@ assert.equal(exactStaticFallback.nextCalls, 1);
 const routeCases = [
   ["/", desktopEntry],
   ["/welcome", snapshotEntry("/welcome")],
+  ["/install", snapshotEntry("/install")],
+  ["/install/", trailingSlashSnapshotEntry("/install")],
   ["/sets", snapshotEntry("/sets")],
   ["/how-it-works", snapshotEntry("/how-it-works")],
   ["/faq", snapshotEntry("/faq")],

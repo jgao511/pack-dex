@@ -29,6 +29,7 @@ import {
   generatePublicSnapshots,
   renderFaqSnapshot,
   renderHowItWorksSnapshot,
+  renderInstallSnapshot,
   renderSupportSnapshot,
   renderSetSnapshot,
   renderSetsSnapshot,
@@ -114,6 +115,7 @@ test("the shared route parser indexes only substantive public routes", () => {
   assert.deepEqual(INDEXABLE_PUBLIC_PATHS, [
     "/",
     "/welcome",
+    "/install",
     "/sets",
     "/how-it-works",
     "/faq",
@@ -170,8 +172,8 @@ test("the shared route parser indexes only substantive public routes", () => {
 
 test("the generated sitemap contains every canonical set and no utility routes", async () => {
   const sitemapPaths = getSitemapPaths();
-  assert.equal(sitemapPaths.length, 138);
-  assert.equal(new Set(sitemapPaths).size, 138);
+  assert.equal(sitemapPaths.length, 139);
+  assert.equal(new Set(sitemapPaths).size, 139);
 
   for (const entry of canonicalSetCatalog) assert.ok(sitemapPaths.includes(entry.path));
   for (const pathname of Object.values(UTILITY_ROUTE_PATHS)) assert.ok(!sitemapPaths.includes(pathname));
@@ -180,7 +182,8 @@ test("the generated sitemap contains every canonical set and no utility routes",
 
   const expectedXml = renderSitemapXml();
   assert.equal((await read("../public/sitemap.xml")).replace(/\r\n/g, "\n"), expectedXml);
-  assert.equal([...expectedXml.matchAll(/<loc>/g)].length, 138);
+  assert.equal([...expectedXml.matchAll(/<loc>/g)].length, 139);
+  assert.match(expectedXml, /<loc>https:\/\/www\.pack-dex\.com\/install<\/loc>/);
   assert.match(expectedXml, /<loc>https:\/\/www\.pack-dex\.com\/set\/pokemon-151<\/loc>/);
   assert.doesNotMatch(expectedXml, /\/(?:collection|profile|settings|login|signup|reset-password|auth\/callback|onboarding)<\/loc>/);
 });
@@ -209,6 +212,7 @@ test("crawler files and Cloudflare fallback configuration preserve real static a
   for (const exclusion of [
     "/mobile-app/assets/*",
     "/mobile-app/generated/*",
+    "/mobile-app/install/*",
     "/mobile-app/scanner-ai/*",
     "/mobile-app/set-logos/*",
     "/mobile-app/index.html",
@@ -291,6 +295,12 @@ test("public crawl snapshots expose substantive visible content and normal set l
   assert.match(welcome, /How PackDex Works/);
   assert.match(welcome, /href="\/sets"/);
   assert.doesNotMatch(welcome, /display\s*:\s*none/i);
+
+  const install = renderInstallSnapshot();
+  assert.match(install, /Your Pokémon TCG collection, reimagined\./);
+  assert.match(install, /href="https:\/\/apps\.apple\.com\/us\/app\/packdex\/id6802345131"/);
+  assert.match(install, /href="https:\/\/www\.pack-dex\.com"/);
+  assert.match(install, /Download on the App Store/);
 
   const sets = renderSetsSnapshot();
   const setLinks = [...sets.matchAll(/href="(\/set\/[^"]+)"/g)].map((match) => match[1]);
@@ -400,11 +410,11 @@ test("snapshot generation gives canonical no-slash URLs exact Cloudflare HTML en
   try {
     await writeFile(path.join(tempDist, "index.html"), template, "utf8");
     const result = await generatePublicSnapshots({ dist: tempDist });
-    assert.equal(result.snapshotCount, 138);
+    assert.equal(result.snapshotCount, 139);
     assert.equal(result.setSnapshotCount, 129);
     assert.equal(result.utilityEntryCount, 8);
 
-    for (const routePath of ["faq", "support", "sets", "set/pokemon-151"]) {
+    for (const routePath of ["install", "faq", "support", "sets", "set/pokemon-151"]) {
       const canonicalEntry = await readFile(path.join(tempDist, `${routePath}.html`), "utf8");
       const trailingSlashEntry = await readFile(path.join(tempDist, routePath, "index.html"), "utf8");
       assert.equal(trailingSlashEntry, canonicalEntry);

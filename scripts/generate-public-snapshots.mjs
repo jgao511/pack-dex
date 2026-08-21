@@ -195,6 +195,38 @@ function renderWelcomeSnapshot(pathname = "/") {
   });
 }
 
+function renderInstallSnapshot() {
+  const appStoreUrl = "https://apps.apple.com/us/app/packdex/id6802345131";
+  const webUrl = "https://www.pack-dex.com";
+
+  return `<div class="public-snapshot public-snapshot--install" data-packdex-static-snapshot="${PUBLIC_ROUTE_PATHS.install}">
+    <header class="public-snapshot__header">
+      <a class="public-snapshot__brand" href="${webUrl}" aria-label="PackDex home">
+        <img src="/packdex-icon-192.png" width="40" height="40" alt="" />
+        <span>PackDex</span>
+      </a>
+    </header>
+    <main id="main-content" class="public-snapshot__main">
+      <section class="public-snapshot__hero">
+        <p class="public-snapshot__eyebrow">Now available</p>
+        <h1>Your Pokémon TCG collection, reimagined.</h1>
+        <p class="public-snapshot__lead">Explore sets, discover cards, open virtual packs, and build your collection.</p>
+        <p><a class="public-snapshot__cta" href="${appStoreUrl}">Download on the App Store</a></p>
+        <p>Available now on iPhone · <a href="${webUrl}">Continue on the Web</a></p>
+      </section>
+      <section class="public-snapshot__section">
+        <h2>Meet your new favorite way to collect.</h2>
+        <p>Explore Pokémon TCG sets across eras, discover Pokémon and their card appearances, open virtual booster packs, build a digital collection, and save favorite cards to your wishlist.</p>
+        <img src="/install/explore.webp" width="520" height="1127" alt="PackDex Explore screen featuring Pokémon, sets, and eras" loading="lazy" />
+      </section>
+    </main>
+    <footer class="public-snapshot__footer">
+      <p><strong>PackDex</strong> · <a href="${webUrl}">pack-dex.com</a></p>
+      <p>PackDex is an unofficial, fan-made Pokémon TCG companion and is not affiliated with or endorsed by Nintendo, Creatures, GAME FREAK, or The Pokémon Company. Pokémon names, imagery, and related trademarks belong to their respective owners.</p>
+    </footer>
+  </div>`;
+}
+
 function groupSetCatalogByEra() {
   const groups = new Map();
   for (const entry of canonicalSetCatalog) {
@@ -528,6 +560,7 @@ function snapshotDefinitions() {
   return [
     { pathname: "/", body: renderWelcomeSnapshot("/") },
     { pathname: PUBLIC_ROUTE_PATHS.welcome, body: renderWelcomeSnapshot(PUBLIC_ROUTE_PATHS.welcome) },
+    { pathname: PUBLIC_ROUTE_PATHS.install, body: renderInstallSnapshot() },
     { pathname: PUBLIC_ROUTE_PATHS.sets, body: renderSetsSnapshot() },
     { pathname: PUBLIC_ROUTE_PATHS.howItWorks, body: renderHowItWorksSnapshot() },
     { pathname: PUBLIC_ROUTE_PATHS.faq, body: renderFaqSnapshot() },
@@ -596,6 +629,7 @@ export {
   renderAboutSnapshot,
   renderFaqSnapshot,
   renderHowItWorksSnapshot,
+  renderInstallSnapshot,
   renderSupportSnapshot,
   renderSetSnapshot,
   renderSetsSnapshot,
