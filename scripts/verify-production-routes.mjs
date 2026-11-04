@@ -377,9 +377,11 @@ for (const entry of canonicalSetCatalog) {
 
 const setsSnapshot = read(snapshotEntry("/sets"));
 const crawlableSetHrefs = [...setsSnapshot.matchAll(/href=["'](\/set\/[^"'?]+)["']/g)].map((match) => match[1]);
+const anniversaryPath = "/set/30th-celebration";
+assert.equal(crawlableSetHrefs[0], anniversaryPath);
 assert.deepEqual(
-  crawlableSetHrefs,
-  canonicalSetCatalog.map((entry) => entry.path),
+  crawlableSetHrefs.slice(1),
+  canonicalSetCatalog.map((entry) => entry.path).filter((pathname) => pathname !== anniversaryPath),
   "/sets must expose every canonical set as a normal href"
 );
 const pokemon151Snapshot = read(snapshotEntry("/set/pokemon-151"));

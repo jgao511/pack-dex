@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { getSetPickerGroup, getSetPickerGroupTitle, prioritizeAnniversary } from "../../src/lib/setPickerGroups.js";
 import { setCatalogMetadata } from "../../src/lib/setRouteCatalog.js";
 import { welcomeHeroGroups } from "../../src/data/welcomeHeroGroups.js";
 import {
@@ -32,7 +33,7 @@ function sortSetsByEra(setList) {
 
 function groupSetsByEra(setList) {
   return setList.reduce((groups, set) => {
-    const era = set.era || "Other";
+    const era = getSetPickerGroup(set);
     (groups[era] ||= []).push(set);
     return groups;
   }, {});
@@ -387,9 +388,9 @@ export default function MobileBootstrap({ mode = "selector", onNeedApp }) {
               </select>
             </label>
             <div className="mobile-era-list">
-              {Object.entries(groupedSets).map(([era, eraSets]) => (
+              {Object.entries(groupedSets).sort(prioritizeAnniversary).map(([era, eraSets]) => (
                 <section className="mobile-era-section" key={era}>
-                  <div className="mobile-era-heading"><h2>{era} Era</h2><span>{eraSets.length === 1 ? "1 set" : `${eraSets.length} sets`}</span></div>
+                  <div className="mobile-era-heading"><h2>{getSetPickerGroupTitle(era)}</h2><span>{eraSets.length === 1 ? "1 set" : `${eraSets.length} sets`}</span></div>
                   <div className="mobile-set-list">
                     {eraSets.map((set) => (
                       <article className="mobile-set-row" key={set.id}>

@@ -7,6 +7,7 @@ import { PUBLIC_ROUTE_PATHS, UTILITY_ROUTE_PATHS } from "../src/lib/publicRoutes
 import { canonicalSetCatalog } from "../src/lib/publicSetRoutes.js";
 import { getSetExploreDetails } from "../src/lib/setExploreDetails.js";
 import { getSetPublicContent } from "../src/lib/setContent.js";
+import { getSetPickerGroup, prioritizeAnniversary } from "../src/lib/setPickerGroups.js";
 import { getPullableCollectionCards } from "../src/utils/collectionStorage.js";
 import { getCardImageUrl, getSetPackArtUrl } from "../src/utils/assetUrls.js";
 
@@ -230,7 +231,7 @@ function renderInstallSnapshot() {
 function groupSetCatalogByEra() {
   const groups = new Map();
   for (const entry of canonicalSetCatalog) {
-    const era = entry.set.era || entry.set.series || "Other English Sets";
+    const era = getSetPickerGroup(entry.set);
     if (!groups.has(era)) groups.set(era, []);
     groups.get(era).push(entry);
   }
@@ -239,7 +240,7 @@ function groupSetCatalogByEra() {
 
 function renderSetsSnapshot() {
   const groups = groupSetCatalogByEra();
-  const content = [...groups.entries()].map(([era, entries]) => `
+  const content = [...groups.entries()].sort(prioritizeAnniversary).map(([era, entries]) => `
     <section class="public-snapshot__section public-snapshot__era" aria-labelledby="era-${escapeHtml(era.toLowerCase().replace(/[^a-z0-9]+/g, "-"))}">
       <h2 id="era-${escapeHtml(era.toLowerCase().replace(/[^a-z0-9]+/g, "-"))}">${escapeHtml(era)}</h2>
       <div class="public-snapshot__set-grid">

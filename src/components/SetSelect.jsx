@@ -1,5 +1,6 @@
 import { Library } from "lucide-react";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { ANNIVERSARY_PICKER_GROUP, getSetPickerGroup, getSetPickerGroupTitle, prioritizeAnniversary } from "../lib/setPickerGroups.js";
 import { getRemoteSetLogoUrl, getSetLogoUrl } from "../utils/assetUrls.js";
 import { getSetCollectionProgress } from "../utils/collectionStorage.js";
 
@@ -21,6 +22,7 @@ const ERA_ORDER = [
   "Other",
 ];
 const ERA_LOGO_SET_IDS = {
+  [ANNIVERSARY_PICKER_GROUP]: "30th-celebration",
   "Mega Evolution": "mega-evolution",
   "Scarlet & Violet": "scarlet-violet",
   "Sword & Shield": "sword-shield",
@@ -62,7 +64,7 @@ function groupSetsByEra(sets) {
   const groups = new Map();
 
   sets.forEach((set) => {
-    const era = getSetEra(set);
+    const era = getSetPickerGroup(set);
     const eraSets = groups.get(era) || [];
 
     eraSets.push(set);
@@ -71,7 +73,9 @@ function groupSetsByEra(sets) {
 
   return [...groups.entries()]
     .map(([era, eraSets]) => [era, sortNewestFirst(eraSets)])
-    .sort(([, eraSetsA], [, eraSetsB]) => getReleaseTime(eraSetsB[0]) - getReleaseTime(eraSetsA[0]));
+    .sort((left, right) =>
+      prioritizeAnniversary(left, right) || getReleaseTime(right[1][0]) - getReleaseTime(left[1][0])
+    );
 }
 
 function isNewSet(set) {
@@ -340,7 +344,7 @@ function SetSelect({
               <div className="era-section__hero">
                 {getEraLogoSet(era, sets) && <SetLogoImage className="era-section__logo" set={getEraLogoSet(era, sets)} />}
                 <div className="era-section__text">
-                  <h2>{era} Era</h2>
+                  <h2>{getSetPickerGroupTitle(era)}</h2>
                   <span>{eraSets.length} {eraSets.length === 1 ? "set" : "sets"}</span>
                 </div>
               </div>

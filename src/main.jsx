@@ -17,6 +17,7 @@ import {
 } from "./lib/staticPublicRoutes.js";
 import { parseRuntimeSiteRoute } from "./lib/runtimeRoutes.js";
 import { setCatalogMetadata } from "./lib/setRouteCatalog.js";
+import { getSetPickerGroup, getSetPickerGroupTitle, prioritizeAnniversary } from "./lib/setPickerGroups.js";
 import { getPokeballLoadingUrl } from "./utils/assetUrls.js";
 
 const loadDesktopPage = () => import("./App.jsx");
@@ -99,12 +100,15 @@ function isPlainPrimaryClick(event) {
 function ProductCatalogFacade({ onNavigateSet }) {
   const groups = new Map();
   for (const set of setCatalogMetadata) {
-    if (!groups.has(set.era)) groups.set(set.era, []);
-    groups.get(set.era).push(set);
+    const group = getSetPickerGroup(set);
+    if (!groups.has(group)) groups.set(group, []);
+    groups.get(group).push(set);
   }
   const orderedGroups = [...groups.entries()]
     .map(([era, sets]) => [era, [...sets].sort((a, b) => String(b.releaseDate || "").localeCompare(String(a.releaseDate || "")))])
-    .sort(([, a], [, b]) => String(b[0]?.releaseDate || "").localeCompare(String(a[0]?.releaseDate || "")));
+    .sort((left, right) => prioritizeAnniversary(left, right) ||
+      String(right[1][0]?.releaseDate || "").localeCompare(String(left[1][0]?.releaseDate || ""))
+    );
 
   return (
     <main className="product-catalog-facade" data-packdex-real-content="sets">
@@ -117,7 +121,7 @@ function ProductCatalogFacade({ onNavigateSet }) {
         <h1>Choose a Pokémon TCG Set</h1>
         {orderedGroups.map(([era, sets]) => (
           <section className="product-catalog-facade__era" key={era}>
-            <h2>{era} Era</h2>
+            <h2>{getSetPickerGroupTitle(era)}</h2>
             <div className="product-catalog-facade__grid">
               {sets.map((set) => (
                 <a

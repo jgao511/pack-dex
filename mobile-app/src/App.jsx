@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { getSetPickerGroup, getSetPickerGroupTitle, prioritizeAnniversary } from "../../src/lib/setPickerGroups.js";
 import { Turnstile } from "react-turnstile";
 import DeleteAccountDialog from "./components/DeleteAccountDialog.jsx";
 import MobileOnboarding from "./components/MobileOnboarding.jsx";
@@ -571,7 +572,7 @@ function sortSetsByEra(setList) {
 
 function groupSetsByEra(setList) {
   return setList.reduce((groups, set) => {
-    const era = set.era || "Other";
+    const era = getSetPickerGroup(set);
 
     return {
       ...groups,
@@ -1225,10 +1226,10 @@ function OpenSetSelector({ collection, onOpenPack }) {
       </label>
 
       <div className="mobile-era-list">
-        {Object.entries(groupedSets).map(([era, eraSets]) => (
+        {Object.entries(groupedSets).sort(prioritizeAnniversary).map(([era, eraSets]) => (
           <section className="mobile-era-section" key={era}>
             <div className="mobile-era-heading">
-              <h2>{era} Era</h2>
+              <h2>{getSetPickerGroupTitle(era)}</h2>
               <span>{eraSets.length === 1 ? "1 set" : `${eraSets.length} sets`}</span>
             </div>
             <div className="mobile-set-list">

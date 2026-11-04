@@ -304,7 +304,12 @@ test("public crawl snapshots expose substantive visible content and normal set l
 
   const sets = renderSetsSnapshot();
   const setLinks = [...sets.matchAll(/href="(\/set\/[^"]+)"/g)].map((match) => match[1]);
-  assert.deepEqual(setLinks, canonicalSetCatalog.map((entry) => entry.path));
+  const anniversaryPath = "/set/30th-celebration";
+  assert.equal(setLinks[0], anniversaryPath);
+  assert.deepEqual(
+    setLinks.slice(1),
+    canonicalSetCatalog.map((entry) => entry.path).filter((pathname) => pathname !== anniversaryPath),
+  );
   assert.match(sets, /<h1>Choose a Pokémon TCG Set<\/h1>/);
   assert.match(sets, /<p class="public-snapshot__eyebrow">Open a Pack<\/p>/);
   assert.doesNotMatch(sets, /Explore Every English Pokémon TCG Set/);
