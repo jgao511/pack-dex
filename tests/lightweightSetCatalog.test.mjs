@@ -11,7 +11,7 @@ import {
 
 test("generated route metadata exactly matches the authoritative active set catalog", () => {
   assert.deepEqual(setCatalogMetadata, buildSetCatalogMetadata(activeSets));
-  assert.equal(setCatalogMetadata.length, 129);
+  assert.equal(setCatalogMetadata.find((entry) => entry.id === "30th-celebration")?.cardCount, 191);
   assert.equal(setCatalogMetadata.some((entry) => entry.id === "30th-anniversary"), false);
   assert.equal(setCatalogMetadata.find((entry) => entry.id === "151")?.cardCount, 207);
   assert.equal(getCanonicalSetPath("151"), "/set/pokemon-151");

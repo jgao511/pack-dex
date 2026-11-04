@@ -219,4 +219,13 @@ export const hardcodedPullRates = {
     rareSlot: { rare: 71.144, doubleRare: 8.2, megaDoubleRare: 12.3, ultraRare: 8.3, megaHyperRare: 0.056 },
     subsetSlot: null,
   },
+  "30th-celebration": {
+    source: "TCGplayer (3,000+ English packs) and community observations",
+    sourceUrl: "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-30th-Celebration-Pull-Rates/587b3657-481a-4ab8-827c-68cd3ab585b0/",
+    notes: "Five collectible cards with a guaranteed Pikachu. RGB Rare uses a provisional 2-in-20,000 community estimate. The physical booster also includes foil Basic Energy.",
+    packSize: 5,
+    secondFoilSlot: { common: 70.13, illustrationRare: 19.72, classicCollection: 10.15 },
+    rareSlot: { rare: 73.26, doubleRare: 21.02, specialIllustrationRare: 4.88, futuristicRare: 0.83, rgbRare: 0.01 },
+    subsetSlot: null,
+  },
 };

@@ -53,6 +53,7 @@ import ascendedHeroesCards from "./ascended-heroes.json" with { type: "json" };
 import perfectOrderCards from "./perfect-order.json" with { type: "json" };
 import chaosRisingCards from "./chaos-rising.json" with { type: "json" };
 import pitchBlackCards from "./pitch-black.json" with { type: "json" };
+import celebration30Cards from "./30th-celebration.json" with { type: "json" };
 import xy0Cards from "./xy0.json" with { type: "json" };
 import xy1Cards from "./xy1.json" with { type: "json" };
 import xy2Cards from "./xy2.json" with { type: "json" };
@@ -145,6 +146,7 @@ const pullRateProfilesBySet = {
   "perfect-order": "megaEvolutionStandard",
   "chaos-rising": "megaEvolutionStandard",
   "pitch-black": "megaEvolutionStandard",
+  "30th-celebration": "30th-celebration",
   "30th-anniversary": "thirtiethAnniversaryPreview",
 };
 
@@ -295,7 +297,7 @@ function createSet(id, name, cards, metadata = {}) {
   };
 }
 
-export const NEWEST_SET_ID = "pitch-black";
+export const NEWEST_SET_ID = "30th-celebration";
 
 export const sets = [
   // Special Preview Sets
@@ -394,6 +396,11 @@ export const sets = [
     printedTotal: 84,
     total: 120,
     pokemonTcgApiSetId: "me5",
+  }),
+  createSet("30th-celebration", "30th Celebration", celebration30Cards, {
+    releaseDate: "2026-09-16",
+    pokemonTcgApiSetId: "me55",
+    era: "Mega Evolution",
   }),
 ];
 

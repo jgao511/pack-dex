@@ -1031,6 +1031,12 @@
     "printedTotal": 86,
     "sourceCardCount": 122
   },
+  "30th-celebration": {
+    "sourceSetId": "me55",
+    "allowedSourceSetIds": ["me55", "me55c"],
+    "printedTotal": 128,
+    "sourceCardCount": 191
+  },
   "pitch-black": {
     "sourceSetId": "me5",
     "allowedSourceSetIds": [

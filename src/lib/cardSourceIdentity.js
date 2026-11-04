@@ -4,6 +4,7 @@ export const CARD_SUBSET_SOURCE_IDS = Object.freeze({
   "hidden-fates": { "Shiny Vault": "sma" },
   "shining-fates": { "Shiny Vault": "swsh45sv" },
   celebrations: { "Classic Collection": "cel25c" },
+  "30th-celebration": { "Classic Collection": "me55c" },
   "brilliant-stars": { "Trainer Gallery": "swsh9tg" },
   "astral-radiance": { "Trainer Gallery": "swsh10tg" },
   "lost-origin": { "Trainer Gallery": "swsh11tg" },

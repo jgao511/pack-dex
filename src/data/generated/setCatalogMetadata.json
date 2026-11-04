@@ -1671,9 +1671,22 @@
     "setFolder": "pitch-black",
     "logoPath": "pitch-black/logo.png",
     "packArtPath": "",
-    "isNew": true,
+    "isNew": false,
     "cardCount": 120,
     "slug": "pitch-black",
     "path": "/set/pitch-black"
+  },
+  {
+    "id": "30th-celebration",
+    "name": "30th Celebration",
+    "era": "Mega Evolution",
+    "releaseDate": "2026-09-16",
+    "setFolder": "30th-celebration",
+    "logoPath": "30th-celebration/logo.png",
+    "packArtPath": "",
+    "isNew": true,
+    "cardCount": 191,
+    "slug": "30th-celebration",
+    "path": "/set/30th-celebration"
   }
 ]

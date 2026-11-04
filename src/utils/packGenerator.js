@@ -35,6 +35,14 @@ const MEGA_SET_IDS = new Set([
 ]);
 
 const SPECIAL_PREVIEW_SET_IDS = new Set([THIRTIETH_ANNIVERSARY_PACK_CONFIG.setId]);
+const celebration30Rates = hardcodedPullRates["30th-celebration"];
+const celebration30Slots = [
+  { common: 100 },
+  { common: 100 },
+  celebration30Rates.secondFoilSlot,
+  celebration30Rates.rareSlot,
+  { pikachu: 100 },
+];
 
 const BLACK_WHITE_RARE_VICTINI_IDS = new Set([
   "black-bolt-171-victini",
@@ -530,6 +538,7 @@ const HIGHER_THAN_RARE_CATEGORIES = new Set([
   ...[...FINAL_SLOT_CATEGORIES].filter((category) => category !== "rare" && category !== "holoRare"),
   "megaAttackRare",
   "prismStar",
+  "rgbRare",
 ]);
 
 const PREMIUM_SUBSET_CATEGORIES = new Set([
@@ -1131,6 +1140,7 @@ export const RARITY_CATEGORY_LABELS = {
   megaHyperRare: "Mega Hyper Rare",
   pikachu: "Pikachu",
   futuristicRare: "Futuristic Rare",
+  rgbRare: "RGB Rare",
   classic: "Classic",
 };
 
@@ -2241,6 +2251,10 @@ function validatePackSlotPlacement(pack, set = {}) {
 }
 
 export function isCardAllowedInPackSlot(card, index, set = {}) {
+  if (normalizeSetId(set) === "30th-celebration") {
+    return Object.hasOwn(celebration30Slots[index] || {}, getRarityCategory(card, set));
+  }
+
   const profileName = getConfiguredProfileName(set);
 
   if (profileName === "xyKalosStarter") return isCommonSlotCard(card, set);
@@ -2348,6 +2362,14 @@ export function canGeneratePack(cardsOrSet, maybeSet) {
 
   const pools = buildPools(cards, set);
   const finalRareSlotPool = getFinalRareSlotPool(pools, set);
+
+  if (normalizeSetId(set) === "30th-celebration") {
+    const buckets = groupCardsByCategory(pools.cleanCards, new Set(), set);
+    return (buckets.common?.length || 0) >= 3 &&
+      celebration30Slots.every((slot) =>
+        Object.keys(slot).every((category) => buckets[category]?.length)
+      );
+  }
 
   if (isSpecialPreviewSet(set)) {
     const config = getSpecialPreviewPackConfig(set);
@@ -2871,6 +2893,14 @@ function generateNormalPack(set, pools, profile, usedIds) {
     return generateVintagePack(set, vintageRule, usedIds);
   }
 
+  if (normalizeSetId(set) === "30th-celebration") {
+    const buckets = groupCardsByCategory(pools.cleanCards, usedIds, set);
+    return celebration30Slots.flatMap((slot) => {
+      const category = weightedRandomCategory(Object.entries(slot));
+      return pickRandom(buckets[category] || [], 1, usedIds);
+    });
+  }
+
   if (isSpecialPreviewSet(set)) {
     return generateSpecialPreviewPack(set, pools, profile, usedIds);
   }
@@ -2952,7 +2982,7 @@ export function generateForcedGodPack(cardsOrSet, maybeSet, forcedFormat) {
 }
 
 export function isChaseRare(card) {
-  return ["victiniRare", "blackWhiteRare", "megaHyperRare", "futuristicRare", "classic"].includes(getRarityCategory(card));
+  return ["victiniRare", "blackWhiteRare", "megaHyperRare", "futuristicRare", "classic", "rgbRare"].includes(getRarityCategory(card));
 }
 
 export function isHigherThanRare(card) {
@@ -2966,7 +2996,7 @@ export function isRareOrHigher(card) {
 export function getFoilClass(card) {
   const category = getRarityCategory(card);
 
-  if (["victiniRare", "blackWhiteRare", "megaHyperRare", "megaAttackRare", "prismStar", "futuristicRare", "classic"].includes(category)) {
+  if (["victiniRare", "blackWhiteRare", "megaHyperRare", "megaAttackRare", "prismStar", "futuristicRare", "classic", "rgbRare"].includes(category)) {
     return "card-foil card-foil--chase";
   }
 

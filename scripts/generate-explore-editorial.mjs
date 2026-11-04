@@ -112,6 +112,7 @@ const THEMES = {
   "paldean-fates": ["Shiny Pokémon"], "prismatic-evolutions": ["Eevee and its Evolutions"], "journey-together": ["Trainer's Pokémon"],
   "destined-rivals": ["Trainer's Pokémon", "Team Rocket"], "black-bolt": ["Unova", "Black-themed counterpart"], "white-flare": ["Unova", "White-themed counterpart"],
   "pitch-black": ["Mega Darkrai ex", "Mega Evolution Pokémon ex"],
+  "30th-celebration": ["30 Pikachu illustrations", "Classic Collection reprints"],
 };
 
 const FACTS = {
@@ -124,6 +125,7 @@ const FACTS = {
   "black-bolt": ["Scarlet & Violet—Black Bolt and Scarlet & Violet—White Flare were released together in English on July 18, 2025. The paired expansions divide their Unova-themed Pokémon and cards across two complementary sets."],
   "white-flare": ["Scarlet & Violet—White Flare and Scarlet & Violet—Black Bolt were released together in English on July 18, 2025. The paired expansions divide their Unova-themed Pokémon and cards across two complementary sets."],
   "pitch-black": ["Mega Evolution—Pitch Black is an official 120-card expansion released in English on July 17, 2026."],
+  "30th-celebration": ["Each English booster contains five foil cards, including one of 30 Pikachu illustrations, and one foil Basic Energy."],
 };
 
 // Concise set identities are curated from official expansion pages/checklists and the
@@ -259,10 +261,12 @@ const SET_IDENTITIES = {
   "perfect-order": "Lumiose City and Kalos lore, led by Mega Zygarde ex",
   "chaos-rising": "new Mega Evolution Pokémon ex led by Mega Greninja ex and Mega Floette ex",
   "pitch-black": "Mega Darkrai ex and a Darkness-focused Mega Evolution roster",
+  "30th-celebration": "30 Pikachu illustrations, Classic Collection reprints, and new artwork for Mew and Mewtwo",
 };
 
 const FEATURED_POKEMON_IDS = {
   "pitch-black": [491, 609, 807],
+  "30th-celebration": [25, 150, 151],
 };
 
 const MECHANIC_SET_IDS = {
@@ -282,7 +286,7 @@ const MECHANIC_SET_IDS = {
   "Pokémon VSTAR": ["brilliant-stars", "astral-radiance", "pokemon-go", "lost-origin", "silver-tempest", "crown-zenith"],
   "Trainer Gallery": ["brilliant-stars", "astral-radiance", "lost-origin", "silver-tempest"],
   "Pokémon ex": sets.filter((set) => set.era === "Scarlet & Violet").map((set) => set.id),
-  "Mega Evolution Pokémon ex": sets.filter((set) => set.era === "Mega Evolution").map((set) => set.id),
+  "Mega Evolution Pokémon ex": sets.filter((set) => set.era === "Mega Evolution" && set.id !== "30th-celebration").map((set) => set.id),
 };
 
 function mechanicsFor(set) {

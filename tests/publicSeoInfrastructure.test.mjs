@@ -50,16 +50,16 @@ import { getSetPublicContent } from "../src/lib/setContent.js";
 const read = (relativePath) => readFile(new URL(relativePath, import.meta.url), "utf8");
 
 test("every active set has one unique, deterministic canonical public route", () => {
-  assert.equal(canonicalSetCatalog.length, 129);
-  assert.equal(new Set(canonicalSetCatalog.map((entry) => entry.setId)).size, 129);
-  assert.equal(new Set(canonicalSetCatalog.map((entry) => entry.slug)).size, 129);
-  assert.equal(new Set(canonicalSetCatalog.map((entry) => entry.path)).size, 129);
+  assert.equal(canonicalSetCatalog.length, 130);
+  assert.equal(new Set(canonicalSetCatalog.map((entry) => entry.setId)).size, 130);
+  assert.equal(new Set(canonicalSetCatalog.map((entry) => entry.slug)).size, 130);
+  assert.equal(new Set(canonicalSetCatalog.map((entry) => entry.path)).size, 130);
   const routeFingerprint = createHash("sha256")
     .update(canonicalSetCatalog.map(({ setId, slug }) => `${setId}:${slug}`).join("\n"))
     .digest("hex");
   assert.equal(
     routeFingerprint,
-    "4f65c80a588928f0b795fe74579e12c253d61fb17e0448b0b727b6c2c975ae52",
+    "c260c4bbcd5de825a6a590567a5dadf58ec8736eaeee4f9c4be85a1b4ee1f9fd",
     "A canonical set URL changed. Preserve the previous slug as an alias before intentionally updating this fingerprint."
   );
 
@@ -172,8 +172,8 @@ test("the shared route parser indexes only substantive public routes", () => {
 
 test("the generated sitemap contains every canonical set and no utility routes", async () => {
   const sitemapPaths = getSitemapPaths();
-  assert.equal(sitemapPaths.length, 139);
-  assert.equal(new Set(sitemapPaths).size, 139);
+  assert.equal(sitemapPaths.length, 140);
+  assert.equal(new Set(sitemapPaths).size, 140);
 
   for (const entry of canonicalSetCatalog) assert.ok(sitemapPaths.includes(entry.path));
   for (const pathname of Object.values(UTILITY_ROUTE_PATHS)) assert.ok(!sitemapPaths.includes(pathname));
@@ -182,7 +182,7 @@ test("the generated sitemap contains every canonical set and no utility routes",
 
   const expectedXml = renderSitemapXml();
   assert.equal((await read("../public/sitemap.xml")).replace(/\r\n/g, "\n"), expectedXml);
-  assert.equal([...expectedXml.matchAll(/<loc>/g)].length, 139);
+  assert.equal([...expectedXml.matchAll(/<loc>/g)].length, 140);
   assert.match(expectedXml, /<loc>https:\/\/www\.pack-dex\.com\/install<\/loc>/);
   assert.match(expectedXml, /<loc>https:\/\/www\.pack-dex\.com\/set\/pokemon-151<\/loc>/);
   assert.doesNotMatch(expectedXml, /\/(?:collection|profile|settings|login|signup|reset-password|auth\/callback|onboarding)<\/loc>/);
@@ -410,8 +410,8 @@ test("snapshot generation gives canonical no-slash URLs exact Cloudflare HTML en
   try {
     await writeFile(path.join(tempDist, "index.html"), template, "utf8");
     const result = await generatePublicSnapshots({ dist: tempDist });
-    assert.equal(result.snapshotCount, 139);
-    assert.equal(result.setSnapshotCount, 129);
+    assert.equal(result.snapshotCount, 140);
+    assert.equal(result.setSnapshotCount, 130);
     assert.equal(result.utilityEntryCount, 8);
 
     for (const routePath of ["install", "faq", "support", "sets", "set/pokemon-151"]) {

@@ -77,12 +77,11 @@ test("Pitch Black compact catalog contains exactly the complete 120-card me5 set
   assert.equal(getDisplayRarity(goldeen, pitchBlack), "Illustration Rare");
 });
 
-test("Pitch Black is registered once, immediately after Chaos Rising, and is the sole New set", async () => {
+test("Pitch Black is registered once, immediately after Chaos Rising", async () => {
   const index = sets.findIndex((set) => set.id === "pitch-black");
   assert.equal(sets.filter((set) => set.id === "pitch-black").length, 1);
   assert.equal(sets[index - 1]?.id, "chaos-rising");
-  assert.equal(NEWEST_SET_ID, "pitch-black");
-  assert.deepEqual(sets.filter((set) => set.isNew).map((set) => set.id), ["pitch-black"]);
+  assert.deepEqual(sets.filter((set) => set.isNew).map((set) => set.id), [NEWEST_SET_ID]);
   assert.equal(sets.find((set) => set.id === "chaos-rising")?.isNew, false);
   assert.equal(pitchBlack.name, "Pitch Black");
   assert.equal(pitchBlack.releaseDate, "2026-07-17");
@@ -127,7 +126,7 @@ test("Collection, complete search, wishlist, and card detail data discover all P
 test("Explore places Pitch Black in Mega Evolution with editorial and Pokemon relationships", () => {
   assert.equal(setById.get("pitch-black"), pitchBlack);
   const megaEra = exploreEras.find((era) => era.name === "Mega Evolution");
-  assert.equal(megaEra?.sets.at(-1)?.id, "pitch-black");
+  assert.ok(megaEra?.sets.some((set) => set.id === "pitch-black"));
   assert.ok(groupedExploreSearch("Pitch Black").sets.some((set) => set.id === "pitch-black"));
   assert.equal(groupedExploreSearch("Gladions Final Battle").cards.length, 0);
   assert.ok(groupedExploreSearch("Mega Darkrai ex", 20).cards.some((entry) => entry.set.id === "pitch-black"));
@@ -145,11 +144,11 @@ test("Explore places Pitch Black in Mega Evolution with editorial and Pokemon re
   assert.ok(catalogCards.filter((entry) => entry.set.id === "pitch-black").some((entry) => entry.speciesIds.includes(807)));
 });
 
-test("What Should I Open derives Pitch Black as the newest openable set without an exception", () => {
+test("What Should I Open derives 30th Celebration as the newest openable set", () => {
   for (const context of [{}, { collection: {}, wishlistEntries: [], viewedSetIds: [] }]) {
     const result = buildOpenRecommendations({ sets, ...context });
     assert.equal(result.primary?.category, "latest");
-    assert.equal(result.primary?.setId, "pitch-black");
+    assert.equal(result.primary?.setId, "30th-celebration");
     assert.match(result.primary?.reason || "", /newest supported set/);
   }
 });
