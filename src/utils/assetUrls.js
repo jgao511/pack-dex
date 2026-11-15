@@ -75,7 +75,8 @@ export function getSetLogoUrl(set = {}) {
     return "";
   }
 
-  return `/set-logos/${normalizeAssetPath(setFolder)}.png`;
+  const logoFile = setFolder === "delta-reign" ? "delta-reign-transparent" : normalizeAssetPath(setFolder);
+  return `/set-logos/${logoFile}.png`;
 }
 
 export function getRemoteSetLogoUrl(set = {}) {
