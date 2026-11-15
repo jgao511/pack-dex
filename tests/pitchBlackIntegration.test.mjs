@@ -144,11 +144,11 @@ test("Explore places Pitch Black in Mega Evolution with editorial and Pokemon re
   assert.ok(catalogCards.filter((entry) => entry.set.id === "pitch-black").some((entry) => entry.speciesIds.includes(807)));
 });
 
-test("What Should I Open derives 30th Celebration as the newest openable set", () => {
+test("What Should I Open derives the newest openable set from the registry", () => {
   for (const context of [{}, { collection: {}, wishlistEntries: [], viewedSetIds: [] }]) {
     const result = buildOpenRecommendations({ sets, ...context });
     assert.equal(result.primary?.category, "latest");
-    assert.equal(result.primary?.setId, "30th-celebration");
+    assert.equal(result.primary?.setId, NEWEST_SET_ID);
     assert.match(result.primary?.reason || "", /newest supported set/);
   }
 });

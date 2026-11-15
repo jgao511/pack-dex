@@ -461,7 +461,7 @@ const expectedSitemapPaths = [
   ...INDEXABLE_PUBLIC_PATHS,
   ...canonicalSetCatalog.map((entry) => entry.path),
 ];
-assert.equal(canonicalSetCatalog.length, 130, "The active public set catalog changed; review sitemap coverage intentionally");
+assert.equal(canonicalSetCatalog.length, 131, "The active public set catalog changed; review sitemap coverage intentionally");
 assert.deepEqual(
   sitemapLocations,
   expectedSitemapPaths.map((pathname) => `${PACKDEX_SITE_ORIGIN}${pathname}`),

@@ -129,6 +129,7 @@ export const PRICE_SET_MAP = {
   "perfect-order": null,
   "chaos-rising": null,
   "pitch-black": null,
+  "delta-reign": null,
 };
 
 export function getPokemonTcgApiSetId(packDexSetId) {

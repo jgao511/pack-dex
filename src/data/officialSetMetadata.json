@@ -1044,5 +1044,13 @@
     ],
     "printedTotal": 84,
     "sourceCardCount": 120
+  },
+  "delta-reign": {
+    "sourceSetId": "me6",
+    "allowedSourceSetIds": [
+      "me6"
+    ],
+    "printedTotal": 103,
+    "sourceCardCount": 141
   }
 }

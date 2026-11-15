@@ -32,6 +32,7 @@ const MEGA_SET_IDS = new Set([
   "perfect-order",
   "chaos-rising",
   "pitch-black",
+  "delta-reign",
 ]);
 
 const SPECIAL_PREVIEW_SET_IDS = new Set([THIRTIETH_ANNIVERSARY_PACK_CONFIG.setId]);
@@ -775,6 +776,7 @@ const PROFILE_BY_SET = {
   "perfect-order": "megaEvolutionStandard",
   "chaos-rising": "megaEvolutionStandard",
   "pitch-black": "megaEvolutionStandard",
+  "delta-reign": "megaEvolutionStandard",
   "30th-anniversary": "thirtiethAnniversaryPreview",
 };
 

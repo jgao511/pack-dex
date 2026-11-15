@@ -69,7 +69,7 @@ test("public content pages expose the approved copy, one H1, and crawlable set l
 });
 
 test("every public set description and collector detail derives from the shared catalog", () => {
-  assert.equal(activeSets.length, 130);
+  assert.equal(activeSets.length, 131);
 
   for (const set of activeSets) {
     const content = getSetPublicContent(set);

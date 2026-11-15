@@ -1,0 +1,1814 @@
+[
+  {
+    "id": "delta-reign-1-heracross",
+    "name": "Heracross",
+    "rarity": "Common",
+    "number": "1",
+    "image": "https://images.scrydex.com/pokemon/me6-1/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Grass"
+    ],
+    "nationalPokedexNumbers": [
+      214
+    ]
+  },
+  {
+    "id": "delta-reign-2-surskit",
+    "name": "Surskit",
+    "rarity": "Common",
+    "number": "2",
+    "image": "https://images.scrydex.com/pokemon/me6-2/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Grass"
+    ],
+    "nationalPokedexNumbers": [
+      283
+    ]
+  },
+  {
+    "id": "delta-reign-3-masquerain",
+    "name": "Masquerain",
+    "rarity": "Common",
+    "number": "3",
+    "image": "https://images.scrydex.com/pokemon/me6-3/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Grass"
+    ],
+    "nationalPokedexNumbers": [
+      284
+    ]
+  },
+  {
+    "id": "delta-reign-4-cacnea",
+    "name": "Cacnea",
+    "rarity": "Common",
+    "number": "4",
+    "image": "https://images.scrydex.com/pokemon/me6-4/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Grass"
+    ],
+    "nationalPokedexNumbers": [
+      331
+    ]
+  },
+  {
+    "id": "delta-reign-5-cacturne",
+    "name": "Cacturne",
+    "rarity": "Rare",
+    "number": "5",
+    "image": "https://images.scrydex.com/pokemon/me6-5/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Grass"
+    ],
+    "nationalPokedexNumbers": [
+      332
+    ]
+  },
+  {
+    "id": "delta-reign-6-combee",
+    "name": "Combee",
+    "rarity": "Common",
+    "number": "6",
+    "image": "https://images.scrydex.com/pokemon/me6-6/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Grass"
+    ],
+    "nationalPokedexNumbers": [
+      415
+    ]
+  },
+  {
+    "id": "delta-reign-7-vespiquen",
+    "name": "Vespiquen",
+    "rarity": "Common",
+    "number": "7",
+    "image": "https://images.scrydex.com/pokemon/me6-7/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Grass"
+    ],
+    "nationalPokedexNumbers": [
+      416
+    ]
+  },
+  {
+    "id": "delta-reign-8-shaymin",
+    "name": "Shaymin",
+    "rarity": "Uncommon",
+    "number": "8",
+    "image": "https://images.scrydex.com/pokemon/me6-8/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Grass"
+    ],
+    "nationalPokedexNumbers": [
+      492
+    ]
+  },
+  {
+    "id": "delta-reign-9-virizion",
+    "name": "Virizion",
+    "rarity": "Uncommon",
+    "number": "9",
+    "image": "https://images.scrydex.com/pokemon/me6-9/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Grass"
+    ],
+    "nationalPokedexNumbers": [
+      640
+    ]
+  },
+  {
+    "id": "delta-reign-10-wimpod",
+    "name": "Wimpod",
+    "rarity": "Common",
+    "number": "10",
+    "image": "https://images.scrydex.com/pokemon/me6-10/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Grass"
+    ],
+    "nationalPokedexNumbers": [
+      767
+    ]
+  },
+  {
+    "id": "delta-reign-11-mega-golisopod-ex",
+    "name": "Mega Golisopod ex",
+    "rarity": "Double Rare",
+    "number": "11",
+    "image": "https://images.scrydex.com/pokemon/me6-11/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Grass"
+    ],
+    "nationalPokedexNumbers": [
+      768
+    ]
+  },
+  {
+    "id": "delta-reign-12-sprigatito",
+    "name": "Sprigatito",
+    "rarity": "Common",
+    "number": "12",
+    "image": "https://images.scrydex.com/pokemon/me6-12/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Grass"
+    ],
+    "nationalPokedexNumbers": [
+      906
+    ]
+  },
+  {
+    "id": "delta-reign-13-floragato",
+    "name": "Floragato",
+    "rarity": "Uncommon",
+    "number": "13",
+    "image": "https://images.scrydex.com/pokemon/me6-13/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Grass"
+    ],
+    "nationalPokedexNumbers": [
+      907
+    ]
+  },
+  {
+    "id": "delta-reign-14-meowscarada-ex",
+    "name": "Meowscarada ex",
+    "rarity": "Double Rare",
+    "number": "14",
+    "image": "https://images.scrydex.com/pokemon/me6-14/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Grass"
+    ],
+    "nationalPokedexNumbers": [
+      908
+    ]
+  },
+  {
+    "id": "delta-reign-15-smoliv",
+    "name": "Smoliv",
+    "rarity": "Common",
+    "number": "15",
+    "image": "https://images.scrydex.com/pokemon/me6-15/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Grass"
+    ],
+    "nationalPokedexNumbers": [
+      928
+    ]
+  },
+  {
+    "id": "delta-reign-16-dolliv",
+    "name": "Dolliv",
+    "rarity": "Common",
+    "number": "16",
+    "image": "https://images.scrydex.com/pokemon/me6-16/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Grass"
+    ],
+    "nationalPokedexNumbers": [
+      929
+    ]
+  },
+  {
+    "id": "delta-reign-17-arboliva",
+    "name": "Arboliva",
+    "rarity": "Uncommon",
+    "number": "17",
+    "image": "https://images.scrydex.com/pokemon/me6-17/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Grass"
+    ],
+    "nationalPokedexNumbers": [
+      930
+    ]
+  },
+  {
+    "id": "delta-reign-18-growlithe",
+    "name": "Growlithe",
+    "rarity": "Common",
+    "number": "18",
+    "image": "https://images.scrydex.com/pokemon/me6-18/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Fire"
+    ],
+    "nationalPokedexNumbers": [
+      58
+    ]
+  },
+  {
+    "id": "delta-reign-19-arcanine",
+    "name": "Arcanine",
+    "rarity": "Rare",
+    "number": "19",
+    "image": "https://images.scrydex.com/pokemon/me6-19/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Fire"
+    ],
+    "nationalPokedexNumbers": [
+      59
+    ]
+  },
+  {
+    "id": "delta-reign-20-magmar",
+    "name": "Magmar",
+    "rarity": "Uncommon",
+    "number": "20",
+    "image": "https://images.scrydex.com/pokemon/me6-20/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Fire"
+    ],
+    "nationalPokedexNumbers": [
+      126
+    ]
+  },
+  {
+    "id": "delta-reign-21-magmortar",
+    "name": "Magmortar",
+    "rarity": "Rare",
+    "number": "21",
+    "image": "https://images.scrydex.com/pokemon/me6-21/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Fire"
+    ],
+    "nationalPokedexNumbers": [
+      467
+    ]
+  },
+  {
+    "id": "delta-reign-22-torkoal",
+    "name": "Torkoal",
+    "rarity": "Common",
+    "number": "22",
+    "image": "https://images.scrydex.com/pokemon/me6-22/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Fire"
+    ],
+    "nationalPokedexNumbers": [
+      324
+    ]
+  },
+  {
+    "id": "delta-reign-23-heat-rotom-ex",
+    "name": "Heat Rotom ex",
+    "rarity": "Double Rare",
+    "number": "23",
+    "image": "https://images.scrydex.com/pokemon/me6-23/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Fire"
+    ],
+    "nationalPokedexNumbers": [
+      479
+    ]
+  },
+  {
+    "id": "delta-reign-24-heatmor",
+    "name": "Heatmor",
+    "rarity": "Common",
+    "number": "24",
+    "image": "https://images.scrydex.com/pokemon/me6-24/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Fire"
+    ],
+    "nationalPokedexNumbers": [
+      631
+    ]
+  },
+  {
+    "id": "delta-reign-25-mantine",
+    "name": "Mantine",
+    "rarity": "Common",
+    "number": "25",
+    "image": "https://images.scrydex.com/pokemon/me6-25/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Water"
+    ],
+    "nationalPokedexNumbers": [
+      226
+    ]
+  },
+  {
+    "id": "delta-reign-26-kyogre",
+    "name": "Kyogre",
+    "rarity": "Rare",
+    "number": "26",
+    "image": "https://images.scrydex.com/pokemon/me6-26/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Water"
+    ],
+    "nationalPokedexNumbers": [
+      382
+    ]
+  },
+  {
+    "id": "delta-reign-27-frillish",
+    "name": "Frillish",
+    "rarity": "Common",
+    "number": "27",
+    "image": "https://images.scrydex.com/pokemon/me6-27/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Water"
+    ],
+    "nationalPokedexNumbers": [
+      592
+    ]
+  },
+  {
+    "id": "delta-reign-28-jellicent",
+    "name": "Jellicent",
+    "rarity": "Uncommon",
+    "number": "28",
+    "image": "https://images.scrydex.com/pokemon/me6-28/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Water"
+    ],
+    "nationalPokedexNumbers": [
+      593
+    ]
+  },
+  {
+    "id": "delta-reign-29-wishiwashi-ex",
+    "name": "Wishiwashi ex",
+    "rarity": "Double Rare",
+    "number": "29",
+    "image": "https://images.scrydex.com/pokemon/me6-29/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Water"
+    ],
+    "nationalPokedexNumbers": [
+      746
+    ]
+  },
+  {
+    "id": "delta-reign-30-electabuzz",
+    "name": "Electabuzz",
+    "rarity": "Common",
+    "number": "30",
+    "image": "https://images.scrydex.com/pokemon/me6-30/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Lightning"
+    ],
+    "nationalPokedexNumbers": [
+      125
+    ]
+  },
+  {
+    "id": "delta-reign-31-electivire",
+    "name": "Electivire",
+    "rarity": "Uncommon",
+    "number": "31",
+    "image": "https://images.scrydex.com/pokemon/me6-31/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Lightning"
+    ],
+    "nationalPokedexNumbers": [
+      466
+    ]
+  },
+  {
+    "id": "delta-reign-32-jolteon",
+    "name": "Jolteon",
+    "rarity": "Uncommon",
+    "number": "32",
+    "image": "https://images.scrydex.com/pokemon/me6-32/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Lightning"
+    ],
+    "nationalPokedexNumbers": [
+      135
+    ]
+  },
+  {
+    "id": "delta-reign-33-raikou-ex",
+    "name": "Raikou ex",
+    "rarity": "Double Rare",
+    "number": "33",
+    "image": "https://images.scrydex.com/pokemon/me6-33/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Lightning"
+    ],
+    "nationalPokedexNumbers": [
+      243
+    ]
+  },
+  {
+    "id": "delta-reign-34-rotom",
+    "name": "Rotom",
+    "rarity": "Common",
+    "number": "34",
+    "image": "https://images.scrydex.com/pokemon/me6-34/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Lightning"
+    ],
+    "nationalPokedexNumbers": [
+      479
+    ]
+  },
+  {
+    "id": "delta-reign-35-thundurus",
+    "name": "Thundurus",
+    "rarity": "Uncommon",
+    "number": "35",
+    "image": "https://images.scrydex.com/pokemon/me6-35/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Lightning"
+    ],
+    "nationalPokedexNumbers": [
+      642
+    ]
+  },
+  {
+    "id": "delta-reign-36-pincurchin",
+    "name": "Pincurchin",
+    "rarity": "Common",
+    "number": "36",
+    "image": "https://images.scrydex.com/pokemon/me6-36/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Lightning"
+    ],
+    "nationalPokedexNumbers": [
+      871
+    ]
+  },
+  {
+    "id": "delta-reign-37-pawmi",
+    "name": "Pawmi",
+    "rarity": "Common",
+    "number": "37",
+    "image": "https://images.scrydex.com/pokemon/me6-37/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Lightning"
+    ],
+    "nationalPokedexNumbers": [
+      921
+    ]
+  },
+  {
+    "id": "delta-reign-38-pawmo",
+    "name": "Pawmo",
+    "rarity": "Common",
+    "number": "38",
+    "image": "https://images.scrydex.com/pokemon/me6-38/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Lightning"
+    ],
+    "nationalPokedexNumbers": [
+      922
+    ]
+  },
+  {
+    "id": "delta-reign-39-pawmot",
+    "name": "Pawmot",
+    "rarity": "Uncommon",
+    "number": "39",
+    "image": "https://images.scrydex.com/pokemon/me6-39/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Lightning"
+    ],
+    "nationalPokedexNumbers": [
+      923
+    ]
+  },
+  {
+    "id": "delta-reign-40-wattrel",
+    "name": "Wattrel",
+    "rarity": "Common",
+    "number": "40",
+    "image": "https://images.scrydex.com/pokemon/me6-40/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Lightning"
+    ],
+    "nationalPokedexNumbers": [
+      940
+    ]
+  },
+  {
+    "id": "delta-reign-41-kilowattrel",
+    "name": "Kilowattrel",
+    "rarity": "Uncommon",
+    "number": "41",
+    "image": "https://images.scrydex.com/pokemon/me6-41/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Lightning"
+    ],
+    "nationalPokedexNumbers": [
+      941
+    ]
+  },
+  {
+    "id": "delta-reign-42-miraidon",
+    "name": "Miraidon",
+    "rarity": "Uncommon",
+    "number": "42",
+    "image": "https://images.scrydex.com/pokemon/me6-42/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Lightning"
+    ],
+    "nationalPokedexNumbers": [
+      1008
+    ]
+  },
+  {
+    "id": "delta-reign-43-drowzee",
+    "name": "Drowzee",
+    "rarity": "Common",
+    "number": "43",
+    "image": "https://images.scrydex.com/pokemon/me6-43/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Psychic"
+    ],
+    "nationalPokedexNumbers": [
+      96
+    ]
+  },
+  {
+    "id": "delta-reign-44-hypno",
+    "name": "Hypno",
+    "rarity": "Common",
+    "number": "44",
+    "image": "https://images.scrydex.com/pokemon/me6-44/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Psychic"
+    ],
+    "nationalPokedexNumbers": [
+      97
+    ]
+  },
+  {
+    "id": "delta-reign-45-giratina",
+    "name": "Giratina",
+    "rarity": "Rare",
+    "number": "45",
+    "image": "https://images.scrydex.com/pokemon/me6-45/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Psychic"
+    ],
+    "nationalPokedexNumbers": [
+      487
+    ]
+  },
+  {
+    "id": "delta-reign-46-golett",
+    "name": "Golett",
+    "rarity": "Common",
+    "number": "46",
+    "image": "https://images.scrydex.com/pokemon/me6-46/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Psychic"
+    ],
+    "nationalPokedexNumbers": [
+      622
+    ]
+  },
+  {
+    "id": "delta-reign-47-mega-golurk-ex",
+    "name": "Mega Golurk ex",
+    "rarity": "Double Rare",
+    "number": "47",
+    "image": "https://images.scrydex.com/pokemon/me6-47/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Psychic"
+    ],
+    "nationalPokedexNumbers": [
+      623
+    ]
+  },
+  {
+    "id": "delta-reign-48-enamorus",
+    "name": "Enamorus",
+    "rarity": "Uncommon",
+    "number": "48",
+    "image": "https://images.scrydex.com/pokemon/me6-48/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Psychic"
+    ],
+    "nationalPokedexNumbers": [
+      905
+    ]
+  },
+  {
+    "id": "delta-reign-49-sandshrew",
+    "name": "Sandshrew",
+    "rarity": "Common",
+    "number": "49",
+    "image": "https://images.scrydex.com/pokemon/me6-49/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Fighting"
+    ],
+    "nationalPokedexNumbers": [
+      27
+    ]
+  },
+  {
+    "id": "delta-reign-50-sandslash",
+    "name": "Sandslash",
+    "rarity": "Common",
+    "number": "50",
+    "image": "https://images.scrydex.com/pokemon/me6-50/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Fighting"
+    ],
+    "nationalPokedexNumbers": [
+      28
+    ]
+  },
+  {
+    "id": "delta-reign-51-onix",
+    "name": "Onix",
+    "rarity": "Common",
+    "number": "51",
+    "image": "https://images.scrydex.com/pokemon/me6-51/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Fighting"
+    ],
+    "nationalPokedexNumbers": [
+      95
+    ]
+  },
+  {
+    "id": "delta-reign-52-steelix",
+    "name": "Steelix",
+    "rarity": "Rare",
+    "number": "52",
+    "image": "https://images.scrydex.com/pokemon/me6-52/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Fighting"
+    ],
+    "nationalPokedexNumbers": [
+      208
+    ]
+  },
+  {
+    "id": "delta-reign-53-groudon",
+    "name": "Groudon",
+    "rarity": "Rare",
+    "number": "53",
+    "image": "https://images.scrydex.com/pokemon/me6-53/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Fighting"
+    ],
+    "nationalPokedexNumbers": [
+      383
+    ]
+  },
+  {
+    "id": "delta-reign-54-landorus",
+    "name": "Landorus",
+    "rarity": "Uncommon",
+    "number": "54",
+    "image": "https://images.scrydex.com/pokemon/me6-54/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Fighting"
+    ],
+    "nationalPokedexNumbers": [
+      645
+    ]
+  },
+  {
+    "id": "delta-reign-55-nidoran",
+    "name": "Nidoran♀",
+    "rarity": "Common",
+    "number": "55",
+    "image": "https://images.scrydex.com/pokemon/me6-55/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Darkness"
+    ],
+    "nationalPokedexNumbers": [
+      29
+    ]
+  },
+  {
+    "id": "delta-reign-56-nidorina",
+    "name": "Nidorina",
+    "rarity": "Common",
+    "number": "56",
+    "image": "https://images.scrydex.com/pokemon/me6-56/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Darkness"
+    ],
+    "nationalPokedexNumbers": [
+      30
+    ]
+  },
+  {
+    "id": "delta-reign-57-nidoqueen",
+    "name": "Nidoqueen",
+    "rarity": "Rare",
+    "number": "57",
+    "image": "https://images.scrydex.com/pokemon/me6-57/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Darkness"
+    ],
+    "nationalPokedexNumbers": [
+      31
+    ]
+  },
+  {
+    "id": "delta-reign-58-spinarak",
+    "name": "Spinarak",
+    "rarity": "Common",
+    "number": "58",
+    "image": "https://images.scrydex.com/pokemon/me6-58/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Darkness"
+    ],
+    "nationalPokedexNumbers": [
+      167
+    ]
+  },
+  {
+    "id": "delta-reign-59-ariados",
+    "name": "Ariados",
+    "rarity": "Common",
+    "number": "59",
+    "image": "https://images.scrydex.com/pokemon/me6-59/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Darkness"
+    ],
+    "nationalPokedexNumbers": [
+      168
+    ]
+  },
+  {
+    "id": "delta-reign-60-sableye",
+    "name": "Sableye",
+    "rarity": "Common",
+    "number": "60",
+    "image": "https://images.scrydex.com/pokemon/me6-60/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Darkness"
+    ],
+    "nationalPokedexNumbers": [
+      302
+    ]
+  },
+  {
+    "id": "delta-reign-61-carvanha",
+    "name": "Carvanha",
+    "rarity": "Common",
+    "number": "61",
+    "image": "https://images.scrydex.com/pokemon/me6-61/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Darkness"
+    ],
+    "nationalPokedexNumbers": [
+      318
+    ]
+  },
+  {
+    "id": "delta-reign-62-sharpedo",
+    "name": "Sharpedo",
+    "rarity": "Common",
+    "number": "62",
+    "image": "https://images.scrydex.com/pokemon/me6-62/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Darkness"
+    ],
+    "nationalPokedexNumbers": [
+      319
+    ]
+  },
+  {
+    "id": "delta-reign-63-darkrai",
+    "name": "Darkrai",
+    "rarity": "Uncommon",
+    "number": "63",
+    "image": "https://images.scrydex.com/pokemon/me6-63/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Darkness"
+    ],
+    "nationalPokedexNumbers": [
+      491
+    ]
+  },
+  {
+    "id": "delta-reign-64-purrloin",
+    "name": "Purrloin",
+    "rarity": "Common",
+    "number": "64",
+    "image": "https://images.scrydex.com/pokemon/me6-64/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Darkness"
+    ],
+    "nationalPokedexNumbers": [
+      509
+    ]
+  },
+  {
+    "id": "delta-reign-65-liepard",
+    "name": "Liepard",
+    "rarity": "Common",
+    "number": "65",
+    "image": "https://images.scrydex.com/pokemon/me6-65/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Darkness"
+    ],
+    "nationalPokedexNumbers": [
+      510
+    ]
+  },
+  {
+    "id": "delta-reign-66-zorua",
+    "name": "Zorua",
+    "rarity": "Common",
+    "number": "66",
+    "image": "https://images.scrydex.com/pokemon/me6-66/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Darkness"
+    ],
+    "nationalPokedexNumbers": [
+      570
+    ]
+  },
+  {
+    "id": "delta-reign-67-zoroark-ex",
+    "name": "Zoroark ex",
+    "rarity": "Double Rare",
+    "number": "67",
+    "image": "https://images.scrydex.com/pokemon/me6-67/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Darkness"
+    ],
+    "nationalPokedexNumbers": [
+      571
+    ]
+  },
+  {
+    "id": "delta-reign-68-inkay",
+    "name": "Inkay",
+    "rarity": "Common",
+    "number": "68",
+    "image": "https://images.scrydex.com/pokemon/me6-68/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Darkness"
+    ],
+    "nationalPokedexNumbers": [
+      686
+    ]
+  },
+  {
+    "id": "delta-reign-69-mega-malamar-ex",
+    "name": "Mega Malamar ex",
+    "rarity": "Double Rare",
+    "number": "69",
+    "image": "https://images.scrydex.com/pokemon/me6-69/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Darkness"
+    ],
+    "nationalPokedexNumbers": [
+      687
+    ]
+  },
+  {
+    "id": "delta-reign-70-morpeko",
+    "name": "Morpeko",
+    "rarity": "Uncommon",
+    "number": "70",
+    "image": "https://images.scrydex.com/pokemon/me6-70/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Darkness"
+    ],
+    "nationalPokedexNumbers": [
+      877
+    ]
+  },
+  {
+    "id": "delta-reign-71-zarude",
+    "name": "Zarude",
+    "rarity": "Uncommon",
+    "number": "71",
+    "image": "https://images.scrydex.com/pokemon/me6-71/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Darkness"
+    ],
+    "nationalPokedexNumbers": [
+      893
+    ]
+  },
+  {
+    "id": "delta-reign-72-druddigon",
+    "name": "Druddigon",
+    "rarity": "Uncommon",
+    "number": "72",
+    "image": "https://images.scrydex.com/pokemon/me6-72/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Dragon"
+    ],
+    "nationalPokedexNumbers": [
+      621
+    ]
+  },
+  {
+    "id": "delta-reign-73-jangmo-o",
+    "name": "Jangmo-o",
+    "rarity": "Common",
+    "number": "73",
+    "image": "https://images.scrydex.com/pokemon/me6-73/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Dragon"
+    ],
+    "nationalPokedexNumbers": [
+      782
+    ]
+  },
+  {
+    "id": "delta-reign-74-hakamo-o",
+    "name": "Hakamo-o",
+    "rarity": "Common",
+    "number": "74",
+    "image": "https://images.scrydex.com/pokemon/me6-74/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Dragon"
+    ],
+    "nationalPokedexNumbers": [
+      783
+    ]
+  },
+  {
+    "id": "delta-reign-75-kommo-o",
+    "name": "Kommo-o",
+    "rarity": "Rare",
+    "number": "75",
+    "image": "https://images.scrydex.com/pokemon/me6-75/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Dragon"
+    ],
+    "nationalPokedexNumbers": [
+      784
+    ]
+  },
+  {
+    "id": "delta-reign-76-cyclizar",
+    "name": "Cyclizar",
+    "rarity": "Common",
+    "number": "76",
+    "image": "https://images.scrydex.com/pokemon/me6-76/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Dragon"
+    ],
+    "nationalPokedexNumbers": [
+      967
+    ]
+  },
+  {
+    "id": "delta-reign-77-tauros",
+    "name": "Tauros",
+    "rarity": "Common",
+    "number": "77",
+    "image": "https://images.scrydex.com/pokemon/me6-77/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Colorless"
+    ],
+    "nationalPokedexNumbers": [
+      128
+    ]
+  },
+  {
+    "id": "delta-reign-78-eevee",
+    "name": "Eevee",
+    "rarity": "Common",
+    "number": "78",
+    "image": "https://images.scrydex.com/pokemon/me6-78/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Colorless"
+    ],
+    "nationalPokedexNumbers": [
+      133
+    ]
+  },
+  {
+    "id": "delta-reign-79-delibird",
+    "name": "Delibird",
+    "rarity": "Uncommon",
+    "number": "79",
+    "image": "https://images.scrydex.com/pokemon/me6-79/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Colorless"
+    ],
+    "nationalPokedexNumbers": [
+      225
+    ]
+  },
+  {
+    "id": "delta-reign-80-azurill",
+    "name": "Azurill",
+    "rarity": "Common",
+    "number": "80",
+    "image": "https://images.scrydex.com/pokemon/me6-80/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Colorless"
+    ],
+    "nationalPokedexNumbers": [
+      298
+    ]
+  },
+  {
+    "id": "delta-reign-81-swablu",
+    "name": "Swablu",
+    "rarity": "Common",
+    "number": "81",
+    "image": "https://images.scrydex.com/pokemon/me6-81/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Colorless"
+    ],
+    "nationalPokedexNumbers": [
+      333
+    ]
+  },
+  {
+    "id": "delta-reign-82-altaria",
+    "name": "Altaria",
+    "rarity": "Rare",
+    "number": "82",
+    "image": "https://images.scrydex.com/pokemon/me6-82/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Colorless"
+    ],
+    "nationalPokedexNumbers": [
+      334
+    ]
+  },
+  {
+    "id": "delta-reign-83-kecleon",
+    "name": "Kecleon",
+    "rarity": "Common",
+    "number": "83",
+    "image": "https://images.scrydex.com/pokemon/me6-83/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Colorless"
+    ],
+    "nationalPokedexNumbers": [
+      352
+    ]
+  },
+  {
+    "id": "delta-reign-84-mega-rayquaza-ex",
+    "name": "Mega Rayquaza ex",
+    "rarity": "Double Rare",
+    "number": "84",
+    "image": "https://images.scrydex.com/pokemon/me6-84/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Colorless"
+    ],
+    "nationalPokedexNumbers": [
+      384
+    ]
+  },
+  {
+    "id": "delta-reign-85-tornadus",
+    "name": "Tornadus",
+    "rarity": "Uncommon",
+    "number": "85",
+    "image": "https://images.scrydex.com/pokemon/me6-85/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Colorless"
+    ],
+    "nationalPokedexNumbers": [
+      641
+    ]
+  },
+  {
+    "id": "delta-reign-86-fletchling",
+    "name": "Fletchling",
+    "rarity": "Common",
+    "number": "86",
+    "image": "https://images.scrydex.com/pokemon/me6-86/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Colorless"
+    ],
+    "nationalPokedexNumbers": [
+      661
+    ]
+  },
+  {
+    "id": "delta-reign-87-fletchinder",
+    "name": "Fletchinder",
+    "rarity": "Common",
+    "number": "87",
+    "image": "https://images.scrydex.com/pokemon/me6-87/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Colorless"
+    ],
+    "nationalPokedexNumbers": [
+      662
+    ]
+  },
+  {
+    "id": "delta-reign-88-talonflame-ex",
+    "name": "Talonflame ex",
+    "rarity": "Double Rare",
+    "number": "88",
+    "image": "https://images.scrydex.com/pokemon/me6-88/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Colorless"
+    ],
+    "nationalPokedexNumbers": [
+      663
+    ]
+  },
+  {
+    "id": "delta-reign-89-aarune",
+    "name": "Aarune",
+    "rarity": "Uncommon",
+    "number": "89",
+    "image": "https://images.scrydex.com/pokemon/me6-89/small",
+    "supertype": "Trainer"
+  },
+  {
+    "id": "delta-reign-90-adventure-lantern",
+    "name": "Adventure Lantern",
+    "rarity": "Uncommon",
+    "number": "90",
+    "image": "https://images.scrydex.com/pokemon/me6-90/small",
+    "supertype": "Trainer"
+  },
+  {
+    "id": "delta-reign-91-custom-vest",
+    "name": "Custom Vest",
+    "rarity": "Uncommon",
+    "number": "91",
+    "image": "https://images.scrydex.com/pokemon/me6-91/small",
+    "supertype": "Trainer"
+  },
+  {
+    "id": "delta-reign-92-emcee-s-hype",
+    "name": "Emcee's Hype",
+    "rarity": "Common",
+    "number": "92",
+    "image": "https://images.scrydex.com/pokemon/me6-92/small",
+    "supertype": "Trainer"
+  },
+  {
+    "id": "delta-reign-93-grisham",
+    "name": "Grisham",
+    "rarity": "Uncommon",
+    "number": "93",
+    "image": "https://images.scrydex.com/pokemon/me6-93/small",
+    "supertype": "Trainer"
+  },
+  {
+    "id": "delta-reign-94-legendary-pyroduct",
+    "name": "Legendary Pyroduct",
+    "rarity": "Uncommon",
+    "number": "94",
+    "image": "https://images.scrydex.com/pokemon/me6-94/small",
+    "supertype": "Trainer"
+  },
+  {
+    "id": "delta-reign-95-legendary-pyroduct",
+    "name": "Legendary Pyroduct",
+    "rarity": "Uncommon",
+    "number": "95",
+    "image": "https://images.scrydex.com/pokemon/me6-95/small",
+    "supertype": "Trainer"
+  },
+  {
+    "id": "delta-reign-96-legendary-summit",
+    "name": "Legendary Summit",
+    "rarity": "Uncommon",
+    "number": "96",
+    "image": "https://images.scrydex.com/pokemon/me6-96/small",
+    "supertype": "Trainer"
+  },
+  {
+    "id": "delta-reign-97-legendary-summit",
+    "name": "Legendary Summit",
+    "rarity": "Uncommon",
+    "number": "97",
+    "image": "https://images.scrydex.com/pokemon/me6-97/small",
+    "supertype": "Trainer"
+  },
+  {
+    "id": "delta-reign-98-legendary-trench",
+    "name": "Legendary Trench",
+    "rarity": "Uncommon",
+    "number": "98",
+    "image": "https://images.scrydex.com/pokemon/me6-98/small",
+    "supertype": "Trainer"
+  },
+  {
+    "id": "delta-reign-99-legendary-trench",
+    "name": "Legendary Trench",
+    "rarity": "Uncommon",
+    "number": "99",
+    "image": "https://images.scrydex.com/pokemon/me6-99/small",
+    "supertype": "Trainer"
+  },
+  {
+    "id": "delta-reign-100-mega-rayquaza-cap",
+    "name": "Mega Rayquaza Cap",
+    "rarity": "Uncommon",
+    "number": "100",
+    "image": "https://images.scrydex.com/pokemon/me6-100/small",
+    "supertype": "Trainer"
+  },
+  {
+    "id": "delta-reign-101-tasty-rice-ball",
+    "name": "Tasty Rice Ball",
+    "rarity": "Common",
+    "number": "101",
+    "image": "https://images.scrydex.com/pokemon/me6-101/small",
+    "supertype": "Trainer"
+  },
+  {
+    "id": "delta-reign-102-tate-liza-s-training",
+    "name": "Tate & Liza's Training",
+    "rarity": "Uncommon",
+    "number": "102",
+    "image": "https://images.scrydex.com/pokemon/me6-102/small",
+    "supertype": "Trainer"
+  },
+  {
+    "id": "delta-reign-103-zinnia-s-trust",
+    "name": "Zinnia's Trust",
+    "rarity": "Uncommon",
+    "number": "103",
+    "image": "https://images.scrydex.com/pokemon/me6-103/small",
+    "supertype": "Trainer"
+  },
+  {
+    "id": "delta-reign-104-masquerain",
+    "name": "Masquerain",
+    "rarity": "Illustration Rare",
+    "number": "104",
+    "image": "https://images.scrydex.com/pokemon/me6-104/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Grass"
+    ],
+    "nationalPokedexNumbers": [
+      284
+    ]
+  },
+  {
+    "id": "delta-reign-105-sprigatito",
+    "name": "Sprigatito",
+    "rarity": "Illustration Rare",
+    "number": "105",
+    "image": "https://images.scrydex.com/pokemon/me6-105/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Grass"
+    ],
+    "nationalPokedexNumbers": [
+      906
+    ]
+  },
+  {
+    "id": "delta-reign-106-growlithe",
+    "name": "Growlithe",
+    "rarity": "Illustration Rare",
+    "number": "106",
+    "image": "https://images.scrydex.com/pokemon/me6-106/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Fire"
+    ],
+    "nationalPokedexNumbers": [
+      58
+    ]
+  },
+  {
+    "id": "delta-reign-107-magmortar",
+    "name": "Magmortar",
+    "rarity": "Illustration Rare",
+    "number": "107",
+    "image": "https://images.scrydex.com/pokemon/me6-107/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Fire"
+    ],
+    "nationalPokedexNumbers": [
+      467
+    ]
+  },
+  {
+    "id": "delta-reign-108-electivire",
+    "name": "Electivire",
+    "rarity": "Illustration Rare",
+    "number": "108",
+    "image": "https://images.scrydex.com/pokemon/me6-108/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Lightning"
+    ],
+    "nationalPokedexNumbers": [
+      466
+    ]
+  },
+  {
+    "id": "delta-reign-109-pincurchin",
+    "name": "Pincurchin",
+    "rarity": "Illustration Rare",
+    "number": "109",
+    "image": "https://images.scrydex.com/pokemon/me6-109/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Lightning"
+    ],
+    "nationalPokedexNumbers": [
+      871
+    ]
+  },
+  {
+    "id": "delta-reign-110-enamorus",
+    "name": "Enamorus",
+    "rarity": "Illustration Rare",
+    "number": "110",
+    "image": "https://images.scrydex.com/pokemon/me6-110/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Psychic"
+    ],
+    "nationalPokedexNumbers": [
+      905
+    ]
+  },
+  {
+    "id": "delta-reign-111-groudon",
+    "name": "Groudon",
+    "rarity": "Illustration Rare",
+    "number": "111",
+    "image": "https://images.scrydex.com/pokemon/me6-111/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Fighting"
+    ],
+    "nationalPokedexNumbers": [
+      383
+    ]
+  },
+  {
+    "id": "delta-reign-112-zorua",
+    "name": "Zorua",
+    "rarity": "Illustration Rare",
+    "number": "112",
+    "image": "https://images.scrydex.com/pokemon/me6-112/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Darkness"
+    ],
+    "nationalPokedexNumbers": [
+      570
+    ]
+  },
+  {
+    "id": "delta-reign-113-inkay",
+    "name": "Inkay",
+    "rarity": "Illustration Rare",
+    "number": "113",
+    "image": "https://images.scrydex.com/pokemon/me6-113/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Darkness"
+    ],
+    "nationalPokedexNumbers": [
+      686
+    ]
+  },
+  {
+    "id": "delta-reign-114-eevee",
+    "name": "Eevee",
+    "rarity": "Illustration Rare",
+    "number": "114",
+    "image": "https://images.scrydex.com/pokemon/me6-114/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Colorless"
+    ],
+    "nationalPokedexNumbers": [
+      133
+    ]
+  },
+  {
+    "id": "delta-reign-115-azurill",
+    "name": "Azurill",
+    "rarity": "Illustration Rare",
+    "number": "115",
+    "image": "https://images.scrydex.com/pokemon/me6-115/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Colorless"
+    ],
+    "nationalPokedexNumbers": [
+      298
+    ]
+  },
+  {
+    "id": "delta-reign-116-altaria",
+    "name": "Altaria",
+    "rarity": "Illustration Rare",
+    "number": "116",
+    "image": "https://images.scrydex.com/pokemon/me6-116/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Colorless"
+    ],
+    "nationalPokedexNumbers": [
+      334
+    ]
+  },
+  {
+    "id": "delta-reign-117-kecleon",
+    "name": "Kecleon",
+    "rarity": "Illustration Rare",
+    "number": "117",
+    "image": "https://images.scrydex.com/pokemon/me6-117/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Colorless"
+    ],
+    "nationalPokedexNumbers": [
+      352
+    ]
+  },
+  {
+    "id": "delta-reign-118-mega-golisopod-ex",
+    "name": "Mega Golisopod ex",
+    "rarity": "Ultra Rare",
+    "number": "118",
+    "image": "https://images.scrydex.com/pokemon/me6-118/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Grass"
+    ],
+    "nationalPokedexNumbers": [
+      768
+    ]
+  },
+  {
+    "id": "delta-reign-119-heat-rotom-ex",
+    "name": "Heat Rotom ex",
+    "rarity": "Ultra Rare",
+    "number": "119",
+    "image": "https://images.scrydex.com/pokemon/me6-119/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Fire"
+    ],
+    "nationalPokedexNumbers": [
+      479
+    ]
+  },
+  {
+    "id": "delta-reign-120-wishiwashi-ex",
+    "name": "Wishiwashi ex",
+    "rarity": "Ultra Rare",
+    "number": "120",
+    "image": "https://images.scrydex.com/pokemon/me6-120/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Water"
+    ],
+    "nationalPokedexNumbers": [
+      746
+    ]
+  },
+  {
+    "id": "delta-reign-121-raikou-ex",
+    "name": "Raikou ex",
+    "rarity": "Ultra Rare",
+    "number": "121",
+    "image": "https://images.scrydex.com/pokemon/me6-121/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Lightning"
+    ],
+    "nationalPokedexNumbers": [
+      243
+    ]
+  },
+  {
+    "id": "delta-reign-122-mega-golurk-ex",
+    "name": "Mega Golurk ex",
+    "rarity": "Ultra Rare",
+    "number": "122",
+    "image": "https://images.scrydex.com/pokemon/me6-122/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Psychic"
+    ],
+    "nationalPokedexNumbers": [
+      623
+    ]
+  },
+  {
+    "id": "delta-reign-123-mega-malamar-ex",
+    "name": "Mega Malamar ex",
+    "rarity": "Ultra Rare",
+    "number": "123",
+    "image": "https://images.scrydex.com/pokemon/me6-123/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Darkness"
+    ],
+    "nationalPokedexNumbers": [
+      687
+    ]
+  },
+  {
+    "id": "delta-reign-124-talonflame-ex",
+    "name": "Talonflame ex",
+    "rarity": "Ultra Rare",
+    "number": "124",
+    "image": "https://images.scrydex.com/pokemon/me6-124/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Colorless"
+    ],
+    "nationalPokedexNumbers": [
+      663
+    ]
+  },
+  {
+    "id": "delta-reign-125-aarune",
+    "name": "Aarune",
+    "rarity": "Ultra Rare",
+    "number": "125",
+    "image": "https://images.scrydex.com/pokemon/me6-125/small",
+    "supertype": "Trainer"
+  },
+  {
+    "id": "delta-reign-126-adventure-lantern",
+    "name": "Adventure Lantern",
+    "rarity": "Ultra Rare",
+    "number": "126",
+    "image": "https://images.scrydex.com/pokemon/me6-126/small",
+    "supertype": "Trainer"
+  },
+  {
+    "id": "delta-reign-127-custom-vest",
+    "name": "Custom Vest",
+    "rarity": "Ultra Rare",
+    "number": "127",
+    "image": "https://images.scrydex.com/pokemon/me6-127/small",
+    "supertype": "Trainer"
+  },
+  {
+    "id": "delta-reign-128-emcee-s-hype",
+    "name": "Emcee's Hype",
+    "rarity": "Ultra Rare",
+    "number": "128",
+    "image": "https://images.scrydex.com/pokemon/me6-128/small",
+    "supertype": "Trainer"
+  },
+  {
+    "id": "delta-reign-129-pokemon-catcher",
+    "name": "Pokémon Catcher",
+    "rarity": "Ultra Rare",
+    "number": "129",
+    "image": "https://images.scrydex.com/pokemon/me6-129/small",
+    "supertype": "Trainer"
+  },
+  {
+    "id": "delta-reign-130-tate-liza-s-training",
+    "name": "Tate & Liza's Training",
+    "rarity": "Ultra Rare",
+    "number": "130",
+    "image": "https://images.scrydex.com/pokemon/me6-130/small",
+    "supertype": "Trainer"
+  },
+  {
+    "id": "delta-reign-131-zinnia-s-trust",
+    "name": "Zinnia's Trust",
+    "rarity": "Ultra Rare",
+    "number": "131",
+    "image": "https://images.scrydex.com/pokemon/me6-131/small",
+    "supertype": "Trainer"
+  },
+  {
+    "id": "delta-reign-132-bubbly-water-energy",
+    "name": "Bubbly Water Energy",
+    "rarity": "Ultra Rare",
+    "number": "132",
+    "image": "https://images.scrydex.com/pokemon/me6-132/small",
+    "supertype": "Energy"
+  },
+  {
+    "id": "delta-reign-133-growing-grass-energy",
+    "name": "Growing Grass Energy",
+    "rarity": "Ultra Rare",
+    "number": "133",
+    "image": "https://images.scrydex.com/pokemon/me6-133/small",
+    "supertype": "Energy"
+  },
+  {
+    "id": "delta-reign-134-nitro-fire-energy",
+    "name": "Nitro Fire Energy",
+    "rarity": "Ultra Rare",
+    "number": "134",
+    "image": "https://images.scrydex.com/pokemon/me6-134/small",
+    "supertype": "Energy"
+  },
+  {
+    "id": "delta-reign-135-mega-golisopod-ex",
+    "name": "Mega Golisopod ex",
+    "rarity": "Special Illustration Rare",
+    "number": "135",
+    "image": "https://images.scrydex.com/pokemon/me6-135/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Grass"
+    ],
+    "nationalPokedexNumbers": [
+      768
+    ]
+  },
+  {
+    "id": "delta-reign-136-raikou-ex",
+    "name": "Raikou ex",
+    "rarity": "Special Illustration Rare",
+    "number": "136",
+    "image": "https://images.scrydex.com/pokemon/me6-136/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Lightning"
+    ],
+    "nationalPokedexNumbers": [
+      243
+    ]
+  },
+  {
+    "id": "delta-reign-137-mega-golurk-ex",
+    "name": "Mega Golurk ex",
+    "rarity": "Special Illustration Rare",
+    "number": "137",
+    "image": "https://images.scrydex.com/pokemon/me6-137/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Psychic"
+    ],
+    "nationalPokedexNumbers": [
+      623
+    ]
+  },
+  {
+    "id": "delta-reign-138-mega-rayquaza-ex",
+    "name": "Mega Rayquaza ex",
+    "rarity": "Special Illustration Rare",
+    "number": "138",
+    "image": "https://images.scrydex.com/pokemon/me6-138/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Colorless"
+    ],
+    "nationalPokedexNumbers": [
+      384
+    ]
+  },
+  {
+    "id": "delta-reign-139-aarune",
+    "name": "Aarune",
+    "rarity": "Special Illustration Rare",
+    "number": "139",
+    "image": "https://images.scrydex.com/pokemon/me6-139/small",
+    "supertype": "Trainer"
+  },
+  {
+    "id": "delta-reign-140-zinnia-s-trust",
+    "name": "Zinnia's Trust",
+    "rarity": "Special Illustration Rare",
+    "number": "140",
+    "image": "https://images.scrydex.com/pokemon/me6-140/small",
+    "supertype": "Trainer"
+  },
+  {
+    "id": "delta-reign-141-mega-rayquaza-ex",
+    "name": "Mega Rayquaza ex",
+    "rarity": "Mega Hyper Rare",
+    "number": "141",
+    "image": "https://images.scrydex.com/pokemon/me6-141/small",
+    "supertype": "Pokémon",
+    "types": [
+      "Colorless"
+    ],
+    "nationalPokedexNumbers": [
+      384
+    ]
+  }
+]

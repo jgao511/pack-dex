@@ -112,6 +112,7 @@ const THEMES = {
   "paldean-fates": ["Shiny Pokémon"], "prismatic-evolutions": ["Eevee and its Evolutions"], "journey-together": ["Trainer's Pokémon"],
   "destined-rivals": ["Trainer's Pokémon", "Team Rocket"], "black-bolt": ["Unova", "Black-themed counterpart"], "white-flare": ["Unova", "White-themed counterpart"],
   "pitch-black": ["Mega Darkrai ex", "Mega Evolution Pokémon ex"],
+  "delta-reign": ["Mega Rayquaza ex", "Mega Evolution Pokémon ex", "Legendary Stadiums"],
   "30th-celebration": ["30 Pikachu illustrations", "Classic Collection reprints"],
 };
 
@@ -125,6 +126,7 @@ const FACTS = {
   "black-bolt": ["Scarlet & Violet—Black Bolt and Scarlet & Violet—White Flare were released together in English on July 18, 2025. The paired expansions divide their Unova-themed Pokémon and cards across two complementary sets."],
   "white-flare": ["Scarlet & Violet—White Flare and Scarlet & Violet—Black Bolt were released together in English on July 18, 2025. The paired expansions divide their Unova-themed Pokémon and cards across two complementary sets."],
   "pitch-black": ["Mega Evolution—Pitch Black is an official 120-card expansion released in English on July 17, 2026."],
+  "delta-reign": ["Delta Reign contains 103 main-set cards and 38 secret rares, released in English on November 6, 2026."],
   "30th-celebration": ["Each English booster contains five foil cards, including one of 30 Pikachu illustrations, and one foil Basic Energy."],
 };
 
@@ -261,11 +263,13 @@ const SET_IDENTITIES = {
   "perfect-order": "Lumiose City and Kalos lore, led by Mega Zygarde ex",
   "chaos-rising": "new Mega Evolution Pokémon ex led by Mega Greninja ex and Mega Floette ex",
   "pitch-black": "Mega Darkrai ex and a Darkness-focused Mega Evolution roster",
+  "delta-reign": "Mega Rayquaza ex, Mega Golisopod ex, Mega Golurk ex, and Legendary Stadium cards",
   "30th-celebration": "30 Pikachu illustrations, Classic Collection reprints, and new artwork for Mew and Mewtwo",
 };
 
 const FEATURED_POKEMON_IDS = {
   "pitch-black": [491, 609, 807],
+  "delta-reign": [384, 768, 623],
   "30th-celebration": [25, 150, 151],
 };
 

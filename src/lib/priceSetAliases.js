@@ -1,4 +1,5 @@
 export const PRICE_SET_ALIASES = {
+  "delta-reign": { pokemonTcgApiSetId: "me6" },
   "mega-evolution": {
     pokemonTcgApiSetId: "me1",
     tcgplayerSetSlug: "me01-mega-evolution",

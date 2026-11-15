@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-03T14:39:37.889Z",
+  "generatedAt": "2026-11-15T19:46:03.035Z",
   "policy": {
     "runtimeSourceNotesExcluded": true,
     "uncertainClaims": "Omitted rather than inferred from card names or algorithmic frequency.",
@@ -2698,6 +2698,46 @@
         {
           "field": "structured set identity",
           "source": "https://api.pokemontcg.io/v2/sets/me5"
+        },
+        {
+          "field": "set-specific summary, editorial mechanics, and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "30th-celebration",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "release date, era, and supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/me55"
+        },
+        {
+          "field": "set-specific summary, editorial mechanics, and themes",
+          "source": "https://www.pokemon.com/us/pokemon-tcg/trading-card-expansions"
+        }
+      ],
+      "limitedReason": ""
+    },
+    {
+      "setId": "delta-reign",
+      "status": "curated",
+      "custom": false,
+      "sourceNotes": [
+        {
+          "field": "release date, era, and supported count",
+          "source": "src/data/sets.js and its imported catalog data"
+        },
+        {
+          "field": "structured set identity",
+          "source": "https://api.pokemontcg.io/v2/sets/me6"
         },
         {
           "field": "set-specific summary, editorial mechanics, and themes",

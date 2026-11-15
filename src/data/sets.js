@@ -54,6 +54,7 @@ import perfectOrderCards from "./perfect-order.json" with { type: "json" };
 import chaosRisingCards from "./chaos-rising.json" with { type: "json" };
 import pitchBlackCards from "./pitch-black.json" with { type: "json" };
 import celebration30Cards from "./30th-celebration.json" with { type: "json" };
+import deltaReignCards from "./delta-reign.json" with { type: "json" };
 import xy0Cards from "./xy0.json" with { type: "json" };
 import xy1Cards from "./xy1.json" with { type: "json" };
 import xy2Cards from "./xy2.json" with { type: "json" };
@@ -146,6 +147,7 @@ const pullRateProfilesBySet = {
   "perfect-order": "megaEvolutionStandard",
   "chaos-rising": "megaEvolutionStandard",
   "pitch-black": "megaEvolutionStandard",
+  "delta-reign": "megaEvolutionStandard",
   "30th-celebration": "30th-celebration",
   "30th-anniversary": "thirtiethAnniversaryPreview",
 };
@@ -297,7 +299,7 @@ function createSet(id, name, cards, metadata = {}) {
   };
 }
 
-export const NEWEST_SET_ID = "30th-celebration";
+export const NEWEST_SET_ID = "delta-reign";
 
 export const sets = [
   // Special Preview Sets
@@ -401,6 +403,13 @@ export const sets = [
     releaseDate: "2026-09-16",
     pokemonTcgApiSetId: "me55",
     era: "Mega Evolution",
+  }),
+  createSet("delta-reign", "Delta Reign", deltaReignCards, {
+    releaseDate: "2026-11-06",
+    pokemonTcgApiSetId: "me6",
+    era: "Mega Evolution",
+    printedTotal: 103,
+    total: 141,
   }),
 ];
 
