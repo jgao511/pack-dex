@@ -126,6 +126,7 @@ export function isGenericBonusEnergyCard(card = {}, set = {}) {
 }
 
 export function isCollectibleSetCard(card = {}, set = {}) {
+  if (card.excludeFromPulls === true) return false;
   if (normalizeText(card.name).includes("code card")) return false;
   return !isGenericBonusEnergyCard(card, set);
 }

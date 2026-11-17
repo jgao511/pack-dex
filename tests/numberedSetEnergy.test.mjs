@@ -51,8 +51,8 @@ const correctedModernHyperEnergies = {
   "journey-together": ["190"],
 };
 
-test("Base Set exposes all 102 cards including Basic Energy 97-102", () => {
-  assert.equal(getPullableCollectionCards(baseSet).length, 102);
+test("Base Set booster checklist retains Basic Energy 97-102 and excludes the Machamp insert", () => {
+  assert.equal(getPullableCollectionCards(baseSet).length, 101);
   assert.deepEqual(baseBasicEnergy.map((card) => card.number), ["97", "98", "99", "100", "101", "102"]);
   assert.ok(baseBasicEnergy.every((card) => isNumberedSetEnergyCard(card, baseSet)));
 });
@@ -116,7 +116,7 @@ test("numbered Energy saves to guest storage and increases progress", () => {
 
   assert.equal(getCardCount(restored, energy, baseSet.id), 1);
   assert.equal(progress.collected, 1);
-  assert.equal(progress.total, 102);
+  assert.equal(progress.total, 101);
   assert.equal(progress.percent, 1);
 });
 
@@ -170,7 +170,7 @@ test("sets without numbered Energy do not gain Energy in their totals", () => {
   );
 
   for (const set of setsWithoutNumberedEnergy) {
-    const expected = set.cards.filter((card) => !isEnergyCard(card)).length;
+    const expected = set.cards.filter((card) => !isEnergyCard(card) && !card.excludeFromPulls).length;
     const actual = getPullableCollectionCards(set);
 
     assert.equal(actual.filter(isEnergyCard).length, 0, set.id);

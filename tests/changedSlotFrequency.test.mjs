@@ -240,7 +240,7 @@ test("production catalogs expose every corrected changed category in its physica
   assert.equal(characterSecrets.length, 12);
   for (const card of characterSecrets) {
     assert.equal(getSubsetType(card, cosmicEclipse), "characterSecret", card.id);
-    assert.equal(getSubsetSlotWeight(card, cosmicEclipse), 10, card.id);
+    assert.equal(getSubsetSlotWeight(card, cosmicEclipse), 10.11, card.id);
     assert.equal(isCardAllowedInPackSlot(card, 8, cosmicEclipse), true, `${card.id} reverse slot`);
     assert.equal(isCardAllowedInPackSlot(card, 9, cosmicEclipse), false, `${card.id} final slot`);
   }
@@ -256,8 +256,8 @@ test("production catalogs expose every corrected changed category in its physica
   });
   assert.equal(babyShinies.length, 104);
   assert.equal(premiumShinies.length, 18);
-  for (const card of babyShinies) assert.equal(getSubsetSlotWeight(card, shiningFates), 20.2, card.id);
-  for (const card of premiumShinies) assert.equal(getSubsetSlotWeight(card, shiningFates), 8, card.id);
+  for (const card of babyShinies) assert.equal(getSubsetSlotWeight(card, shiningFates), 22.73, card.id);
+  for (const card of premiumShinies) assert.equal(getSubsetSlotWeight(card, shiningFates), Number.parseInt(String(card.number).slice(2), 10) >= 121 ? 0.91 : 8.96, card.id);
 
   const paldeanFates = findSet("paldean-fates");
   const paldeanIllustrationRares = paldeanFates.cards.filter((card) =>
@@ -362,7 +362,7 @@ test("Prism Star, Radiant, ACE SPEC, Cosmic, and Shining subset rates are realiz
       ]),
       expectations: [
         { id: "astral-radiance-radiant", targetPercent: 4.88 },
-        { id: "astral-radiance-gallery", targetPercent: 12.58 },
+        { id: "astral-radiance-gallery", targetPercent: 8.48 },
       ],
     },
     {
@@ -374,7 +374,7 @@ test("Prism Star, Radiant, ACE SPEC, Cosmic, and Shining subset rates are realiz
       ]),
       expectations: [
         { id: "lost-origin-radiant", targetPercent: 5.01 },
-        { id: "lost-origin-gallery", targetPercent: 12.31 },
+        { id: "lost-origin-gallery", targetPercent: 8.29 },
       ],
     },
     {
@@ -386,7 +386,7 @@ test("Prism Star, Radiant, ACE SPEC, Cosmic, and Shining subset rates are realiz
       ]),
       expectations: [
         { id: "silver-tempest-radiant", targetPercent: 4.55 },
-        { id: "silver-tempest-gallery", targetPercent: 12.23 },
+        { id: "silver-tempest-gallery", targetPercent: 8.25 },
       ],
     },
     {
@@ -429,8 +429,8 @@ test("Prism Star, Radiant, ACE SPEC, Cosmic, and Shining subset rates are realiz
         makeCard("shining-premium", "doubleRare", { number: "SV105", subset: "Shiny Vault" }),
       ]),
       expectations: [
-        { id: "shining-baby", targetPercent: 20.2 },
-        { id: "shining-premium", targetPercent: 8 },
+        { id: "shining-baby", targetPercent: 22.73 },
+        { id: "shining-premium", targetPercent: 8.96 },
       ],
     },
   ];
@@ -511,13 +511,13 @@ test("Cosmic character secrets move to reverse without diluting gold secrets", (
     assertBinomialRate({
       actualHits: bySlot[8].get("secretRare") || 0,
       label: "Cosmic Eclipse slot 9 character secret",
-      targetPercent: 10,
+      targetPercent: 10.11,
       trials,
     }),
     assertBinomialRate({
       actualHits: bySlot[9].get("secretRare") || 0,
       label: "Cosmic Eclipse slot 10 gold secret",
-      targetPercent: 3,
+      targetPercent: 0.89,
       trials,
     }),
   ];
@@ -537,13 +537,13 @@ test("Ascended Heroes realizes MAR and MHR alongside source companion rarity wei
   ]);
   const bySlot = simulatePackFixture(set, ASCENDED_TRIALS, 0xa5ce0ded);
   const expectations = [
-    [8, "illustrationRare", 11.25],
-    [8, "specialIllustrationRare", 1.44],
-    [8, "megaHyperRare", 0.19],
-    [9, "doubleRare", 13.58],
-    [9, "megaDoubleRare", 6.79],
-    [9, "ultraRare", 4.81],
-    [9, "megaAttackRare", 3.47],
+    [8, "illustrationRare", 11.25 / 0.9995],
+    [8, "specialIllustrationRare", (1.44 - 0.35) / 0.9995],
+    [8, "megaHyperRare", 0.19 / 0.9995],
+    [9, "doubleRare", 13.58 / 0.9995],
+    [9, "megaDoubleRare", 6.79 / 0.9995],
+    [9, "ultraRare", 4.81 / 0.9995],
+    [9, "megaAttackRare", (3.47 - 0.15) / 0.9995],
   ];
   const rows = expectations.map(([slot, category, targetPercent]) => assertBinomialRate({
     actualHits: bySlot[slot].get(category) || 0,
@@ -552,23 +552,23 @@ test("Ascended Heroes realizes MAR and MHR alongside source companion rarity wei
     trials: ASCENDED_TRIALS,
   }));
 
-  assert.deepEqual(getMegaSecondFoilSlotWeights(set), {
-    normal: 87.12,
-    illustrationRare: 11.25,
-    specialIllustrationRare: 1.44,
-    megaHyperRare: 0.19,
+  assertRates(getMegaSecondFoilSlotWeights(set), {
+    normal: 100 - (11.25 + 1.44 + 0.19 - 0.35) / 0.9995,
+    illustrationRare: 11.25 / 0.9995,
+    specialIllustrationRare: (1.44 - 0.35) / 0.9995,
+    megaHyperRare: 0.19 / 0.9995,
   });
-  assert.deepEqual(getMegaRareSlotWeights(set), {
-    rare: 71.35,
-    doubleRare: 13.58,
-    megaDoubleRare: 6.79,
-    ultraRare: 4.81,
-    megaAttackRare: 3.47,
+  assertRates(getMegaRareSlotWeights(set), {
+    rare: 100 - (13.58 + 6.79 + 4.81 + 3.47 - 0.15) / 0.9995,
+    doubleRare: 13.58 / 0.9995,
+    megaDoubleRare: 6.79 / 0.9995,
+    ultraRare: 4.81 / 0.9995,
+    megaAttackRare: (3.47 - 0.15) / 0.9995,
   });
   t.diagnostic(formatDiagnostics(rows, ASCENDED_TRIALS));
 });
 
-test("Mega Evolution moves MHR to the second foil while preserving simulator weights", (t) => {
+test("Mega Evolution realizes the measured English rarity weights", (t) => {
   const set = makeFixture("mega-evolution", [
     makeCard("mega-evolution-ir", "illustrationRare"),
     makeCard("mega-evolution-sir", "specialIllustrationRare"),
@@ -579,11 +579,11 @@ test("Mega Evolution moves MHR to the second foil while preserving simulator wei
   const trials = 25_000;
   const bySlot = simulatePackFixture(set, trials, 0x4d454741);
   const expectations = [
-    [8, "illustrationRare", 6],
-    [8, "specialIllustrationRare", 2],
-    [8, "megaHyperRare", 0.2],
-    [9, "megaDoubleRare", 18],
-    [9, "ultraRare", 6],
+    [8, "illustrationRare", 10.89],
+    [8, "specialIllustrationRare", 0.99],
+    [8, "megaHyperRare", 0.08],
+    [9, "megaDoubleRare", 20.91],
+    [9, "ultraRare", 8.23],
   ];
   const rows = expectations.map(([slot, category, targetPercent]) => assertBinomialRate({
     actualHits: bySlot[slot].get(category) || 0,
@@ -622,3 +622,10 @@ test("Prismatic demi-god packs realize the complete 32-card SIR pool", (t) => {
   assert.deepEqual([...observedIds].sort(), [...expectedIds].sort());
   t.diagnostic(`seeded forced packs=${packs}; observed production SIRs=${observedIds.size}/32`);
 });
+
+function assertRates(actual, expected) {
+  assert.deepEqual(Object.keys(actual).sort(), Object.keys(expected).sort());
+  for (const [key, value] of Object.entries(expected)) {
+    assert.ok(Math.abs(actual[key] - value) < 1e-9, `${key}: ${actual[key]} vs ${value}`);
+  }
+}

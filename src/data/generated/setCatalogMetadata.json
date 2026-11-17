@@ -8,7 +8,7 @@
     "logoPath": "base-set/logo.png",
     "packArtPath": "",
     "isNew": false,
-    "cardCount": 102,
+    "cardCount": 101,
     "slug": "base-set",
     "path": "/set/base-set"
   },
@@ -242,7 +242,7 @@
     "logoPath": "ex-team-magma-vs-team-aqua/logo.png",
     "packArtPath": "",
     "isNew": false,
-    "cardCount": 97,
+    "cardCount": 96,
     "slug": "ex-team-magma-vs-team-aqua",
     "path": "/set/ex-team-magma-vs-team-aqua"
   },
@@ -255,7 +255,7 @@
     "logoPath": "ex-hidden-legends/logo.png",
     "packArtPath": "",
     "isNew": false,
-    "cardCount": 102,
+    "cardCount": 101,
     "slug": "ex-hidden-legends",
     "path": "/set/ex-hidden-legends"
   },
@@ -268,7 +268,7 @@
     "logoPath": "ex-firered-leafgreen/logo.png",
     "packArtPath": "",
     "isNew": false,
-    "cardCount": 116,
+    "cardCount": 115,
     "slug": "ex-firered-and-leafgreen",
     "path": "/set/ex-firered-and-leafgreen"
   },
@@ -281,7 +281,7 @@
     "logoPath": "ex-team-rocket-returns/logo.png",
     "packArtPath": "",
     "isNew": false,
-    "cardCount": 111,
+    "cardCount": 110,
     "slug": "ex-team-rocket-returns",
     "path": "/set/ex-team-rocket-returns"
   },
@@ -294,7 +294,7 @@
     "logoPath": "ex-deoxys/logo.png",
     "packArtPath": "",
     "isNew": false,
-    "cardCount": 108,
+    "cardCount": 107,
     "slug": "ex-deoxys",
     "path": "/set/ex-deoxys"
   },
@@ -307,7 +307,7 @@
     "logoPath": "ex-emerald/logo.png",
     "packArtPath": "",
     "isNew": false,
-    "cardCount": 107,
+    "cardCount": 106,
     "slug": "ex-emerald",
     "path": "/set/ex-emerald"
   },
@@ -320,7 +320,7 @@
     "logoPath": "ex-unseen-forces/logo.png",
     "packArtPath": "",
     "isNew": false,
-    "cardCount": 145,
+    "cardCount": 144,
     "slug": "ex-unseen-forces",
     "path": "/set/ex-unseen-forces"
   },
@@ -333,7 +333,7 @@
     "logoPath": "ex-delta-species/logo.png",
     "packArtPath": "",
     "isNew": false,
-    "cardCount": 114,
+    "cardCount": 113,
     "slug": "ex-delta-species",
     "path": "/set/ex-delta-species"
   },
@@ -346,7 +346,7 @@
     "logoPath": "ex-legend-maker/logo.png",
     "packArtPath": "",
     "isNew": false,
-    "cardCount": 93,
+    "cardCount": 92,
     "slug": "ex-legend-maker",
     "path": "/set/ex-legend-maker"
   },
@@ -359,7 +359,7 @@
     "logoPath": "ex-holon-phantoms/logo.png",
     "packArtPath": "",
     "isNew": false,
-    "cardCount": 111,
+    "cardCount": 110,
     "slug": "ex-holon-phantoms",
     "path": "/set/ex-holon-phantoms"
   },

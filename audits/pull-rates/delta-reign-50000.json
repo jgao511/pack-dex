@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "seed": "effective-v1:<set-id>",
+  "samplePacksPerSet": 50000,
+  "sets": [
+    {
+      "id": "delta-reign",
+      "packCount": 50000,
+      "eligibleCards": 141,
+      "positiveRouteCards": 141,
+      "observedUnique": 141,
+      "milliseconds": 198081,
+      "evidence": "era-fallback",
+      "sourceUrl": "https://tcg1.net/pull-rates/mega-evolution/",
+      "errors": [],
+      "warnings": [],
+      "slots": [
+        {
+          "slot": "art",
+          "bucket": "normal",
+          "expectedPercent": 88.04,
+          "observedPercent": 88,
+          "count": 44000
+        },
+        {
+          "slot": "art",
+          "bucket": "illustrationRare",
+          "expectedPercent": 10.89,
+          "observedPercent": 10.924,
+          "count": 5462
+        },
+        {
+          "slot": "art",
+          "bucket": "specialIllustrationRare",
+          "expectedPercent": 0.9899999999999999,
+          "observedPercent": 0.9979999999999999,
+          "count": 499
+        },
+        {
+          "slot": "art",
+          "bucket": "megaHyperRare",
+          "expectedPercent": 0.08,
+          "observedPercent": 0.078,
+          "count": 39
+        },
+        {
+          "slot": "rare",
+          "bucket": "rare",
+          "expectedPercent": 70.85999999999999,
+          "observedPercent": 70.96000000000001,
+          "count": 35480
+        },
+        {
+          "slot": "rare",
+          "bucket": "doubleRare",
+          "expectedPercent": 12.546000000000001,
+          "observedPercent": 12.304,
+          "count": 6152
+        },
+        {
+          "slot": "rare",
+          "bucket": "megaDoubleRare",
+          "expectedPercent": 8.364,
+          "observedPercent": 8.25,
+          "count": 4125
+        },
+        {
+          "slot": "rare",
+          "bucket": "ultraRare",
+          "expectedPercent": 8.23,
+          "observedPercent": 8.486,
+          "count": 4243
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "sets": 1,
+    "packs": 50000,
+    "errors": 0,
+    "eligibleCards": 141,
+    "positiveRouteCards": 141
+  }
+}

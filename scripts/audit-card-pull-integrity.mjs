@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { activeSets, getSetCardById, isRetiredSet, sets } from "../src/data/sets.js";
+import { VINTAGE_PULL_RATES } from "../src/data/vintagePullRates.js";
 import { getVintagePackRule } from "../src/data/vintagePackRules.js";
 import { buildScannerCatalog } from "../src/lib/cardScanner/buildScannerCatalog.js";
 import {
@@ -23,6 +24,7 @@ import {
   getPackPools,
   getPullRateProfile,
   getRarityCategory,
+  getVintagePullBucket,
   getSubsetSlotWeight,
   getSubsetType,
   GOD_PACK_CONFIG,
@@ -232,6 +234,18 @@ function classifyPositivePullRoutes(set) {
     addRoute(routeSets, "vintage.common", pools.commonPool);
     addRoute(routeSets, "vintage.uncommon", pools.uncommonPool);
     addRoute(routeSets, "vintage.reverse", pools.reverseSlotPool);
+    const spec = VINTAGE_PULL_RATES[set.id];
+    if (spec) {
+      for (const [bucket, weight] of Object.entries(spec.reverse)) {
+        if (bucket !== "normal" && weight > 0) addRoute(routeSets, "vintage.reverse", pools.cleanCards.filter((c) => getVintagePullBucket(c, set) === bucket));
+      }
+      for (const [bucket, weight] of Object.entries(spec.commonReplacement || {})) {
+        if (bucket !== "normal" && weight > 0) addRoute(routeSets, "vintage.commonReplacement", pools.cleanCards.filter((c) => getVintagePullBucket(c, set) === bucket));
+      }
+    } else if (vintageRule.type === "ecard") {
+      addRoute(routeSets, "vintage.commonReplacement", pools.finalSlotPool.filter((c) => getRarityCategory(c, set) !== "rare"));
+    }
+
 
     const nonHoloRare = pools.finalSlotPool.filter((card) => getRarityCategory(card, set) === "rare");
     const holoOrChase = pools.finalSlotPool.filter((card) =>
@@ -379,7 +393,7 @@ function expectedNormalSlotRoutes(set, index, vintageRule, profile) {
     }
 
     let boundary = vintageRule.commonSlots || 0;
-    if (index < boundary) return ["vintage.common"];
+    if (index < boundary) return index === boundary - 1 ? ["vintage.common", "vintage.commonReplacement"] : ["vintage.common"];
     boundary += vintageRule.basicEnergySlots || 0;
     if (index < boundary) return ["vintage.forcedBasicEnergy"];
     boundary += vintageRule.uncommonSlots || 0;
@@ -770,7 +784,9 @@ export function buildAudit(options) {
       nonCollectibleCanonicalCards.push({
         setId: set.id,
         cardId,
-        reason: "generic bonus Energy without a verified numbered checklist identity",
+        reason: set.cards.find((c) => c.id === cardId)?.nonBoosterInsert
+          ? "non-booster product insert; owned identity is preserved in historical collection visibility"
+          : "generic bonus Energy without a verified numbered checklist identity",
       });
     }
 

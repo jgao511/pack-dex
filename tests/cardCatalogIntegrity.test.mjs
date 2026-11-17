@@ -296,7 +296,7 @@ test("Cosmic Eclipse character secrets use only the configured reverse subset sl
   assert.equal(characterSecrets.length, 12);
   for (const card of characterSecrets) {
     assert.equal(getSubsetType(card, set), "characterSecret", card.id);
-    assert.equal(getSubsetSlotWeight(card, set), 10, card.id);
+    assert.equal(getSubsetSlotWeight(card, set), 10.11, card.id);
     assert.equal(pools.subsetPool.some((item) => item.id === card.id), true, card.id);
     assert.equal(pools.mainCards.some((item) => item.id === card.id), false, card.id);
     assert.equal(isCardAllowedInPackSlot(card, 8, set), true, `${card.id} reverse/subset slot`);
@@ -328,7 +328,7 @@ test("Shining Fates SV105-SV122 share the premium Shiny Vault bucket", () => {
   assert.equal(premiumCards.length, 18);
   for (const card of premiumCards) {
     assert.equal(getSubsetType(card, set), "shinyVault", card.id);
-    assert.equal(getSubsetSlotWeight(card, set), 8, card.id);
+    assert.equal(getSubsetSlotWeight(card, set), Number.parseInt(String(card.number).slice(2), 10) >= 121 ? 0.91 : 8.96, card.id);
     assert.equal(pools.subsetPool.some((item) => item.id === card.id), true, card.id);
     assert.equal(pools.mainCards.some((item) => item.id === card.id), false, card.id);
     assert.equal(isCardAllowedInPackSlot(card, 8, set), true, `${card.id} reverse/subset slot`);
@@ -338,7 +338,7 @@ test("Shining Fates SV105-SV122 share the premium Shiny Vault bucket", () => {
   assert.equal(babyShinies.length, 104);
   for (const card of babyShinies) {
     assert.equal(getRarityCategory(card, set), "shinyRare", card.id);
-    assert.equal(getSubsetSlotWeight(card, set), 20.2, card.id);
+    assert.equal(getSubsetSlotWeight(card, set), 22.73, card.id);
   }
 });
 
@@ -391,28 +391,15 @@ test("Paldean Fates models its three independent foil/rare slots", () => {
   for (const card of shinyUltraCards) assert.equal(getSubsetSlotWeight(card, set), 7.72, card.id);
 });
 
-test("Scarlet and Violet simulator tuning is split across its two physical hit slots", () => {
+test("Scarlet and Violet uses measured English rates in its two independent slots", () => {
   const set = findSet("scarlet-violet");
-
-  assert.deepEqual(getFinalSlotWeights(undefined, set), {
-    rare: 60,
-    doubleRare: 18,
-    ultraRare: 6,
-    illustrationRare: 6,
-    specialIllustrationRare: 2,
-    hyperRare: 1,
+  assertRates(getFinalSlotWeights(undefined, set), {
+    rare: 67, doubleRare: 13.76, ultraRare: 6.57, illustrationRare: 7.67, specialIllustrationRare: 3.15, hyperRare: 1.85,
   });
-  assert.deepEqual(getModernSVSecondFoilSlotWeights(set), {
-    normal: 91,
-    illustrationRare: 6,
-    specialIllustrationRare: 2,
-    hyperRare: 1,
+  assertRates(getModernSVSecondFoilSlotWeights(set), {
+    normal: 87.33, illustrationRare: 7.67, specialIllustrationRare: 3.15, hyperRare: 1.85,
   });
-  assert.deepEqual(getModernSVRareSlotWeights(set), {
-    rare: 76,
-    doubleRare: 18,
-    ultraRare: 6,
-  });
+  assertRates(getModernSVRareSlotWeights(set), { rare: 79.67, doubleRare: 13.76, ultraRare: 6.57 });
 });
 
 test("a configured modern hit with no card pool falls back to an ordinary Rare", () => {
@@ -563,18 +550,18 @@ test("Crown Zenith gallery numbers select regular, premium, and gold rates", () 
 
 test("Ascended Heroes Mega Attack Rares use the measured normal rare slot", () => {
   const set = findSet("ascended-heroes");
-  assert.deepEqual(getMegaSecondFoilSlotWeights(set), {
-    normal: 87.12,
-    illustrationRare: 11.25,
-    specialIllustrationRare: 1.44,
-    megaHyperRare: 0.19,
+  assertRates(getMegaSecondFoilSlotWeights(set), {
+    normal: 100 - (11.25 + 1.44 + 0.19 - 0.35) / 0.9995,
+    illustrationRare: 11.25 / 0.9995,
+    specialIllustrationRare: (1.44 - 0.35) / 0.9995,
+    megaHyperRare: 0.19 / 0.9995,
   });
-  assert.deepEqual(getMegaRareSlotWeights(set), {
-    rare: 71.35,
-    doubleRare: 13.58,
-    megaDoubleRare: 6.79,
-    ultraRare: 4.81,
-    megaAttackRare: 3.47,
+  assertRates(getMegaRareSlotWeights(set), {
+    rare: 100 - (13.58 + 6.79 + 4.81 + 3.47 - 0.15) / 0.9995,
+    doubleRare: 13.58 / 0.9995,
+    megaDoubleRare: 6.79 / 0.9995,
+    ultraRare: 4.81 / 0.9995,
+    megaAttackRare: (3.47 - 0.15) / 0.9995,
   });
 
   const pools = getPackPools(set);
@@ -609,3 +596,10 @@ test("Prismatic rare packs use the full SIR pool and retain the Master Ball mark
     Math.random = originalRandom;
   }
 });
+
+function assertRates(actual, expected) {
+  assert.deepEqual(Object.keys(actual).sort(), Object.keys(expected).sort());
+  for (const [key, value] of Object.entries(expected)) {
+    assert.ok(Math.abs(actual[key] - value) < 1e-9, `${key}: ${actual[key]} vs ${value}`);
+  }
+}

@@ -1,0 +1,301 @@
+{
+  "schemaVersion": 1,
+  "seed": "effective-v1:<set-id>",
+  "samplePacksPerSet": 10000,
+  "sets": [
+    {
+      "id": "celebrations",
+      "packCount": 10000,
+      "eligibleCards": 50,
+      "positiveRouteCards": 50,
+      "observedUnique": 50,
+      "milliseconds": 28351,
+      "evidence": "small-community-card-counts",
+      "sourceUrl": "https://www.digitaltq.com/celebrations-booster-pull-rates-pokemon-tcg",
+      "errors": [],
+      "warnings": [],
+      "slots": [
+        {
+          "slot": "finalCard",
+          "bucket": "celebrations-5-pikachu",
+          "expectedPercent": 13.518518518518519,
+          "observedPercent": 14.27,
+          "count": 1427
+        },
+        {
+          "slot": "finalCard",
+          "bucket": "celebrations-6-flying-pikachu-v",
+          "expectedPercent": 6.481481481481481,
+          "observedPercent": 6.5,
+          "count": 650
+        },
+        {
+          "slot": "finalCard",
+          "bucket": "celebrations-7-flying-pikachu-vmax",
+          "expectedPercent": 4.814814814814815,
+          "observedPercent": 4.99,
+          "count": 499
+        },
+        {
+          "slot": "finalCard",
+          "bucket": "celebrations-8-surfing-pikachu-v",
+          "expectedPercent": 5.37037037037037,
+          "observedPercent": 5.28,
+          "count": 528
+        },
+        {
+          "slot": "finalCard",
+          "bucket": "celebrations-9-surfing-pikachu-vmax",
+          "expectedPercent": 4.444444444444445,
+          "observedPercent": 4.34,
+          "count": 434
+        },
+        {
+          "slot": "finalCard",
+          "bucket": "celebrations-11-mew",
+          "expectedPercent": 12.962962962962962,
+          "observedPercent": 13.3,
+          "count": 1330
+        },
+        {
+          "slot": "finalCard",
+          "bucket": "celebrations-15-lunala",
+          "expectedPercent": 9.62962962962963,
+          "observedPercent": 9.58,
+          "count": 958
+        },
+        {
+          "slot": "finalCard",
+          "bucket": "celebrations-16-zacian-v",
+          "expectedPercent": 7.4074074074074066,
+          "observedPercent": 7.01,
+          "count": 701
+        },
+        {
+          "slot": "finalCard",
+          "bucket": "celebrations-18-zamazenta-v",
+          "expectedPercent": 5.185185185185185,
+          "observedPercent": 5.3,
+          "count": 530
+        },
+        {
+          "slot": "finalCard",
+          "bucket": "celebrations-21-solgaleo",
+          "expectedPercent": 13.148148148148147,
+          "observedPercent": 13.18,
+          "count": 1318
+        },
+        {
+          "slot": "finalCard",
+          "bucket": "celebrations-23-professor-s-research-professor-oak",
+          "expectedPercent": 12.777777777777777,
+          "observedPercent": 12.18,
+          "count": 1218
+        },
+        {
+          "slot": "finalCard",
+          "bucket": "celebrations-24-professor-s-research-professor-oak",
+          "expectedPercent": 3.888888888888889,
+          "observedPercent": 3.71,
+          "count": 371
+        },
+        {
+          "slot": "finalCard",
+          "bucket": "celebrations-25-mew",
+          "expectedPercent": 0.3703703703703704,
+          "observedPercent": 0.36,
+          "count": 36
+        },
+        {
+          "slot": "classicCard",
+          "bucket": "normal",
+          "expectedPercent": 59.88909426987061,
+          "observedPercent": 58.940000000000005,
+          "count": 5894
+        },
+        {
+          "slot": "classicCard",
+          "bucket": "celebrations-2-blastoise",
+          "expectedPercent": 2.5878003696857674,
+          "observedPercent": 2.4899999999999998,
+          "count": 249
+        },
+        {
+          "slot": "classicCard",
+          "bucket": "celebrations-4-charizard",
+          "expectedPercent": 1.2939001848428837,
+          "observedPercent": 1.44,
+          "count": 144
+        },
+        {
+          "slot": "classicCard",
+          "bucket": "celebrations-15-venusaur",
+          "expectedPercent": 2.5878003696857674,
+          "observedPercent": 2.58,
+          "count": 258
+        },
+        {
+          "slot": "classicCard",
+          "bucket": "celebrations-73-imposter-professor-oak",
+          "expectedPercent": 1.8484288354898337,
+          "observedPercent": 2.01,
+          "count": 201
+        },
+        {
+          "slot": "classicCard",
+          "bucket": "celebrations-8-dark-gyarados",
+          "expectedPercent": 1.1090573012939002,
+          "observedPercent": 1.13,
+          "count": 113
+        },
+        {
+          "slot": "classicCard",
+          "bucket": "celebrations-15-here-comes-team-rocket",
+          "expectedPercent": 3.3271719038817005,
+          "observedPercent": 3.42,
+          "count": 342
+        },
+        {
+          "slot": "classicCard",
+          "bucket": "celebrations-15-rocket-s-zapdos",
+          "expectedPercent": 2.2181146025878005,
+          "observedPercent": 2.53,
+          "count": 253
+        },
+        {
+          "slot": "classicCard",
+          "bucket": "celebrations-24-s-pikachu",
+          "expectedPercent": 2.957486136783734,
+          "observedPercent": 2.88,
+          "count": 288
+        },
+        {
+          "slot": "classicCard",
+          "bucket": "celebrations-20-cleffa",
+          "expectedPercent": 2.033271719038817,
+          "observedPercent": 2.21,
+          "count": 221
+        },
+        {
+          "slot": "classicCard",
+          "bucket": "celebrations-66-shining-magikarp",
+          "expectedPercent": 1.1090573012939002,
+          "observedPercent": 1.0999999999999999,
+          "count": 110
+        },
+        {
+          "slot": "classicCard",
+          "bucket": "celebrations-9-team-magma-s-groudon",
+          "expectedPercent": 3.1423290203327174,
+          "observedPercent": 3.38,
+          "count": 338
+        },
+        {
+          "slot": "classicCard",
+          "bucket": "celebrations-86-rocket-s-admin",
+          "expectedPercent": 1.6635859519408502,
+          "observedPercent": 1.6400000000000001,
+          "count": 164
+        },
+        {
+          "slot": "classicCard",
+          "bucket": "celebrations-88-mew-ex",
+          "expectedPercent": 1.2939001848428837,
+          "observedPercent": 1.3599999999999999,
+          "count": 136
+        },
+        {
+          "slot": "classicCard",
+          "bucket": "celebrations-93-gardevoir-ex",
+          "expectedPercent": 1.1090573012939002,
+          "observedPercent": 1.21,
+          "count": 121
+        },
+        {
+          "slot": "classicCard",
+          "bucket": "celebrations-17-umbreon",
+          "expectedPercent": 0.7393715341959335,
+          "observedPercent": 0.79,
+          "count": 79
+        },
+        {
+          "slot": "classicCard",
+          "bucket": "celebrations-15-claydol",
+          "expectedPercent": 2.7726432532347505,
+          "observedPercent": 3.0300000000000002,
+          "count": 303
+        },
+        {
+          "slot": "classicCard",
+          "bucket": "celebrations-109-luxray-gl-lv-x",
+          "expectedPercent": 0.7393715341959335,
+          "observedPercent": 0.67,
+          "count": 67
+        },
+        {
+          "slot": "classicCard",
+          "bucket": "celebrations-145-garchomp-c-lv-x",
+          "expectedPercent": 1.478743068391867,
+          "observedPercent": 1.51,
+          "count": 151
+        },
+        {
+          "slot": "classicCard",
+          "bucket": "celebrations-107-donphan",
+          "expectedPercent": 0.5545286506469501,
+          "observedPercent": 0.35000000000000003,
+          "count": 35
+        },
+        {
+          "slot": "classicCard",
+          "bucket": "celebrations-113-reshiram",
+          "expectedPercent": 0.5545286506469501,
+          "observedPercent": 0.45999999999999996,
+          "count": 46
+        },
+        {
+          "slot": "classicCard",
+          "bucket": "celebrations-114-zekrom",
+          "expectedPercent": 1.478743068391867,
+          "observedPercent": 1.23,
+          "count": 123
+        },
+        {
+          "slot": "classicCard",
+          "bucket": "celebrations-54-mewtwo-ex",
+          "expectedPercent": 0.7393715341959335,
+          "observedPercent": 0.7100000000000001,
+          "count": 71
+        },
+        {
+          "slot": "classicCard",
+          "bucket": "celebrations-97-xerneas-ex",
+          "expectedPercent": 1.1090573012939002,
+          "observedPercent": 1.15,
+          "count": 115
+        },
+        {
+          "slot": "classicCard",
+          "bucket": "celebrations-76-m-rayquaza-ex",
+          "expectedPercent": 0.36968576709796674,
+          "observedPercent": 0.32,
+          "count": 32
+        },
+        {
+          "slot": "classicCard",
+          "bucket": "celebrations-60-tapu-lele-gx",
+          "expectedPercent": 1.2939001848428837,
+          "observedPercent": 1.46,
+          "count": 146
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "sets": 1,
+    "packs": 10000,
+    "errors": 0,
+    "eligibleCards": 50,
+    "positiveRouteCards": 50
+  }
+}

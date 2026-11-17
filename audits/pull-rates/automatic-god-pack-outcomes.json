@@ -1,0 +1,250 @@
+{
+  "seed": "0x19810407",
+  "method": "public generatePack, automatic God decision; counts per pack, not at-least-one-hit probability",
+  "sets": [
+    {
+      "id": "151",
+      "packs": 10000,
+      "godPacks": 3,
+      "errors": [],
+      "outcomes": [
+        {
+          "bucket": "doubleRare",
+          "expectedPercent": 13.5,
+          "observedCardsPer100Packs": 13.13,
+          "count": 1313,
+          "toleranceCards": 232.45407685048605
+        },
+        {
+          "bucket": "ultraRare",
+          "expectedPercent": 6.5,
+          "observedCardsPer100Packs": 6.97,
+          "count": 697,
+          "toleranceCards": 164.97058540778355
+        },
+        {
+          "bucket": "illustrationRare",
+          "expectedPercent": 8,
+          "observedCardsPer100Packs": 7.85,
+          "count": 785,
+          "toleranceCards": 521.1168824543142
+        },
+        {
+          "bucket": "specialIllustrationRare",
+          "expectedPercent": 3,
+          "observedCardsPer100Packs": 2.9899999999999998,
+          "count": 299,
+          "toleranceCards": 323.7691453623979
+        },
+        {
+          "bucket": "hyperRare",
+          "expectedPercent": 2,
+          "observedCardsPer100Packs": 1.77,
+          "count": 177,
+          "toleranceCards": 96.8528137423857
+        }
+      ]
+    },
+    {
+      "id": "prismatic-evolutions",
+      "packs": 10000,
+      "godPacks": 7,
+      "errors": [],
+      "outcomes": [
+        {
+          "bucket": "doubleRare",
+          "expectedPercent": 16.51,
+          "observedCardsPer100Packs": 16.669999999999998,
+          "count": 1667,
+          "toleranceCards": 255.79499584692053
+        },
+        {
+          "bucket": "ultraRare",
+          "expectedPercent": 7.46,
+          "observedCardsPer100Packs": 7.32,
+          "count": 732,
+          "toleranceCards": 175.87800340497196
+        },
+        {
+          "bucket": "specialIllustrationRare",
+          "expectedPercent": 2.22,
+          "observedCardsPer100Packs": 2.25,
+          "count": 225,
+          "toleranceCards": 280.1939596635241
+        },
+        {
+          "bucket": "hyperRare",
+          "expectedPercent": 0.56,
+          "observedCardsPer100Packs": 0.5,
+          "count": 50,
+          "toleranceCards": 56.899888641287305
+        },
+        {
+          "bucket": "aceSpecRare",
+          "expectedPercent": 4.68,
+          "observedCardsPer100Packs": 4.52,
+          "count": 452,
+          "toleranceCards": 141.79984591670362
+        }
+      ]
+    },
+    {
+      "id": "black-bolt",
+      "packs": 10000,
+      "godPacks": 5,
+      "errors": [],
+      "outcomes": [
+        {
+          "bucket": "doubleRare",
+          "expectedPercent": 21.11,
+          "observedCardsPer100Packs": 21,
+          "count": 2100,
+          "toleranceCards": 287.67372018384344
+        },
+        {
+          "bucket": "ultraRare",
+          "expectedPercent": 5.83,
+          "observedCardsPer100Packs": 6.1,
+          "count": 610,
+          "toleranceCards": 156.87235761179565
+        },
+        {
+          "bucket": "illustrationRare",
+          "expectedPercent": 16.39,
+          "observedCardsPer100Packs": 16.6,
+          "count": 1660,
+          "toleranceCards": 740.7221692798978
+        },
+        {
+          "bucket": "specialIllustrationRare",
+          "expectedPercent": 1.25,
+          "observedCardsPer100Packs": 1.16,
+          "count": 116,
+          "toleranceCards": 213.24611797498108
+        },
+        {
+          "bucket": "blackWhiteRare",
+          "expectedPercent": 0.05,
+          "observedCardsPer100Packs": 0.03,
+          "count": 3,
+          "toleranceCards": 25.41640786499874
+        },
+        {
+          "bucket": "victiniRare",
+          "expectedPercent": 0.05,
+          "observedCardsPer100Packs": 0.06999999999999999,
+          "count": 7,
+          "toleranceCards": 25.41640786499874
+        }
+      ]
+    },
+    {
+      "id": "white-flare",
+      "packs": 10000,
+      "godPacks": 10,
+      "errors": [],
+      "outcomes": [
+        {
+          "bucket": "doubleRare",
+          "expectedPercent": 21.11,
+          "observedCardsPer100Packs": 21.740000000000002,
+          "count": 2174,
+          "toleranceCards": 287.67372018384344
+        },
+        {
+          "bucket": "ultraRare",
+          "expectedPercent": 5.83,
+          "observedCardsPer100Packs": 5.609999999999999,
+          "count": 561,
+          "toleranceCards": 156.87235761179565
+        },
+        {
+          "bucket": "illustrationRare",
+          "expectedPercent": 16.39,
+          "observedCardsPer100Packs": 16.75,
+          "count": 1675,
+          "toleranceCards": 740.7221692798978
+        },
+        {
+          "bucket": "specialIllustrationRare",
+          "expectedPercent": 1.25,
+          "observedCardsPer100Packs": 1.18,
+          "count": 118,
+          "toleranceCards": 213.24611797498108
+        },
+        {
+          "bucket": "blackWhiteRare",
+          "expectedPercent": 0.05,
+          "observedCardsPer100Packs": 0.04,
+          "count": 4,
+          "toleranceCards": 25.41640786499874
+        },
+        {
+          "bucket": "victiniRare",
+          "expectedPercent": 0.05,
+          "observedCardsPer100Packs": 0.03,
+          "count": 3,
+          "toleranceCards": 25.41640786499874
+        }
+      ]
+    },
+    {
+      "id": "ascended-heroes",
+      "packs": 10000,
+      "godPacks": 4,
+      "errors": [],
+      "outcomes": [
+        {
+          "bucket": "doubleRare",
+          "expectedPercent": 13.58,
+          "observedCardsPer100Packs": 13.41,
+          "count": 1341,
+          "toleranceCards": 233.10630927225935
+        },
+        {
+          "bucket": "megaDoubleRare",
+          "expectedPercent": 6.79,
+          "observedCardsPer100Packs": 6.94,
+          "count": 694,
+          "toleranceCards": 168.3457706495446
+        },
+        {
+          "bucket": "ultraRare",
+          "expectedPercent": 4.81,
+          "observedCardsPer100Packs": 5.1,
+          "count": 510,
+          "toleranceCards": 143.59027319676784
+        },
+        {
+          "bucket": "megaAttackRare",
+          "expectedPercent": 3.47,
+          "observedCardsPer100Packs": 3.18,
+          "count": 318,
+          "toleranceCards": 347.30284818354886
+        },
+        {
+          "bucket": "illustrationRare",
+          "expectedPercent": 11.25,
+          "observedCardsPer100Packs": 11.25,
+          "count": 1125,
+          "toleranceCards": 615.7383539249432
+        },
+        {
+          "bucket": "specialIllustrationRare",
+          "expectedPercent": 1.44,
+          "observedCardsPer100Packs": 1.43,
+          "count": 143,
+          "toleranceCards": 228
+        },
+        {
+          "bucket": "megaHyperRare",
+          "expectedPercent": 0.19,
+          "observedCardsPer100Packs": 0.22,
+          "count": 22,
+          "toleranceCards": 38.153393661244046
+        }
+      ]
+    }
+  ],
+  "errors": 0
+}
