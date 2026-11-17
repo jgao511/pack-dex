@@ -51,18 +51,20 @@ Individual links and sample sizes are in the evidence matrix and source configur
 
 ## Validation and release status
 
+Focused release gate: **129 tests passed, zero failed**. New compatibility tests send 274 generated normal/God packs through the existing desktop and mobile save queues, preserve exact card IDs/quantities, and prevent repeat submission after acknowledgement. Authentication, save queues, retry logic and SQL migrations are unchanged. See `release-validation.json`.
+
 - Public-generator mixture check: **50,000 packs, 29 automatically selected God packs, zero structural or frequency errors** across all five supported sets.
 - Final full suite: **737 tests, 699 passed, 36 failed, 2 skipped**. Clean baseline: **728 tests, 690 passed, the same 36 failed, 2 skipped**. No new failing test names. Nine added tests pass.
 - Web and mobile web builds pass; production checks verify **165 routes and 141 sitemap URLs**. No Capacitor sync or native project overwrite was performed.
 - Generated achievement catalog is current for all 131 sets.
 - The source/card integrity audit retains its two pre-existing missing-source-manifest failures for `30th-celebration` and `delta-reign`. Their source identities have not been fabricated to make the audit green. The separately pinned 129-set checks pass their identity, slot, scanner and pricing checks.
 
-**This is a reviewable pull-rate patch, not an assertion that the entire repository has a clean production gate.** The existing 36 failures and two source-manifest gaps remain release-review items. Do not treat the audit JSON as a replacement for resolving those gates.
+The full-suite baseline findings are retained in `ARCHIVED-UNRELATED-FAILURES.md`. The user approved keeping unrelated diagnostics outside this focused release. The strict legacy provenance audit is unchanged and still reports two missing records; no official identities are invented. The scoped release gate checks pack generation and the existing account-save contract for every active set. This is not a claim that the whole-repository suite is green.
 
 To reproduce:
 
 ```sh
-npm run test:effective-pull-rates
+npm run test:pull-rate-release
 npm run audit:effective-pull-rates
 node scripts/audit-effective-pull-rates.mjs --sets=delta-reign --packs=50000 --output=audits/pull-rates/delta-reign-50000.json
 node scripts/audit-god-pack-effective-rates.mjs

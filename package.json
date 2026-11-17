@@ -46,7 +46,8 @@
     "generate-json": "node scripts/generate-json-from-assets.js",
     "audit:effective-pull-rates": "node scripts/audit-effective-pull-rates.mjs",
     "test:effective-pull-rates": "node --test tests/realEffectivePullRates.test.mjs tests/unchangedVintageRates.test.mjs",
-    "audit:god-pack-rates": "node scripts/audit-god-pack-effective-rates.mjs"
+    "audit:god-pack-rates": "node scripts/audit-god-pack-effective-rates.mjs",
+    "test:pull-rate-release": "node --test tests/realEffectivePullRates.test.mjs tests/unchangedVintageRates.test.mjs tests/changedSlotFrequency.test.mjs tests/megaEvolutionPackSlots.test.mjs tests/cardCatalogIntegrity.test.mjs tests/numberedSetEnergy.test.mjs tests/pullRateSaveCompatibility.test.mjs tests/packPersistenceIntegrityV4.test.mjs tests/completedPackReliability.test.mjs tests/packSubmissionRecovery.test.mjs tests/packSubmissionRateLimit.test.mjs tests/cloudCollectionPagination.test.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.106.2",

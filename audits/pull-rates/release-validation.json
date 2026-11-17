@@ -1,0 +1,32 @@
+{
+  "scope": "English pull rates and generated-pack save compatibility",
+  "focusedTests": {
+    "tests": 129,
+    "passed": 129,
+    "failed": 0
+  },
+  "generatedSaveContract": {
+    "surfaces": [
+      "desktop",
+      "mobile"
+    ],
+    "activeSets": 131,
+    "additionalGodFormatsPerSurface": 6,
+    "packPayloadsChecked": 274
+  },
+  "build": {
+    "web": true,
+    "mobileWeb": true,
+    "verifiedRoutes": 165,
+    "verifiedSitemapUrls": 141
+  },
+  "unchangedSavingImplementation": [
+    "src/lib/cloudCollection.js",
+    "mobile-app/src/lib/cloudCollection.js",
+    "src/lib/completedPackQueue.js",
+    "src/lib/packSubmissionPolicy.js"
+  ],
+  "archiveSha256": "08d835d2bd75c062eb543b5f395c88ec31c076b38dad6c5136378abd4621ecae",
+  "productionDeployment": "not yet performed",
+  "liveAccountVerification": "existing signed-in support test account confirmed; post-deployment save/reload test pending"
+}

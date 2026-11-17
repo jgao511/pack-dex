@@ -313,7 +313,7 @@ test("Cosmic Eclipse character secrets use only the configured reverse subset sl
   }
 });
 
-test("Shining Fates SV105-SV122 share the premium Shiny Vault bucket", () => {
+test("Shining Fates SV105-SV120 and gold SV121-SV122 use distinct Vault rates", () => {
   const set = findSet("shining-fates");
   const pools = getPackPools(set);
   const vaultCards = set.cards.filter((card) => /^SV\d+$/u.test(String(card.number)));
