@@ -149,9 +149,10 @@ export async function loadCloudCollection() {
   const collection = {};
 
   try {
-    await loadCloudCollectionPages(supabase, user.id, (rows) => {
+    const loadedRows = await loadCloudCollectionPages(supabase, user.id, (rows) => {
       appendCloudRowsToCollection(collection, rows);
     });
+    if (loadedRows === null) return collection;
   } catch (error) {
     console.warn("Unable to load cloud collection", error);
     throw error;
@@ -161,7 +162,8 @@ export async function loadCloudCollection() {
     PENDING_CLOUD_PULLS_KEY,
     user.id,
     cloudRequestStartedAt,
-    getDefaultStorage()
+    getDefaultStorage(),
+    (setId, card) => Boolean(card?.id && collection[setId]?.[card.id]?.count > 0)
   );
 
   return collection;

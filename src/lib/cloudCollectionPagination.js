@@ -35,7 +35,9 @@ export async function loadCloudCollectionPages(
 
     if (error) throw error;
 
-    const page = Array.isArray(data) ? data : [];
+    // A missing response body cannot confirm that the collection is complete.
+    if (!Array.isArray(data)) return null;
+    const page = data;
     await onPage(page, { from, totalRows });
     totalRows += page.length;
 
