@@ -1,0 +1,11 @@
+{
+  "baselineCommit": "9dc767a1958cace3530ebef589bb0549f766125a",
+  "command": "node scripts/audit-card-pull-integrity.mjs",
+  "exitCode": 1,
+  "errors": [
+    "30th-celebration is absent from the authoritative registry.",
+    "delta-reign is absent from the authoritative registry."
+  ],
+  "preExisting": true,
+  "scopeNote": "No authoritative source identities were invented to suppress these existing gates."
+}

@@ -1,0 +1,4571 @@
+{
+  "baselineCommit": "9dc767a1958cace3530ebef589bb0549f766125a",
+  "sets": [
+    {
+      "id": "151",
+      "name": "151",
+      "evidence": "retained-estimate",
+      "source": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Scarlet-Violet%E2%80%94151-Pull-Rates/b237df74-fbb0-40d0-9e13-d69ee6e804d9/",
+      "sampleSize": null,
+      "notes": "151 is 10-card in this simulator.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 207,
+      "positiveRouteCards": 207,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "TCGplayer",
+        "sourceUrl": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Scarlet-Violet%E2%80%94151-Pull-Rates/b237df74-fbb0-40d0-9e13-d69ee6e804d9/",
+        "notes": "151 is 10-card in this simulator.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 67,
+          "doubleRare": 13.5,
+          "ultraRare": 6.5,
+          "illustrationRare": 8,
+          "specialIllustrationRare": 3,
+          "hyperRare": 2
+        },
+        "subsetSlot": null,
+        "evidence": "retained-estimate"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "30th-celebration",
+      "name": "30th Celebration",
+      "evidence": "retained-estimate",
+      "source": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-30th-Celebration-Pull-Rates/587b3657-481a-4ab8-827c-68cd3ab585b0/",
+      "sampleSize": null,
+      "notes": "Five collectible cards with a guaranteed Pikachu. RGB Rare uses a provisional 2-in-20,000 community estimate. The physical booster also includes foil Basic Energy.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 191,
+      "positiveRouteCards": 191,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "TCGplayer (3,000+ English packs) and community observations",
+        "sourceUrl": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-30th-Celebration-Pull-Rates/587b3657-481a-4ab8-827c-68cd3ab585b0/",
+        "notes": "Five collectible cards with a guaranteed Pikachu. RGB Rare uses a provisional 2-in-20,000 community estimate. The physical booster also includes foil Basic Energy.",
+        "packSize": 5,
+        "secondFoilSlot": {
+          "common": 70.13,
+          "illustrationRare": 19.72,
+          "classicCollection": 10.15
+        },
+        "rareSlot": {
+          "rare": 73.26,
+          "doubleRare": 21.02,
+          "specialIllustrationRare": 4.88,
+          "futuristicRare": 0.83,
+          "rgbRare": 0.01
+        },
+        "subsetSlot": null,
+        "evidence": "retained-estimate"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "aquapolis",
+      "name": "Aquapolis",
+      "evidence": "retained-format-estimate",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/33",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 182,
+      "positiveRouteCards": 182,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "ascended-heroes",
+      "name": "Ascended Heroes",
+      "evidence": "retained-estimate",
+      "source": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Ascended-Heroes-Pull-Rates/60143d94-88a7-42ce-8e73-babd7b3fabd6/",
+      "sampleSize": null,
+      "notes": "2,000+ pack sample. Double Rare is split 26/39 standard and 13/39 Mega by the catalog population; Mega Attack Rare replaces an Ultra Rare in the Rare slot.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 295,
+      "positiveRouteCards": 295,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "TCGplayer",
+        "sourceUrl": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Ascended-Heroes-Pull-Rates/60143d94-88a7-42ce-8e73-babd7b3fabd6/",
+        "notes": "2,000+ pack sample. Double Rare is split 26/39 standard and 13/39 Mega by the catalog population; Mega Attack Rare replaces an Ultra Rare in the Rare slot.",
+        "packSize": 10,
+        "secondFoilSlot": {
+          "normal": 87.31,
+          "illustrationRare": 11.25,
+          "specialIllustrationRare": 1.44
+        },
+        "rareSlot": {
+          "rare": 71.16,
+          "doubleRare": 13.58,
+          "megaDoubleRare": 6.79,
+          "ultraRare": 4.81,
+          "megaAttackRare": 3.47,
+          "megaHyperRare": 0.19
+        },
+        "subsetSlot": null,
+        "evidence": "retained-estimate"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "astral-radiance",
+      "name": "Astral Radiance",
+      "evidence": "measured",
+      "source": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Astral-Radiance-Pull-Rates/10da749f-9c8b-45c0-b80a-dbd86ca5dcde/",
+      "sampleSize": 8000,
+      "notes": "Separate VMAX/VSTAR, full-art and alternate-art buckets. Collector names/rarity labels are preserved. Ordinary Rare remainder uses the existing era holo split.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 246,
+      "positiveRouteCards": 246,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "fallback estimate / Trainer Gallery estimate",
+        "sourceUrl": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Astral-Radiance-Pull-Rates/10da749f-9c8b-45c0-b80a-dbd86ca5dcde/",
+        "notes": "Separate VMAX/VSTAR, full-art and alternate-art buckets. Collector names/rarity labels are preserved. Ordinary Rare remainder uses the existing era holo split.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 60,
+          "doubleRare": 12.77,
+          "ultraRare": 7.42,
+          "rainbowRare": 1.28,
+          "secretRare": 0.76,
+          "holoRare": 17.769999999999996
+        },
+        "subsetSlot": {
+          "type": "independentReverse",
+          "rates": {
+            "normal": 82.54,
+            "trainerGallery": 8.48,
+            "premiumTrainerGallery": 4.1,
+            "radiantRare": 4.88
+          }
+        },
+        "sampleSize": 8000,
+        "evidence": "measured",
+        "finalBuckets": {
+          "rare": 60,
+          "doubleRare": 12.77,
+          "vmaxOrVstar": 3.47,
+          "fullArt": 3.21,
+          "rainbowRare": 1.28,
+          "secretRare": 0.76,
+          "alternateArt": 0.74,
+          "holoRare": 17.769999999999996
+        },
+        "corroboratingUrl": "https://tcg1.net/pull-rates/astral-radiance/"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "base-set",
+      "name": "Base Set",
+      "evidence": "retained-format-estimate",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/2",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 101,
+      "positiveRouteCards": 101,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "base-set-2",
+      "name": "Base Set 2",
+      "evidence": "retained-format-estimate",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/10",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": true,
+      "eligibleCards": 130,
+      "positiveRouteCards": 130,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "battle-styles",
+      "name": "Battle Styles",
+      "evidence": "measured-chases-with-era-base-tiers",
+      "source": "https://docs.google.com/spreadsheets/d/1sR4kDFZMMrz2eIJMky1f8_ljho5pMMgfcbB2tYG9ov4/edit",
+      "sampleSize": 20195,
+      "notes": "TheGameCapital, 561 English boxes (sheet denominator 20,195 packs). Exact counted chase tiers. Regular V, VMAX and ordinary holo are explicit same-era fallbacks because the sheet omits them.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 183,
+      "positiveRouteCards": 183,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "fallback estimate",
+        "sourceUrl": "https://docs.google.com/spreadsheets/d/1sR4kDFZMMrz2eIJMky1f8_ljho5pMMgfcbB2tYG9ov4/edit",
+        "notes": "TheGameCapital, 561 English boxes (sheet denominator 20,195 packs). Exact counted chase tiers. Regular V, VMAX and ordinary holo are explicit same-era fallbacks because the sheet omits them.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 60,
+          "holoRare": 16.939093835107702,
+          "doubleRare": 14,
+          "ultraRare": 6.862342163901955,
+          "rainbowRare": 1.25278534290666,
+          "secretRare": 0.9457786580836841
+        },
+        "subsetSlot": null,
+        "evidence": "measured-chases-with-era-base-tiers",
+        "fallbackFrom": "Sword & Shield English main expansions",
+        "finalBuckets": {
+          "rare": 60,
+          "holoRare": 16.939093835107702,
+          "doubleRare": 14,
+          "vmaxOrVstar": 3,
+          "fullArt": 3.2235701906412477,
+          "alternateArt": 0.6387719732607081,
+          "alternateVmax": 0.14359990096558553,
+          "rainbowRare": 1.1091854419410745,
+          "secretRare": 0.9457786580836841
+        },
+        "sampleSize": 20195
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "black-bolt",
+      "name": "Black Bolt",
+      "evidence": "measured-with-chase-fallback",
+      "source": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Black-Bolt-and-White-Flare-Pull-Rates/bac92199-a2a7-4668-b4a4-2647a111776f/",
+      "sampleSize": 700,
+      "notes": "Combined 700+ pack English study observed no BWR. Any-BWR 0.1% is a provisional adjacent-chase fallback (0.05% per card); zero observations never mean impossible. The one-sided 95% upper bound from 0/700 is about 0.43%, so the former 0.6% total was unsupported.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 172,
+      "positiveRouteCards": 172,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "TCGplayer",
+        "sourceUrl": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Black-Bolt-and-White-Flare-Pull-Rates/bac92199-a2a7-4668-b4a4-2647a111776f/",
+        "notes": "Combined 700+ pack English study observed no BWR. Any-BWR 0.1% is a provisional adjacent-chase fallback (0.05% per card); zero observations never mean impossible. The one-sided 95% upper bound from 0/700 is about 0.43%, so the former 0.6% total was unsupported.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 55.32,
+          "doubleRare": 21.11,
+          "ultraRare": 5.83,
+          "illustrationRare": 16.39,
+          "specialIllustrationRare": 1.25,
+          "blackWhiteRare": 0.05,
+          "victiniRare": 0.05
+        },
+        "subsetSlot": null,
+        "evidence": "measured-with-chase-fallback",
+        "sampleSize": 700
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "black-white",
+      "name": "Black & White",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/99",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 115,
+      "positiveRouteCards": 115,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/99",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.26388888888888884,
+          "fullArt": 0.05555555555555555,
+          "secretRare": 0.013888888888888888
+        },
+        "reverse": {
+          "normal": 1
+        }
+      }
+    },
+    {
+      "id": "black-white-boundaries-crossed",
+      "name": "Black & White\u2014Boundaries Crossed",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/114",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 153,
+      "positiveRouteCards": 153,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/114",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.22685185185185186,
+          "ex": 0.05555555555555555,
+          "fullArt": 0.041666666666666664,
+          "secretRare": 0.009259259259259259
+        },
+        "reverse": {
+          "normal": 0.9444444444444444,
+          "aceSpec": 0.05555555555555555
+        }
+      }
+    },
+    {
+      "id": "black-white-dark-explorers",
+      "name": "Black & White\u2014Dark Explorers",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/105",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 111,
+      "positiveRouteCards": 111,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/105",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.24074074074074073,
+          "ex": 0.05555555555555555,
+          "fullArt": 0.027777777777777776,
+          "secretRare": 0.009259259259259259
+        },
+        "reverse": {
+          "normal": 1
+        }
+      }
+    },
+    {
+      "id": "black-white-dragons-exalted",
+      "name": "Black & White\u2014Dragons Exalted",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/106",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 128,
+      "positiveRouteCards": 128,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/106",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.24074074074074073,
+          "ex": 0.05555555555555555,
+          "fullArt": 0.027777777777777776,
+          "secretRare": 0.009259259259259259
+        },
+        "reverse": {
+          "normal": 1
+        }
+      }
+    },
+    {
+      "id": "black-white-emerging-powers",
+      "name": "Black & White\u2014Emerging Powers",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/100",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 98,
+      "positiveRouteCards": 98,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/100",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.2777777777777778,
+          "fullArt": 0.05555555555555555
+        },
+        "reverse": {
+          "normal": 1
+        }
+      }
+    },
+    {
+      "id": "black-white-legendary-treasures",
+      "name": "Black & White\u2014Legendary Treasures",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/119",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 140,
+      "positiveRouteCards": 140,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/119",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.8240740740740741,
+          "ex": 0.16666666666666666,
+          "secretRare": 0.009259259259259259
+        },
+        "reverse": {
+          "normal": 0.5,
+          "holoRare": 0.5
+        },
+        "radiantPremium": 0.3
+      }
+    },
+    {
+      "id": "black-white-next-destinies",
+      "name": "Black & White\u2014Next Destinies",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/104",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 103,
+      "positiveRouteCards": 103,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/104",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.24074074074074073,
+          "ex": 0.05555555555555555,
+          "fullArt": 0.027777777777777776,
+          "secretRare": 0.009259259259259259
+        },
+        "reverse": {
+          "normal": 1
+        }
+      }
+    },
+    {
+      "id": "black-white-noble-victories",
+      "name": "Black & White\u2014Noble Victories",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/101",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 102,
+      "positiveRouteCards": 102,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/101",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.26388888888888884,
+          "fullArt": 0.05555555555555555,
+          "secretRare": 0.013888888888888888
+        },
+        "reverse": {
+          "normal": 1
+        }
+      }
+    },
+    {
+      "id": "black-white-plasma-blast",
+      "name": "Black & White\u2014Plasma Blast",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/118",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 105,
+      "positiveRouteCards": 105,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/118",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.24074074074074073,
+          "ex": 0.05555555555555555,
+          "fullArt": 0.027777777777777776,
+          "secretRare": 0.009259259259259259
+        },
+        "reverse": {
+          "normal": 0.9583333333333334,
+          "aceSpec": 0.041666666666666664
+        }
+      }
+    },
+    {
+      "id": "black-white-plasma-freeze",
+      "name": "Black & White\u2014Plasma Freeze",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/117",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 122,
+      "positiveRouteCards": 122,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/117",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.23148148148148145,
+          "ex": 0.05555555555555555,
+          "fullArt": 0.037037037037037035,
+          "secretRare": 0.009259259259259259
+        },
+        "reverse": {
+          "normal": 0.9722222222222222,
+          "aceSpec": 0.027777777777777776
+        }
+      }
+    },
+    {
+      "id": "black-white-plasma-storm",
+      "name": "Black & White\u2014Plasma Storm",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/116",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 138,
+      "positiveRouteCards": 138,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/116",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.2222222222222222,
+          "ex": 0.07407407407407407,
+          "fullArt": 0.027777777777777776,
+          "secretRare": 0.009259259259259259
+        },
+        "reverse": {
+          "normal": 0.9583333333333334,
+          "aceSpec": 0.041666666666666664
+        }
+      }
+    },
+    {
+      "id": "brilliant-stars",
+      "name": "Brilliant Stars",
+      "evidence": "mixed-community-table-and-measured-rounded",
+      "source": "https://www.tcgplayer.com/content/article/The-10-Most-Valuable-Pok%C3%A9mon-Cards-in-Brilliant-Stars/aeafa051-3b3b-4856-acb1-29369d050ff6/",
+      "sampleSize": 10000,
+      "notes": "TCGplayer 10,000+ pack infographic for Rainbow/Gold and Gallery. Main V/VMAX/full-art group estimates use DigitalTQ 1,004-pack tally; main full-art individual weights remain uniform (no unsupported alternate-art sub-rate). Ordinary holo is an era estimate.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 216,
+      "positiveRouteCards": 216,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "fallback estimate / Trainer Gallery estimate",
+        "sourceUrl": "https://www.tcgplayer.com/content/article/The-10-Most-Valuable-Pok%C3%A9mon-Cards-in-Brilliant-Stars/aeafa051-3b3b-4856-acb1-29369d050ff6/",
+        "notes": "TCGplayer 10,000+ pack infographic for Rainbow/Gold and Gallery. Main V/VMAX/full-art group estimates use DigitalTQ 1,004-pack tally; main full-art individual weights remain uniform (no unsupported alternate-art sub-rate). Ordinary holo is an era estimate.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 60,
+          "holoRare": 13.247079881666853,
+          "doubleRare": 14.9402390438247,
+          "ultraRare": 8.764940239043824,
+          "rainbowRare": 1.9607843137254901,
+          "secretRare": 1.0869565217391304
+        },
+        "subsetSlot": {
+          "type": "trainerGallery",
+          "rates": {
+            "normal": 81.94444444444444,
+            "trainerGallery": 12.5,
+            "premiumTrainerGallery": 5.555555555555555
+          }
+        },
+        "evidence": "mixed-community-table-and-measured-rounded",
+        "fallbackFrom": "Sword & Shield English main expansions",
+        "finalBuckets": {
+          "rare": 60,
+          "holoRare": 13.247079881666853,
+          "doubleRare": 14.9402390438247,
+          "vmaxOrVstar": 3.7848605577689245,
+          "fullArt": 4.9800796812749,
+          "rainbowRare": 1.9607843137254901,
+          "secretRare": 1.0869565217391304
+        },
+        "sampleSize": 10000,
+        "corroboratingUrl": "https://www.digitaltq.com/brilliant-stars-pull-rates-pokemon-tcg"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "burning-shadows",
+      "name": "Burning Shadows",
+      "evidence": "measured",
+      "source": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+      "sampleSize": 2010,
+      "notes": "English community opening sample. Holo/non-holo split of the residual ordinary Rare tier remains an era estimate; no experience multiplier. Ordinary holo sheet uses the English collation model: 40% holo-or-better before independent reverse-slot specials.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 177,
+      "positiveRouteCards": 177,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "Elite Fourum community dataset",
+        "sourceUrl": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+        "notes": "English community opening sample. Holo/non-holo split of the residual ordinary Rare tier remains an era estimate; no experience multiplier. Ordinary holo sheet uses the English collation model: 40% holo-or-better before independent reverse-slot specials.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 60,
+          "doubleRare": 10.95,
+          "ultraRare": 3.93,
+          "rainbowRare": 1.59,
+          "secretRare": 0.95,
+          "holoRare": 22.58
+        },
+        "subsetSlot": null,
+        "sampleSize": 2010,
+        "evidence": "measured"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "call-of-legends",
+      "name": "Call of Legends",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/98",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 106,
+      "positiveRouteCards": 106,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/98",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.3333333333333333
+        },
+        "reverse": {
+          "normal": 0.9444444444444444,
+          "shinyLegend": 0.05555555555555555
+        }
+      }
+    },
+    {
+      "id": "celebrations",
+      "name": "Celebrations",
+      "evidence": "small-community-card-counts",
+      "source": "https://www.digitaltq.com/celebrations-booster-pull-rates-pokemon-tcg",
+      "sampleSize": 541,
+      "notes": "Separate ordinary, Classic and final-card sheets. 541 packs / 540 recorded finals; final weights are conditional on recorded finals. Classic and main cards are not uniformly distributed. Every recorded card remains positive; small chase counts are uncertain.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 50,
+      "positiveRouteCards": 50,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "product structure / fallback estimate",
+        "sourceUrl": "https://www.digitaltq.com/celebrations-booster-pull-rates-pokemon-tcg",
+        "notes": "Separate ordinary, Classic and final-card sheets. 541 packs / 540 recorded finals; final weights are conditional on recorded finals. Classic and main cards are not uniformly distributed. Every recorded card remains positive; small chase counts are uncertain.",
+        "packSize": 4,
+        "finalSlot": {
+          "holoRare": 62.407407407407405,
+          "doubleRare": 24.444444444444443,
+          "ultraRare": 13.148148148148149
+        },
+        "subsetSlot": {
+          "type": "classicCollection",
+          "rates": {
+            "normal": 59.88909426987061,
+            "classicCollection": 40.11090573012939
+          }
+        },
+        "evidence": "small-community-card-counts",
+        "sampleSize": 541,
+        "finalCardWeights": {
+          "celebrations-5-pikachu": 73,
+          "celebrations-6-flying-pikachu-v": 35,
+          "celebrations-7-flying-pikachu-vmax": 26,
+          "celebrations-8-surfing-pikachu-v": 29,
+          "celebrations-9-surfing-pikachu-vmax": 24,
+          "celebrations-11-mew": 70,
+          "celebrations-15-lunala": 52,
+          "celebrations-16-zacian-v": 40,
+          "celebrations-18-zamazenta-v": 28,
+          "celebrations-21-solgaleo": 71,
+          "celebrations-23-professor-s-research-professor-oak": 69,
+          "celebrations-24-professor-s-research-professor-oak": 21,
+          "celebrations-25-mew": 2
+        },
+        "subsetCardWeights": {
+          "celebrations-2-blastoise": 14,
+          "celebrations-4-charizard": 7,
+          "celebrations-15-venusaur": 14,
+          "celebrations-73-imposter-professor-oak": 10,
+          "celebrations-8-dark-gyarados": 6,
+          "celebrations-15-here-comes-team-rocket": 18,
+          "celebrations-15-rocket-s-zapdos": 12,
+          "celebrations-24-s-pikachu": 16,
+          "celebrations-20-cleffa": 11,
+          "celebrations-66-shining-magikarp": 6,
+          "celebrations-9-team-magma-s-groudon": 17,
+          "celebrations-86-rocket-s-admin": 9,
+          "celebrations-88-mew-ex": 7,
+          "celebrations-93-gardevoir-ex": 6,
+          "celebrations-17-umbreon": 4,
+          "celebrations-15-claydol": 15,
+          "celebrations-109-luxray-gl-lv-x": 4,
+          "celebrations-145-garchomp-c-lv-x": 8,
+          "celebrations-107-donphan": 3,
+          "celebrations-113-reshiram": 3,
+          "celebrations-114-zekrom": 8,
+          "celebrations-54-mewtwo-ex": 4,
+          "celebrations-97-xerneas-ex": 6,
+          "celebrations-76-m-rayquaza-ex": 2,
+          "celebrations-60-tapu-lele-gx": 7
+        }
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "celestial-storm",
+      "name": "Celestial Storm",
+      "evidence": "measured",
+      "source": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+      "sampleSize": 1480,
+      "notes": "English community opening sample. Holo/non-holo split of the residual ordinary Rare tier remains an era estimate; no experience multiplier. Ordinary holo sheet uses the English collation model: 40% holo-or-better before independent reverse-slot specials.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 187,
+      "positiveRouteCards": 187,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "Elite Fourum community dataset",
+        "sourceUrl": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+        "notes": "English community opening sample. Holo/non-holo split of the residual ordinary Rare tier remains an era estimate; no experience multiplier. Ordinary holo sheet uses the English collation model: 40% holo-or-better before independent reverse-slot specials.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 60,
+          "doubleRare": 10.34,
+          "ultraRare": 3.78,
+          "rainbowRare": 1.22,
+          "secretRare": 0.88,
+          "holoRare": 23.78
+        },
+        "subsetSlot": {
+          "type": "prismStar",
+          "rates": {
+            "normal": 94.53,
+            "prismStar": 5.47
+          }
+        },
+        "sampleSize": 1480,
+        "evidence": "measured"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "champions-path",
+      "name": "Champion's Path",
+      "evidence": "measured",
+      "source": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+      "sampleSize": 3192,
+      "notes": "Separate VMAX/VSTAR, full-art and alternate-art buckets. Collector names/rarity labels are preserved. Ordinary Rare remainder uses the existing era holo split.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 80,
+      "positiveRouteCards": 80,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "Elite Fourum community dataset",
+        "sourceUrl": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+        "notes": "Separate VMAX/VSTAR, full-art and alternate-art buckets. Collector names/rarity labels are preserved. Ordinary Rare remainder uses the existing era holo split.",
+        "packSize": 10,
+        "finalSlot": {
+          "doubleRare": 15.73,
+          "ultraRare": 8.94,
+          "rainbowRare": 1.57,
+          "secretRare": 1.32,
+          "holoRare": 72.44
+        },
+        "subsetSlot": null,
+        "sampleSize": 3192,
+        "evidence": "measured",
+        "finalBuckets": {
+          "doubleRare": 15.73,
+          "vmaxOrVstar": 3.55,
+          "fullArt": 5.39,
+          "rainbowRare": 1.57,
+          "secretRare": 1.32,
+          "holoRare": 72.44
+        }
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "chaos-rising",
+      "name": "Chaos Rising",
+      "evidence": "measured",
+      "source": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Chaos-Rising-Pull-Rates/304e8bfc-175a-4d31-93fe-5bb1be11e5d2/",
+      "sampleSize": 8500,
+      "notes": "Combined Double Rare tier split uniformly across eligible standard/Mega cards. No zero-weight standard ex tier. ",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 122,
+      "positiveRouteCards": 122,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "TCGplayer English opening study",
+        "sourceUrl": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Chaos-Rising-Pull-Rates/304e8bfc-175a-4d31-93fe-5bb1be11e5d2/",
+        "evidence": "measured",
+        "sampleSize": 8500,
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 59.44,
+          "doubleRare": 10.15,
+          "megaDoubleRare": 10.15,
+          "ultraRare": 8.29,
+          "illustrationRare": 10.66,
+          "specialIllustrationRare": 1.21,
+          "megaHyperRare": 0.1
+        },
+        "subsetSlot": null,
+        "notes": "Combined Double Rare tier split uniformly across eligible standard/Mega cards. No zero-weight standard ex tier. ",
+        "corroboratingUrl": "https://tcg1.net/pull-rates/chaos-rising/"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "chilling-reign",
+      "name": "Chilling Reign",
+      "evidence": "community-reported-rounded-with-era-base-tier",
+      "source": "https://www.reddit.com/r/PokemonTCG/comments/o2nhez/chilling_reign_pull_rate_data_from_5000_packs/",
+      "sampleSize": 5000,
+      "notes": "Cardzard community 5,000-pack chart, rounded tier odds, cross-checked against reprinted chart. Original Reddit image was not retrievable in this environment; confidence is lower than directly accessible tables. Regular V and residual holo use the adjacent-era fallback.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 233,
+      "positiveRouteCards": 233,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "fallback estimate",
+        "sourceUrl": "https://www.reddit.com/r/PokemonTCG/comments/o2nhez/chilling_reign_pull_rate_data_from_5000_packs/",
+        "notes": "Cardzard community 5,000-pack chart, rounded tier odds, cross-checked against reprinted chart. Original Reddit image was not retrievable in this environment; confidence is lower than directly accessible tables. Regular V and residual holo use the adjacent-era fallback.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 60,
+          "holoRare": 15.790257167579743,
+          "doubleRare": 14,
+          "ultraRare": 8.1698063840921,
+          "rainbowRare": 1.0399364483281577,
+          "secretRare": 1
+        },
+        "subsetSlot": null,
+        "evidence": "community-reported-rounded-with-era-base-tier",
+        "fallbackFrom": "Sword & Shield English main expansions",
+        "finalBuckets": {
+          "rare": 60,
+          "holoRare": 15.790257167579743,
+          "doubleRare": 14,
+          "vmaxOrVstar": 4.166666666666667,
+          "fullArt": 3.3228676085818947,
+          "alternateArt": 0.6802721088435374,
+          "alternateVmax": 0.22026431718061673,
+          "rainbowRare": 0.819672131147541,
+          "secretRare": 1
+        },
+        "sampleSize": 5000
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "cosmic-eclipse",
+      "name": "Cosmic Eclipse",
+      "evidence": "measured",
+      "source": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+      "sampleSize": 3136,
+      "notes": "English community opening sample. Holo/non-holo split of the residual ordinary Rare tier remains an era estimate; no experience multiplier. Ordinary holo sheet uses the English collation model: 40% holo-or-better before independent reverse-slot specials.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 272,
+      "positiveRouteCards": 272,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "Elite Fourum community dataset",
+        "sourceUrl": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+        "notes": "English community opening sample. Holo/non-holo split of the residual ordinary Rare tier remains an era estimate; no experience multiplier. Ordinary holo sheet uses the English collation model: 40% holo-or-better before independent reverse-slot specials.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 60,
+          "doubleRare": 11.93,
+          "ultraRare": 3.67,
+          "rainbowRare": 1.5,
+          "secretRare": 0.89,
+          "holoRare": 22.010000000000005
+        },
+        "subsetSlot": {
+          "type": "characterSecret",
+          "rates": {
+            "normal": 89.89,
+            "trainerGallery": 10.11
+          }
+        },
+        "sampleSize": 3136,
+        "evidence": "measured"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "crimson-invasion",
+      "name": "Crimson Invasion",
+      "evidence": "measured",
+      "source": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+      "sampleSize": 1530,
+      "notes": "English community opening sample. Holo/non-holo split of the residual ordinary Rare tier remains an era estimate; no experience multiplier. Ordinary holo sheet uses the English collation model: 40% holo-or-better before independent reverse-slot specials.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 126,
+      "positiveRouteCards": 126,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "Elite Fourum community dataset",
+        "sourceUrl": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+        "notes": "English community opening sample. Holo/non-holo split of the residual ordinary Rare tier remains an era estimate; no experience multiplier. Ordinary holo sheet uses the English collation model: 40% holo-or-better before independent reverse-slot specials.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 60,
+          "doubleRare": 8.3,
+          "ultraRare": 4.44,
+          "rainbowRare": 1.11,
+          "secretRare": 1.11,
+          "holoRare": 25.040000000000006
+        },
+        "subsetSlot": null,
+        "sampleSize": 1530,
+        "evidence": "measured"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "crown-zenith",
+      "name": "Crown Zenith",
+      "evidence": "measured",
+      "source": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Crown-Zenith-Pull-Rates/56af3032-cb34-4da1-92fb-9cf206d10c0f/",
+      "sampleSize": 1900,
+      "notes": "Galarian Gallery handled as subset slot.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 230,
+      "positiveRouteCards": 230,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "fallback estimate / Galarian Gallery estimate",
+        "sourceUrl": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Crown-Zenith-Pull-Rates/56af3032-cb34-4da1-92fb-9cf206d10c0f/",
+        "notes": "Galarian Gallery handled as subset slot.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 60,
+          "doubleRare": 12.35,
+          "ultraRare": 8.15,
+          "secretRare": 0.75,
+          "holoRare": 19.25
+        },
+        "subsetSlot": {
+          "type": "independentReverse",
+          "rates": {
+            "normal": 60.25,
+            "galarianGallery": 22.4,
+            "premiumGalarianGallery": 12,
+            "goldGalarianGallery": 0.8,
+            "radiantRare": 4.55
+          }
+        },
+        "sampleSize": 1900,
+        "evidence": "measured",
+        "finalBuckets": {
+          "rare": 60,
+          "doubleRare": 12.35,
+          "vmaxOrVstar": 5.3,
+          "textureEnergy": 1.9,
+          "fullArt": 0.95,
+          "secretRare": 0.75,
+          "holoRare": 19.25
+        },
+        "corroboratingUrl": "https://tcg1.net/pull-rates/crown-zenith/"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "darkness-ablaze",
+      "name": "Darkness Ablaze",
+      "evidence": "measured",
+      "source": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+      "sampleSize": 5040,
+      "notes": "Separate VMAX/VSTAR, full-art and alternate-art buckets. Collector names/rarity labels are preserved. Ordinary Rare remainder uses the existing era holo split.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 201,
+      "positiveRouteCards": 201,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "Elite Fourum community dataset",
+        "sourceUrl": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+        "notes": "Separate VMAX/VSTAR, full-art and alternate-art buckets. Collector names/rarity labels are preserved. Ordinary Rare remainder uses the existing era holo split.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 60,
+          "doubleRare": 12.58,
+          "ultraRare": 7.7,
+          "rainbowRare": 1.19,
+          "secretRare": 0.87,
+          "holoRare": 17.659999999999997
+        },
+        "subsetSlot": null,
+        "sampleSize": 5040,
+        "evidence": "measured",
+        "finalBuckets": {
+          "rare": 60,
+          "doubleRare": 12.58,
+          "vmaxOrVstar": 3.85,
+          "fullArt": 3.85,
+          "rainbowRare": 1.19,
+          "secretRare": 0.87,
+          "holoRare": 17.659999999999997
+        }
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "dc1",
+      "name": "Double Crisis",
+      "evidence": "measured",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/127",
+      "sampleSize": 116,
+      "notes": "116-pack English sample",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 34,
+      "positiveRouteCards": 34,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "sourceNote": "Double Crisis special 7-card pack. Use only Double Crisis cards. No normal XY 10-card logic.",
+        "packSize": 7,
+        "commonSlots": 3,
+        "uncommonSlots": 2,
+        "preRareSlot": {
+          "type": "reversePlaceholder",
+          "simulatorFoil": false
+        },
+        "finalRareSlot": {
+          "holoRare": 0.8793103448275862,
+          "ultraRareFullArt": 0.1206896551724138
+        },
+        "source": "116-pack English sample",
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/127",
+        "evidence": "measured",
+        "sampleSize": 116
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "delta-reign",
+      "name": "Delta Reign",
+      "evidence": "era-fallback",
+      "source": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Mega-Evolution-Pull-Rates/40cbeedc-21ce-473b-aef1-74e3969d9f91/",
+      "sampleSize": null,
+      "notes": "Combined Double Rare tier split uniformly across eligible standard/Mega cards. No zero-weight standard ex tier. 252-pack Delta Reign community report is too small for reliable chase odds; nearest Mega-era fallback is compatible with its intervals.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 141,
+      "positiveRouteCards": 141,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "Mega Evolution English era fallback",
+        "sourceUrl": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Mega-Evolution-Pull-Rates/40cbeedc-21ce-473b-aef1-74e3969d9f91/",
+        "evidence": "era-fallback",
+        "sampleSize": null,
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 58.9,
+          "doubleRare": 12.546000000000001,
+          "megaDoubleRare": 8.364,
+          "ultraRare": 8.23,
+          "illustrationRare": 10.89,
+          "specialIllustrationRare": 0.99,
+          "megaHyperRare": 0.08
+        },
+        "subsetSlot": null,
+        "notes": "Combined Double Rare tier split uniformly across eligible standard/Mega cards. No zero-weight standard ex tier. 252-pack Delta Reign community report is too small for reliable chase odds; nearest Mega-era fallback is compatible with its intervals."
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "destined-rivals",
+      "name": "Destined Rivals",
+      "evidence": "measured",
+      "source": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Destined-Rivals-Pull-Rates/43ba832e-44c9-45a4-ae2e-594df2defdda/",
+      "sampleSize": 8000,
+      "notes": "English TCGplayer opening estimate; independent Rare and second foil slots. No experience tuning.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 244,
+      "positiveRouteCards": 244,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "TCGplayer-style estimate",
+        "sourceUrl": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Destined-Rivals-Pull-Rates/43ba832e-44c9-45a4-ae2e-594df2defdda/",
+        "notes": "English TCGplayer opening estimate; independent Rare and second foil slots. No experience tuning.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 63.76,
+          "doubleRare": 19.83,
+          "ultraRare": 6.39,
+          "illustrationRare": 8.29,
+          "specialIllustrationRare": 1.06,
+          "hyperRare": 0.67
+        },
+        "subsetSlot": null,
+        "evidence": "measured",
+        "sampleSize": 8000,
+        "corroboratingUrl": "https://tcg1.net/pull-rates/destined-rivals/"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "detective-pikachu",
+      "name": "Detective Pikachu",
+      "evidence": "measured",
+      "source": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+      "sampleSize": 240,
+      "notes": "Three Common holos and one Rare holo; the local Ultra Rare label represents the four scarcer Rare holos. 240-pack community estimate for that group.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 18,
+      "positiveRouteCards": 18,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "Elite Fourum community dataset / product structure",
+        "sourceUrl": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+        "notes": "Three Common holos and one Rare holo; the local Ultra Rare label represents the four scarcer Rare holos. 240-pack community estimate for that group.",
+        "packSize": 4,
+        "finalSlot": {
+          "rare": 62.92,
+          "ultraRare": 37.08
+        },
+        "subsetSlot": null,
+        "sampleSize": 240,
+        "evidence": "measured"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "diamond-pearl",
+      "name": "Diamond & Pearl",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/64",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 130,
+      "positiveRouteCards": 130,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/64",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.3055555555555555,
+          "lvx": 0.027777777777777776
+        },
+        "reverse": {
+          "normal": 1
+        }
+      }
+    },
+    {
+      "id": "diamond-pearl-great-encounters",
+      "name": "Diamond & Pearl\u2014Great Encounters",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/69",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 106,
+      "positiveRouteCards": 106,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/69",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.3055555555555555,
+          "lvx": 0.027777777777777776
+        },
+        "reverse": {
+          "normal": 1
+        }
+      }
+    },
+    {
+      "id": "diamond-pearl-legends-awakened",
+      "name": "Diamond & Pearl\u2014Legends Awakened",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/72",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 146,
+      "positiveRouteCards": 146,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/72",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.2777777777777778,
+          "lvx": 0.05555555555555555
+        },
+        "reverse": {
+          "normal": 1
+        }
+      }
+    },
+    {
+      "id": "diamond-pearl-majestic-dawn",
+      "name": "Diamond & Pearl\u2014Majestic Dawn",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/71",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 100,
+      "positiveRouteCards": 100,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/71",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.3055555555555555,
+          "lvx": 0.027777777777777776
+        },
+        "reverse": {
+          "normal": 1
+        }
+      }
+    },
+    {
+      "id": "diamond-pearl-mysterious-treasures",
+      "name": "Diamond & Pearl\u2014Mysterious Treasures",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/65",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 124,
+      "positiveRouteCards": 124,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/65",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.3005050505050505,
+          "lvx": 0.027777777777777776,
+          "secretRare": 0.005050505050505051
+        },
+        "reverse": {
+          "normal": 1
+        }
+      }
+    },
+    {
+      "id": "diamond-pearl-secret-wonders",
+      "name": "Diamond & Pearl\u2014Secret Wonders",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/67",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 132,
+      "positiveRouteCards": 132,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/67",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.3194444444444444,
+          "lvx": 0.013888888888888888
+        },
+        "reverse": {
+          "normal": 1
+        }
+      }
+    },
+    {
+      "id": "diamond-pearl-stormfront",
+      "name": "Diamond & Pearl\u2014Stormfront",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/75",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 106,
+      "positiveRouteCards": 106,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/75",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.25022956841138655,
+          "lvx": 0.05555555555555555,
+          "secretRare": 0.027548209366391185
+        },
+        "reverse": {
+          "normal": 0.9752066115702479,
+          "shiny": 0.024793388429752067
+        }
+      }
+    },
+    {
+      "id": "dragon-majesty",
+      "name": "Dragon Majesty",
+      "evidence": "measured",
+      "source": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+      "sampleSize": 389,
+      "notes": "English community opening sample. Holo/non-holo split of the residual ordinary Rare tier remains an era estimate; no experience multiplier.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 80,
+      "positiveRouteCards": 80,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "Elite Fourum community dataset",
+        "sourceUrl": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+        "notes": "English community opening sample. Holo/non-holo split of the residual ordinary Rare tier remains an era estimate; no experience multiplier.",
+        "packSize": 10,
+        "finalSlot": {
+          "doubleRare": 15.42,
+          "ultraRare": 6.94,
+          "rainbowRare": 2.31,
+          "secretRare": 0.77,
+          "holoRare": 74.56
+        },
+        "subsetSlot": {
+          "type": "prismStar",
+          "rates": {
+            "normal": 89.2,
+            "prismStar": 10.8
+          }
+        },
+        "sampleSize": 389,
+        "evidence": "measured"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "dragon-vault",
+      "name": "Dragon Vault",
+      "evidence": "retained-format-estimate",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/107",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 21,
+      "positiveRouteCards": 21,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "evolving-skies",
+      "name": "Evolving Skies",
+      "evidence": "measured",
+      "source": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Evolving-Skies-Pull-Rates/6a743d7b-e5ee-4fd6-9d18-64a636990e8c/",
+      "sampleSize": 8000,
+      "notes": "Separate VMAX/VSTAR, full-art and alternate-art buckets. Collector names/rarity labels are preserved. Ordinary Rare remainder uses the existing era holo split.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 237,
+      "positiveRouteCards": 237,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "fallback estimate",
+        "sourceUrl": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Evolving-Skies-Pull-Rates/6a743d7b-e5ee-4fd6-9d18-64a636990e8c/",
+        "notes": "Separate VMAX/VSTAR, full-art and alternate-art buckets. Collector names/rarity labels are preserved. Ordinary Rare remainder uses the existing era holo split.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 60,
+          "doubleRare": 10.56,
+          "ultraRare": 9.48,
+          "rainbowRare": 1.14,
+          "secretRare": 0.91,
+          "holoRare": 17.909999999999997
+        },
+        "subsetSlot": null,
+        "sampleSize": 8000,
+        "evidence": "measured",
+        "finalBuckets": {
+          "rare": 60,
+          "doubleRare": 10.56,
+          "vmaxOrVstar": 5.6,
+          "fullArt": 2.78,
+          "rainbowRare": 0.84,
+          "secretRare": 0.91,
+          "alternateArt": 1.1,
+          "alternateVmax": 0.3,
+          "holoRare": 17.909999999999997
+        },
+        "corroboratingUrl": "https://tcg1.net/pull-rates/evolving-skies/"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "ex-crystal-guardians",
+      "name": "EX Crystal Guardians",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/58",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 100,
+      "positiveRouteCards": 100,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/58",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.24074074074074073,
+          "ex": 0.08333333333333333,
+          "goldStar": 0.009259259259259259
+        },
+        "reverse": {
+          "normal": 1
+        }
+      }
+    },
+    {
+      "id": "ex-delta-species",
+      "name": "EX Delta Species",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/54",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 113,
+      "positiveRouteCards": 113,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/54",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.2962962962962963,
+          "ex": 0.027777777777777776,
+          "goldStar": 0.009259259259259259
+        },
+        "reverse": {
+          "normal": 1
+        }
+      }
+    },
+    {
+      "id": "ex-deoxys",
+      "name": "EX Deoxys",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/48",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 107,
+      "positiveRouteCards": 107,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/48",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.25,
+          "ex": 0.07407407407407407,
+          "goldStar": 0.009259259259259259
+        },
+        "reverse": {
+          "normal": 1
+        }
+      }
+    },
+    {
+      "id": "ex-dragon",
+      "name": "EX Dragon",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/37",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 100,
+      "positiveRouteCards": 100,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/37",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 1
+        },
+        "reverse": {
+          "normal": 1
+        },
+        "commonReplacement": {
+          "normal": 0.6666666666666666,
+          "holoRare": 0.13484848484848483,
+          "ex": 0.16666666666666666,
+          "secretRare": 0.031818181818181815
+        }
+      }
+    },
+    {
+      "id": "ex-dragon-frontiers",
+      "name": "EX Dragon Frontiers",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/60",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 101,
+      "positiveRouteCards": 101,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/60",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.24074074074074073,
+          "ex": 0.08333333333333333,
+          "goldStar": 0.009259259259259259
+        },
+        "reverse": {
+          "normal": 1
+        }
+      }
+    },
+    {
+      "id": "ex-emerald",
+      "name": "EX Emerald",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/51",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 106,
+      "positiveRouteCards": 106,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/51",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.25,
+          "ex": 0.08333333333333333
+        },
+        "reverse": {
+          "normal": 0.6666666666666667,
+          "foilEnergy": 0.3333333333333333
+        }
+      }
+    },
+    {
+      "id": "ex-firered-leafgreen",
+      "name": "EX FireRed & LeafGreen",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/44",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 115,
+      "positiveRouteCards": 115,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/44",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.2222222222222222,
+          "ex": 0.08333333333333333,
+          "secretRare": 0.027777777777777776
+        },
+        "reverse": {
+          "normal": 1
+        }
+      }
+    },
+    {
+      "id": "ex-hidden-legends",
+      "name": "EX Hidden Legends",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/40",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 101,
+      "positiveRouteCards": 101,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/40",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.25,
+          "ex": 0.05555555555555555,
+          "regiEx": 0.027777777777777776
+        },
+        "reverse": {
+          "normal": 1
+        }
+      }
+    },
+    {
+      "id": "ex-holon-phantoms",
+      "name": "EX Holon Phantoms",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/57",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 110,
+      "positiveRouteCards": 110,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/57",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.2962962962962963,
+          "ex": 0.027777777777777776,
+          "goldStar": 0.009259259259259259
+        },
+        "reverse": {
+          "normal": 0.6666666666666667,
+          "foilEnergy": 0.3333333333333333
+        }
+      }
+    },
+    {
+      "id": "ex-legend-maker",
+      "name": "EX Legend Maker",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/55",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 92,
+      "positiveRouteCards": 92,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/55",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.2685185185185185,
+          "ex": 0.05555555555555555,
+          "goldStar": 0.009259259259259259
+        },
+        "reverse": {
+          "normal": 1
+        }
+      }
+    },
+    {
+      "id": "ex-power-keepers",
+      "name": "EX Power Keepers",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/62",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 108,
+      "positiveRouteCards": 108,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/62",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.23760330578512395,
+          "ex": 0.08333333333333333,
+          "goldStar": 0.012396694214876033
+        },
+        "reverse": {
+          "normal": 0.7520661157024793,
+          "foilEnergy": 0.24793388429752067
+        }
+      }
+    },
+    {
+      "id": "ex-ruby-sapphire",
+      "name": "EX Ruby & Sapphire",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/35",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 109,
+      "positiveRouteCards": 109,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/35",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 1
+        },
+        "reverse": {
+          "normal": 1
+        },
+        "commonReplacement": {
+          "normal": 0.6666666666666666,
+          "holoRare": 0.16666666666666666,
+          "ex": 0.16666666666666666
+        }
+      }
+    },
+    {
+      "id": "ex-sandstorm",
+      "name": "EX Sandstorm",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/36",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 100,
+      "positiveRouteCards": 100,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/36",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 1
+        },
+        "reverse": {
+          "normal": 1
+        },
+        "commonReplacement": {
+          "normal": 0.6666666666666666,
+          "holoRare": 0.16666666666666666,
+          "ex": 0.16666666666666666
+        }
+      }
+    },
+    {
+      "id": "ex-team-magma-vs-team-aqua",
+      "name": "EX Team Magma vs Team Aqua",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/38",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 96,
+      "positiveRouteCards": 96,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/38",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.2318181818181818,
+          "ex": 0.08333333333333333,
+          "secretRare": 0.01818181818181818
+        },
+        "reverse": {
+          "normal": 1
+        }
+      }
+    },
+    {
+      "id": "ex-team-rocket-returns",
+      "name": "EX Team Rocket Returns",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/47",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 110,
+      "positiveRouteCards": 110,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/47",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.24545454545454543,
+          "ex": 0.07407407407407407,
+          "goldStar": 0.009259259259259259,
+          "secretRare": 0.004545454545454545
+        },
+        "reverse": {
+          "normal": 1
+        }
+      }
+    },
+    {
+      "id": "ex-unseen-forces",
+      "name": "EX Unseen Forces",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/52",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 144,
+      "positiveRouteCards": 144,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/52",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.25,
+          "ex": 0.07407407407407407,
+          "goldStar": 0.009259259259259259
+        },
+        "reverse": {
+          "normal": 0.8009259259259259,
+          "unown": 0.19907407407407407
+        }
+      }
+    },
+    {
+      "id": "expedition-base-set",
+      "name": "Expedition Base Set",
+      "evidence": "retained-format-estimate",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/30",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 165,
+      "positiveRouteCards": 165,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "forbidden-light",
+      "name": "Forbidden Light",
+      "evidence": "measured",
+      "source": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+      "sampleSize": 1264,
+      "notes": "English community opening sample. Holo/non-holo split of the residual ordinary Rare tier remains an era estimate; no experience multiplier. Ordinary holo sheet uses the English collation model: 40% holo-or-better before independent reverse-slot specials.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 150,
+      "positiveRouteCards": 150,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "Elite Fourum community dataset",
+        "sourceUrl": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+        "notes": "English community opening sample. Holo/non-holo split of the residual ordinary Rare tier remains an era estimate; no experience multiplier. Ordinary holo sheet uses the English collation model: 40% holo-or-better before independent reverse-slot specials.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 60,
+          "doubleRare": 7.44,
+          "ultraRare": 3.56,
+          "rainbowRare": 1.34,
+          "secretRare": 0.71,
+          "holoRare": 26.950000000000003
+        },
+        "subsetSlot": {
+          "type": "prismStar",
+          "rates": {
+            "normal": 92.09,
+            "prismStar": 7.91
+          }
+        },
+        "sampleSize": 1264,
+        "evidence": "measured"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "fossil",
+      "name": "Fossil",
+      "evidence": "retained-format-estimate",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/4",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": true,
+      "eligibleCards": 62,
+      "positiveRouteCards": 62,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "fusion-strike",
+      "name": "Fusion Strike",
+      "evidence": "measured-rounded-with-era-base-tier",
+      "source": "https://www.tcgplayer.com/content/article/How-to-Tell-the-Rarity-of-a-Pok%C3%A9mon-Card/3bc6c211-f4ce-4c4d-b823-74f3790ebaeb/",
+      "sampleSize": 4000,
+      "notes": "TCGplayer 4,000+ English pack infographic publishes rounded 1-in-N values. Regular V and ordinary holo remain explicitly estimated; no made-up measured V percentage.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 284,
+      "positiveRouteCards": 284,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "fallback estimate",
+        "sourceUrl": "https://www.tcgplayer.com/content/article/How-to-Tell-the-Rarity-of-a-Pok%C3%A9mon-Card/3bc6c211-f4ce-4c4d-b823-74f3790ebaeb/",
+        "notes": "TCGplayer 4,000+ English pack infographic publishes rounded 1-in-N values. Regular V and ordinary holo remain explicitly estimated; no made-up measured V percentage.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 60,
+          "holoRare": 16.90253345266304,
+          "doubleRare": 14,
+          "ultraRare": 7.1755268199233715,
+          "rainbowRare": 1.0886063940802582,
+          "secretRare": 0.8333333333333334
+        },
+        "subsetSlot": null,
+        "evidence": "measured-rounded-with-era-base-tier",
+        "fallbackFrom": "Sword & Shield English main expansions",
+        "finalBuckets": {
+          "rare": 60,
+          "holoRare": 16.90253345266304,
+          "doubleRare": 14,
+          "vmaxOrVstar": 3.3333333333333335,
+          "fullArt": 3.2866379310344827,
+          "alternateArt": 0.5555555555555556,
+          "alternateVmax": 0.30120481927710846,
+          "rainbowRare": 0.7874015748031497,
+          "secretRare": 0.8333333333333334
+        },
+        "sampleSize": 4000
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "g1",
+      "name": "Generations",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/134",
+      "sampleSize": null,
+      "notes": "English community collation study",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 117,
+      "positiveRouteCards": 117,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "sourceNote": "Generations special pack: 10 cards total, 8 core Generations cards plus 2 Radiant Collection cards.",
+        "packSize": 10,
+        "coreCards": 8,
+        "radiantCollectionCards": 2,
+        "coreSlots": {
+          "commonSlots": 4,
+          "uncommonSlots": 2,
+          "preRareSlot": {
+            "type": "reversePlaceholder",
+            "simulatorFoil": false
+          },
+          "finalRareSlot": {
+            "regularRare": 0.6666666666666666,
+            "holoRare": 0.10555555555555556,
+            "rareHoloEX": 0.20555555555555557,
+            "ultraRareFullArt": 0.022222222222222223
+          }
+        },
+        "radiantCollectionSlots": [
+          {
+            "radiantCommon": 1
+          },
+          {
+            "radiantUncommon": 0.72,
+            "radiantPremium": 0.28
+          }
+        ],
+        "source": "English community collation study",
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/134",
+        "evidence": "community-collation-model",
+        "subsetSlot": {
+          "type": "radiantCollection",
+          "rates": {
+            "normal": 0,
+            "radiantCollection": 100
+          }
+        }
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "guardians-rising",
+      "name": "Guardians Rising",
+      "evidence": "measured",
+      "source": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+      "sampleSize": 2088,
+      "notes": "English community opening sample. Holo/non-holo split of the residual ordinary Rare tier remains an era estimate; no experience multiplier. Ordinary holo sheet uses the English collation model: 40% holo-or-better before independent reverse-slot specials.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 180,
+      "positiveRouteCards": 180,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "Elite Fourum community dataset",
+        "sourceUrl": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+        "notes": "English community opening sample. Holo/non-holo split of the residual ordinary Rare tier remains an era estimate; no experience multiplier. Ordinary holo sheet uses the English collation model: 40% holo-or-better before independent reverse-slot specials.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 60,
+          "doubleRare": 11.11,
+          "ultraRare": 3.59,
+          "rainbowRare": 1.29,
+          "secretRare": 0.81,
+          "holoRare": 23.200000000000003
+        },
+        "subsetSlot": null,
+        "sampleSize": 2088,
+        "evidence": "measured"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "gym-challenge",
+      "name": "Gym Challenge",
+      "evidence": "retained-format-estimate",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/18",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": true,
+      "eligibleCards": 132,
+      "positiveRouteCards": 132,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "gym-heroes",
+      "name": "Gym Heroes",
+      "evidence": "retained-format-estimate",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/14",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": true,
+      "eligibleCards": 132,
+      "positiveRouteCards": 132,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "heartgold-soulsilver",
+      "name": "HeartGold & SoulSilver",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/86",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 124,
+      "positiveRouteCards": 124,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/86",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.2361111111111111,
+          "legend": 0.08333333333333333,
+          "secretRare": 0.013888888888888888
+        },
+        "reverse": {
+          "normal": 0.8333333333333334,
+          "prime": 0.16666666666666666
+        }
+      }
+    },
+    {
+      "id": "hidden-fates",
+      "name": "Hidden Fates",
+      "evidence": "community-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/156",
+      "sampleSize": null,
+      "notes": "Separate main/Vault trainer sheets; see audit report. Slot rates are estimates, not official odds.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 163,
+      "positiveRouteCards": 163,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "Elite Fourum community dataset",
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/156",
+        "notes": "Separate main/Vault trainer sheets; see audit report. Slot rates are estimates, not official odds.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 60,
+          "holoRare": 20,
+          "doubleRare": 15,
+          "ultraRare": 3.888888888889,
+          "rainbowRare": 1.111111111111
+        },
+        "subsetSlot": {
+          "type": "shinyVault",
+          "rates": {
+            "normal": 66.666666666667,
+            "shinyRare": 21.111111111111,
+            "shinyUltraRare": 9.444444444444,
+            "vaultTrainerGold": 2.777777777778
+          }
+        },
+        "evidence": "community-model"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "hs-triumphant",
+      "name": "HS\u2014Triumphant",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/97",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 103,
+      "positiveRouteCards": 103,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/97",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.25925925925925924,
+          "legend": 0.06944444444444445,
+          "secretRare": 0.004629629629629629
+        },
+        "reverse": {
+          "normal": 0.8611111111111112,
+          "prime": 0.1388888888888889
+        }
+      }
+    },
+    {
+      "id": "hs-undaunted",
+      "name": "HS\u2014Undaunted",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/88",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 91,
+      "positiveRouteCards": 91,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/88",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.25925925925925924,
+          "legend": 0.06944444444444445,
+          "secretRare": 0.004629629629629629
+        },
+        "reverse": {
+          "normal": 0.8611111111111112,
+          "prime": 0.1388888888888889
+        }
+      }
+    },
+    {
+      "id": "hs-unleashed",
+      "name": "HS\u2014Unleashed",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/87",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 96,
+      "positiveRouteCards": 96,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/87",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.24537037037037035,
+          "legend": 0.08333333333333333,
+          "secretRare": 0.004629629629629629
+        },
+        "reverse": {
+          "normal": 0.8611111111111112,
+          "prime": 0.1388888888888889
+        }
+      }
+    },
+    {
+      "id": "journey-together",
+      "name": "Journey Together",
+      "evidence": "measured",
+      "source": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Journey-Together-Pull-Rates/1b9f379f-97cb-45cc-b6f6-a1a070a422cd/",
+      "sampleSize": 8000,
+      "notes": "English TCGplayer opening estimate; independent Rare and second foil slots. No experience tuning.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 190,
+      "positiveRouteCards": 190,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "TCGplayer",
+        "sourceUrl": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Journey-Together-Pull-Rates/1b9f379f-97cb-45cc-b6f6-a1a070a422cd/",
+        "notes": "English TCGplayer opening estimate; independent Rare and second foil slots. No experience tuning.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 62.78,
+          "doubleRare": 20.29,
+          "ultraRare": 6.54,
+          "illustrationRare": 8.5,
+          "specialIllustrationRare": 1.16,
+          "hyperRare": 0.73
+        },
+        "subsetSlot": null,
+        "evidence": "measured",
+        "sampleSize": 8000
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "jungle",
+      "name": "Jungle",
+      "evidence": "retained-format-estimate",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/3",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": true,
+      "eligibleCards": 64,
+      "positiveRouteCards": 64,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "legendary-collection",
+      "name": "Legendary Collection",
+      "evidence": "retained-format-estimate",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/26",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 110,
+      "positiveRouteCards": 110,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "lost-origin",
+      "name": "Lost Origin",
+      "evidence": "measured-rounded-secret-rates",
+      "source": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Lost-Origin-Pull-Rates/ba20ac4d-9448-45ce-b919-d856d107c744/",
+      "sampleSize": 8000,
+      "notes": "Separate VMAX/VSTAR, full-art and alternate-art buckets. Collector names/rarity labels are preserved. Ordinary Rare remainder uses the existing era holo split.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 247,
+      "positiveRouteCards": 247,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "TCGplayer / fallback category mapping",
+        "sourceUrl": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Lost-Origin-Pull-Rates/ba20ac4d-9448-45ce-b919-d856d107c744/",
+        "notes": "Separate VMAX/VSTAR, full-art and alternate-art buckets. Collector names/rarity labels are preserved. Ordinary Rare remainder uses the existing era holo split.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 60,
+          "doubleRare": 11.63,
+          "ultraRare": 8.32,
+          "rainbowRare": 1.4285714285714286,
+          "secretRare": 0.8771929824561403,
+          "holoRare": 17.744235589
+        },
+        "subsetSlot": {
+          "type": "independentReverse",
+          "rates": {
+            "normal": 82.67,
+            "trainerGallery": 8.29,
+            "premiumTrainerGallery": 3.17,
+            "goldTrainerGallery": 0.86,
+            "radiantRare": 5.01
+          }
+        },
+        "sampleSize": 8000,
+        "evidence": "measured-rounded-secret-rates",
+        "finalBuckets": {
+          "rare": 60,
+          "doubleRare": 11.63,
+          "vmaxOrVstar": 4.42,
+          "fullArt": 3.4,
+          "rainbowRare": 1.4285714285714286,
+          "secretRare": 0.8771929824561403,
+          "alternateArt": 0.5,
+          "holoRare": 17.744235589
+        },
+        "corroboratingUrl": "https://tcg1.net/pull-rates/lost-origin/"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "lost-thunder",
+      "name": "Lost Thunder",
+      "evidence": "measured",
+      "source": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+      "sampleSize": 1274,
+      "notes": "English community opening sample. Holo/non-holo split of the residual ordinary Rare tier remains an era estimate; no experience multiplier. Ordinary holo sheet uses the English collation model: 40% holo-or-better before independent reverse-slot specials.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 240,
+      "positiveRouteCards": 240,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "Elite Fourum community dataset",
+        "sourceUrl": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+        "notes": "English community opening sample. Holo/non-holo split of the residual ordinary Rare tier remains an era estimate; no experience multiplier. Ordinary holo sheet uses the English collation model: 40% holo-or-better before independent reverse-slot specials.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 60,
+          "doubleRare": 10.28,
+          "ultraRare": 4.4,
+          "rainbowRare": 1.33,
+          "secretRare": 1.02,
+          "holoRare": 22.97
+        },
+        "subsetSlot": {
+          "type": "prismStar",
+          "rates": {
+            "normal": 87.83,
+            "prismStar": 12.17
+          }
+        },
+        "sampleSize": 1274,
+        "evidence": "measured"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "mega-evolution",
+      "name": "Mega Evolution",
+      "evidence": "measured",
+      "source": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Mega-Evolution-Pull-Rates/40cbeedc-21ce-473b-aef1-74e3969d9f91/",
+      "sampleSize": 5000,
+      "notes": "Combined Double Rare tier split uniformly across eligible standard/Mega cards. No zero-weight standard ex tier. ",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 188,
+      "positiveRouteCards": 188,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "TCGplayer English opening study",
+        "sourceUrl": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Mega-Evolution-Pull-Rates/40cbeedc-21ce-473b-aef1-74e3969d9f91/",
+        "evidence": "measured",
+        "sampleSize": 5000,
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 58.9,
+          "doubleRare": 0,
+          "megaDoubleRare": 20.91,
+          "ultraRare": 8.23,
+          "illustrationRare": 10.89,
+          "specialIllustrationRare": 0.99,
+          "megaHyperRare": 0.08
+        },
+        "subsetSlot": null,
+        "notes": "Combined Double Rare tier split uniformly across eligible standard/Mega cards. No zero-weight standard ex tier. ",
+        "corroboratingUrl": "https://tcg1.net/pull-rates/mega-evolution/"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "neo-destiny",
+      "name": "Neo Destiny",
+      "evidence": "retained-format-estimate",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/25",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": true,
+      "eligibleCards": 113,
+      "positiveRouteCards": 113,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "neo-discovery",
+      "name": "Neo Discovery",
+      "evidence": "retained-format-estimate",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/20",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": true,
+      "eligibleCards": 75,
+      "positiveRouteCards": 75,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "neo-genesis",
+      "name": "Neo Genesis",
+      "evidence": "retained-format-estimate",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/19",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": true,
+      "eligibleCards": 111,
+      "positiveRouteCards": 111,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "neo-revelation",
+      "name": "Neo Revelation",
+      "evidence": "retained-format-estimate",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/24",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": true,
+      "eligibleCards": 66,
+      "positiveRouteCards": 66,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "obsidian-flames",
+      "name": "Obsidian Flames",
+      "evidence": "measured",
+      "source": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Obsidian-Flames-Pull-Rates/e2a66999-a7b5-4621-9765-c9a132e04bd2/",
+      "sampleSize": 8000,
+      "notes": "English TCGplayer opening estimate; independent Rare and second foil slots. No experience tuning.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 230,
+      "positiveRouteCards": 230,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "TCGplayer",
+        "sourceUrl": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Obsidian-Flames-Pull-Rates/e2a66999-a7b5-4621-9765-c9a132e04bd2/",
+        "notes": "English TCGplayer opening estimate; independent Rare and second foil slots. No experience tuning.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 67.11,
+          "doubleRare": 13.61,
+          "ultraRare": 6.63,
+          "illustrationRare": 7.6,
+          "specialIllustrationRare": 3.13,
+          "hyperRare": 1.92
+        },
+        "subsetSlot": null,
+        "evidence": "measured",
+        "sampleSize": 8000
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "paldea-evolved",
+      "name": "Paldea Evolved",
+      "evidence": "measured",
+      "source": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Paldea-Evolved-Pull-Rates/1b7d3e70-9542-4a50-8692-1661e2316521/",
+      "sampleSize": 8000,
+      "notes": "English TCGplayer opening estimate; independent Rare and second foil slots. No experience tuning.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 279,
+      "positiveRouteCards": 279,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "TCGplayer",
+        "sourceUrl": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Paldea-Evolved-Pull-Rates/1b7d3e70-9542-4a50-8692-1661e2316521/",
+        "notes": "English TCGplayer opening estimate; independent Rare and second foil slots. No experience tuning.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 67.01,
+          "doubleRare": 13.72,
+          "ultraRare": 6.64,
+          "illustrationRare": 7.7,
+          "specialIllustrationRare": 3.17,
+          "hyperRare": 1.76
+        },
+        "subsetSlot": null,
+        "evidence": "measured",
+        "sampleSize": 8000
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "paldean-fates",
+      "name": "Paldean Fates",
+      "evidence": "retained-estimate",
+      "source": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Paldean-Fates-Pull-Rates/23de3e93-0d0f-4ae0-abc4-13664f3001a3/",
+      "sampleSize": null,
+      "notes": "TCGplayer reports independent first-Reverse, second-Reverse, and Rare-slot rates.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 245,
+      "positiveRouteCards": 245,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "TCGplayer",
+        "sourceUrl": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Paldean-Fates-Pull-Rates/23de3e93-0d0f-4ae0-abc4-13664f3001a3/",
+        "notes": "TCGplayer reports independent first-Reverse, second-Reverse, and Rare-slot rates.",
+        "packSize": 10,
+        "rareSlot": {
+          "rare": 77.5,
+          "doubleRare": 15.89,
+          "ultraRare": 6.61
+        },
+        "secondFoilSlot": {
+          "normal": 89.45,
+          "illustrationRare": 7.22,
+          "specialIllustrationRare": 1.72,
+          "hyperRare": 1.61
+        },
+        "subsetSlot": {
+          "type": "shiny",
+          "rates": {
+            "normal": 66.84,
+            "shinyRare": 25.44,
+            "shinyUltraRare": 7.72
+          }
+        },
+        "evidence": "retained-estimate"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "paradox-rift",
+      "name": "Paradox Rift",
+      "evidence": "measured",
+      "source": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Paradox-Rift-Pull-Rates/0b5fb648-38fc-4f61-a6af-57c2737b4a48/",
+      "sampleSize": 8000,
+      "notes": "English TCGplayer opening estimate; independent Rare and second foil slots. No experience tuning.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 266,
+      "positiveRouteCards": 266,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "TCGplayer-style estimate",
+        "sourceUrl": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Paradox-Rift-Pull-Rates/0b5fb648-38fc-4f61-a6af-57c2737b4a48/",
+        "notes": "English TCGplayer opening estimate; independent Rare and second foil slots. No experience tuning.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 66.76,
+          "doubleRare": 15.57,
+          "ultraRare": 6.64,
+          "illustrationRare": 7.7,
+          "specialIllustrationRare": 2.11,
+          "hyperRare": 1.22
+        },
+        "subsetSlot": null,
+        "evidence": "measured",
+        "sampleSize": 8000,
+        "corroboratingUrl": "https://tcg1.net/pull-rates/paradox-rift/"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "perfect-order",
+      "name": "Perfect Order",
+      "evidence": "measured",
+      "source": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Perfect-Order-Pull-Rates/73148119-ebcb-40b7-84b6-52b3a6d0c631/",
+      "sampleSize": 3500,
+      "notes": "Combined Double Rare tier split uniformly across eligible standard/Mega cards. No zero-weight standard ex tier. ",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 124,
+      "positiveRouteCards": 124,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "TCGplayer English opening study",
+        "sourceUrl": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Perfect-Order-Pull-Rates/73148119-ebcb-40b7-84b6-52b3a6d0c631/",
+        "evidence": "measured",
+        "sampleSize": 3500,
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 58,
+          "doubleRare": 11.649999999999999,
+          "megaDoubleRare": 9.32,
+          "ultraRare": 8.54,
+          "illustrationRare": 11.2,
+          "specialIllustrationRare": 1.23,
+          "megaHyperRare": 0.06
+        },
+        "subsetSlot": null,
+        "notes": "Combined Double Rare tier split uniformly across eligible standard/Mega cards. No zero-weight standard ex tier. ",
+        "corroboratingUrl": "https://tcg1.net/pull-rates/perfect-order/"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "phantasmal-flames",
+      "name": "Phantasmal Flames",
+      "evidence": "measured",
+      "source": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Phantasmal-Flames-Pull-Rates/9abae60d-b7fb-448f-874e-176f78d6a6ca/",
+      "sampleSize": 5000,
+      "notes": "Combined Double Rare tier split uniformly across eligible standard/Mega cards. No zero-weight standard ex tier. ",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 130,
+      "positiveRouteCards": 130,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "TCGplayer English opening study",
+        "sourceUrl": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Phantasmal-Flames-Pull-Rates/9abae60d-b7fb-448f-874e-176f78d6a6ca/",
+        "evidence": "measured",
+        "sampleSize": 5000,
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 58.87,
+          "doubleRare": 8.308,
+          "megaDoubleRare": 12.462,
+          "ultraRare": 8.06,
+          "illustrationRare": 10.97,
+          "specialIllustrationRare": 1.25,
+          "megaHyperRare": 0.08
+        },
+        "subsetSlot": null,
+        "notes": "Combined Double Rare tier split uniformly across eligible standard/Mega cards. No zero-weight standard ex tier. ",
+        "corroboratingUrl": "https://tcg1.net/pull-rates/phantasmal-flames/"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "pitch-black",
+      "name": "Pitch Black",
+      "evidence": "retained-estimate",
+      "source": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Pitch-Black-Pull-Rates/069a5fda-2d1f-44a1-97de-b6dcdc5abfb8/",
+      "sampleSize": 4000,
+      "notes": "Existing point estimates retained: compatible with reported study uncertainty. Mega foil slot and Rare slot are independent. The 20.5% Double Rare rate is split across 4 standard and 6 Mega cards: 8.2% / 12.3%.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 120,
+      "positiveRouteCards": 120,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "Existing estimates retained within uncertainty of the 4,000-pack TCGplayer study",
+        "sourceUrl": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Pitch-Black-Pull-Rates/069a5fda-2d1f-44a1-97de-b6dcdc5abfb8/",
+        "sampleSize": 4000,
+        "notes": "Existing point estimates retained: compatible with reported study uncertainty. Mega foil slot and Rare slot are independent. The 20.5% Double Rare rate is split across 4 standard and 6 Mega cards: 8.2% / 12.3%.",
+        "packSize": 10,
+        "secondFoilSlot": {
+          "normal": 87.89,
+          "illustrationRare": 11,
+          "specialIllustrationRare": 1.11
+        },
+        "rareSlot": {
+          "rare": 71.144,
+          "doubleRare": 8.2,
+          "megaDoubleRare": 12.3,
+          "ultraRare": 8.3,
+          "megaHyperRare": 0.056
+        },
+        "subsetSlot": null,
+        "evidence": "retained-estimate"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "platinum",
+      "name": "Platinum",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/76",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 133,
+      "positiveRouteCards": 133,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/76",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.25022956841138655,
+          "lvx": 0.05555555555555555,
+          "secretRare": 0.027548209366391185
+        },
+        "reverse": {
+          "normal": 0.9752066115702479,
+          "shiny": 0.024793388429752067
+        }
+      }
+    },
+    {
+      "id": "platinum-arceus",
+      "name": "Platinum\u2014Arceus",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/82",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 111,
+      "positiveRouteCards": 111,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/82",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.25,
+          "lvx": 0.08333333333333333
+        },
+        "reverse": {
+          "normal": 0.731404958677686,
+          "arceus": 0.25,
+          "shiny": 0.01859504132231405
+        }
+      }
+    },
+    {
+      "id": "platinum-rising-rivals",
+      "name": "Platinum\u2014Rising Rivals",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/80",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 120,
+      "positiveRouteCards": 120,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/80",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.25,
+          "lvx": 0.05555555555555555,
+          "secretRare": 0.027777777777777776
+        },
+        "reverse": {
+          "normal": 0.9444444444444444,
+          "rotom": 0.05555555555555555
+        }
+      }
+    },
+    {
+      "id": "platinum-supreme-victors",
+      "name": "Platinum\u2014Supreme Victors",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/81",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 153,
+      "positiveRouteCards": 153,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": {
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/81",
+        "evidence": "community-collation-model",
+        "rare": {
+          "rare": 0.6666666666666666,
+          "holoRare": 0.20684113865932047,
+          "lvx": 0.09722222222222222,
+          "secretRare": 0.02926997245179063
+        },
+        "reverse": {
+          "normal": 0.9752066115702479,
+          "shiny": 0.024793388429752067
+        }
+      }
+    },
+    {
+      "id": "pokemon-go",
+      "name": "Pokemon GO",
+      "evidence": "small-community-sample",
+      "source": "https://www.digitaltq.com/pokemon-go-pull-rates-pokemon-tcg",
+      "sampleSize": 371,
+      "notes": "371-pack sample: 59 V, 22 VMAX/VSTAR, 20 full art, 12 Rainbow, 2 Gold, 20 Radiant. Published Holo count is inconsistent with the other final-tier totals; use their residual. No individual-card zero counts become zero-probability routes.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 88,
+      "positiveRouteCards": 88,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "DigitalTQ English opening tally",
+        "sourceUrl": "https://www.digitaltq.com/pokemon-go-pull-rates-pokemon-tcg",
+        "notes": "371-pack sample: 59 V, 22 VMAX/VSTAR, 20 full art, 12 Rainbow, 2 Gold, 20 Radiant. Published Holo count is inconsistent with the other final-tier totals; use their residual. No individual-card zero counts become zero-probability routes.",
+        "packSize": 10,
+        "finalSlot": {
+          "doubleRare": 15.902964959568733,
+          "ultraRare": 11.320754716981131,
+          "rainbowRare": 3.234501347708895,
+          "secretRare": 0.5390835579514824,
+          "holoRare": 69.00269541778977
+        },
+        "subsetSlot": {
+          "type": "radiant",
+          "rates": {
+            "normal": 94.60916442048517,
+            "radiantRare": 5.390835579514825
+          }
+        },
+        "evidence": "small-community-sample",
+        "sampleSize": 371,
+        "finalBuckets": {
+          "doubleRare": 15.902964959568733,
+          "vmaxOrVstar": 5.929919137466308,
+          "fullArt": 5.390835579514825,
+          "rainbowRare": 3.234501347708895,
+          "secretRare": 0.5390835579514824,
+          "holoRare": 69.00269541778977
+        }
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "prismatic-evolutions",
+      "name": "Prismatic Evolutions",
+      "evidence": "measured",
+      "source": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Prismatic-Evolutions-Pull-Rates/d94889ea-f76a-4a13-b74d-5b0b071220a7/",
+      "sampleSize": 1200,
+      "notes": "SIR 2.22% means expected cards per pack including multi-hit packs, not the probability of any SIR. God frequency is unconfirmed; see aggregate calibration.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 180,
+      "positiveRouteCards": 180,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "TCGplayer",
+        "sourceUrl": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Prismatic-Evolutions-Pull-Rates/d94889ea-f76a-4a13-b74d-5b0b071220a7/",
+        "notes": "SIR 2.22% means expected cards per pack including multi-hit packs, not the probability of any SIR. God frequency is unconfirmed; see aggregate calibration.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 73.25,
+          "doubleRare": 16.51,
+          "ultraRare": 7.46,
+          "specialIllustrationRare": 2.22,
+          "hyperRare": 0.56
+        },
+        "subsetSlot": {
+          "type": "independentReverse",
+          "rates": {
+            "normal": 95.32,
+            "aceSpecRare": 4.68
+          }
+        },
+        "evidence": "measured",
+        "sampleSize": 1200
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "rebel-clash",
+      "name": "Rebel Clash",
+      "evidence": "measured",
+      "source": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+      "sampleSize": 2736,
+      "notes": "Separate VMAX/VSTAR, full-art and alternate-art buckets. Collector names/rarity labels are preserved. Ordinary Rare remainder uses the existing era holo split.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 209,
+      "positiveRouteCards": 209,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "Elite Fourum community dataset",
+        "sourceUrl": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+        "notes": "Separate VMAX/VSTAR, full-art and alternate-art buckets. Collector names/rarity labels are preserved. Ordinary Rare remainder uses the existing era holo split.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 60,
+          "doubleRare": 12.65,
+          "ultraRare": 7.16,
+          "rainbowRare": 1.5,
+          "secretRare": 0.95,
+          "holoRare": 17.739999999999995
+        },
+        "subsetSlot": null,
+        "sampleSize": 2736,
+        "evidence": "measured",
+        "finalBuckets": {
+          "rare": 60,
+          "doubleRare": 12.65,
+          "vmaxOrVstar": 3.4,
+          "fullArt": 3.76,
+          "rainbowRare": 1.5,
+          "secretRare": 0.95,
+          "holoRare": 17.739999999999995
+        }
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "scarlet-violet",
+      "name": "Scarlet & Violet",
+      "evidence": "measured",
+      "source": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Scarlet-Violet-Pull-Rates/a7702fce-dd64-4a58-beb1-0f871c853215/",
+      "sampleSize": 8000,
+      "notes": "English TCGplayer opening estimate; independent Rare and second foil slots. No experience tuning.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 258,
+      "positiveRouteCards": 258,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "TCGplayer / CardShopLive corroboration",
+        "sourceUrl": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Scarlet-Violet-Pull-Rates/a7702fce-dd64-4a58-beb1-0f871c853215/",
+        "notes": "English TCGplayer opening estimate; independent Rare and second foil slots. No experience tuning.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 67,
+          "doubleRare": 13.76,
+          "ultraRare": 6.57,
+          "illustrationRare": 7.67,
+          "specialIllustrationRare": 3.15,
+          "hyperRare": 1.85
+        },
+        "subsetSlot": null,
+        "evidence": "measured",
+        "sampleSize": 8000
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "shining-fates",
+      "name": "Shining Fates",
+      "evidence": "measured",
+      "source": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+      "sampleSize": 2187,
+      "notes": "Shiny Vault subset hits handled by subset slot.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 195,
+      "positiveRouteCards": 195,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "Elite Fourum community dataset",
+        "sourceUrl": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+        "notes": "Shiny Vault subset hits handled by subset slot.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 60,
+          "doubleRare": 10.84,
+          "ultraRare": 8.69,
+          "rainbowRare": 1.19,
+          "holoRare": 19.28
+        },
+        "subsetSlot": {
+          "type": "shinyVault",
+          "subsetTypes": [
+            "shinyVault",
+            "amazing"
+          ],
+          "rates": {
+            "normal": 61.64,
+            "shinyRare": 22.73,
+            "shinyUltraRare": 8.96,
+            "secretRare": 0.91,
+            "amazingRare": 5.76
+          }
+        },
+        "sampleSize": 2187,
+        "evidence": "measured",
+        "finalBuckets": {
+          "rare": 60,
+          "doubleRare": 10.84,
+          "vmaxOrVstar": 5.44,
+          "fullArt": 3.25,
+          "rainbowRare": 1.19,
+          "holoRare": 19.28
+        }
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "shining-legends",
+      "name": "Shining Legends",
+      "evidence": "measured",
+      "source": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+      "sampleSize": 1536,
+      "notes": "Special set. Source includes Shiny 8.72%, GX 11.85%, Ultra 3.97%, Rainbow 1.50%, Secret 0.91%.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 81,
+      "positiveRouteCards": 81,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "Elite Fourum community dataset",
+        "sourceUrl": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+        "notes": "Special set. Source includes Shiny 8.72%, GX 11.85%, Ultra 3.97%, Rainbow 1.50%, Secret 0.91%.",
+        "packSize": 10,
+        "finalSlot": {
+          "doubleRare": 11.85,
+          "ultraRare": 12.69,
+          "rainbowRare": 1.5,
+          "secretRare": 0.91,
+          "holoRare": 73.05
+        },
+        "subsetSlot": null,
+        "sampleSize": 1536,
+        "evidence": "measured",
+        "finalBuckets": {
+          "doubleRare": 11.85,
+          "fullArt": 3.97,
+          "shiningRare": 8.72,
+          "rainbowRare": 1.5,
+          "secretRare": 0.91,
+          "holoRare": 73.05
+        }
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "shrouded-fable",
+      "name": "Shrouded Fable",
+      "evidence": "era-fallback",
+      "source": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Twilight-Masquerade-Pull-Rates/f3eea967-e5fb-4108-8655-bb1c89587628/",
+      "sampleSize": null,
+      "notes": "No dependable large opening found. Use adjacent English ACE SPEC-era rates; all five Hyper Rares remain eligible. Source link is the analogous set, not a Shrouded Fable study.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 99,
+      "positiveRouteCards": 99,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "TCGplayer-style / community estimate",
+        "sourceUrl": "",
+        "notes": "No dependable large opening found. Use adjacent English ACE SPEC-era rates; all five Hyper Rares remain eligible.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 66.88,
+          "doubleRare": 16.93,
+          "ultraRare": 6.61,
+          "illustrationRare": 7.73,
+          "specialIllustrationRare": 1.17,
+          "hyperRare": 0.68
+        },
+        "subsetSlot": {
+          "type": "aceSpec",
+          "subsetTypes": [
+            "aceSpec"
+          ],
+          "rates": {
+            "normal": 95,
+            "aceSpecRare": 5
+          }
+        },
+        "evidence": "era-fallback",
+        "fallbackFrom": "Temporal Forces / Twilight Masquerade"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "silver-tempest",
+      "name": "Silver Tempest",
+      "evidence": "measured",
+      "source": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Silver-Tempest-Pull-Rates/6490d591-e582-4930-8446-00e190876d30/",
+      "sampleSize": 8000,
+      "notes": "Separate VMAX/VSTAR, full-art and alternate-art buckets. Collector names/rarity labels are preserved. Ordinary Rare remainder uses the existing era holo split.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 245,
+      "positiveRouteCards": 245,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "TCGplayer-style estimate / Trainer Gallery estimate",
+        "sourceUrl": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Silver-Tempest-Pull-Rates/6490d591-e582-4930-8446-00e190876d30/",
+        "notes": "Separate VMAX/VSTAR, full-art and alternate-art buckets. Collector names/rarity labels are preserved. Ordinary Rare remainder uses the existing era holo split.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 60,
+          "doubleRare": 11.55,
+          "ultraRare": 7.43,
+          "rainbowRare": 1.26,
+          "secretRare": 0.94,
+          "holoRare": 18.819999999999993
+        },
+        "subsetSlot": {
+          "type": "independentReverse",
+          "rates": {
+            "normal": 83.22,
+            "trainerGallery": 8.25,
+            "premiumTrainerGallery": 3.08,
+            "goldTrainerGallery": 0.9,
+            "radiantRare": 4.55
+          }
+        },
+        "sampleSize": 8000,
+        "evidence": "measured",
+        "finalBuckets": {
+          "rare": 60,
+          "doubleRare": 11.55,
+          "vmaxOrVstar": 3.72,
+          "fullArt": 3.11,
+          "rainbowRare": 1.26,
+          "secretRare": 0.94,
+          "alternateArt": 0.6,
+          "holoRare": 18.819999999999993
+        },
+        "corroboratingUrl": "https://tcg1.net/pull-rates/silver-tempest/"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "skyridge",
+      "name": "Skyridge",
+      "evidence": "retained-format-estimate",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/34",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 182,
+      "positiveRouteCards": 182,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "stellar-crown",
+      "name": "Stellar Crown",
+      "evidence": "measured",
+      "source": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Stellar-Crown-Pull-Rates/2c0743dd-dbd0-4504-9ff8-be5a72dd04d1/",
+      "sampleSize": 8000,
+      "notes": "English TCGplayer opening estimate; independent Rare and second foil slots. No experience tuning.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 175,
+      "positiveRouteCards": 175,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "TCGplayer",
+        "sourceUrl": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Stellar-Crown-Pull-Rates/2c0743dd-dbd0-4504-9ff8-be5a72dd04d1/",
+        "notes": "English TCGplayer opening estimate; independent Rare and second foil slots. No experience tuning.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 66.72,
+          "doubleRare": 16.9,
+          "ultraRare": 6.75,
+          "illustrationRare": 7.79,
+          "specialIllustrationRare": 1.11,
+          "hyperRare": 0.73
+        },
+        "subsetSlot": {
+          "type": "aceSpec",
+          "rates": {
+            "normal": 95.06,
+            "aceSpecRare": 4.94
+          }
+        },
+        "evidence": "measured",
+        "sampleSize": 8000
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "sun-moon",
+      "name": "Sun & Moon",
+      "evidence": "measured",
+      "source": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+      "sampleSize": 7020,
+      "notes": "English community opening sample. Holo/non-holo split of the residual ordinary Rare tier remains an era estimate; no experience multiplier. Ordinary holo sheet uses the English collation model: 40% holo-or-better before independent reverse-slot specials.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 164,
+      "positiveRouteCards": 164,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "Elite Fourum community dataset",
+        "sourceUrl": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+        "notes": "English community opening sample. Holo/non-holo split of the residual ordinary Rare tier remains an era estimate; no experience multiplier. Ordinary holo sheet uses the English collation model: 40% holo-or-better before independent reverse-slot specials.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 60,
+          "doubleRare": 11.15,
+          "ultraRare": 4.22,
+          "rainbowRare": 1.47,
+          "secretRare": 0.81,
+          "holoRare": 22.349999999999994
+        },
+        "subsetSlot": null,
+        "sampleSize": 7020,
+        "evidence": "measured"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "surging-sparks",
+      "name": "Surging Sparks",
+      "evidence": "measured",
+      "source": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Surging-Sparks-Pull-Rates/6ccfb6ab-f26a-4ce8-bab5-5f91c85ec70e/",
+      "sampleSize": 8000,
+      "notes": "English TCGplayer opening estimate; independent Rare and second foil slots. No experience tuning.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 252,
+      "positiveRouteCards": 252,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "TCGplayer",
+        "sourceUrl": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Surging-Sparks-Pull-Rates/6ccfb6ab-f26a-4ce8-bab5-5f91c85ec70e/",
+        "notes": "English TCGplayer opening estimate; independent Rare and second foil slots. No experience tuning.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 66.97,
+          "doubleRare": 16.94,
+          "ultraRare": 6.74,
+          "illustrationRare": 7.67,
+          "specialIllustrationRare": 1.15,
+          "hyperRare": 0.53
+        },
+        "subsetSlot": {
+          "type": "aceSpec",
+          "rates": {
+            "normal": 94.97,
+            "aceSpecRare": 5.03
+          }
+        },
+        "evidence": "measured",
+        "sampleSize": 8000
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "sword-shield",
+      "name": "Sword & Shield",
+      "evidence": "measured",
+      "source": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+      "sampleSize": 4628,
+      "notes": "Separate VMAX/VSTAR, full-art and alternate-art buckets. Collector names/rarity labels are preserved. Ordinary Rare remainder uses the existing era holo split.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 216,
+      "positiveRouteCards": 216,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "Elite Fourum community dataset",
+        "sourceUrl": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+        "notes": "Separate VMAX/VSTAR, full-art and alternate-art buckets. Collector names/rarity labels are preserved. Ordinary Rare remainder uses the existing era holo split.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 60,
+          "doubleRare": 14.2,
+          "ultraRare": 5.94,
+          "rainbowRare": 1.23,
+          "secretRare": 0.91,
+          "holoRare": 17.72
+        },
+        "subsetSlot": null,
+        "sampleSize": 4628,
+        "evidence": "measured",
+        "finalBuckets": {
+          "rare": 60,
+          "doubleRare": 14.2,
+          "vmaxOrVstar": 2.2,
+          "fullArt": 3.74,
+          "rainbowRare": 1.23,
+          "secretRare": 0.91,
+          "holoRare": 17.72
+        }
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "team-rocket",
+      "name": "Team Rocket",
+      "evidence": "retained-format-estimate",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/13",
+      "sampleSize": null,
+      "notes": "Community collation model; no official probability disclosure.",
+      "unchangedSequenceVerified": true,
+      "eligibleCards": 83,
+      "positiveRouteCards": 83,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "rare": 58,
+        "doubleRare": 22,
+        "ultraRare": 7,
+        "illustrationRare": 8,
+        "specialIllustrationRare": 3,
+        "hyperRare": 2
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "team-up",
+      "name": "Team Up",
+      "evidence": "measured",
+      "source": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+      "sampleSize": 872,
+      "notes": "English community opening sample. Holo/non-holo split of the residual ordinary Rare tier remains an era estimate; no experience multiplier. Ordinary holo sheet uses the English collation model: 40% holo-or-better before independent reverse-slot specials.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 198,
+      "positiveRouteCards": 198,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "Elite Fourum community dataset",
+        "sourceUrl": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+        "notes": "English community opening sample. Holo/non-holo split of the residual ordinary Rare tier remains an era estimate; no experience multiplier. Ordinary holo sheet uses the English collation model: 40% holo-or-better before independent reverse-slot specials.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 60,
+          "doubleRare": 9.29,
+          "ultraRare": 4.82,
+          "rainbowRare": 1.03,
+          "secretRare": 0.69,
+          "holoRare": 24.17
+        },
+        "subsetSlot": {
+          "type": "prismStar",
+          "rates": {
+            "normal": 94.04,
+            "prismStar": 5.96
+          }
+        },
+        "sampleSize": 872,
+        "evidence": "measured"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "temporal-forces",
+      "name": "Temporal Forces",
+      "evidence": "measured",
+      "source": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Temporal-Forces-Pull-Rates/28c0ad22-00a4-428f-b22d-e7fee9ec50bc/",
+      "sampleSize": 8000,
+      "notes": "English TCGplayer opening estimate; independent Rare and second foil slots. No experience tuning.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 218,
+      "positiveRouteCards": 218,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "TCGplayer",
+        "sourceUrl": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Temporal-Forces-Pull-Rates/28c0ad22-00a4-428f-b22d-e7fee9ec50bc/",
+        "notes": "English TCGplayer opening estimate; independent Rare and second foil slots. No experience tuning.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 66.89,
+          "doubleRare": 16.83,
+          "ultraRare": 6.67,
+          "illustrationRare": 7.72,
+          "specialIllustrationRare": 1.17,
+          "hyperRare": 0.72
+        },
+        "subsetSlot": {
+          "type": "aceSpec",
+          "rates": {
+            "normal": 95,
+            "aceSpecRare": 5
+          }
+        },
+        "evidence": "measured",
+        "sampleSize": 8000
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "twilight-masquerade",
+      "name": "Twilight Masquerade",
+      "evidence": "measured",
+      "source": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Twilight-Masquerade-Pull-Rates/f3eea967-e5fb-4108-8655-bb1c89587628/",
+      "sampleSize": 8000,
+      "notes": "English TCGplayer opening estimate; independent Rare and second foil slots. No experience tuning.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 226,
+      "positiveRouteCards": 226,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "TCGplayer",
+        "sourceUrl": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Twilight-Masquerade-Pull-Rates/f3eea967-e5fb-4108-8655-bb1c89587628/",
+        "notes": "English TCGplayer opening estimate; independent Rare and second foil slots. No experience tuning.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 66.88,
+          "doubleRare": 16.93,
+          "ultraRare": 6.61,
+          "illustrationRare": 7.73,
+          "specialIllustrationRare": 1.17,
+          "hyperRare": 0.68
+        },
+        "subsetSlot": {
+          "type": "aceSpec",
+          "rates": {
+            "normal": 94.94,
+            "aceSpecRare": 5.06
+          }
+        },
+        "evidence": "measured",
+        "sampleSize": 8000
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "ultra-prism",
+      "name": "Ultra Prism",
+      "evidence": "measured",
+      "source": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+      "sampleSize": 1674,
+      "notes": "English community opening sample. Holo/non-holo split of the residual ordinary Rare tier remains an era estimate; no experience multiplier. Ordinary holo sheet uses the English collation model: 40% holo-or-better before independent reverse-slot specials.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 178,
+      "positiveRouteCards": 178,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "Elite Fourum community dataset",
+        "sourceUrl": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+        "notes": "English community opening sample. Holo/non-holo split of the residual ordinary Rare tier remains an era estimate; no experience multiplier. Ordinary holo sheet uses the English collation model: 40% holo-or-better before independent reverse-slot specials.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 60,
+          "doubleRare": 8,
+          "ultraRare": 4.3,
+          "rainbowRare": 1.49,
+          "secretRare": 0.78,
+          "holoRare": 25.430000000000007
+        },
+        "subsetSlot": {
+          "type": "prismStar",
+          "rates": {
+            "normal": 91.28,
+            "prismStar": 8.72
+          }
+        },
+        "sampleSize": 1674,
+        "evidence": "measured"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "unbroken-bonds",
+      "name": "Unbroken Bonds",
+      "evidence": "measured",
+      "source": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+      "sampleSize": 3888,
+      "notes": "English community opening sample. Holo/non-holo split of the residual ordinary Rare tier remains an era estimate; no experience multiplier. Ordinary holo sheet uses the English collation model: 40% holo-or-better before independent reverse-slot specials.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 238,
+      "positiveRouteCards": 238,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "Elite Fourum community dataset",
+        "sourceUrl": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+        "notes": "English community opening sample. Holo/non-holo split of the residual ordinary Rare tier remains an era estimate; no experience multiplier. Ordinary holo sheet uses the English collation model: 40% holo-or-better before independent reverse-slot specials.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 60,
+          "doubleRare": 9.88,
+          "ultraRare": 4.12,
+          "rainbowRare": 1.39,
+          "secretRare": 0.9,
+          "holoRare": 23.709999999999994
+        },
+        "subsetSlot": null,
+        "sampleSize": 3888,
+        "evidence": "measured"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "unified-minds",
+      "name": "Unified Minds",
+      "evidence": "measured",
+      "source": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+      "sampleSize": 3672,
+      "notes": "English community opening sample. Holo/non-holo split of the residual ordinary Rare tier remains an era estimate; no experience multiplier. Ordinary holo sheet uses the English collation model: 40% holo-or-better before independent reverse-slot specials.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 261,
+      "positiveRouteCards": 261,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "Elite Fourum community dataset",
+        "sourceUrl": "https://www.elitefourum.com/t/pull-rates-in-sun-moon-sword-shield-sets/25220",
+        "notes": "English community opening sample. Holo/non-holo split of the residual ordinary Rare tier remains an era estimate; no experience multiplier. Ordinary holo sheet uses the English collation model: 40% holo-or-better before independent reverse-slot specials.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 60,
+          "doubleRare": 12.72,
+          "ultraRare": 4.36,
+          "rainbowRare": 1.44,
+          "secretRare": 0.9,
+          "holoRare": 20.58
+        },
+        "subsetSlot": null,
+        "sampleSize": 3672,
+        "evidence": "measured"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "vivid-voltage",
+      "name": "Vivid Voltage",
+      "evidence": "small-community-sample",
+      "source": "https://www.digitaltq.com/vivid-voltage-booster-pull-rates-pokemon-tcg",
+      "sampleSize": 630,
+      "notes": "English 630-pack opening tally. Holo table may include reverse treatments; ordinary holo uses the era 40% foil model. Amazing Rare is independent in reverse.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 203,
+      "positiveRouteCards": 203,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "fallback estimate",
+        "sourceUrl": "https://www.digitaltq.com/vivid-voltage-booster-pull-rates-pokemon-tcg",
+        "notes": "English 630-pack opening tally. Holo table may include reverse treatments; ordinary holo uses the era 40% foil model. Amazing Rare is independent in reverse.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 60,
+          "holoRare": 16.666666666666668,
+          "doubleRare": 12.698412698412698,
+          "ultraRare": 8.253968253968253,
+          "rainbowRare": 1.2698412698412698,
+          "secretRare": 1.1111111111111112
+        },
+        "subsetSlot": {
+          "type": "amazing",
+          "rates": {
+            "normal": 94.28571428571429,
+            "amazingRare": 5.714285714285714
+          }
+        },
+        "evidence": "small-community-sample",
+        "fallbackFrom": "Sword & Shield English main expansions",
+        "finalBuckets": {
+          "rare": 60,
+          "holoRare": 16.666666666666668,
+          "doubleRare": 12.698412698412698,
+          "vmaxOrVstar": 4.285714285714286,
+          "fullArt": 3.9682539682539684,
+          "rainbowRare": 1.2698412698412698,
+          "secretRare": 1.1111111111111112
+        },
+        "sampleSize": 630
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "white-flare",
+      "name": "White Flare",
+      "evidence": "measured-with-chase-fallback",
+      "source": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Black-Bolt-and-White-Flare-Pull-Rates/bac92199-a2a7-4668-b4a4-2647a111776f/",
+      "sampleSize": 700,
+      "notes": "Combined 700+ pack English study observed no BWR. Any-BWR 0.1% is a provisional adjacent-chase fallback (0.05% per card); zero observations never mean impossible. The one-sided 95% upper bound from 0/700 is about 0.43%, so the former 0.6% total was unsupported.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 173,
+      "positiveRouteCards": 173,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "source": "TCGplayer",
+        "sourceUrl": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Black-Bolt-and-White-Flare-Pull-Rates/bac92199-a2a7-4668-b4a4-2647a111776f/",
+        "notes": "Combined 700+ pack English study observed no BWR. Any-BWR 0.1% is a provisional adjacent-chase fallback (0.05% per card); zero observations never mean impossible. The one-sided 95% upper bound from 0/700 is about 0.43%, so the former 0.6% total was unsupported.",
+        "packSize": 10,
+        "finalSlot": {
+          "rare": 55.32,
+          "doubleRare": 21.11,
+          "ultraRare": 5.83,
+          "illustrationRare": 16.39,
+          "specialIllustrationRare": 1.25,
+          "blackWhiteRare": 0.05,
+          "victiniRare": 0.05
+        },
+        "subsetSlot": null,
+        "evidence": "measured-with-chase-fallback",
+        "sampleSize": 700
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "xy0",
+      "name": "XY-Kalos Starter Set",
+      "evidence": "non-booster-format-retained",
+      "source": null,
+      "sampleSize": null,
+      "notes": "Kalos Starter is a fixed-deck product, not a physical random booster. Existing simulator format retained; no real booster pull-rate claim is possible.",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 39,
+      "positiveRouteCards": 39,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "sourceNote": "Simulator rule: all XY-Kalos Starter Set cards are treated as Common.",
+        "packSize": 10,
+        "slots": [
+          {
+            "slot": "card1",
+            "bucket": "common"
+          },
+          {
+            "slot": "card2",
+            "bucket": "common"
+          },
+          {
+            "slot": "card3",
+            "bucket": "common"
+          },
+          {
+            "slot": "card4",
+            "bucket": "common"
+          },
+          {
+            "slot": "card5",
+            "bucket": "common"
+          },
+          {
+            "slot": "card6",
+            "bucket": "common"
+          },
+          {
+            "slot": "card7",
+            "bucket": "common"
+          },
+          {
+            "slot": "card8",
+            "bucket": "common"
+          },
+          {
+            "slot": "card9",
+            "bucket": "common"
+          },
+          {
+            "slot": "card10",
+            "bucket": "common"
+          }
+        ]
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "xy1",
+      "name": "XY",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/121",
+      "sampleSize": null,
+      "notes": "English community collation study",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 146,
+      "positiveRouteCards": 146,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "sourceNote": "Early XY simulator approximation: holo ~1:4, EX ~1:18, Ultra/Full Art ~1:36, Secret ~1:72 where secret cards exist.",
+        "packSize": 10,
+        "commonSlots": 5,
+        "uncommonSlots": 3,
+        "preRareSlot": {
+          "type": "reversePlaceholder",
+          "simulatorFoil": false
+        },
+        "finalRareSlot": {
+          "regularRare": 0.6555555555555554,
+          "holoRare": 0.23333333333333334,
+          "rareHoloEX": 0.08333333333333333,
+          "ultraRareFullArt": 0.027777777777777776,
+          "secretRare": 0
+        },
+        "source": "English community collation study",
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/121",
+        "evidence": "community-collation-model"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "xy10",
+      "name": "XY-Fates Collide",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/136",
+      "sampleSize": null,
+      "notes": "English community collation study",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 129,
+      "positiveRouteCards": 129,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "sourceNote": "BREAK-era XY profile. BREAK cards appear in the pre-rare/reverse-style slot at about 1:12 packs. Final rare slot uses later XY rates.",
+        "packSize": 10,
+        "commonSlots": 5,
+        "uncommonSlots": 3,
+        "preRareSlot": {
+          "type": "breakOrReversePlaceholder",
+          "breakCard": 0.06666666666666667,
+          "reversePlaceholder": 0.9333333333333333,
+          "simulatorFoil": false
+        },
+        "finalRareSlot": {
+          "regularRare": 0.6666666666666666,
+          "holoRare": 0.14444444444444446,
+          "rareHoloEX": 0.12222222222222223,
+          "ultraRareFullArt": 0.058666666666666666,
+          "secretRare": 0.008,
+          "excludeBreakCards": true
+        },
+        "source": "English community collation study",
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/136",
+        "evidence": "community-collation-model"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "xy11",
+      "name": "XY-Steam Siege",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/137",
+      "sampleSize": null,
+      "notes": "English community collation study",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 116,
+      "positiveRouteCards": 116,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "sourceNote": "BREAK-era XY profile. BREAK cards appear in the pre-rare/reverse-style slot at about 1:12 packs. Final rare slot uses later XY rates.",
+        "packSize": 10,
+        "commonSlots": 5,
+        "uncommonSlots": 3,
+        "preRareSlot": {
+          "type": "breakOrReversePlaceholder",
+          "breakCard": 0.06666666666666667,
+          "reversePlaceholder": 0.9333333333333333,
+          "simulatorFoil": false
+        },
+        "finalRareSlot": {
+          "regularRare": 0.6666666666666667,
+          "holoRare": 0.2,
+          "rareHoloEX": 0.06666666666666667,
+          "ultraRareFullArt": 0.058666666666666666,
+          "secretRare": 0.008,
+          "excludeBreakCards": true
+        },
+        "source": "English community collation study",
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/137",
+        "evidence": "community-collation-model"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "xy12",
+      "name": "XY-Evolutions",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/139",
+      "sampleSize": null,
+      "notes": "English community collation study",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 113,
+      "positiveRouteCards": 113,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "sourceNote": "Evolutions special handling: Secret Rares are treated as uncommon-slot-style pulls. BREAK cards appear in the reverse/pre-rare slot and are excluded from the final rare pool.",
+        "packSize": 10,
+        "commonSlots": 5,
+        "uncommonSlots": 3,
+        "uncommonSecretRate": 0.1111,
+        "preRareSlot": {
+          "type": "breakOrReversePlaceholder",
+          "breakCard": 0.0556,
+          "reversePlaceholder": 0.9444,
+          "simulatorFoil": false
+        },
+        "finalRareSlot": {
+          "regularRare": 0.6666666666666666,
+          "holoRare": 0.14444444444444446,
+          "rareHoloEX": 0.12222222222222223,
+          "ultraRareFullArt": 0.06666666666666667,
+          "secretRare": 0,
+          "excludeBreakCards": true
+        },
+        "source": "English community collation study",
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/139",
+        "evidence": "community-collation-model"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "xy2",
+      "name": "XY-Flashfire",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/122",
+      "sampleSize": null,
+      "notes": "English community collation study",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 110,
+      "positiveRouteCards": 110,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "sourceNote": "Early XY simulator approximation: holo ~1:4, EX ~1:18, Ultra/Full Art ~1:36, Secret ~1:72 where secret cards exist.",
+        "packSize": 10,
+        "commonSlots": 5,
+        "uncommonSlots": 3,
+        "preRareSlot": {
+          "type": "reversePlaceholder",
+          "simulatorFoil": false
+        },
+        "finalRareSlot": {
+          "regularRare": 0.6666666666666666,
+          "holoRare": 0.19722222222222222,
+          "rareHoloEX": 0.08847222222222223,
+          "ultraRareFullArt": 0.03888888888888889,
+          "secretRare": 0.008749999999999999
+        },
+        "source": "English community collation study",
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/122",
+        "evidence": "community-collation-model"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "xy3",
+      "name": "XY-Furious Fists",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/123",
+      "sampleSize": null,
+      "notes": "English community collation study",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 114,
+      "positiveRouteCards": 114,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "sourceNote": "Early XY simulator approximation: holo ~1:4, EX ~1:18, Ultra/Full Art ~1:36, Secret ~1:72 where secret cards exist.",
+        "packSize": 10,
+        "commonSlots": 5,
+        "uncommonSlots": 3,
+        "preRareSlot": {
+          "type": "reversePlaceholder",
+          "simulatorFoil": false
+        },
+        "finalRareSlot": {
+          "regularRare": 0.6666666666666667,
+          "holoRare": 0.19722222222222222,
+          "rareHoloEX": 0.08750000000000001,
+          "ultraRareFullArt": 0.03888888888888889,
+          "secretRare": 0.009722222222222222
+        },
+        "source": "English community collation study",
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/123",
+        "evidence": "community-collation-model"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "xy4",
+      "name": "XY-Phantom Forces",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/125",
+      "sampleSize": null,
+      "notes": "English community collation study",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 124,
+      "positiveRouteCards": 124,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "sourceNote": "Early XY simulator approximation: holo ~1:4, EX ~1:18, Ultra/Full Art ~1:36, Secret ~1:72 where secret cards exist.",
+        "packSize": 10,
+        "commonSlots": 5,
+        "uncommonSlots": 3,
+        "preRareSlot": {
+          "type": "reversePlaceholder",
+          "simulatorFoil": false
+        },
+        "finalRareSlot": {
+          "regularRare": 0.6666666666666667,
+          "holoRare": 0.19444444444444445,
+          "rareHoloEX": 0.09138888888888888,
+          "ultraRareFullArt": 0.03875,
+          "secretRare": 0.00875
+        },
+        "source": "English community collation study",
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/125",
+        "evidence": "community-collation-model"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "xy5",
+      "name": "XY-Primal Clash",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/126",
+      "sampleSize": null,
+      "notes": "English community collation study",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 164,
+      "positiveRouteCards": 164,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "sourceNote": "Transition XY profile: between early XY and later XY. Slightly better EX/Full Art odds, Secret still about 1:72.",
+        "packSize": 10,
+        "commonSlots": 5,
+        "uncommonSlots": 3,
+        "preRareSlot": {
+          "type": "reversePlaceholder",
+          "simulatorFoil": false
+        },
+        "finalRareSlot": {
+          "regularRare": 0.6666666666666667,
+          "holoRare": 0.15555555555555556,
+          "rareHoloEX": 0.1111111111111111,
+          "ultraRareFullArt": 0.058666666666666666,
+          "secretRare": 0.008
+        },
+        "source": "English community collation study",
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/126",
+        "evidence": "community-collation-model"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "xy6",
+      "name": "XY-Roaring Skies",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/129",
+      "sampleSize": null,
+      "notes": "English community collation study",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 112,
+      "positiveRouteCards": 112,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "sourceNote": "Transition XY profile: between early XY and later XY. Slightly better EX/Full Art odds, Secret still about 1:72.",
+        "packSize": 10,
+        "commonSlots": 5,
+        "uncommonSlots": 3,
+        "preRareSlot": {
+          "type": "reversePlaceholder",
+          "simulatorFoil": false
+        },
+        "finalRareSlot": {
+          "regularRare": 0.6666666666666667,
+          "holoRare": 0.15555555555555556,
+          "rareHoloEX": 0.1111111111111111,
+          "ultraRareFullArt": 0.058666666666666666,
+          "secretRare": 0.008
+        },
+        "source": "English community collation study",
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/129",
+        "evidence": "community-collation-model"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "xy7",
+      "name": "XY-Ancient Origins",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/130",
+      "sampleSize": null,
+      "notes": "English community collation study",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 101,
+      "positiveRouteCards": 101,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "sourceNote": "Later XY simulator approximation: EX ~1:6, Ultra/Full Art ~1:12, Secret ~1:72.",
+        "packSize": 10,
+        "commonSlots": 5,
+        "uncommonSlots": 3,
+        "preRareSlot": {
+          "type": "reversePlaceholder",
+          "simulatorFoil": false
+        },
+        "finalRareSlot": {
+          "regularRare": 0.6666666666666667,
+          "holoRare": 0.15555555555555556,
+          "rareHoloEX": 0.1111111111111111,
+          "ultraRareFullArt": 0.058666666666666666,
+          "secretRare": 0.008
+        },
+        "source": "English community collation study",
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/130",
+        "evidence": "community-collation-model"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "xy8",
+      "name": "XY-BREAKthrough",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/132",
+      "sampleSize": null,
+      "notes": "English community collation study",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 165,
+      "positiveRouteCards": 165,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "sourceNote": "BREAK-era XY profile. BREAK cards appear in the pre-rare/reverse-style slot at about 1:12 packs. Final rare slot uses later XY rates.",
+        "packSize": 10,
+        "commonSlots": 5,
+        "uncommonSlots": 3,
+        "preRareSlot": {
+          "type": "breakOrReversePlaceholder",
+          "breakCard": 0.07777777777777778,
+          "reversePlaceholder": 0.9222222222222223,
+          "simulatorFoil": false
+        },
+        "finalRareSlot": {
+          "regularRare": 0.6666666666666666,
+          "holoRare": 0.17777777777777778,
+          "rareHoloEX": 0.08888888888888889,
+          "ultraRareFullArt": 0.058666666666666666,
+          "secretRare": 0.008,
+          "excludeBreakCards": true
+        },
+        "source": "English community collation study",
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/132",
+        "evidence": "community-collation-model"
+      },
+      "vintageModel": null
+    },
+    {
+      "id": "xy9",
+      "name": "XY-BREAKpoint",
+      "evidence": "community-collation-model",
+      "source": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/133",
+      "sampleSize": null,
+      "notes": "English community collation study",
+      "unchangedSequenceVerified": false,
+      "eligibleCards": 126,
+      "positiveRouteCards": 126,
+      "generatedPacks": 1000,
+      "errors": 0,
+      "profile": {
+        "sourceNote": "BREAK-era XY profile. BREAK cards appear in the pre-rare/reverse-style slot at about 1:12 packs. Final rare slot uses later XY rates.",
+        "packSize": 10,
+        "commonSlots": 5,
+        "uncommonSlots": 3,
+        "preRareSlot": {
+          "type": "breakOrReversePlaceholder",
+          "breakCard": 0.06666666666666667,
+          "reversePlaceholder": 0.9333333333333333,
+          "simulatorFoil": false
+        },
+        "finalRareSlot": {
+          "regularRare": 0.6666666666666667,
+          "holoRare": 0.16666666666666666,
+          "rareHoloEX": 0.1,
+          "ultraRareFullArt": 0.058666666666666666,
+          "secretRare": 0.008,
+          "excludeBreakCards": true
+        },
+        "source": "English community collation study",
+        "sourceUrl": "https://www.elitefourum.com/t/the-english-pokemon-card-rarity-guide/39762/133",
+        "evidence": "community-collation-model"
+      },
+      "vintageModel": null
+    }
+  ]
+}

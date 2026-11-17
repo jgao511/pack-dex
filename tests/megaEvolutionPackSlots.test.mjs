@@ -189,43 +189,36 @@ test("explicit and derived Mega profiles migrate MHR without changing any named 
   const ascendedHeroes = { id: "ascended-heroes", pullRateProfile: "megaEvolutionStandard" };
   const megaEvolution = { id: "mega-evolution", pullRateProfile: "megaEvolutionStandard" };
 
-  assert.deepEqual(getMegaSecondFoilSlotWeights(ascendedHeroes), {
-    normal: 87.12,
-    illustrationRare: 11.25,
-    specialIllustrationRare: 1.44,
-    megaHyperRare: 0.19,
+  assertRates(getMegaSecondFoilSlotWeights(ascendedHeroes), {
+    normal: 100 - (11.25 + 1.44 + 0.19 - 0.35) / 0.9995,
+    illustrationRare: 11.25 / 0.9995,
+    specialIllustrationRare: (1.44 - 0.35) / 0.9995,
+    megaHyperRare: 0.19 / 0.9995,
   });
-  assert.deepEqual(getMegaRareSlotWeights(ascendedHeroes), {
-    rare: 71.35,
-    doubleRare: 13.58,
-    megaDoubleRare: 6.79,
-    ultraRare: 4.81,
-    megaAttackRare: 3.47,
+  assertRates(getMegaRareSlotWeights(ascendedHeroes), {
+    rare: 100 - (13.58 + 6.79 + 4.81 + 3.47 - 0.15) / 0.9995,
+    doubleRare: 13.58 / 0.9995,
+    megaDoubleRare: 6.79 / 0.9995,
+    ultraRare: 4.81 / 0.9995,
+    megaAttackRare: (3.47 - 0.15) / 0.9995,
   });
-  assert.deepEqual(getMegaSecondFoilSlotWeights(pitchBlack), {
+  assertRates(getMegaSecondFoilSlotWeights(pitchBlack), {
     normal: 87.834,
     illustrationRare: 11,
     specialIllustrationRare: 1.11,
     megaHyperRare: 0.056,
   });
-  assert.deepEqual(getMegaRareSlotWeights(pitchBlack), {
+  assertRates(getMegaRareSlotWeights(pitchBlack), {
     rare: 71.2,
     doubleRare: 8.2,
     megaDoubleRare: 12.3,
     ultraRare: 8.3,
   });
-  assert.deepEqual(getMegaSecondFoilSlotWeights(megaEvolution), {
-    normal: 91.8,
-    illustrationRare: 6,
-    specialIllustrationRare: 2,
-    megaHyperRare: 0.2,
+  assertRates(getMegaSecondFoilSlotWeights(megaEvolution), {
+    normal: 88.04, illustrationRare: 10.89, specialIllustrationRare: 0.99, megaHyperRare: 0.08,
   });
-  assert.deepEqual(getMegaRareSlotWeights(megaEvolution), {
-    rare: 76,
-    doubleRare: 0,
-    megaDoubleRare: 18,
-    ultraRare: 6,
-    megaAttackRare: 0,
+  assertRates(getMegaRareSlotWeights(megaEvolution), {
+    rare: 70.86, doubleRare: 0, megaDoubleRare: 20.91, ultraRare: 8.23, megaAttackRare: 0,
   });
 });
 
@@ -317,3 +310,10 @@ test("mobile reveal follows pack order, classifies slot 9 normally, and slows on
 
   assert.ok(9 * 330 + 850 > 8 * 330);
 });
+
+function assertRates(actual, expected) {
+  assert.deepEqual(Object.keys(actual).sort(), Object.keys(expected).sort());
+  for (const [key, value] of Object.entries(expected)) {
+    assert.ok(Math.abs(actual[key] - value) < 1e-9, `${key}: ${actual[key]} vs ${value}`);
+  }
+}

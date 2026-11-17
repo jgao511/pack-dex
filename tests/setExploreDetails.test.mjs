@@ -39,7 +39,7 @@ test("shared details cover an older set using the same audited guides", () => {
   const details = getSetExploreDetails(setById("base-set"));
   assert.match(details.guide.summary, /foundational presentation/);
   assert.match(details.eraGuide.summary, /earliest English-language catalog/);
-  assert.equal(details.cardEntries.length, 102);
+  assert.equal(details.cardEntries.length, 101);
   assert.ok(details.featuredPokemon.some(({ species }) => species.displayName === "Charizard"));
   assert.equal(details.specialFeature, "");
 });

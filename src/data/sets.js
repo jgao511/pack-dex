@@ -1,3 +1,4 @@
+import { NON_BOOSTER_CARDS } from "./vintagePullRates.js";
 import sunMoonCards from "./sun-moon.json" with { type: "json" };
 import guardiansRisingCards from "./guardians-rising.json" with { type: "json" };
 import burningShadowsCards from "./burning-shadows.json" with { type: "json" };
@@ -275,6 +276,12 @@ function createSet(id, name, cards, metadata = {}) {
   const legacyCards = legacyCardQuarantine
     .filter((card) => card.setId === id)
     .map((card) => ({ ...card, legacyQuarantine: true }));
+  for (const card of cards.filter((card) => Object.hasOwn(NON_BOOSTER_CARDS, card.id))) {
+    legacyCards.push({ ...card, legacyQuarantine: true, nonBoosterInsert: true });
+  }
+  cards = cards.map((card) => Object.hasOwn(NON_BOOSTER_CARDS, card.id)
+    ? { ...card, excludeFromPulls: true, nonBoosterInsert: true }
+    : card);
 
   return {
     id,

@@ -1,0 +1,65 @@
+{
+  "baselineCommit": "9dc767a1958cace3530ebef589bb0549f766125a",
+  "rows": [
+    {
+      "id": "jungle",
+      "packs": 100,
+      "seed": 2119635508,
+      "sha256": "88cc38e375a2d0e7d74a6d5db3a976fb0bb08f54fe82fe7d3effbceead0d175d"
+    },
+    {
+      "id": "fossil",
+      "packs": 100,
+      "seed": 2119635508,
+      "sha256": "5d51d27e358d84c11e446f8fd91d05f618b5f726a0526cce4a8df4c201ff9540"
+    },
+    {
+      "id": "base-set-2",
+      "packs": 100,
+      "seed": 2119635508,
+      "sha256": "6da778ae31822b887834d454084d408758ec1047cb4d39d8d5b992f730659016"
+    },
+    {
+      "id": "team-rocket",
+      "packs": 100,
+      "seed": 2119635508,
+      "sha256": "327ea088283d468c62476626326358e6b9df92243aeb970f691ead4a45b4597f"
+    },
+    {
+      "id": "gym-heroes",
+      "packs": 100,
+      "seed": 2119635508,
+      "sha256": "b7c3dfa44ae5519523e2b8ed48a866205ce22a66e12441b492261f5c3e1912e8"
+    },
+    {
+      "id": "gym-challenge",
+      "packs": 100,
+      "seed": 2119635508,
+      "sha256": "7ba876d2f4a55dfd11057b1e05e733992ec9e7c2076ca1861265af3d28bbb768"
+    },
+    {
+      "id": "neo-genesis",
+      "packs": 100,
+      "seed": 2119635508,
+      "sha256": "caa4fbba2ddafd7a492cd995f2acf8409cc4a7e182f3e620c5d68898b1df3e4a"
+    },
+    {
+      "id": "neo-discovery",
+      "packs": 100,
+      "seed": 2119635508,
+      "sha256": "fe4efdb39ebe8df4a1ab69f7ee3f25f27b8ef327ca61cff690a2ef45cc96568b"
+    },
+    {
+      "id": "neo-revelation",
+      "packs": 100,
+      "seed": 2119635508,
+      "sha256": "83a8473238b117d11543a25f747e27aa7b54e702fbe9573089095f4242c90215"
+    },
+    {
+      "id": "neo-destiny",
+      "packs": 100,
+      "seed": 2119635508,
+      "sha256": "e6f1bd9640a602dfc836e4248448527f1434c1a01dc7380b7405edbf42616538"
+    }
+  ]
+}
